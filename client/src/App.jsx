@@ -27,6 +27,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <p>nuevo texto en el componente</p>
     </div>
   )
 }
