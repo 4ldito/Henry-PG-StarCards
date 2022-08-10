@@ -1,6 +1,8 @@
 import React from "react";
 import { Formik } from "formik";
 
+////////////////////////////////////////////////////////////////////////////////
+
 import css from "./Regist.module.css";
 
 export default function Responsive() {
