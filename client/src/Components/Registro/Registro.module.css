@@ -5,14 +5,14 @@
 
   background-color: #15171e;
 
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 }
 
 .form {
   width: 30%;
   height: 100vh;
-
+  
   padding: 3% 0 3% 0;
 }
 
@@ -57,10 +57,14 @@
   outline: 1px solid rgb(20 142 255);
 }
 
+.btnContainer{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
 .btn {
   background-color: #b4b4b4;
   color: rgb(26, 118, 224);
-
   font-size: 1rem;
 
   border-radius: 5px;
@@ -109,11 +113,12 @@ h2.linea span {
 
 .google {
   background-color: #fff;
-  background-image: url("../../img/google.png");
-  background-size: 42%;
+  background-image: url("../../img/googleIcon.png");
+  background-size: 16%;
   background-repeat: no-repeat;
   background-position: 50%;
-
+  cursor: pointer;
+  transition:.2s;
   border-radius: 8px;
 
   width: 50%;
@@ -121,7 +126,11 @@ h2.linea span {
 
   margin: 12% auto 0% auto;
 }
-
+.google:hover{
+  
+  width: 50.01%;
+  height: 7.001%;
+}
 .pDanger {
   color: red;
   font-size: 1rem;
