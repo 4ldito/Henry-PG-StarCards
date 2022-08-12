@@ -86,7 +86,7 @@ export default function Registro() {
               <button className={css.btn}>Registrarse</button>
             </div>
 
-            <h2 class={css.linea}>
+            <h2 className={css.linea}>
               <span>O REGISTRARSE CON</span>
             </h2>
 
