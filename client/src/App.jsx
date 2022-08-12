@@ -1,15 +1,18 @@
-import { useState } from 'react'
-import Registro from './Components/Registro/Registro'
-import './App.css'
+import Registro from './components/Registro/Registro';
+import LandingPage from './components/LandingPage/LandingPage';
+import { Route, Routes } from "react-router-dom";
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <div className="App">
-      <Registro></Registro>
+    <div>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/register" element={<Registro />} />
+      </Routes>
     </div>
   )
 }
 
-export default App
+export default App;
