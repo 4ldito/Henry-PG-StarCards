@@ -1,4 +1,4 @@
-const { Router } = require('express');
+import { Router } from 'express';
 // const { Country, Activity, cache } = require('../db');
 
 // const axios = require('axios');
