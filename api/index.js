@@ -23,11 +23,11 @@ app.post('/checkout', (req,res)=>{
             unit_price: parseInt(req.body.price), //le llega como string
             quantity: 1,
           },
-          {
-            title: "stars",
-            unit_price: 1200,
-            quantity: 4,
-          },
+          // {
+          //   title: "stars",
+          //   unit_price: 1200,
+          //   quantity: 4,
+          // },
         ],
       };
       
