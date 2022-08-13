@@ -1,5 +1,5 @@
 import server from './src/app';
-import db from "./src/models/index";
+import db from "./src/db";
 import { users } from './src/seeders/users';
 
 const PORT = process.env.PORT || 3000;
