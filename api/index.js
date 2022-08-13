@@ -1,51 +1,39 @@
-const express = require('express');
-const app = express();
-const mercadopago = require("mercadopago");
-// const bodyParser = require('body-parser'); //es para la respuesta de MP
+//                     ;,_            ,
+//                   _uP~"b          d"u,
+//                  dP'   "b       ,d"  "o
+//                 d"    , `b     d"'    "b
+//                l] [    " `l,  d"       lb
+//                Ol ?     "  "b`"=uoqo,_  "l
+//              ,dBb "b        "b,    `"~~TObup,_
+//            ,d" (db.`"         ""     "tbc,_ `~"Yuu,_
+//          .d" l`T'  '=                      ~     `""Yu,
+//        ,dO` gP,                           `u,   b,_  "b7
+//       d?' ,d" l,                           `"b,_ `~b  "1
+//     ,8i' dl   `l                 ,ggQOV",dbgq,._"  `l  lb
+//    .df' (O,    "             ,ggQY"~  , @@@@@d"bd~  `b "1
+//   .df'   `"           -=@QgpOY""     (b  @@@@P db    `Lp"b,
+//  .d(                  _               "ko "=d_,Q`  ,_  "  "b,
+//  Ql         .         `"qo,._          "tQo,_`""bo ;tb,    `"b,
+//  qQ         |L           ~"QQQgggc,_.,dObc,opooO  `"~~";.   __,7,
+//  qp         t\io,_           `~"TOOggQV""""        _,dg,_ =PIQHib.
+//  `qp        `Q["tQQQo,_                          ,pl{QOP"'   7AFR`
+//    `         `tb  '""tQQQg,_             p" "b   `       .;-.`Vl'
+//               "Yb      `"tQOOo,__    _,edb    ` .__   /`/'|  |b;=;.__
+//                             `"tQQQOOOOP""`"\QV;qQObob"`-._`\_~~-._
+//                                  """"    ._        /   | |oP"\_   ~\ ~\_~\
+//                                          `~"\ic,qggddOOP"|  |  ~\   `\~-._
+//                                            ,qP`"""|"   | `\ `;   `\   `\
+//                                 _        _,p"     |    |   `\`;    |    |
+//         StarCard                 "boo,._dP"       `\_  `\    `\|   `\   ;
+//                                   `"7tY~'            `\  `\    `|_   |
+//                                                        `~\  |
+//**************************************************************** */
+const server = require('./src/app.js');
+const { conn } = require('./src/db.js');
 
-
-//middleware
-app.use(express.urlencoded({ extended: false }))
-
-// Agrega credenciales
-mercadopago.configure({ //cuenta produccion acces token test 1 (TETE8284659    qatest1769)
-  access_token: "APP_USR-6913287203050942-081213-9ae4b41c5f23db785ed7c59bdbb34d5e-1178359030", //PROD_ACCESS_TOKEN
+// Syncing all the models at once.
+conn.sync({ force: true }).then(() => {
+    server.listen(process.env.PORT, () => {
+        console.log(`%s listening at ${process.env.PORT}`);
+    });
 });
-
-
-//routes
-app.post('/checkout', (req,res)=>{
-
-    let preference = {
-        items: [  //pueden ser varios items
-          {
-            title: req.body.title,
-            unit_price: parseInt(req.body.price), //le llega como string
-            quantity: 1,
-          },
-          // {
-          //   title: "stars",
-          //   unit_price: 1200,
-          //   quantity: 4,
-          // },
-        ],
-      };
-      
-      mercadopago.preferences
-        .create(preference)
-        .then(function (response) { //espacio para trabajar con la respuesta de MP por la compra del producto
-
-            res.redirect(response.body.init_point)
-
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-})
-
-
-
-//server
-app.listen(3000, ()=>{
-    console.log('server en puerto 3000')
-})
