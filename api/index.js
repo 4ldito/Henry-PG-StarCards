@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 const mercadopago = require("mercadopago");
-const bodyParser = require('body-parser'); //es para la respuesta de MP
+// const bodyParser = require('body-parser'); //es para la respuesta de MP
 
 
 //middleware
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }))
 
 // Agrega credenciales
 mercadopago.configure({ //cuenta produccion acces token test 1 (TETE8284659    qatest1769)
