@@ -30,6 +30,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
             User.belongsToMany(models.Rol, {
                 through: 'User_Rol'
             })
+            // User.hasOne(models.Status);
+            User.belongsTo(models.Status)
         }
     };
     User.init({
