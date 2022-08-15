@@ -14,7 +14,7 @@ server.use(express.urlencoded({ extended: true, limit: '50mb' }))
 server.use(express.json({ limit: '50mb' }))
 server.use(cookieParser())
 server.use(morgan('dev'))
-server.use((_:any, res:any, next:any) => {
+server.use((_: any, res: any, next: any) => {
   res.header('Access-Control-Allow-Origin', '*') // update to match the domain you will make the request from
   res.header('Access-Control-Allow-Credentials', 'true')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
@@ -26,8 +26,8 @@ server.use('/', routes)
 
 // Error catching endware.
 server.use((err: any, _req: any, res: any, _next: any) => {
-  const status = err.status || 500
-  const message = err.message || err
+  const status = err.status !== undefined ? err.status : 500
+  const message = err.message !== undefined ? err.message : err
   console.error(err)
   res.status(status).json({ message })
 })

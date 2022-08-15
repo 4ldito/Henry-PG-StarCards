@@ -1,20 +1,20 @@
 'use strict'
 
 import {
-    Model
+  Model
 } from 'sequelize'
 
 interface DeckAttributes {
-    id: number
-    name: string
-    cardsMax: number
-    race: string
+  id: number
+  name: string
+  cardsMax: number
+  race: string
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
-    class Deck extends Model<DeckAttributes>
-        implements DeckAttributes {
-        /**
+  class Deck extends Model<DeckAttributes>
+    implements DeckAttributes {
+    /**
              * Helper method for defining associations.
              * This method is not a part of Sequelize lifecycle.
              * The `models/index` file will call this method automatically.
