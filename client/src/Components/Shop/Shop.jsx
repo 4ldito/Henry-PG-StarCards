@@ -1,0 +1,40 @@
+import React from 'react'
+import StarsPacksCard from './StarsPacksCard'
+import { useFetchStarsPack } from '../../hooks/useFetchStarsPack'
+import { useSelector, useDispatch } from 'react-redux'
+import { addToShopCart } from './../../redux/actions/shopCart'
+
+const Shop = () => {
+  const { starsPacks, loaded } = useFetchStarsPack()
+  const shopCartItems = useSelector(state => state.shopCartReducer.shopCart)
+  const dispatch = useDispatch()
+  console.log(shopCartItems)
+
+  if (!loaded) return (<p>Loading..</p>)
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    const target = Number(e.target.id)
+    const selectedPack = starsPacks.find(pack => pack.id === target)
+    console.log(selectedPack)
+    dispatch(addToShopCart(selectedPack))
+  }
+
+  return (
+    <div>
+      <h2>Packs Disponibles:</h2>
+      {starsPacks.map((pack) => {
+        return (
+          <StarsPacksCard
+            key={pack.id}
+            pack={pack}
+            handleOnSubmit={handleOnSubmit}
+          />
+        )
+      })}
+      <h3>Carrito: </h3>
+    </div>
+  )
+}
+
+export default Shop

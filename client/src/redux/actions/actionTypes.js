@@ -1,1 +1,5 @@
-export const TEST = 'TEST'
+// STARSPACKS
+export const GET_ALL_STARS_PACKS = 'GET_ALL_STARS_PACKS'
+
+// SHOPCART
+export const ADD_TO_SHOPCART = 'ADD_TO_SHOPCART'

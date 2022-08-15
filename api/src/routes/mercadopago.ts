@@ -16,11 +16,6 @@ mercadopagoRoute.post('/checkout', (req: any, res: any) => {
         unit_price: parseInt(req.body.price), // le llega como string
         quantity: 1
       }
-      // {
-      //   title: "stars",
-      //   unit_price: 1200,
-      //   quantity: 4,
-      // },
     ]
   }
   mp.preferences

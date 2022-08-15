@@ -1,4 +1,3 @@
-
 export const rols = [
   {
     rol: 'superadmin'
