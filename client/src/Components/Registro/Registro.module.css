@@ -34,17 +34,12 @@
 .input {
   background-color: rgba(0, 0, 0, 0);
   color: rgb(255, 255, 255);
-
   font-size: 1rem;
-
   border: 1px solid rgba(255, 255, 255, 0.36);
   border-radius: 3px;
-
   width: 96%;
-
   margin: 1vh 0 1vh 0;
   padding: 8px;
-
   transition: 0.3s;
 }
 
@@ -66,15 +61,11 @@
   background-color: #b4b4b4;
   color: rgb(26, 118, 224);
   font-size: 1rem;
-
   border-radius: 5px;
   border: 2px solid rgb(95, 160, 235);
-
   width: 70%;
-
   padding: 2% 0 2% 0;
   margin: 4% auto 2% auto;
-
   transition: 0.1s;
 }
 

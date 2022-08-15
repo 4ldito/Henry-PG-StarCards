@@ -1,10 +1,8 @@
 
 const View = () => {
-    return (
-        <div>
-            
-        </div>
-    )
+  return (
+    <div />
+  )
 }
 
 export default View
