@@ -4,7 +4,7 @@ import logo from '../../img/logoLanding.png'
 
 import css from './Registro.module.css'
 
-export default function Registro() {
+export default function Registro () {
   return (
     <div className={css.registro}>
       <Formik
@@ -14,20 +14,29 @@ export default function Registro() {
           password: '',
           confirm: ''
         }}
-
         /// ////////////////////////// Validaciones /////////////////////////////
         validate={(valores) => {
           const errores = {}
+
           if (!valores.email) {
             errores.email = 'Por favor ingrese un e-mail'
-          } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)) {
+          } else if (
+            !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
+              valores.email
+            )
+          ) {
             errores.email = 'El e-mail es invalido'
           }
 
           if (!valores.password) {
             errores.password = 'Por favor ingrese una contraseña'
-          } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{0,}$/.test(valores.password)) {
-            errores.password = 'La contraseña debe de contener mínimo 1 mayúscula, 1 minúscula, 1 número'
+          } else if (
+            !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{0,}$/.test(
+              valores.password
+            )
+          ) {
+            errores.password =
+              'La contraseña debe de contener mínimo 1 mayúscula, 1 minúscula, 1 número'
           } else if (valores.password.length < 8) {
             errores.password = 'La longitud mínima es de 8 dígitos'
           }
@@ -35,13 +44,13 @@ export default function Registro() {
           if (valores.confirm !== valores.password) {
             errores.confirm = 'Las contraseñas no coinciden'
           }
+
           return errores
         }}
-
         /// ////////////////////////// Submit /////////////////////////////
         onSubmit={(valores, { resetForm }) => {
           resetForm()
-          alert('Usuario registrado con exito')
+          window.alert('Usuario registrado con exito')
         }}
       >
         {({ errors }) => (
@@ -56,9 +65,8 @@ export default function Registro() {
                 className={css.input}
               />
               <ErrorMessage
-                name='email' component={() => (
-                  <p className={css.pDanger}>{errors.email}</p>
-                )}
+                name='email'
+                component={() => <p className={css.pDanger}>{errors.email}</p>}
               />
 
               <Field
@@ -68,7 +76,8 @@ export default function Registro() {
                 className={css.input}
               />
               <ErrorMessage
-                name='password' component={() => (
+                name='password'
+                component={() => (
                   <p className={css.pDanger}>{errors.password}</p>
                 )}
               />
@@ -80,7 +89,8 @@ export default function Registro() {
                 className={css.input}
               />
               <ErrorMessage
-                name='confirm' component={() => (
+                name='confirm'
+                component={() => (
                   <p className={css.pDanger}>{errors.confirm}</p>
                 )}
               />
