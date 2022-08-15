@@ -19,10 +19,11 @@ module.exports = (sequelize: any, DataTypes: any) => {
          */
     id!: number
     rol!: string
-    static associate (models: any) {
-      Rol.belongsToMany(models.User, {
-        through: 'User_Rol'
-      })
+    static associate (models: any): void {
+      // Rol.belongsToMany(models.User, {
+      //   through: 'User_Rol'
+      // })
+      Rol.hasOne(models.User)
     }
   };
   Rol.init({
