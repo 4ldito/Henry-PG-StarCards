@@ -19,7 +19,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
          */
     id!: number
     status!: string
-    static associate(models: any): void {
+    static associate (models: any): void {
       // Status.belongsTo(models.User)
       Status.hasOne(models.User)
       Status.hasOne(models.Card)

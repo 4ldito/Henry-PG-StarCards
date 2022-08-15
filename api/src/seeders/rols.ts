@@ -1,12 +1,12 @@
 
 export const rols = [
-    {
-        rol: 'superadmin'
-    },
-    {
-        rol: 'admin'
-    },
-    {
-        rol: 'user'
-    }
+  {
+    rol: 'superadmin'
+  },
+  {
+    rol: 'admin'
+  },
+  {
+    rol: 'user'
+  }
 ]
