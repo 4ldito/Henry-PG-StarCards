@@ -1,7 +1,12 @@
 import { combineReducers } from 'redux'
-import testReducer from './testReducer'
+import starsPackReducer from './starsPack'
+import shopCartReducer from './shopCart'
 
 // const rootReducer = combineReducers({ testReducer, activities });
-const rootReducer = combineReducers({ testReducer })
+const rootReducer = combineReducers(
+  {
+    starsPackReducer,
+    shopCartReducer
+  })
 
 export default rootReducer
