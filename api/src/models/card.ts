@@ -5,12 +5,15 @@ import {
 interface CardAttributes {
   id: number
   name: string
-  dmg: number
-  life: number
+  Gdmg: number
+  Admg: number
+  life: string
   ability: string
+  abilities: string[]
   race: string
-  canAttack: 'enum'
-  flying: boolean
+  cost: number
+  movement: 'enum'
+  image: string
 }
 
 module.exports = (sequelize: any, DataTypes: any) => {
@@ -18,12 +21,15 @@ module.exports = (sequelize: any, DataTypes: any) => {
     implements CardAttributes {
     id!: number
     name!: string
-    dmg!: number
-    life!: number
+    Gdmg!: number
+    Admg!: number
+    life!: string
     ability!: string
+    abilities!: string[]
     race!: string
-    canAttack!: 'enum'
-    flying!: boolean
+    cost!: number
+    movement!: 'enum'
+    image!: string
     static associate (models: any): void {
       Card.belongsToMany(models.User, {
         through: 'UserCards'
@@ -35,16 +41,20 @@ module.exports = (sequelize: any, DataTypes: any) => {
   Card.init({
     id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    Gdmg: {
+      type: DataTypes.FLOAT,
       allowNull: false
     },
-    dmg: {
-      type: DataTypes.INTEGER,
+    Admg: {
+      type: DataTypes.FLOAT,
       allowNull: false
     },
     life: {
@@ -55,16 +65,23 @@ module.exports = (sequelize: any, DataTypes: any) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    abilities: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false
+    },
     race: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    canAttack: {
-      type: DataTypes.STRING
-    },
-    flying: {
-      type: DataTypes.BOOLEAN,
+    cost: {
+      type: DataTypes.INTEGER,
       allowNull: false
+    },
+    movement: {
+      type: DataTypes.ENUM('ground', 'flying', 'all')
+    },
+    image: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,
