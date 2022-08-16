@@ -12,11 +12,12 @@ const Shop = () => {
 
   if (!loaded) return (<p>Loading..</p>)
 
-  const handleOnSubmit = (e) => {
+  const handleAddItem = (e) => {
     e.preventDefault()
     const target = Number(e.target.id)
     const selectedPack = starsPacks.find(pack => pack.id === target)
-    console.log(selectedPack)
+    if (!selectedPack.quantity) selectedPack.quantity = 1
+    // console.log(selectedPack)
     dispatch(addToShopCart(selectedPack))
   }
 
@@ -29,12 +30,12 @@ const Shop = () => {
           <StarsPacksCard
             key={pack.id}
             pack={pack}
-            handleOnSubmit={handleOnSubmit}
+            handleAddItem={handleAddItem}
           />
         )
       })}
       <h3>Carrito: </h3>
-      {shopCartItems.map(item => <p key={item.id}>{item.name}</p>)}
+      {shopCartItems.map(item => <p key={item.id}>{item.name} cantidad: {item.quantity}</p>)}
     </div>
   )
 }
