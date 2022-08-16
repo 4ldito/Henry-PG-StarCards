@@ -1,7 +1,7 @@
-import { combineReducers } from "redux";
-import testReducer from './testReducer';
+import { combineReducers } from 'redux'
+import testReducer from './testReducer'
 
 // const rootReducer = combineReducers({ testReducer, activities });
-const rootReducer = combineReducers({ testReducer });
+const rootReducer = combineReducers({ testReducer })
 
-export default rootReducer;
+export default rootReducer
