@@ -19,13 +19,13 @@ interface CardAttributes {
 }
 
 const getAllCards = async (): Promise<CardAttributes[]> => {
-  const allPacksDB = await StarsPack.findAll()
+  const allPacksDB = await Card.findAll()
   return allPacksDB
 }
 
-starsPackRoute.get('/', async (_req: Request, res: Response, next: NextFunction) => {
+cardsRoute.get('/', async (_req: Request, res: Response, next: NextFunction) => {
   try {
-    const packs = await getAllStarsPack()
+    const packs = await getAllCards()
     return res.send(packs)
   } catch (error) {
     return next(error)
