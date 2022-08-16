@@ -24,6 +24,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       Status.hasOne(models.User)
       Status.hasOne(models.Card)
       Status.hasOne(models.Deck)
+      Status.hasOne(models.StarsPack)
     }
   };
   Status.init({
