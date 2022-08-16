@@ -1,7 +1,9 @@
 
 const View = () => {
   return (
-    <div />
+    <div>
+      Test
+    </div>
   )
 }
 

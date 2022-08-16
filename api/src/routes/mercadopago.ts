@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, Request, Response, NextFunction } from 'express'
 
 import mp from 'mercadopago'
 const mercadopagoRoute = Router()
@@ -8,15 +8,17 @@ mp.configure({
   access_token: dotenv.ACCESS_TOKEN 
 })
 
-mercadopagoRoute.post('/checkout', (req: any, res: any) => {
+mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunction) => {
+  const items = req.body.map((item: any) => {
+    return {
+      title: item.name,
+      unit_price: item.price,
+      quantity: 1
+    }
+  })
+  console.log(items)
   const preference = {
-    items: [ 
-      {
-        title: req.body.title,
-        unit_price: parseInt(req.body.price), // le llega como string
-        quantity: 1
-      }
-    ],
+    items,
     back_urls:{
       success: "https://www.google.com/",
       failure: "https://gmail.com/",
@@ -25,11 +27,12 @@ mercadopagoRoute.post('/checkout', (req: any, res: any) => {
   }
   mp.preferences
     .create(preference)
-    .then(function (response) { // espacio para trabajar con la respuesta de MP por la compra del producto
+    .then((response) => { // espacio para trabajar con la respuesta de MP por la compra del producto
+      console.log(response)
       return res.redirect(response.body.init_point)
     })
-    .catch(function (error) {
-      console.log(error)
+    .catch((error) => {
+      return next(error)
     })
 })
 
