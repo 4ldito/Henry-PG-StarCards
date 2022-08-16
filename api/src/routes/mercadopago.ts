@@ -9,14 +9,16 @@ mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunct
       title: item.name,
       unit_price: item.price,
       quantity: item.quantity,
-      description: item.name
+      description: item.name,
+      service: item.name,
+      currency_id: 'ARS'
     }
   })
   // console.log(items)
   const preference = {
     items,
     back_urls: {
-      success: 'http://localhost:5173/shopcart?state=success',
+      success: 'www.google.com.ar',
       failure: 'http://localhost:5173/shopcart?state=failure',
       pending: 'http://localhost:5173/shopcart?state=pending'
     }
@@ -25,7 +27,6 @@ mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunct
   mp.preferences
     .create(preference)
     .then((response) => { // espacio para trabajar con la respuesta de MP por la compra del producto
-      console.log(response)
       return res.json({ id: response.body.id })
     })
     .catch((error) => {

@@ -12,15 +12,12 @@ export default function Mercadopago ({ shopCartItems }) {
   useEffect(() => {
     // luego de montarse el componente, le pedimos al backend el preferenceId
     axios.post('http://localhost:3001/mercadopago/checkout', shopCartItems).then((order) => {
-      console.log(order.data.id)
       setPreferenceId(order.data.id)
     })
   }, [id])
 
   useEffect(() => {
-    console.log(preferenceId)
     if (preferenceId) {
-      console.log('entra aca?')
       // con el preferenceId en mano, inyectamos el script de mercadoPago
       const script = document.createElement('script')
       script.type = 'text/javascript'
@@ -29,7 +26,6 @@ export default function Mercadopago ({ shopCartItems }) {
       script.setAttribute('data-preference-id', preferenceId)
       const form = document.getElementById(FORM_ID)
       form.appendChild(script)
-      console.log('Se va a poner el script', script)
     }
   }, [preferenceId])
 
