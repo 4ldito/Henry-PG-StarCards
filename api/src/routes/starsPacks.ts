@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Response, Router } from 'express'
+import { Request, Response, NextFunction, Router } from 'express'
 import db from './../db'
 const { StarsPack } = db
 
@@ -16,9 +16,13 @@ const getAllStarsPack = async (): Promise<StarsPackAttributes[]> => {
   return allPacksDB
 }
 
-starsPackRoute.get('/', async (_req: Request, res: any): Promise<Response> => {
-  const packs = await getAllStarsPack()
-  return res.send(packs)
+starsPackRoute.get('/', async (_req: Request, res: Response, next: NextFunction) => {
+  try {
+    const packs = await getAllStarsPack()
+    return res.send(packs)
+  } catch (error) {
+    return next(error)
+  }
 })
 
 export default starsPackRoute

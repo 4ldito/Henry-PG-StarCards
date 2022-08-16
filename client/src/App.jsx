@@ -1,8 +1,10 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+
 import Registro from './components/Registro/Registro'
 import LandingPage from './components/LandingPage/LandingPage'
-import { Route, Routes } from 'react-router-dom'
 import Shop from './components/Shop/Shop'
+import ShopCart from './components/Shop/ShopCart/ShopCart'
 
 import './App.css'
 
@@ -13,6 +15,7 @@ function App () {
         <Route path='/' element={<LandingPage />} />
         <Route path='/register' element={<Registro />} />
         <Route path='/shop' element={<Shop />} />
+        <Route path='/shopcart' element={<ShopCart />} />
       </Routes>
     </div>
   )

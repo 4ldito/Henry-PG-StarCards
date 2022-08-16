@@ -3,12 +3,12 @@ import StarsPacksCard from './StarsPacksCard'
 import { useFetchStarsPack } from '../../hooks/useFetchStarsPack'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToShopCart } from './../../redux/actions/shopCart'
+import { Link } from 'react-router-dom'
 
 const Shop = () => {
   const { starsPacks, loaded } = useFetchStarsPack()
   const shopCartItems = useSelector(state => state.shopCartReducer.shopCart)
   const dispatch = useDispatch()
-  console.log(shopCartItems)
 
   if (!loaded) return (<p>Loading..</p>)
 
@@ -22,6 +22,7 @@ const Shop = () => {
 
   return (
     <div>
+      <Link to='/shopcart'>Ir al carrito</Link>
       <h2>Packs Disponibles:</h2>
       {starsPacks.map((pack) => {
         return (
@@ -33,6 +34,7 @@ const Shop = () => {
         )
       })}
       <h3>Carrito: </h3>
+      {shopCartItems.map(item => <p key={item.id}>{item.name}</p>)}
     </div>
   )
 }
