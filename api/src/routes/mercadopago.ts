@@ -13,7 +13,7 @@ mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunct
     return {
       title: item.name,
       unit_price: item.price,
-      quantity: 1
+      quantity: item.quantity
     }
   })
   console.log(items)
