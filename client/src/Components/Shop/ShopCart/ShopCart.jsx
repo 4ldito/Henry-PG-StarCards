@@ -1,16 +1,11 @@
 /* eslint-disable react/jsx-closing-tag-location */
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { buyShopCart } from './../../../redux/actions/shopCart'
+import { useSelector } from 'react-redux'
+import Mercadopago from '../Mercadopago/Mercadopago'
 
 const ShopCart = () => {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   const shopCartItems = useSelector(state => state.shopCartReducer.shopCart)
-
-  const handleBuyClick = (e) => {
-    e.preventDefault()
-    dispatch(buyShopCart(shopCartItems))
-  }
 
   return (
     <div>ShopCart
@@ -18,7 +13,7 @@ const ShopCart = () => {
         ? <div> {shopCartItems.map(item => {
           return <p key={item.id}>{item.name}</p>
         })}
-          <button onClick={handleBuyClick}>Comprar</button>
+          <Mercadopago shopCartItems={shopCartItems} />
         </div>
 
         : <p>El carrito esta vacio</p>}
