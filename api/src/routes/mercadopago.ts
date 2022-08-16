@@ -2,10 +2,10 @@ import { Router, Request, Response, NextFunction } from 'express'
 
 import mp from 'mercadopago'
 const mercadopagoRoute = Router()
-const dotenv = require('dotenv').config()
+require('dotenv').config()
 
-mp.configure({ 
-  access_token: dotenv.ACCESS_TOKEN 
+mp.configure({
+  access_token: process.env.ACCESS_TOKEN !== undefined ? process.env.ACCESS_TOKEN : ''
 })
 
 mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunction) => {
@@ -19,10 +19,10 @@ mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunct
   console.log(items)
   const preference = {
     items,
-    back_urls:{
-      success: "https://www.google.com/",
-      failure: "https://gmail.com/",
-      pending: "https://www.smn.gob.ar/"
+    back_urls: {
+      success: 'https://www.google.com/',
+      failure: 'https://gmail.com/',
+      pending: 'https://www.smn.gob.ar/'
     }
   }
   mp.preferences
