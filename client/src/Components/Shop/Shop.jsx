@@ -2,7 +2,7 @@ import React from 'react'
 import StarsPacksCard from './StarsPacksCard'
 import { useFetchStarsPack } from '../../hooks/useFetchStarsPack'
 import { useSelector, useDispatch } from 'react-redux'
-import { addToShopCart } from './../../redux/actions/shopCart'
+import { addToShopCart, removeFromShopCart } from './../../redux/actions/shopCart'
 import { Link } from 'react-router-dom'
 
 const Shop = () => {
@@ -14,11 +14,18 @@ const Shop = () => {
 
   const handleAddItem = (e) => {
     e.preventDefault()
+    const target = e.target
+    const quantity = target.childNodes[4].value
+    const selectedPack = starsPacks.find(pack => pack.id === Number(target.id))
+    if (!selectedPack.quantity) selectedPack.quantity = 0
+    dispatch(addToShopCart(selectedPack, quantity))
+  }
+
+  const handleRemoveItem = (e) => {
+    e.preventDefault()
     const target = Number(e.target.id)
-    const selectedPack = starsPacks.find(pack => pack.id === target)
-    if (!selectedPack.quantity) selectedPack.quantity = 1
-    // console.log(selectedPack)
-    dispatch(addToShopCart(selectedPack))
+    console.log('se va a eliminar', target)
+    dispatch(removeFromShopCart(target))
   }
 
   return (
@@ -35,7 +42,12 @@ const Shop = () => {
         )
       })}
       <h3>Carrito: </h3>
-      {shopCartItems.map(item => <p key={item.id}>{item.name} cantidad: {item.quantity}</p>)}
+      {shopCartItems.map(item =>
+        <div key={item.id}>
+          <p>{item.name} cantidad: {item.quantity}</p>
+          <button id={item.id} onClick={handleRemoveItem}>Eliminar del carrito</button>
+        </div>
+      )}
     </div>
   )
 }
