@@ -1,4 +1,4 @@
-module.exports = rols = [
+const rols = [
   {
     rol: "superadmin",
   },
@@ -9,3 +9,5 @@ module.exports = rols = [
     rol: "user",
   },
 ];
+
+module.exports = rols;

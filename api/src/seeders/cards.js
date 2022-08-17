@@ -1,4 +1,4 @@
-module.exports = zergCards = [
+const zergCards = [
   {
     name: "Zergling",
     Gdmg: 10,
@@ -224,7 +224,7 @@ module.exports = zergCards = [
   },
 ];
 
-module.exports = terranCards = [
+const terranCards = [
   {
     name: "Marine",
     Gdmg: 9.8,
@@ -448,7 +448,7 @@ module.exports = terranCards = [
   },
 ];
 
-module.exports = protossCards = [
+const protossCards = [
   {
     name: "Zealot",
     Gdmg: 18.6,
@@ -667,3 +667,5 @@ module.exports = protossCards = [
     image: "",
   },
 ];
+
+module.exports = { zergCards, terranCards, protossCards };

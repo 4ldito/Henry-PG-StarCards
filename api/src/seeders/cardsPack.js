@@ -1,4 +1,4 @@
-module.exports = cardsPack = [
+const cardsPack = [
   {
     name: "Basic",
     price: 100,
@@ -6,3 +6,5 @@ module.exports = cardsPack = [
     cards: [],
   },
 ];
+
+module.exports = cardsPack

@@ -1,4 +1,4 @@
-module.exports = starsPack = [
+const starsPack = [
   {
     name: "Punch of Stars",
     price: "100",
@@ -20,3 +20,5 @@ module.exports = starsPack = [
     stars: "8000",
   },
 ];
+
+module.exports = starsPack;

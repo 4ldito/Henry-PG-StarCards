@@ -1,23 +1,17 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 const server = require("./src/app");
 const db = require("./src/db");
-const { users } = require("./src/seeders/users");
-const { rols } = require("./src/seeders/rols");
-const { starsPack } = require("./src/seeders/starsPack");
+const users = require("./src/seeders/users");
+const rols = require("./src/seeders/rols");
+const starsPack = require("./src/seeders/starsPack");
 const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
-const { cardsPack } = require("./src/seeders/cardsPack");
+const cardsPack = require("./src/seeders/cardsPack");
 
 // ARREGLAR EN CARDSPACKS
 
 const { User, Rol, StarsPack, Card, CardsPack } = db;
 
 const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000;
-
-const createRols = async () => {
-  for (const rol of rols) {
-    await Rol.create(rol);
-  }
-};
 
 const createAllCards = async () => {
   const allCards = [];
@@ -35,6 +29,12 @@ const createAllCards = async () => {
   return await Promise.all(allCards);
 };
 
+const createRols = async () => {
+  for (const rol of rols) {
+    await Rol.create(rol);
+  }
+};
+
 const getSuperAdminRol = async () => {
   try {
     const superAdmin = await Rol.findOne({ where: { rol: "superadmin" } });
@@ -45,6 +45,8 @@ const getSuperAdminRol = async () => {
 };
 
 db.sequelize.sync({ force: true }).then(async () => {
+  const cards = await createAllCards();
+
   await createRols();
 
   const superAdminRol = await getSuperAdminRol();
@@ -57,22 +59,19 @@ db.sequelize.sync({ force: true }).then(async () => {
     await StarsPack.create(sp);
   });
 
-  const cards = await createAllCards();
-  // console.log(cards)
+  // for (const cp of cardsPack) {
+  //   const zergCards = cards.filter((card) => card.race === "Zerg");
 
-  for (const cp of cardsPack) {
-    const zergCards = cards.filter((card) => card.race === "Zerg");
+  //   zergCards.forEach((zergCard) => {
+  //     cp.cards.push([zergCard, Math.random()]);
+  //   });
+  //   // await CardsPack.create(cp).then((cp: any) => console.log(cp)).catch((err: any) => console.log(err))
+  //   await CardsPack.create(cp);
+  // }
 
-    zergCards.forEach((zergCard) => {
-      cp.cards.push([zergCard, Math.random()]);
-    });
-    // await CardsPack.create(cp).then((cp: any) => console.log(cp)).catch((err: any) => console.log(err))
-    await CardsPack.create(cp);
-  }
-
-  const allCardsPack = await CardsPack.findAll();
-  console.log(allCardsPack[0].cards);
-  // const test = CardsPack.create()
+  // const allCardsPack = await CardsPack.findAll();
+  // console.log(allCardsPack[0].cards);
+  // // const test = CardsPack.create()
 
   server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
