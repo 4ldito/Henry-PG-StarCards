@@ -40,6 +40,39 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 100,
       },
+      profileImg: {
+        type: DataTypes.STRING,
+        defaultValue: "https://static.wikia.nocookie.net/starcraft2/images/a/a1/Zerg_SC2_Icon2.jpg/revision/latest?cb=20100826205116&path-prefix=es"
+      },
+      coverImg: {
+        type: DataTypes.STRING,
+        defaultValue: "https://bnetcmsus-a.akamaihd.net/cms/blog_header/2g/2G4VZH5TIWJF1602720144046.jpg"
+      },
+      role: {
+        type: DataTypes.STRING,
+        validate: {
+          customValidator: (value) => {
+            const enums = ["superadmin", "admin", "user"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },
+      },
+      status: {
+        type: DataTypes.STRING,
+        validate: {
+          customValidator: (value) => {
+            const enums = ["activ", "inactiv"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },      },
+      activeDekId: {
+        type: DataTypes.INTEGER
+      },
+      
     },
     {
       sequelize,
