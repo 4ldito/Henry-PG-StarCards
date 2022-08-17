@@ -3,7 +3,7 @@ module.exports = {
     project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
     sourceType: 'module',
-    ecmaVersion: 2015
+    ecmaVersion: 2017
   },
   extends: [
     './node_modules/ts-standard/eslintrc.json'

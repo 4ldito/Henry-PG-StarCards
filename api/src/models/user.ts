@@ -61,6 +61,7 @@ module.exports = (sequelize: any, DataTypes: any) => {
       defaultValue: 100
     }
   }, {
+    timestamps: false,
     sequelize,
     modelName: 'User'
   })
