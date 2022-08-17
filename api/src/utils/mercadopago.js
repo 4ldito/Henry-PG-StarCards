@@ -7,4 +7,4 @@ mp.configure({
     process.env.ACCESS_TOKEN !== undefined ? process.env.ACCESS_TOKEN : "",
 });
 
-export default mp;
+module.exports = mp;

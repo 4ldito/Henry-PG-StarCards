@@ -1,11 +1,11 @@
-export const rols = [
+module.exports = rols = [
   {
-    rol: 'superadmin'
+    rol: "superadmin",
   },
   {
-    rol: 'admin'
+    rol: "admin",
   },
   {
-    rol: 'user'
-  }
-]
+    rol: "user",
+  },
+];

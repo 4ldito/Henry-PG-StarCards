@@ -20,4 +20,4 @@ cardsRoute.get('/', async (req, res, next) => {
     }
 });
 
-export default cardsRoute;
+module.exports = cardsRoute;

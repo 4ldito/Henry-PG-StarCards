@@ -11,4 +11,4 @@ router.use('/mercadopago', mercadopagoRoute)
 router.use('/stars-pack', starsPackRoute)
 router.use('/cards', cardsRoute)
 
-export default router
+module.exports = router

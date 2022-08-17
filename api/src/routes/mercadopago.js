@@ -32,4 +32,4 @@ mercadopagoRoute.post('/checkout', (req, res, next) => {
         return next(error);
     });
 });
-export default mercadopagoRoute;
+module.exports = mercadopagoRoute;

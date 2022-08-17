@@ -19,4 +19,4 @@ starsPackRoute.get('/', async (req, res, next) => {
   }
 })
 
-export default starsPackRoute
+module.exports = starsPackRoute;

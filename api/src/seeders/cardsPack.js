@@ -1,9 +1,8 @@
-export const cardsPack = [
+module.exports = cardsPack = [
   {
-    name: 'Basic',
+    name: "Basic",
     price: 100,
-    race: 'Zerg',
-    cards: []
-  }
-
-]
+    race: "Zerg",
+    cards: [],
+  },
+];
