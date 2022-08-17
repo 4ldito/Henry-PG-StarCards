@@ -1,10 +1,18 @@
 import axios from 'axios'
-import { ADD_TO_SHOPCART, BUY_SHOPCART } from './actionTypes'
+import { ADD_TO_SHOPCART, BUY_SHOPCART, REMOVE_FROM_SHOPCART } from './actionTypes'
 
-export function addToShopCart (product) {
+export function addToShopCart (product, quantity) {
+  quantity = Number(quantity)
   return {
     type: ADD_TO_SHOPCART,
-    payload: product
+    payload: { product, quantity }
+  }
+}
+
+export function removeFromShopCart (product) {
+  return {
+    type: REMOVE_FROM_SHOPCART,
+    payload: { product }
   }
 }
 
