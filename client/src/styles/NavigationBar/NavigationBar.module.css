@@ -1,0 +1,14 @@
+
+.navBar{
+    display: flex;
+    justify-content: space-around;
+    height: 5vh;
+    background-color: #6669;
+    position: relative;
+}
+.userOptions{
+   order:-1;
+   position: absolute;
+   left:3vw;
+    width: 0;
+}

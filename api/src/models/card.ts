@@ -1,6 +1,4 @@
-import {
-  Model
-} from 'sequelize'
+import { Model, DataTypes } from 'sequelize'
 
 interface CardAttributes {
   id: number
@@ -16,7 +14,7 @@ interface CardAttributes {
   image: string
 }
 
-module.exports = (sequelize: any, DataTypes: any) => {
+module.exports = (sequelize: any) => {
   class Card extends Model<CardAttributes>
     implements CardAttributes {
     id!: number
@@ -78,7 +76,8 @@ module.exports = (sequelize: any, DataTypes: any) => {
       allowNull: false
     },
     movement: {
-      type: DataTypes.ENUM('ground', 'flying', 'all')
+      type: DataTypes.STRING,
+      allowNull: false
     },
     image: {
       type: DataTypes.STRING
