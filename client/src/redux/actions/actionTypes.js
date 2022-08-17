@@ -4,3 +4,7 @@ export const GET_ALL_STARS_PACKS = 'GET_ALL_STARS_PACKS'
 // SHOPCART
 export const ADD_TO_SHOPCART = 'ADD_TO_SHOPCART'
 export const BUY_SHOPCART = 'BUY_SHOPCART'
+
+// CARDS
+export const GET_ALL_CARDS = 'GET_ALL_CARDS'
+export const FILTER_CARDS = 'FILTER_CARDS'
