@@ -16,9 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Status.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
       },
       status: {
         type: DataTypes.STRING,
