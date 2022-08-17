@@ -13,13 +13,20 @@ module.exports = (sequelize, DataTypes) => {
   Rol.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
       },
       rol: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: "user",
+        validate: {
+          customValidator: (value) => {
+            const enums = ["superadmin", "admin", "user"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },
       },
     },
     {

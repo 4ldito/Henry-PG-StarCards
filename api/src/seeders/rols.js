@@ -1,13 +1,7 @@
 const rols = [
-  {
-    rol: "superadmin",
-  },
-  {
-    rol: "admin",
-  },
-  {
-    rol: "user",
-  },
+  { id: "superadmin", rol: "superadmin" },
+  { id: "admin", rol: "admin" },
+  { id: "user", rol: "user" },
 ];
 
 module.exports = rols;
