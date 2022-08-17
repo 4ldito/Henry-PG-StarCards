@@ -22,7 +22,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       status: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: "active",
+        validate: {
+          customValidator: (value) => {
+            const enums = ["active", "inactive"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },
       },
     },
     {
