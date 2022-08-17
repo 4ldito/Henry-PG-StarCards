@@ -4,7 +4,7 @@ require("dotenv").config();
 
 mp.configure({
   access_token:
-    process.env.ACCESS_TOKEN !== undefined ? process.env.ACCESS_TOKEN : "",
+    process.env.ACCESS_TOKEN,
 });
 
 module.exports = mp;
