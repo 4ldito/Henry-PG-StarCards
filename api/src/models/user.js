@@ -49,11 +49,26 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: "https://bnetcmsus-a.akamaihd.net/cms/blog_header/2g/2G4VZH5TIWJF1602720144046.jpg"
       },
       role: {
-        type: DataTypes.ENUM('superadmin', 'admin', 'user')
+        type: DataTypes.STRING,
+        validate: {
+          customValidator: (value) => {
+            const enums = ["superadmin", "admin", "user"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },
       },
       status: {
-        type: DataTypes.ENUM('activ', 'inactiv')
-      },
+        type: DataTypes.STRING,
+        validate: {
+          customValidator: (value) => {
+            const enums = ["activ", "inactiv"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },      },
       activeDekId: {
         type: DataTypes.INTEGER
       },
