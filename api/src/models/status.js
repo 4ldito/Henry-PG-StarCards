@@ -16,13 +16,20 @@ module.exports = (sequelize, DataTypes) => {
   Status.init(
     {
       id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
       },
       status: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: "active",
+        validate: {
+          customValidator: (value) => {
+            const enums = ["active", "inactive"];
+            if (!enums.includes(value)) {
+              throw new Error("not a valid option");
+            }
+          },
+        },
       },
     },
     {
