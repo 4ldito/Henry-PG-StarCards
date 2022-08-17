@@ -1,8 +1,7 @@
 
-// import { Router } from 'express'
-// import db from '../db'
 const db = require('../db')
-const { User } = db
+const { User,Rol } = db
+
 
 const { Router } = require('express')
 
@@ -18,6 +17,8 @@ userRoute.post('/', async (req, res) => {
     const { password, username, email } = req.body
     const newUser = await User.findOrCreate({ where: { password, username, email } })
     if (newUser[1]) {
+        newUser[0].setRol('user')
+        newUser[0].setStatus('active')
         res.json(newUser)
     } else {
         res.status(400).json('user alredy exists')
