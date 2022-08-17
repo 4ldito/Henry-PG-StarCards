@@ -1,4 +1,4 @@
-module.exports = users = [
+const users = [
   {
     username: "4ldito",
     email: "aldoaliscioni18@gmail.com",
@@ -10,3 +10,5 @@ module.exports = users = [
     password: "asd123",
   },
 ];
+
+module.exports = users;
