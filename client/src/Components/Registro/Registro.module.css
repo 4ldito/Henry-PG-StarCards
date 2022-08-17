@@ -1,17 +1,21 @@
+body{
+  background-color: #15171e;
+}
+
 .registro {
   display: flex;
   justify-content: center;
   /* align-items: center; */
 
-  background-color: #15171e;
+  /* background-color: #15171e; */
 
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 80vh;
 }
 
 .form {
   width: 30%;
-  height: 100vh;
+  height: 80vh;
   
   padding: 3% 0 3% 0;
 }
@@ -148,7 +152,7 @@ h2.linea span {
   }
 }
 
-@media (max-width: 950px){
+@media (max-width: 1000px){
   .form {
     width: 50%;
   }
@@ -174,7 +178,7 @@ h2.linea span {
   }
 
   .google {
-    background-size: 38%;
+    background-size: 15%;
   }
 
   .pDanger {
