@@ -6,8 +6,14 @@ const { Router } = require("express");
 
 const userRoute = Router();
 
+///////////////////////Routes Profile//////////////////////////////////////////
+
 userRoute.get("/", (req, res) => {
-  return res.send("<h1>Hola user!</h1>");
-});
+try {
+    return res.send("<h1>Hola user!</h1>");
+  
+} catch (error) {
+  
+}});
 
 module.exports = userRoute;
