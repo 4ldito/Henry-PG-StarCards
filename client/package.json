@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^1.10.2",
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "formik": "^2.2.9",
@@ -22,6 +23,7 @@
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
+    
   },
   "devDependencies": {
     "@types/react": "^18.0.15",
