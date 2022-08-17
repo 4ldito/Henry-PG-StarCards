@@ -1,16 +1,16 @@
-import { Router } from 'express'
-import db from '../db'
-const { User } = db
-// const { Country, Activity, cache } = require('../db');
 
-// const axios = require('axios');
-// const API_ALL_URL = 'https://restcountries.com/v3/all';
+// import { Router } from 'express'
+// import db from '../db'
+const db = require('../db')
+const { User } = db
+
+const { Router } = require('express')
 
 const userRoute = Router()
 
 userRoute.get('/', async (req, res) => {
   const users = await User.findAll()
-  users && res.json(users)
+  if (users) return res.json(users)
   return res.json(new Error('error'))
 })
 
@@ -33,6 +33,5 @@ userRoute.delete('/:id', async (req, res) => {
     res.json('user removed')
   }
 })
-// userRoute.patch()
 
-export default userRoute
+module.exports = userRoute
