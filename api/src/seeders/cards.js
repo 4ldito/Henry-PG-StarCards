@@ -1,4 +1,4 @@
-export const zergCards = [
+const zergCards = [
   {
     name: 'Zergling',
     Gdmg: 10,
@@ -8,7 +8,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 50,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -20,7 +20,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 125,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -32,7 +32,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 150,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -44,7 +44,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 200,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -52,11 +52,12 @@ export const zergCards = [
     Gdmg: 14,
     Admg: 0,
     life: 120,
-    ability: 'Atacante: daña 60 la base enemiga. Defensor: gana 10 de daño terrestre.',
+    ability:
+      'Atacante: daña 60 la base enemiga. Defensor: gana 10 de daño terrestre.',
     abilities: [],
     race: 'Zerg',
     cost: 300,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -64,11 +65,12 @@ export const zergCards = [
     Gdmg: 0,
     Admg: 0,
     life: 0,
-    ability: 'Atacante: gana 40 de daño terrestre. Defensor: gana 80 de daño terrestre.',
+    ability:
+      'Atacante: gana 40 de daño terrestre. Defensor: gana 80 de daño terrestre.',
     abilities: [],
     race: 'Zerg',
     cost: 100,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -76,11 +78,12 @@ export const zergCards = [
     Gdmg: 14,
     Admg: 0,
     life: 200,
-    ability: 'Siempre: invisible. Atacante: daña 14 la base enemiga. Defensor: Gana 14 de daño terrestre.',
+    ability:
+      'Siempre: invisible. Atacante: daña 14 la base enemiga. Defensor: Gana 14 de daño terrestre.',
     abilities: [],
     race: 'Zerg',
     cost: 450,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -88,11 +91,12 @@ export const zergCards = [
     Gdmg: 0,
     Admg: 0,
     life: 80,
-    ability: 'Siempre: daña 40 a los enemigos terrestres y aéreos. Atacante: daña 4 la base enemiga.',
+    ability:
+      'Siempre: daña 40 a los enemigos terrestres y aéreos. Atacante: daña 4 la base enemiga.',
     abilities: [],
     race: 'Zerg',
     cost: 350,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -104,7 +108,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -116,7 +120,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 250,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -124,11 +128,12 @@ export const zergCards = [
     Gdmg: 57.4,
     Admg: 0,
     life: 500,
-    ability: 'Atacante: gana 4.6 de daño terrestre. Defensor: gana 250 de vida.',
+    ability:
+      'Atacante: gana 4.6 de daño terrestre. Defensor: gana 250 de vida.',
     abilities: [],
     race: 'Zerg',
     cost: 700,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -140,7 +145,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 100,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -152,7 +157,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 175,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -160,11 +165,12 @@ export const zergCards = [
     Gdmg: 8.3,
     Admg: 8.3,
     life: 120,
-    ability: 'Atacante: gana 11.3 de daño terrestre. Defensor: gana 40 de vida.',
+    ability:
+      'Atacante: gana 11.3 de daño terrestre. Defensor: gana 40 de vida.',
     abilities: [],
     race: 'Zerg',
     cost: 300,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -176,7 +182,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -184,11 +190,12 @@ export const zergCards = [
     Gdmg: 0,
     Admg: 0,
     life: 150,
-    ability: 'Atacante: daña 35 la base enemiga. Defensor: disminuye el ataque aéreo enemigo un 10%',
+    ability:
+      'Atacante: daña 35 la base enemiga. Defensor: disminuye el ataque aéreo enemigo un 10%',
     abilities: [],
     race: 'Zerg',
     cost: 500,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -200,7 +207,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 800,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -212,22 +219,23 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 1500,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   }
 ]
 
-export const terranCards = [
+const terranCards = [
   {
     name: 'Marine',
     Gdmg: 9.8,
     Admg: 9.8,
     life: 45,
-    ability: 'Atacante: gana 5.2 de daño terrestre y aéreo, y pierde 10 de vida.',
+    ability:
+      'Atacante: gana 5.2 de daño terrestre y aéreo, y pierde 10 de vida.',
     abilities: [],
     race: 'Terran',
     cost: 50,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -235,11 +243,12 @@ export const terranCards = [
     Gdmg: 9.3,
     Admg: 0,
     life: 125,
-    ability: 'Atacante: gana 4.8 de daño terrestre y aéreo, y pierde 20 de vida.',
+    ability:
+      'Atacante: gana 4.8 de daño terrestre y aéreo, y pierde 20 de vida.',
     abilities: [],
     race: 'Terran',
     cost: 150,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -247,11 +256,12 @@ export const terranCards = [
     Gdmg: 9.3,
     Admg: 9.3,
     life: 100,
-    ability: 'Atacante: invisible. Defensor: gana 80 de daño terrestre y aéreo.',
+    ability:
+      'Atacante: invisible. Defensor: gana 80 de daño terrestre y aéreo.',
     abilities: [],
     race: 'Terran',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -263,7 +273,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 150,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -271,11 +281,12 @@ export const terranCards = [
     Gdmg: 4.5,
     Admg: 0,
     life: 90,
-    ability: 'Atacante: gana 3.4 de daño terrestre. Defensor: gana 6 de daño terrestre.',
+    ability:
+      'Atacante: gana 3.4 de daño terrestre. Defensor: gana 6 de daño terrestre.',
     abilities: [],
     race: 'Terran',
     cost: 100,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -287,7 +298,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 75,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -299,7 +310,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 125,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -311,7 +322,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 200,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -323,7 +334,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -331,11 +342,12 @@ export const terranCards = [
     Gdmg: 65.9,
     Admg: 11.2,
     life: 400,
-    ability: 'Atacante: gana 4.1 de daño terrestre. Defensor: gana 30 de daño aéreo.',
+    ability:
+      'Atacante: gana 4.1 de daño terrestre. Defensor: gana 30 de daño aéreo.',
     abilities: [],
     race: 'Terran',
     cost: 700,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -347,7 +359,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 300,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -359,7 +371,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 300,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -371,7 +383,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -383,7 +395,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -395,7 +407,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 500,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -407,7 +419,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 450,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -419,7 +431,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 1000,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -431,12 +443,12 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 1500,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   }
 ]
 
-export const protossCards = [
+const protossCards = [
   {
     name: 'Zealot',
     Gdmg: 18.6,
@@ -446,7 +458,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 100,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -458,7 +470,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 250,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -470,7 +482,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 225,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -482,7 +494,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 225,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -494,7 +506,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 375,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -506,7 +518,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 350,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -518,7 +530,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 475,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -526,11 +538,12 @@ export const protossCards = [
     Gdmg: 0,
     Admg: 0,
     life: 250,
-    ability: 'Atacante: daña 80 a los enemigos terrestres. Defensor: daña 145 a los enemigos terrestres',
+    ability:
+      'Atacante: daña 80 a los enemigos terrestres. Defensor: daña 145 a los enemigos terrestres',
     abilities: [],
     race: 'Protoss',
     cost: 450,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -542,7 +555,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -554,7 +567,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 700,
-    movement: 'All',
+    movement: 'all',
     image: ''
   },
   {
@@ -566,7 +579,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 175,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -578,7 +591,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -590,7 +603,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 800,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -602,7 +615,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 550,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -614,7 +627,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 600,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -626,7 +639,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 970,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -638,7 +651,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 1200,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -650,7 +663,9 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 1500,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   }
 ]
+
+module.exports = { zergCards, terranCards, protossCards }

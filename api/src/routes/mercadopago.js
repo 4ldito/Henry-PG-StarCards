@@ -1,10 +1,10 @@
-import { Router, Request, Response, NextFunction } from 'express'
-import mp from '../utils/mercadopago'
+const { Router } = require('express')
+const mp = require('../utils/mercadopago')
 
 const mercadopagoRoute = Router()
 
-mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunction) => {
-  const items = req.body.map((item: any) => {
+mercadopagoRoute.post('/checkout', (req, res, next) => {
+  const items = req.body.map((item) => {
     return {
       title: item.name,
       unit_price: item.price,
@@ -23,15 +23,13 @@ mercadopagoRoute.post('/checkout', (req: Request, res: Response, next: NextFunct
       pending: 'http://localhost:5173/shopcart?state=pending'
     }
   }
-
   mp.preferences
     .create(preference)
-    .then((response) => { // espacio para trabajar con la respuesta de MP por la compra del producto
+    .then((response) => {
       return res.json({ id: response.body.id })
     })
     .catch((error) => {
       return next(error)
     })
 })
-
-export default mercadopagoRoute
+module.exports = mercadopagoRoute
