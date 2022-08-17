@@ -8,7 +8,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 50,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -20,7 +20,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 125,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -32,7 +32,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 150,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -44,7 +44,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 200,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -56,7 +56,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 300,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -68,7 +68,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 100,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -80,7 +80,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 450,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -92,7 +92,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 350,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -104,7 +104,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -116,7 +116,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 250,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -128,7 +128,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 700,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -140,7 +140,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 100,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -152,7 +152,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 175,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -164,7 +164,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 300,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -176,7 +176,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -188,7 +188,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 500,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -200,7 +200,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 800,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -212,7 +212,7 @@ export const zergCards = [
     abilities: [],
     race: 'Zerg',
     cost: 1500,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   }
 ]
@@ -227,7 +227,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 50,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -239,7 +239,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 150,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -251,7 +251,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -263,7 +263,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 150,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -275,7 +275,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 100,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -287,7 +287,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 75,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -299,7 +299,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 125,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -311,7 +311,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 200,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -323,7 +323,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -335,7 +335,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 700,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -347,7 +347,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 300,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -359,7 +359,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 300,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -371,7 +371,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -383,7 +383,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -395,7 +395,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 500,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -407,7 +407,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 450,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -419,7 +419,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 1000,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -431,7 +431,7 @@ export const terranCards = [
     abilities: [],
     race: 'Terran',
     cost: 1500,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   }
 ]
@@ -446,7 +446,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 100,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -458,7 +458,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 250,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -470,7 +470,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 225,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -482,7 +482,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 225,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -494,7 +494,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 375,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -506,7 +506,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 350,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -518,7 +518,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 475,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -530,7 +530,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 450,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -542,7 +542,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 400,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   },
   {
@@ -554,7 +554,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 700,
-    movement: 'All',
+    movement: 'all',
     image: ''
   },
   {
@@ -566,7 +566,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 175,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -578,7 +578,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 350,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -590,7 +590,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 800,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -602,7 +602,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 550,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -614,7 +614,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 600,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -626,7 +626,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 970,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -638,7 +638,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 1200,
-    movement: 'Flying',
+    movement: 'flying',
     image: ''
   },
   {
@@ -650,7 +650,7 @@ export const protossCards = [
     abilities: [],
     race: 'Protoss',
     cost: 1500,
-    movement: 'Ground',
+    movement: 'ground',
     image: ''
   }
 ]
