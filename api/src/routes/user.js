@@ -1,4 +1,4 @@
-import { Router } from 'express'
+const { Router } = require('express');
 // const { Country, Activity, cache } = require('../db');
 
 // const axios = require('axios');
@@ -6,7 +6,7 @@ import { Router } from 'express'
 
 const userRoute = Router()
 
-userRoute.get('/', (_req: Request, res: any): Response => {
+userRoute.get('/', (req, res) => {
   return res.send('<h1>Hola user!</h1>')
 })
 
