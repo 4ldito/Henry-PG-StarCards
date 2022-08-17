@@ -1,22 +1,16 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Request, Response, NextFunction, Router } from 'express'
-import db from './../db'
+const { Router } = require('express');
+const  db = require('../db')
 const { StarsPack } = db
 
 const starsPackRoute = Router()
 
-interface StarsPackAttributes {
-  id: number
-  price: number
-  stars: number
-}
-
-const getAllStarsPack = async (): Promise<StarsPackAttributes[]> => {
+const getAllStarsPack = async () => {
   const allPacksDB = await StarsPack.findAll()
   return allPacksDB
 }
 
-starsPackRoute.get('/', async (_req: Request, res: Response, next: NextFunction) => {
+starsPackRoute.get('/', async (req, res, next) => {
   try {
     const packs = await getAllStarsPack()
     return res.send(packs)
