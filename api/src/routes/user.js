@@ -1,82 +1,119 @@
-const { Router } = require("express");
-const User = require("../models/user");
-// const { Country, Activity, cache } = require('../db');
+const db = require('../db')
+const { User } = db
 
-// const axios = require('axios');
-// const API_ALL_URL = 'https://restcountries.com/v3/all';
+const { Router } = require('express')
+const userRoute = Router()
+/// /////////////////////////////////////////////////////////////////////////////////////////////
+userRoute.get('/', async (req, res, next) => {
+  try {
+    const users = await User.findAll()
+    if (users) return res.json(users)
+    return res.json(new Error('error'))
+  } catch (error) {
+    next(error)
+  }
+})
 
-const userRoute = Router();
+userRoute.post('/', async (req, res, next) => {
+  try {
+    const { password, username, email } = req.body
+    const newUser = await User.findOrCreate({ where: { password, username, email } })
+    if (newUser[1]) {
+      res.json(newUser)
+    } else {
+      res.status(400).json({ msg: 'user alredy exists' })
+    }
+  } catch (error) {
+    next(error)
+  }
+})
 
-///////////////////////Routes Profile//////////////////////////////////////////
+userRoute.delete('/', async (req, res, next) => {
+  try {
+    const id = req.query.id
+    console.log(id)
+    if (!id) return res.send({ err: 'error' })
+    const userDeleted = await User.findOne({ where: { id } })
+    if (userDeleted) {
+      User.destroy({ where: { id } })
+      res.json({ msg: 'user removed' })
+    } else {
+      return res.status(400).send({ msg: 'user does not exist' })
+    }
+  } catch (error) {
+    next(error)
+  }
+})
 
-userRoute.patch("/changeprofile:username", async(req, res, next) => {
-try {
-const usernameNew = req.body
+/// ////////////////////Routes Modify Profile//////////////////////////////////////////
+
+userRoute.patch('/', async (req, res, next) => {
+  try {
+    const { username } = req.body
     await User.update(User, {
-        where: {
-            username : usernameNew 
-        }
+      where: {
+        username: username
+      }
     })
-    res.json('Username Updated!')
+    res.json({ msg: 'Username Updated!' })
+  } catch (error) {
+    next(error)
+  }
+})
 
-} catch (error) {
-      next(err)
-}});
-
-userRoute.patch("/changeprofile:email", async(req, res, next) => {
-try {
-const emailNew = req.body
+userRoute.patch('/', async (req, res, next) => {
+  try {
+    const { email } = req.body
     await User.update(User, {
-        where: {
-            email : emailNew 
-        }
+      where: {
+        email: email
+      }
     })
-    res.json('Email Updated!')
+    res.json({ msg: 'Email Updated!' })
+  } catch (error) {
+    next(error)
+  }
+})
 
-} catch (error) {
-      next(err)
-}});
-
-userRoute.patch("/changeprofile:password", async(req, res, next) => {
-try {
-const passwordNew = req.body
+userRoute.patch('/', async (req, res, next) => {
+  try {
+    const password = req.body
     await User.update(User, {
-        where: {
-            password : passwordNew 
-        }
+      where: {
+        password: password
+      }
     })
-    res.json('Password Updated!')
+    res.json({ msg: 'Password Updated!' })
+  } catch (error) {
+    next(error)
+  }
+})
 
-} catch (error) {
-      next(err)
-}});
-
-userRoute.patch("/changeprofile:profileImg", async(req, res, next) => {
-try {
-const profileImgNew = req.body
+userRoute.patch('/', async (req, res, next) => {
+  try {
+    const { profileImg } = req.body
     await User.update(User, {
-        where: {
-            profileImg : profileImgNew 
-        }
+      where: {
+        profileImg: profileImg
+      }
     })
-    res.json('Profile Image Updated!')
+    res.json({ msg: 'Profile Image Updated!' })
+  } catch (error) {
+    next(error)
+  }
+})
 
-} catch (error) {
-      next(err)
-}});
-
-userRoute.patch("/changeprofile:coverImg", async(req, res, next) => {
-try {
-const coverImgNew = req.body
+userRoute.patch('/', async (req, res, next) => {
+  try {
+    const { coverImg } = req.body
     await User.update(User, {
-        where: {
-            coverImg : coverImgNew 
-        }
+      where: {
+        coverImg: coverImg
+      }
     })
-    res.json('Cover Image Updated!')
-
-} catch (error) {
-      next(err)
-}});
-
-module.exports = userRoute;
+    res.json({ msg: 'Cover Image Updated!' })
+  } catch (error) {
+    next(error)
+  }
+})
+module.exports = userRoute

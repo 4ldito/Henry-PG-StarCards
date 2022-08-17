@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+
+
 const server = require("./src/app");
 const db = require("./src/db");
 const users = require("./src/seeders/users");
@@ -12,29 +14,30 @@ const cardsPack = require("./src/seeders/cardsPack");
 
 const { User, Rol, StarsPack, Card, CardsPack, Status } = db;
 
-const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000;
+
+const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000
 
 const createAllCards = async () => {
-  const allCards = [];
+  const allCards = []
   for (const card of zergCards) {
-    allCards.push(Card.create(card));
+    allCards.push(Card.create(card))
   }
 
   for (const card of terranCards) {
-    allCards.push(Card.create(card));
+    allCards.push(Card.create(card))
   }
 
   for (const card of protossCards) {
-    allCards.push(Card.create(card));
+    allCards.push(Card.create(card))
   }
-  return await Promise.all(allCards);
-};
+  return await Promise.all(allCards)
+}
 
 const createRols = async () => {
   for (const rol of rols) {
-    await Rol.create(rol);
+    await Rol.create(rol)
   }
-};
+}
 
 const createStatus = async () => {
   for (const stat of status) {
@@ -44,12 +47,13 @@ const createStatus = async () => {
 
 const getSuperAdminRol = async () => {
   try {
-    const superAdmin = await Rol.findOne({ where: { rol: "superadmin" } });
-    return superAdmin;
+    const superAdmin = await Rol.findOne({ where: { rol: 'superadmin' } })
+    return superAdmin
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}
+
 
 db.sequelize.sync({ force: true }).then(async () => {
   await createRols();
@@ -59,15 +63,16 @@ db.sequelize.sync({ force: true }).then(async () => {
   const cardsStatus = cards.map(async (card) => await card.setStatus("active"));
   await Promise.all(cardsStatus);
 
-  const superAdminRol = await getSuperAdminRol();
+
+  const superAdminRol = await getSuperAdminRol()
   users.forEach(async (u) => {
-    const user = await User.create(u);
-    user.setRol(superAdminRol);
-  });
+    const user = await User.create(u)
+    user.setRol(superAdminRol)
+  })
 
   starsPack.forEach(async (sp) => {
-    await StarsPack.create(sp);
-  });
+    await StarsPack.create(sp)
+  })
 
   // for (const cp of cardsPack) {
   //   const zergCards = cards.filter((card) => card.race === "Zerg");
@@ -84,6 +89,6 @@ db.sequelize.sync({ force: true }).then(async () => {
   // // const test = CardsPack.create()
 
   server.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
-  });
-});
+    console.log(`Server started on port ${PORT}`)
+  })
+})
