@@ -22,6 +22,7 @@
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
+    
   },
   "devDependencies": {
     "@types/react": "^18.0.15",

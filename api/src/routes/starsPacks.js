@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-const { Router } = require('express');
-const  db = require('../db')
+const { Router } = require('express')
+const db = require('../db')
 const { StarsPack } = db
 
 const starsPackRoute = Router()
@@ -19,4 +19,4 @@ starsPackRoute.get('/', async (req, res, next) => {
   }
 })
 
-module.exports = starsPackRoute;
+module.exports = starsPackRoute
