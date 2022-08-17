@@ -5,14 +5,9 @@ const db = require('../db');
 const { Card } = db;
 const cardsRoute = Router();
 
-const getAllCards = async () => {
-    const allPacksDB = await Card.findAll();
-    return allPacksDB;
-};
-
 cardsRoute.get('/', async (req, res, next) => {
     try {
-        const packs = await getAllCards();
+        const packs = await Card.findAll();
         return res.send(packs);
     }
     catch (error) {
