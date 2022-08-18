@@ -28,14 +28,14 @@ userRoute.post('/',[tokenValidations.checkToken, tokenValidations.checkAdmin], a
 try {
     const { password, username, email } = req.body;
     const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol});
-    try {if (newUser[1]) {
+    if (newUser[1]) {
          newUser[0].setRol('user');
         newUser[0].setStatus('active');
         res.json(newUser).send({ msg: 'User Created!' });
-    } else {
+    } else { 
         res.status(400).json({ msg: 'user alredy exists' });
     }
-  } catch (error) {
+  }catch (error) {
     next(error)
   }
 })
