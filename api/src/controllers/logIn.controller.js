@@ -26,16 +26,20 @@ async function signUp(req, res, next) {
 
 }
 
-async function signIn (req, res) {
+async function signIn (req, res,next) {
     const {email} = req.body
+    try{
+        const userFound = await User.findOne({where:{email}},{include: [{model:Rol}]})
+        if(!userFound)return res.status(400).json({token:null,message:'el usuario no existe'});
+        const validPassword = await User.prototype.comparePassword(req.body.password, userFound.password);
+        console.log(validPassword);
+        if(!validPassword)return res.status(400).json({token:null, message:"la contraseña no coincide"});
+        const token = jwt.sign({id: userFound.id}, config.SECRET, {expiresIn: 86400});
+        res.json({token})
 
-    const userFound = await User.findOne({where:{email}},{include: [{model:Rol}]})
-    if(!userFound)return res.status(400).json({token:null,message:'el usuario no existe'});
-    const validPassword = await User.prototype.comparePassword(req.body.password, userFound.password);
-    console.log(validPassword);
-    if(!validPassword)return res.status(400).json({token:null, message:"la contraseña no coincide"});
-    const token = jwt.sign({id: userFound.id}, config.SECRET, {expiresIn: 86400});
-    res.json({token})
+    }catch(err){
+        next(err)
+    }
 }
 
 module.exports = {
