@@ -21,10 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       status: {
         type: DataTypes.STRING,
-        defaultValue: "active",
         validate: {
           customValidator: (value) => {
-            const enums = ["active", "inactive"];
+            const enums = ["active", "inactive", "onSale"];
             if (!enums.includes(value)) {
               throw new Error("not a valid option");
             }
