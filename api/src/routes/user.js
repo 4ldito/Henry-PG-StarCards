@@ -1,5 +1,7 @@
+
 const db = require('../db')
-const { User } = db
+const { User,Rol } = db
+const {tokenValidations} = require('../middlewares');
 
 const { Router } = require('express')
 const userRoute = Router()
@@ -14,16 +16,16 @@ userRoute.get('/', async (req, res, next) => {
   }
 })
 
-userRoute.post('/', async (req, res, next) => {
-  try {
-    const { password, username, email } = req.body
-    const newUser = await User.findOrCreate({ where: { password, username, email } })
+
+userRoute.post('/',[tokenValidations.checkToken, tokenValidations.checkAdmin], async (req, res,next) => {
+    const { password, username, email } = req.body;
+    const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol},);
     if (newUser[1]) {
-      newUser[0].setRol('user')
-      newUser[0].setStatus('active')
-      res.json(newUser)
+         newUser[0].setRol('user');
+        newUser[0].setStatus('active');
+        res.json(newUser);
     } else {
-      res.status(400).json({ msg: 'user alredy exists' })
+        res.status(400).json({ msg: 'user alredy exists' });
     }
   } catch (error) {
     next(error)
@@ -33,8 +35,9 @@ userRoute.post('/', async (req, res, next) => {
 userRoute.delete('/', async (req, res, next) => {
   try {
     const id = req.query.id
-    console.log(id)
+
     if (!id) return res.send({ err: 'error' })
+
     const userDeleted = await User.findOne({ where: { id } })
     if (userDeleted) {
       User.destroy({ where: { id } })
