@@ -12,6 +12,7 @@ class User extends Model {
     // User.hasOne(models.Status);
     User.belongsTo(models.Status)
     User.hasOne(models.Deck)
+    User.hasMany(models.Opinion)
 
   }
 

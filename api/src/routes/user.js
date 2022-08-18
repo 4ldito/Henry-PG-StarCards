@@ -25,7 +25,6 @@ userRoute.get('/', async (req, res, next) => {
 })
 
 userRoute.post('/',[tokenValidations.checkToken, tokenValidations.checkAdmin], async (req, res,next) => {
-try {
     const { password, username, email } = req.body;
     const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol});
     try {if (newUser[1]) {

@@ -23,13 +23,13 @@ function App () {
         <Route path='/' element={<LandingPage />} />
         <Route path='/playroom' element={<Playroom />} />
         <Route path='/register' element={<Registro />} />
-        {/* <Route path='/profile' element={<Profile />} /> */}
         <Route path='/shop' element={<Shop />} />
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path='/userProfile' element={<UserProfile />} />
         <Route path='/inventary' element={<Invetary />} />
         <Route path='/inventory' element={<Inventory />} />
         <Route path='/purchase-completed' element={<PurchaseCompleted />} />
+        <Route path='/detail' element={<Detail />} />
       </Routes>
     </div>
   )

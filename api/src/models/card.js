@@ -7,6 +7,7 @@ class Card extends Model {
     });
 
     Card.belongsTo(models.Status);
+    Card.hasMany(models.Opinion)
   }
 }
 
