@@ -9,3 +9,5 @@ export const BUY_SHOPCART = 'BUY_SHOPCART'
 // CARDS
 export const GET_ALL_CARDS = 'GET_ALL_CARDS'
 export const FILTER_CARDS = 'FILTER_CARDS'
+export const SORT_CARDS = 'SORT_CARDS'
+export const SEARCH_CARD = 'SEARCH_CARD'

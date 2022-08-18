@@ -1,19 +1,35 @@
-import { useDispatch } from 'react-redux'
-import { filterCards } from '../../redux/actions/filterCards'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { filterCards } from '../../redux/actions/cards/filterCards'
 
 export default function FilterByRace () {
   const dispatch = useDispatch()
-
+  const cards = useSelector((state) => state.inventory.cards)
+  const [filter, setFilter] = useState({ race: 'allRaces', movements: 'allMovements' })
   function onSelectChange (e) {
-    dispatch(filterCards(e.target.value))
+    setFilter({
+      ...filter,
+      [e.target.name]: e.target.value
+    })
   }
 
+  useEffect(() => {
+    dispatch(filterCards(filter, cards))
+  }, [filter])
+
   return (
-    <select onChange={onSelectChange}>
-      <option value='allRaces'>All races</option>
-      <option value='protoss'>Protoss</option>
-      <option value='terran'>Terran</option>
-      <option value='zerg'>Zerg</option>
-    </select>
+    <div>
+      <select onChange={onSelectChange} name='race'>
+        <option value='allRaces'>All races</option>
+        <option value='Protoss'>Protoss</option>
+        <option value='Terran'>Terran</option>
+        <option value='Zerg'>Zerg</option>
+      </select>
+      <select onChange={onSelectChange} name='movements'>
+        <option value='allMovements'>All movements</option>
+        <option value='ground'>Ground</option>
+        <option value='flying'>Flying</option>
+      </select>
+    </div>
   )
 }

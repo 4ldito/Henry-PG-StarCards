@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL_CARDS } from './actionTypes'
+import { GET_ALL_CARDS } from '../actionTypes'
 
 export default function getAllCards () {
   return async function (dispatch) {

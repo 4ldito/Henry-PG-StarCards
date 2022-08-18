@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default function Card ({ name, image, cost, Gdmg, Admg, life, ability, abilities, race, movement }) {
   return (
     <div>
