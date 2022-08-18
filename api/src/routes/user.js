@@ -8,22 +8,30 @@ const userRoute = Router()
 /// /////////////////////////////////////////////////////////////////////////////////////////////
 userRoute.get('/', async (req, res, next) => {
   try {
+    const { id } = req.body;
+    if(id){  
+    const user = await User.findByPK(id)
+    if (user) return res.json(user)
+    return res.json(new Error('error, User Not Found'))
+  }
+  else{
     const users = await User.findAll()
     if (users) return res.json(users)
     return res.json(new Error('error'))
+  }
   } catch (error) {
     next(error)
   }
 })
 
-
 userRoute.post('/',[tokenValidations.checkToken, tokenValidations.checkAdmin], async (req, res,next) => {
+try {
     const { password, username, email } = req.body;
     const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol},);
     if (newUser[1]) {
          newUser[0].setRol('user');
         newUser[0].setStatus('active');
-        res.json(newUser);
+        res.json(newUser).send({ msg: 'User Created!' });
     } else {
         res.status(400).json({ msg: 'user alredy exists' });
     }
@@ -66,7 +74,7 @@ userRoute.patch('/:id', async (req, res, next) => {
       coverImg: coverImg,
       RolId: RolId
     })
-    res.json({ msg: 'Data Updated!' })
+    res.json(user).send({ msg: 'Data Updated!' })
   } catch (error) {
     next(error)
   }
