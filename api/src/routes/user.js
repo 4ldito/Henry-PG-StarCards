@@ -1,7 +1,7 @@
 
 const db = require('../db')
 const { User,Rol } = db
-
+const {tokenValidations} = require('../middlewares');
 
 const { Router } = require('express')
 
@@ -13,7 +13,7 @@ userRoute.get('/', async (req, res) => {
     return res.json(new Error('error'))
 })
 
-userRoute.post('/', async (req, res) => {
+userRoute.post('/',tokenValidations.checkToken, async (req, res) => {
     const { password, username, email } = req.body;
     const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol},);
     if (newUser[1]) {
