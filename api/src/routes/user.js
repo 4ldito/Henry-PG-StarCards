@@ -13,7 +13,7 @@ userRoute.get('/', async (req, res) => {
     return res.json(new Error('error'))
 })
 
-userRoute.post('/',tokenValidations.checkToken, async (req, res) => {
+userRoute.post('/',[tokenValidations.checkToken, tokenValidations.checkAdminRole], async (req, res) => {
     const { password, username, email } = req.body;
     const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol},);
     if (newUser[1]) {
