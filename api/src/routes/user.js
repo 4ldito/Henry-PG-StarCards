@@ -19,6 +19,7 @@ userRoute.post('/', async (req, res) => {
     if (newUser[1]) {
         newUser[0].setRol('user')
         newUser[0].setStatus('active')
+        console.log(newUser[0].username)
         res.json(newUser)
     } else {
         res.status(400).json('user alredy exists')

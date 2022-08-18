@@ -3,7 +3,7 @@
 const { Model, UUIDV4 } = require('sequelize')
 
 class User extends Model {
-  static associate (models) {
+  static associate(models) {
     // define association here
     User.belongsToMany(models.Card, {
       through: 'UserCards'
@@ -49,7 +49,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue:
           'https://bnetcmsus-a.akamaihd.net/cms/blog_header/2g/2G4VZH5TIWJF1602720144046.jpg'
+      },
+      score: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
       }
+
     },
     {
       timestamps: false,
