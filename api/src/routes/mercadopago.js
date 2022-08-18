@@ -18,9 +18,9 @@ mercadopagoRoute.post('/checkout', (req, res, next) => {
   const preference = {
     items,
     back_urls: {
-      success: 'www.google.com.ar',
-      failure: 'http://localhost:5173/shopcart?state=failure',
-      pending: 'http://localhost:5173/shopcart?state=pending'
+      success: 'http://localhost:5173/purchase-completed?state=success',
+      failure: 'http://localhost:5173/purchase-completed?state=failure',
+      pending: 'http://localhost:5173/purchase-completed?state=pending'
     }
   }
   mp.preferences

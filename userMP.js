@@ -1,6 +1,24 @@
 // Tarjeta{
 // tarjeta visa
-// 4509 9535 6623 3704	11/25    123},
+// 4509 9535 6623 3704	11/25    123
+
+/**
+ * Tarjeta mastercard:
+ * 5031 7557 3453 0604  | 11/25 | 123
+ * NOMBRES:
+ * APRO - Pago aprobado - DNI: 01111111
+ * OTHE - Rechazado por error general - DNI: 01111111
+ * CONT	- Pendiente de pago
+ * CALL	- Rechazado con validación para autorizar
+ * FUND	- Rechazado por importe insuficiente
+ * SECU - Rechazado por código de seguridad inválido
+ * EXPI - Rechazado debido a un problema de fecha de vencimiento
+ * FORM - Rechazado debido a un error de formular
+ * 
+ * 
+ * 
+ */
+
 // ///////////////////////////////////////////////////
 // Test 1{//Vendedor
 //     "id": 1178359030,

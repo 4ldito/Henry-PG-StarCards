@@ -9,6 +9,8 @@ import Playroom from './components/Playroom/Playroom'
 import ShopCart from './components/Shop/ShopCart/ShopCart'
 import Invetary from './components/Inventary/Inventary'
 import Shop from './components/Shop/Shop'
+import Inventory from './components/Inventory/Inventory'
+import PurchaseCompleted from './components/Shop/PurchaseCompleted'
 
 import './App.css'
 // import Profile from './components/Profile/Profile'
@@ -26,6 +28,8 @@ function App () {
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path='/userProfile' element={<UserProfile />} />
         <Route path='/inventary' element={<Invetary />} />
+        <Route path='/inventory' element={<Inventory />} />
+        <Route path='/purchase-completed' element={<PurchaseCompleted />} />
       </Routes>
     </div>
   )
