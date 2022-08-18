@@ -4,7 +4,13 @@ import Mercadopago from './Mercadopago'
 
 const ShopCart = () => {
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
-  let total = 0
+  let totalStarsPack = 0
+
+  const handleBuyCardsPack = (e) => {
+    e.preventDefault();
+    console.log('s');
+  }
+
   return (
     <div>ShopCart
       {starsPack.length > 0 || cardsPack.length > 0
@@ -14,14 +20,14 @@ const ShopCart = () => {
               <div>
                 <h2>Carrito de stars</h2>
                 {starsPack.map(item => {
-                  total += item.price * item.quantity
+                  totalStarsPack += item.price * item.quantity
                   return (
                     <div key={item.id}>
                       <p>{item.name} Cantidad: {item.quantity} Subtotal: ARS ${item.price * item.quantity}</p>
                     </div>
                   )
                 })}
-                <p>Total: ARS ${total}</p>
+                <p>Total: ARS ${totalStarsPack}</p>
                 <Mercadopago shopCartItems={starsPack} />
               </div>)}
             {cardsPack.length && (
@@ -34,7 +40,7 @@ const ShopCart = () => {
                     </div>
                   )
                 })}
-                <button>Comprar packs de cards</button>
+                <button onClick={handleBuyCardsPack}>Comprar packs de cards</button>
               </div>)}
           </>)
         : <p>El carrito esta vacio</p>}

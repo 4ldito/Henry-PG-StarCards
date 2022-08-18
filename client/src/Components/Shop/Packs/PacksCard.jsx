@@ -37,7 +37,6 @@ const PacksCard = ({ pack, type }) => {
         icon: 'error',
       });
     }
-
     dispatch(buyCardPack(info))
   }
 

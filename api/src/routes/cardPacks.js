@@ -22,14 +22,14 @@ packsRoute.post('/buy', async (req, res, next) => {
     const [user, pack] = await Promise.all([User.findOne(), CardPacks.findByPk(id)])
     const total = quantity * pack.price;
 
-    if (user.stars < total) return res.send({ error: 'stars insuficientes!!!!!!!!!!!!!' });
+    if (user.stars < total) return res.send({ error: 'stars insuficientes!' });
     if (pack.stock < quantity ) return res.send({error: 'Stock insuficente'})
 
     user.stars = user.stars - total;
     pack.stock = pack.stock - quantity;
     await Promise.all([user.save(), pack.save()])
   
-    res.send({ msg: `Compraste ${quantity} del pack ${pack.name} correctamente` });
+    res.send({ msg: `Compraste ${quantity} del pack ${pack.name} correctamente`, pack });
   } catch (error) {
     console.log(error)
     res.send(error)

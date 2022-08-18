@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFetchStarsPack } from '../../hooks/useFetchStarsPack'
 import { useSelector, useDispatch } from 'react-redux'
 import { removeFromShopCart } from './../../redux/actions/shopCart'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import Packs from './Packs/Packs'
 import { useFetchCardsPack } from './../../hooks/useFetchCardsPack';
@@ -11,10 +12,21 @@ const Shop = () => {
   const dispatch = useDispatch()
 
   const loadedStarsPack = useFetchStarsPack().loaded
-  const loadCardsPack  = useFetchCardsPack().loaded
+  const loadCardsPack = useFetchCardsPack().loaded
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
 
-  if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
+  const msgInfoPurchase = useSelector(state => state.cardsPacksReducer.msg)
+
+  useEffect(() => {
+    if (msgInfoPurchase.type) {
+      Swal.fire({
+        title: msgInfoPurchase.title,
+        text: msgInfoPurchase.info,
+        icon: msgInfoPurchase.type,
+      })
+    }
+  }, [msgInfoPurchase]);
+
 
   const handleRemoveItem = (e, type) => {
     e.preventDefault()
@@ -22,8 +34,10 @@ const Shop = () => {
     dispatch(removeFromShopCart(target, type))
   }
 
+  if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
+
   return (
-    <div style={{color: 'white'}}>
+    <div style={{ color: 'white' }}>
       <Link to='/shopcart'>Ir al carrito</Link>
       <h2>Carrito: </h2>
       <h3>Carrito de Stars Packs</h3>
