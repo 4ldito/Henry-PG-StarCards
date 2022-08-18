@@ -14,21 +14,19 @@ userRoute.get('/', async (req, res) => {
 })
 
 userRoute.post('/', async (req, res) => {
-    const { password, username, email } = req.body
-    const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol},)
+    const { password, username, email } = req.body;
+    const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol},);
     if (newUser[1]) {
-         newUser[0].setRol('user')
-        newUser[0].setStatus('active')
-        console.log(newUser[0].RolId)
-        res.json(newUser)
+         newUser[0].setRol('user');
+        newUser[0].setStatus('active');
+        res.json(newUser);
     } else {
-        res.status(400).json('user alredy exists')
+        res.status(400).json('user alredy exists');
     }
 })
 
 userRoute.delete('/', async (req, res) => {
     const id = req.query.id
-    console.log(id);
     if (!id) return res.send('error')
     const userDeleted = await User.findOne({ where: { id } })
     if (userDeleted) {

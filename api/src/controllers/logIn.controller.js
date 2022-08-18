@@ -18,7 +18,7 @@ async function signUp(req, res, next) {
         }
         const savedUser = await newUser.save();
         const token = jwt.sign({ id: savedUser.id }, config.SECRET, { expiresIn: 86400 });
-        res.status(200).json(token)
+        res.status(200).json({token})
     } catch (err) {
         next(err)
 
@@ -29,9 +29,13 @@ async function signUp(req, res, next) {
 async function signIn (req, res) {
     const {email} = req.body
 
-    const userFound = await User.findOne({where:{email}})
-    if(!userFound)return res.status(400).json('el usuario no existe');
-    res.json("usuario existente")
+    const userFound = await User.findOne({where:{email}},{include: [{model:Rol}]})
+    if(!userFound)return res.status(400).json({token:null,message:'el usuario no existe'});
+    const validPassword = await User.prototype.comparePassword(req.body.password, userFound.password);
+    console.log(validPassword);
+    if(!validPassword)return res.status(400).json({token:null, message:"la contraseña no coincide"});
+    const token = jwt.sign({id: userFound.id}, config.SECRET, {expiresIn: 86400});
+    res.json({token})
 }
 
 module.exports = {
