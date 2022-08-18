@@ -18,8 +18,7 @@
     "react-redux": "^8.0.2",
     "react-router-dom": "^6.3.0",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1",
-    "standard": "^17.0.0"
+    "redux-thunk": "^2.4.1"
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"

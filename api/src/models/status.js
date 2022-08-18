@@ -8,7 +8,7 @@ class Status extends Model {
     Status.hasOne(models.Card);
     Status.hasOne(models.Deck);
     Status.hasOne(models.StarsPack);
-    Status.hasOne(models.CardsPack);
+    Status.hasOne(models.CardPacks);
   }
 }
 

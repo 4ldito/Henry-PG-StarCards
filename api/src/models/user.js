@@ -1,9 +1,9 @@
 'use strict'
 
 const { Model, UUIDV4 } = require('sequelize')
-
+const bcrypt = require('bcryptjs');
 class User extends Model {
-  static associate (models) {
+  static associate(models) {
     // define association here
     User.belongsToMany(models.Card, {
       through: 'UserCards'
@@ -12,9 +12,18 @@ class User extends Model {
     // User.hasOne(models.Status);
     User.belongsTo(models.Status)
     User.hasOne(models.Deck)
-  }
-}
 
+  }
+
+}
+User.prototype.hashPassword = async (password) => {
+  const salt = await bcrypt.genSalt(11)
+  const hash = await bcrypt.hash(password, salt);
+  return hash
+}
+User.prototype.comparePassword = async (inputPassword, password) => {
+  return await bcrypt.compare(inputPassword, password);
+}
 module.exports = (sequelize, DataTypes) => {
   User.init(
     {
@@ -49,7 +58,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue:
           'https://bnetcmsus-a.akamaihd.net/cms/blog_header/2g/2G4VZH5TIWJF1602720144046.jpg'
+      },
+      score: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+      },
+      roles:{
+        type: DataTypes.ARRAY(DataTypes.STRING)
       }
+
     },
     {
       timestamps: false,
@@ -57,5 +74,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User'
     }
   )
+
+
   return User
 }
