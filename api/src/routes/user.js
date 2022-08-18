@@ -19,6 +19,8 @@ userRoute.post('/', async (req, res, next) => {
     const { password, username, email } = req.body
     const newUser = await User.findOrCreate({ where: { password, username, email } })
     if (newUser[1]) {
+      newUser[0].setRol('user')
+      newUser[0].setStatus('active')
       res.json(newUser)
     } else {
       res.status(400).json({ msg: 'user alredy exists' })
@@ -47,73 +49,24 @@ userRoute.delete('/', async (req, res, next) => {
 
 /// ////////////////////Routes Modify Profile//////////////////////////////////////////
 
-userRoute.patch('/', async (req, res, next) => {
+userRoute.patch('/:id', async (req, res, next) => {
   try {
-    const { username } = req.body
-    await User.update(User, {
-      where: {
-        username: username
-      }
-    })
-    res.json({ msg: 'Username Updated!' })
-  } catch (error) {
-    next(error)
-  }
-})
+    const {id} = req.params
+    const { username, password, email, profileImg, coverImg, RolId } = req.body
 
-userRoute.patch('/', async (req, res, next) => {
-  try {
-    const { email } = req.body
-    await User.update(User, {
-      where: {
-        email: email
-      }
+    const user = await User.findByPk(id)
+    await user.update({
+      username: username,
+      password: password,
+      email: email,
+      profileImg: profileImg,
+      coverImg: coverImg,
+      RolId: RolId
     })
-    res.json({ msg: 'Email Updated!' })
+    res.json({ msg: 'Data Updated!' })
   } catch (error) {
     next(error)
   }
-})
 
-userRoute.patch('/', async (req, res, next) => {
-  try {
-    const password = req.body
-    await User.update(User, {
-      where: {
-        password: password
-      }
-    })
-    res.json({ msg: 'Password Updated!' })
-  } catch (error) {
-    next(error)
-  }
-})
-
-userRoute.patch('/', async (req, res, next) => {
-  try {
-    const { profileImg } = req.body
-    await User.update(User, {
-      where: {
-        profileImg: profileImg
-      }
-    })
-    res.json({ msg: 'Profile Image Updated!' })
-  } catch (error) {
-    next(error)
-  }
-})
-
-userRoute.patch('/', async (req, res, next) => {
-  try {
-    const { coverImg } = req.body
-    await User.update(User, {
-      where: {
-        coverImg: coverImg
-      }
-    })
-    res.json({ msg: 'Cover Image Updated!' })
-  } catch (error) {
-    next(error)
-  }
 })
 module.exports = userRoute
