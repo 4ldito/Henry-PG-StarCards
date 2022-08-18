@@ -1,14 +1,14 @@
 const { Model } = require("sequelize");
 
-class CardsPack extends Model {
+class CardPacks extends Model {
   static associate(models) {
     // CardsPack.belongsTo(models.User)
-    CardsPack.hasOne(models.Status);
+    CardPacks.hasOne(models.Status);
   }
 }
 
 module.exports = (sequelize, DataTypes) => {
-  CardsPack.init(
+  CardPacks.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -23,19 +23,23 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      stock: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       race: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
       cards: {
-        type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING(5000))),
+        type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING)),
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: "CardsPack",
+      modelName: "CardPacks",
     }
   );
-  return CardsPack;
+  return CardPacks;
 };

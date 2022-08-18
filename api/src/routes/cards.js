@@ -1,17 +1,27 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-const { Router } = require('express')
-const db = require('../db')
+const { Router } = require("express");
+const db = require("../db");
 
-const { Card } = db
-const cardsRoute = Router()
+const { Card } = db;
+const cardsRoute = Router();
 
-cardsRoute.get('/', async (req, res, next) => {
+cardsRoute.get("/all", async (req, res, next) => {
   try {
-    const packs = await Card.findAll()
-    return res.send(packs)
+    const cards = await Card.findAll();
+    return res.send(cards);
   } catch (error) {
-    return next(error)
+    return next(error);
   }
-})
+});
 
-module.exports = cardsRoute
+cardsRoute.get("/:status", async (req, res, next) => {
+  const { status } = req.params;
+  try {
+    const cards = await Card.findAll({ where: { StatusId: status } });
+    return res.send(cards);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+module.exports = cardsRoute;
