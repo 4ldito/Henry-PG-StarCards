@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-<<<<<<< HEAD
 const server = require("./src/app");
 const db = require("./src/db");
 const users = require("./src/seeders/users");
@@ -15,22 +14,6 @@ const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
 const { User, Rol, StarsPack, Card, CardPacks, Status } = db;
 
 const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000;
-=======
-const server = require('./src/app')
-const db = require('./src/db')
-const users = require('./src/seeders/users')
-const rols = require('./src/seeders/rols')
-const status = require('./src/seeders/status')
-const starsPack = require('./src/seeders/starsPack')
-const { zergCards, terranCards, protossCards } = require('./src/seeders/cards')
-// const cardsPack = require('./src/seeders/cardsPack')
-
-// ARREGLAR EN CARDSPACKS
-
-const { User, Rol, StarsPack, Card, CardsPack, Status } = db
-
-const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000
->>>>>>> 806d2f039d346787df855c456773cdd41279d878
 
 const createAllCards = async () => {
   const allCards = [];
@@ -64,9 +47,9 @@ const createRols = async () => {
 
 const createStatus = async () => {
   for (const stat of status) {
-    await Status.create(stat)
+    await Status.create(stat);
   }
-}
+};
 
 const getSuperAdminRol = async () => {
   try {
@@ -75,25 +58,20 @@ const getSuperAdminRol = async () => {
   } catch (error) {
     console.log(error);
   }
-<<<<<<< HEAD
+  EAD;
 };
-=======
-}
->>>>>>> 806d2f039d346787df855c456773cdd41279d878
 
 db.sequelize.sync({ force: true }).then(async () => {
-  await createRols()
-  await createStatus()
+  await createRols();
+  await createStatus();
 
-<<<<<<< HEAD
   const packs = await createAllCardPacks();
   const packsStatus = packs.map(async (pack) => await pack.setStatus("active"));
   await Promise.all(packsStatus);
-=======
-  const cards = await createAllCards()
-  const cardsStatus = cards.map(async (card) => await card.setStatus('active'))
-  await Promise.all(cardsStatus)
->>>>>>> 806d2f039d346787df855c456773cdd41279d878
+
+  const cards = await createAllCards();
+  const cardsStatus = cards.map(async (card) => await card.setStatus("active"));
+  await Promise.all(cardsStatus);
 
   const superAdminRol = await getSuperAdminRol();
   users.forEach(async (u) => {
