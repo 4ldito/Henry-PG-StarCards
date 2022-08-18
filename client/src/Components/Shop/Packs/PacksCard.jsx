@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const StarsPacksCard = ({ handleAddItem, pack }) => {
+const PacksCard = ({ handleAddItemStarsPack, pack }) => {
   const [quantity, setQuantity] = useState(1)
 
   const decreaseQuantity = (e) => {
@@ -17,7 +17,7 @@ const StarsPacksCard = ({ handleAddItem, pack }) => {
   }
 
   return (
-    <form name={pack.name} id={pack.id} onSubmit={handleAddItem} key={pack.id}>
+    <form name={pack.name} id={pack.id} onSubmit={handleAddItemStarsPack} key={pack.id}>
       <h3>{pack.name}</h3>
       <p>${pack.price}</p>
       <p>para: {pack.stars} stars!</p>
@@ -29,4 +29,4 @@ const StarsPacksCard = ({ handleAddItem, pack }) => {
   )
 }
 
-export default StarsPacksCard
+export default PacksCard

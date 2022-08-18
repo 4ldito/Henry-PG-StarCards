@@ -1,25 +1,24 @@
 import axios from 'axios'
-import { ADD_TO_SHOPCART, BUY_SHOPCART, REMOVE_FROM_SHOPCART } from './actionTypes'
+import { ADD_TO_SHOPCART_STARSPACK, REMOVE_FROM_SHOPCART_STARPACK, GET_PREFERENCE_ID } from './actionTypes'
 
-export function addToShopCart (product, quantity) {
+export function addToShopCartStarPack (product, quantity, packTypes) {
   quantity = Number(quantity)
   return {
-    type: ADD_TO_SHOPCART,
-    payload: { product, quantity }
+    type: ADD_TO_SHOPCART_STARSPACK,
+    payload: { product, quantity, packTypes }
   }
 }
 
-export function removeFromShopCart (product) {
+export function removeFromShopCartStarPack (product) {
   return {
-    type: REMOVE_FROM_SHOPCART,
+    type: REMOVE_FROM_SHOPCART_STARPACK,
     payload: { product }
   }
 }
 
-export function buyShopCart (shopcart) {
+export function getPreferenceId (shopcart) {
   return async function (dispatch) {
     const response = await axios.post('http://localhost:3001/mercadopago/checkout', shopcart)
-    console.log(response)
-    dispatch({ type: BUY_SHOPCART, payload: response.data })
+    dispatch({ type: GET_PREFERENCE_ID, payload: response.data })
   }
 }
