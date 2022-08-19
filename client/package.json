@@ -21,7 +21,7 @@
     "redux-thunk": "^2.4.1"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": "react-app"
   },
   "devDependencies": {
     "@types/react": "^18.0.15",
