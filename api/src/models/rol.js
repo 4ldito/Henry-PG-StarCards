@@ -2,8 +2,8 @@ const { Model } = require("sequelize");
 
 class Rol extends Model {
   static associate(models) {
-    // Rol.hasOne(models.User);
-    Rol.belongsTo(models.User);
+    Rol.hasOne(models.User);
+    // Rol.belongsTo(models.User);
   }
 }
 
