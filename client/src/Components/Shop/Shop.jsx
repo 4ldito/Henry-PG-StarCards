@@ -34,7 +34,6 @@ const Shop = () => {
     }
   }, []);
 
-
   const handleRemoveItem = (e, type) => {
     e.preventDefault()
     const target = Number(e.target.id)
@@ -44,7 +43,7 @@ const Shop = () => {
   if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
 
   return (
-    <div style={{ color: 'white' }}>
+    <div>
       <Link to='/shopcart'>Ir al carrito</Link>
       <h2>Carrito: </h2>
       <h3>Carrito de Stars Packs</h3>

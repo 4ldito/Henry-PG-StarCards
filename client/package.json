@@ -22,7 +22,7 @@
     "sweetalert2": "^11.4.28"
   },
   "eslintConfig": {
-    "extends": "./node_modules/standard/eslintrc.json"
+    "extends": "react-app"
   },
   "devDependencies": {
     "@types/react": "^18.0.15",

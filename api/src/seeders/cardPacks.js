@@ -13,6 +13,7 @@ const cardPacks = [
       ["Lurker", "0.03"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Colonia Zerg",
@@ -30,6 +31,7 @@ const cardPacks = [
       ["Overlord", "0.05"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Colmena de la Supermente",
@@ -47,6 +49,7 @@ const cardPacks = [
       ["Viper", "0.06"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Enjambre de Char",
@@ -62,6 +65,7 @@ const cardPacks = [
       ["Kerrigan", "0.03"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Bunker Terran",
@@ -77,6 +81,7 @@ const cardPacks = [
       ["Widow Mine", "0.03"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Estación Planetaria Terran",
@@ -94,6 +99,7 @@ const cardPacks = [
       ["Viking", "0.05"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Dominio en Korhal",
@@ -111,6 +117,7 @@ const cardPacks = [
       ["Liberator", "0.06"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Aliados del Hyperion",
@@ -126,6 +133,7 @@ const cardPacks = [
       ["Raynor", "0.03"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Fanáticos Protoss",
@@ -141,6 +149,7 @@ const cardPacks = [
       ["Corsair", "0.03"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Consejo de Aiur",
@@ -158,6 +167,7 @@ const cardPacks = [
       ["Colossus", "0.05"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Gran Armada Tal'darim",
@@ -175,6 +185,7 @@ const cardPacks = [
       ["Archon", "0.06"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Memoria del Prelado Tétrico",
@@ -190,6 +201,7 @@ const cardPacks = [
       ["Zeratul", "0.03"],
     ],
     stock: 100,
+    image: "",
   },
   {
     name: "Entra en el sector Koprulu",
@@ -204,6 +216,7 @@ const cardPacks = [
       ["Thor", "0.11"],
     ],
     stock: 100,
+    image: "",
   },
 ];
 
