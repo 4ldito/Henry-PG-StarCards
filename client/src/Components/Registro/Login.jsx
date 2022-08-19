@@ -17,6 +17,7 @@ export default function Login () {
   
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+    const [loginEmail, setLoginEmail] = useState("");
     
     
 
@@ -26,11 +27,12 @@ export default function Login () {
       Axios({
         method: "POST",
         data: {
+          email: 'email', 
           username: loginUsername,
           password: loginPassword,
         },
         withCredentials: true,
-        url: "http://localhost:3001/login",
+        url: "http://localhost:3001/signup",
       }).then((res) => console.log(res));
     };
 

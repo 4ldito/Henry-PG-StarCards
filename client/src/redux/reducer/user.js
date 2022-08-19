@@ -3,7 +3,8 @@ import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER } from '
 
 const initialState = {
   user: {},
-  users: []
+  users: [],
+  token: null
 }
 
 export default function shopCartReducer (state = initialState, { type, payload }) {
@@ -13,7 +14,7 @@ export default function shopCartReducer (state = initialState, { type, payload }
     case GET_ALL_USERS:
       return { ...state, users: payload }
     case CREATE_USER:
-      return { ...state, user: payload }
+      return { ...state, token: payload }
     case MODIFY_USER:
       return { ...state, user: payload }
     case DELETE_USER:

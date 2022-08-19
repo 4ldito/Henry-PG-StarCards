@@ -12,11 +12,7 @@ const server = express()
 server.use(cookieSession({name:'session', keys:['secretKey'], maxAge:24*60*60*100}));
 server.use(passport.initialize());
 server.use(passport.session());
-server.use(cors({
-  origin:'http://localhost:3000',
-  credentials:true,
-  methods:'GET,POST,PUT,PATCH,DELETE'
-}))
+server.use(cors())
 server.use(express.urlencoded({ extended: true, limit: '50mb' }))
 server.use(express.json({ limit: '50mb' }))
 server.use(cookieParser())

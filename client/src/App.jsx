@@ -28,7 +28,6 @@ function App () {
         <Route path='/shop' element={<Shop />} />
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path='/userProfile' element={<UserProfile />} />
-        <Route path='/inventary' element={<Invetary />} />
         <Route path='/inventory' element={<Inventory />} />
         <Route path='/purchase-completed' element={<PurchaseCompleted />} />
       </Routes>

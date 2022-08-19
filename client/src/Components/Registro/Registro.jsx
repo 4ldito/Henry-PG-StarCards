@@ -33,6 +33,8 @@ export default function Registro () {
 import React, {useEffect, useState} from "react";
 import {Link} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
+import { createUser } from "../../redux/actions/user";
+import axios from "axios";
 //import { signUp } from "../../redux/actions";
 
 
@@ -42,25 +44,28 @@ export default function Registro(){
 
     const [errors, setErrors] = useState({});
     const [input, setInput] = useState({
-        name: '',
+        username: '',
         email:'',
-        pass: ''
+        password: ''
     });
 
     //cambio
-
+  const handleSubmit= async (e) => {
+    e.preventDefault();
+    dispatch(createUser(input))
+  }
 
   const handleChange = (e)=>{
     setInput({
         ...input,
         [e.target.name]: e.target.value,
     });
-    setErrors(
-        validate({
-            ...input,
-            [e.target.name]: e.target.value
-        })
-    );
+    // setErrors(
+    //     validate({
+    //         ...input,
+    //         [e.target.name]: e.target.value
+    //     })
+    // );
 };
 
       const handleError = (e)=>{
@@ -76,34 +81,34 @@ export default function Registro(){
               Registrate
           </div>
           <input
-                autocomplete="off"
+                autoComplete="off"
                 type="text"
-                name="name"
+                name="username"
                 onChange={(e) => {
                     handleChange(e);
                 }}
                 placeholder="Name"
                 />
           <input
-                autocomplete="off"
+                autoComplete="off"
                 type="email"
-                name="name"
+                name="email"
                 onChange={(e) => {
                     handleChange(e);
                 }}
                 placeholder="correo"
                 />
           <input
-                autocomplete="off"
+                autoComplete="off"
                 type="password"
-                name="name"
+                name="password"
                 onChange={(e) => {
                     handleChange(e);
                 }}
                 placeholder="Pass"
                 />
           {input.name !== "" ? (
-            <button type="submit">
+            <button type="submit" >
                 Create!
             </button>
             ) : (

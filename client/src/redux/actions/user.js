@@ -19,7 +19,8 @@ export function getAllUsers () {
 
 export function createUser (user) {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/user', user)
+    const response = await axios.post('http://localhost:3001/login/signup', user)
+    console.log(response.data.token);
     dispatch({ type: CREATE_USER, payload: response.data })
   }
 }
