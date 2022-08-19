@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER } from './actionTypes'
+import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER } from '../actions/actionTypes'
 
 const initialState = {
   user: {},
