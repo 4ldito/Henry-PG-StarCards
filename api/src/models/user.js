@@ -4,15 +4,15 @@ const { Model, UUIDV4 } = require("sequelize");
 const bcrypt = require("bcryptjs");
 class User extends Model {
   static associate(models) {
-    // define association here
-    // User.belongsTo(models.UserCards);
-    // User.belongsTo(models.Rol);
-    // User.belongsTo(models.Status);
-    // User.hasOne(models.Deck);
     User.belongsTo(models.UserCards);
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
-    User.hasMany(models.Deck);
+    User.hasOne(models.Deck);
+    User.hasMany(models.Opinion)
+    // User.belongsTo(models.UserCards);
+    // User.belongsTo(models.Rol);
+    // User.belongsTo(models.Status);
+    // User.hasMany(models.Deck);
   }
 }
 
@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImg: {
         type: DataTypes.STRING,
         defaultValue:
-          "https://static.wikia.nocookie.net/starcraft2/images/a/a1/Zerg_SC2_Icon2.jpg/revision/latest?cb=20100826205116&path-prefix=es",
+          'https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg'
       },
       coverImg: {
         type: DataTypes.STRING,
