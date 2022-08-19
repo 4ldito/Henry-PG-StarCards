@@ -20,8 +20,9 @@ async function checkToken(req, res, next) {
 
 async function checkAdmin(req, res, next) {
     try {
-        const user = await  User.findOne({ where: { id: req.userId } })
-        if(!user.roles.includes('admin')) return res.status(400).json({message:"No es admin"});
+        const user = await  User.findOne({ where: { id: req.userId }, include:Rol })
+        
+        if(!user.RolId.includes('admin')) return res.status(400).json({message:"No es admin"});
         next()
     } catch (err) {
         res.status(400).json({message:"Denied"})
@@ -31,7 +32,7 @@ async function checkAdmin(req, res, next) {
 async function checkSuperadmin(req, res, next) {
     try {
         const user = await  User.findOne({ where: { id: req.userId } })
-        if(!user.roles.includes('superadmin'))return res.status(400).json({message:"No es superadmin"});
+        if(!user.RolId.includes('superadmin'))return res.status(400).json({message:"No es superadmin"});
         next()
     } catch (err) {
         res.status(400).json({message:"Denied"})

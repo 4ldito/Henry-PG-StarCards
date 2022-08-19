@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
-import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER } from '../actions/actionTypes'
+import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER,SIGN_IN } from '../actions/actionTypes'
+import { signIn } from '../actions/user'
 
 const initialState = {
   user: {},
@@ -15,6 +16,8 @@ export default function shopCartReducer (state = initialState, { type, payload }
       return { ...state, users: payload }
     case CREATE_USER:
       return { ...state, token: payload }
+    case SIGN_IN:
+      return {...state, token:payload}
     case MODIFY_USER:
       return { ...state, user: payload }
     case DELETE_USER:

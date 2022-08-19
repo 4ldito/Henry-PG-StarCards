@@ -1,18 +1,17 @@
+const db = require("../db");
+const { User, Rol } = db;
+const { tokenValidations } = require("../middlewares");
 
-const db = require('../db')
-const { User,Rol } = db
-const {tokenValidations} = require('../middlewares');
-
-const { Router } = require('express')
-const userRoute = Router()
+const { Router } = require("express");
+const userRoute = Router();
 /// /////////////////////////////////////////////////////////////////////////////////////////////
-userRoute.get('/', async (req, res, next) => {
+userRoute.get("/", async (req, res, next) => {
   try {
     const { id } = req.body;
     if(id){  
     const user = await User.findByPK(id)
-    if (user) return res.json(user)
-    return res.json(new Error('error, User Not Found'))
+    if (user) return res.json(user);
+    return res.status(404).json({error:'error, User Not Found'})
   }
   else{
     const users = await User.findAll()
@@ -51,33 +50,78 @@ userRoute.delete('/', async (req, res, next) => {
       User.destroy({ where: { id } })
       res.json({ msg: 'user removed' })
     } else {
-      return res.status(400).send({ msg: 'user does not exist' })
+      const users = await User.findAll();
+      if (users) return res.json(users);
+      return res.json(new Error("error"));
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
+
+userRoute.post(
+  "/",
+  [tokenValidations.checkToken, tokenValidations.checkAdmin],
+  async (req, res, next) => {
+    const { password, username, email } = req.body;
+    try {
+      const [newUser,created] = await User.findOrCreate({
+        where: { password, username, email },
+        include: Rol,
+      });
+      if (created) {
+        newUser.setRol("user");
+        newUser.setStatus("active");
+        res.json(newUser).send({ msg: "User Created!" });
+      } else {
+        res.status(400).json({ msg: "user alredy exists" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+userRoute.delete("/", async (req, res, next) => {
+  try {
+    const id = req.query.id;
+
+    if (!id) return res.send({ err: "error" });
+
+    const userDeleted = await User.findOne({ where: { id } });
+    if (userDeleted) {
+      User.destroy({ where: { id } });
+      res.json({ msg: "user removed" });
+    } else {
+      return res.status(400).send({ msg: "user does not exist" });
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 
 /// ////////////////////Routes Modify Profile//////////////////////////////////////////
 
-userRoute.patch('/:id', async (req, res, next) => {
+userRoute.patch("/:id", async (req, res, next) => {
   try {
-    const {id} = req.params
-    const { username, password, email, profileImg, coverImg, RolId } = req.body
+    const { id } = req.params;
+    const { username, password, email, profileImg, coverImg, RolId } = req.body;
 
-    const user = await User.findByPk(id)
+    const user = await User.findByPk(id);
+    if (RolId) {
+      await user.setStatus(RolId);
+    }
     await user.update({
       username: username,
       password: password,
       email: email,
       profileImg: profileImg,
       coverImg: coverImg,
-      RolId: RolId
-    })
-    res.json(user).send({ msg: 'Data Updated!' })
-  } catch (error) {
-    next(error)
-  }
+    });
 
-})
-module.exports = userRoute
+    res.json(user).send({ msg: "Data Updated!" });
+  } catch (error) {
+    next(error);
+  }
+});
+module.exports = userRoute;

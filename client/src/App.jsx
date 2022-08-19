@@ -9,6 +9,7 @@ import NavigationBar from './components/NavigationBar/NavigationBar'
 import Playroom from './components/Playroom/Playroom'
 import ShopCart from './components/Shop/ShopCart/ShopCart'
 import Shop from './components/Shop/Shop'
+import Detail from './components/Detail/Detail'
 import Inventory from './components/Inventory/Inventory'
 import PurchaseCompleted from './components/Shop/PurchaseCompleted'
 
@@ -22,6 +23,7 @@ function App () {
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/playroom' element={<Playroom />} />
+
         <Route path='/register' element={<Registro />} />
         <Route path='/login' element={<Login />} />
         {/* <Route path='/profile' element={<Profile />} /> */}
@@ -30,6 +32,7 @@ function App () {
         <Route path='/userProfile' element={<UserProfile />} />
         <Route path='/inventory' element={<Inventory />} />
         <Route path='/purchase-completed' element={<PurchaseCompleted />} />
+        <Route path='/detail' element={< Detail />} />
       </Routes>
     </div>
   )
