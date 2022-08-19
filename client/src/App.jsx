@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import Registro from './components/Registro/Registro'
+import Login from './Components/Registro/Login'
 import UserProfile from './components/UserProfile/UserProfile'
 import LandingPage from './components/LandingPage/LandingPage'
 import NavigationBar from './components/NavigationBar/NavigationBar'
@@ -23,6 +24,7 @@ function App () {
         <Route path='/' element={<LandingPage />} />
         <Route path='/playroom' element={<Playroom />} />
         <Route path='/register' element={<Registro />} />
+        <Route path='/login' element={<Login />} />
         {/* <Route path='/profile' element={<Profile />} /> */}
         <Route path='/shop' element={<Shop />} />
         <Route path='/shopcart' element={<ShopCart />} />
