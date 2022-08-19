@@ -5,7 +5,7 @@ const initialState = {
   opinion: []
 }
 
-export default function detail (state = initialState, action) {
+export default function detailReducer (state = initialState, action) {
   switch (action.type) {
     case CARD_DETAIL:
       return { ...state, card: action.payload }

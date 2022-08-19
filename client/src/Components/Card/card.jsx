@@ -13,7 +13,7 @@ export default function Card ({ id, name, image, cost, Gdmg, Admg, life, ability
     navigate("/detail")
   }
   return (
-    <div onClick={() => detail()}>
+    <div onClick={() => detail(id)}>
       <h3>{name}</h3>
       <img src={image} alt={image} />
       <div>
