@@ -8,7 +8,6 @@ const userRoute = Router();
 userRoute.get("/", async (req, res, next) => {
   try {
     const { id } = req.body;
-<<<<<<< HEAD
     if(id){  
     const user = await User.findByPK(id)
     if (user) return res.json(user);
@@ -66,13 +65,13 @@ userRoute.post(
   async (req, res, next) => {
     const { password, username, email } = req.body;
     try {
-      const newUser = await User.findOrCreate({
+      const [newUser,created] = await User.findOrCreate({
         where: { password, username, email },
         include: Rol,
       });
-      if (newUser[1]) {
-        newUser[0].setRol("user");
-        newUser[0].setStatus("active");
+      if (created) {
+        newUser.setRol("user");
+        newUser.setStatus("active");
         res.json(newUser).send({ msg: "User Created!" });
       } else {
         res.status(400).json({ msg: "user alredy exists" });
