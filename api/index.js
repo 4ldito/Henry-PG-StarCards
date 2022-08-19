@@ -11,7 +11,7 @@ const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
 
 // ARREGLAR EN CARDSPACKS
 
-const { User, Rol, StarsPack, Card, CardPacks, Status } = db;
+const { User, Rol, StarsPack, Card, CardPacks, Status, UserCards } = db;
 
 const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000;
 
@@ -78,14 +78,29 @@ db.sequelize.sync({ force: true }).then(async () => {
   const cardsStatus = cards.map(async (card) => await card.setStatus("active"));
 
   const superadmins = await createAllUsers();
-  const userSuperadmin = superadmins.map(
-    async (user) => await user.setRol("superadmin")
-  );
+  const adminCards = [];
+  const userSuperadmin = superadmins.map(async (user) => {
+    cards.forEach(async (card) => {
+      for (let i = 0; i < 1; i++) {
+        const userCard = await UserCards.create();
+
+        const addUserCard = [
+          userCard.setStatus("active"),
+          userCard.setUser(user.id),
+          userCard.setCard(card.id),
+        ];
+
+        adminCards.push(Promise.all(addUserCard));
+      }
+    });
+    return [user.setRol("superadmin"), user.setStatus("active")];
+  });
 
   await Promise.all([
-    await Promise.all(packsStatus),
-    await Promise.all(cardsStatus),
-    await Promise.all(userSuperadmin),
+    Promise.all(packsStatus),
+    Promise.all(cardsStatus),
+    Promise.all(userSuperadmin),
+    Promise.all(adminCards),
     await createAllStarPacks(),
   ]);
 
