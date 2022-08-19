@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
 
@@ -16,7 +16,6 @@ export default function Detail (id) {
         userId: 7
     })
     
-    console.log('opinion', opinion)
     function handleInput (e) {
         setInput({
             ...input,
