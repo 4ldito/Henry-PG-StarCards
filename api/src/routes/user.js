@@ -66,14 +66,17 @@ userRoute.patch('/:id', async (req, res, next) => {
     const { username, password, email, profileImg, coverImg, RolId } = req.body
 
     const user = await User.findByPk(id)
+    if(RolId){
+      await user.setStatus(RolId)
+    }
     await user.update({
       username: username,
       password: password,
       email: email,
       profileImg: profileImg,
       coverImg: coverImg,
-      RolId: RolId
     })
+
     res.json(user).send({ msg: 'Data Updated!' })
   } catch (error) {
     next(error)

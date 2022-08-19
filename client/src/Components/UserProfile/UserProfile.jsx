@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+
 // import { getUser } from '../../redux/actions/user'
 import style from './UserProfile.module.css'
+import BtnUserProfile from '../Buttons/BtnUserProfile'
+import { deleteUser } from '../../redux/actions/user';
 
 export default function UserProfile () {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const navigateTo = useNavigate();
   // const user = useSelector(state => state.user)
   // const users = useSelector(state => state.users)
   const user2 = {
@@ -13,7 +18,7 @@ export default function UserProfile () {
     email: 'aldoaliscioni18@gmail.com',
     password: '123asd',
     stars: 100,
-    profileImg: 'https://static.wikia.nocookie.net/starcraft2/images/a/a1/Zerg_SC2_Icon2.jpg/revision/latest?cb=20100826205116&path-prefix=es',
+    profileImg: 'https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg',
     coverImg: 'https://bnetcmsus-a.akamaihd.net/cms/blog_header/2g/2G4VZH5TIWJF1602720144046.jpg',
     score: 0,
     roles: null,
@@ -22,37 +27,35 @@ export default function UserProfile () {
     StatusId: null
   }
   // useEffect(() => {
-  //   dispatch(getUser(id))
-  // })
-
-  // useEffect(() => {
 
   // }, [user])
-  console.log(user2)
+
+  function deleteAccount(){
+    dispatch(deleteUser(user2.id))
+    navigateTo('/playroom')
+  }
+
   return (
     <div className={style.p}>
-      <p>Hola! <h1>{user2.username}</h1></p>
+       <h1>Hola! {user2.username}</h1>
       <div>
-        <p><h3>Informacion Personal</h3></p>
-        <span>{user2.username}</span>
-        <span>{user2.password}</span>
-        <span>{user2.email}</span>
-        <span>{user2.stars}</span>
-        <span>{user2.profileImg}</span>
-        <span>{user2.coverImg}</span>
-        <span>{user2.score}</span>
-        <span>{user2.RolId ? user2.RolId : ''}</span>
-        <span>Mazo{user2.DeckId}</span>
+        <h3>Informacion Personal</h3><span></span>
+        <div><span>Username: {user2.username} ({user2.RolId ? user2.RolId : ''})</span><BtnUserProfile value='username'/></div>
+        <div><span>Password: {user2.password}</span><BtnUserProfile value='password'/></div>
+        <div><span>Email: {user2.email}</span></div>
+        <div><span>Stars: {user2.stars}</span></div>
+        <div><span>Score: {user2.score}</span></div>
+        <div><span>Selected Package:{user2.DeckId}</span></div>
+        <div><span>Account Status: {user2.StatusId}</span> <button className={style.bdelete} onClick={deleteAccount} >Delete Account</button></div>
+        <div><img src={user2.profileImg} alt="ProfileImg" /></div>
+        <div><img src={user2.coverImg} alt="coverImg" /></div>
       </div>
     </div>
   )
 }
 
-// Perfil de usuario (SP: 14)
-// Como usuario quiero acceder a mi perfil para:
 // personalizar mi perfil
-// eliminar/desactivar mi cuenta
-// ver estadísticas
+// eliminar mi cuenta
 // ver estadísticas
 // stars
 // foto de perfil con foto de fondo

@@ -1,6 +1,10 @@
-p{
-background-color: white;
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
+/* p{
+display: flex;
+flex-direction: column;
+align-content: center;
+align-content: space-around;
+} */
+.bdelete{
+    background-color: red;
+   
 }
