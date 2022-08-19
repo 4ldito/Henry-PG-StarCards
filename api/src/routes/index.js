@@ -6,6 +6,7 @@ const starsPackRoute = require("./starsPacks");
 const cardsRoute = require("./cards");
 const packsRoute = require("./cardPacks");
 const userCardsRoute = require("./userCards");
+const opinionRoute = require ("./opinion")
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/stars-pack", starsPackRoute);
 router.use("/cards", cardsRoute);
 router.use("/packs", packsRoute);
 router.use("/userCards", userCardsRoute);
+router.use("/opinion", opinionRoute);
 
 module.exports = router;

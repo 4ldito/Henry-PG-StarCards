@@ -8,6 +8,7 @@ class User extends Model {
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
     User.hasOne(models.Deck);
+    User.hasMany(models.Opinion)
     // User.belongsTo(models.UserCards);
     // User.belongsTo(models.Rol);
     // User.belongsTo(models.Status);

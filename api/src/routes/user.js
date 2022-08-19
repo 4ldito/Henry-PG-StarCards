@@ -1,12 +1,11 @@
+const db = require("../db");
+const { User, Rol } = db;
+const { tokenValidations } = require("../middlewares");
 
-const db = require('../db')
-const { User,Rol } = db
-const {tokenValidations} = require('../middlewares');
-
-const { Router } = require('express')
-const userRoute = Router()
+const { Router } = require("express");
+const userRoute = Router();
 /// /////////////////////////////////////////////////////////////////////////////////////////////
-userRoute.get('/', async (req, res, next) => {
+userRoute.get("/", async (req, res, next) => {
   try {
     const { id } = req.body;
     if(id){  
@@ -51,23 +50,23 @@ userRoute.delete('/', async (req, res, next) => {
       User.destroy({ where: { id } })
       res.json({ msg: 'user removed' })
     } else {
-      return res.status(400).send({ msg: 'user does not exist' })
+      return res.status(400).send({ msg: "user does not exist" });
     }
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 /// ////////////////////Routes Modify Profile//////////////////////////////////////////
 
-userRoute.patch('/:id', async (req, res, next) => {
+userRoute.patch("/:id", async (req, res, next) => {
   try {
-    const {id} = req.params
-    const { username, password, email, profileImg, coverImg, RolId } = req.body
+    const { id } = req.params;
+    const { username, password, email, profileImg, coverImg, RolId } = req.body;
 
-    const user = await User.findByPk(id)
-    if(RolId){
-      await user.setStatus(RolId)
+    const user = await User.findByPk(id);
+    if (RolId) {
+      await user.setStatus(RolId);
     }
     await user.update({
       username: username,
@@ -75,12 +74,11 @@ userRoute.patch('/:id', async (req, res, next) => {
       email: email,
       profileImg: profileImg,
       coverImg: coverImg,
-    })
+    });
 
-    res.json(user).send({ msg: 'Data Updated!' })
+    res.json(user).send({ msg: "Data Updated!" });
   } catch (error) {
-    next(error)
+    next(error);
   }
-
-})
-module.exports = userRoute
+});
+module.exports = userRoute;
