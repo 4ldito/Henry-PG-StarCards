@@ -2,7 +2,6 @@ const { Model } = require("sequelize");
 
 class CardPacks extends Model {
   static associate(models) {
-    // CardsPack.belongsTo(models.User)
     CardPacks.hasOne(models.Status);
   }
 }

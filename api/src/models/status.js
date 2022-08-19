@@ -3,12 +3,16 @@ const { Model } = require("sequelize");
 
 class Status extends Model {
   static associate(models) {
-    // Status.belongsTo(models.User)
-    Status.hasOne(models.User);
-    Status.hasOne(models.Card);
-    Status.hasOne(models.Deck);
-    Status.hasOne(models.StarsPack);
-    Status.hasOne(models.CardPacks);
+    // Status.hasOne(models.User);
+    // Status.hasOne(models.Card);
+    // Status.hasOne(models.Deck);
+    // Status.hasOne(models.StarsPack);
+    // Status.hasOne(models.CardPacks);
+    Status.belongsTo(models.User);
+    Status.belongsTo(models.Card);
+    Status.belongsTo(models.Deck);
+    Status.belongsTo(models.StarsPack);
+    Status.belongsTo(models.CardPacks);
   }
 }
 
