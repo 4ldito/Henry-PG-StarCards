@@ -8,6 +8,7 @@ class Status extends Model {
     Status.hasOne(models.Deck);
     Status.hasOne(models.StarsPack);
     Status.hasOne(models.CardPacks);
+    Status.hasMany(models.Opinion);
     // Status.belongsTo(models.User);
     // Status.belongsTo(models.Card);
     // Status.belongsTo(models.Deck);

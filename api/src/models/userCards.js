@@ -4,7 +4,6 @@ const { Model, UUIDV4 } = require("sequelize");
 
 class UserCards extends Model {
   static associate(models) {
-    // define association here
     UserCards.belongsTo(models.User);
     UserCards.belongsTo(models.Card);
     UserCards.belongsTo(models.Status);

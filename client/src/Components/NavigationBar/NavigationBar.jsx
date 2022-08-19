@@ -7,6 +7,7 @@ export default function NavigationBar () {
   const [visibleUserOptions, setVisibleUserOptions] = useState(false)
   return (
     <div className={styles.navBar}>
+      <Link to='/'>LandingPage</Link>
       <button onClick={() => setVisibleUserOptions(!visibleUserOptions)}>UserOptions</button>
       <Link to='/playroom'>Playroom</Link>
       <Link to='/shop'>Shop</Link>
