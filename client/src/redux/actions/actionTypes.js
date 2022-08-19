@@ -14,8 +14,15 @@ export const GET_PREFERENCE_ID = 'GET_PREFERENCE_ID';
 export const SHOPCART_BUY_CARDSPACKS = 'SHOPCART_BUY_CARDSPACKS';
 export const SHOPCART_CLEAN_MSG_INFO = 'SHOPCART_CLEAN_MSG_INFO';
 
+// USER
+export const GET_USER = 'GET_USER' // falta configurar ruta
+export const GET_ALL_USERS = 'GET_ALL_USERS'
+export const CREATE_USER = 'CREATE_USER'
+export const DELETE_USER = 'DELETE_USER'
+export const MODIFY_USER = 'MODIFY_USER'
+
 // CARDS
-export const GET_ALL_CARDS = 'GET_ALL_CARDS';
-export const FILTER_CARDS = 'FILTER_CARDS';
-export const SORT_CARDS = 'SORT_CARDS';
-export const SEARCH_CARD = 'SEARCH_CARD';
+export const GET_ALL_CARDS = 'GET_ALL_CARDS'
+export const FILTER_CARDS = 'FILTER_CARDS'
+export const SORT_CARDS = 'SORT_CARDS'
+export const SEARCH_CARD = 'SEARCH_CARD'
