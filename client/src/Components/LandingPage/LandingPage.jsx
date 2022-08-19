@@ -5,10 +5,6 @@ const LandingPage = () => {
   return (
     <div>
       <h1>LandingPage</h1>
-      <Link to='/register'>
-        <br />
-        <button>Registro</button>
-      </Link>
 
     </div>
   )

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
 // import { getUser } from '../../redux/actions/user'
@@ -38,6 +39,7 @@ export default function UserProfile () {
   return (
     <div className={style.p}>
        <h1>Hola! {user2.username}</h1>
+       <Link to='/inventory'><button>Inventory</button></Link>
       <div>
         <h3>Informacion Personal</h3><span></span>
         <div><span>Username: {user2.username} ({user2.RolId ? user2.RolId : ''})</span><BtnUserProfile value='username'/></div>

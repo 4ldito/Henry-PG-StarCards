@@ -6,7 +6,7 @@ const starsPackRoute = require("./starsPacks");
 const cardsRoute = require("./cards");
 const packsRoute = require("./cardPacks");
 const userCardsRoute = require("./userCards");
-onst opinionRoute = require ("./opinion")
+const opinionRoute = require ("./opinion")
 
 const router = Router();
 

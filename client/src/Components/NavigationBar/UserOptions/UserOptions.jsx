@@ -6,7 +6,6 @@ export default function UserOptions () {
     <div className={styles.userOptions}>
       <Link to='/shopcart'> Shopcart </Link>
       <Link to='/userProfile'> User Profile </Link>
-      <Link to='/inventary'> Inventary </Link>
     </div>
 
   )
