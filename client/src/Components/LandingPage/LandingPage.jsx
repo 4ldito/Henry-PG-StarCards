@@ -11,6 +11,10 @@ const LandingPage = () => {
         <br />
         <button>Registro</button>
       </Link>
+      <Link to='/login'>
+        <br />
+        <button>Login</button>
+      </Link>
 
     </div>
   )
