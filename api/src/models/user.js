@@ -4,7 +4,6 @@ const { Model, UUIDV4 } = require("sequelize");
 const bcrypt = require("bcryptjs");
 class User extends Model {
   static associate(models) {
-    define association here
     User.belongsTo(models.UserCards);
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
