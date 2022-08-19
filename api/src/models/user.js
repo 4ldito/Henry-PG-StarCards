@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImg: {
         type: DataTypes.STRING,
         defaultValue:
-          'https://static.wikia.nocookie.net/starcraft2/images/a/a1/Zerg_SC2_Icon2.jpg/revision/latest?cb=20100826205116&path-prefix=es'
+          'https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg'
       },
       coverImg: {
         type: DataTypes.STRING,
