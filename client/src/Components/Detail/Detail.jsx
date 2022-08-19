@@ -49,7 +49,9 @@ export default function Detail (id) {
                 <p>rating: {rating.toFixed(1)}</p>
                 <p>comments:</p>
                 {
-                    
+                    opinion.map((opinion) => {
+                    return <p key={opinion.id}>{opinion.comment}</p>
+                    })
                 }
             </div>
             <form>
