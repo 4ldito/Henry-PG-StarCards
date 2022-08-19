@@ -5,14 +5,14 @@ const bcrypt = require("bcryptjs");
 class User extends Model {
   static associate(models) {
     // define association here
-    // User.belongsTo(models.UserCards);
-    // User.belongsTo(models.Rol);
-    // User.belongsTo(models.Status);
-    // User.hasOne(models.Deck);
     User.belongsTo(models.UserCards);
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
-    User.hasMany(models.Deck);
+    User.hasOne(models.Deck);
+    // User.belongsTo(models.UserCards);
+    // User.belongsTo(models.Rol);
+    // User.belongsTo(models.Status);
+    // User.hasMany(models.Deck);
   }
 }
 
