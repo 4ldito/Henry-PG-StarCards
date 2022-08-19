@@ -30,18 +30,18 @@
     background: #6cf0c2;
   }
   
-  .button-container {
+  .buttoncontainer {
     display: flex;
     justify-content: center;
   }
   
-  .login-form {
+  .loginform {
     background-color: white;
     padding: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   
-  .list-container {
+  .listcontainer {
     display: flex;
   }
   
@@ -55,7 +55,7 @@
     margin-bottom: 20px;
   }
   
-  .input-container {
+  .inputcontainer {
     display: flex;
     flex-direction: column;
     gap: 8px;
