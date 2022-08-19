@@ -2,7 +2,6 @@ const { Model } = require("sequelize");
 
 class StarsPack extends Model {
   static associate(models) {
-    // StarsPack.belongsTo(models.User)
     StarsPack.hasOne(models.Status);
   }
 }
