@@ -1,5 +1,7 @@
 const express = require('express')
 const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session');
+const passport = require('passport');
 const morgan = require('morgan')
 const routes = require('./routes/index')
 const cors = require('cors')
@@ -7,8 +9,14 @@ const cors = require('cors')
 const server = express()
 
 // server.name = 'API';
-
-server.use(cors())
+server.use(cookieSession({name:'session', keys:['secretKey'], maxAge:24*60*60*100}));
+server.use(passport.initialize());
+server.use(passport.session());
+server.use(cors({
+  origin:'http://localhost:3000',
+  credentials:true,
+  methods:'GET,POST,PUT,PATCH,DELETE'
+}))
 server.use(express.urlencoded({ extended: true, limit: '50mb' }))
 server.use(express.json({ limit: '50mb' }))
 server.use(cookieParser())
