@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
 import axios from 'axios'
-// import css from './Registro.module.css'
+import { signIn } from '../../redux/actions/user'
 import './login.css'
+import { useDispatch } from 'react-redux'
 
 export default function Login () {
   /*const { loginWithRedirect } = useAuth0()
@@ -10,42 +10,27 @@ export default function Login () {
     <button onClick={() => loginWithRedirect()}>Login</button>
   )
     */
-  
+    const dispatch = useDispatch();
     // React States
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
   
-    const [loginUsername, setLoginUsername] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
-    const [loginEmail, setLoginEmail] = useState("");
-    
-    
-
+    const [input, setInput] = useState({
+      loginPassword:'',
+      loginEmail: ''
+    });
     // User Login info
 
     const login = () => {
-      Axios({
-        method: "POST",
-        data: {
-          email: 'email', 
-          username: loginUsername,
-          password: loginPassword,
-        },
-        withCredentials: true,
-        url: "http://localhost:3001/signup",
-      }).then((res) => console.log(res));
+      dispatch(signIn({loginEmail,loginUsername,loginPassword}));
     };
 
-    const database = [
-      {
-        username: "user1",
-        password: "pass1"
-      },
-      {
-        username: "user2",
-        password: "pass2"
-      }
-    ];
+    const handleOnChange= (e)=> {
+      setInput({
+        ...input,
+        [e.target.name]: e.target.value
+      })
+    }
   
     const errors = {
       uname: "invalid username",
@@ -84,15 +69,15 @@ export default function Login () {
     // JSX code for login form
     const renderForm = (
       <div className="form">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={login}>
           <div className="input-container">
             <label>Username </label>
-            <input type="text" name="uname" required />
+            <input type="email" name="email" onChange={handleOnChange} required />
             {renderErrorMessage("uname")}
           </div>
           <div className="input-container">
             <label>Password </label>
-            <input type="password" name="pass" required />
+            <input type="password" name="pass" onChange={handleOnChange} required />
             {renderErrorMessage("pass")}
           </div>
           <div className="button-container">

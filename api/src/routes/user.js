@@ -11,8 +11,8 @@ userRoute.get('/', async (req, res, next) => {
     const { id } = req.body;
     if(id){  
     const user = await User.findByPK(id)
-    if (user) return res.json(user)
-    return res.json(new Error('error, User Not Found'))
+    if (user) return res.json(user);
+    return res.status(404).json({error:'error, User Not Found'})
   }
   else{
     const users = await User.findAll()
