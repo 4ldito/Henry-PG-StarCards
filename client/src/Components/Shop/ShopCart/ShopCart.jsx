@@ -1,10 +1,43 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+
 import Mercadopago from './Mercadopago'
+import Swal from 'sweetalert2'
+import { shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
+
 
 const ShopCart = () => {
+  const dispatch = useDispatch()
+
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
-  let total = 0
+  const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg)
+
+  let totalStarsPack = 0
+  let totalCardsPack = 0
+
+  const handleBuyCardsPack = (e) => {
+    e.preventDefault();
+    const info = {data: [...cardsPack]}
+    dispatch(shopcartBuyCardsPacks(info));
+  }
+
+  useEffect(() => {
+    if (msgInfoPurchase.type) {
+      Swal.fire({
+        title: msgInfoPurchase.title,
+        text: msgInfoPurchase.info,
+        icon: msgInfoPurchase.type,
+      })
+    }
+  }, [msgInfoPurchase]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(shopCartCleanMsgInfo())
+    }
+  }, []);
+
   return (
     <div>ShopCart
       {starsPack.length > 0 || cardsPack.length > 0
@@ -14,39 +47,36 @@ const ShopCart = () => {
               <div>
                 <h2>Carrito de stars</h2>
                 {starsPack.map(item => {
-                  total += item.price * item.quantity
+                  totalStarsPack += item.price * item.quantity
                   return (
                     <div key={item.id}>
                       <p>{item.name} Cantidad: {item.quantity} Subtotal: ARS ${item.price * item.quantity}</p>
                     </div>
                   )
                 })}
-                <p>Total: ARS ${total}</p>
+                <p>Total: ARS ${totalStarsPack}</p>
                 <Mercadopago shopCartItems={starsPack} />
               </div>)}
-            {cardsPack.length && (
+            {cardsPack.length > 0 && (
               <div>
                 <h2>Carrito de packs cards</h2>
                 {cardsPack.map(item => {
+                  const subtotal = item.price * item.quantity
+                  totalCardsPack += subtotal
                   return (
                     <div key={item.id}>
                       <p>{item.name}</p>
+                      <p>Precio: {item.price} Stars - Cantidad: {item.quantity} - Subtotal: {subtotal} Stars</p>
                     </div>
                   )
                 })}
-                <button>Comprar packs de cards</button>
+                <p>Total: {totalCardsPack} Stars</p>
+                <button onClick={handleBuyCardsPack}>Comprar packs de cards</button>
               </div>)}
           </>)
         : <p>El carrito esta vacio</p>}
     </div>
   )
 }
-
-// { shopCartItems.map(item =>
-//   <div key={item.id}>
-//     <p>{item.name} cantidad: {item.quantity}</p>
-//     <button id={item.id} onClick={handleRemoveItem}>Eliminar del carrito</button>
-//   </div>
-// ) }
 
 export default ShopCart
