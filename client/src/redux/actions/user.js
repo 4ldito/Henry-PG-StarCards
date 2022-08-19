@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER } from './actionTypes'
+import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER, SIGN_IN } from './actionTypes'
 
 /// ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -26,7 +26,7 @@ export function createUser (user) {
 export function signIn (user) {
   return async function (dispatch) {
     const response = await axios.post('http://localhost:3001/login/signin', user)
-    dispatch({ type: CREATE_USER, payload: response.data.token })
+    dispatch({ type: SIGN_IN, payload: response.data.token })
   }
 }
 

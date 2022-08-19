@@ -30,35 +30,34 @@ export default function Registro () {
 }
 */
 
-import React, {useEffect, useState} from "react";
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../redux/actions/user";
-import axios from "axios";
+
 //import { signUp } from "../../redux/actions";
 
 
-export default function Registro(){
-    const dispatch = useDispatch();
-    //const history = useHistory();
+export default function Registro() {
+  const dispatch = useDispatch();
+  //const history = useHistory();
 
-    const [errors, setErrors] = useState({});
-    const [input, setInput] = useState({
-        username: '',
-        email:'',
-        password: ''
-    });
+  const [errors, setErrors] = useState({});
+  const [input, setInput] = useState({
+    username: '',
+    email: '',
+    password: ''
+  });
 
-    //cambio
-  const handleSubmit= async (e) => {
+  //cambio
+  const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(createUser(input))
   }
 
-  const handleChange = (e)=>{
+  const handleChange = (e) => {
     setInput({
-        ...input,
-        [e.target.name]: e.target.value,
+      ...input,
+      [e.target.name]: e.target.value,
     });
     // setErrors(
     //     validate({
@@ -66,58 +65,58 @@ export default function Registro(){
     //         [e.target.name]: e.target.value
     //     })
     // );
-};
+  };
 
-      const handleError = (e)=>{
-        e.preventDefault();
-        alert('Complete the form')
-    }
+  const handleError = (e) => {
+    e.preventDefault();
+    alert('Complete the form')
+  }
 
 
-  return(
+  return (
     <div>
-        <form onSubmit={(e)=>{handleSubmit(e)}}>
-          <div>
-              Registrate
-          </div>
-          <input
-                autoComplete="off"
-                type="text"
-                name="username"
-                onChange={(e) => {
-                    handleChange(e);
-                }}
-                placeholder="Name"
-                />
-          <input
-                autoComplete="off"
-                type="email"
-                name="email"
-                onChange={(e) => {
-                    handleChange(e);
-                }}
-                placeholder="correo"
-                />
-          <input
-                autoComplete="off"
-                type="password"
-                name="password"
-                onChange={(e) => {
-                    handleChange(e);
-                }}
-                placeholder="Pass"
-                />
-          {input.name !== "" ? (
-            <button type="submit" >
-                Create!
-            </button>
-            ) : (
-            <button onClick={handleError}>
-                Create!
-            </button>
-            )}
+      <form onSubmit={(e) => { handleSubmit(e) }}>
+        <div>
+          Registrate
+        </div>
+        <input
+          autoComplete="off"
+          type="text"
+          name="username"
+          onChange={(e) => {
+            handleChange(e);
+          }}
+          placeholder="Name"
+        />
+        <input
+          autoComplete="off"
+          type="email"
+          name="email"
+          onChange={(e) => {
+            handleChange(e);
+          }}
+          placeholder="correo"
+        />
+        <input
+          autoComplete="off"
+          type="password"
+          name="password"
+          onChange={(e) => {
+            handleChange(e);
+          }}
+          placeholder="Pass"
+        />
+        {input.name !== "" ? (
+          <button type="submit" >
+            Create!
+          </button>
+        ) : (
+          <button onClick={handleError}>
+            Create!
+          </button>
+        )}
 
-        </form>
+      </form>
 
     </div>
   )
