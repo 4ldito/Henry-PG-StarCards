@@ -40,7 +40,7 @@ export default function UserProfile () {
        <h1>Hola! {user2.username}</h1>
       <div>
         <h3>Informacion Personal</h3><span></span>
-        <div><span>Username: {user2.username} ({user2.RolId ? user2.RolId : ''})</span><BtnUserProfile value='username'/></div>
+        <div><span>Username: {user2.username} ({user2.RolId !== 'user' ? user2.RolId : ''})</span><BtnUserProfile value='username'/></div>
         <div><span>Password: {user2.password}</span><BtnUserProfile value='password'/></div>
         <div><span>Email: {user2.email}</span></div>
         <div><span>Stars: {user2.stars}</span></div>
@@ -48,7 +48,7 @@ export default function UserProfile () {
         <div><span>Selected Package:{user2.DeckId}</span></div>
         <div><span>Account Status: {user2.StatusId}</span> <button className={style.bdelete} onClick={deleteAccount} >Delete Account</button></div>
         <div><img src={user2.profileImg} alt="ProfileImg" /></div>
-        <div><img src={user2.coverImg} alt="coverImg" /></div>
+        <div><img src={user2.coverImg} alt="coverImg" /></div> 
       </div>
     </div>
   )
