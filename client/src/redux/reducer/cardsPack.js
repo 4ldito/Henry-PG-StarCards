@@ -11,12 +11,21 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
     case GET_ALL_CARDS_PACKS:
       return { ...state, cardsPacks: payload, loaded: true }
     case BUY_CARD_PACK:
-      const { msg, pack, error } = payload;
-
+      const { msg, error, updatedInfo } = payload;
+      // En la posicion 0 se encuentra el user
+      if (updatedInfo) updatedInfo.shift();
       if (error) return { ...state, msg: { type: 'error', info: error, title: 'Error!' } }
-      const selectedPack = state.cardsPacks.find(p => p.id === pack.id)
-      selectedPack.stock = pack.stock;
-      return { ...state, cardsPacks: [...state.cardsPacks], msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
+
+      const data = state.cardsPacks.map(pack => {
+        updatedInfo.forEach(updatedPack => {
+          if (pack.id === updatedPack.id) {
+            pack = { ...updatedPack }
+          }
+        });
+        return pack;
+      })
+
+      return { ...state, cardsPacks: [...data], msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
     default:
       return state
   }

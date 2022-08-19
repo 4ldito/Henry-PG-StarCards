@@ -17,22 +17,44 @@ packsRoute.get("/all", async (req, res, next) => {
 packsRoute.post('/buy', async (req, res, next) => {
   // const user = await User.findOne() // user hardcodeado x ahora jeje
   try {
-    const { id, quantity } = req.body;
-    // const pack = await CardPacks.findByPk(id);
-    const [user, pack] = await Promise.all([User.findOne(), CardPacks.findByPk(id)])
-    const total = quantity * pack.price;
+    const { data } = req.body;
+    // console.log(data)
+    // const packsId = data.map((elem) => CardPacks.findByPk(elem.pack));
+    // const allPacks = await Promise.all(packsId);
 
-    if (user.stars < total) return res.send({ error: 'stars insuficientes!' });
-    if (pack.stock < quantity ) return res.send({error: 'Stock insuficente'})
+    // // console.log(allPacks)
+    // const infoPurchase = []
+    const info = {};
+    for (const p of data) {
+      const { pack } = p;
+      info[pack.name] = { quantity: pack.quantity }
+      if (pack.stock < pack.quantity) return res.send({ error: 'Stock insuficente' });
+      pack.subTotal = pack.quantity * pack.price;
+    }
+
+    const total = data.reduce(
+      (acc, currentValue) => acc + currentValue.pack.subTotal,
+      0
+    );
+    const [user] = await Promise.all([User.findOne()])
+
+    if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
 
     user.stars = user.stars - total;
-    pack.stock = pack.stock - quantity;
-    await Promise.all([user.save(), pack.save()])
-  
-    res.send({ msg: `Compraste ${quantity} del pack ${pack.name} correctamente`, pack });
+
+    const packsId = data.map((elem) => CardPacks.findByPk(elem.pack.id));
+    const packs = await Promise.all(packsId);
+    const updatedPacks = packs.map(pack => {
+      pack.stock = pack.stock - info[pack.name].quantity;
+      return pack.save();
+    });
+
+    const updatedInfo = await Promise.all([user.save(), ...updatedPacks]);
+    
+    return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo });
   } catch (error) {
     console.log(error)
-    res.send(error)
+    return res.send(error)
   }
 
 });

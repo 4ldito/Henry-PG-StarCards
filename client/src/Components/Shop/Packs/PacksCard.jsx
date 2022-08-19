@@ -22,13 +22,13 @@ const PacksCard = ({ pack, type }) => {
   }
 
   const handleQuantityChange = (e) => {
-    setQuantity(e.target.value)
+    setQuantity(Number(e.target.value))
   }
 
   const handleBuyNow = (e) => {
     e.preventDefault()
-    const id = pack.id
-    const info = { id, quantity }
+    pack.quantity = quantity
+    const info = {data: [{ pack }]}
 
     if (checkStock(quantity)) {
       return Swal.fire({
