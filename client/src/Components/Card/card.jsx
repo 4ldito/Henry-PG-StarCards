@@ -1,19 +1,19 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import {useNavigate} from 'react-router-dom'
-import detailCard from '../../redux/acinions/cards/detailCard'
-import getOpinions from '../../redux/acinions/cards/getOptions'
+import { detailCard } from '../../redux/actions/cards/detailCard.js'
+import { getOpinions } from '../../redux/actions/cards/getOpinions.js'
 
 export default function Card ({ id, name, image, cost, Gdmg, Admg, life, ability, abilities, race, movement }) {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  function detailCard(){
-    dispatch(cardDetail(id)) //dispach hay que hacer
+  function detail(){
+    dispatch(detailCard(id)) //dispach hay que hacer
     dispatch(getOpinions(id)) //dispach hay que hacer
     navigate("/detail")
   }
   return (
-    <div onClick={() => detailCard()}>
+    <div onClick={() => detail()}>
       <h3>{name}</h3>
       <img src={image} alt={image} />
       <div>
