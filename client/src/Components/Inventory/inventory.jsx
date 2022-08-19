@@ -25,6 +25,7 @@ const Inventory = () => {
       max = 2;
     }
     setLimit({ min, max });
+    console.log(limit);
   }
 
   function pagBack(e) {
@@ -36,15 +37,16 @@ const Inventory = () => {
       max = 2;
     }
     setLimit({ min, max });
+    console.log(limit);
   }
 
   function pagNext(e) {
     e.preventDefault();
 
-    let last = Math.ceil(allCards / 3) * 3 - 1;
+    let last = Math.ceil(allCards.length / 3) * 3 - 1;
 
-    let min = limit.min + 9;
-    let max = limit.max + 9;
+    let min = limit.min + 3;
+    let max = limit.max + 3;
 
     if (limit.max >= last && limit.min >= last - 3) {
       min = limit.min;
@@ -52,6 +54,7 @@ const Inventory = () => {
     }
 
     setLimit({ min, max });
+    console.log(last);
   }
 
   function paginado() {
