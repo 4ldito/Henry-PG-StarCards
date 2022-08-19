@@ -1,24 +1,46 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useFetchStarsPack } from '../../hooks/useFetchStarsPack'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeFromShopCartStarPack } from './../../redux/actions/shopCart'
+import { removeFromShopCart } from './../../redux/actions/shopCart'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import Packs from './Packs/Packs'
+import { useFetchCardsPack } from './../../hooks/useFetchCardsPack';
+import { cleanMsgInfo } from '../../redux/actions/cardsPack'
 
 const Shop = () => {
   const dispatch = useDispatch()
 
-  const { loaded } = useFetchStarsPack()
+  const loadedStarsPack = useFetchStarsPack().loaded
+  const loadCardsPack = useFetchCardsPack().loaded
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
 
-  if (!loaded) return (<p>Loading..</p>)
+  const msgInfoPurchase = useSelector(state => state.cardsPacksReducer.msg)
 
-  const handleRemoveItem = (e) => {
+  useEffect(() => {
+    if (msgInfoPurchase.type) {
+      Swal.fire({
+        title: msgInfoPurchase.title,
+        text: msgInfoPurchase.info,
+        icon: msgInfoPurchase.type,
+      })
+    }
+  }, [msgInfoPurchase]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanMsgInfo())
+    }
+  }, []);
+
+  const handleRemoveItem = (e, type) => {
     e.preventDefault()
     const target = Number(e.target.id)
-    dispatch(removeFromShopCartStarPack(target))
+    dispatch(removeFromShopCart(target, type))
   }
+
+  if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
 
   return (
     <div>
@@ -28,14 +50,14 @@ const Shop = () => {
       {starsPack.map(item =>
         <div key={item.id}>
           <p>{item.name} cantidad: {item.quantity}</p>
-          <button id={item.id} onClick={handleRemoveItem}>Eliminar del carrito</button>
+          <button id={item.id} onClick={(e) => handleRemoveItem(e, 'starsPack')}>Eliminar del carrito</button>
         </div>
       )}
       <h3>Carrito de Cards Packs</h3>
       {cardsPack.map(item =>
         <div key={item.id}>
           <p>{item.name} cantidad: {item.quantity}</p>
-          <button id={item.id} onClick={handleRemoveItem}>Eliminar del carrito</button>
+          <button id={item.id} onClick={(e) => handleRemoveItem(e, 'cardsPack')}>Eliminar del carrito</button>
         </div>
       )}
       <Packs type='starsPack' />
