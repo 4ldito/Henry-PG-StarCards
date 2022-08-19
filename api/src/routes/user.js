@@ -27,14 +27,14 @@ userRoute.get('/', async (req, res, next) => {
 userRoute.post('/',[tokenValidations.checkToken, tokenValidations.checkAdmin], async (req, res,next) => {
     const { password, username, email } = req.body;
     const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol});
-    try {if (newUser[1]) {
+    if (newUser[1]) {
          newUser[0].setRol('user');
         newUser[0].setStatus('active');
         res.json(newUser).send({ msg: 'User Created!' });
-    } else {
+    } else { 
         res.status(400).json({ msg: 'user alredy exists' });
     }
-  } catch (error) {
+  }catch (error) {
     next(error)
   }
 })
@@ -65,14 +65,17 @@ userRoute.patch('/:id', async (req, res, next) => {
     const { username, password, email, profileImg, coverImg, RolId } = req.body
 
     const user = await User.findByPk(id)
+    if(RolId){
+      await user.setStatus(RolId)
+    }
     await user.update({
       username: username,
       password: password,
       email: email,
       profileImg: profileImg,
       coverImg: coverImg,
-      RolId: RolId
     })
+
     res.json(user).send({ msg: 'Data Updated!' })
   } catch (error) {
     next(error)

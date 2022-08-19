@@ -3,13 +3,17 @@ const { Model } = require("sequelize");
 
 class Status extends Model {
   static associate(models) {
-    // Status.belongsTo(models.User)
-    Status.hasMany(models.User);
-    Status.hasMany(models.Card);
-    Status.hasMany(models.Deck);
-    Status.hasMany(models.StarsPack);
-    Status.hasMany(models.CardPacks);
+    Status.hasOne(models.User);
+    Status.hasOne(models.Card);
+    Status.hasOne(models.Deck);
+    Status.hasOne(models.StarsPack);
+    Status.hasOne(models.CardPacks);
     Status.hasMany(models.Opinion);
+    // Status.belongsTo(models.User);
+    // Status.belongsTo(models.Card);
+    // Status.belongsTo(models.Deck);
+    // Status.belongsTo(models.StarsPack);
+    // Status.belongsTo(models.CardPacks);
   }
 }
 
@@ -22,10 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       status: {
         type: DataTypes.STRING,
-        defaultValue: "active",
         validate: {
           customValidator: (value) => {
-            const enums = ["active", "inactive"];
+            const enums = ["active", "inactive", "onSale"];
             if (!enums.includes(value)) {
               throw new Error("not a valid option");
             }

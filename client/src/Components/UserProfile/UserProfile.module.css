@@ -1,0 +1,10 @@
+/* p{
+display: flex;
+flex-direction: column;
+align-content: center;
+align-content: space-around;
+} */
+.bdelete{
+    background-color: red;
+   
+}

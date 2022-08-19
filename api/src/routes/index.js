@@ -5,7 +5,8 @@ const mercadopagoRoute = require("./mercadopago");
 const starsPackRoute = require("./starsPacks");
 const cardsRoute = require("./cards");
 const packsRoute = require("./cardPacks");
-const opinionRoute = require ("./opinion")
+const userCardsRoute = require("./userCards");
+onst opinionRoute = require ("./opinion")
 
 const router = Router();
 
@@ -15,6 +16,7 @@ router.use("/mercadopago", mercadopagoRoute);
 router.use("/stars-pack", starsPackRoute);
 router.use("/cards", cardsRoute);
 router.use("/packs", packsRoute);
+router.use("/userCards", userCardsRoute);
 router.use("/opinion", opinionRoute);
 
 module.exports = router;

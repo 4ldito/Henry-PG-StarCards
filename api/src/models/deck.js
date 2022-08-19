@@ -6,6 +6,8 @@ class Deck extends Model {
   static associate(models) {
     Deck.hasOne(models.User);
     Deck.belongsTo(models.Status);
+    // Deck.belongsTo(models.User);
+    // Deck.hasOne(models.Status);
   }
 }
 
