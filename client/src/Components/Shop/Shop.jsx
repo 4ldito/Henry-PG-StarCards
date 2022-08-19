@@ -7,6 +7,7 @@ import Swal from 'sweetalert2'
 
 import Packs from './Packs/Packs'
 import { useFetchCardsPack } from './../../hooks/useFetchCardsPack';
+import { cleanMsgInfo } from '../../redux/actions/cardsPack'
 
 const Shop = () => {
   const dispatch = useDispatch()
@@ -26,6 +27,12 @@ const Shop = () => {
       })
     }
   }, [msgInfoPurchase]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanMsgInfo())
+    }
+  }, []);
 
 
   const handleRemoveItem = (e, type) => {

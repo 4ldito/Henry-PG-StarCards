@@ -25,15 +25,15 @@ packsRoute.post('/buy', async (req, res, next) => {
     // // console.log(allPacks)
     // const infoPurchase = []
     const info = {};
-    for (const p of data) {
-      const { pack } = p;
+    for (const pack of data) {
+      // const { pack } = p;
       info[pack.name] = { quantity: pack.quantity }
       if (pack.stock < pack.quantity) return res.send({ error: 'Stock insuficente' });
       pack.subTotal = pack.quantity * pack.price;
     }
 
     const total = data.reduce(
-      (acc, currentValue) => acc + currentValue.pack.subTotal,
+      (acc, currentValue) => acc + currentValue.subTotal,
       0
     );
     const [user] = await Promise.all([User.findOne()])
@@ -42,7 +42,7 @@ packsRoute.post('/buy', async (req, res, next) => {
 
     user.stars = user.stars - total;
 
-    const packsId = data.map((elem) => CardPacks.findByPk(elem.pack.id));
+    const packsId = data.map((elem) => CardPacks.findByPk(elem.id));
     const packs = await Promise.all(packsId);
     const updatedPacks = packs.map(pack => {
       pack.stock = pack.stock - info[pack.name].quantity;

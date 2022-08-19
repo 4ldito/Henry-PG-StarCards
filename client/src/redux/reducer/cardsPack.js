@@ -1,4 +1,4 @@
-import { GET_ALL_CARDS_PACKS, BUY_CARD_PACK } from './../actions/actionTypes'
+import { GET_ALL_CARDS_PACKS, BUY_CARD_PACK, CLEAN_MSG_INFO } from './../actions/actionTypes'
 
 const initialState = {
   cardsPacks: [],
@@ -26,6 +26,8 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
       })
 
       return { ...state, cardsPacks: [...data], msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
+    case CLEAN_MSG_INFO:
+      return { ...state, msg: { type: '', info: '', title: '' } }
     default:
       return state
   }

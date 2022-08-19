@@ -28,7 +28,7 @@ const PacksCard = ({ pack, type }) => {
   const handleBuyNow = (e) => {
     e.preventDefault()
     pack.quantity = quantity
-    const info = {data: [{ pack }]}
+    const info = {data: [{ ...pack }]}
 
     if (checkStock(quantity)) {
       return Swal.fire({
