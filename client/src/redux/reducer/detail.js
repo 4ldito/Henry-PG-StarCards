@@ -1,4 +1,4 @@
-import { CARD_DETAIL, GET_OPINIONS } from '../actions/actionTypes'
+import { CARD_DETAIL, GET_OPINIONS, POST_OPINIONS } from '../actions/actionTypes'
 
 const initialState = {
   card: {},
@@ -10,6 +10,8 @@ export default function detailReducer (state = initialState, action) {
     case CARD_DETAIL:
       return { ...state, card: action.payload }
     case GET_OPINIONS:
+      return { ...state, opinion: action.payload }
+    case POST_OPINIONS:
       return { ...state, opinion: action.payload }
     default:
       return state

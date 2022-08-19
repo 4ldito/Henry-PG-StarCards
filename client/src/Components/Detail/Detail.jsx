@@ -8,22 +8,26 @@ export default function Detail (id) {
     const dispatch = useDispatch()
     const detailCard = useSelector(state => state.detailReducer.card)
     const opinion= useSelector(state => state.detailReducer.opinion)
+    const cardId = detailCard.id
     const [input, setInput] = useState({
         comment:"",
         score: 0,
-        cardId: detailCard.id,
+        cardId: 0,
         userId: 7
     })
-
+    
+    console.log('opinion', opinion)
     function handleInput (e) {
         setInput({
             ...input,
+            cardId: detailCard.id,
             [e.target.name]: e.target.value
         })
     }
+   
     let ratingSum = opinion.map(r => r.score).reduce((prev, curr) => prev + curr, 0)
     let rating = ratingSum / opinion.length
-    console.log('rating', rating)
+ 
     function handleComment(e) {
         e.preventDefault()
         dispatch(postOpinions(input))
