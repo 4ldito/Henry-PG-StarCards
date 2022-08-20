@@ -35,7 +35,6 @@ export default function UserProfile () {
       <div className={style.img}>
           <img className={style.coverimg} src={user.coverImg} alt="coverImg" />
           <button className={style.changecv}>Change Cover Imagen</button>
-
           <img className={style.profileimg} src={user.profileImg} alt="ProfileImg" />
           <button className={style.changep}></button>
           <Link className={style.stars} to='/shop'> Stars: {user.stars}</Link>
@@ -49,10 +48,10 @@ export default function UserProfile () {
           <button className={style.buttons} value='4' onClick={(e)=>changeRender(e)}>Chat</button>
       </div>
         {render === 'config' ? <Config user={user} />
-        // :render === 'Inventory' ?  'Inventory'
-        // :render === 'Stats' ?  'Stats'
-        // : 'Chat'
-        : ''      
+        :render === 'Inventory' ?  'Inventory'
+        :render === 'Stats' ?  'Stats'
+        : 'Chat'
+        // : ''      
         }
     </>)
   :'loading...')

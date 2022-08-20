@@ -58,6 +58,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
+      roles: {
+       type: DataTypes.ARRAY(DataTypes.STRING),
+       defaultValue: ['user']
+      }
     },
     {
       timestamps: false,

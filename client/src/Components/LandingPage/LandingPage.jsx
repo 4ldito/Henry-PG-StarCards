@@ -1,10 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+
 const LandingPage = () => {
   return (
     <div>
-      <h1>LandingPage</h1>
+
+      <h1 >LandingPage</h1>
+      <Link to='/register'>
+        <br />
+        <button>Registro</button>
+      </Link>
+      <Link to='/login'>
+        <br />
+        <button>Login</button>
+      </Link>
+
 
     </div>
   )

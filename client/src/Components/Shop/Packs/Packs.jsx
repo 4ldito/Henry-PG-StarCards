@@ -13,7 +13,7 @@ const Packs = ({ type }) => {
 
   return (
     <>
-      <h2>{type === 'starsPack' ? 'Stars Packs' : 'Cards Packs' } Disponibles:</h2>
+      <h2 className={style.title}>{type === 'starsPack' ? 'Stars Packs' : 'Cards Packs' } Disponibles:</h2>
       <div className={style.container}>
         {pack.map((p) => {
           return (

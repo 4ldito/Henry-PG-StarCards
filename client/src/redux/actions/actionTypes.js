@@ -19,8 +19,10 @@ export const SHOPCART_CLEAN_MSG_INFO = 'SHOPCART_CLEAN_MSG_INFO';
 export const GET_USER = 'GET_USER'
 export const GET_ALL_USERS = 'GET_ALL_USERS'
 export const CREATE_USER = 'CREATE_USER'
+export const SIGN_IN = 'SIGN_IN'
 export const DELETE_USER = 'DELETE_USER'
 export const MODIFY_USER = 'MODIFY_USER'
+export const SET_TOKEN = 'SET_TOKEN'
 // CARDS
 export const GET_ALL_CARDS = 'GET_ALL_CARDS'
 export const FILTER_CARDS = 'FILTER_CARDS'
