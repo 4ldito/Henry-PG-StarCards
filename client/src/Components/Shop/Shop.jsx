@@ -39,8 +39,8 @@ const Shop = () => {
 
   return (
     <div className={style.container}>
-      <Filters />
       <Packs type='starsPack' />
+      <Filters />
       <Packs type='cardsPack' />
     </div>
   )
