@@ -53,3 +53,7 @@
     align-items: center;
     justify-content: center;
 }
+.stars{
+    display: flex;
+    justify-content: end;
+}

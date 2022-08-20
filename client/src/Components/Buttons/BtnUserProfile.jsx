@@ -41,7 +41,7 @@ export default function username ({user,property}) {
             openModal()
             return alert('Incorrect Password')
         }
-        else if(property === 'password' && value.length > 1 && value.length < 6){
+        else if(property === 'password' && value.length >= 1 && value.length < 6){
             return alert('New password a long six characters...')
         }
         else if(property === 'password' && !value.length) return alert('New password empty')

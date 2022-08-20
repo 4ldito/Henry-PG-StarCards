@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { deleteUser, getUser } from '../../redux/actions/user';
 import style from '../../styles/ProfileUser/UserProfile.module.css'
 import Config from '../Config/Config'
@@ -37,6 +38,8 @@ export default function UserProfile () {
 
           <img className={style.profileimg} src={user.profileImg} alt="ProfileImg" />
           <button className={style.changep}></button>
+          <Link className={style.stars} to='/shop'> Stars: {user.stars}</Link>
+
       </div>
       <div className={style.buttonsbar}>
           {/* <Link to='/inventory'><button>Inventory</button></Link> */}
