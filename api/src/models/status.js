@@ -9,6 +9,7 @@ class Status extends Model {
     Status.hasMany(models.StarsPack);
     Status.hasMany(models.CardPacks);
     Status.hasMany(models.Opinion);
+    Status.hasMany(models.UserCards);
   }
 }
 

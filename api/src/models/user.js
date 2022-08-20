@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 
 class User extends Model {
   static associate(models) {
-    User.belongsTo(models.UserCards);
+    User.hasMany(models.UserCards);
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
     User.hasMany(models.Deck);
@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImg: {
         type: DataTypes.STRING,
         defaultValue:
-          'https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg'
+          "https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg",
       },
       coverImg: {
         type: DataTypes.STRING,
