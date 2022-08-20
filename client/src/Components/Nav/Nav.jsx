@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../img/logoLanding.png";
 import { Link } from "react-router-dom";
+import UserOptions from "./UserOptions/UserOptions";
 
 import css from "./Nav.module.css";
 
 export default function Nav() {
+  const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
     <div className={css.nav}>
       <Link className={css.link} to="/">
@@ -28,14 +30,24 @@ export default function Nav() {
           </Link>
         </li>
       </ul>
-      <Link id="link-perfil" className={css.link} to="/userProfile">
-        <span
-          id="span"
-          className="material-symbols-outlined"
-        >
+
+      <button
+        id="link-perfil"
+        className={css.link}
+        onClick={() => setVisibleUserOptions(!visibleUserOptions)}
+      >
+        <span id="span" className="material-symbols-outlined">
           account_circle
         </span>
-      </Link>
+      </button>
+
+      {visibleUserOptions ? (
+        <div>
+          <UserOptions />{" "}
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

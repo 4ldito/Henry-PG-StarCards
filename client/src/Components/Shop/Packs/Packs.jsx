@@ -1,8 +1,10 @@
-import React from 'react'
-import { useFetchStarsPack } from '../../../hooks/useFetchStarsPack'
-import { useFetchCardsPack } from './../../../hooks/useFetchCardsPack'
+import React from 'react';
+import { useFetchStarsPack } from '../../../hooks/useFetchStarsPack';
+import { useFetchCardsPack } from './../../../hooks/useFetchCardsPack';
 
-import PacksCard from './PacksCard'
+import PacksCard from './PacksCard';
+
+import style from '../styles/Packs.module.css';
 
 const Packs = ({ type }) => {
   let pack
@@ -11,16 +13,18 @@ const Packs = ({ type }) => {
 
   return (
     <>
-      <h2 style={{ color: 'red' }}>{type} Disponibles:</h2>
-      {pack.map((p) => {
-        return (
-          <PacksCard
-            key={p.id}
-            pack={p}
-            type={type}
-          />
-        )
-      })}
+      <h2>{type === 'starsPack' ? 'Stars Packs' : 'Cards Packs' } Disponibles:</h2>
+      <div className={style.container}>
+        {pack.map((p) => {
+          return (
+            <PacksCard
+              key={p.id}
+              pack={p}
+              type={type}
+            />
+          )
+        })}
+      </div>
     </>
   )
 }
