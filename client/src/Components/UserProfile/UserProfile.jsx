@@ -12,6 +12,7 @@ export default function UserProfile () {
 
   let username = 'antu' //para que me traiga un usuario sin estar logeado
 
+
   useEffect(() => {
     dispatch(getUser(username))
   },[])
@@ -19,6 +20,7 @@ export default function UserProfile () {
   useEffect(() => {
     setUser(userActive)
   },[userActive])
+
 
   function changeRender(e){
     let value = e.target.value
@@ -55,4 +57,5 @@ export default function UserProfile () {
     </>)
   :'loading...')
 }
+
 

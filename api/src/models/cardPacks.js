@@ -2,7 +2,7 @@ const { Model } = require("sequelize");
 
 class CardPacks extends Model {
   static associate(models) {
-    CardPacks.hasOne(models.Status);
+    CardPacks.belongsTo(models.Status);
   }
 }
 

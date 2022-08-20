@@ -8,6 +8,7 @@ import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
 import Inventory from "./components/Inventory/Inventory";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
+import About from "./components/About/About"
 
 import "./App.css";
 import Nav from "./Components/Nav/Nav";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/shopcart" element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/inventory" element={<Inventory />} />
+        <Route path="/about" element={<About />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/detail" element={<Detail />} />
       </Routes>

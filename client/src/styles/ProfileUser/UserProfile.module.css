@@ -17,6 +17,7 @@
     height: 6vh;
     left: 51%;
     top: 37%;
+
     border: 1px solid wheat;
     cursor: pointer;
     background-color: rgba(0, 0, 255, 0.551);
@@ -34,6 +35,7 @@
     height: 5vh;
     right: 1%;
     top: 25%;
+
     border: 1px solid wheat;
     background-color: rgba(0, 255, 255, 0.421);
 }

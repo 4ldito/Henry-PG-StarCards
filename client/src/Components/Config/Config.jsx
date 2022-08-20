@@ -1,5 +1,6 @@
 import React from 'react'
 import style from '../../styles/ProfileUser/Config.module.css'
+
 import BtnUserProfile from '../Buttons/BtnUserProfile'
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ export default function Config({user}){
         <div className={style.config}>
           <h1>Hola! {user.username}</h1>
           <h3>Informacion Personal</h3>
+
           <div className={style.modal}><span>Username: {user.username} ({user.RolId !== 'user' ? user.RolId : ''})</span><BtnUserProfile user={user}  property='username'/></div>
           <div className={style.modal}><span >Password: ********</span><BtnUserProfile user={user} property='password'/></div>
           <div><span>Email: {user.email}</span></div>
