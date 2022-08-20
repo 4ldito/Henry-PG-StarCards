@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    border-radius: 20px;
+    background-color: #101010;
+    color: white;
+    text-align: center;
+    border: 2px solid white;
+}
+
+.containerBtns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.btn {
+    background-color: #202020;
+    color: white;
+    outline: none;
+    padding: 0.5rem;
+    font-size: 1.4rem;
+    border: none;
+    border-bottom: 1px solid transparent;
+    transition: background-color .3s, border .3s;
+}
+
+.btn:hover {
+    background-color: #121010;
+    border-bottom: 1px solid black;
+}
+
+.containerBtns .btn:first-child {
+    border-top-left-radius: 20px;    
+    border-right: 1px solid black;
+}
+
+.containerBtns .btn:last-child{
+    border-top-right-radius: 20px;
+    border-left: 1px solid black;
+}
+
+.active {
+    background-color: #121010;
+    border-bottom: 1px solid black;
+    color: aqua;
+}

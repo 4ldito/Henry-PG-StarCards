@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    height: 71vh;
+    overflow-y: scroll;
+}
+
+.title {
+    margin: 1rem;
+}

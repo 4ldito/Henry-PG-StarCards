@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL_CARDS_PACKS, BUY_CARD_PACK, CLEAN_MSG_INFO } from './actionTypes'
+import { GET_ALL_CARDS_PACKS, BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS } from './actionTypes'
 
 export function getCardsPacks() {
   return async function (dispatch) {
@@ -17,4 +17,8 @@ export const buyCardPack = (info) => {
 
 export function cleanMsgInfo() {
   return { type: CLEAN_MSG_INFO }
+}
+
+export const filterCardsPacks = (filters) => {
+    return { type: FILTER_CARDS_PACKS, payload: filters}
 }

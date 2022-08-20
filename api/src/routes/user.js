@@ -7,7 +7,7 @@ const userRoute = Router();
 /// /////////////////////////////////////////////////////////////////////////////////////////////
 userRoute.get("/", async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.query;
     if(id){  
     const user = await User.findByPK(id)
     if (user) return res.json(user);
@@ -19,22 +19,6 @@ userRoute.get("/", async (req, res, next) => {
     return res.json(new Error('error'))
   }
   } catch (error) {
-    next(error)
-  }
-})
-
-userRoute.post('/',[tokenValidations.checkToken, tokenValidations.checkAdmin], async (req, res,next) => {
-try {
-    const { password, username, email } = req.body;
-    const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol});
-    if (newUser[1]) {
-         newUser[0].setRol('user');
-        newUser[0].setStatus('active');
-        res.json(newUser).send({ msg: 'User Created!' });
-    } else { 
-        res.status(400).json({ msg: 'user alredy exists' });
-    }
-  }catch (error) {
     next(error)
   }
 })
@@ -58,10 +42,9 @@ userRoute.delete('/', async (req, res, next) => {
     next(error);
   }
 });
-
+// [tokenValidations.checkToken, tokenValidations.checkAdmin]
 userRoute.post(
   "/",
-  [tokenValidations.checkToken, tokenValidations.checkAdmin],
   async (req, res, next) => {
     const { password, username, email } = req.body;
     try {
