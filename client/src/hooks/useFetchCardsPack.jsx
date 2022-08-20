@@ -5,7 +5,7 @@ import { getCardsPacks } from '../redux/actions/cardsPack'
 export const useFetchCardsPack = () => {
   const dispatch = useDispatch()
 
-  const cardsPack = useSelector(state => state.cardsPacksReducer.cardsPacks)
+  const cardsPack = useSelector(state => state.cardsPacksReducer.filteredCardsPack)
   const loaded = useSelector(state => state.cardsPacksReducer.loaded)
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import Mercadopago from './Mercadopago'
 import Swal from 'sweetalert2'
-import { shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
+import { removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
 
 
 const ShopCart = () => {
@@ -18,7 +18,7 @@ const ShopCart = () => {
 
   const handleBuyCardsPack = (e) => {
     e.preventDefault();
-    const info = {data: [...cardsPack]}
+    const info = { data: [...cardsPack] }
     dispatch(shopcartBuyCardsPacks(info));
   }
 
@@ -31,6 +31,12 @@ const ShopCart = () => {
       })
     }
   }, [msgInfoPurchase]);
+
+  const handleRemoveItem = (e, type) => {
+    e.preventDefault()
+    const target = Number(e.target.id)
+    dispatch(removeFromShopCart(target, type))
+  }
 
   useEffect(() => {
     return () => {
@@ -51,6 +57,7 @@ const ShopCart = () => {
                   return (
                     <div key={item.id}>
                       <p>{item.name} Cantidad: {item.quantity} Subtotal: ARS ${item.price * item.quantity}</p>
+                      <button onClick={(e) => handleRemoveItem(e, 'starsPack')} id={item.id}>X</button>
                     </div>
                   )
                 })}
@@ -67,6 +74,7 @@ const ShopCart = () => {
                     <div key={item.id}>
                       <p>{item.name}</p>
                       <p>Precio: {item.price} Stars - Cantidad: {item.quantity} - Subtotal: {subtotal} Stars</p>
+                      <button onClick={(e) => handleRemoveItem(e, 'cardsPack')} id={item.id}>X</button>
                     </div>
                   )
                 })}
