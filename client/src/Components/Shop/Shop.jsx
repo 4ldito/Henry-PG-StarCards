@@ -7,9 +7,9 @@ import { useFetchCardsPack } from './../../hooks/useFetchCardsPack';
 import { cleanMsgInfo } from '../../redux/actions/cardsPack';
 
 import Packs from './Packs/Packs';
+import Filters from './Filters';
 
 import style from './styles/Shop.module.css';
-import Filters from './Filters';
 
 const Shop = () => {
   const dispatch = useDispatch()
@@ -25,7 +25,7 @@ const Shop = () => {
         title: msgInfoPurchase.title,
         text: msgInfoPurchase.info,
         icon: msgInfoPurchase.type,
-      })
+      });
     }
   }, [msgInfoPurchase]);
 
