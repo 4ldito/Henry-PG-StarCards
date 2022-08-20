@@ -18,7 +18,7 @@ export default function Config({user}){
           <h1>Hola! {user.username}</h1>
           <h3>Informacion Personal</h3>
           <div className={style.modal}><span>Username: {user.username} ({user.RolId !== 'user' ? user.RolId : ''})</span><BtnUserProfile user={user}  property='username'/></div>
-          <div className={style.modal}><span>Password: {user.password}</span><BtnUserProfile user={user} property='password'/></div>
+          <div className={style.modal}><span >Password: ********</span><BtnUserProfile user={user} property='password'/></div>
           <div><span>Email: {user.email}</span></div>
           <div><span>Stars: {user.stars}</span></div>
           <div><span>Score: {user.score}</span></div>

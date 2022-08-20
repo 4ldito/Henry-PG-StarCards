@@ -26,7 +26,7 @@ export function createUser (user) {
 
 export function modifyUser (id, property) {
   return async function (dispatch) {
-    const response = await axios.post(`http://localhost:3001/user/${id}`, property)
+    const response = await axios.patch(`http://localhost:3001/user/${id}`, property)
     dispatch({ type: MODIFY_USER, payload: response.data })
   }
 }

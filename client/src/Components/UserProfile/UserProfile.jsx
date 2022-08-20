@@ -6,33 +6,19 @@ import Config from '../Config/Config'
 
 export default function UserProfile () {
   const dispatch = useDispatch()
-  const userId = useSelector(state => state.userReducer.user)
+  const userActive = useSelector(state => state.userReducer.user)
   const [user, setUser] = useState()
   const [render, setRender] = useState()
 
-  // const user = {
-  //   id: '9488d2c4-e4bd-4f7f-9f1f-1de8ee56e15f',
-  //   username: '4ldito',
-  //   email: 'aldoaliscioni18@gmail.com',
-  //   password: '123asd',
-  //   stars: 100,
-  //   profileImg: 'https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg',
-  //   coverImg: 'https://bnetcmsus-a.akamaihd.net/cms/blog_header/2g/2G4VZH5TIWJF1602720144046.jpg',
-  //   score: 0,
-  //   roles: null,
-  //   DeckId: null,
-  //   RolId: 'superadmin',
-  //   StatusId: null
-  // }
-  let username = 'antu' //para que me traiga un usuario sin estar
+  let username = 'antu' //para que me traiga un usuario sin estar logeado
 
   useEffect(() => {
     dispatch(getUser(username))
   },[])
 
   useEffect(() => {
-    setUser(userId)
-  },[userId])
+    setUser(userActive)
+  },[userActive])
 
   function changeRender(e){
     let value = e.target.value

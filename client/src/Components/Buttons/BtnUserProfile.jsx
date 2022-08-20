@@ -10,9 +10,11 @@ export default function username ({user,property}) {
     const dispatch = useDispatch()
     const [state, setState] = useState({open: false})
     const [value, setValue] = useState('')
+    const [oldPassword, setOldPassword] = useState('')
 
     function openModal(){
         setState({open: !state.open})
+        console.log('password user : ',user.password)
     }
 
     const modalStyles={
@@ -26,9 +28,22 @@ export default function username ({user,property}) {
         const input = e.target.value
         setValue(input)
     }
+
+    function handleConfirm(e){
+        const input = e.target.value
+        setOldPassword(input)
+    }
+
     function sendData(e){
         let property = e.target.value
-        // console.log((user.id , { [property] :value}))
+        if(property === 'password' && oldPassword !== user.password){ //si la password es incorrecta se cierra.
+            openModal()
+            return alert('Incorrect Password')
+        }
+        else if(property === 'password' && value.length > 1 && value.length < 6){
+            return alert('New password a long six characters...')
+        }
+        else if(property === 'password' && !value.length) return alert('New password empty')
         dispatch(modifyUser(user.id , { [property] :value}))
         openModal()
     }
@@ -70,8 +85,10 @@ export default function username ({user,property}) {
             </ModalHeader>
             <ModalBody>
                 <FormGroup>
-                    <Label for='password'>Password</Label>
-                    <Input type='text' onChange={(e)=>handleChange(e)} id='password'/>
+                    <Label for='password'>Enter Current Password</Label>
+                    <Input type='password' onChange={(e)=>handleConfirm(e)} id='password'/>
+                    <Label for='password'>Enter New Password</Label>
+                    <Input type='password' onChange={(e)=>handleChange(e)} id='password2'/>
                 </FormGroup>
             </ModalBody>
             <ModalFooter>
