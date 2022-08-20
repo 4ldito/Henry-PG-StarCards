@@ -1,10 +1,10 @@
 const db = require("../db");
-const { User, Rol } = db;
+const { User, Rol, UserCards } = db;
 const { tokenValidations } = require("../middlewares");
 
 const { Router } = require("express");
 const userRoute = Router();
-/// /////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 userRoute.get("/", async (req, res, next) => {
   try {
     const { id, username } = req.query;
@@ -17,7 +17,7 @@ userRoute.get("/", async (req, res, next) => {
       if (user) return res.json(user);
       return res.json(new Error("error, User Not Found"));
     } else {
-      const users = await User.findAll();
+      const users = await User.findAll({ include: [UserCards] });
       if (users) return res.json(users);
       return res.json(new Error("error"));
     }
