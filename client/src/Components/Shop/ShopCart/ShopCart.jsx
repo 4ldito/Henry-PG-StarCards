@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 
 import Mercadopago from './Mercadopago'
 import Swal from 'sweetalert2'
-import { removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
 
+import { cleanPreferenceId, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
 
 const ShopCart = () => {
   const dispatch = useDispatch()
@@ -40,6 +40,7 @@ const ShopCart = () => {
 
   useEffect(() => {
     return () => {
+      dispatch(cleanPreferenceId());
       dispatch(shopCartCleanMsgInfo())
     }
   }, []);

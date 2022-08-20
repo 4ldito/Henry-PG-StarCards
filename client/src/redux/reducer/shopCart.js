@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { ADD_TO_SHOPCART, GET_PREFERENCE_ID, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO } from './../actions/actionTypes'
+import { ADD_TO_SHOPCART, CLEAN_PREFERENCE_ID, GET_PREFERENCE_ID, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO } from './../actions/actionTypes'
 
 const initialState = {
   shopCart: { starsPack: [], cardsPack: [] },
@@ -40,6 +40,8 @@ export default function shopCartReducer(state = initialState, { type, payload })
       return { ...state, shopCart: { ...state.shopCart, cardsPack: [] }, msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
     case SHOPCART_CLEAN_MSG_INFO:
       return { ...state, msg: { type: '', info: '', title: '' } }
+    case CLEAN_PREFERENCE_ID:
+      return { ...state, preferenceId: -1 }
     default:
       return state
   }
