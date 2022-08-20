@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
-
 const server = require("./src/app");
 const db = require("./src/db");
 const users = require("./src/seeders/users");

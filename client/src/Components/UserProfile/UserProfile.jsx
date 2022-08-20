@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { deleteUser, getUser } from '../../redux/actions/user';
 import style from '../../styles/ProfileUser/UserProfile.module.css'
 import Config from '../Config/Config'
+import Inventory from './../Inventory/inventory';
 
 export default function UserProfile () {
   const dispatch = useDispatch()
@@ -48,7 +49,6 @@ export default function UserProfile () {
       <div className={style.img}>
           <img className={style.coverimg} src={user.coverImg} alt="coverImg" />
           <button className={style.changecv}>Change Cover Imagen</button>
-
           <img className={style.profileimg} src={user.profileImg} alt="ProfileImg" />
           <button className={style.changep}></button>
       </div>
@@ -61,10 +61,10 @@ export default function UserProfile () {
       </div>
 
         {render === 'config' ? <Config user={user} />
-        // :render === 'Inventory' ?  'Inventory'
-        // :render === 'Stats' ?  'Stats'
-        // : 'Chat'
-        : ''      
+        :render === 'Inventory' ?  'Inventory'
+        :render === 'Stats' ?  'Stats'
+        : 'Chat'
+        // : ''      
         }
     </>)
   :'loading...')
