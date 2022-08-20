@@ -1,0 +1,15 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+.config{
+display: flex;
+flex-direction: column;
+
+padding-top: 5vh;
+}
+.modal{
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+}
