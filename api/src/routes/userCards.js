@@ -4,7 +4,7 @@ const db = require("../db");
 const { UserCards } = db;
 const userCardsRoute = Router();
 
-userCardsRoute.post("/usercard", async (req, res, next) => {
+userCardsRoute.post("/", async (req, res, next) => {
   const { cardId, userId } = req.body;
 
   try {
@@ -23,9 +23,23 @@ userCardsRoute.post("/usercard", async (req, res, next) => {
   }
 });
 
-userCardsRoute.get("/all", async (req, res, next) => {
+// Get user cards:
+// all from /userCards
+// query ?userId and/or ?statusId to filter
+userCardsRoute.get("/", async (req, res, next) => {
+  const { userId, statusId } = req.query;
+  const findConfig =
+    userId && statusId
+      ? {
+          where: { UserId: userId, StatusId: statusId },
+        }
+      : userId
+      ? { where: { UserId: userId } }
+      : { where: { StatusId: statusId } };
   try {
-    const cards = await UserCards.findAll({ include: UserCards });
+    const cards = await UserCards.findAll(
+      userId || statusId ? findConfig : undefined
+    );
     return res.send(cards);
   } catch (error) {
     return next(error);
