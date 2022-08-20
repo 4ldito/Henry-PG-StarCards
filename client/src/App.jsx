@@ -6,7 +6,6 @@ import Playroom from "./components/Playroom/Playroom";
 import ShopCart from "./components/Shop/ShopCart/ShopCart";
 import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
-import Inventory from "./components/Inventory/Inventory";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
 import About from "./components/About/About"
 
@@ -24,7 +23,6 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/shopcart" element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
-        <Route path="/inventory" element={<Inventory />} />
         <Route path="/about" element={<About />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/detail" element={<Detail />} />
