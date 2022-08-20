@@ -29,10 +29,7 @@ export default function Nav() {
         </li>
       </ul>
       <Link id="link-perfil" className={css.link} to="/userProfile">
-        <span
-          id="span"
-          class="material-symbols-outlined"
-        >
+        <span id="span" className="material-symbols-outlined">
           account_circle
         </span>
       </Link>
