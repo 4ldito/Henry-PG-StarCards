@@ -5,6 +5,7 @@ import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER, SIGN_IN
 const initialState = {
   user: {},
   users: [],
+  actualUser: {},
   token: null,
   rol: null
 }
@@ -12,13 +13,13 @@ const initialState = {
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USER:
-      return { ...state, user: payload }
+      return { ...state, users: payload }
     case GET_ALL_USERS:
       return { ...state, users: payload }
     case CREATE_USER:
       return { ...state, token: payload.token, rol: payload.rol }
     case SIGN_IN:
-      return { ...state, token: payload.token, rol: payload.rol }
+      return { ...state, user: payload.user, token: payload.token, rol: payload.rol }
     case MODIFY_USER:
       return { ...state, user: payload }
     case DELETE_USER:

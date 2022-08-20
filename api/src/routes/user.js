@@ -8,16 +8,17 @@ const userRoute = Router();
 userRoute.get("/", async (req, res, next) => {
   try {
     const { id } = req.query;
-    if(id){  
-    const user = await User.findByPK(id)
-    if (user) return res.json(user);
-    return res.status(404).json({error:'error, User Not Found'})
-  }
-  else{
-    const users = await User.findAll()
-    if (users) return res.json(users)
-    return res.json(new Error('error'))
-  }
+    console.log(id);
+    if (id) {
+      const user = await User.findByPK(id)
+      if (user) return res.json(user);
+      return res.status(404).json({ error: 'error, User Not Found' })
+    }
+    else {
+      const users = await User.findAll()
+      if (users) return res.json(users)
+      return res.json(new Error('error'))
+    }
   } catch (error) {
     next(error)
   }
@@ -48,7 +49,7 @@ userRoute.post(
   async (req, res, next) => {
     const { password, username, email } = req.body;
     try {
-      const [newUser,created] = await User.findOrCreate({
+      const [newUser, created] = await User.findOrCreate({
         where: { password, username, email },
         include: Rol,
       });
@@ -91,6 +92,7 @@ userRoute.patch("/:id", async (req, res, next) => {
     const { username, password, email, profileImg, coverImg, RolId } = req.body;
 
     const user = await User.findByPk(id);
+    console.log(req.body)
     if (RolId) {
       await user.setStatus(RolId);
     }
@@ -102,7 +104,7 @@ userRoute.patch("/:id", async (req, res, next) => {
       coverImg: coverImg,
     });
 
-    res.json(user).send({ msg: "Data Updated!" });
+    res.json(user);
   } catch (error) {
     next(error);
   }

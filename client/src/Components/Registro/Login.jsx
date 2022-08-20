@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import { signIn } from '../../redux/actions/user'
 import './login.css'
 import { useDispatch } from 'react-redux';
-import { useJwt } from 'react-jwt'
 
 export default function Login() {
   /*const { loginWithRedirect } = useAuth0()
@@ -35,16 +33,11 @@ export default function Login() {
     })
   }
 
-
-
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
-
-
-
 
   return (<div className="form">
     <form onSubmit={(e) => { login(e) }}>
@@ -63,8 +56,4 @@ export default function Login() {
       </div>
     </form>
   </div>)
-
-
-
-
 }
