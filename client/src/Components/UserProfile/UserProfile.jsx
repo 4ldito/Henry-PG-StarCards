@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { deleteUser, getUser } from '../../redux/actions/user';
 import style from '../../styles/ProfileUser/UserProfile.module.css'
 import Config from '../Config/Config'
-import Inventory from './../Inventory/inventory';
 
 export default function UserProfile () {
   const dispatch = useDispatch()
