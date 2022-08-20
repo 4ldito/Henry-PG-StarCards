@@ -30,18 +30,12 @@ export default function Registro () {
 }
 */
 
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch} from "react-redux";
 import { createUser } from "../../redux/actions/user";
-
-//import { signUp } from "../../redux/actions";
-
 
 export default function Registro() {
   const dispatch = useDispatch();
-  //const history = useHistory();
-
-  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     username: '',
     email: '',

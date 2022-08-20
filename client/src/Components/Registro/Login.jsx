@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { signIn } from '../../redux/actions/user'
 import './login.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { useJwt } from 'react-jwt'
 
 export default function Login() {
   /*const { loginWithRedirect } = useAuth0()
@@ -14,16 +15,16 @@ export default function Login() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  
   const [input, setInput] = useState({
-    loginPassword: '',
-    loginEmail: ''
+    password: '',
+    email: ''
   });
   // User Login info
 
   const login = (e) => {
     e.preventDefault();
-    dispatch(signIn({ loginEmail, loginUsername, loginPassword }));
+    dispatch(signIn(input));
   };
 
   const handleOnChange = (e) => {
@@ -34,7 +35,7 @@ export default function Login() {
     })
   }
 
-  
+
 
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
@@ -43,26 +44,26 @@ export default function Login() {
     );
 
 
-  
+
 
   return (<div className="form">
-      <form onSubmit={(e)=>{login(e)}}>
-        <div className="input-container">
-          <label>Username </label>
-          <input type="email" name="email" onChange={handleOnChange} required />
-          {renderErrorMessage("uname")}
-        </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input type="password" name="pass" onChange={handleOnChange} required />
-          {renderErrorMessage("pass")}
-        </div>
-        <div className="button-container">
-          <input  type="submit" />
-        </div>
-      </form>
-    </div>)
-  
+    <form onSubmit={(e) => { login(e) }}>
+      <div className="input-container">
+        <label>Username </label>
+        <input type="email" name="email" onChange={handleOnChange} required />
+        {renderErrorMessage("uname")}
+      </div>
+      <div className="input-container">
+        <label>Password </label>
+        <input type="password" name="password" onChange={handleOnChange} required />
+        {renderErrorMessage("pass")}
+      </div>
+      <div className="button-container">
+        <input type="submit" />
+      </div>
+    </form>
+  </div>)
+
 
 
 

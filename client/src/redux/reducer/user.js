@@ -5,7 +5,8 @@ import { signIn } from '../actions/user'
 const initialState = {
   user: {},
   users: [],
-  token: null
+  token: null,
+  rol: null
 }
 
 export default function shopCartReducer (state = initialState, { type, payload }) {
@@ -15,9 +16,9 @@ export default function shopCartReducer (state = initialState, { type, payload }
     case GET_ALL_USERS:
       return { ...state, users: payload }
     case CREATE_USER:
-      return { ...state, token: payload }
+      return { ...state, token: payload.token, rol: payload.rol }
     case SIGN_IN:
-      return {...state, token:payload}
+      return {...state, token:payload.token, rol: payload.rol}
     case MODIFY_USER:
       return { ...state, user: payload }
     case DELETE_USER:
