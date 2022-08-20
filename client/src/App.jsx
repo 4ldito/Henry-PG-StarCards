@@ -10,12 +10,12 @@ import Playroom from "./components/Playroom/Playroom";
 import ShopCart from "./components/Shop/ShopCart/ShopCart";
 import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
-import Inventory from "./components/Inventory/Inventory";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
-import About from "./components/About/About"
+import Inventory from "./components/Inventory/Inventory";
+import Nav from "./Components/Nav/Nav";
+import About from "./Components/About/About";
 
 import "./App.css";
-import Nav from "./Components/Nav/Nav";
 import { setToken } from './redux/actions/user'
 
 // import Profile from './components/Profile/Profile'

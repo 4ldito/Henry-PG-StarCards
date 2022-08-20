@@ -1,0 +1,99 @@
+.about{
+    background-color: rgb(18, 83, 168);
+
+    width: 100%;
+    height: 93vh;
+
+    padding: 1rem;
+}
+
+.secciones{
+    display: flex;
+    flex-direction: row;
+
+    background-color: gray;
+
+    width: 100%;
+    height: 5%;
+}
+
+.seccion{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid black;
+
+    font-size: 1.5rem;
+
+    width: calc(100% / 3);
+}
+
+.seccion:focus{
+    background-color: rgb(195, 197, 89);
+}
+
+.seccionesLow{
+    background-color: rgba(255, 0, 0, 0);
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: 95%;
+}
+
+.filtros{
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(56, 56, 112);
+    
+    width: 20%;
+    height: 98%;
+    
+    margin: .5% .5% .5% 0%;
+    padding: 1%;
+}
+
+.inventario{
+    display: flex;
+    flex-direction: column;
+    
+    width: 80%;
+    height: 98%;
+
+    margin: .5% 0% .5% 0%;
+    padding: 1% 1% 0% 1%;
+}
+
+.cartas{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    background-color: white;
+    width: 100%;
+    height: 90%;
+}
+
+.paginado{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 10%;
+}
+
+.pag{
+    background-color: gray;
+    border: none;
+    border-radius: 20%;
+
+    margin: 0 .2%;
+    padding: 0.5rem;
+}
+
+.pag:hover{
+    background-color: rgb(180, 180, 180);
+}

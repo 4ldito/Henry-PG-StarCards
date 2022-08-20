@@ -4,7 +4,7 @@ import shopCartReducer from './shopCart'
 import userReducer from './user'
 import cardsPacksReducer from './cardsPack'
 import detailReducer from './detail'
-import inventory from './inventory'
+import album from './album'
 
 // const rootReducer = combineReducers({ testReducer, activities });
 const rootReducer = combineReducers(
@@ -12,7 +12,7 @@ const rootReducer = combineReducers(
     starsPackReducer,
     shopCartReducer,
     userReducer,
-    inventory,
+    album,
     cardsPacksReducer,
     detailReducer
   })
