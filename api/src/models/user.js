@@ -1,18 +1,13 @@
-"use strict";
-
 const { Model, UUIDV4 } = require("sequelize");
 const bcrypt = require("bcryptjs");
+
 class User extends Model {
   static associate(models) {
     User.belongsTo(models.UserCards);
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
-    User.hasOne(models.Deck);
+    User.hasMany(models.Deck);
     User.hasMany(models.Opinion)
-    // User.belongsTo(models.UserCards);
-    // User.belongsTo(models.Rol);
-    // User.belongsTo(models.Status);
-    // User.hasMany(models.Deck);
   }
 }
 
