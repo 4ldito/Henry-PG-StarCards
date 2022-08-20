@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import getAllCards from "../../redux/actions/cards/getAllCards";
+import React from "react";
 import FilterByRace from "../Album/Filter";
 import SearchCard from "../Album/SearchCard";
 import SortCards from "../Album/sort";
