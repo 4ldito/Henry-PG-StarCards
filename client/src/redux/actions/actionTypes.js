@@ -21,6 +21,7 @@ export const CREATE_USER = 'CREATE_USER'
 export const SIGN_IN = 'SIGN_IN'
 export const DELETE_USER = 'DELETE_USER'
 export const MODIFY_USER = 'MODIFY_USER'
+export const SET_TOKEN = 'SET_TOKEN'
 // CARDS
 export const GET_ALL_CARDS = 'GET_ALL_CARDS'
 export const FILTER_CARDS = 'FILTER_CARDS'
