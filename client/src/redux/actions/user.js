@@ -40,7 +40,6 @@ export function setToken(credentials) {
 }
 
 export function modifyUser (id, property) {
-
   return async function (dispatch) {
     const response = await axios.patch(`http://localhost:3001/user/${id}`, property)
     dispatch({ type: MODIFY_USER, payload: response.data })
