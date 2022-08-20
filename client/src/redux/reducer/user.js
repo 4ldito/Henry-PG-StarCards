@@ -1,6 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER, SIGN_IN, SET_TOKEN, IS_VALID_TOKEN } from '../actions/actionTypes'
-
+import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER, SIGN_IN, SET_TOKEN, IS_VALID_TOKEN, LOG_OUT } from '../actions/actionTypes'
 
 const initialState = {
   user: {},
@@ -31,6 +30,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, token: payload.token, rol: payload.rol }
     case IS_VALID_TOKEN:
       return { ...state, validToken: payload }
+    case LOG_OUT:
+      return { ...state, token: null, rol: null }
     default:
       return state
   }
