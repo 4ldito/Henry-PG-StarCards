@@ -1,11 +1,11 @@
 const db = require('../db');
-const { User, Rol } = db;
+const { User } = db;
 const config = require('../config/config')
 const jwt = require('jsonwebtoken');
-const { Op } = require('sequelize');
 
 async function signUp(req, res, next) {
     const { email, username, password } = req.body;
+
     try {
         const newUser = new User({
             email, username, password: await User.prototype.hashPassword(password)
@@ -13,11 +13,10 @@ async function signUp(req, res, next) {
         const savedUser = await newUser.save();
         await savedUser.setRol("user");
         const token = jwt.sign({ id: savedUser.id, rol: savedUser.RolId }, config.SECRET, { expiresIn: 86400 });
-        res.status(200).json({ token, rol: savedUser.RolId})
+        res.status(200).json({ token, rol: savedUser.RolId, id: savedUser.id })
     } catch (err) {
         next(err)
     }
-
 }
 
 async function signIn(req, res, next) {
@@ -28,9 +27,7 @@ async function signIn(req, res, next) {
         const token = jwt.sign({ id: userFound.id }, config.SECRET, { expiresIn: 86400 });
         const validPassword = await User.prototype.comparePassword(password, userFound.password);
         if (!validPassword) return res.status(400).json({ error: "la contraseña no coincide" });
-        res.json({ token, rol: userFound.RolId, user: userFound })
-        console.log('llega');
-
+        res.json({ token, rol: userFound.RolId, id: userFound.id });
     } catch (err) {
         next(err)
     }

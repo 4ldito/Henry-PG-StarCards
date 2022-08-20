@@ -23,6 +23,8 @@ export const SIGN_IN = 'SIGN_IN'
 export const DELETE_USER = 'DELETE_USER'
 export const MODIFY_USER = 'MODIFY_USER'
 export const SET_TOKEN = 'SET_TOKEN'
+export const IS_VALID_TOKEN = 'IS_VALID_TOKEN';
+export const LOG_OUT = 'LOG_OUT';
 // CARDS
 export const GET_ALL_CARDS = 'GET_ALL_CARDS'
 export const FILTER_CARDS = 'FILTER_CARDS'
