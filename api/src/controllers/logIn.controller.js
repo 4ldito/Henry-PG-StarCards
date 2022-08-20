@@ -28,7 +28,7 @@ async function signIn(req, res, next) {
         const token = jwt.sign({ id: userFound.id }, config.SECRET, { expiresIn: 86400 });
         const validPassword = await User.prototype.comparePassword(password, userFound.password);
         if (!validPassword) return res.status(400).json({ error: "la contraseña no coincide" });
-        res.json({ token, rol: userFound.RolId })
+        res.json({ token, rol: userFound.RolId, user: userFound })
         console.log('llega');
 
     } catch (err) {

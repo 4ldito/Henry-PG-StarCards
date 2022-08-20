@@ -11,14 +11,15 @@ export default function UserProfile () {
   const [user, setUser] = useState()
   const [render, setRender] = useState()
 
-  let username = 'antu' //para que me traiga un usuario sin estar logeado
+  // let username = 'antu' //para que me traiga un usuario sin estar logeado
 
   useEffect(() => {
-    dispatch(getUser(username))
+    dispatch(getUser('41cfcc4a-90f1-4c11-b811-604c769426ec'))
   },[])
 
   useEffect(() => {
-    setUser(userActive)
+    console.log(userActive);
+    setUser(userActive[0])
   },[userActive])
 
   function changeRender(e){
