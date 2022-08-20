@@ -8,7 +8,7 @@ import css from "./SearchCard.module.css";
 export default function SearchCard() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const cards = useSelector((state) => state.inventory.cards);
+  const cards = useSelector((state) => state.album.cards);
 
   function onSubmit(e) {
     e.preventDefault();

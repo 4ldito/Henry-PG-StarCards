@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import getAllCards from "../../redux/actions/cards/getAllCards";
 import Card from "../Card/Card";
-import FilterByRace from "./Filter";
-import SearchCard from "./SearchCard";
-import SortCards from "./sort";
 
-const Inventory = () => {
+import css from "./Album.module.css";
+
+const Album = () => {
   const [limit, setLimit] = useState({ min: 0, max: 2 });
-  const allCards = useSelector((state) => state.inventory.filteredCards);
+  const allCards = useSelector((state) => state.album.filteredCards);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCards());
-    // eslint-disable-next-line
   }, []);
 
   function pag(e) {
@@ -82,10 +80,7 @@ const Inventory = () => {
   }
 
   return (
-    <div>
-      <SortCards />
-      <FilterByRace />
-      <SearchCard />
+    <div className={css.cartas}>
       {allCards.map((card, index) => {
         if (index <= limit.max && index >= limit.min) {
           return (
@@ -112,4 +107,4 @@ const Inventory = () => {
   );
 };
 
-export default Inventory;
+export default Album;

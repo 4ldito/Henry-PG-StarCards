@@ -7,7 +7,7 @@ import { getOpinions } from "../../redux/actions/cards/getOpinions.js";
 import css from "./Card.module.css";
 
 export default function Card({ id }) {
-  const allCards = useSelector((state) => state.inventory.filteredCards);
+  const allCards = useSelector((state) => state.album.filteredCards);
   const card = allCards.find((c) => c.id === id);
 
   const navigate = useNavigate();

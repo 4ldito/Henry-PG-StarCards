@@ -6,7 +6,7 @@ import css from "./Sort.module.css";
 
 export default function SortCards() {
   const dispatch = useDispatch();
-  const cards = useSelector((state) => state.inventory.filteredCards);
+  const cards = useSelector((state) => state.album.filteredCards);
   function onSelectChange(e) {
     dispatch(sortCards(e.target.value, cards));
   }

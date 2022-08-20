@@ -6,7 +6,7 @@ import css from './Filter.module.css'
 
 export default function FilterByRace () {
   const dispatch = useDispatch()
-  const cards = useSelector((state) => state.inventory.cards)
+  const cards = useSelector((state) => state.album.cards)
   const [filter, setFilter] = useState({ race: 'allRaces', movements: 'allMovements' })
   function onSelectChange (e) {
     setFilter({
