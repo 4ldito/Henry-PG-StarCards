@@ -39,11 +39,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/detail" element={<Detail />} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path='/playroom' element={<Playroom />} />
+        <Route path='/playroom' element={<Playroom />} />
+        {/* <Route element={<ProtectedRoutes />}> */}
           <Route path='/shopcart' element={<ShopCart />} />
           <Route path="/userProfile" element={<UserProfile />} />
-        </Route>
+        {/* </Route> */}
       </Routes>
     </div>
   );
