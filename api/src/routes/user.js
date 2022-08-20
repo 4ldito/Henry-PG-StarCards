@@ -68,6 +68,7 @@ userRoute.patch("/:id", async (req, res, next) => {
     const { username, password, email, profileImg, coverImg, RolId } = req.body;
 
     const user = await User.findByPk(id);
+    console.log(req.body)
     if (RolId) {
       await user.setStatus(RolId);
     }
@@ -79,7 +80,7 @@ userRoute.patch("/:id", async (req, res, next) => {
       coverImg: coverImg,
     });
 
-    res.json(user).send({ msg: "Data Updated!" });
+    res.json(user);
   } catch (error) {
     next(error);
   }

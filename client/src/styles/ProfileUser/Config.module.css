@@ -1,0 +1,8 @@
+/* .config{
+display: flex;
+} */
+.modal{
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+}

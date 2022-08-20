@@ -59,7 +59,7 @@ export default function UserProfile () {
           <button className={style.buttons} value='3' onClick={(e)=>changeRender(e)}>Config</button>
           <button className={style.buttons} value='4' onClick={(e)=>changeRender(e)}>Chat</button>
       </div>
-
+      <Config user={user} />
         {render === 'config' ? <Config user={user} />
         // :render === 'Inventory' ?  'Inventory'
         // :render === 'Stats' ?  'Stats'

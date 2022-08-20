@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { modifyUser } from "../../redux/actions/user";
 
 ////////////////////////////////////////////////////////////////////////
-export default function username (props) {
+export default function username ({user,property}) {
     const dispatch = useDispatch()
     const [state, setState] = useState({open: false})
     const [value, setValue] = useState('')
@@ -26,12 +26,14 @@ export default function username (props) {
         const input = e.target.value
         setValue(input)
     }
-    function sendData(){
-        dispatch(modifyUser(value))
+    function sendData(e){
+        let property = e.target.value
+        // console.log((user.id , { [property] :value}))
+        dispatch(modifyUser(user.id , { [property] :value}))
         openModal()
     }
     return(
-        props.value=='username'?
+        property=='username'?
         <>
         <div className={s.principal}>
             <div className={s.secundario}>
