@@ -2,6 +2,7 @@ import React from 'react'
 import style from '../../styles/ProfileUser/Config.module.css'
 import BtnUserProfile from '../Buttons/BtnUserProfile'
 import { useNavigate } from 'react-router-dom';
+import { deleteUser } from '../../redux/actions/user';
 
 export default function Config({ user }) {
 

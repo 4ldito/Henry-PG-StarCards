@@ -19,7 +19,7 @@ export default function UserProfile () {
 
   useEffect(() => {
     console.log(userActive);
-    setUser(userActive)
+    setUser(userActive[0])
   },[userActive])
 
   function changeRender(e){
@@ -57,4 +57,3 @@ export default function UserProfile () {
     </>)
   :'loading...')
 }
-
