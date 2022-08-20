@@ -7,11 +7,10 @@ import ShopCart from "./components/Shop/ShopCart/ShopCart";
 import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
-import About from "./components/About/About"
+import Nav from "./Components/Nav/Nav";
+import About from "./Components/About/About";
 
 import "./App.css";
-import Nav from "./Components/Nav/Nav";
-// import Profile from './components/Profile/Profile'
 
 function App() {
   return (
@@ -21,9 +20,9 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/playroom" element={<Playroom />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/about" element={<About />} />
         <Route path="/shopcart" element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
-        <Route path="/about" element={<About />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/detail" element={<Detail />} />
       </Routes>
