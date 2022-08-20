@@ -33,7 +33,7 @@ export default function Nav() {
 
       <button
         id="link-perfil"
-        className={css.link}
+        className={css.btn}
         onClick={() => setVisibleUserOptions(!visibleUserOptions)}
       >
         <span id="span" className="material-symbols-outlined">
@@ -42,7 +42,7 @@ export default function Nav() {
       </button>
 
       {visibleUserOptions ? (
-        <div>
+        <div className={css.antu}>
           <UserOptions />{" "}
         </div>
       ) : (
