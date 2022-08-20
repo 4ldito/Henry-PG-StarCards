@@ -6,7 +6,6 @@ export default function UserOptions(props) {
   const isLogged = props.isLogged;
   const dispatch = useDispatch();
   function quit(){
-    console.log('hollaa')
     dispatch(logOut())
   } 
   console.log('holaa');

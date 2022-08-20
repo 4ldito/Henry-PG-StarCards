@@ -27,11 +27,11 @@ export default function userReducer(state = initialState, { type, payload }) {
       const usersUpdated = state.users.filter(user => user.id !== payload)
       return { ...state, users: usersUpdated }
     case SET_TOKEN:
-      return { ...state, token: payload.token, rol: payload.rol }
+      return { ...state, token: payload.token, rol: payload.rol, }
     case IS_VALID_TOKEN:
       return { ...state, validToken: payload }
     case LOG_OUT:
-      return { ...state, token: null, rol: null }
+      return { ...state, token: null, rol: null,validToken:false, id: null, user: null}
     default:
       return state
   }

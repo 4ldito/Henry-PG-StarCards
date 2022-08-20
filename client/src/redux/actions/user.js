@@ -19,19 +19,20 @@ export function getAllUsers() {
 
 export function createUser(user) {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/login/signup', user)
-    // // const credentials = { token: response.data.token, rol: response.data.rol }
-    // // window.localStorage.setItem('STARCARDS_USER_CREDENTIALS', JSON.stringify(credentials));
+    const response = await axios.post('http://localhost:3001/login/signup', user);
     dispatch({ type: CREATE_USER, payload: response.data })
   }
 }
 
 export function signIn(user) {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/login/signin', user)
-    // const credentials = { token: response.data.token, rol: response.data.rol }
-    // window.localStorage.setItem('STARCARDS_USER_CREDENTIALS', JSON.stringify(credentials));
-    dispatch({ type: SIGN_IN, payload: response.data })
+    try{
+      const response = await axios.post('http://localhost:3001/login/signin', user);
+      dispatch({ type: SIGN_IN, payload: response.data })
+    }catch(err){
+      console.log(err.response.data.error);
+
+    }
   }
 }
 
