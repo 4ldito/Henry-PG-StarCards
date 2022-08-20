@@ -10,7 +10,7 @@ packsRoute.get("/all", async (req, res, next) => {
     const packs = await CardPacks.findAll();
     return res.send(packs);
   } catch (error) {
-    return next(error);
+    return next(error); 
   }
 });
 
