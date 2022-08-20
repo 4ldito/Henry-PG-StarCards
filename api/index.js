@@ -58,7 +58,7 @@ const createAllUsers = async () => {
 const createRols = async () => {
   for (const rol of rols) {
     await Rol.create(rol);
-  }
+  } 
 };
 
 const createStatus = async () => {

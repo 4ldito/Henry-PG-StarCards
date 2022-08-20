@@ -26,39 +26,32 @@ userRoute.get("/", async (req, res, next) => {
   }
 });
 
-userRoute.post(
-  "/",
-  [tokenValidations.checkToken, tokenValidations.checkAdmin],
-  async (req, res, next) => {
+userRoute.post('/', async (req, res,next) => {
+try {
     const { password, username, email } = req.body;
-    try {
-      const newUser = await User.findOrCreate({
-        where: { password, username, email },
-        include: Rol,
-      });
-      if (newUser[1]) {
-        newUser[0].setRol("user");
-        newUser[0].setStatus("active");
-        res.json(newUser).send({ msg: "User Created!" });
-      } else {
-        res.status(400).json({ msg: "user alredy exists" });
-      }
-    } catch (error) {
-      next(error);
+    const newUser = await User.findOrCreate({ where: { password, username, email }, include:Rol});
+    if (newUser[1]) {
+         newUser[0].setRol('user');
+        newUser[0].setStatus('active');
+        res.json(newUser).send({ msg: 'User Created!' });
+    } else { 
+        res.status(400).json({ msg: 'user alredy exists' });
     }
+  }catch (error) {
+    next(error)
   }
-);
+})
 
-userRoute.delete("/", async (req, res, next) => {
+userRoute.delete('/', async (req, res, next) => {
   try {
-    const id = req.query.id;
+    const id = req.query.id
 
-    if (!id) return res.send({ err: "error" });
+    if (!id) return res.send({ err: 'error' })
 
-    const userDeleted = await User.findOne({ where: { id } });
+    const userDeleted = await User.findOne({ where: { id } })
     if (userDeleted) {
-      User.destroy({ where: { id } });
-      res.json({ msg: "user removed" });
+      User.destroy({ where: { id } })
+      res.json({ msg: 'user removed' })
     } else {
       return res.status(400).send({ msg: "user does not exist" });
     }
