@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import {Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input, Label} from 'reactstrap'
-import s from './BtnUserProfile.module.css'
+import s from '../../styles/ProfileUser/BtnUserProfile.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { useDispatch } from "react-redux";
 import { modifyUser } from "../../redux/actions/user";

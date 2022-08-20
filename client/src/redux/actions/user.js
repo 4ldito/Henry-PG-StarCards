@@ -3,9 +3,9 @@ import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER } from '
 
 /// ////////////////////////////////////////////////////////////////////////////////////////////
 
-export function getUser (id) {
+export function getUser (username) {
   return async function (dispatch) {
-    const response = await axios('http://localhost:3001/user', id)
+    const response = await axios(`http://localhost:3001/user?username=${username}`)
     dispatch({ type: GET_USER, payload: response.data })
   }
 }
@@ -33,7 +33,7 @@ export function modifyUser (payload) {
 
 export function deleteUser (id) {
   return async function (dispatch) {
-    const response = await axios.delete('http://localhost:3001/user', id)
+    const response = await axios.delete(`http://localhost:3001/user?id=${id}`)
     dispatch({ type: DELETE_USER, payload: response.data })
   }
 }

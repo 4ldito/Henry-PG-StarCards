@@ -7,21 +7,24 @@ const userRoute = Router();
 /// /////////////////////////////////////////////////////////////////////////////////////////////
 userRoute.get("/", async (req, res, next) => {
   try {
-    const { id } = req.body;
-    if(id){  
-    const user = await User.findByPK(id)
-    if (user) return res.json(user)
-    return res.json(new Error('error, User Not Found'))
-  }
-  else{
-    const users = await User.findAll()
-    if (users) return res.json(users)
-    return res.json(new Error('error'))
-  }
+    const { id, username } = req.query;
+    if (id) {
+      const user = await User.findByPK(id);
+      if (user) return res.json(user);
+      return res.json(new Error("error, User Not Found"));
+    } else if (username) {
+      const user = await User.findOne({ where: { username: username } });
+      if (user) return res.json(user);
+      return res.json(new Error("error, User Not Found"));
+    } else {
+      const users = await User.findAll();
+      if (users) return res.json(users);
+      return res.json(new Error("error"));
+    }
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 userRoute.post('/', async (req, res,next) => {
 try {
