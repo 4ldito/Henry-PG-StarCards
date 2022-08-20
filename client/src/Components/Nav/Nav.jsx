@@ -31,7 +31,7 @@ export default function Nav() {
       <Link id="link-perfil" className={css.link} to="/userProfile">
         <span
           id="span"
-          class="material-symbols-outlined"
+          className="material-symbols-outlined"
         >
           account_circle
         </span>

@@ -8,10 +8,10 @@ import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
 import Inventory from "./components/Inventory/Inventory";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
+import Nav from "./Components/Nav/Nav";
+import About from "./Components/About/About";
 
 import "./App.css";
-import Nav from "./Components/Nav/Nav";
-// import Profile from './components/Profile/Profile'
 
 function App() {
   return (
@@ -21,6 +21,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/playroom" element={<Playroom />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/about" element={<About />} />
         <Route path="/shopcart" element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/inventory" element={<Inventory />} />
