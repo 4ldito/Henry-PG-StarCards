@@ -43,6 +43,7 @@
   background-color: var(--color-darker);
   color: aqua;
   border-bottom: 1px solid black;
+  font-weight: bold;
 }
 
 .seccionesLow {
