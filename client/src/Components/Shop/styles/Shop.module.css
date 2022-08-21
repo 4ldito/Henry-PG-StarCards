@@ -3,10 +3,11 @@
     flex-direction: column;
     margin: 1rem;
     border-radius: 20px;
-    background-color: #101010;
+    background-color: var(--container-background-main);
     color: white;
     text-align: center;
     border: 2px solid white;
+    height: 85vh;
 }
 
 .containerBtns {
@@ -15,33 +16,34 @@
 }
 
 .btn {
-    background-color: #202020;
+    background-color: var(--color-dark);
     color: white;
     outline: none;
     padding: 0.5rem;
     font-size: 1.4rem;
     border: none;
     border-bottom: 1px solid transparent;
-    transition: background-color .3s, border .3s;
+    transition: background-color .3s, border .3s, font-weight .3s;
 }
 
 .btn:hover {
-    background-color: #121010;
+    background-color: var(--color-darker);
     border-bottom: 1px solid black;
 }
 
-.containerBtns .btn:first-child {
+.btn:first-child {
     border-top-left-radius: 20px;    
     border-right: 1px solid black;
 }
 
-.containerBtns .btn:last-child{
+.btn:last-child{
     border-top-right-radius: 20px;
     border-left: 1px solid black;
 }
 
 .active {
-    background-color: #121010;
+    background-color: var(--color-darker);
     border-bottom: 1px solid black;
     color: aqua;
+    font-weight: bold;
 }

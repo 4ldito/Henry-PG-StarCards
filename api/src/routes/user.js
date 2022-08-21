@@ -71,7 +71,7 @@ userRoute.delete("/", async (req, res, next) => {
 
     if (!id) return res.send({ err: "error" });
 
-    const userDeleted = await User.findOne({ where: { id } });
+    const userDeleted = await User.findByPk(id);
     if (userDeleted) {
       User.destroy({ where: { id } });
       res.json({ msg: "user removed" });

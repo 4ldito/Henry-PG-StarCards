@@ -1,68 +1,64 @@
-.about{
-    background-color: rgb(18, 83, 168);
-
-    width: 100%;
+.about {
+    background-color: var(--container-background-main);
+    border-radius: 20px;
+    border: 2px solid white;
     height: 93vh;
-
-    padding: 1rem;
+    margin: 1rem;
+    color: white;
 }
 
-.secciones{
+.secciones {
     display: flex;
     flex-direction: row;
-
-    background-color: gray;
-
+    background-color: var(--color-dark);
     width: 100%;
     height: 5%;
 }
 
-.seccion{
+.seccion {
     display: flex;
     align-items: center;
     justify-content: center;
-
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid black;
-
     font-size: 1.5rem;
-
     width: calc(100% / 3);
+    border: none;
+    border-bottom: 1px solid transparent;
+    transition: background-color .3s, border .3s, font-weight .3s;
+    color: white;
 }
 
-.seccion:focus{
-    background-color: rgb(195, 197, 89);
+.selected {
+    background-color: var(--color-darker);
+    color: aqua;
 }
 
-.seccionesLow{
+.seccionesLow {
     background-color: rgba(255, 0, 0, 0);
     display: flex;
     flex-direction: row;
-
     width: 100%;
     height: 95%;
 }
 
-.filtrosContainer{
+.filtrosContainer {
     background-color: rgb(56, 56, 112);
-    
     width: 20%;
     height: 98%;
-    
     margin: .5% .5% .5% 0%;
     padding: 1%;
 }
 
-.filtros{
+.filtros {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     width: 100%;
     height: 50%;
 }
 
-.cartas{
+.cartas {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -71,18 +67,4 @@
     height: 98%;
     margin: .5% 0% .5% 0%;
     padding: 1% 1% 0% 1%;
-}
-
-.selected{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background-color: gold;
-    border: 1px solid black;
-
-    font-size: 1.5rem;
-    font-weight: 500;
-
-    width: calc(100% / 3);
 }

@@ -1,11 +1,10 @@
 import React, { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
-
 import Mercadopago from './Mercadopago'
 import Swal from 'sweetalert2'
-
 import { cleanPreferenceId, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
+import style from '../../../styles/shopCart/shopCart.module.css'
 
 const ShopCart = () => {
   const dispatch = useDispatch()
@@ -54,7 +53,7 @@ const ShopCart = () => {
   }, [user.stars])
 
   return (
-    <div>ShopCart
+    <div className={style.container}>ShopCart
       {starsPack.length > 0 || cardsPack.length > 0
         ? (
           <>

@@ -60,7 +60,7 @@ export function modifyUser(id, property) {
 
 export function deleteUser(id) {
   return async function (dispatch) {
-    const response = await axios.delete(`http://localhost:3001/user?id=${id}`)
+    const response = await axios.delete(`http://localhost:3001/user/?id=${id}`)
     dispatch({ type: DELETE_USER, payload: response.data })
   }
 }
