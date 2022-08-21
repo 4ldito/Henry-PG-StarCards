@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
 
 import css from "./Nav.module.css";
+import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
-  const isLogged = useSelector(state => state.userReducer.token)
+  const validLogged = useValidToken({navigate: false})
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
     <div className={css.nav}>
@@ -22,9 +23,9 @@ export default function Nav() {
           </Link>
         </li>
         <li className={css.li}>
-          <Link className={css.link} to="/playroom">
+          {validLogged?<Link className={css.link} to="/playroom">
             Playroom
-          </Link>
+          </Link>:<></>}
         </li>
         <li className={css.li}>
           <Link className={css.link} to="/about">
@@ -45,7 +46,7 @@ export default function Nav() {
 
       {visibleUserOptions ? (
         <div>
-          <UserOptions isLogged = {isLogged}/>{" "}
+          <UserOptions isLogged = {validLogged}/>{" "}
         </div>
       ) : (
         <></>
