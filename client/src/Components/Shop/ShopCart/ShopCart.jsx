@@ -1,10 +1,13 @@
-import React, { useEffect, useMemo } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import Mercadopago from './Mercadopago'
-import Swal from 'sweetalert2'
+
+import Mercadopago from './Mercadopago';
+import Swal from 'sweetalert2';
+
 import { cleanPreferenceId, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
-import style from '../../../styles/shopCart/shopCart.module.css'
+
+import style from '../../../styles/shopCart/shopCart.module.css';
 
 const ShopCart = () => {
   const dispatch = useDispatch()
@@ -13,8 +16,8 @@ const ShopCart = () => {
   const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg)
   const user = useSelector(state => state.userReducer.user)
 
-  let totalStarsPack = 0
-  let totalCardsPack = 0
+  let totalStarsPack = 0;
+  let totalCardsPack = 0;
 
   const handleBuyCardsPack = (e) => {
     e.preventDefault();
@@ -24,6 +27,7 @@ const ShopCart = () => {
 
   useEffect(() => {
     if (msgInfoPurchase.type) {
+      dispatch(shopCartCleanMsgInfo())
       Swal.fire({
         title: msgInfoPurchase.title,
         text: msgInfoPurchase.info,
@@ -44,13 +48,12 @@ const ShopCart = () => {
   useEffect(() => {
     return () => {
       dispatch(cleanPreferenceId());
-      dispatch(shopCartCleanMsgInfo())
     }
   }, []);
 
   const buyWithStars = useMemo(() => {
-    return user.stars >= totalCardsPack;
-  }, [user.stars])
+    return user?.stars >= totalCardsPack;
+  }, [user?.stars])
 
   return (
     <div className={style.container}>ShopCart

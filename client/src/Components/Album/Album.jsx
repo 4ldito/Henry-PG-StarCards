@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import getAllCards from "../../redux/actions/cards/getAllCards";
 import Card from "../Card/Card";
@@ -14,6 +15,10 @@ const Album = () => {
   useEffect(() => {
     dispatch(getAllCards());
   }, []);
+
+  useEffect(() => {
+    setLimit({ min: 0, max: cardsPerPage - 1 });
+  }, [allCards]);
 
   function pag(e) {
     e.preventDefault();

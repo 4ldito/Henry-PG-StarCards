@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import FilterByRace from "../Album/Filter";
 import SearchCard from "../Album/SearchCard";
-import SortCards from "../Album/sort";
+import SortCards from "../Album/Sort";
 import Album from "../Album/Album";
 
 import Rules from "../Rules/Rules";

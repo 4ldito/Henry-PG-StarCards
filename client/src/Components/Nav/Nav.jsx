@@ -9,7 +9,7 @@ import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
   const isLogged = useSelector(state => state.userReducer.token);
-  const {validToken} = useValidToken({navigate: false})
+  const { validToken } = useValidToken({ navigate: false })
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
     <div className={css.nav}>
@@ -25,7 +25,7 @@ export default function Nav() {
         </li>
         <li className={css.li}>
 
-          {validToken&&<NavLink className={css.link} to="/playroom">
+          {validToken && <NavLink className={css.link} to="/playroom">
             Playroom
           </NavLink>}
 
@@ -40,7 +40,10 @@ export default function Nav() {
       <button
         id="link-perfil"
         className={css.btn}
-        onClick={() => setVisibleUserOptions(!visibleUserOptions)}
+        onFocus={() => setVisibleUserOptions(!visibleUserOptions)}
+        onBlur={() => setTimeout(() => {
+          setVisibleUserOptions(false)
+        }, 100)}
       >
         <span id="span" className="material-symbols-outlined">
           account_circle

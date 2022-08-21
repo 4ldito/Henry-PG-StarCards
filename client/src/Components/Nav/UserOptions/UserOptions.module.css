@@ -5,6 +5,16 @@
     height: 100%;
     width: 100%;
 }
-.link{
-    text-decoration: none;
+
+.btn {
+    background: none;
+    color: #0E67EE;
+    border: none;
+    padding: 0;
+    font-size: 1.3rem;
+    text-decoration: underline;
+}
+
+.btn:hover{ 
+    color: #0a58ca;
 }

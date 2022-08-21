@@ -12,7 +12,7 @@
 
 /* input[type="text"]{
   color: white;
-} */
+}
 input[type="password"] {
   height: 25px;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -29,7 +29,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background: #6cf0c2;
-}
+} */
 
 .buttoncontainer {
   display: flex;

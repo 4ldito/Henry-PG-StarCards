@@ -115,10 +115,10 @@ const PacksCard = ({ pack, type }) => {
           <button onClick={increaseQuantity}>+</button>
         </div>
         <div className={style.buttons}>
-          <button onClick={handleBuyNow} disabled={user?.stars < pack.price}>
+          <button className={`${style.btn} ${style.btnBuyNow}`} onClick={handleBuyNow} disabled={user?.stars < pack.price}>
             Comprar YA
           </button>
-          <button>Añadir al carrito</button>
+          <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
         </div>
       </form>
     );
@@ -152,7 +152,7 @@ const PacksCard = ({ pack, type }) => {
         />
         <button onClick={increaseQuantity}>+</button>
       </div>
-      <button>Añadir al carrito</button>
+      <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
     </form>
   );
 };

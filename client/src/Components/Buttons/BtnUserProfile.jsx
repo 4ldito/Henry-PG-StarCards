@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input, Label } from 'reactstrap'
 import s from '../../styles/ProfileUser/BtnUserProfile.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { modifyUser } from "../../redux/actions/user";
 
 ////////////////////////////////////////////////////////////////////////
@@ -11,6 +11,7 @@ export default function username({ user, property }) {
     const [state, setState] = useState({ open: false })
     const [value, setValue] = useState('')
     const [oldPassword, setOldPassword] = useState('')
+    const password = useSelector(state => state.userReducer.validPassword)
 
     function openModal() {
         setState({ open: !state.open })
@@ -37,16 +38,20 @@ export default function username({ user, property }) {
 
     function sendData(e) {
         let property = e.target.value
-        if (property === 'password' && oldPassword !== user.password) { //si la password es incorrecta se cierra.
-            openModal()
-            return alert('Incorrect Password')
+        if (property === 'password'){
+            dispatch(modifyUser(user.id, { [property]: value }))
         }
-        else if (property === 'password' && value.length >= 1 && value.length < 6) {
-            return alert('New password a long six characters...')
-        }
-        else if (property === 'password' && !value.length) return alert('New password empty')
-        dispatch(modifyUser(user.id, { [property]: value }))
-        openModal()
+        console.log('password button' , password)
+
+        // if (property === 'password' && oldPassword !== user.password) { //si la password es incorrecta se cierra.
+        //     openModal()
+        //     return alert('Incorrect Password')
+        // }
+        // else if (property === 'password' && value.length >= 1 && value.length < 6) {
+        //     return alert('New password a long six characters...')
+        // }
+        // else if (property === 'password' && !value.length) return alert('New password empty')
+        // openModal()
     }
     return (
         property == 'username' ?

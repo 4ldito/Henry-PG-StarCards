@@ -1,6 +1,6 @@
-.bdelete{
-    background-color: red;
-   
+.bdelete {
+  background-color: red;
+  color: white;
 }
 .container{
     display: flex;
@@ -15,11 +15,11 @@
     border: solid #001124;
     font-family: starcardsFont;
 }
-.config{
-display: flex;
-flex-direction: column;
+.config {
+  display: flex;
+  flex-direction: column;
 
-padding-top: 5vh;
+  padding-top: 5vh;
 }
 .modal{
     display: flex;
