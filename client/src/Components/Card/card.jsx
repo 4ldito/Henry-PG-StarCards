@@ -26,6 +26,7 @@ export default function Card({ id }) {
       : css.protossCard;
 
   return (
+
     <div
       className={`${cardCss} ${css.cardContainer}`}
       onClick={() => detail(id)}
