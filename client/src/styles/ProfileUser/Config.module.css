@@ -1,20 +1,20 @@
-.bdelete{
-    background-color: red;
-   
+.bdelete {
+  background-color: red;
+  color: white;
 }
-.container{
-    display: flex;
-    justify-content: center;
-    color: white;
+.container {
+  display: flex;
+  justify-content: center;
+  color: white;
 }
-.config{
-display: flex;
-flex-direction: column;
+.config {
+  display: flex;
+  flex-direction: column;
 
-padding-top: 5vh;
+  padding-top: 5vh;
 }
-.modal{
-    display: flex;
-    align-items: center;
-    align-content: space-between;
+.modal {
+  display: flex;
+  align-items: center;
+  align-content: space-between;
 }
