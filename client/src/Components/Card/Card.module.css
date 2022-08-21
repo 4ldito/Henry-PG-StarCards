@@ -72,23 +72,26 @@
 }
 
 .dmg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 90%;
-  text-align: center;
   width: 40%;
 }
 
 .zergCard {
-  background-image: url("https://i.ibb.co/PZvFnY1/Zerg.png");
+  background-image: url("https://i.ibb.co/PgvMswr/zerg-Front.png");
 }
 
 .card:hover {
+  user-select: none;
   cursor: pointer;
 }
 
 .terranCard {
-  background-image: url("https://i.ibb.co/wzLjJMR/Terran.png");
+  background-image: url("https://i.ibb.co/kDr0J5s/terran-Front.png");
 }
 
 .protossCard {
-  background-image: url("https://i.ibb.co/JRS7gV6/Protoss.png");
+  background-image: url("https://i.ibb.co/Gxpwy4b/protoss-Front.png");
 }
