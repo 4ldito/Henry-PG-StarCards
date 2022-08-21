@@ -33,9 +33,11 @@
 }
 
 .stock {
-    color: blue;
+    /* color: blue; */
+    font-weight: bold;
 }
 
 .race {
-    color: red;
+    font-weight: bold;
+    /* color: red; */
 }

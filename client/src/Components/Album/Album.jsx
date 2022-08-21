@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import getAllCards from "../../redux/actions/cards/getAllCards";
 import Card from "../Card/Card";
-import FilterByRace from "./Filter";
-import SearchCard from "./SearchCard";
-import SortCards from "./sort";
 
-const Inventory = () => {
+import css from "./Album.module.css";
+
+const Album = () => {
   const [limit, setLimit] = useState({ min: 0, max: 2 });
-  const allCards = useSelector((state) => state.inventory.filteredCards);
+  const allCards = useSelector((state) => state.album.filteredCards);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllCards());
-    // eslint-disable-next-line
   }, []);
 
   function pag(e) {
@@ -25,7 +23,6 @@ const Inventory = () => {
       max = 2;
     }
     setLimit({ min, max });
-    console.log(limit);
   }
 
   function pagBack(e) {
@@ -37,7 +34,6 @@ const Inventory = () => {
       max = 2;
     }
     setLimit({ min, max });
-    console.log(limit);
   }
 
   function pagNext(e) {
@@ -54,27 +50,25 @@ const Inventory = () => {
     }
 
     setLimit({ min, max });
-    console.log(last);
   }
 
-  function paginado() {
+  function paginated() {
     const TotalPag = allCards.length / 3;
     const button = [];
     button.push(
-      <button key="back" onClick={pagBack}>
+      <button className={css.pag} key="back" onClick={pagBack}>
         {"<"}
       </button>
     );
     for (let i = 0; i < TotalPag; i++) {
-      //Creo un "button" por cada paginado y lo pusheo al array "button"
       button.push(
-        <button key={i} onClick={pag}>
+        <button className={css.pag} key={i} onClick={pag}>
           {i + 1}
         </button>
       );
     }
     button.push(
-      <button key="next" onClick={pagNext}>
+      <button className={css.pag} key="next" onClick={pagNext}>
         {">"}
       </button>
     );
@@ -83,33 +77,32 @@ const Inventory = () => {
 
   return (
     <div>
-      <SortCards />
-      <FilterByRace />
-      <SearchCard />
-      {allCards.map((card, index) => {
-        if (index <= limit.max && index >= limit.min) {
-          return (
-            <Card
-              key={card.id}
-              id={card.id}
-              name={card.name}
-              image={card.image}
-              cost={card.cost}
-              Gdmg={card.Gdmg}
-              Admg={card.Admg}
-              life={card.life}
-              ability={card.ability}
-              abilities={card.abilities}
-              race={card.race}
-              movement={card.movement}
-            />
-          );
-        }
-      })}
+      <div className={css.cartas}>
+        {allCards.map((card, index) => {
+          if (index <= limit.max && index >= limit.min) {
+            return (
+              <Card
+                key={card.id}
+                id={card.id}
+                name={card.name}
+                image={card.image}
+                cost={card.cost}
+                Gdmg={card.Gdmg}
+                Admg={card.Admg}
+                life={card.life}
+                ability={card.ability}
+                abilities={card.abilities}
+                race={card.race}
+                movement={card.movement}
+              />
+            );
+          }
+        })}
+      </div>
 
-      <div>{paginado()}</div>
+      <div className={css.paginated}>{paginated()}</div>
     </div>
   );
 };
 
-export default Inventory;
+export default Album;

@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 const { Router } = require("express");
 const db = require("../db");
+const axios = require('axios');
 
-const { CardPacks, User } = db;
+const { CardPacks, User, Card } = db;
 const packsRoute = Router();
 
 packsRoute.get("/all", async (req, res, next) => {
@@ -10,23 +11,17 @@ packsRoute.get("/all", async (req, res, next) => {
     const packs = await CardPacks.findAll();
     return res.send(packs);
   } catch (error) {
-    return next(error); 
+    return next(error);
   }
 });
 
-packsRoute.post('/buy', async (req, res, next) => {
+packsRoute.patch('/buy', async (req, res, next) => {
   // const user = await User.findOne() // user hardcodeado x ahora jeje
   try {
     const { data } = req.body;
-    // console.log(data)
-    // const packsId = data.map((elem) => CardPacks.findByPk(elem.pack));
-    // const allPacks = await Promise.all(packsId);
 
-    // // console.log(allPacks)
-    // const infoPurchase = []
     const info = {};
     for (const pack of data) {
-      // const { pack } = p;
       info[pack.name] = { quantity: pack.quantity }
       if (pack.stock < pack.quantity) return res.send({ error: 'Stock insuficente' });
       pack.subTotal = pack.quantity * pack.price;
@@ -36,6 +31,7 @@ packsRoute.post('/buy', async (req, res, next) => {
       (acc, currentValue) => acc + currentValue.subTotal,
       0
     );
+
     const [user] = await Promise.all([User.findOne()])
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
@@ -50,10 +46,42 @@ packsRoute.post('/buy', async (req, res, next) => {
     });
 
     const updatedInfo = await Promise.all([user.save(), ...updatedPacks]);
-    
+    const updatedUser = updatedInfo.shift();
+
+    const cardsPerPack = await Promise.all(updatedInfo.map(async (cardPack) => {
+      let acc = 0;
+      const probabilityArray = cardPack.cards.map((card) => {
+        acc = acc + Number(card[1])
+
+        return acc ;
+      })
+
+      let chosenArray = [];
+      let chosenCardIndex = probabilityArray.length - 1;
+      for (let i = 0; i < cardPack.amount; i++) {
+        const prob = Math.random();
+
+        for (let j = probabilityArray.length - 1; j >= 0; j--) {
+          if (prob < probabilityArray[j]) chosenCardIndex = j;
+        }
+
+        const chosenCardName = cardPack.cards[chosenCardIndex][0];
+        chosenArray.push(Card.findOne({ where: { name: chosenCardName, StatusId: "active" } }))
+      }
+      return Promise.all(chosenArray);
+    }))
+
+    let cardsId = []
+    cardsPerPack.forEach(cardPack => {
+      cardPack.forEach(card => {
+        cardsId.push(card.id)
+      })
+    })
+
+    await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId })
     return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo });
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return res.send(error)
   }
 

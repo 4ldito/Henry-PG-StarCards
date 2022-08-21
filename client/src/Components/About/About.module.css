@@ -1,0 +1,82 @@
+.about {
+    background-color: var(--container-background-main);
+    border-radius: 20px;
+    border: 2px solid white;
+    height: 93vh;
+    margin: 1rem;
+    color: white;
+}
+
+.secciones {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.seccion {
+    background-color: var(--color-dark);
+    padding: 0.5rem;
+    font-size: 1.4rem;
+    width: calc(100% / 3);
+    border: none;
+    border-bottom: 1px solid transparent;
+    transition: background-color .3s, border .3s, font-weight .3s;
+    color: white;
+}
+
+.seccion:hover {
+    background-color: var(--color-darker);
+    border-bottom: 1px solid black;
+}
+
+.seccion:first-child {
+    border-top-left-radius: 20px;    
+    border-right: 1px solid black;
+}
+
+.seccion:last-child{
+    border-top-right-radius: 20px;
+    border-left: 1px solid black;
+}
+
+.selected {
+    background-color: var(--color-darker);
+    color: aqua;
+    border-bottom: 1px solid black;
+}
+
+.seccionesLow {
+    background-color: rgba(255, 0, 0, 0);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 95%;
+}
+
+.filtrosContainer {
+    background-color: var(--color-darker);
+    width: 20%;
+    height: 98%;
+    padding: 1%;
+    /* overflow: hidden; */
+    border-right: 1px solid black;
+    border-bottom-left-radius: 20px;
+}
+
+.filtros {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
+}
+
+.cartas {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+    height: 98%;
+    margin: .5% 0% .5% 0%;
+    padding: 1% 1% 0% 1%;
+}

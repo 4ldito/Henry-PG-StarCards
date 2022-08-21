@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_OPINIONS } from "../actionTypes";
+export const GET_OPINIONS = 'GET_OPINIONS'
 
 export function getOpinions(idCard) {
   return async function (dispatch) {

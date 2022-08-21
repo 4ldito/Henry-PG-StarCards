@@ -1,0 +1,20 @@
+.card {
+    background-color: var(--color-dark);
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 1rem;
+    width: 30%;
+    height: 100%;
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.name {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.img {
+    width: 30%;
+}

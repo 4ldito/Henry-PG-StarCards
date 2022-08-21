@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 module.exports = {
-  SECRET: 'SECRET',
+  SECRET: 'sopaConChocolate',
   development: {
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,

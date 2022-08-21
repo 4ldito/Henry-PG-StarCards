@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL_STARS_PACKS } from './actionTypes'
+export const GET_ALL_STARS_PACKS = 'GET_ALL_STARS_PACKS';
 
 export function getStarsPacks () {
   return async function (dispatch) {

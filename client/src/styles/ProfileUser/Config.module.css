@@ -1,0 +1,20 @@
+.bdelete{
+    background-color: red;
+   
+}
+.container{
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+.config{
+display: flex;
+flex-direction: column;
+
+padding-top: 5vh;
+}
+.modal{
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+}

@@ -14,6 +14,7 @@
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
@@ -21,6 +22,7 @@
     "mercadopago": "^1.5.14",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
+    "passport": "^0.6.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.21.3"

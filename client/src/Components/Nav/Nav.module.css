@@ -28,6 +28,8 @@
 }
 
 .ul {
+  display: flex;
+  flex-direction: row;
   background-color: rgba(255, 0, 0, 0);
 
   list-style: none;
@@ -41,7 +43,6 @@
 
   background-color: rgba(255, 0, 0, 0);
 
-  /* font-size: 3vmin; */
   font-size: 3vh;
 
   margin: 0 1rem;
@@ -61,9 +62,18 @@
 
   color: black;
 
-  /* font-size: 1.3rem; */
-
   background-color: rgba(255, 0, 0, 0);
+}
+
+.btn{
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+}
+
+.btn:focus{
+  outline: none;
 }
 
 [id="span"] {
@@ -77,4 +87,19 @@
 [id="span"]:hover {
   transform: scale(1.1);
   color: silver;
+}
+
+.antu{
+  position: absolute;
+
+  background-color: gray;
+  border: 1px solid black;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  
+  right: 90px;
+  top: 59px;
+
+  width: 150px;
+  height: 100px;
 }

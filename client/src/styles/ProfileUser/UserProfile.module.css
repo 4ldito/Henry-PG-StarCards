@@ -1,6 +1,5 @@
-.bdelete{
-    background-color: red;
-   
+.response{
+    color: white;
 }
 
 .profileimg{
@@ -15,8 +14,8 @@
     border-radius: 50%;
     width: 6vh;
     height: 6vh;
-    left: 50%;
-    top: 32%;
+    left: 51%;
+    top: 37%;
     border: 1px solid wheat;
     cursor: pointer;
     background-color: rgba(0, 0, 255, 0.551);
@@ -30,10 +29,10 @@
 }
 .changecv{
     position:absolute;
-    width: 20vh;
+    width: 25vh;
     height: 5vh;
     right: 1%;
-    top: 23%;
+    top: 25%;
     border: 1px solid wheat;
     background-color: rgba(0, 255, 255, 0.421);
 }
@@ -52,4 +51,8 @@
     width: 12vh;
     align-items: center;
     justify-content: center;
+}
+.stars{
+    display: flex;
+    justify-content: end;
 }
