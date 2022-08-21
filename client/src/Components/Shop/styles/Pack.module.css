@@ -1,0 +1,48 @@
+@font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+}
+
+.border {
+  background-image: url(https://i.ibb.co/r4CZv9L/pack-Border.png);
+
+  background-size: contain;
+  width: 78%;
+  height: 100%;
+
+  padding: 2.4% 5.1% 2.5% 4.7%;
+  
+}
+
+.background {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  border-radius: 0 5px 0 0;
+
+  font-family: starcardsFont;
+
+  width: 99%;
+  height: 100%;
+
+  text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
+}
+
+.img {
+  border-radius: 0 3px 0 0;
+  width: 100%;
+  height: 100%;
+}
+
+.textup {
+  position: absolute;
+  top: 1%;
+  margin: 0%;
+}
+
+.textDown {
+  position: absolute;
+  top: 90%;
+  margin: 0%;
+}

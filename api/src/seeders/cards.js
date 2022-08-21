@@ -8,7 +8,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 50,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/fry7vwF/Zergling.jpg",
   },
   {
@@ -20,7 +20,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 125,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/CQbZWyD/Roach.jpg",
   },
   {
@@ -32,7 +32,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 150,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/ZWv6PdB/Queen.jpg",
   },
   {
@@ -44,7 +44,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 200,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/1dTNLvB/Hydralisk.jpg",
   },
   {
@@ -57,7 +57,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 300,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/Qd2LY8m/Ravager.jpg",
   },
   {
@@ -70,7 +70,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 100,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/XC97Kk6/Baneling.jpg",
   },
   {
@@ -83,7 +83,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 450,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/zFbG8Nz/Zerg-Lurker.jpg",
   },
   {
@@ -96,7 +96,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 350,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/1zPCh7P/Defiler.jpg",
   },
   {
@@ -108,7 +108,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 400,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/4RJ8sdn/Infestor.jpg",
   },
   {
@@ -120,7 +120,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 250,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/Gvr1xn9/Swarm-Host.jpg",
   },
   {
@@ -133,7 +133,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 700,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/qgKybpV/Ultralisk.jpg",
   },
   {
@@ -145,7 +145,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 100,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/3rjnDs3/Overlord.jpg",
   },
   {
@@ -157,7 +157,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 175,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/tq54zJw/Scourge.jpg",
   },
   {
@@ -170,7 +170,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 300,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/SfvdDkj/Mutalisk.jpg",
   },
   {
@@ -178,11 +178,12 @@ const zergCards = [
     Gdmg: 0,
     Admg: 10.3,
     life: 200,
-    ability: "",
+    ability:
+      "Atacante: daña 35 la base enemiga. Defensor: gana 4.4 de daño aéreo.",
     abilities: [],
     race: "Zerg",
     cost: 350,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/kBqcpFs/Corruptor.jpg",
   },
   {
@@ -195,7 +196,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 500,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/pyxFPSj/Viper.jpg",
   },
   {
@@ -207,7 +208,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 800,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/VMhsDW5/Brood-Lord.jpg",
   },
   {
@@ -219,7 +220,7 @@ const zergCards = [
     abilities: [],
     race: "Zerg",
     cost: 1500,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/8xxsrK5/Kerrigan.jpg",
   },
 ];
@@ -235,7 +236,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 50,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/S3GmsS1/Marine.jpg",
   },
   {
@@ -248,7 +249,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 150,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/Wyhvnx2/Marauder.jpg",
   },
   {
@@ -261,7 +262,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 400,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/16whCgL/Ghost.jpg",
   },
   {
@@ -273,7 +274,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 150,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/rvdvJnB/Reaper.jpg",
   },
   {
@@ -286,7 +287,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 100,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/ChvNmYn/Hellion.jpg",
   },
   {
@@ -298,7 +299,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 75,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/k3Kq6hF/Vulture.jpg",
   },
   {
@@ -310,7 +311,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 125,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/PZyh32z/Widow-Mine.jpg",
   },
   {
@@ -322,7 +323,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 200,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/SmGB80x/Goliath.jpg",
   },
   {
@@ -334,7 +335,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 400,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/1fPj1PD/Siege-Tank.jpg",
   },
   {
@@ -347,7 +348,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 700,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/b1xSpxf/Thor.jpg",
   },
   {
@@ -359,7 +360,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 300,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/47M3B2p/Medivac.jpg",
   },
   {
@@ -371,7 +372,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 300,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/H2FqQTK/Viking.jpg",
   },
   {
@@ -383,7 +384,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 350,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/kcZJfGQ/Wraith.jpg",
   },
   {
@@ -395,7 +396,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 350,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/mHMCYy2/Terran-Banshee.jpg",
   },
   {
@@ -407,7 +408,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 500,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/0B9nBSs/Raven.jpg",
   },
   {
@@ -419,7 +420,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 450,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/G2rd908/Liberator.jpg",
   },
   {
@@ -431,7 +432,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 1000,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/sq9Bkk3/Battlecruiser.jpg",
   },
   {
@@ -443,7 +444,7 @@ const terranCards = [
     abilities: [],
     race: "Terran",
     cost: 1500,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/mzc7B81/Raynor.jpg",
   },
 ];
@@ -458,7 +459,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 100,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/tKtnNMD/Zealot.jpg",
   },
   {
@@ -470,7 +471,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 250,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/zhVHYz8/Sentry.jpg",
   },
   {
@@ -482,7 +483,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 225,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/hYNBxRh/Stalker.jpg",
   },
   {
@@ -494,7 +495,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 225,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/YRFMBkf/Dragoon.jpg",
   },
   {
@@ -506,7 +507,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 375,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/pr6krVw/Dark-Templar.jpg",
   },
   {
@@ -518,7 +519,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 350,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/mSc1Zs0/Archon.jpg",
   },
   {
@@ -530,7 +531,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 475,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/kGBHy9H/Immortal.jpg",
   },
   {
@@ -543,7 +544,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 450,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/K2Fc6Vz/Disruptor.jpg",
   },
   {
@@ -555,7 +556,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 400,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/3CVFJM7/Reaver.jpg",
   },
   {
@@ -563,11 +564,11 @@ const protossCards = [
     Gdmg: 28,
     Admg: 0,
     life: 350,
-    ability: "Sin habilidad.",
+    ability: "Siempre: es afectado por daño aéreo.",
     abilities: [],
     race: "Protoss",
     cost: 700,
-    movement: "all",
+    movement: "Ground",
     image: "https://i.ibb.co/jHN0pHr/Colossus.jpg",
   },
   {
@@ -579,7 +580,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 175,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/tp4CStJ/Observer.jpg",
   },
   {
@@ -591,7 +592,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 350,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/zRkydd8/Corsair.jpg",
   },
   {
@@ -603,7 +604,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 800,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/C28jkfS/Arbiter.jpg",
   },
   {
@@ -615,7 +616,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 550,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/6RJf84p/Void-Ray.jpg",
   },
   {
@@ -627,7 +628,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 600,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/JCcxscD/Tempest.jpg",
   },
   {
@@ -639,7 +640,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 970,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/y6PpWft/Carrier.jpg",
   },
   {
@@ -651,7 +652,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 1200,
-    movement: "flying",
+    movement: "Flying",
     image: "https://i.ibb.co/cg9YMMC/Mothership.jpg",
   },
   {
@@ -663,7 +664,7 @@ const protossCards = [
     abilities: [],
     race: "Protoss",
     cost: 1500,
-    movement: "ground",
+    movement: "Ground",
     image: "https://i.ibb.co/pRGsnXV/Zeratul.jpg",
   },
 ];
