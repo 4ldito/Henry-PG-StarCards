@@ -101,12 +101,12 @@ const PacksCard = ({ pack, type }) => {
           Precio: <span className={style.starsText}>{pack.price} Stars</span>
         </p>
 
-        <div className={style.containerRace}>
+        {/* <div className={style.containerRace}>
           <p className={style.race}>
             {pack.race.length > 1 ? "Razas: " : "Raza: "}
             {pack.race.join(", ")}
           </p>
-        </div>
+        </div> */}
         <p>
           Stock: <span className={style.stock}>{pack.stock}</span>
         </p>

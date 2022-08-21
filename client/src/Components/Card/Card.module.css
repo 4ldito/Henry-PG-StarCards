@@ -7,6 +7,8 @@
   font-family: starcardsFont;
   height: 447px;
   width: 320px;
+  /* width: 270px;
+  height: 377px; */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -80,13 +82,13 @@
 }
 
 .card:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-.terranCard  {
+.terranCard {
   background-image: url("https://i.ibb.co/wzLjJMR/Terran.png");
 }
 
-.protossCard  {
+.protossCard {
   background-image: url("https://i.ibb.co/JRS7gV6/Protoss.png");
 }
