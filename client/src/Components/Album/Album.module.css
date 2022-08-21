@@ -6,3 +6,25 @@
     width: 100%;
     height: 90%;
 }
+
+.paginated{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 10%;
+}
+
+.pag{
+    background-color: gray;
+    border: none;
+    border-radius: 20%;
+
+    margin: 0 .2%;
+    padding: 0.5rem;
+}
+
+.pag:hover{
+    background-color: rgb(180, 180, 180);
+}

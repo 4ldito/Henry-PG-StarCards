@@ -1,4 +1,7 @@
-import { GET_ALL_CARDS, FILTER_CARDS, SORT_CARDS, SEARCH_CARD } from '../actions/actionTypes'
+import { GET_ALL_CARDS } from './../actions/cards/getAllCards';
+import { FILTER_CARDS } from './../actions/cards/filterCards';
+import { SORT_CARDS } from './../actions/cards/sortCards';
+import { SEARCH_CARD } from './../actions/cards/searchCard';
 
 const initialState = {
   cards: [],

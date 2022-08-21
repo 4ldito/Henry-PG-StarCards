@@ -14,6 +14,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Colonia Zerg",
@@ -32,6 +33,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Colmena de la Supermente",
@@ -50,6 +52,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Enjambre de Char",
@@ -66,6 +69,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Bunker Terran",
@@ -82,6 +86,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Estación Planetaria Terran",
@@ -100,6 +105,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Dominio en Korhal",
@@ -118,6 +124,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Aliados del Hyperion",
@@ -134,6 +141,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Fanáticos Protoss",
@@ -150,6 +158,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Consejo de Aiur",
@@ -168,6 +177,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Gran Armada Tal'darim",
@@ -186,6 +196,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Memoria del Prelado Tétrico",
@@ -202,6 +213,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
   {
     name: "Entra en el sector Koprulu",
@@ -217,6 +229,7 @@ const cardPacks = [
     ],
     stock: 100,
     image: "",
+    amount: 10
   },
 ];
 

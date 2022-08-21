@@ -1,4 +1,4 @@
-import { SEARCH_CARD } from '../actionTypes'
+export const SEARCH_CARD = 'SEARCH_CARD'
 
 export function searchCard (search, cards) {
   const searchName = search === null

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import logo from "../../img/logoLanding.png";
 import { Link } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
@@ -6,6 +7,7 @@ import UserOptions from "./UserOptions/UserOptions";
 import css from "./Nav.module.css";
 
 export default function Nav() {
+  const isLogged = useSelector(state => state.userReducer.token)
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
     <div className={css.nav}>
@@ -33,7 +35,7 @@ export default function Nav() {
 
       <button
         id="link-perfil"
-        className={css.link}
+        className={css.btn}
         onClick={() => setVisibleUserOptions(!visibleUserOptions)}
       >
         <span id="span" className="material-symbols-outlined">
@@ -42,7 +44,7 @@ export default function Nav() {
       </button>
 
       {visibleUserOptions ? (
-        <div>
+        <div className={css.antu}>
           <UserOptions />{" "}
         </div>
       ) : (

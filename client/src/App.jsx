@@ -11,11 +11,12 @@ import ShopCart from "./components/Shop/ShopCart/ShopCart";
 import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
-import Nav from "./Components/Nav/Nav";
-import About from "./Components/About/About";
+import Nav from "./components/Nav/Nav";
+import About from "./components/About/About";
 
 import "./App.css";
-import { setToken } from './redux/actions/user'
+import { resetReduxState } from "./redux/actions";
+// import { setToken } from './redux/actions/user'
 
 // import Profile from './components/Profile/Profile'
 
@@ -23,9 +24,18 @@ function App() {
 
   const dispatch = useDispatch();
 
+  function handleKeyboard(e) {
+
+    if (e.repeat) return;
+    if ((e.metaKey || e.ctrlKey) && e.key === "x") {
+      dispatch(resetReduxState());
+    }
+  }
+
   useEffect(() => {
-    const credentials = window.localStorage.getItem('STARCARDS_USER_CREDENTIALS');
-    if (credentials) dispatch(setToken(JSON.parse(credentials)));
+    document.addEventListener("keydown", handleKeyboard);
+
+    return () => document.removeEventListener("keydown", handleKeyboard);
   }, []);
 
   return (
@@ -39,11 +49,11 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/detail" element={<Detail />} />
-        <Route element={<ProtectedRoutes />}>
-          <Route path='/playroom' element={<Playroom />} />
-          <Route path='/shopcart' element={<ShopCart />} />
-          <Route path="/userProfile" element={<UserProfile />} />
-        </Route>
+        <Route path='/playroom' element={<Playroom />} />
+        {/* <Route element={<ProtectedRoutes />}> */}
+        <Route path='/shopcart' element={<ShopCart />} />
+        <Route path="/userProfile" element={<UserProfile />} />
+        {/* </Route> */}
       </Routes>
     </div>
   );

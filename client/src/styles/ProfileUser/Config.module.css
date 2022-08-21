@@ -1,6 +1,11 @@
+.bdelete{
+    background-color: red;
+   
+}
 .container{
     display: flex;
     justify-content: center;
+    color: white;
 }
 .config{
 display: flex;

@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
-
 import Mercadopago from './Mercadopago'
 import Swal from 'sweetalert2'
-import { removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
-
+import { cleanPreferenceId, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
+import style from '../../../styles/shopCart/shopCart.module.css'
 
 const ShopCart = () => {
   const dispatch = useDispatch()
 
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
   const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg)
+  const user = useSelector(state => state.userReducer.user)
 
   let totalStarsPack = 0
   let totalCardsPack = 0
@@ -30,6 +30,9 @@ const ShopCart = () => {
         icon: msgInfoPurchase.type,
       })
     }
+    if (msgInfoPurchase.type === 'success') {
+      console.log('termino')
+    };
   }, [msgInfoPurchase]);
 
   const handleRemoveItem = (e, type) => {
@@ -40,12 +43,17 @@ const ShopCart = () => {
 
   useEffect(() => {
     return () => {
+      dispatch(cleanPreferenceId());
       dispatch(shopCartCleanMsgInfo())
     }
   }, []);
 
+  const buyWithStars = useMemo(() => {
+    return user.stars >= totalCardsPack;
+  }, [user.stars])
+
   return (
-    <div>ShopCart
+    <div className={style.container}>ShopCart
       {starsPack.length > 0 || cardsPack.length > 0
         ? (
           <>
@@ -79,7 +87,7 @@ const ShopCart = () => {
                   )
                 })}
                 <p>Total: {totalCardsPack} Stars</p>
-                <button onClick={handleBuyCardsPack}>Comprar packs de cards</button>
+                <button onClick={handleBuyCardsPack} disabled={!buyWithStars}>{buyWithStars ? "Comprar packs de cards" : "Tus Stars son insuficientes"}</button>
               </div>)}
           </>)
         : <p>El carrito esta vacio</p>}
