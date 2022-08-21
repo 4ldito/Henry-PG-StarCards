@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 
@@ -12,6 +12,7 @@ const ShopCart = () => {
 
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
   const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg)
+  const user = useSelector(state => state.userReducer.user)
 
   let totalStarsPack = 0
   let totalCardsPack = 0
@@ -33,7 +34,6 @@ const ShopCart = () => {
     if (msgInfoPurchase.type === 'success') {
       console.log('termino')
     };
-    
   }, [msgInfoPurchase]);
 
   const handleRemoveItem = (e, type) => {
@@ -48,6 +48,10 @@ const ShopCart = () => {
       dispatch(shopCartCleanMsgInfo())
     }
   }, []);
+
+  const buyWithStars = useMemo(() => {
+    return user.stars >= totalCardsPack;
+  }, [user.stars])
 
   return (
     <div>ShopCart
@@ -84,7 +88,7 @@ const ShopCart = () => {
                   )
                 })}
                 <p>Total: {totalCardsPack} Stars</p>
-                <button onClick={handleBuyCardsPack}>Comprar packs de cards</button>
+                <button onClick={handleBuyCardsPack} disabled={!buyWithStars}>{buyWithStars ? "Comprar packs de cards" : "Tus Stars son insuficientes"}</button>
               </div>)}
           </>)
         : <p>El carrito esta vacio</p>}

@@ -51,14 +51,15 @@ packsRoute.patch('/buy', async (req, res, next) => {
     const cardsPerPack = await Promise.all(updatedInfo.map(async (cardPack) => {
       let acc = 0;
       const probabilityArray = cardPack.cards.map((card) => {
-        return acc + card[1];
+        acc = acc + Number(card[1])
+
+        return acc ;
       })
 
       let chosenArray = [];
       let chosenCardIndex = probabilityArray.length - 1;
       for (let i = 0; i < cardPack.amount; i++) {
         const prob = Math.random();
-        console.log('Prob:', prob)
 
         for (let j = probabilityArray.length - 1; j >= 0; j--) {
           if (prob < probabilityArray[j]) chosenCardIndex = j;
@@ -77,18 +78,6 @@ packsRoute.patch('/buy', async (req, res, next) => {
       })
     })
 
-    console.log(cardsId)
-
-    return res.send('a')
-
-    // console.log(cardsId)
-
-    // console.log(updatedInfo[0].cards)
-    // const cardsId = updatedInfo.map(card => { return { id: card.id } });
-    // console.log(updatedUser)
-    // console.log(cardsId)
-    // return res.send('');
-    // console.log(updatedInfo);
     await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId })
     return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo });
   } catch (error) {
