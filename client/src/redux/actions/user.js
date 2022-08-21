@@ -67,8 +67,13 @@ export function deleteUser(id) {
 
 export function isValidToken(id, token) {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/login/${token}?id=${id}`);
-    dispatch({ type: IS_VALID_TOKEN, payload: response.data })
+    if (!token) token = '';
+    try {
+      const response = await axios(`http://localhost:3001/login/${token}?id=${id}`);
+      dispatch({ type: IS_VALID_TOKEN, payload: response.data })
+    } catch (error) {
+      console.error('STAR_CARDS_ERROR', 'tenes q logearte pa', error)
+    }
   }
 }
 
