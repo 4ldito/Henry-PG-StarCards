@@ -5,12 +5,15 @@
 
 .border {
   background-image: url(https://i.ibb.co/r4CZv9L/pack-Border.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
   background-size: contain;
-  width: 78%;
-  height: 100%;
+  width: 207px;
+  height: 290px;
 
-  padding: 2.4% 5.1% 2.5% 4.7%;
+  padding: 15px 10px 2.5% 13px;
   
 }
 
@@ -23,8 +26,8 @@
 
   font-family: starcardsFont;
 
-  width: 99%;
-  height: 100%;
+  width: 181px;
+  height: 260px;
 
   text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
 }

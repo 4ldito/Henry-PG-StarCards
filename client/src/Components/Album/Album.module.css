@@ -1,29 +1,29 @@
-.cartas{
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    width: 100%;
-    height: 90%;
+.cartas {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  width: 75vw;
+  height: 90%;
 }
 
-.paginated{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 10%;
+.paginated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
 }
 
-.pag{
-    background-color: var(--color-dark);
-    border: 2px solid white;
-    color: white;
-    border-radius: 20%;
-    margin: 0 .2%;
-    padding: 0.5rem;
+.pag {
+  background-color: var(--color-dark);
+  border: 2px solid white;
+  color: white;
+  border-radius: 20%;
+  margin: 0 0.2%;
+  padding: 0.5rem;
 }
 
-.pag:hover{
-    background-color: var(--color-darker);
-
+.pag:hover {
+  background-color: var(--color-darker);
 }

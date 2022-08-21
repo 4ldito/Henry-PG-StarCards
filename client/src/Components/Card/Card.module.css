@@ -52,7 +52,7 @@
 .ability {
   display: flex;
   align-items: center;
-  margin-top: 3%;
+  margin-top: 4%;
   margin-bottom: 0;
   line-height: 100%;
   width: 70%;
@@ -60,7 +60,7 @@
 }
 
 .stats {
-  margin-top: 9%;
+  margin-top: 8%;
   font-size: 110%;
   width: 62%;
   margin-left: 20%;
@@ -72,23 +72,26 @@
 }
 
 .dmg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 90%;
-  text-align: center;
   width: 40%;
 }
 
 .zergCard {
-  background-image: url("https://i.ibb.co/PZvFnY1/Zerg.png");
+  background-image: url("https://i.ibb.co/PgvMswr/zerg-Front.png");
 }
 
 .card:hover {
+  user-select: none;
   cursor: pointer;
 }
 
 .terranCard {
-  background-image: url("https://i.ibb.co/wzLjJMR/Terran.png");
+  background-image: url("https://i.ibb.co/kDr0J5s/terran-Front.png");
 }
 
 .protossCard {
-  background-image: url("https://i.ibb.co/JRS7gV6/Protoss.png");
+  background-image: url("https://i.ibb.co/Gxpwy4b/protoss-Front.png");
 }
