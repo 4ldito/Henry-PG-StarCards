@@ -51,7 +51,7 @@ const Shop = () => {
       <div className={style.containerBtns}>
         <button onClick={handleChangeView} value='stars' className={`${style.btn} ${style.active}`}>Buy Stars</button>
         <button onClick={handleChangeView} value='packsCards' className={style.btn}>Buy Packs Cards</button>
-        <button onClick={handleChangeView} value='cards' className={style.btn}>Buy Cards</button>
+        <button onClick={handleChangeView} value='cards' disabled className={`${style.btn} ${style.disabled}`}>Buy Cards</button>
       </div>
       {user?.id && <p>Stars disponibles: {user.stars}</p>}
       {view === 'stars' ? <Packs type='starsPack' />

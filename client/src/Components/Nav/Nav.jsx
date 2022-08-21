@@ -43,7 +43,7 @@ export default function Nav() {
         onFocus={() => setVisibleUserOptions(!visibleUserOptions)}
         onBlur={() => setTimeout(() => {
           setVisibleUserOptions(false)
-        }, 100)}
+        }, 200)}
       >
         <span id="span" className="material-symbols-outlined">
           account_circle

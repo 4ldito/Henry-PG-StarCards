@@ -81,3 +81,8 @@
   margin: 0.5% 0% 0.5% 0%;
   padding: 1% 1% 0% 1%;
 }
+
+
+.disabled {
+  cursor: not-allowed;
+}

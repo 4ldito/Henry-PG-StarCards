@@ -36,18 +36,20 @@ export default function About() {
           Album
         </button>
         <button
-          className={css.seccion}
+          className={`${css.seccion} ${css.disabled}`}
           ref={rules}
           name="rules"
           onClick={(e) => handleClick(e)}
+          disabled
         >
           Rules
         </button>
         <button
-          className={css.seccion}
+          className={`${css.seccion} ${css.disabled}`}
           ref={team}
           name="team"
           onClick={(e) => handleClick(e)}
+          disabled
         >
           Team
         </button>
