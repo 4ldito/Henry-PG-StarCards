@@ -27,7 +27,7 @@ const Shop = () => {
     const lastActive = document.querySelector(`.${style.active}`);
     lastActive.classList.remove(style.active);
     target.classList.add(`${style.active}`)
-    console.log(target);
+    // console.log(target);
     setView(target.value);
   }
 

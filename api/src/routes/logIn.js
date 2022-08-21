@@ -18,7 +18,7 @@ logInRoutes.get('/:token', async (req, res) => {
         return res.send(tokenData.id === id);
 
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 })
 

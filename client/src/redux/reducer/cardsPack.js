@@ -1,4 +1,4 @@
-import { GET_ALL_CARDS_PACKS, BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS } from './../actions/actionTypes'
+import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS } from "../actions/cardsPack";
 
 const initialState = {
   cardsPacks: [],

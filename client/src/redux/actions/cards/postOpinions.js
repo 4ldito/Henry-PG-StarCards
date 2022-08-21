@@ -1,5 +1,5 @@
 import axios from "axios";
-import { POST_OPINIONS } from "../actionTypes";
+export const POST_OPINIONS = 'POST_OPINIONS'
 
 export function postOpinions(opinion) {
   return async function (dispatch) {

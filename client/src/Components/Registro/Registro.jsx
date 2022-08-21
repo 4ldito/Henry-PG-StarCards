@@ -74,7 +74,7 @@ export default function Registro() {
           Registrate
         </div>
         <input
-          autoComplete="off"
+          autoComplete="on"
           type="text"
           name="username"
           onChange={(e) => {
@@ -83,7 +83,7 @@ export default function Registro() {
           placeholder="Name"
         />
         <input
-          autoComplete="off"
+          autoComplete="on"
           type="email"
           name="email"
           onChange={(e) => {
@@ -92,7 +92,7 @@ export default function Registro() {
           placeholder="correo"
         />
         <input
-          autoComplete="off"
+          autoComplete="on"
           type="password"
           name="password"
           onChange={(e) => {

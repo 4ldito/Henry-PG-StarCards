@@ -18,7 +18,7 @@ export default function UserProfile () {
   },[])
 
   useEffect(() => {
-    console.log(userActive);
+    // console.log(userActive);
     setUser(userActive[0])
   },[userActive])
 
@@ -28,7 +28,7 @@ export default function UserProfile () {
     : value === '2' ? setRender('Stats')
     : value === '3' ? setRender('config')
     : setRender('Chat')
-    console.log(user)
+    // console.log(user)
   }
 
   return (user?

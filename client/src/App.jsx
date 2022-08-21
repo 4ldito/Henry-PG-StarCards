@@ -15,18 +15,28 @@ import Nav from "./components/Nav/Nav";
 import About from "./components/About/About";
 
 import "./App.css";
+import { resetReduxState } from "./redux/actions";
 // import { setToken } from './redux/actions/user'
 
 // import Profile from './components/Profile/Profile'
 
 function App() {
 
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const credentials = window.localStorage.getItem('STARCARDS_USER_CREDENTIALS');
-  //   if (credentials) dispatch(setToken(JSON.parse(credentials)));
-  // }, []);
+  function handleKeyboard(e) {
+
+    if (e.repeat) return;
+    if ((e.metaKey || e.ctrlKey) && e.key === "x") {
+      dispatch(resetReduxState());
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyboard);
+
+    return () => document.removeEventListener("keydown", handleKeyboard);
+  }, []);
 
   return (
     <div>
@@ -41,8 +51,8 @@ function App() {
         <Route path="/detail" element={<Detail />} />
         <Route path='/playroom' element={<Playroom />} />
         {/* <Route element={<ProtectedRoutes />}> */}
-          <Route path='/shopcart' element={<ShopCart />} />
-          <Route path="/userProfile" element={<UserProfile />} />
+        <Route path='/shopcart' element={<ShopCart />} />
+        <Route path="/userProfile" element={<UserProfile />} />
         {/* </Route> */}
       </Routes>
     </div>
