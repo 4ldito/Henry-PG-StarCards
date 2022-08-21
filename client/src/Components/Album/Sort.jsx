@@ -12,7 +12,8 @@ export default function SortCards() {
   }
 
   return (
-    <select className={css.select} onChange={onSelectChange}>
+    <select className={css.select} defaultValue={'Order'} onChange={onSelectChange}>
+      <option value="order" hidden >Order</option>
       <option value="nameAtoZ">by name - A to Z</option>
       <option value="nameZtoA">by name - Z to A</option>
       <option value="ascendentCost">by cost ascendent</option>
