@@ -24,7 +24,7 @@ export default function SearchCard() {
   return (
     <form className={css.form} onSubmit={onSubmit}>
       <input type="text" onChange={onInputChange} value={search} />
-      <input type="submit" value="search" />
+      <input className={css.btnSearch} type="submit" value="search" />
     </form>
   );
 }
