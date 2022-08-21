@@ -28,7 +28,7 @@ packsRoute.post('/buy', async (req, res, next) => {
     for (const pack of data) {
       // const { pack } = p;
       info[pack.name] = { quantity: pack.quantity }
-      if (pack.stock < pack.quantity) return res.send({ error: 'Stock insuficente' });
+      if (pack.stock < pack.quantity) return res.send({ error: 'Stock insufficient' });
       pack.subTotal = pack.quantity * pack.price;
     }
 
@@ -38,7 +38,7 @@ packsRoute.post('/buy', async (req, res, next) => {
     );
     const [user] = await Promise.all([User.findOne()])
 
-    if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
+    if (user.stars < total) return res.send({ error: 'Stars insufficient!' });
 
     user.stars = user.stars - total;
 
@@ -51,7 +51,7 @@ packsRoute.post('/buy', async (req, res, next) => {
 
     const updatedInfo = await Promise.all([user.save(), ...updatedPacks]);
     
-    return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo });
+    return res.send({ msg: `purchase completed. Total: ${total}`, updatedInfo });
   } catch (error) {
     console.error(error)
     return res.send(error)

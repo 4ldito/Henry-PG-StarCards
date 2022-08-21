@@ -9,7 +9,7 @@ export default function Config({ user }) {
   const navigateTo = useNavigate();
 
   function deleteAccount() {
-    dispatch(deleteUser(user.id))
+    console.log(deleteUser(user.id),user.id )
     navigateTo('/playroom')
   }
 

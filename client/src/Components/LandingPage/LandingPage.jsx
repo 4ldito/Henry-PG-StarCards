@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import style from '../../styles/landingPage/landingPage.module.css'
 
 
 const LandingPage = () => {
   return (
-    <div>
+    <div className={style.container}>
 
       <h1 >LandingPage</h1>
       <Link to='/register'>
