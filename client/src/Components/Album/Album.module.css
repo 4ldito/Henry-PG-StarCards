@@ -27,3 +27,12 @@
 .pag:hover {
   background-color: var(--color-darker);
 }
+
+.pagSelect {
+  background-color: #3e3d3d;
+  border: 2px solid white;
+  color: white;
+  border-radius: 20%;
+  margin: 0 0.2%;
+  padding: 0.5rem;
+}
