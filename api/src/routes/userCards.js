@@ -5,19 +5,25 @@ const { UserCards } = db;
 const userCardsRoute = Router();
 
 userCardsRoute.post("/", async (req, res, next) => {
-  const { cardId, userId } = req.body;
+  const { cardsId, userId } = req.body;
 
   try {
-    const userCard = await UserCards.create();
-    const addUserCard = [
-      await userCard.setStatus("active"),
-      await userCard.setUser(userId),
-      await userCard.setCard(cardId),
-    ];
+    const createdUserCards = [];
+    const cardsArray = cardsId.map(async (cardId)=>{
+      const userCard = await UserCards.create();
+      createdUserCards.push(userCard);
+      const addUserCard = [
+        userCard.setStatus("active"),
+        userCard.setUser(userId),
+        userCard.setCard(cardId),
+      ];
+  
+      return Promise.all(addUserCard);
+    })
 
-    await Promise.all(addUserCard);
+    await Promise.all(cardsArray)
 
-    return res.send(userCard);
+    return res.send(createdUserCards);
   } catch (error) {
     return next(error);
   }

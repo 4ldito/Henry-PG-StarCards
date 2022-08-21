@@ -13,7 +13,7 @@ export function getCardsPacks() {
 
 export const buyCardPack = (info) => {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/packs/buy', info)
+    const response = await axios.patch('http://localhost:3001/packs/buy', info)
     dispatch({ type: BUY_CARD_PACK, payload: response.data })
   }
 }
@@ -28,7 +28,7 @@ export const filterCardsPacks = (filters) => {
 
 export const addUserCards = () => {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/packs/buy', info)
+    const response = await axios.patch('http://localhost:3001/packs/buy', info)
     dispatch({ type: BUY_CARD_PACK, payload: response.data })
   }
 }

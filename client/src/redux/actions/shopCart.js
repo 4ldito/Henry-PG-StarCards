@@ -25,7 +25,7 @@ export function removeFromShopCart(product, packTypes) {
 
 export const shopcartBuyCardsPacks = (info) => {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/packs/buy', info)
+    const response = await axios.patch('http://localhost:3001/packs/buy', info)
     dispatch({ type: SHOPCART_BUY_CARDSPACKS, payload: response.data })
   }
 }

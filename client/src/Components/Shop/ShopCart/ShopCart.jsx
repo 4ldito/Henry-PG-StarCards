@@ -30,6 +30,10 @@ const ShopCart = () => {
         icon: msgInfoPurchase.type,
       })
     }
+    if (msgInfoPurchase.type === 'success') {
+      console.log('termino')
+    };
+    
   }, [msgInfoPurchase]);
 
   const handleRemoveItem = (e, type) => {
