@@ -100,13 +100,6 @@ const PacksCard = ({ pack, type }) => {
         <p>
           Precio: <span className={style.starsText}>{pack.price} Stars</span>
         </p>
-
-        {/* <div className={style.containerRace}>
-          <p className={style.race}>
-            {pack.race.length > 1 ? "Razas: " : "Raza: "}
-            {pack.race.join(", ")}
-          </p>
-        </div> */}
         <p>
           Stock: <span className={style.stock}>{pack.stock}</span>
         </p>
@@ -122,7 +115,7 @@ const PacksCard = ({ pack, type }) => {
           <button onClick={increaseQuantity}>+</button>
         </div>
         <div className={style.buttons}>
-          <button onClick={handleBuyNow} disabled={user.stars < pack.price}>
+          <button onClick={handleBuyNow} disabled={user?.stars < pack.price}>
             Comprar YA
           </button>
           <button>Añadir al carrito</button>
