@@ -2,7 +2,7 @@
     background-color: var(--container-background-main);
     border-radius: 20px;
     border: 2px solid white;
-    height: 93vh;
+    height: 88vh;
     margin: 1rem;
     color: white;
 }
@@ -43,6 +43,7 @@
     background-color: var(--color-darker);
     color: aqua;
     border-bottom: 1px solid black;
+    font-weight: bold;
 }
 
 .seccionesLow {
