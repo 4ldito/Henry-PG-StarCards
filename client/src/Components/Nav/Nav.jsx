@@ -9,7 +9,7 @@ import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
   const isLogged = useSelector(state => state.userReducer.token);
-  const validLogged = useValidToken({navigate: false})
+  const {validToken} = useValidToken({navigate: false})
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
     <div className={css.nav}>
@@ -24,15 +24,11 @@ export default function Nav() {
           </NavLink>
         </li>
         <li className={css.li}>
-<<<<<<< HEAD
-          {validLogged?<Link className={css.link} to="/playroom">
+
+          {validToken&&<NavLink className={css.link} to="/playroom">
             Playroom
-          </Link>:<></>}
-=======
-          <NavLink className={css.link} to="/playroom">
-            Playroom
-          </NavLink>
->>>>>>> 9a8bf470715f59a1b94f99ceabc34ebf6582dddc
+          </NavLink>}
+
         </li>
         <li className={css.li}>
           <NavLink className={css.link} to="/about">
@@ -51,15 +47,10 @@ export default function Nav() {
         </span>
       </button>
 
-<<<<<<< HEAD
-      {isLogged ? (
-        <div>
-          <UserOptions isLogged = {validLogged}/>{" "}
-=======
+
       {visibleUserOptions && (
         <div className={css.userOptions}>
-          <UserOptions />{" "}
->>>>>>> 9a8bf470715f59a1b94f99ceabc34ebf6582dddc
+          <UserOptions />
         </div>
       )}
     </div>

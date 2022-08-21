@@ -20,7 +20,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, id: payload.id, token: payload.token, rol: payload.rol }
     case SIGN_IN:
       // falta agregar validToken aca 
-      return { ...state, id: payload.id, token: payload.token, rol: payload.rol }
+      return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken:true }
     case MODIFY_USER:
       return { ...state, user: payload }
     case DELETE_USER:
@@ -29,7 +29,6 @@ export default function userReducer(state = initialState, { type, payload }) {
     case SET_TOKEN:
       return { ...state, token: payload.token, rol: payload.rol, }
     case IS_VALID_TOKEN:
-      console.log(payload)
       if (!payload) return { ...state, validToken: payload, user: {}, token: null, rol: null }
       return { ...state, validToken: payload }
     case LOG_OUT:

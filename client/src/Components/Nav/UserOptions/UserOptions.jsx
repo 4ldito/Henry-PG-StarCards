@@ -3,17 +3,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../../redux/actions/user";
 import css from "./UserOptions.module.css";
+import useValidToken from "../../../hooks/useValidToken";
 
 export default function UserOptions(props) {
 
-  const isLogged = props.isLogged;
+  const {validToken} = useValidToken({navigate:false});
   const dispatch = useDispatch();
-<<<<<<< HEAD
-  function quit(){
-=======
+
   function quit() {
-    // console.log('hollaa')
->>>>>>> 9a8bf470715f59a1b94f99ceabc34ebf6582dddc
     dispatch(logOut())
   }
 
@@ -34,7 +31,7 @@ export default function UserOptions(props) {
         </Link>
       </li>
       <li>
-        {isLogged ? <button onClick={quit}>Log out</button> : <Link to='/login'>Log In</Link>}
+        {validToken ? <button onClick={quit}>Log out</button> : <Link to='/login'>Log In</Link>}
       </li>
     </ul>
   );
