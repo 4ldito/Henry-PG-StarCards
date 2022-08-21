@@ -6,9 +6,11 @@ import Card from "../Card/Card";
 import css from "./Album.module.css";
 
 const Album = () => {
-  const [limit, setLimit] = useState({ min: 0, max: 2 });
+  const cardsPerPage = 4;
+  const [limit, setLimit] = useState({ min: 0, max: cardsPerPage - 1 });
   const allCards = useSelector((state) => state.album.filteredCards);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getAllCards());
   }, []);
@@ -16,22 +18,22 @@ const Album = () => {
   function pag(e) {
     e.preventDefault();
     const valuePag = Number(e.target.innerText);
-    let min = (valuePag - 1) * 3;
-    let max = valuePag * 3 - 1;
+    let min = (valuePag - 1) * cardsPerPage;
+    let max = valuePag * cardsPerPage - 1;
     if (valuePag === 1) {
       min = 0;
-      max = 2;
+      max = cardsPerPage - 1;
     }
     setLimit({ min, max });
   }
 
   function pagBack(e) {
     e.preventDefault();
-    let min = limit.min - 3;
-    let max = limit.max - 3;
+    let min = limit.min - cardsPerPage;
+    let max = limit.max - cardsPerPage;
     if (min < 0) {
       min = 0;
-      max = 2;
+      max = cardsPerPage - 1;
     }
     setLimit({ min, max });
   }
@@ -39,12 +41,12 @@ const Album = () => {
   function pagNext(e) {
     e.preventDefault();
 
-    let last = Math.ceil(allCards.length / 3) * 3 - 1;
+    let last = Math.ceil(allCards.length / cardsPerPage) * cardsPerPage - 1;
 
-    let min = limit.min + 3;
-    let max = limit.max + 3;
+    let min = limit.min + cardsPerPage;
+    let max = limit.max + cardsPerPage;
 
-    if (limit.max >= last && limit.min >= last - 3) {
+    if (limit.max >= last && limit.min >= last - cardsPerPage) {
       min = limit.min;
       max = limit.max;
     }
@@ -53,7 +55,7 @@ const Album = () => {
   }
 
   function paginated() {
-    const TotalPag = allCards.length / 3;
+    const TotalPag = allCards.length / cardsPerPage;
     const button = [];
     button.push(
       <button className={css.pag} key="back" onClick={pagBack}>

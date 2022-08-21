@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 import { Link } from 'react-router-dom';
 import { getUser } from '../../redux/actions/user';
 import style from '../../styles/ProfileUser/UserProfile.module.css'
 import Config from '../Config/Config'
-
+import useValidToken from '../../hooks/useValidToken'
 export default function UserProfile () {
   const dispatch = useDispatch()
   const userActive = useSelector(state => state.userReducer.user)
   const idUserActive = useSelector(state => state.userReducer.id)
   const [user, setUser] = useState({})
   const [render, setRender] = useState()
+  const {validToken} = useValidToken({navigate: true});
 
   useEffect(() => {
     dispatch(getUser(idUserActive))
@@ -28,7 +30,7 @@ export default function UserProfile () {
     : setRender('Chat')
   }
 
-  return (console.log(user),Object.keys(user).length !== 0?
+  return (Object.keys(user).length !== 0?
     (<>
       <div className={style.img}>
           <img className={style.coverimg} src={user.coverImg} alt="coverImg" />

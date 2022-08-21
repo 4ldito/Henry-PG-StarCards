@@ -5,9 +5,11 @@ import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
 
 import css from "./Nav.module.css";
+import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
-  const isLogged = useSelector(state => state.userReducer.token)
+  const isLogged = useSelector(state => state.userReducer.token);
+  const {validToken} = useValidToken({navigate: false})
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
     <div className={css.nav}>
@@ -22,9 +24,11 @@ export default function Nav() {
           </NavLink>
         </li>
         <li className={css.li}>
-          <NavLink className={css.link} to="/playroom">
+
+          {validToken&&<NavLink className={css.link} to="/playroom">
             Playroom
-          </NavLink>
+          </NavLink>}
+
         </li>
         <li className={css.li}>
           <NavLink className={css.link} to="/about">
@@ -43,9 +47,10 @@ export default function Nav() {
         </span>
       </button>
 
+
       {visibleUserOptions && (
         <div className={css.userOptions}>
-          <UserOptions />{" "}
+          <UserOptions />
         </div>
       )}
     </div>

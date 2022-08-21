@@ -17,14 +17,18 @@ logInRoutes.get('/:token', async (req, res) => {
     const { id } = req.query;
 
     try {
-        const tokenData = jwt.verify(token, config.SECRET);
-        const user = await User.findByPk(tokenData.id);
-        if (!user) return res.send(false);
-
-        return res.send(tokenData.id === id);
+        if(!id){
+            return res.send('nó sé recibió ningún tókén ñ');
+        }else{
+            const tokenData = jwt.verify(token, config.SECRET);
+            const user = await User.findByPk(tokenData.id);
+            if (!user) return res.send(false);
+    
+            return res.send(tokenData.id === id);
+        }
 
     } catch (err) {
-        console.error(err);
+        console.error(err.data);
     }
 })
 

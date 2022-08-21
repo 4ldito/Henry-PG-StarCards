@@ -13,23 +13,35 @@ export default function Card({ id }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   function detail() {
-    dispatch(detailCard(id)); //dispach hay que hacer
-    dispatch(getOpinions(id)); //dispach hay que hacer
+    dispatch(detailCard(id));
+    dispatch(getOpinions(id));
     navigate("/detail");
   }
+
+  const cardCss =
+    card.race === "Zerg"
+      ? css.zergCard
+      : card.race === "Terran"
+      ? css.terranCard
+      : css.protossCard;
+
   return (
-    <div className={css.card} onClick={() => detail(id)}>
-      <h3 className={css.name}>{card.name}</h3>
+    <div
+      className={`${cardCss} ${css.cardContainer}`}
+      onClick={() => detail(id)}
+    >
+      <div className={css.nameContainer}>
+        <h3 className={css.name}>{card.name}</h3>
+        <span className={css.cost}>{card.cost}</span>
+      </div>
       <img className={css.img} src={card.image} alt={card.image} />
-      <div>
-        <p>cost: {card.cost}</p>
-        <p>Gdmg: {card.Gdmg}</p>
-        <p>Admg: {card.Admg}</p>
-        <p>life: {card.life}</p>
-        <p>ability: {card.ability}</p>
-        <p>abilities: {card.abilities}</p>
-        <p>race: {card.race}</p>
-        <p>movement: {card.movement}</p>
+      <span className={css.movement}>{card.movement}</span>
+      <p className={css.ability}>{card.ability}</p>
+      <div className={css.stats}>
+        <span className={css.life}>{card.life}</span>
+        <span className={css.dmg}>
+          {card.Gdmg}/{card.Admg}
+        </span>
       </div>
     </div>
   );
