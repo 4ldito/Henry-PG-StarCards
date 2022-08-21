@@ -79,10 +79,14 @@
   background-image: url("https://i.ibb.co/PZvFnY1/Zerg.png");
 }
 
-.terranCard {
+.card:hover {
+    cursor: pointer;
+}
+
+.terranCard  {
   background-image: url("https://i.ibb.co/wzLjJMR/Terran.png");
 }
 
-.protossCard {
+.protossCard  {
   background-image: url("https://i.ibb.co/JRS7gV6/Protoss.png");
 }

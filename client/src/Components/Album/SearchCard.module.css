@@ -1,12 +1,5 @@
 .form{
-    background-color: rgba(219, 44, 44, 0.733);
-    width: 100%;
-}
-
-input[type=text]{
-    width: 80%;
-}
-
-input[type=submit]{
-    width: 20%;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
