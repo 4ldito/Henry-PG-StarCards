@@ -1,54 +1,60 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import logo from "../../img/logoLanding.png";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
 
 import css from "./Nav.module.css";
+import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
-  const isLogged = useSelector(state => state.userReducer.token)
+  const isLogged = useSelector(state => state.userReducer.token);
+  const { validToken } = useValidToken({ navigate: false })
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
     <div className={css.nav}>
-      <Link className={css.link} to="/">
+      <NavLink className={css.link} to="/">
         <img className={css.img} src={logo} alt="Logo de StarCards" />
-      </Link>
+      </NavLink>
 
       <ul className={css.ul}>
         <li className={css.li}>
-          <Link className={css.link} to="/shop">
+          <NavLink className={css.link} to="/shop">
             MarketPlace
-          </Link>
+          </NavLink>
         </li>
         <li className={css.li}>
-          <Link className={css.link} to="/playroom">
+
+          {validToken && <NavLink className={css.link} to="/playroom">
             Playroom
-          </Link>
+          </NavLink>}
+
         </li>
         <li className={css.li}>
-          <Link className={css.link} to="/about">
+          <NavLink className={css.link} to="/about">
             About
-          </Link>
+          </NavLink>
         </li>
       </ul>
 
       <button
         id="link-perfil"
         className={css.btn}
-        onClick={() => setVisibleUserOptions(!visibleUserOptions)}
+        onFocus={() => setVisibleUserOptions(!visibleUserOptions)}
+        onBlur={() => setTimeout(() => {
+          setVisibleUserOptions(false)
+        }, 200)}
       >
         <span id="span" className="material-symbols-outlined">
           account_circle
         </span>
       </button>
 
-      {visibleUserOptions ? (
-        <div className={css.antu}>
-          <UserOptions />{" "}
+
+      {visibleUserOptions && (
+        <div className={css.userOptions}>
+          <UserOptions />
         </div>
-      ) : (
-        <></>
       )}
     </div>
   );

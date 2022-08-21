@@ -21,3 +21,7 @@ body {
   background-position: center;
   object-fit: contain;
 }
+
+.active {
+  color: #0a58ca;
+}

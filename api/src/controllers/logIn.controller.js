@@ -13,7 +13,7 @@ async function signUp(req, res, next) {
         const savedUser = await newUser.save();
         await savedUser.setRol("user");
         const token = jwt.sign({ id: savedUser.id, rol: savedUser.RolId }, config.SECRET, { expiresIn: 86400 });
-        res.status(200).json({ token, rol: savedUser.RolId, id: savedUser.id })
+        res.status(200).json({ token, rol: savedUser.RolId, id: savedUser.id, user: savedUser})
     } catch (err) {
         next(err)
     }
@@ -23,11 +23,11 @@ async function signIn(req, res, next) {
     const { email, password } = req.body
     try {
         const userFound = await User.findOne({ where: { email } })
-        if (!userFound) return res.status(400).json({ error: "El usuario no existe" });
+        if (!userFound) return res.json({ error: "El usuario no existe" });
         const token = jwt.sign({ id: userFound.id }, config.SECRET, { expiresIn: 86400 });
         const validPassword = await User.prototype.comparePassword(password, userFound.password);
-        if (!validPassword) return res.status(400).json({ error: "la contraseña no coincide" });
-        res.json({ token, rol: userFound.RolId, id: userFound.id });
+        if (!validPassword) return res.json({ error: "la contraseña no coincide" });
+        res.json({ token, rol: userFound.RolId, id: userFound.id, user: userFound});
     } catch (err) {
         next(err)
     }

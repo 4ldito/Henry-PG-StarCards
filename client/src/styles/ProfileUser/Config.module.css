@@ -1,20 +1,41 @@
-.bdelete{
-    background-color: red;
-   
+.bdelete {
+  background-color: red;
+  color: white;
 }
 .container{
     display: flex;
     justify-content: center;
     color: white;
+    height: 380px;
+    width: 330px;
+    background-color: #002650;
+    margin-left: 42%;
+    margin-right: 42%;
+    border-radius: 25%;
+    border: solid #001124;
+    font-family: starcardsFont;
 }
-.config{
-display: flex;
-flex-direction: column;
+.config {
+  display: flex;
+  flex-direction: column;
 
-padding-top: 5vh;
+  padding-top: 5vh;
 }
 .modal{
     display: flex;
     align-items: center;
     align-content: space-between;
+    margin-bottom: 3px;
+}
+.span{
+    font-weight: bold;
+    font-size: medium;
+    cursor: pointer;
+}
+.span:hover{
+    font-size: large;
+}
+@font-face {
+    font-family: starcardsFont;
+    src: url('../../../css/EUROSTIB.ttf');
 }

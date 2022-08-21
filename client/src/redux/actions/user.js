@@ -8,6 +8,7 @@ export const MODIFY_USER = 'MODIFY_USER'
 export const SET_TOKEN = 'SET_TOKEN'
 export const IS_VALID_TOKEN = 'IS_VALID_TOKEN';
 export const LOG_OUT = 'LOG_OUT';
+export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -27,19 +28,20 @@ export function getAllUsers() {
 
 export function createUser(user) {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/login/signup', user)
-    // // const credentials = { token: response.data.token, rol: response.data.rol }
-    // // window.localStorage.setItem('STARCARDS_USER_CREDENTIALS', JSON.stringify(credentials));
+    const response = await axios.post('http://localhost:3001/login/signup', user);
     dispatch({ type: CREATE_USER, payload: response.data })
   }
 }
 
 export function signIn(user) {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/login/signin', user)
-    // const credentials = { token: response.data.token, rol: response.data.rol }
-    // window.localStorage.setItem('STARCARDS_USER_CREDENTIALS', JSON.stringify(credentials));
-    dispatch({ type: SIGN_IN, payload: response.data })
+    try {
+      const response = await axios.post('http://localhost:3001/login/signin', user);
+      dispatch({ type: SIGN_IN, payload: response.data })
+    } catch (err) {
+      console.log(err);
+
+    }
   }
 }
 
@@ -48,6 +50,10 @@ export function setToken(credentials) {
 }
 export function logOut() {
   return { type: LOG_OUT }
+}
+
+export const userCleanMsgInfo = () => {
+  return { type: USER_CLEAN_MSG_INFO }
 }
 
 
@@ -67,8 +73,13 @@ export function deleteUser(id) {
 
 export function isValidToken(id, token) {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/login/${token}?id=${id}`);
-    dispatch({ type: IS_VALID_TOKEN, payload: response.data })
+    if (!token) token = "none";
+    try {
+      const response = await axios(`http://localhost:3001/login/${token}?id=${id}`);
+      dispatch({ type: IS_VALID_TOKEN, payload: response.data })
+    } catch (error) {
+      // console.error('STAR_CARDS_ERROR', 'tenes q logearte pa')
+    }
   }
 }
 

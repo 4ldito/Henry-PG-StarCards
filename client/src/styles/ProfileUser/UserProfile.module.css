@@ -55,4 +55,5 @@
 .stars{
     display: flex;
     justify-content: end;
+    text-decoration: none;
 }

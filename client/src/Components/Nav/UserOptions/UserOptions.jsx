@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../../redux/actions/user";
 import css from "./UserOptions.module.css";
+import useValidToken from "../../../hooks/useValidToken";
 
-export default function UserOptions(props) {
+export default function UserOptions() {
 
-  const isLogged = props.isLogged;
+  const { validToken } = useValidToken({ navigate: false });
   const dispatch = useDispatch();
+
   function quit() {
-    // console.log('hollaa')
     dispatch(logOut())
   }
 
@@ -24,13 +25,13 @@ export default function UserOptions(props) {
           Shopcart
         </Link>
       </li>
-      <li className={css.li}>
+      {validToken && <li className={css.li}>
         <Link className={css.link} style={option} to="/userProfile">
           User Profile
         </Link>
-      </li>
+      </li>}
       <li>
-        {isLogged ? <button onClick={quit}>Log out</button> : <Link to='/login'>Log In</Link>}
+        {validToken ? <button className={css.btn} onClick={quit}>Log out</button> : <Link to='/login'>Log In</Link>}
       </li>
     </ul>
   );
