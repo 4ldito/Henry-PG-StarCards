@@ -15,8 +15,7 @@ logInRoutes.post('/signin', authCtrl.signIn);
 logInRoutes.get('/:token', async (req, res) => {
     const { token } = req.params;
     const { id } = req.query;
-    console.log(token,'----------', id);
-    console.log('hosdflks');
+
     try {
         if(!id){
             return res.send('nó sé recibió ningún tókén ñ');
@@ -29,7 +28,7 @@ logInRoutes.get('/:token', async (req, res) => {
         }
 
     } catch (err) {
-        console.error(err.data.message);
+        console.error(err.data);
     }
 })
 
