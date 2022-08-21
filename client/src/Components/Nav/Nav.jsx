@@ -8,6 +8,7 @@ import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
+  const isLogged = useSelector(state => state.userReducer.token);
   const validLogged = useValidToken({navigate: false})
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   return (
@@ -44,7 +45,7 @@ export default function Nav() {
         </span>
       </button>
 
-      {visibleUserOptions ? (
+      {isLogged ? (
         <div>
           <UserOptions isLogged = {validLogged}/>{" "}
         </div>
