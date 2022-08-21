@@ -23,5 +23,12 @@ export function cleanMsgInfo() {
 }
 
 export const filterCardsPacks = (filters) => {
-    return { type: FILTER_CARDS_PACKS, payload: filters}
+  return { type: FILTER_CARDS_PACKS, payload: filters }
+}
+
+export const addUserCards = () => {
+  return async function (dispatch) {
+    const response = await axios.post('http://localhost:3001/packs/buy', info)
+    dispatch({ type: BUY_CARD_PACK, payload: response.data })
+  }
 }

@@ -13,7 +13,7 @@ export const LOG_OUT = 'LOG_OUT';
 
 export function getUser(id) {
   return async function (dispatch) {
-    const response = await axios(`http://localhost:3001/user?${id}`)
+    const response = await axios(`http://localhost:3001/user?id=${id}`)
     dispatch({ type: GET_USER, payload: response.data })
   }
 }

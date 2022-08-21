@@ -13,7 +13,7 @@ const initialState = {
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USER:
-      return { ...state, users: payload }
+      return { ...state, user: payload }
     case GET_ALL_USERS:
       return { ...state, users: payload }
     case CREATE_USER:

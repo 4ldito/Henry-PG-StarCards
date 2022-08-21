@@ -8,18 +8,19 @@ import Config from '../Config/Config'
 export default function UserProfile () {
   const dispatch = useDispatch()
   const userActive = useSelector(state => state.userReducer.user)
+  const idUserActive = useSelector(state => state.userReducer.id)
   const [user, setUser] = useState()
   const [render, setRender] = useState()
 
   // let username = 'antu' //para que me traiga un usuario sin estar logeado
 
   useEffect(() => {
-    dispatch(getUser('41cfcc4a-90f1-4c11-b811-604c769426ec'))
+    dispatch(getUser(idUserActive))
   },[])
 
   useEffect(() => {
-    // console.log(userActive);
-    setUser(userActive[0])
+    console.log(userActive);
+    setUser(userActive)
   },[userActive])
 
   function changeRender(e){

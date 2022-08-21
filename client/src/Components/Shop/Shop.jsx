@@ -38,6 +38,7 @@ const Shop = () => {
         text: msgInfoPurchase.info,
         icon: msgInfoPurchase.type,
       });
+      if (msgInfoPurchase.type === 'success') console.log('bien');
     }
   }, [msgInfoPurchase]);
 
