@@ -9,7 +9,7 @@ export default function UserProfile () {
   const dispatch = useDispatch()
   const userActive = useSelector(state => state.userReducer.user)
   const idUserActive = useSelector(state => state.userReducer.id)
-  const [user, setUser] = useState()
+  const [user, setUser] = useState({})
   const [render, setRender] = useState()
 
   useEffect(() => {
@@ -17,7 +17,6 @@ export default function UserProfile () {
   },[])
 
   useEffect(() => {
-    console.log(userActive);
     setUser(userActive)
   },[userActive])
 
@@ -27,10 +26,9 @@ export default function UserProfile () {
     : value === '2' ? setRender('Stats')
     : value === '3' ? setRender('config')
     : setRender('Chat')
-    // console.log(user)
   }
 
-  return (user?
+  return (console.log(user),Object.keys(user).length !== 0?
     (<>
       <div className={style.img}>
           <img className={style.coverimg} src={user.coverImg} alt="coverImg" />
@@ -38,7 +36,6 @@ export default function UserProfile () {
           <img className={style.profileimg} src={user.profileImg} alt="ProfileImg" />
           <button className={style.changep}></button>
           <Link className={style.stars} to='/shop'> Stars: {user.stars}</Link>
-
       </div>
       <div className={style.buttonsbar}>
           {/* <Link to='/inventory'><button>Inventory</button></Link> */}
@@ -50,9 +47,9 @@ export default function UserProfile () {
         {render === 'config' ? <Config user={user} />
         :render === 'Inventory' ?  'Inventory'
         :render === 'Stats' ?  'Stats'
-        : 'Chat'
+        : ''
         // : ''      
         }
     </>)
-  :'loading...')
+  :(<div className={style.response}>'User not logged in'</div>))
 }

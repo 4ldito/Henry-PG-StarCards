@@ -11,6 +11,7 @@ export default function Config({ user }) {
 
   function deleteAccount() {
     dispatch(deleteUser(user.id))
+    alert('User deleted')
     navigateTo('/')
   }
 

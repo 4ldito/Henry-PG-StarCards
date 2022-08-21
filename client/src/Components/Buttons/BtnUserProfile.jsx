@@ -14,7 +14,7 @@ export default function username({ user, property }) {
 
     function openModal() {
         setState({ open: !state.open })
-        // console.log('password user : ', user.password)
+        console.log(user,'password user : ', user.password)
         setValue('')
     }
 
