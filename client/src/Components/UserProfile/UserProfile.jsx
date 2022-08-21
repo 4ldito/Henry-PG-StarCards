@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-
+import {FaShoppingCart} from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../redux/actions/user';
 import style from '../../styles/ProfileUser/UserProfile.module.css'
@@ -37,7 +37,7 @@ export default function UserProfile () {
           <button className={style.changecv}>Change Cover Imagen</button>
           <img className={style.profileimg} src={user.profileImg} alt="ProfileImg" />
           <button className={style.changep}></button>
-          <Link className={style.stars} to='/shop'> Stars: {user.stars}</Link>
+          <Link className={style.stars} to='/shop'><FaShoppingCart size={28} />Stars: {user.stars}</Link>
       </div>
       <div className={style.buttonsbar}>
           {/* <Link to='/inventory'><button>Inventory</button></Link> */}
