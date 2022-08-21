@@ -17,21 +17,21 @@ export default function userReducer(state = initialState, { type, payload }) {
     case GET_ALL_USERS:
       return { ...state, users: payload }
     case CREATE_USER:
-      return { ...state, id: payload.id, token: payload.token, rol: payload.rol }
+      return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken: true, user: payload.user/*el que no hace palmas es tremendo gato*/ }
     case SIGN_IN:
-      // falta agregar validToken aca 
-      return { ...state, id: payload.id, token: payload.token, rol: payload.rol }
+      return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken: true, user: payload.user }
     case MODIFY_USER:
       return { ...state, user: payload }
     case DELETE_USER:
       const usersUpdated = state.users.filter(user => user.id !== payload)
       return { ...state, users: usersUpdated, user: {} }
     case SET_TOKEN:
-      return { ...state, token: payload.token, rol: payload.rol }
+      return { ...state, token: payload.token, rol: payload.rol, }
     case IS_VALID_TOKEN:
+      if (!payload) return { ...state, validToken: payload, user: {}, token: null, rol: null }
       return { ...state, validToken: payload }
     case LOG_OUT:
-      return { ...state, token: null, rol: null }
+      return { ...state, token: null, rol: null, validToken: false, id: null, user: null }
     default:
       return state
   }

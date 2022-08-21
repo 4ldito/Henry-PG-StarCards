@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { signIn } from '../../redux/actions/user'
-// import './login.module.css'
+import style from './login.module.css'
 import { useDispatch } from 'react-redux';
 
 export default function Login() {
@@ -39,21 +39,25 @@ export default function Login() {
       <div className="error">{errorMessages.message}</div>
     );
 
-  return (<div className="form">
+  return (
+  <div className={style.appli}>
+  <div className={style.form}>
     <form onSubmit={(e) => { login(e) }}>
-      <div className="input-container">
+      <div className={style.inputcontainer}>
         <label>Username </label>
         <input type="email" name="email" onChange={handleOnChange} required />
         {renderErrorMessage("uname")}
       </div>
-      <div className="input-container">
+      <div className={style.inputcontainer}>
         <label>Password </label>
         <input type="password" name="password" onChange={handleOnChange} required autoComplete='on'/>
         {renderErrorMessage("pass")}
       </div>
-      <div className="button-container">
+      <div className={style.buttoncontainer}>
         <input type="submit" />
       </div>
     </form>
-  </div>)
+  </div>
+  </div>
+  )
 }
