@@ -6,7 +6,22 @@ background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 } */
+:root {
+  --container-background-main: #10101098;
+  --color-dark: #202020;
+  --color-darker: #121010;
+}
 
 body {
-  background-color: #181818;
+  /* background-color: #9CCDF3; */
+  background-image: url(https://images3.alphacoders.com/968/thumb-1920-96817.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  object-fit: contain;
+}
+
+.active {
+  color: #0a58ca;
 }

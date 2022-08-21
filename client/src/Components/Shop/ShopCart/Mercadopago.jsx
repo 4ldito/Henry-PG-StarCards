@@ -10,7 +10,7 @@ export default function Mercadopago ({ shopCartItems }) {
     if (preferenceId !== -1) {
       const script = document.createElement('script')
       script.type = 'text/javascript'
-      script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js'
+      script.src = 'http://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js'
       script.setAttribute('data-preference-id', preferenceId.id)
       const form = document.getElementById(FORM_ID)
       form.appendChild(script)

@@ -1,4 +1,4 @@
-import { GET_ALL_CARDS_PACKS, BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS } from './../actions/actionTypes'
+import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS } from "../actions/cardsPack";
 
 const initialState = {
   cardsPacks: [],
@@ -11,10 +11,12 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
   switch (type) {
     case GET_ALL_CARDS_PACKS:
       return { ...state, cardsPacks: payload, filteredCardsPack: payload, loaded: true }
+
     case BUY_CARD_PACK:
       const { msg, error, updatedInfo } = payload;
       // En la posicion 0 se encuentra el user
-      if (updatedInfo) updatedInfo.shift();
+      let user;
+      // if (updatedInfo) user = updatedInfo.shift();
       if (error) return { ...state, msg: { type: 'error', info: error, title: 'Error!' } }
 
       const data = state.cardsPacks.map(pack => {
@@ -25,7 +27,9 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
         });
         return pack;
       })
+      console.log(updatedInfo)
       return { ...state, filteredCardsPack: [...data], cardsPacks: [...data], msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
+
     case FILTER_CARDS_PACKS:
       const { race, order } = payload;
       let newFilteredCardsPack = [...state.cardsPacks];
@@ -52,8 +56,10 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
         }
       }
       return { ...state, filteredCardsPack: newFilteredCardsPack }
+
     case CLEAN_MSG_INFO:
       return { ...state, msg: { type: '', info: '', title: '' } }
+      
     default:
       return state
   }

@@ -22,14 +22,14 @@ export default function Card({ id }) {
       <h3 className={css.name}>{card.name}</h3>
       <img className={css.img} src={card.image} alt={card.image} />
       <div>
-        <p>cost:{card.cost}</p>
-        <p>Gdmg:{card.Gdmg}</p>
-        <p>Admg:{card.Admg}</p>
-        <p>life:{card.life}</p>
-        <p>ability:{card.ability}</p>
-        <p>abilities:{card.abilities}</p>
-        <p>race:{card.race}</p>
-        <p>movement:{card.movement}</p>
+        <p>cost: {card.cost}</p>
+        <p>Gdmg: {card.Gdmg}</p>
+        <p>Admg: {card.Admg}</p>
+        <p>life: {card.life}</p>
+        <p>ability: {card.ability}</p>
+        <p>abilities: {card.abilities}</p>
+        <p>race: {card.race}</p>
+        <p>movement: {card.movement}</p>
       </div>
     </div>
   );

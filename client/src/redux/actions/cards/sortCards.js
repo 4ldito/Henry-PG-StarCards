@@ -1,4 +1,4 @@
-import { SORT_CARDS } from '../actionTypes'
+export const SORT_CARDS = 'SORT_CARDS'
 const nameAtoZ = 'nameAtoZ'
 const nameZtoA = 'nameZtoA'
 const ascendentCost = 'ascendentCost'
@@ -67,7 +67,6 @@ export function sortCards (sort, cards) {
         return 0
     }
   })
-  console.log('sorted', sortedCards)
   return {
     type: SORT_CARDS,
     payload: sortedCards

@@ -3,13 +3,12 @@
   justify-content: space-between;
   align-items: center;
 
-  background-color: gray;
+  background-color: var(--color-darker);
   border-bottom: 1px solid black;
-  border-radius: 0 0 8px 8px;
-
+  
   width: 100%;
   height: 7vh;
-
+  
   padding: 0.3rem 1rem;
 }
 
@@ -28,7 +27,8 @@
 }
 
 .ul {
-  background-color: rgba(255, 0, 0, 0);
+  display: flex;
+  flex-direction: row;
 
   list-style: none;
 
@@ -39,14 +39,11 @@
 .li {
   display: inline-block;
 
-  background-color: rgba(255, 0, 0, 0);
-
-  /* font-size: 3vmin; */
   font-size: 3vh;
 
   margin: 0 1rem;
 
-  transition: all 0.3s;
+  transition: transform 0.3s, color 0.3s;
 }
 
 .li:hover {
@@ -59,16 +56,22 @@
 
   text-decoration: none;
 
-  color: black;
+  color: white;
+}
 
-  /* font-size: 1.3rem; */
-
+.btn{
+  display: flex;
+  align-items: center;
   background-color: rgba(255, 0, 0, 0);
+  border: none;
+}
+
+.btn:focus{
+  outline: none;
 }
 
 [id="span"] {
-  background-color: rgba(255, 255, 255, 0);
-  color: rgb(53, 53, 53);
+  color: white;
   font-size: 6.8vh;
   cursor: pointer;
   transition: all 0.3s;
@@ -77,4 +80,21 @@
 [id="span"]:hover {
   transform: scale(1.1);
   color: silver;
+}
+
+.userOptions{
+  position: absolute;
+
+  background-color: var(--color-darker);
+  border: 1px solid black;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  
+  right: 0px;
+  top: 50px;
+
+  width: 150px;
+  height: 100px;
+
+  transition: 1s;
 }

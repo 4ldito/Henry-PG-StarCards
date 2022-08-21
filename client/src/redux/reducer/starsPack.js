@@ -1,4 +1,4 @@
-import { GET_ALL_STARS_PACKS } from './../actions/actionTypes'
+import { GET_ALL_STARS_PACKS } from "../actions/starsPacks"
 
 const initialState = {
   starsPacks: [],

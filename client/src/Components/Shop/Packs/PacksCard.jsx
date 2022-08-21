@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addToShopCart } from '../../../redux/actions/shopCart'
 
 import Swal from 'sweetalert2'
@@ -10,6 +10,8 @@ import style from '../styles/PacksCards.module.css'
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1)
+
+  const user = useSelector(state => state.userReducer.user)
 
   const inputQuantity = useRef(null)
 
@@ -79,7 +81,6 @@ const PacksCard = ({ pack, type }) => {
       text: `Añadiste ${quantity} de ${pack.name} correctamente al carrito`,
       icon: 'success',
     })
-
     dispatch(addToShopCart(pack, quantity, type))
   }
 
@@ -98,7 +99,7 @@ const PacksCard = ({ pack, type }) => {
           <input ref={inputQuantity} onChange={handleQuantityChange} type='number' min='1' value={quantity} />
           <button onClick={increaseQuantity}>+</button>
         </div>
-        <button onClick={handleBuyNow}>Comprar YA</button>
+        <button onClick={handleBuyNow} disabled={user.stars < pack.price} >Comprar YA</button>
         <button>Añadir al carrito</button>
       </form>
     )

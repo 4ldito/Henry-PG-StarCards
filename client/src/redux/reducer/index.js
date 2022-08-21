@@ -6,8 +6,10 @@ import cardsPacksReducer from './cardsPack'
 import detailReducer from './detail'
 import album from './album'
 
+import { RESET_REDUX_STATE } from "../actions"
+
 // const rootReducer = combineReducers({ testReducer, activities });
-const rootReducer = combineReducers(
+const appReducer = combineReducers(
   {
     starsPackReducer,
     shopCartReducer,
@@ -16,5 +18,15 @@ const rootReducer = combineReducers(
     cardsPacksReducer,
     detailReducer
   })
+
+export function rootReducer(state, action) {
+  switch (action.type) {
+    case RESET_REDUX_STATE:
+      return appReducer(undefined, action);
+    default:
+      return appReducer(state, action);
+  }
+}
+
 
 export default rootReducer
