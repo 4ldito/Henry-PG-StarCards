@@ -53,7 +53,7 @@ packsRoute.post('/buy', async (req, res, next) => {
     
     return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo });
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return res.send(error)
   }
 

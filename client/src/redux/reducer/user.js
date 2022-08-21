@@ -1,5 +1,4 @@
-/* eslint-disable no-case-declarations */
-import { GET_ALL_USERS, CREATE_USER, DELETE_USER, MODIFY_USER, GET_USER, SIGN_IN, SET_TOKEN, IS_VALID_TOKEN, LOG_OUT } from '../actions/actionTypes'
+import { CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN } from "../actions/user"
 
 const initialState = {
   user: {},
@@ -14,12 +13,13 @@ const initialState = {
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USER:
-      return { ...state, users: payload }
+      return { ...state, user: payload }
     case GET_ALL_USERS:
       return { ...state, users: payload }
     case CREATE_USER:
       return { ...state, id: payload.id, token: payload.token, rol: payload.rol }
     case SIGN_IN:
+      // falta agregar validToken aca 
       return { ...state, id: payload.id, token: payload.token, rol: payload.rol }
     case MODIFY_USER:
       return { ...state, user: payload }

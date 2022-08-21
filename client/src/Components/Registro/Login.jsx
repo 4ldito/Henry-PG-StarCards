@@ -48,7 +48,7 @@ export default function Login() {
       </div>
       <div className="input-container">
         <label>Password </label>
-        <input type="password" name="password" onChange={handleOnChange} required />
+        <input type="password" name="password" onChange={handleOnChange} required autoComplete='on'/>
         {renderErrorMessage("pass")}
       </div>
       <div className="button-container">

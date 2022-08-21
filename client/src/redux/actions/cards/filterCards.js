@@ -1,4 +1,4 @@
-import { FILTER_CARDS } from '../actionTypes'
+export const FILTER_CARDS = 'FILTER_CARDS'
 
 export function filterCards (filter, cards) {
   const filterRace = filter.race === 'allRaces'

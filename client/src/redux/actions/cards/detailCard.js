@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CARD_DETAIL } from "../actionTypes";
+export const CARD_DETAIL = 'CARD_DETAIL'
 
 export function detailCard(id) {
   return async function (dispatch) {

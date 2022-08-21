@@ -23,7 +23,6 @@ const Album = () => {
       max = 2;
     }
     setLimit({ min, max });
-    console.log(limit);
   }
 
   function pagBack(e) {
@@ -35,7 +34,6 @@ const Album = () => {
       max = 2;
     }
     setLimit({ min, max });
-    console.log(limit);
   }
 
   function pagNext(e) {
@@ -52,27 +50,25 @@ const Album = () => {
     }
 
     setLimit({ min, max });
-    console.log(last);
   }
 
-  function paginado() {
+  function paginated() {
     const TotalPag = allCards.length / 3;
     const button = [];
     button.push(
-      <button key="back" onClick={pagBack}>
+      <button className={css.pag} key="back" onClick={pagBack}>
         {"<"}
       </button>
     );
     for (let i = 0; i < TotalPag; i++) {
-      //Creo un "button" por cada paginado y lo pusheo al array "button"
       button.push(
-        <button key={i} onClick={pag}>
+        <button className={css.pag} key={i} onClick={pag}>
           {i + 1}
         </button>
       );
     }
     button.push(
-      <button key="next" onClick={pagNext}>
+      <button className={css.pag} key="next" onClick={pagNext}>
         {">"}
       </button>
     );
@@ -80,29 +76,31 @@ const Album = () => {
   }
 
   return (
-    <div className={css.cartas}>
-      {allCards.map((card, index) => {
-        if (index <= limit.max && index >= limit.min) {
-          return (
-            <Card
-              key={card.id}
-              id={card.id}
-              name={card.name}
-              image={card.image}
-              cost={card.cost}
-              Gdmg={card.Gdmg}
-              Admg={card.Admg}
-              life={card.life}
-              ability={card.ability}
-              abilities={card.abilities}
-              race={card.race}
-              movement={card.movement}
-            />
-          );
-        }
-      })}
+    <div>
+      <div className={css.cartas}>
+        {allCards.map((card, index) => {
+          if (index <= limit.max && index >= limit.min) {
+            return (
+              <Card
+                key={card.id}
+                id={card.id}
+                name={card.name}
+                image={card.image}
+                cost={card.cost}
+                Gdmg={card.Gdmg}
+                Admg={card.Admg}
+                life={card.life}
+                ability={card.ability}
+                abilities={card.abilities}
+                race={card.race}
+                movement={card.movement}
+              />
+            );
+          }
+        })}
+      </div>
 
-      <div>{paginado()}</div>
+      <div className={css.paginated}>{paginated()}</div>
     </div>
   );
 };

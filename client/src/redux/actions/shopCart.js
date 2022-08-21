@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { ADD_TO_SHOPCART, REMOVE_FROM_SHOPCART, GET_PREFERENCE_ID, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO } from './actionTypes'
+export const ADD_TO_SHOPCART = 'ADD_TO_SHOPCART';
+export const REMOVE_FROM_SHOPCART = 'REMOVE_FROM_SHOPCART';
+export const GET_PREFERENCE_ID = 'GET_PREFERENCE_ID';
+export const SHOPCART_BUY_CARDSPACKS = 'SHOPCART_BUY_CARDSPACKS';
+export const GET_PURCHASE_INFO = 'GET_PURCHASE_INFO';
+export const SHOPCART_CLEAN_MSG_INFO = 'SHOPCART_CLEAN_MSG_INFO';
+export const CLEAN_PREFERENCE_ID = 'CLEAN_PREFERENCE_ID';
+export const SHOPCART_CLEAN_PURCHASE_INFO = 'SHOPCART_CLEAN_PURCHASE_INFO';
 
 export function addToShopCart(product, quantity, packTypes) {
   quantity = Number(quantity)
@@ -23,13 +30,35 @@ export const shopcartBuyCardsPacks = (info) => {
   }
 }
 
-export function getPreferenceId(shopcart) {
+export function getPreferenceId(shopcart, userId) {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/mercadopago/checkout', shopcart)
-    dispatch({ type: GET_PREFERENCE_ID, payload: response.data })
+    try {
+      const response = await axios.post(`http://localhost:3001/mercadopago/checkout/${userId}`, shopcart);
+      dispatch({ type: GET_PREFERENCE_ID, payload: response.data })
+    } catch (error) {
+      console.error('STARCARDS_ERROR', error)
+    }
   }
 }
 
 export function shopCartCleanMsgInfo() {
   return { type: SHOPCART_CLEAN_MSG_INFO }
+}
+
+export function cleanPreferenceId() {
+  return { type: CLEAN_PREFERENCE_ID }
+}
+
+export function getPurchaseInfo(id) {
+  if (id) {
+    return async function (dispatch) {
+      const response = await axios(`https://api.mercadopago.com/v1/payments/${id}`, { "headers": { "Authorization": "Bearer APP_USR-6913287203050942-081213-9ae4b41c5f23db785ed7c59bdbb34d5e-1178359030" } })
+      dispatch({ type: GET_PURCHASE_INFO, payload: response.data })
+    }
+  } else return { type: GET_PURCHASE_INFO }
+
+}
+
+export function cleanPurchaseInfo() {
+  return { type: SHOPCART_CLEAN_PURCHASE_INFO }
 }
