@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { deleteUser, getUser } from '../../redux/actions/user';
+import { getUser } from '../../redux/actions/user';
 import style from '../../styles/ProfileUser/UserProfile.module.css'
 import Config from '../Config/Config'
 
@@ -11,8 +11,6 @@ export default function UserProfile () {
   const idUserActive = useSelector(state => state.userReducer.id)
   const [user, setUser] = useState()
   const [render, setRender] = useState()
-
-  // let username = 'antu' //para que me traiga un usuario sin estar logeado
 
   useEffect(() => {
     dispatch(getUser(idUserActive))
