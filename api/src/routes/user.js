@@ -102,6 +102,11 @@ userRoute.patch("/:id", async (req, res, next) => {
 
     if (RolId) await user.setStatus(RolId);
 
+    if(password) {
+      if(!User.comparePassword(password,user.password))
+        return res.send('Incorrect')
+    }
+
     await user.update({
       username,
       password,
