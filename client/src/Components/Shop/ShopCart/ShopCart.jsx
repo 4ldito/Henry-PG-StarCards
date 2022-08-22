@@ -24,7 +24,7 @@ const ShopCart = () => {
   const handleBuyCardsPack = (e) => {
     e.preventDefault();
     const info = { data: [...cardsPack] }
-    dispatch(shopcartBuyCardsPacks(info));
+    dispatch(shopcartBuyCardsPacks(info, user.id));
   }
 
   useEffect(() => {

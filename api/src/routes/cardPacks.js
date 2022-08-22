@@ -32,7 +32,9 @@ packsRoute.patch('/buy', async (req, res, next) => {
       0
     );
 
-    const [user] = await Promise.all([User.findOne()])
+    const user = await User.findByPk(userId);
+
+    console.log(`${user.username} esta comprando :D`)
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
 

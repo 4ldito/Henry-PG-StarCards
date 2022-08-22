@@ -18,7 +18,6 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
       let user;
       // if (updatedInfo) user = updatedInfo.shift();
       if (error) return { ...state, msg: { type: 'error', info: error, title: 'Error!' } }
-
       const data = state.cardsPacks.map(pack => {
         updatedInfo.forEach(updatedPack => {
           if (pack.id === updatedPack.id) {
@@ -27,7 +26,6 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
         });
         return pack;
       })
-      console.log(updatedInfo)
       return { ...state, filteredCardsPack: [...data], cardsPacks: [...data], msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
 
     case FILTER_CARDS_PACKS:
