@@ -28,8 +28,12 @@ export function getAllUsers() {
 
 export function createUser(user) {
   return async function (dispatch) {
-    const response = await axios.post('http://localhost:3001/login/signup', user);
-    dispatch({ type: CREATE_USER, payload: response.data })
+    try{
+      const response = await axios.post('http://localhost:3001/login/signup', user);
+      dispatch({ type: CREATE_USER, payload: response.data })
+    }catch(err){
+      console.log(err)
+    }
   }
 }
 
