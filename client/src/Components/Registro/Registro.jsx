@@ -83,7 +83,7 @@ export default function Registro() {
           onChange={(e) => {
             handleChange(e);
           }}
-          placeholder="Name"
+          placeholder="Ingrese su nombre aca"
         />
         <input
           className={style2.input}
@@ -107,6 +107,7 @@ export default function Registro() {
           }}
           placeholder="Ingrese su contraseña aca"
         />
+        <div style={{"height":"18px"}}></div>
         {input.name !== "" ? (
           <button type="submit" data= 'Registrar usuario' className={style.button} >
           </button>
