@@ -26,15 +26,17 @@ export default function Card({ id }) {
       : css.protossCard;
 
   return (
-    <div
-      className={`${cardCss} ${css.cardContainer}`}
-      onClick={() => detail(id)}
-    >
+    <div className={`${cardCss} ${css.cardContainer}`}>
       <div className={css.nameContainer}>
         <h3 className={css.name}>{card.name}</h3>
         <span className={css.cost}>{card.cost}</span>
       </div>
-      <img className={css.img} src={card.image} alt={card.image} />
+      <img
+        className={css.img}
+        src={card.image}
+        alt={card.image}
+        onClick={() => detail(id)}
+      />
       <span className={css.movement}>{card.movement}</span>
       <p className={css.ability}>{card.ability}</p>
       <div className={css.stats}>

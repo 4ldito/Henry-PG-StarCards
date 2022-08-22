@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import getAllCards from "../../redux/actions/cards/getAllCards";
 import Card from "../Card/Card";
