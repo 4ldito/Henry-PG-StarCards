@@ -31,7 +31,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
   return (
     <>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
-      <ul id="menu" onBlur={(e) => handleVisibleUserOptions(false)} className={css.ul}>
+      <ul id="menu" className={css.ul}>
         <li className={css.li}>
           <button onClick={handleSeeShopcart} className={css.btn} style={option} to="/shopcart">
             Shopcart
@@ -43,7 +43,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
           </Link>
         </li>}
         <li className={css.li}>
-          {validToken ? <button className={css.btn} onClick={quit}>Log out</button> : <Link to='/login'>Log In</Link>}
+          {validToken ? <button className={css.btn} onClick={quit}>Log out</button> : <Link className={css.link} style={option} to='/login'>Log In</Link>}
         </li>
       </ul>
     </>

@@ -14,20 +14,22 @@ export default function Nav() {
     setVisibleUserOptions(!visibleUserOptions)
   }
 
-  function handleClick(e) {
-    console.log(e.target.id);
-    if (e.target.id !== 'nav' && e.target.id != 'menu') {
-      setVisibleUserOptions(false)
-    }
-  }
+  // function handleClick(e) {
+  //   // console.log("id:",e.target.id);
+  //   // console.log("this:", this);
+  //   console.log(e.target.className);
+  //   if (e.target.id !== 'btnMenu' && e.target.id != 'menu') {
+  //     setVisibleUserOptions(false)
+  //   }
+  // }
 
-  useEffect(() => {
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener("click", handleClick);
+  //   return () => document.removeEventListener("click", handleClick);
+  // }, []);
 
   return (
-    <div id="nav" className={css.nav}>
+    <div className={css.nav}>
       <NavLink className={css.link} to="/">
         <img className={css.img} src={logo} alt="Logo de StarCards" />
       </NavLink>
@@ -57,7 +59,7 @@ export default function Nav() {
         className={css.btn}
         onClick={handleVisibleUserOptions}
       >
-        <span id="span" className="material-symbols-outlined">
+        <span id="btnMenu" className="material-symbols-outlined">
           account_circle
         </span>
       </button>
