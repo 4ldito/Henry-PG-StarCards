@@ -25,7 +25,6 @@ function App() {
   const dispatch = useDispatch();
 
   function handleKeyboard(e) {
-
     if (e.repeat) return;
     if ((e.metaKey || e.ctrlKey) && e.key === "x") {
       dispatch(resetReduxState());
@@ -37,12 +36,8 @@ function App() {
     return () => document.removeEventListener("keydown", handleKeyboard);
   }, []);
 
-  const closeUserOptions = (e) => {
-    console.log(e.target.id);
-  }
-
   return (
-    <div onClick={closeUserOptions}>
+    <div>
       <Nav />
       <Routes>
         <Route path="/" element={<LandingPage />} />

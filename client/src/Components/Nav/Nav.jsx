@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
@@ -8,7 +7,6 @@ import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
-  const isLogged = useSelector(state => state.userReducer.token);
   const { validToken } = useValidToken({ navigate: false })
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
 
@@ -16,8 +14,20 @@ export default function Nav() {
     setVisibleUserOptions(!visibleUserOptions)
   }
 
+  function handleClick(e) {
+    console.log(e.target.id);
+    if (e.target.id !== 'nav' && e.target.id != 'menu') {
+      setVisibleUserOptions(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
   return (
-    <div className={css.nav}>
+    <div id="nav" className={css.nav}>
       <NavLink className={css.link} to="/">
         <img className={css.img} src={logo} alt="Logo de StarCards" />
       </NavLink>

@@ -25,14 +25,13 @@ export default function UserOptions({ handleVisibleUserOptions }) {
   };
 
   const handleSeeShopcart = (e) => {
-    console.log(viewShopcart);
     setViewShopcart(!viewShopcart);
   }
 
   return (
     <>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
-      <ul onBlur={(e) => handleVisibleUserOptions(false)} className={css.ul}>
+      <ul id="menu" onBlur={(e) => handleVisibleUserOptions(false)} className={css.ul}>
         <li className={css.li}>
           <button onClick={handleSeeShopcart} className={css.btn} style={option} to="/shopcart">
             Shopcart
