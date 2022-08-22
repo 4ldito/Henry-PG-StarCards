@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
+import {useNavigate} from 'react-router-dom'
 
 
 export default function Detail (id) {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch()
     const detailCard = useSelector(state => state.detailReducer.card)
     const opinion= useSelector(state => state.detailReducer.opinion)
@@ -16,6 +18,10 @@ export default function Detail (id) {
         userId: 7
     })
     
+    useEffect(() => {
+        navigate("/detail")
+    },[opinion])
+
     console.log('opinion', opinion)
     function handleInput (e) {
         setInput({
