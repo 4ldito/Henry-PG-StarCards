@@ -2,7 +2,6 @@ const { Model } = require("sequelize");
 
 class Opinion extends Model {
   static associate(models) {
-    // Opinion.belongsTo(models.User)
     Opinion.belongsTo(models.Status);
     Opinion.belongsTo(models.User);
     Opinion.belongsTo(models.Card);
@@ -22,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
         score: {
-          type: DataTypes.INTEGER,
+          type: DataTypes.FLOAT,
           allowNull: false,
         },
       },

@@ -1,43 +1,34 @@
 const db = require('../db');
-const { User, Rol } = db;
+const { User } = db;
 const config = require('../config/config')
 const jwt = require('jsonwebtoken');
-const { Op } = require('sequelize');
 
 async function signUp(req, res, next) {
-    const { email, username, password, roles } = req.body;
+    const { email, username, password } = req.body;
+
     try {
         const newUser = new User({
             email, username, password: await User.prototype.hashPassword(password)
         })
-        if (roles) {
-            const rolesfound = await Rol.findAll({ where: { id: { [Op.in]: roles } } });
-            newUser.roles = rolesfound.map(e=>e.id);
-        }else{
-            newUser.roles = ["user"];
-        }
         const savedUser = await newUser.save();
-        const token = jwt.sign({ id: savedUser.id }, config.SECRET, { expiresIn: 86400 });
-        res.status(200).json({token})
+        await savedUser.setRol("user");
+        const token = jwt.sign({ id: savedUser.id, rol: savedUser.RolId }, config.SECRET, { expiresIn: 86400 });
+        res.status(200).json({ token, rol: savedUser.RolId, id: savedUser.id, user: savedUser})
     } catch (err) {
         next(err)
-
     }
-
 }
 
-async function signIn (req, res,next) {
-    const {email} = req.body
-    try{
-        const userFound = await User.findOne({where:{email}},{include: [{model:Rol}]})
-        if(!userFound)return res.status(400).json({token:null,message:'el usuario no existe'});
-        const validPassword = await User.prototype.comparePassword(req.body.password, userFound.password);
-        console.log(validPassword);
-        if(!validPassword)return res.status(400).json({token:null, message:"la contraseña no coincide"});
-        const token = jwt.sign({id: userFound.id}, config.SECRET, {expiresIn: 86400});
-        res.json({token})
-
-    }catch(err){
+async function signIn(req, res, next) {
+    const { email, password } = req.body
+    try {
+        const userFound = await User.findOne({ where: { email } })
+        if (!userFound) return res.json({ error: "El usuario no existe" });
+        const token = jwt.sign({ id: userFound.id }, config.SECRET, { expiresIn: 86400 });
+        const validPassword = await User.prototype.comparePassword(password, userFound.password);
+        if (!validPassword) return res.json({ error: "la contraseña no coincide" });
+        res.json({ token, rol: userFound.RolId, id: userFound.id, user: userFound});
+    } catch (err) {
         next(err)
     }
 }

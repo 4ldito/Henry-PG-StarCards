@@ -2,8 +2,7 @@ const { Model } = require("sequelize");
 
 class CardPacks extends Model {
   static associate(models) {
-    // CardsPack.belongsTo(models.User)
-    CardPacks.hasOne(models.Status);
+    CardPacks.belongsTo(models.Status);
   }
 }
 
@@ -19,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
       price: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -33,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       cards: {
         type: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.STRING)),
+        allowNull: false,
+      },
+      image: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },

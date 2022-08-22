@@ -2,12 +2,9 @@ const { Model, DataTypes } = require("sequelize");
 
 class Card extends Model {
   static associate(models) {
-    Card.belongsToMany(models.User, {
-      through: "UserCards",
-    });
-
+    Card.hasMany(models.UserCards);
     Card.belongsTo(models.Status);
-    Card.hasMany(models.Opinion)
+    Card.hasMany(models.Opinion);
   }
 }
 
@@ -55,9 +52,9 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         validate: {
           customValidator: (value) => {
-            const enums = ["ground", "flying", "all"];
+            const enums = ["Ground", "Flying"];
             if (!enums.includes(value)) {
-              throw new Error("not a valid option");
+              throw new Error("not a valid movement option");
             }
           },
         },

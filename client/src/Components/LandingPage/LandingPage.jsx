@@ -1,17 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import style from '../../styles/landingPage/landingPage.module.css'
 
-import css from './LandingPage.module.css'
 
 const LandingPage = () => {
   return (
-    <div>
-      <h1 className={css.h1}>LandingPage</h1>
+    <div className={style.container}>
+      <div className={style.options}>
+      <h1 class = {style.title} style={{"fontSize":"50px"}}>Entrar</h1>
+      <div className={style.buttons}>
       <Link to='/register'>
-        <br />
-        <button>Registro</button>
+        <button className={style.button} data='Registro'></button>
       </Link>
-
+      <Link to='/login'>
+        <button className={style.button} data='login'></button>
+      </Link>
+      </div>
+      </div>
     </div>
   )
 }

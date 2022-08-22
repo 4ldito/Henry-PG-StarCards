@@ -1,4 +1,7 @@
-import { CARD_DETAIL, GET_OPINIONS, POST_OPINIONS } from '../actions/actionTypes'
+
+import { CARD_DETAIL } from './../actions/cards/detailCard';
+import { GET_OPINIONS } from './../actions/cards/getOpinions';
+import { POST_OPINIONS } from './../actions/cards/postOpinions';
 
 const initialState = {
   card: {},

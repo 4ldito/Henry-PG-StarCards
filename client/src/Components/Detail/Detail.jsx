@@ -1,8 +1,15 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
 import {useNavigate} from 'react-router-dom'
+=======
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
+import css from "./detail.module.css";
+>>>>>>> a8f479057ff220db850f9d2ba68bdbebb68c5554
 
 
 export default function Detail (id) {
@@ -18,11 +25,14 @@ export default function Detail (id) {
         userId: 7
     })
     
+<<<<<<< HEAD
     useEffect(() => {
         navigate("/detail")
     },[opinion])
 
     console.log('opinion', opinion)
+=======
+>>>>>>> a8f479057ff220db850f9d2ba68bdbebb68c5554
     function handleInput (e) {
         setInput({
             ...input,
@@ -42,35 +52,40 @@ export default function Detail (id) {
 
 
     return (
-        <div>
+        <div className={css.all}>
+        <div className={css.container}>
+            <div className={css.img}>
             <h3>{detailCard.name}</h3>
             <img src={detailCard.image} alt={detailCard.image} />
-            <div>
-                <p>cost:{detailCard.cost}</p>
-                <p>Gdmg:{detailCard.Gdmg}</p>
-                <p>Admg:{detailCard.Admg}</p>
-                <p>life:{detailCard.life}</p>
-                <p>ability:{detailCard.ability}</p>
-                <p>abilities:{detailCard.abilities}</p>
-                <p>race:{detailCard.race}</p>
-                <p>movement:{detailCard.movement}</p>
             </div>
-            <div>
-                <p>rating: {rating.toFixed(1)}</p>
-                <p>comments:</p>
-                {
-                    opinion.map((opinion) => {
-                    return <p key={opinion.id}>{opinion.comment}</p>
-                    })
-                }
+            <div className={css.card}>
+                <div>
+                    <p>Cost: {detailCard.cost}</p>
+                    <p>Ground Damage: {detailCard.Gdmg}</p>
+                    <p>Air Damage: {detailCard.Admg}</p>
+                    <p>Life: {detailCard.life}</p>
+                    <p>Ability: {detailCard.ability}</p>
+                    <p>Race: {detailCard.race}</p>
+                    <p>Movement: {detailCard.movement}</p>
+                </div>
+                    {rating? <p>Rating: {rating.toFixed(1)}</p>: ''}
+                <div className={css.opinion}>
+                    {opinion.length? <p>Comments: </p>: ''}
+                    {
+                        opinion.map((opinion) => {
+                        return <p key={opinion.id}>{opinion.comment}</p>
+                        })
+                    }
+                </div>
+                <form>
+                    <label >Comment: </label>
+                    <input type="text" name='comment' value={input.comment} onChange={e => handleInput(e)} />
+                    <label >Score: </label>
+                    <input type="number" name='score' value={input.score} onChange={e => handleInput(e)} />
+                    <button onClick={e => handleComment(e)}>Comment</button>
+                </form>
             </div>
-            <form>
-                <label >Comment: </label>
-                <input type="text" name='comment' value={input.comment} onChange={e => handleInput(e)} />
-                <label >Score: </label>
-                <input type="number" name='score' value={input.score} onChange={e => handleInput(e)} />
-                <button onClick={e => handleComment(e)}>Comment</button>
-            </form>
+        </div>
         </div>
     )
 }

@@ -1,45 +1,67 @@
-import React from 'react'
-import { useFetchStarsPack } from '../../hooks/useFetchStarsPack'
-import { useSelector, useDispatch } from 'react-redux'
-import { removeFromShopCartStarPack } from './../../redux/actions/shopCart'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
+import { useSelector, useDispatch } from 'react-redux';
 
-import Packs from './Packs/Packs'
+import { useFetchStarsPack } from '../../hooks/useFetchStarsPack';
+import { useFetchCardsPack } from './../../hooks/useFetchCardsPack';
+import { cleanMsgInfo } from '../../redux/actions/cardsPack';
+
+import Packs from './Packs/Packs';
+import Filters from './Filters';
+
+import style from './styles/Shop.module.css';
 
 const Shop = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [view, setView] = useState('stars');
 
-  const { loaded } = useFetchStarsPack()
-  const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
+  const loadedStarsPack = useFetchStarsPack().loaded;
+  const loadCardsPack = useFetchCardsPack().loaded;
 
-  if (!loaded) return (<p>Loading..</p>)
+  const msgInfoPurchase = useSelector(state => state.cardsPacksReducer.msg);
+  const user = useSelector(state => state.userReducer.user);
 
-  const handleRemoveItem = (e) => {
-    e.preventDefault()
-    const target = Number(e.target.id)
-    dispatch(removeFromShopCartStarPack(target))
+  const handleChangeView = (e) => {
+    e.preventDefault();
+    const target = e.target;
+    const lastActive = document.querySelector(`.${style.active}`);
+    lastActive.classList.remove(style.active);
+    target.classList.add(`${style.active}`);
+    setView(target.value);
   }
 
+  useEffect(() => {
+    if (msgInfoPurchase.type) {
+      dispatch(cleanMsgInfo());
+      Swal.fire({
+        title: msgInfoPurchase.title,
+        text: msgInfoPurchase.info,
+        icon: msgInfoPurchase.type,
+      });
+      if (msgInfoPurchase.type === 'success') {
+        console.log('termino')
+      };
+    }
+  }, [msgInfoPurchase]);
+
+  if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
+
   return (
-    <div>
-      <Link to='/shopcart'>Ir al carrito</Link>
-      <h2>Carrito: </h2>
-      <h3>Carrito de Stars Packs</h3>
-      {starsPack.map(item =>
-        <div key={item.id}>
-          <p>{item.name} cantidad: {item.quantity}</p>
-          <button id={item.id} onClick={handleRemoveItem}>Eliminar del carrito</button>
-        </div>
-      )}
-      <h3>Carrito de Cards Packs</h3>
-      {cardsPack.map(item =>
-        <div key={item.id}>
-          <p>{item.name} cantidad: {item.quantity}</p>
-          <button id={item.id} onClick={handleRemoveItem}>Eliminar del carrito</button>
-        </div>
-      )}
-      <Packs type='starsPack' />
-      <Packs type='cardsPack' />
+    <div className={style.container}>
+      <div className={style.containerBtns}>
+        <button onClick={handleChangeView} value='stars' className={`${style.btn} ${style.active}`}>Buy Stars</button>
+        <button onClick={handleChangeView} value='packsCards' className={style.btn}>Buy Packs Cards</button>
+        <button onClick={handleChangeView} value='cards' disabled className={`${style.btn} ${style.disabled}`}>Buy Cards</button>
+      </div>
+      {user?.id && <p>Stars disponibles: {user.stars}</p>}
+      {view === 'stars' ? <Packs type='starsPack' />
+        : view === 'packsCards' ?
+          <>
+            <Filters />
+            <Packs type='cardsPack' />
+          </>
+          : <p>Cards</p>
+      }
     </div>
   )
 }

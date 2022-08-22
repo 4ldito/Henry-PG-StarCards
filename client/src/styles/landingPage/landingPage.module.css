@@ -1,0 +1,95 @@
+@font-face {
+    font-family: starcardsFont;
+    src: url("../../../css/EUROSTIB.ttf");
+}
+
+.title{
+  font-family: starcardsFont, sans-serif;  
+
+}
+.container {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    margin: 0 0 0 0;
+    text-align: center;
+}
+
+.options {
+
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+    width: 600px;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #00172cdd;
+    border: 1px solid rgb(51, 153, 255, .6);
+    background: radial-gradient(circle, #00172cdd 0%, rgb(51, 153, 255, .6) 100%);
+    border-radius: 1px;
+}
+
+.buttons {
+    display: flex;
+    height: 50%;
+    width: 100%;
+    justify-content: space-evenly;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    text-transform: uppercase;
+}
+
+.button {
+    color:#f6e4c2;
+    filter: brightness(2);
+    --edge-size: .5em;
+    background-color: #744d005f;
+    position: relative;
+    font-family: starcardsFont, Source Sans Pro, sans-serif;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    height: 50px;
+    width: 300px;
+    border-radius: 2px;
+    clip-path: polygon(calc(100% - var(--edge-size)) 0,
+            100% var(--edge-size),
+            100% 100%,
+            var(--edge-size) 100%,
+            0 calc(100% - var(--edge-size)),
+            0 0);
+    transition:.2s;
+}
+
+.button::before {
+    --edge-size: .3em;
+    filter: brightness(.5);
+    text-align: center;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: attr(data);
+    font-size: 1.5em;
+    height: 90%;
+    width: 95%;
+    background-color: #bd8f33;    
+
+
+
+    clip-path: polygon(calc(100% - var(--edge-size)) 0,
+            100% var(--edge-size),
+            100% 100%,
+            var(--edge-size) 100%,
+            0 calc(100% - var(--edge-size)),
+            0 0);
+}
+.button:hover{
+    color: white;
+    filter: brightness(2.5);
+}
