@@ -5,12 +5,12 @@
   justify-content: center;
   flex-direction: column;
   gap: 20px;
-  height: 100vh;
+  height: 93vh;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   
 }
 
-input[type="text"]{
+/* input[type="text"]{
   color: white;
 }
 input[type="password"] {
@@ -29,7 +29,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background: #6cf0c2;
-}
+} */
 
 .buttoncontainer {
   display: flex;
@@ -63,4 +63,10 @@ input[type="submit"]:hover {
 }
 label{
   color: white;
+}
+
+.form{
+  background-color: #757576;
+  border-radius: 8px;
+  padding: 1rem;
 }

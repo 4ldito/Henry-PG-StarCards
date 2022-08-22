@@ -8,6 +8,7 @@ export const MODIFY_USER = 'MODIFY_USER'
 export const SET_TOKEN = 'SET_TOKEN'
 export const IS_VALID_TOKEN = 'IS_VALID_TOKEN';
 export const LOG_OUT = 'LOG_OUT';
+export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -34,11 +35,12 @@ export function createUser(user) {
 
 export function signIn(user) {
   return async function (dispatch) {
-    try{
+    try {
       const response = await axios.post('http://localhost:3001/login/signin', user);
+      console.log(response.data)
       dispatch({ type: SIGN_IN, payload: response.data })
-    }catch(err){
-      console.log(err.response.data.error);
+    } catch (err) {
+      console.log(err);
 
     }
   }
@@ -49,6 +51,10 @@ export function setToken(credentials) {
 }
 export function logOut() {
   return { type: LOG_OUT }
+}
+
+export const userCleanMsgInfo = () => {
+  return { type: USER_CLEAN_MSG_INFO }
 }
 
 

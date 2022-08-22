@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { detailCard } from "../../redux/actions/cards/detailCard.js";
@@ -12,6 +13,11 @@ export default function Card({ id }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(detailCard(null));
+  }, []);
+
   function detail() {
     dispatch(detailCard(id));
     dispatch(getOpinions(id));
@@ -26,7 +32,10 @@ export default function Card({ id }) {
       : css.protossCard;
 
   return (
-    <div className={`${cardCss} ${css.cardContainer}`}>
+    <div
+      className={`${cardCss} ${css.cardContainer}`}
+      onClick={() => detail(id)}
+    >
       <div className={css.nameContainer}>
         <h3 className={css.name}>{card.name}</h3>
         <span className={css.cost}>{card.cost}</span>
@@ -41,8 +50,5 @@ export default function Card({ id }) {
         </span>
       </div>
     </div>
-    // <div className={css.card} onClick={() => detail(id)}>
-
-    // </div>
   );
 }

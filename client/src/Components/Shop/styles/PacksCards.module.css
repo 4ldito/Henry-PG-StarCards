@@ -26,10 +26,15 @@
 
 .price {
     color: lime;
+    font-size: 1.6rem;
 }
 
-.starsText {
-    color: yellow;
+.starsTextBlue {
+    color: #006de8;
+}
+
+.starsTextOrange {
+    color: #E68201;
 }
 
 .stock {
@@ -46,14 +51,40 @@
     display: flex;
     justify-content: center;
 
-    width: 100%;
-    height: 100%;
+    width: 266px;
+    height: 282px;
+
+    user-select: none;
 }
 
 .buttons {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 
     width: 100%;
-    height: 10%;
+}
+
+.btn {
+    border-radius: 20px;
+    color: white;
+    padding: 0.5rem 0.8rem;
+    transition: background-color .3s;
+
+}
+
+.btnAddToCart {
+    background-color: #0A58CA;
+}
+
+.btnBuyNow {
+    background-color: #28A745;
+}
+
+.btnAddToCart:hover {
+    background-color: #063e91;
+}
+
+.btnBuyNow:hover {
+    background-color: #038220;
 }

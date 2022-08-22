@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import FilterByRace from "../Album/Filter";
 import SearchCard from "../Album/SearchCard";
-import SortCards from "../Album/sort";
+import SortCards from "../Album/Sort";
 import Album from "../Album/Album";
 
 import Rules from "../Rules/Rules";
@@ -36,18 +36,20 @@ export default function About() {
           Album
         </button>
         <button
-          className={css.seccion}
+          className={`${css.seccion} ${css.disabled}`}
           ref={rules}
           name="rules"
           onClick={(e) => handleClick(e)}
+          disabled
         >
           Rules
         </button>
         <button
-          className={css.seccion}
+          className={`${css.seccion} ${css.disabled}`}
           ref={team}
           name="team"
           onClick={(e) => handleClick(e)}
+          disabled
         >
           Team
         </button>
