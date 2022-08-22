@@ -14,9 +14,7 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
 
     case BUY_CARD_PACK:
       const { msg, error, updatedInfo } = payload;
-      // En la posicion 0 se encuentra el user
-      let user;
-      // if (updatedInfo) user = updatedInfo.shift();
+      console.log(payload)
       if (error) return { ...state, msg: { type: 'error', info: error, title: 'Error!' } }
       const data = state.cardsPacks.map(pack => {
         updatedInfo.forEach(updatedPack => {
@@ -57,7 +55,7 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
 
     case CLEAN_MSG_INFO:
       return { ...state, msg: { type: '', info: '', title: '' } }
-      
+
     default:
       return state
   }

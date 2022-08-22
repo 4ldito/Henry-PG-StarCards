@@ -18,16 +18,14 @@ const PacksCard = ({ pack, type }) => {
 
   const decreaseQuantity = (e) => {
     e.preventDefault();
+    if (quantity - 1 <= 0) return;
     setQuantity((state) => state - 1);
   };
 
   const increaseQuantity = (e) => {
     e.preventDefault();
+    if (quantity + 1 > pack.stock) return;
     setQuantity((state) => state + 1);
-  };
-
-  const handleQuantityChange = (e) => {
-    setQuantity(Number(e.target.value));
   };
 
   const handleBuyNow = (e) => {
@@ -87,51 +85,31 @@ const PacksCard = ({ pack, type }) => {
 
   if (type === "cardsPack") {
     return (
-      <form
-        className={style.container}
-        name={pack.name}
-        id={pack.id}
-        onSubmit={handleAddItem}
-        key={pack.id}
-      >
-        <div className={style.pack}>
-          <Pack name={pack.name} amount={pack.amount} img={pack.image} />
-        </div>
-        <p>
-          Precio: <span className={style.starsText}>{pack.price} Stars</span>
-        </p>
-        <p>
-          Stock: <span className={style.stock}>{pack.stock}</span>
-        </p>
-        <div className={style.containerQuantity}>
-          <button onClick={decreaseQuantity}>-</button>
-          <input
-            ref={inputQuantity}
-            onChange={handleQuantityChange}
-            type="number"
-            min="1"
-            value={quantity}
-          />
-          <button onClick={increaseQuantity}>+</button>
-        </div>
-        <div className={style.buttons}>
-          <button className={`${style.btn} ${style.btnBuyNow}`} onClick={handleBuyNow} disabled={user?.stars < pack.price || !user.id}>
-            Comprar YA
-          </button>
-          <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
-        </div>
-      </form>
+      <>
+        {pack.stock > 0 && <form className={style.container} name={pack.name} id={pack.id} onSubmit={handleAddItem} key={pack.id}>
+          <div className={style.pack}>
+            <Pack name={pack.name} amount={pack.amount} img={pack.image} />
+          </div>
+          <p>Precio: <span className={style.starsText}>{pack.price} Stars</span></p>
+          <p>Stock: <span className={style.stock}>{pack.stock}</span></p>
+          <div className={style.containerQuantity}>
+            <button onClick={decreaseQuantity}>-</button>
+            <span>{quantity}</span>
+            <button onClick={increaseQuantity}>+</button>
+          </div>
+          <div className={style.buttons}>
+            <button className={`${style.btn} ${style.btnBuyNow}`} onClick={handleBuyNow}>
+              Comprar YA
+            </button>
+            <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
+          </div>
+        </form>}
+      </>
     );
   }
 
   return (
-    <form
-      className={style.container}
-      name={pack.name}
-      id={pack.id}
-      onSubmit={handleAddItem}
-      key={pack.id}
-    >
+    <form className={style.container} name={pack.name} id={pack.id} onSubmit={handleAddItem} key={pack.id}>
       <h3 className={pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange}>{pack.stars} Stars</h3>
       <img src={pack.image} alt="Pack" />
       <div className="infoBuy">
@@ -142,13 +120,7 @@ const PacksCard = ({ pack, type }) => {
       </div>
       <div className={style.containerQuantity}>
         <button onClick={decreaseQuantity}>-</button>
-        <input
-          ref={inputQuantity}
-          onChange={handleQuantityChange}
-          type="number"
-          min="1"
-          value={quantity}
-        />
+        <span>{quantity}</span>
         <button onClick={increaseQuantity}>+</button>
       </div>
       <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>

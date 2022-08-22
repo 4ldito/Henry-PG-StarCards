@@ -25,7 +25,7 @@ export function removeFromShopCart(product, packTypes) {
 
 export const shopcartBuyCardsPacks = (info, userId) => {
   return async function (dispatch) {
-    const response = await axios.patch('http://localhost:3001/packs/buy', { ...info, userId })
+    const response = await axios.patch('packs/buy', { ...info, userId })
     dispatch({ type: SHOPCART_BUY_CARDSPACKS, payload: response.data })
   }
 }
@@ -33,7 +33,7 @@ export const shopcartBuyCardsPacks = (info, userId) => {
 export function getPreferenceId(shopcart, userId) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(`http://localhost:3001/mercadopago/checkout/${userId}`, shopcart);
+      const response = await axios.post(`mercadopago/checkout/${userId}`, shopcart);
       dispatch({ type: GET_PREFERENCE_ID, payload: response.data })
     } catch (error) {
       console.error('STARCARDS_ERROR', error)
