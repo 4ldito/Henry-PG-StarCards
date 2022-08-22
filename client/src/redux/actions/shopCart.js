@@ -52,8 +52,12 @@ export function cleanPreferenceId() {
 export function getPurchaseInfo(id) {
   if (id) {
     return async function (dispatch) {
-      const response = await axios(`https://api.mercadopago.com/v1/payments/${id}`, { "headers": { "Authorization": "Bearer APP_USR-6913287203050942-081213-9ae4b41c5f23db785ed7c59bdbb34d5e-1178359030" } })
-      dispatch({ type: GET_PURCHASE_INFO, payload: response.data })
+      try {
+        const response = await axios(`https://api.mercadopago.com/v1/payments/${id}`, { "headers": { "Authorization": "Bearer APP_USR-6913287203050942-081213-9ae4b41c5f23db785ed7c59bdbb34d5e-1178359030" } })
+        dispatch({ type: GET_PURCHASE_INFO, payload: response.data })
+      } catch (error) {
+        console.log(error);
+      }
     }
   } else return { type: GET_PURCHASE_INFO }
 

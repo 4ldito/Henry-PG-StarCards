@@ -61,7 +61,7 @@ const ShopCart = ({ handleSeeShopcart }) => {
   }, [user?.stars]);
 
   return (
-    <div onClick={(e) => preferenceId !== -1 || !user?.id ? handleSeeShopcart(e) : ""} className={style.background}>
+    <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>
       <div onClick={e => e.stopPropagation()} className={style.container}>
         <div className={style.infoContainer}>
           <h2>Carrito</h2>

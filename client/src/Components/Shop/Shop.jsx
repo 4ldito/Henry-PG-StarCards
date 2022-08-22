@@ -47,30 +47,33 @@ const Shop = () => {
   }, [msgInfoPurchase]);
 
   const handleSeeShopcart = (e) => {
+    console.log('llega?')
     setViewShopcart(!viewShopcart);
   }
 
   if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
 
   return (
-    <div className={style.container}>
-      <div className={style.containerBtns}>
-        <button onClick={handleChangeView} value='stars' className={`${style.btn} ${style.active}`}>Buy Stars</button>
-        <button onClick={handleChangeView} value='packsCards' className={style.btn}>Buy Packs Cards</button>
-        <button onClick={handleChangeView} value='cards' disabled className={`${style.btn} ${style.disabled}`}>Buy Cards</button>
+    <>
+      <div className={style.container}>
+        <div className={style.containerBtns}>
+          <button onClick={handleChangeView} value='stars' className={`${style.btn} ${style.active}`}>Buy Stars</button>
+          <button onClick={handleChangeView} value='packsCards' className={style.btn}>Buy Packs Cards</button>
+          <button onClick={handleChangeView} value='cards' disabled className={`${style.btn} ${style.disabled}`}>Buy Cards</button>
+        </div>
+        <button onClick={handleSeeShopcart} className={style.btnShopcart}>Shopcart</button>
+        {user?.id && <p className={style.avaliableStars}>Stars disponibles: {user.stars}</p>}
+        {view === 'stars' ? <Packs type='starsPack' />
+          : view === 'packsCards' ?
+            <>
+              <Filters />
+              <Packs type='cardsPack' />
+            </>
+            : <p>Cards</p>
+        }
       </div>
-      <button onClick={handleSeeShopcart} className={style.btnShopcart}>Shopcart</button>
-      {user?.id && <p className={style.avaliableStars}>Stars disponibles: {user.stars}</p>}
-      {view === 'stars' ? <Packs type='starsPack' />
-        : view === 'packsCards' ?
-          <>
-            <Filters />
-            <Packs type='cardsPack' />
-          </>
-          : <p>Cards</p>
-      }
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
-    </div>
+    </>
   )
 }
 
