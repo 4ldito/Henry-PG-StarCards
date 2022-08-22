@@ -1,0 +1,46 @@
+.container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoContainer {
+    padding: 5vh 0;
+    width: 70vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    color: white;
+    margin: 1rem;
+    background-color: var(--container-background-main);
+    border-radius: 20px;
+    border: 2px solid white;
+    overflow-y: auto;
+}
+
+.containerCart {
+    background-color: var(--color-dark);
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid white;
+}
+
+.containerItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.1fr;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+    background-color: var(--container-background-main);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+
+}
+
+.containerItem p {
+    margin: 0;
+}
