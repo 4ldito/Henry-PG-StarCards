@@ -9,6 +9,7 @@ export const SET_TOKEN = 'SET_TOKEN'
 export const IS_VALID_TOKEN = 'IS_VALID_TOKEN';
 export const LOG_OUT = 'LOG_OUT';
 export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
+export const GET_USER_CARDS = 'GET_USER_CARDS'
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
 

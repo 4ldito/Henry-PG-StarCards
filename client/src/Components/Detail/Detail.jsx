@@ -1,15 +1,6 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
-import {useNavigate} from 'react-router-dom'
-=======
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
-import css from "./detail.module.css";
->>>>>>> a8f479057ff220db850f9d2ba68bdbebb68c5554
 
 
 export default function Detail (id) {
@@ -25,14 +16,7 @@ export default function Detail (id) {
         userId: 7
     })
     
-<<<<<<< HEAD
-    useEffect(() => {
-        navigate("/detail")
-    },[opinion])
-
     console.log('opinion', opinion)
-=======
->>>>>>> a8f479057ff220db850f9d2ba68bdbebb68c5554
     function handleInput (e) {
         setInput({
             ...input,
