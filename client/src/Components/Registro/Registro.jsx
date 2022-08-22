@@ -33,7 +33,8 @@ export default function Registro () {
 import React, { useState } from "react";
 import { useDispatch} from "react-redux";
 import { createUser } from "../../redux/actions/user";
-import style from './registro.module.css'
+import style from '../../styles/landingPage/landingPage.module.css'
+import style2 from '../../styles/register/Register.module.css'
 
 export default function Registro() {
   const dispatch = useDispatch();
@@ -70,11 +71,12 @@ export default function Registro() {
 
   return (
     <div className={style.container}>
-      <form onSubmit={(e) => { handleSubmit(e) }}>
-        <div>
+      <form className={style.options} onSubmit={(e) => { handleSubmit(e) }}>
+        <div style={{"fontSize":"50px"}}>
           Registrate
         </div>
         <input
+          className={style2.input}
           autoComplete="on"
           type="text"
           name="username"
@@ -84,26 +86,29 @@ export default function Registro() {
           placeholder="Name"
         />
         <input
+          className={style2.input}
+
           autoComplete="on"
           type="email"
           name="email"
           onChange={(e) => {
             handleChange(e);
           }}
-          placeholder="correo"
+          placeholder="Ingrese su gmail aca"
         />
         <input
+          className={style2.input}
+
           autoComplete="on"
           type="password"
           name="password"
           onChange={(e) => {
             handleChange(e);
           }}
-          placeholder="Pass"
+          placeholder="Ingrese su contraseña aca"
         />
         {input.name !== "" ? (
-          <button type="submit" >
-            Create!
+          <button type="submit" data= 'Registrar usuario' className={style.button} >
           </button>
         ) : (
           <button onClick={handleError}>

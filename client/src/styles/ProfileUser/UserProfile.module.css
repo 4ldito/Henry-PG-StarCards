@@ -45,6 +45,7 @@
 }
 
 .buttons {
+  background-color: white;
   display: flex;
   height: 4vh;
   width: 12vh;
@@ -60,4 +61,8 @@
 .configContainer {
   display: flex;
   justify-content: center;
+}
+
+.disabled {
+  cursor: not-allowed;
 }

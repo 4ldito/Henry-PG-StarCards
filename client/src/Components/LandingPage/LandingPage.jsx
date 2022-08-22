@@ -6,17 +6,17 @@ import style from '../../styles/landingPage/landingPage.module.css'
 const LandingPage = () => {
   return (
     <div className={style.container}>
-      
-      <h1>Entrar</h1>
+      <div className={style.options}>
+      <h1 class = {style.title} style={{"fontSize":"50px"}}>Entrar</h1>
       <div className={style.buttons}>
       <Link to='/register'>
-        <button className={style.buttonx}>Registro</button>
+        <button className={style.button} data='Registro'></button>
       </Link>
       <Link to='/login'>
-        <button className={style.buttony}>Login</button>
+        <button className={style.button} data='login'></button>
       </Link>
       </div>
-
+      </div>
     </div>
   )
 }

@@ -67,7 +67,7 @@ export default function username({ user, property }) {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup>
-                                <Label for='username'>Username</Label>
+                                <span for='username'>Username</span>
                                 <Input type='text' onChange={(e) => handleChange(e)} id='username' />
                             </FormGroup>
                         </ModalBody>
@@ -91,9 +91,9 @@ export default function username({ user, property }) {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup>
-                                <Label for='password'>Enter Current Password</Label>
+                                <span for='password'>Enter Current Password</span>
                                 <Input type='password' onChange={(e) => handleConfirm(e)} id='password' />
-                                <Label for='password'>Enter New Password</Label>
+                                <span for='password'>Enter New Password</span>
                                 <Input type='password' onChange={(e) => handleChange(e)} id='password2' />
                             </FormGroup>
                         </ModalBody>

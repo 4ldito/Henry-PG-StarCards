@@ -32,7 +32,7 @@ export default function UserOptions() {
           User Profile
         </Link>
       </li>}
-      <li>
+      <li className={css.li}>
         {validToken ? <button className={css.btn} onClick={quit}>Log out</button> : <Link to='/login'>Log In</Link>}
       </li>
     </ul>
