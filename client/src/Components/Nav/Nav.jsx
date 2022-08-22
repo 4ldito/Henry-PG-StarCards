@@ -40,7 +40,7 @@ export default function Nav() {
       <button
         id="link-perfil"
         className={css.btn}
-        onFocus={() => setVisibleUserOptions(!visibleUserOptions)}
+        onClick={() => setVisibleUserOptions(!visibleUserOptions)}
         onBlur={() => setTimeout(() => {
           setVisibleUserOptions(false)
         }, 200)}

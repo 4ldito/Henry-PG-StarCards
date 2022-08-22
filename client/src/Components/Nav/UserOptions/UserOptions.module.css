@@ -4,6 +4,7 @@
     justify-content: space-around;
     height: 100%;
     width: 100%;
+    list-style: none;
 }
 
 .btn {
@@ -12,9 +13,13 @@
     border: none;
     padding: 0;
     font-size: 1.3rem;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .btn:hover{ 
     color: #0a58ca;
+}
+
+.link{
+    text-decoration: none;
 }

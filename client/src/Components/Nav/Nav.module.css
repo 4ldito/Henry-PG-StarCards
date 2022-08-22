@@ -91,7 +91,7 @@
   border-radius: 0 0 5px 5px;
   
   right: 0px;
-  top: 59px;
+  top: calc(7vh - 1px);
 
   width: 150px;
   height: 100px;
