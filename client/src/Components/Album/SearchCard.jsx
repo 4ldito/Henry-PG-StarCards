@@ -19,11 +19,12 @@ export default function SearchCard() {
   function onInputChange(e) {
     e.preventDefault();
     setSearch(e.target.value);
+    dispatch(searchCard(e.target.value, cards));
   }
 
   return (
     <form className={css.form} onSubmit={onSubmit}>
-      <input type="text" onChange={onInputChange} value={search} />
+      <input type="text" onChange={(e) => onInputChange(e)} value={search} />
       <input className={css.btnSearch} type="submit" value="search" />
     </form>
   );
