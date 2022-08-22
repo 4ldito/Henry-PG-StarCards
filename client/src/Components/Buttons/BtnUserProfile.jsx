@@ -4,6 +4,7 @@ import s from '../../styles/ProfileUser/BtnUserProfile.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { useDispatch, useSelector } from "react-redux";
 import { modifyUser, userCleanMsgInfo } from "../../redux/actions/user";
+import Swal from 'sweetalert2';
 
 ////////////////////////////////////////////////////////////////////////
 export default function username({ user, property }) {
