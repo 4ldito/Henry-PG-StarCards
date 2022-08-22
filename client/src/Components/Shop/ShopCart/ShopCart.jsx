@@ -24,7 +24,7 @@ const ShopCart = () => {
   const handleBuyCardsPack = (e) => {
     e.preventDefault();
     const info = { data: [...cardsPack] }
-    dispatch(shopcartBuyCardsPacks(info));
+    dispatch(shopcartBuyCardsPacks(info, user.id));
   }
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const ShopCart = () => {
                         <p>Precio: ${item.price} ARS</p>
                         <p>Cantidad: {item.quantity} </p>
                         <p>Subtotal: ARS ${item.price * item.quantity}</p>
-                        <button onClick={(e) => handleRemoveItem(e, 'starsPack')} id={item.id}>X</button>
+                        <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'starsPack')} id={item.id}>X</button>
                       </div>
                     )
                   })}
@@ -94,7 +94,7 @@ const ShopCart = () => {
                         <p>Precio: {item.price} Stars</p>
                         <p>Cantidad: {item.quantity}</p>
                         <p>Subtotal: {subtotal} Stars</p>
-                        <button onClick={(e) => handleRemoveItem(e, 'cardsPack')} id={item.id}>X</button>
+                        <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'cardsPack')} id={item.id}>X</button>
                       </div>
                     )
                   })}

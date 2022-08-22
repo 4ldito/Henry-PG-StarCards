@@ -12,8 +12,9 @@ export function getCardsPacks() {
 }
 
 export const buyCardPack = (info, userId) => {
+  console.log(info)
   return async function (dispatch) {
-    const response = await axios.patch('http://localhost:3001/packs/buy', { info, userId })
+    const response = await axios.patch('http://localhost:3001/packs/buy', { ...info, userId })
     dispatch({ type: BUY_CARD_PACK, payload: response.data })
   }
 }

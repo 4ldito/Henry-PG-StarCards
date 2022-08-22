@@ -44,3 +44,13 @@
 .containerItem p {
     margin: 0;
 }
+
+.btnRemove {
+    border-radius: 5000px;
+    background-color: red;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    color: white;
+    padding: 0.2rem 0.4rem;
+}

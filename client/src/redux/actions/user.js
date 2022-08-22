@@ -37,6 +37,7 @@ export function signIn(user) {
   return async function (dispatch) {
     try {
       const response = await axios.post('http://localhost:3001/login/signin', user);
+      console.log(response.data)
       dispatch({ type: SIGN_IN, payload: response.data })
     } catch (err) {
       console.log(err);

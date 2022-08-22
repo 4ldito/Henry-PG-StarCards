@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { logOut } from "../../../redux/actions/user";
 import css from "./UserOptions.module.css";
 import useValidToken from "../../../hooks/useValidToken";
@@ -9,9 +9,11 @@ export default function UserOptions() {
 
   const { validToken } = useValidToken({ navigate: false });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function quit() {
     dispatch(logOut())
+    navigate("/login")
   }
 
   const option = {

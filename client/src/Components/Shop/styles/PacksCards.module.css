@@ -26,10 +26,15 @@
 
 .price {
     color: lime;
+    font-size: 1.6rem;
 }
 
-.starsText {
-    color: yellow;
+.starsTextBlue {
+    color: #006de8;
+}
+
+.starsTextOrange {
+    color: #E68201;
 }
 
 .stock {
