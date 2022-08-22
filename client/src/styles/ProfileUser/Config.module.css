@@ -1,6 +1,6 @@
 .bdelete {
   background-color: red;
-  color: white;
+  /* color: white; */
 }
 .container {
   display: flex;

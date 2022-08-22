@@ -99,6 +99,9 @@ userRoute.patch("/:id", async (req, res, next) => {
       return acc + Number(item.description)
     }, 0)
 
+    if(password){
+      if(!User.comparePassword(password, user.password)) return res.send('not Match')
+    } 
 
     if (RolId) await user.setStatus(RolId);
 
