@@ -132,14 +132,13 @@ const PacksCard = ({ pack, type }) => {
       onSubmit={handleAddItem}
       key={pack.id}
     >
-      <h3>{pack.name}</h3>
+      <h3 className={pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange}>{pack.stars} Stars</h3>
+      <img src={pack.image} alt="Pack" />
       <div className="infoBuy">
         <p>
-          Precio: <span className={style.price}>${pack.price}</span>
+          <span className={style.price}>${pack.price}</span>
         </p>
-        <p>
-          Para: <span className={style.starsText}>{pack.stars} stars</span>
-        </p>
+        {/* <p><span className={style.starsText}>{pack.stars} stars</span></p> */}
       </div>
       <div className={style.containerQuantity}>
         <button onClick={decreaseQuantity}>-</button>
