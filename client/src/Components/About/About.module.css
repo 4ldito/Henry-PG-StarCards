@@ -41,7 +41,7 @@
 
 .selected {
   background-color: var(--color-darker);
-  color: aqua;
+  color: #0E67EE;
   border-bottom: 1px solid black;
   font-weight: bold;
 }
