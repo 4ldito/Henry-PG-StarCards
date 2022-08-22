@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input, Label } from 'reactstrap'
 import s from '../../styles/ProfileUser/BtnUserProfile.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { useDispatch, useSelector } from "react-redux";
-import { modifyUser } from "../../redux/actions/user";
+import { modifyUser, userCleanMsgInfo } from "../../redux/actions/user";
+import Swal from 'sweetalert2';
 
 ////////////////////////////////////////////////////////////////////////
 export default function username({ user, property }) {
@@ -11,11 +12,11 @@ export default function username({ user, property }) {
     const [state, setState] = useState({ open: false })
     const [value, setValue] = useState('')
     const [oldPassword, setOldPassword] = useState('')
-    const password = useSelector(state => state.userReducer.validPassword)
+    const invalidPassword = useSelector(state => state.userReducer.msg)
+    const user1 = useSelector(state => state.userReducer.user)
 
     function openModal() {
         setState({ open: !state.open })
-        console.log(user,'password user : ', user.password)
         setValue('')
     }
 
@@ -36,23 +37,51 @@ export default function username({ user, property }) {
         setOldPassword(input)
     }
 
-    function sendData(e) {
-        let property = e.target.value
-        if (property === 'password'){
-            dispatch(modifyUser(user.id, { [property]: value }))
-        }
-        console.log('password button' , password)
-
-        // if (property === 'password' && oldPassword !== user.password) { //si la password es incorrecta se cierra.
-        //     openModal()
-        //     return alert('Incorrect Password')
-        // }
-        // else if (property === 'password' && value.length >= 1 && value.length < 6) {
-        //     return alert('New password a long six characters...')
-        // }
-        // else if (property === 'password' && !value.length) return alert('New password empty')
-        // openModal()
+    useEffect(() => {
+      if(invalidPassword === 'Incorrect') {
+        Swal.fire({
+            title: 'Error',
+            text: 'Contraseña Incorrecta',
+            icon: 'error',
+          });
+        //clean status:
+        dispatch(userCleanMsgInfo())
+        setState({ open: false })
     }
+    }, [invalidPassword])
+    
+    useEffect(() => {
+        if(invalidPassword === 'Correct'){
+        Swal.fire({
+            title: 'Completado',
+            text: 'Informacion Actualizada',
+            icon: 'success',
+          });
+        }
+        dispatch(userCleanMsgInfo())
+        setState({ open: false })
+
+    }, [user1])
+    
+
+    function sendData(e) {
+        
+        if (property === 'username'){
+            dispatch(modifyUser(user.id, { [property]: value }))
+            Swal.fire({
+                title: 'Completado',
+                text: 'Nombre de Usuario modificado',
+                icon: 'success',
+              });
+            openModal()
+        }
+        if (property === 'password'){
+            dispatch(modifyUser(user.id, { verifyPassword: oldPassword, [property]: value }))
+
+        }
+    }
+
+
     return (
         property == 'username' ?
             <>
@@ -67,7 +96,7 @@ export default function username({ user, property }) {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup>
-                                <span for='username'>Username</span>
+                                <span >Username</span>
                                 <Input type='text' onChange={(e) => handleChange(e)} id='username' />
                             </FormGroup>
                         </ModalBody>
@@ -91,10 +120,10 @@ export default function username({ user, property }) {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup>
-                                <span for='password'>Enter Current Password</span>
-                                <Input type='password' onChange={(e) => handleConfirm(e)} id='password' />
-                                <span for='password'>Enter New Password</span>
-                                <Input type='password' onChange={(e) => handleChange(e)} id='password2' />
+                                <span >Enter Current Password</span>
+                                <Input type='password'  onChange={(e) => handleConfirm(e)} id='password' />
+                                <span >Enter New Password</span>
+                                <Input type='password'   onChange={(e) => handleChange(e)} id='password2' />
                             </FormGroup>
                         </ModalBody>
                         <ModalFooter>
