@@ -33,7 +33,7 @@ export default function Registro () {
 import React, { useState } from "react";
 import { useDispatch} from "react-redux";
 import { createUser } from "../../redux/actions/user";
-import style from './registro.module.css'
+import style from '../../styles/landingPage/landingPage.module.css'
 
 export default function Registro() {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ export default function Registro() {
 
   return (
     <div className={style.container}>
-      <form onSubmit={(e) => { handleSubmit(e) }}>
+      <form className={style.options} onSubmit={(e) => { handleSubmit(e) }}>
         <div>
           Registrate
         </div>
