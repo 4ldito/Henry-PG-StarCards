@@ -85,7 +85,7 @@ return (
         }}
         placeholder="Ingrese su nombre aca"
       />
-      {(errores?.username && showErrors) && <label>{errores.username}</label>}
+      {(errores?.username && showErrors) && <label className={style.error}>{errores.username}</label>}
       <input
         className={style2.input}
 
@@ -110,7 +110,7 @@ return (
         }}
         placeholder="Ingrese su contraseña aca"
       />
-      {(errores?.password && showErrors) && <label className={style.error} style={{ fontSize: "10px" }}>{errores.password}</label>}
+      {(errores?.password && showErrors) && <label className={style.error} >{errores.password}</label>}
       <input
         className={style2.input}
 
@@ -122,7 +122,7 @@ return (
         }}
         placeholder="Ingrese su contraseña aca"
       />
-      {(errores?.confirm && showErrors) && <label className={style.error} style={{ fontSize: "10px" }}>{errores.confirm}</label>}
+      {(errores?.confirm && showErrors) && <label className={style.error} >{errores.confirm}</label>}
       <div style={{ "height": "18px" }}></div>
       {input.username ? (
         <button  type="submit" data='Registrar usuario' className={style.button} >
