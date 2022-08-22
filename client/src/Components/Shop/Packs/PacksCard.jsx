@@ -50,7 +50,7 @@ const PacksCard = ({ pack, type }) => {
       confirmButtonText: "Comprar",
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
-        dispatch(buyCardPack(info));
+        dispatch(buyCardPack(info, user.id));
       }
     });
   };
@@ -115,10 +115,10 @@ const PacksCard = ({ pack, type }) => {
           <button onClick={increaseQuantity}>+</button>
         </div>
         <div className={style.buttons}>
-          <button onClick={handleBuyNow} disabled={user?.stars < pack.price}>
+          <button className={`${style.btn} ${style.btnBuyNow}`} onClick={handleBuyNow} disabled={user?.stars < pack.price || !user.id}>
             Comprar YA
           </button>
-          <button>Añadir al carrito</button>
+          <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
         </div>
       </form>
     );
@@ -132,14 +132,13 @@ const PacksCard = ({ pack, type }) => {
       onSubmit={handleAddItem}
       key={pack.id}
     >
-      <h3>{pack.name}</h3>
+      <h3 className={pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange}>{pack.stars} Stars</h3>
+      <img src={pack.image} alt="Pack" />
       <div className="infoBuy">
         <p>
-          Precio: <span className={style.price}>${pack.price}</span>
+          <span className={style.price}>${pack.price}</span>
         </p>
-        <p>
-          Para: <span className={style.starsText}>{pack.stars} stars</span>
-        </p>
+        {/* <p><span className={style.starsText}>{pack.stars} stars</span></p> */}
       </div>
       <div className={style.containerQuantity}>
         <button onClick={decreaseQuantity}>-</button>
@@ -152,7 +151,7 @@ const PacksCard = ({ pack, type }) => {
         />
         <button onClick={increaseQuantity}>+</button>
       </div>
-      <button>Añadir al carrito</button>
+      <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
     </form>
   );
 };

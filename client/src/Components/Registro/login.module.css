@@ -5,7 +5,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 20px;
-  height: 100vh;
+  height: 93vh;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   
 }
@@ -63,4 +63,10 @@ input[type="submit"]:hover {
 }
 label{
   color: white;
+}
+
+.form{
+  background-color: #757576;
+  border-radius: 8px;
+  padding: 1rem;
 }

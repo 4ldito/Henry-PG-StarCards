@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userCleanMsgInfo } from './../../redux/actions/user';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
   /*const { loginWithRedirect } = useAuth0()
@@ -13,6 +14,7 @@ export default function Login() {
   )
     */
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const msgInfo = useSelector(state => state.userReducer.msg);
@@ -26,11 +28,14 @@ export default function Login() {
   useEffect(() => {
     if (msgInfo?.type) {
       dispatch(userCleanMsgInfo());
-      Swal.fire({
-        title: msgInfo.title,
-        text: msgInfo.text,
-        icon: msgInfo.type,
-      });
+      if (msgInfo.type === 'success') navigate('/userProfile');
+      else {
+        Swal.fire({
+          title: msgInfo.title,
+          text: msgInfo.text,
+          icon: msgInfo.type,
+        });
+      }
     }
   }, [msgInfo]);
   // User Login info

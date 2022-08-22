@@ -7,8 +7,6 @@
   font-family: starcardsFont;
   height: 447px;
   width: 320px;
-  /* width: 270px;
-  height: 377px; */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -19,6 +17,12 @@
   color: rgb(255, 255, 255);
 
   text-shadow: 0 0 6px rgb(0, 0, 0), 0 0 6px rgb(0, 0, 0);
+  transition: all .3s;
+  cursor: pointer;
+}
+
+.cardContainer:hover{
+  transform: scale(1.03);
 }
 
 .nameContainer {
