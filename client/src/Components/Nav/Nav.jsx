@@ -11,6 +11,11 @@ export default function Nav() {
   const isLogged = useSelector(state => state.userReducer.token);
   const { validToken } = useValidToken({ navigate: false })
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
+
+  const handleVisibleUserOptions = () => {
+    setVisibleUserOptions(!visibleUserOptions)
+  }
+
   return (
     <div className={css.nav}>
       <NavLink className={css.link} to="/">
@@ -40,10 +45,7 @@ export default function Nav() {
       <button
         id="link-perfil"
         className={css.btn}
-        onClick={() => setVisibleUserOptions(!visibleUserOptions)}
-        onBlur={() => setTimeout(() => {
-          setVisibleUserOptions(false)
-        }, 200)}
+        onClick={handleVisibleUserOptions}
       >
         <span id="span" className="material-symbols-outlined">
           account_circle
@@ -53,7 +55,7 @@ export default function Nav() {
 
       {visibleUserOptions && (
         <div className={css.userOptions}>
-          <UserOptions />
+          <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
       )}
     </div>

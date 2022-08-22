@@ -34,12 +34,15 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyboard);
-
     return () => document.removeEventListener("keydown", handleKeyboard);
   }, []);
 
+  const closeUserOptions = (e) => {
+    console.log(e.target.id);
+  }
+
   return (
-    <div>
+    <div onClick={closeUserOptions}>
       <Nav />
       <Routes>
         <Route path="/" element={<LandingPage />} />

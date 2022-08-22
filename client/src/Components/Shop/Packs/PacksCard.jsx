@@ -14,8 +14,6 @@ const PacksCard = ({ pack, type }) => {
 
   const user = useSelector((state) => state.userReducer.user);
 
-  const inputQuantity = useRef(null);
-
   const decreaseQuantity = (e) => {
     e.preventDefault();
     if (quantity - 1 <= 0) return;
@@ -62,7 +60,6 @@ const PacksCard = ({ pack, type }) => {
 
   const handleAddItem = (e) => {
     e.preventDefault();
-    const quantity = Number(inputQuantity.current.value);
 
     if (!pack.quantity) pack.quantity = 0;
     const totalQuantity = pack.quantity + quantity;

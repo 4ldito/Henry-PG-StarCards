@@ -10,10 +10,12 @@ import Packs from './Packs/Packs';
 import Filters from './Filters';
 
 import style from './styles/Shop.module.css';
+import ShopCart from './ShopCart/ShopCart';
 
 const Shop = () => {
   const dispatch = useDispatch();
   const [view, setView] = useState('stars');
+  const [viewShopcart, setViewShopcart] = useState(false);
 
   const loadedStarsPack = useFetchStarsPack().loaded;
   const loadCardsPack = useFetchCardsPack().loaded;
@@ -44,6 +46,10 @@ const Shop = () => {
     }
   }, [msgInfoPurchase]);
 
+  const handleSeeShopcart = (e) => {
+    setViewShopcart(!viewShopcart);
+  }
+
   if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
 
   return (
@@ -53,7 +59,8 @@ const Shop = () => {
         <button onClick={handleChangeView} value='packsCards' className={style.btn}>Buy Packs Cards</button>
         <button onClick={handleChangeView} value='cards' disabled className={`${style.btn} ${style.disabled}`}>Buy Cards</button>
       </div>
-      {user?.id && <p>Stars disponibles: {user.stars}</p>}
+      <button onClick={handleSeeShopcart} className={style.btnShopcart}>Shopcart</button>
+      {user?.id && <p className={style.avaliableStars}>Stars disponibles: {user.stars}</p>}
       {view === 'stars' ? <Packs type='starsPack' />
         : view === 'packsCards' ?
           <>
@@ -62,6 +69,7 @@ const Shop = () => {
           </>
           : <p>Cards</p>
       }
+      {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
     </div>
   )
 }
