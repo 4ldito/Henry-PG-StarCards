@@ -6,17 +6,16 @@ import style from '../../styles/landingPage/landingPage.module.css'
 const LandingPage = () => {
   return (
     <div className={style.container}>
-
-      <h1 >LandingPage</h1>
+      
+      <h1>Entrar</h1>
+      <div className={style.buttons}>
       <Link to='/register'>
-        <br />
-        <button>Registro</button>
+        <button className={style.buttonx}>Registro</button>
       </Link>
       <Link to='/login'>
-        <br />
-        <button>Login</button>
+        <button className={style.buttony}>Login</button>
       </Link>
-
+      </div>
 
     </div>
   )

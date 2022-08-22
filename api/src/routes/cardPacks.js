@@ -18,7 +18,7 @@ packsRoute.get("/all", async (req, res, next) => {
 packsRoute.patch('/buy', async (req, res, next) => {
   // const user = await User.findOne() // user hardcodeado x ahora jeje
   try {
-    const { data } = req.body;
+    const { data, userId } = req.body;
 
     const info = {};
     for (const pack of data) {
@@ -32,7 +32,9 @@ packsRoute.patch('/buy', async (req, res, next) => {
       0
     );
 
-    const [user] = await Promise.all([User.findOne()])
+    const user = await User.findByPk(userId);
+
+    console.log(`${user.username} esta comprando :D`)
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
 

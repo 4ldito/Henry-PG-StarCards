@@ -6,6 +6,8 @@ background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 } */
+@import url(./normalize.css);
+
 :root {
   --container-background-main: #10101098;
   --color-dark: #202020;
@@ -20,4 +22,8 @@ body {
   background-attachment: fixed;
   background-position: center;
   object-fit: contain;
+}
+
+.active {
+  color: #0a58ca;
 }
