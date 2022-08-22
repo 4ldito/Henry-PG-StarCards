@@ -1,0 +1,31 @@
+@font-face {
+    font-family: starcardsFont;
+    src: url("../../../css/EUROSTIB.ttf");
+}
+div{
+    font-family: starcardsFont;
+
+}
+.input{
+
+    font-family: starcardsFont, sans-serif;
+    height: 40px;
+    width: 70%;
+    border:2px solid #0151ff;
+    background-color: #287accee;
+    clip-path: polygon(calc(100% - var(--edge-size)) 0,
+            100% var(--edge-size),
+            100% 100%,
+            var(--edge-size) 100%,
+            0 calc(100% - var(--edge-size)),
+            0 0);
+    color: white;
+}
+.input::placeholder{
+    color:#85b9ed ;
+    font-size:20px ;
+}
+.input:focus{
+    outline: none;
+    
+}
