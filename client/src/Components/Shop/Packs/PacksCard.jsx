@@ -50,7 +50,7 @@ const PacksCard = ({ pack, type }) => {
       confirmButtonText: "Comprar",
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
-        dispatch(buyCardPack(info));
+        dispatch(buyCardPack(info, user.id));
       }
     });
   };
@@ -115,7 +115,7 @@ const PacksCard = ({ pack, type }) => {
           <button onClick={increaseQuantity}>+</button>
         </div>
         <div className={style.buttons}>
-          <button className={`${style.btn} ${style.btnBuyNow}`} onClick={handleBuyNow} disabled={user?.stars < pack.price}>
+          <button className={`${style.btn} ${style.btnBuyNow}`} onClick={handleBuyNow} disabled={user?.stars < pack.price || !user.id}>
             Comprar YA
           </button>
           <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>

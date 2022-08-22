@@ -18,7 +18,7 @@ packsRoute.get("/all", async (req, res, next) => {
 packsRoute.patch('/buy', async (req, res, next) => {
   // const user = await User.findOne() // user hardcodeado x ahora jeje
   try {
-    const { data } = req.body;
+    const { data, userId } = req.body;
 
     const info = {};
     for (const pack of data) {

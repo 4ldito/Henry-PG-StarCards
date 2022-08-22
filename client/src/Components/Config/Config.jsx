@@ -26,8 +26,8 @@ export default function Config({ user }) {
         <div className={style.modal}>
           <FaUserSecret />
           <span className={style.span}>
-            Username: {user.username} (
-            {user.RolId !== "user" ? user.RolId : "user"})
+            Username: {user.username}
+            {user.RolId !== "user" && ` (${user.RolId})`}
           </span>
         </div>
         <div>
