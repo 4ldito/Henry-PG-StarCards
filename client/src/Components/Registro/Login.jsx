@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { signIn } from '../../redux/actions/user'
 import style from './login.module.css'
+import style2 from '../../styles/landingPage/landingPage.module.css'
+import style3 from '../../styles/register/Register.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userCleanMsgInfo } from './../../redux/actions/user';
@@ -60,20 +62,21 @@ export default function Login() {
 
   return (
     <div className={style.appli}>
-      <div className={style.form}>
+      <div className={style2.options}>
         <form onSubmit={(e) => { login(e) }}>
           <div className={style.inputcontainer}>
-            <label>Username </label>
-            <input type="email" name="email" onChange={handleOnChange} required />
+            <label style={{fontSize:"larger"}}>Username </label>
+            <input className= {style3.input} style={{width:"400px"}} type="email" name="email" onChange={handleOnChange} required />
             {renderErrorMessage("uname")}
           </div>
           <div className={style.inputcontainer}>
-            <label>Password </label>
-            <input type="password" name="password" onChange={handleOnChange} required autoComplete='on' />
+            <label style={{fontSize:"larger"}}>Password </label>
+            <input  className= {style3.input} style={{width:"400px"}} type="password" name="password" onChange={handleOnChange} required autoComplete='on' />
             {renderErrorMessage("pass")}
           </div>
+          <div style={{height:"15px"}}></div>
           <div className={style.buttoncontainer}>
-            <input type="submit" />
+            <button className={style2.button} data='Ingresar' type="submit" value='' />
           </div>
         </form>
       </div>
