@@ -17,6 +17,7 @@ import About from "./components/About/About";
 
 import "./App.css";
 import { resetReduxState } from "./redux/actions";
+import Inventory from "./components/UserProfile/Inventory/Inventory";
 // import { setToken } from './redux/actions/user'
 
 // import Profile from './components/Profile/Profile'
@@ -26,7 +27,6 @@ function App() {
   const dispatch = useDispatch();
 
   function handleKeyboard(e) {
-
     if (e.repeat) return;
     if ((e.metaKey || e.ctrlKey) && e.key === "x") {
       dispatch(resetReduxState());
@@ -35,7 +35,6 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyboard);
-
     return () => document.removeEventListener("keydown", handleKeyboard);
   }, []);
 
@@ -54,6 +53,7 @@ function App() {
         {/* <Route element={<ProtectedRoutes />}> */}
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/inventory" element={<Inventory />} />
         <Route path='/sendmail' element={<VerifyMail />} />
 
         {/* </Route> */}

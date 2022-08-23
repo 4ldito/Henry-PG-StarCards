@@ -15,6 +15,19 @@ packsRoute.get("/all", async (req, res, next) => {
   }
 });
 
+packsRoute.get("/:status", async (req, res, next) => {
+  const { status } = req.params;
+  try {
+    const packs = await CardPacks.findAll({
+      where: { StatusId: status },
+    });
+    return res.send(packs);
+  } catch (error) {
+    return next(error);
+  }
+});
+
+
 packsRoute.patch('/buy', async (req, res, next) => {
   // const user = await User.findOne() // user hardcodeado x ahora jeje
   try {
@@ -34,7 +47,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
     const user = await User.findByPk(userId);
 
-    console.log(`${user.username} esta comprando :D`)
+    // console.log(`${user.username} esta comprando :D`)
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
 
@@ -47,7 +60,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
       return pack.save();
     });
 
-    const updatedInfo = await Promise.all([user.save(), ...updatedPacks]);
+    let updatedInfo = await Promise.all([user.save(), ...updatedPacks]);
     const updatedUser = updatedInfo.shift();
 
     const cardsPerPack = await Promise.all(updatedInfo.map(async (cardPack) => {
@@ -55,7 +68,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
       const probabilityArray = cardPack.cards.map((card) => {
         acc = acc + Number(card[1])
 
-        return acc ;
+        return acc;
       })
 
       let chosenArray = [];
@@ -80,25 +93,14 @@ packsRoute.patch('/buy', async (req, res, next) => {
       })
     })
 
-    await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId })
-    return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo });
+    await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId });
+    // updatedInfo = [updatedUser, ...updatedInfo];
+    return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo, updatedUser });
   } catch (error) {
     console.error(error)
     return res.send(error)
   }
 
-});
-
-packsRoute.get("/:status", async (req, res, next) => {
-  const { status } = req.params;
-  try {
-    const packs = await CardPacks.findAll({
-      where: { StatusId: status },
-    });
-    return res.send(packs);
-  } catch (error) {
-    return next(error);
-  }
 });
 
 module.exports = packsRoute;

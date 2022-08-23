@@ -2,26 +2,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 100%;
     height: 93vh;
 }
 
 .model{
+    padding: 1rem;
     display: flex;
     justify-content: center;
-    align-items: center;
     text-align: center;
-
+    flex-direction: column;
     background-color: var(--color-darker);
     border-radius: 8px;
     border: 1px solid white;
     color: white;
-
-    width: 30vw;
-    height: 20vh;
 }
 
-.h1{
+.h2{
     margin: 0;
+}
+
+.containerItem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
