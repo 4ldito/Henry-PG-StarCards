@@ -1,10 +1,47 @@
+// <<<<<<< HEAD
+// import React, { useState } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
+// import { useNavigate } from 'react-router-dom';
+// import css from './detail.module.css'
+// export default function Detail (id) {
+//     const navigate = useNavigate();
+//     const dispatch = useDispatch()
+//     const detailCard = useSelector(state => state.detailReducer.card)
+//     const opinion= useSelector(state => state.detailReducer.opinion)
+//     const cardId = detailCard.id
+//     const [input, setInput] = useState({
+//         comment:"",
+//         score: 0,
+//         cardId: 0,
+//         userId: 7
+//     })
+    
+//     console.log('opinion', opinion)
+//     function handleInput (e) {
+//         setInput({
+//             ...input,
+//             cardId: detailCard.id,
+//             [e.target.name]: e.target.value
+//         })
+//     }
+   
+//     let ratingSum = opinion.map(r => r.score).reduce((prev, curr) => prev + curr, 0)
+//     let rating = ratingSum / opinion.length
+ 
+//     function handleComment(e) {
+//         e.preventDefault()
+//         dispatch(postOpinions(input))
+// =======
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postOpinions } from "../../redux/actions/cards/postOpinions.js";
+import { useNavigate } from 'react-router-dom';
 import css from "./detail.module.css";
 
 export default function Detail() {
   const dispatch = useDispatch();
+  const navigate = useNavigate
   const detailCard = useSelector((state) => state.detailReducer.card);
   const opinion = useSelector((state) => state.detailReducer.opinion);
   const user = useSelector((state) => state.userReducer);

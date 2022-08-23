@@ -93,3 +93,7 @@
     color: white;
     filter: brightness(2.5);
 }
+.error{
+    color:#d33;
+    font-size: 15px;
+}

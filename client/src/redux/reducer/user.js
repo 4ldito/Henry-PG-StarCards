@@ -21,7 +21,9 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, users: payload }
 
     case CREATE_USER:
-      return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken: true, user: payload.user/*el que no hace palmas es tremendo gato*/ }
+      if (payload.error) return { ...state, user: {}, token: null, id: null, rol: null, validToken: false, msg: { type: 'error', text: payload.error, title: 'Error!' } }
+
+      return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken: true, user: payload.user, msg: { type: 'success', text: 'Logeado correctamente', title: ':D!' } }
 
     case SIGN_IN:
       if (payload.error) return { ...state, user: {}, token: null, id: null, rol: null, validToken: false, msg: { type: 'error', text: payload.error, title: 'Error!' } }
@@ -29,6 +31,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken: true, user: payload.user, msg: { type: 'success', text: 'Logeado correctamente', title: ':D!' } }
 
     case MODIFY_USER:
+
       if(payload === 'Incorrect') return {...state, msg: payload}
       return { ...state, user: payload, msg: 'Correct' }
 
