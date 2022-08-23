@@ -1,4 +1,7 @@
-export const SORT_USER_CARDS = 'SORT_CARDS'
+export const SORT_USER_CARDS = 'SORT_USER_CARDS'
+export const GET_USER_CARDS = 'GET_USER_CARDS'
+export const FILTER_USER_CARDS = 'FILTER_USER_CARDS'
+export const SEARCH_USER_CARD = 'SEARCH_USER_CARD'
 const nameAtoZ = 'nameAtoZ'
 const nameZtoA = 'nameZtoA'
 const ascendentCost = 'ascendentCost'
@@ -9,8 +12,6 @@ const ascendentAdmg = 'ascendentAdmg'
 const descendentAdmg = 'descendentAdmg'
 const ascendentlife = 'ascendentlife'
 const descendentlife = 'descendentlife'
-export const GET_USER_CARDS = 'GET_USER_CARDS'
-export const FILTER_USER_CARDS = 'FILTER_USER_CARDS'
 
 export function getUserCards(userCards, allCards){
   // console.log(allCards,'<----- asi llega all cards al inventario la primera vez que entras, si no entraste al about antes');
@@ -36,6 +37,15 @@ export function filterUserCards(filter, userCards){
   return { type: FILTER_USER_CARDS, payload: filterMovement }
 }
 
+export function searchUserCard (search, cards) {
+  console.log('search', search)
+  console.log('cards', cards)
+  if(search === ""){
+    return { type: SEARCH_USER_CARD, payload: cards }
+  }
+  const result = cards.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
+  return { type: SEARCH_USER_CARD, payload: result }
+}
 
 export function sortUserCards (sort, cards) {
   const sortedCards = [...cards].sort((a, b) => {

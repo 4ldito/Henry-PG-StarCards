@@ -47,7 +47,6 @@ const Shop = () => {
   }, [msgInfoPurchase]);
 
   const handleSeeShopcart = (e) => {
-    console.log('llega?')
     setViewShopcart(!viewShopcart);
   }
 

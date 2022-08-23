@@ -1,25 +1,25 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { searchCard } from "../../redux/actions/cards/searchCard.js";
-import getAllCards from "../../redux/actions/cards/getAllCards";
+import { getUserCards, searchUserCard } from '../../../redux/actions/cards/userCards';
 
 import css from "./SearchCard.module.css";
 
-export default function SearchCard() {
+export default function SearchUserCard() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
-  const cards = useSelector((state) => state.album.cards);
+  const cards = useSelector((state) => state.album.userCards);
+  const user = useSelector(state => state.userReducer.user)
 
   function onSubmit(e) {
     e.preventDefault();
     search === ""
-      ? dispatch(getAllCards())
-      : dispatch(searchCard(search, cards));
+      ? dispatch(getUserCards(user.UserCards, cards))
+      : dispatch(searchUserCard(search, cards));
   }
   function onInputChange(e) {
     e.preventDefault();
     setSearch(e.target.value);
-    dispatch(searchCard(e.target.value, cards));
+    dispatch(searchUserCard(e.target.value, cards));
   }
 
   return (

@@ -47,7 +47,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, validToken: payload }
 
     case LOG_OUT:
-      return { ...state, token: null, rol: null, validToken: false, id: null, user: null }
+      return { ...state, token: null, rol: null, validToken: false, id: null, user: {} }
 
     case USER_CLEAN_MSG_INFO:
       return { ...state, msg: {} }
