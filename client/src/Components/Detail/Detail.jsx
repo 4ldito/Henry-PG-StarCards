@@ -3,12 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { postOpinions } from "../../redux/actions/cards/postOpinions.js";
 import { putOpinions } from "../../redux/actions/cards/putOpinion.js";
 import css from "./detail.module.css";
+import ModificarOpinion from "./ModificarOpinion.jsx";
 
 export default function Detail() {
   const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const detailCard = useSelector((state) => state.detailReducer.card);
   const opinion = useSelector((state) => state.detailReducer.opinion);
   const user = useSelector((state) => state.userReducer);
+  const [viewEdit, setViewEdit] = useState(false);
   const [commented, setCommented] = useState(false);
   const [input, setInput] = useState({
     comment: "",
@@ -47,15 +50,14 @@ export default function Detail() {
     dispatch(postOpinions(input));
   }
 
+  const handleSeeShopcart = (e) => {
+    setViewEdit(!viewEdit);
+  };
+
   function handleEdit(e) {
     e.preventDefault();
-    const emi = {
-      comment: "Emiliano",
-      score: 9,
-      cardId: detailCard.id,
-      userId: user.id,
-    };
-    dispatch(putOpinions(emi));
+    dispatch(putOpinions(input));
+    setViewEdit(!viewEdit);
   }
 
   return (
@@ -84,10 +86,30 @@ export default function Detail() {
           </div>
           {user.id ? (
             commented ? (
-              <>
-                <h1>Ya comentaste</h1>
-                <button onClick={(e) => handleEdit(e)}>Edit</button>
-              </>
+              viewEdit ? (
+                <form>
+                  <label>Comment: </label>
+                  <input
+                    type="text"
+                    name="comment"
+                    value={input.comment}
+                    onChange={(e) => handleInput(e)}
+                  />
+                  <label>Score: </label>
+                  <input
+                    type="number"
+                    name="score"
+                    value={input.score}
+                    onChange={(e) => handleInput(e)}
+                  />
+                  <button onClick={(e) => handleEdit(e)}>Comment</button>
+                </form>
+              ) : (
+                <>
+                  <h1>Ya comentaste</h1>
+                  <button onClick={(e) => handleSeeShopcart(e)}>Edit</button>
+                </>
+              )
             ) : (
               <form>
                 <label>Comment: </label>

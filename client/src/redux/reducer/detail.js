@@ -1,4 +1,4 @@
-
+import { PUT_OPINIONS } from '../actions/cards/putOpinion';
 import { CARD_DETAIL } from './../actions/cards/detailCard';
 import { GET_OPINIONS } from './../actions/cards/getOpinions';
 import { POST_OPINIONS } from './../actions/cards/postOpinions';
@@ -16,9 +16,9 @@ export default function detailReducer (state = initialState, action) {
       return { ...state, opinion: action.payload }
     case POST_OPINIONS:
       return { ...state, opinion: action.payload }
+    case PUT_OPINIONS:
+      return { ...state, opinion: action.payload }
     default:
       return state
   }
 }
-
-

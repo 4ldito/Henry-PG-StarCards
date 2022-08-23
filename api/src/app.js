@@ -9,6 +9,7 @@ const cors = require('cors')
 const server = express()
 
 // server.name = 'API';
+// TENEMOS QUE CREARLE LA CATEGORIA HATER PARA FRANCO
 server.use(cookieSession({name:'session', keys:['secretKey'], maxAge:24*60*60*100}));
 server.use(passport.initialize());
 server.use(passport.session());

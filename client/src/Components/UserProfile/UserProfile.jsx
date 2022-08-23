@@ -50,7 +50,7 @@ export default function UserProfile() {
         </Link>
       </div>
       <div className={style.buttonsbar}>
-        {/* <Link to='/inventory'><button>Inventory</button></Link> */}
+        <Link to='/inventory'><button>Inventory</button></Link>
         <button
           className={`${style.buttons} ${style.disabled}`}
           value="1"
