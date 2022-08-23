@@ -88,7 +88,7 @@ export default function InventoryContainer() {
                   if (index <= limit.max && index >= limit.min) {
                     return (
                       <Card
-                        key={card.id}
+                        key={index}
                         id={card.id}
                         name={card.name}
                         image={card.image}

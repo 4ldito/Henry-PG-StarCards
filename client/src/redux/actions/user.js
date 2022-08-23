@@ -9,11 +9,9 @@ export const SET_TOKEN = 'SET_TOKEN'
 export const IS_VALID_TOKEN = 'IS_VALID_TOKEN';
 export const LOG_OUT = 'LOG_OUT';
 export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
-<<<<<<< HEAD
 export const GET_USER_CARDS = 'GET_USER_CARDS'
-=======
 export const USER_MODIFY_STARS = 'USER_MODIFY_STARS';
->>>>>>> 940d178c8e62e1f53883cb8a67f106a242243ad5
+
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
 
