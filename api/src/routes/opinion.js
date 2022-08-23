@@ -36,10 +36,9 @@ opinionRoute.post('/', async (req, res, next)=>{
         });
         
         let opinionUserId = await User.findOne({
-            // USUARIO HARDCODEADO
-            // where:{
-            //     id: userId
-            // }
+            where:{
+                id: userId
+            }
         });
         await newOpinion.setUser(opinionUserId);
 
