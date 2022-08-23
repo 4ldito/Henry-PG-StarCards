@@ -11,6 +11,7 @@ const Filters = () => {
     const [filters, setFilters] = useState({ race: 'allRaces', movements: "allMovements"});
  
     const onSelectChange = (e) => {
+    
       setFilters({
         ...filters,
         [e.target.name]: e.target.value
@@ -20,7 +21,7 @@ const Filters = () => {
 
     useEffect(() => {
       dispatch(filterUserCards(filters, cards))
-    }, [filters])
+    }, [filters,cards])
 
     return (
         <div className={style.container}>

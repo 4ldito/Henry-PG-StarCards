@@ -8,22 +8,20 @@ import css from "./Inventory.module.css";
 
 export default function InventoryContainer() {
   const dispatch = useDispatch();
-  const userCards = useSelector(state => state.album.userCards)
-  const cards = useSelector((state) => state.album.filteredCards);
+  const filteredUserCards = useSelector(state => state.album.filteredUserCards)
+  const cards = useSelector((state) => state.album.cards);
   const user = useSelector(state => state.userReducer.user)
-  const cardsPerPage = 4;
-  const [limit, setLimit] = useState({ min: 0, max: cardsPerPage - 1 });
+
+  
 
  useEffect(() => {
-  console.log(user.UserCards);
-  dispatch(getAllCards());
   dispatch(getUserCards(user.UserCards, cards))
   }, []);
 
 
   return (<div>
             <div  className={css.cartas}>
-                {userCards?.map((card, index) => {
+                {filteredUserCards?.map((card, index) => {
                     return (
                       <div className={css.cardContainer}>
                       <Card

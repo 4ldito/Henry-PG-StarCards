@@ -8,10 +8,11 @@ import { GET_USER_CARDS, FILTER_USER_CARDS } from '../actions/cards/userCards';
 const initialState = {
   cards: [],
   filteredCards: [],
-  userCards: []
+  userCards: [],
+  filteredUserCards: []
 }
 
-export default function inventory (state = initialState, { type, payload }) {
+export default function inventory(state = initialState, { type, payload }) {
   switch (type) {
     case GET_ALL_CARDS:
       return { ...state, cards: payload, filteredCards: payload }
@@ -24,7 +25,7 @@ export default function inventory (state = initialState, { type, payload }) {
     case GET_USER_CARDS:
       return { ...state, userCards: payload }
     case FILTER_USER_CARDS:
-      return { ...state, userCards: payload }
+      return { ...state, filteredUserCards: payload }
     default:
       return state
   }
