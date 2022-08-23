@@ -11,6 +11,7 @@ import ShopCart from "./components/Shop/ShopCart/ShopCart";
 import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
+import VerifyMail from "./components/Mail/VerifyMail";
 import Nav from "./components/Nav/Nav";
 import About from "./components/About/About";
 
@@ -53,6 +54,8 @@ function App() {
         {/* <Route element={<ProtectedRoutes />}> */}
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path='/sendmail' element={<VerifyMail />} />
+
         {/* </Route> */}
       </Routes>
     </div>

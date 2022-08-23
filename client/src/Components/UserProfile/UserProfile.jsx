@@ -6,6 +6,9 @@ import { getUser } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
+
+
+
 export default function UserProfile() {
   const dispatch = useDispatch();
   const userActive = useSelector((state) => state.userReducer.user);
