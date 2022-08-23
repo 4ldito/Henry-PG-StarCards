@@ -14,7 +14,7 @@ export default function Detail() {
   const [commented, setCommented] = useState(false);
   const [input, setInput] = useState({
     comment: "",
-    score: 0,
+    score: 1,
     cardId: null,
     userId: 7,
   });
@@ -26,6 +26,20 @@ export default function Detail() {
       }
     });
   }, [opinion, detailCard]);
+
+  function Validaciones(valores) {
+    let errors = {};
+
+    if (valores.comment.length > 100) {
+      errors.comment = "El comentario no puede contener más de 100 caracteres";
+    }
+
+    if (valores.score > 5 || valores.score < 1) {
+      errors.score = "El score no puede ser menor a 1, ni mayor a 5";
+    }
+
+    return errors;
+  }
 
   function handleInput(e) {
     setInput({
@@ -43,7 +57,12 @@ export default function Detail() {
 
   function handleComment(e) {
     e.preventDefault();
-    dispatch(postOpinions(input));
+    const err = Validaciones(input);
+    if (Object.keys(err).length === 0) {
+      dispatch(postOpinions(input));
+    } else {
+      alert('El score no puede ser menor a 1, ni mayor a 5. El Comentario no puede superar los 100 caracteres');
+    }
   }
 
   const handleSeeShopcart = (e) => {
@@ -52,8 +71,13 @@ export default function Detail() {
 
   function handleEdit(e) {
     e.preventDefault();
-    dispatch(putOpinions(input));
-    setViewEdit(!viewEdit);
+    const err = Validaciones(input);
+    if (Object.keys(err).length === 0) {
+      dispatch(putOpinions(input));
+      setViewEdit(!viewEdit);
+    } else {
+      alert('El score no puede ser menor a 1, ni mayor a 5. El Comentario no puede superar los 100 caracteres');
+    }
   }
 
   return (
@@ -77,7 +101,11 @@ export default function Detail() {
           <div className={css.opinion}>
             {opinion.length ? <p>Comments: </p> : ""}
             {opinion.map((opinion) => {
-              return <p key={opinion.id}>{opinion.id}: {opinion.comment}</p>;
+              return (
+                <p key={opinion.id}>
+                  {opinion.id}: {opinion.comment}
+                </p>
+              );
             })}
           </div>
           {user.id ? (
@@ -95,6 +123,8 @@ export default function Detail() {
                   <input
                     type="number"
                     name="score"
+                    min="1"
+                    max="5"
                     value={input.score}
                     onChange={(e) => handleInput(e)}
                   />
@@ -119,6 +149,8 @@ export default function Detail() {
                 <input
                   type="number"
                   name="score"
+                  min="1"
+                  max="5"
                   value={input.score}
                   onChange={(e) => handleInput(e)}
                 />
