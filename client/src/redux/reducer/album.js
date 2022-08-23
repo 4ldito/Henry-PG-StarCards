@@ -23,9 +23,10 @@ export default function inventory(state = initialState, { type, payload }) {
     case SEARCH_CARD:
       return { ...state, filteredCards: payload }
     case GET_USER_CARDS:
-      return { ...state, userCards: payload }
+      return { ...state, userCards: payload.userCardsInventory, userCardsNotRepeated: payload.notRepeated }
     case FILTER_USER_CARDS:
-      return { ...state, filteredUserCards: payload }
+    
+      return { ...state, filteredUserCards: payload}
     default:
       return state
   }

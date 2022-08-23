@@ -3,12 +3,17 @@
 
 
 export default function(userCards){
-    const notRepeated = {};
-    userCards.map((e)=>{
-        if(!notRepeated.includes()){
-            notRepeated = [{...notRepeated,[e.name]:{name:e.name, repeat:1}}]
+   let notRepeated = {};
+    userCards.forEach((e)=>{
+        if(!notRepeated[e.name]){
+            notRepeated = {...notRepeated,[e.name]:{card:e, repeat:1}};
         }else{
-            notRepeated = [...notRepeated,[e.name].repeat + 1]
+            
+            notRepeated[e.name].repeat++;
         }
     });
+    console.log(notRepeated);
+    
+    // let notRepeated =noRuserCards.reduce
+    return notRepeated;
 }
