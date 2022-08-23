@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Mercadopago from './Mercadopago';
 import Swal from 'sweetalert2';
 
-import { cleanPreferenceId, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
+import { cleanPreferenceId, modifiyQuantity, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
 
 import style from '../styles/ShopCart.module.css';
 import { usePreferenceId } from '../../../hooks/usePreferenceId';
@@ -60,6 +60,32 @@ const ShopCart = ({ handleSeeShopcart }) => {
     return user?.stars >= totalCardsPack;
   }, [user?.stars]);
 
+  const decreaseQuantity = (e, type, item) => {
+    e.preventDefault();
+    if (item.quantity === 1) {
+      return Swal.fire({
+        title: 'Error!',
+        text: 'No podes bajar la cantidad a 0.',
+        icon: 'error',
+      })
+    }
+    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'decrement' }));
+  };
+
+  const increaseQuantity = (e, type, item) => {
+    e.preventDefault();
+    console.log(item)
+    if (item.quantity === item.stock) {
+      return Swal.fire({
+        title: 'Error!',
+        text: 'No hay stock disponible.',
+        icon: 'error',
+      })
+    }
+    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'increment' }));
+  };
+
+
   return (
     <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>
       <div className={style.container}>
@@ -71,19 +97,33 @@ const ShopCart = ({ handleSeeShopcart }) => {
                 {starsPack.length > 0 && (
                   <div className={style.containerCart}>
                     <h2>Carrito de stars</h2>
-                    {starsPack.map(item => {
-                      totalStarsPack += item.price * item.quantity
-                      return (
-                        <div className={style.containerItem} key={item.id}>
-                          <p>{item.name}</p>
-                          <p>Precio: ${item.price} ARS</p>
-                          <p>Cantidad: {item.quantity} </p>
-                          <p>Subtotal: ARS ${item.price * item.quantity}</p>
-                          <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'starsPack')} id={item.id}>X</button>
-                        </div>
-                      )
-                    })}
-                    <p>Total: ARS ${totalStarsPack}</p>
+                    <div className={style.cartInfoContainer}>
+                      <div className={style.titleContainer}>
+                        <p>Nombre</p>
+                        <p>Precio</p>
+                        <p>Cantidad</p>
+                        <p>Subtotal</p>
+                      </div>
+                      {starsPack.map(item => {
+                        totalStarsPack += item.price * item.quantity
+                        return (
+                          <div className={style.containerItem} key={item.id}>
+                            <p>{item.name}</p>
+                            <p>${item.price} ARS</p>
+
+                            <div className={style.containerQuantity}>
+                              <button onClick={(e) => decreaseQuantity(e, 'starsPack', item)}>-</button>
+                              <span>{item.quantity}</span>
+                              <button onClick={(e) => increaseQuantity(e, 'starsPack', item)}>+</button>
+                            </div>
+
+                            <p>${item.price * item.quantity} ARS</p>
+                            <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'starsPack')} id={item.id}>X</button>
+                          </div>
+                        )
+                      })}
+                      <p>Total: ${totalStarsPack} ARS</p>
+                    </div>
                     {user?.id ? <Mercadopago preferenceId={preferenceId} shopCartItems={starsPack} /> : <button onClick={() => { navigate("/login") }}>Logeate</button>}
                   </div>)}
                 {cardsPack.length > 0 && (
@@ -95,9 +135,15 @@ const ShopCart = ({ handleSeeShopcart }) => {
                       return (
                         <div className={style.containerItem} key={item.id}>
                           <p>{item.name}</p>
-                          <p>Precio: {item.price} Stars</p>
-                          <p>Cantidad: {item.quantity}</p>
-                          <p>Subtotal: {subtotal} Stars</p>
+                          <p>{item.price} Stars</p>
+
+                          <div className={style.containerQuantity}>
+                              <button onClick={(e) => decreaseQuantity(e, 'cardsPack', item)}>-</button>
+                              <span>{item.quantity}</span>
+                              <button onClick={(e) => increaseQuantity(e, 'cardsPack', item)}>+</button>
+                            </div>
+
+                          <p>{subtotal} Stars</p>
                           <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'cardsPack')} id={item.id}>X</button>
                         </div>
                       )

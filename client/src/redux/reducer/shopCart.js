@@ -1,4 +1,4 @@
-import { ADD_TO_SHOPCART, CLEAN_PREFERENCE_ID, GET_PREFERENCE_ID, GET_PURCHASE_INFO, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO, SHOPCART_CLEAN_PURCHASE_INFO } from "../actions/shopCart"
+import { ADD_TO_SHOPCART, CLEAN_PREFERENCE_ID, GET_PREFERENCE_ID, GET_PURCHASE_INFO, MODIFY_QUANTITY, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO, SHOPCART_CLEAN_PURCHASE_INFO } from "../actions/shopCart"
 
 const initialState = {
   shopCart: { starsPack: [], cardsPack: [] },
@@ -54,6 +54,12 @@ export default function shopCartReducer(state = initialState, { type, payload })
 
     case SHOPCART_CLEAN_PURCHASE_INFO:
       return { ...state, purchaseInfo: {} }
+
+    case MODIFY_QUANTITY:
+      const item = state.shopCart[payload.type].find(i => i.id === payload.id);
+      if (payload.modifyType === 'increment') item.quantity++
+      else item.quantity--;
+      return { ...state, shopCart: { ...state.shopCart, [payload.packType]: [...state.shopCart[payload.type]] } }
 
     default:
       return state

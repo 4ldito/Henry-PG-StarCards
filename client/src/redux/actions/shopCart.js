@@ -7,6 +7,7 @@ export const GET_PURCHASE_INFO = 'GET_PURCHASE_INFO';
 export const SHOPCART_CLEAN_MSG_INFO = 'SHOPCART_CLEAN_MSG_INFO';
 export const CLEAN_PREFERENCE_ID = 'CLEAN_PREFERENCE_ID';
 export const SHOPCART_CLEAN_PURCHASE_INFO = 'SHOPCART_CLEAN_PURCHASE_INFO';
+export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
 
 export function addToShopCart(product, quantity, packTypes) {
   quantity = Number(quantity)
@@ -65,4 +66,8 @@ export function getPurchaseInfo(id) {
 
 export function cleanPurchaseInfo() {
   return { type: SHOPCART_CLEAN_PURCHASE_INFO }
+}
+
+export function modifiyQuantity(payload) {
+  return { type: MODIFY_QUANTITY, payload }
 }
