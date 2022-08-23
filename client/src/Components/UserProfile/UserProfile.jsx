@@ -50,32 +50,35 @@ export default function UserProfile() {
         </Link>
       </div>
       <div className={style.buttonsbar}>
-        {/* <Link to='/inventory'><button>Inventory</button></Link> */}
+        <Link to='/inventory'><button>Inventory</button></Link>
         <button
-          className={style.buttons}
+          className={`${style.buttons} ${style.disabled}`}
           value="1"
           onClick={(e) => changeRender(e)}
+          disabled
         >
           Inventory
         </button>
         <button
-          className={style.buttons}
+          className={`${style.buttons} ${style.disabled}`}
           value="2"
           onClick={(e) => changeRender(e)}
+          disabled
         >
           Stats
         </button>
         <button
-          className={style.buttons}
+          className={`${style.buttons} ${style.disabled}`}
           value="3"
           onClick={(e) => changeRender(e)}
         >
           Config
         </button>
         <button
-          className={style.buttons}
+          className={`${style.buttons} ${style.disabled}`}
           value="4"
           onClick={(e) => changeRender(e)}
+          disabled
         >
           Chat
         </button>

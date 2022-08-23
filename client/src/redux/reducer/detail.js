@@ -14,8 +14,6 @@ export default function detailReducer (state = initialState, action) {
       return { ...state, card: action.payload }
     case GET_OPINIONS:
       return { ...state, opinion: action.payload }
-    case POST_OPINIONS:
-      return { ...state, opinion: action.payload }
     default:
       return state
   }

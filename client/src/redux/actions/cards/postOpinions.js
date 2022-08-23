@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const POST_OPINIONS = 'POST_OPINIONS'
 
 export function postOpinions(opinion) {
@@ -9,3 +10,4 @@ export function postOpinions(opinion) {
     dispatch({ type: POST_OPINIONS, payload: cardOpinions });
   };
 }
+
