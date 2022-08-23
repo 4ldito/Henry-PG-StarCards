@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input, Label } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input } from 'reactstrap'
 import s from '../../styles/ProfileUser/BtnUserProfile.module.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { useDispatch, useSelector } from "react-redux";

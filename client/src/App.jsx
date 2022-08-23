@@ -54,8 +54,6 @@ function App() {
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/inventory" element={<Inventory />} />
-        <Route path='/sendmail' element={<VerifyMail />} />
-
         {/* </Route> */}
       </Routes>
     </div>
