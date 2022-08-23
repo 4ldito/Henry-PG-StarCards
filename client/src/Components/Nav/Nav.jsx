@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
@@ -8,9 +7,27 @@ import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
-  const isLogged = useSelector(state => state.userReducer.token);
   const { validToken } = useValidToken({ navigate: false })
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
+
+  const handleVisibleUserOptions = () => {
+    setVisibleUserOptions(!visibleUserOptions)
+  }
+
+  // function handleClick(e) {
+  //   // console.log("id:",e.target.id);
+  //   // console.log("this:", this);
+  //   console.log(e.target.className);
+  //   if (e.target.id !== 'btnMenu' && e.target.id != 'menu') {
+  //     setVisibleUserOptions(false)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   document.addEventListener("click", handleClick);
+  //   return () => document.removeEventListener("click", handleClick);
+  // }, []);
+
   return (
     <div className={css.nav}>
       <NavLink className={css.link} to="/">
@@ -40,12 +57,9 @@ export default function Nav() {
       <button
         id="link-perfil"
         className={css.btn}
-        onClick={() => setVisibleUserOptions(!visibleUserOptions)}
-        onBlur={() => setTimeout(() => {
-          setVisibleUserOptions(false)
-        }, 200)}
+        onClick={handleVisibleUserOptions}
       >
-        <span id="span" className="material-symbols-outlined">
+        <span id="btnMenu" className="material-symbols-outlined">
           account_circle
         </span>
       </button>
@@ -53,7 +67,7 @@ export default function Nav() {
 
       {visibleUserOptions && (
         <div className={css.userOptions}>
-          <UserOptions />
+          <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
       )}
     </div>

@@ -23,7 +23,7 @@ export default function shopCartReducer(state = initialState, { type, payload })
       return { ...state, shopCart: { ...state.shopCart, [packTypes]: [...state.shopCart[packTypes], product] }, loaded: true }
     // console.log(test.shopCart.cardsPack)
     // return { ...test, loaded: true }
-    
+
     case REMOVE_FROM_SHOPCART:
       /// Esto es la solucion que se me ocurrio d una, pero si no esta esto cuando eliminas un producto del carrito y dsps lo volves a seleccionar,
       /// aparece con la quantity anterior xdlol
@@ -42,6 +42,7 @@ export default function shopCartReducer(state = initialState, { type, payload })
       return { ...state, shopCart: { ...state.shopCart, cardsPack: [] }, msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
 
     case GET_PURCHASE_INFO:
+      if (payload?.message) return { ...state, msg: { type: 'error', info: payload.message, title: 'Error!' } }
       const purchaseInfo = { userId: payload?.additional_info.payer.first_name, items: payload?.additional_info.items }
       return { ...state, shopCart: { ...state.shopCart, starsPack: [] }, purchaseInfo }
 
@@ -53,7 +54,7 @@ export default function shopCartReducer(state = initialState, { type, payload })
 
     case SHOPCART_CLEAN_PURCHASE_INFO:
       return { ...state, purchaseInfo: {} }
-      
+
     default:
       return state
   }

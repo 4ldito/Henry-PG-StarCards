@@ -74,14 +74,14 @@
   outline: none;
 }
 
-[id="span"] {
+[id="btnMenu"] {
   color: white;
   font-size: 6.8vh;
   cursor: pointer;
   transition: all 0.3s;
 }
 
-[id="span"]:hover {
+[id="btnMenu"]:hover {
   transform: scale(1.1);
   color: silver;
 }

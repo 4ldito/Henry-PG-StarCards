@@ -51,3 +51,26 @@
 .disabled{ 
     cursor: not-allowed;
 }
+
+.btnShopcart {
+    display: inline;
+    width: 15%;
+    font-size: 1.4rem;
+    margin: 1rem;
+    border-radius: 10px;
+    padding: 0.5rem 0;
+    align-self: center;
+    color: white;
+    border: none;
+    background-color: #0A58CA;
+    transition: background-color .3s;
+}
+
+.btnShopcart:hover {
+    background-color: #063e91;
+}
+
+.avaliableStars {
+    color: #ffff22;
+    font-size: 1.2rem;
+}

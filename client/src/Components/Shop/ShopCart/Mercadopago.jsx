@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react'
-import { usePreferenceId } from './../../../hooks/usePreferenceId'
 
 const FORM_ID = 'payment-form'
 
-export default function Mercadopago ({ shopCartItems }) {
-  const { preferenceId } = usePreferenceId(shopCartItems)
+export default function Mercadopago ({ preferenceId }) {
 
   useEffect(() => {
     if (preferenceId !== -1) {
