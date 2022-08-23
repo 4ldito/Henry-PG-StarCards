@@ -2,7 +2,7 @@ import { GET_ALL_CARDS } from './../actions/cards/getAllCards';
 import { FILTER_CARDS } from './../actions/cards/filterCards';
 import { SORT_CARDS } from './../actions/cards/sortCards';
 import { SEARCH_CARD } from './../actions/cards/searchCard';
-import { GET_USER_CARDS, FILTER_USER_CARDS } from '../actions/cards/userCards';
+import { GET_USER_CARDS, FILTER_USER_CARDS, SORT_USER_CARDS, SEARCH_USER_CARD } from '../actions/cards/userCards';
 
 
 const initialState = {
@@ -25,8 +25,12 @@ export default function inventory(state = initialState, { type, payload }) {
     case GET_USER_CARDS:
       return { ...state, userCards: payload.userCardsInventory, userCardsNotRepeated: payload.notRepeated }
     case FILTER_USER_CARDS:
-    
-      return { ...state, filteredUserCards: payload}
+
+      return { ...state, filteredUserCards: payload }
+    case SORT_USER_CARDS:
+      return { ...state, filteredUserCards: payload }
+    case SEARCH_USER_CARD:
+      return { ...state, filteredUserCards: payload }
     default:
       return state
   }

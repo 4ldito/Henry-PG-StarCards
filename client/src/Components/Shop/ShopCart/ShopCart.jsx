@@ -39,7 +39,7 @@ const ShopCart = ({ handleSeeShopcart }) => {
       })
     }
     if (msgInfoPurchase.type === 'success') {
-      console.log('termino')
+      // console.log('termino')
     };
   }, [msgInfoPurchase]);
 
@@ -62,8 +62,8 @@ const ShopCart = ({ handleSeeShopcart }) => {
 
   return (
     <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>
-      <div onClick={e => e.stopPropagation()} className={style.container}>
-        <div className={style.infoContainer}>
+      <div className={style.container}>
+        <div onClick={e => e.stopPropagation()} className={style.infoContainer}>
           <h2>Carrito</h2>
           {starsPack.length > 0 || cardsPack.length > 0
             ? (
