@@ -15,7 +15,7 @@ export default function InventoryContainer() {
   const [limit, setLimit] = useState({ min: 0, max: cardsPerPage - 1 });
 
  useEffect(() => {
-  console.log(user.userCards);
+  console.log(user.UserCards);
   dispatch(getAllCards());
   dispatch(getUserCards(user.UserCards, cards))
   }, []);
