@@ -29,7 +29,6 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken: true, user: payload.user, msg: { type: 'success', text: 'Logeado correctamente', title: ':D!' } }
 
     case MODIFY_USER:
-      console.log(payload)
       if(payload === 'Incorrect') return {...state, validPassword: payload}
       return { ...state, user: payload }
 
