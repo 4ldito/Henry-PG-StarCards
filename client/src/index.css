@@ -10,6 +10,7 @@ background-size: cover;
 
 :root {
   --container-background-main: #10101098;
+  --container-background-main-darker: #000000d4;
   --color-dark: #202020;
   --color-darker: #121010;
 }

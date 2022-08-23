@@ -25,7 +25,7 @@ export function removeFromShopCart(product, packTypes) {
 
 export const shopcartBuyCardsPacks = (info, userId) => {
   return async function (dispatch) {
-    const response = await axios.patch('http://localhost:3001/packs/buy', { ...info, userId })
+    const response = await axios.patch('packs/buy', { ...info, userId })
     dispatch({ type: SHOPCART_BUY_CARDSPACKS, payload: response.data })
   }
 }
@@ -33,7 +33,7 @@ export const shopcartBuyCardsPacks = (info, userId) => {
 export function getPreferenceId(shopcart, userId) {
   return async function (dispatch) {
     try {
-      const response = await axios.post(`http://localhost:3001/mercadopago/checkout/${userId}`, shopcart);
+      const response = await axios.post(`mercadopago/checkout/${userId}`, shopcart);
       dispatch({ type: GET_PREFERENCE_ID, payload: response.data })
     } catch (error) {
       console.error('STARCARDS_ERROR', error)
@@ -52,8 +52,12 @@ export function cleanPreferenceId() {
 export function getPurchaseInfo(id) {
   if (id) {
     return async function (dispatch) {
-      const response = await axios(`https://api.mercadopago.com/v1/payments/${id}`, { "headers": { "Authorization": "Bearer APP_USR-6913287203050942-081213-9ae4b41c5f23db785ed7c59bdbb34d5e-1178359030" } })
-      dispatch({ type: GET_PURCHASE_INFO, payload: response.data })
+      try {
+        const response = await axios(`https://api.mercadopago.com/v1/payments/${id}`, { "headers": { "Authorization": "Bearer APP_USR-6913287203050942-081213-9ae4b41c5f23db785ed7c59bdbb34d5e-1178359030" } })
+        dispatch({ type: GET_PURCHASE_INFO, payload: response.data })
+      } catch (error) {
+        console.log(error);
+      }
     }
   } else return { type: GET_PURCHASE_INFO }
 

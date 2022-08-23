@@ -16,9 +16,11 @@ User.prototype.hashPassword = async (password) => {
   const hash = await bcrypt.hash(password, salt);
   return hash;
 };
+
 User.prototype.comparePassword = async (inputPassword, password) => {
   return await bcrypt.compare(inputPassword, password);
 };
+
 module.exports = (sequelize, DataTypes) => {
   User.init(
     {
