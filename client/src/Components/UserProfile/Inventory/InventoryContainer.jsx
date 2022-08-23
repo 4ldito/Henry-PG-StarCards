@@ -17,11 +17,10 @@ export default function InventoryContainer() {
 
 
   function renderNotRepeat() {
-    const cartas = [];
-    for (const e in notRepeatCards) {
-      console.log();
-      cartas.push(<CardContainer card={notRepeatCards[e].card} repeat={notRepeatCards[e].repeat}/>)
-    }
+    let cartas = [];
+    notRepeatCards.forEach(e=> {
+      cartas.push(<div key={e.id}><CardContainer  card={e} repeat={e.repeat}/></div>)
+    })
     return cartas
   }
   useEffect(() => {
