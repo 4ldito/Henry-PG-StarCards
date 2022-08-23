@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { postOpinions } from "../../redux/actions/cards/postOpinions.js";
 import { putOpinions } from "../../redux/actions/cards/putOpinion.js";
 import css from "./detail.module.css";
-import ModificarOpinion from "./ModificarOpinion.jsx";
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -44,9 +43,6 @@ export default function Detail() {
 
   function handleComment(e) {
     e.preventDefault();
-    if (commented) {
-      return alert("Ya comentaste");
-    }
     dispatch(postOpinions(input));
   }
 
@@ -81,7 +77,7 @@ export default function Detail() {
           <div className={css.opinion}>
             {opinion.length ? <p>Comments: </p> : ""}
             {opinion.map((opinion) => {
-              return <p key={opinion.id}>{opinion.comment}</p>;
+              return <p key={opinion.id}>{user.id}: {opinion.comment}</p>;
             })}
           </div>
           {user.id ? (
