@@ -6,6 +6,7 @@ import { deleteUser } from "../../redux/actions/user";
 import { useDispatch } from "react-redux";
 import { FaUserSecret } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
+import Swal from 'sweetalert2';
 
 export default function Config({ user }) {
   const dispatch = useDispatch();
@@ -13,7 +14,11 @@ export default function Config({ user }) {
 
   function deleteAccount() {
     dispatch(deleteUser(user.id));
-    alert("User deleted");
+    Swal.fire({
+      title: 'Borrado',
+      text: 'Usuario Borrado',
+      icon: 'success',
+    });
     navigateTo("/");
   }
 
@@ -48,9 +53,6 @@ export default function Config({ user }) {
         </div>
         <div className={style.modal}>
           <span className={style.span}>Deck:{user.DeckId}</span>
-        </div>
-        <div className={style.modal}>
-          <span className={style.span}>Account Status: {user.StatusId}</span>{" "}
         </div>
         <div>
           <button className={style.bdelete} onClick={deleteAccount}>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
-
-
+import { useNavigate } from 'react-router-dom';
+import css from './detail.module.css'
 export default function Detail (id) {
     const navigate = useNavigate();
     const dispatch = useDispatch()

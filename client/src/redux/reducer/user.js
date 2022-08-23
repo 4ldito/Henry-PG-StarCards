@@ -1,4 +1,4 @@
-import { CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO } from "../actions/user"
+import { CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
 
 const initialState = {
   user: {},
@@ -14,7 +14,7 @@ const initialState = {
 
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case GET_USER:
+    case GET_USER: console.log(' ',payload)
       return { ...state, user: payload }
 
     case GET_ALL_USERS:
@@ -31,9 +31,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, id: payload.id, token: payload.token, rol: payload.rol, validToken: true, user: payload.user, msg: { type: 'success', text: 'Logeado correctamente', title: ':D!' } }
 
     case MODIFY_USER:
-      console.log(payload)
-      if(payload === 'Incorrect') return {...state, validPassword: payload}
-      return { ...state, user: payload }
+      if(payload === 'Incorrect') return {...state, msg: payload}
+      return { ...state, user: payload, msg: 'Correct' }
 
     case DELETE_USER:
       const usersUpdated = state.users.filter(user => user.id !== payload)
@@ -51,7 +50,11 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case USER_CLEAN_MSG_INFO:
       return { ...state, msg: {} }
-
+    case USER_MODIFY_STARS:
+      const { updatedUser, error } = payload;
+      if (updatedUser && !error) return { ...state, user: updatedUser }
+      return { ...state }
+      
     default:
       return state
   }

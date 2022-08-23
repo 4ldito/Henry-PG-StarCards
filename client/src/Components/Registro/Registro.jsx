@@ -7,8 +7,10 @@ import style from '../../styles/landingPage/landingPage.module.css'
 import style2 from '../../styles/register/Register.module.css'
 import { userCleanMsgInfo } from "../../redux/actions/user";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 export default function Registro() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [input, setInput] = useState({
     username: '',

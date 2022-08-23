@@ -26,7 +26,6 @@ function App() {
   const dispatch = useDispatch();
 
   function handleKeyboard(e) {
-
     if (e.repeat) return;
     if ((e.metaKey || e.ctrlKey) && e.key === "x") {
       dispatch(resetReduxState());
@@ -35,7 +34,6 @@ function App() {
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeyboard);
-
     return () => document.removeEventListener("keydown", handleKeyboard);
   }, []);
 

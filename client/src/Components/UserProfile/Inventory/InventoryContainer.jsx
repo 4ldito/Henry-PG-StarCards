@@ -61,7 +61,7 @@ export default function InventoryContainer() {
   }
 
   function paginated() {
-    const TotalPag = userCards.length / cardsPerPage;
+    const TotalPag = userCards?.length / cardsPerPage;
     const button = [];
     button.push(
       <button className={css.pag} key="back" onClick={pagBack}>
@@ -84,7 +84,7 @@ export default function InventoryContainer() {
   }
   return (<div>
             <div className={css.cartas}>
-                {userCards.map((card, index) => {
+                {userCards?.map((card, index) => {
                   if (index <= limit.max && index >= limit.min) {
                     return (
                       <Card
