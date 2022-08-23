@@ -1,10 +1,9 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import getAllCards from '../../../redux/actions/cards/getAllCards';
 import { getUserCards } from '../../../redux/actions/cards/userCards';
 import Card from '../../Card/Card';
 import css from "./Inventory.module.css";
-
 
 export default function InventoryContainer() {
   const dispatch = useDispatch();
@@ -14,10 +13,10 @@ export default function InventoryContainer() {
   const cardsPerPage = 4;
   const [limit, setLimit] = useState({ min: 0, max: cardsPerPage - 1 });
 
- useEffect(() => {
-  console.log(user.userCards);
-  dispatch(getAllCards());
-  dispatch(getUserCards(user.UserCards, cards))
+  useEffect(() => {
+    // console.log(user.UserCards);
+    dispatch(getAllCards());
+    dispatch(getUserCards(user.UserCards, cards))
   }, []);
 
   useEffect(() => {
@@ -35,6 +34,7 @@ export default function InventoryContainer() {
     }
     setLimit({ min, max });
   }
+
   function pagBack(e) {
     e.preventDefault();
     let min = limit.min - cardsPerPage;
@@ -45,6 +45,7 @@ export default function InventoryContainer() {
     }
     setLimit({ min, max });
   }
+
   function pagNext(e) {
     e.preventDefault();
 
@@ -57,7 +58,6 @@ export default function InventoryContainer() {
       min = limit.min;
       max = limit.max;
     }
-
     setLimit({ min, max });
   }
 
@@ -84,28 +84,28 @@ export default function InventoryContainer() {
     return button;
   }
   return (<div>
-            <div className={css.cartas}>
-                {userCards?.map((card, index) => {
-                  if (index <= limit.max && index >= limit.min) {
-                    return (
-                      <Card
-                        key={index}
-                        id={card?.id}
-                        name={card?.name}
-                        image={card?.image}
-                        cost={card?.cost}
-                        Gdmg={card?.Gdmg}
-                        Admg={card?.Admg}
-                        life={card?.life}
-                        ability={card?.ability}
-                        abilities={card?.abilities}
-                        race={card?.race}
-                        movement={card?.movement}
-                      />
-                    );
-                  }
-                })}
-              </div>
-              <div className={css.paginated}>{paginated()}</div>
-        </div>);
+    <div className={css.cartas}>
+      {userCards?.map((card, index) => {
+        if (index <= limit.max && index >= limit.min) {
+          return (
+            <Card
+              key={index}
+              id={card?.id}
+              name={card?.name}
+              image={card?.image}
+              cost={card?.cost}
+              Gdmg={card?.Gdmg}
+              Admg={card?.Admg}
+              life={card?.life}
+              ability={card?.ability}
+              abilities={card?.abilities}
+              race={card?.race}
+              movement={card?.movement}
+            />
+          );
+        }
+      })}
+    </div>
+    <div className={css.paginated}>{paginated()}</div>
+  </div>);
 }
