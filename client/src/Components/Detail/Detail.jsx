@@ -20,12 +20,12 @@ export default function Detail() {
   });
 
   useEffect(() => {
-    opinion.map((o) => {
+    opinion.forEach((o) => {
       if (o.UserId === user.id && o.CardId === detailCard.id) {
         setCommented(true);
       }
     });
-  }, [opinion]);
+  }, [opinion, detailCard]);
 
   function handleInput(e) {
     setInput({
@@ -77,7 +77,7 @@ export default function Detail() {
           <div className={css.opinion}>
             {opinion.length ? <p>Comments: </p> : ""}
             {opinion.map((opinion) => {
-              return <p key={opinion.id}>{user.id}: {opinion.comment}</p>;
+              return <p key={opinion.id}>{opinion.id}: {opinion.comment}</p>;
             })}
           </div>
           {user.id ? (
