@@ -7,7 +7,7 @@ import { filterUserCards } from '../../../redux/actions/cards/userCards';
 const Filters = () => {
 
     const dispatch = useDispatch();
-    const cards = useSelector((state) => state.album.cards)
+    const cards = useSelector((state) => state.album.userCards)
     const [filters, setFilters] = useState({ race: 'allRaces', movements: "allMovements"});
  
     const onSelectChange = (e) => {

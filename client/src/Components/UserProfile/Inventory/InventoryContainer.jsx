@@ -20,74 +20,12 @@ export default function InventoryContainer() {
   dispatch(getUserCards(user.UserCards, cards))
   }, []);
 
-  useEffect(() => {
-    setLimit({ min: 0, max: cardsPerPage - 1 });
-  }, [userCards]);
 
-  function pag(e) {
-    e.preventDefault();
-    const valuePag = Number(e.target.innerText);
-    let min = (valuePag - 1) * cardsPerPage;
-    let max = valuePag * cardsPerPage - 1;
-    if (valuePag === 1) {
-      min = 0;
-      max = cardsPerPage - 1;
-    }
-    setLimit({ min, max });
-  }
-  function pagBack(e) {
-    e.preventDefault();
-    let min = limit.min - cardsPerPage;
-    let max = limit.max - cardsPerPage;
-    if (min < 0) {
-      min = 0;
-      max = cardsPerPage - 1;
-    }
-    setLimit({ min, max });
-  }
-  function pagNext(e) {
-    e.preventDefault();
-
-    let last = Math.ceil(userCards.length / cardsPerPage) * cardsPerPage - 1;
-
-    let min = limit.min + cardsPerPage;
-    let max = limit.max + cardsPerPage;
-
-    if (limit.max >= last && limit.min >= last - cardsPerPage) {
-      min = limit.min;
-      max = limit.max;
-    }
-
-    setLimit({ min, max });
-  }
-
-  function paginated() {
-    const TotalPag = userCards?.length / cardsPerPage;
-    const button = [];
-    button.push(
-      <button className={css.pag} key="back" onClick={pagBack}>
-        {"<"}
-      </button>
-    );
-    for (let i = 0; i < TotalPag; i++) {
-      button.push(
-        <button className={css.pag} key={i} onClick={pag}>
-          {i + 1}
-        </button>
-      );
-    }
-    button.push(
-      <button className={css.pag} key="next" onClick={pagNext}>
-        {">"}
-      </button>
-    );
-    return button;
-  }
   return (<div>
-            <div className={css.cartas}>
+            <div  className={css.cartas}>
                 {userCards?.map((card, index) => {
-                  if (index <= limit.max && index >= limit.min) {
                     return (
+                      <div className={css.cardContainer}>
                       <Card
                         key={index}
                         id={card?.id}
@@ -102,10 +40,11 @@ export default function InventoryContainer() {
                         race={card?.race}
                         movement={card?.movement}
                       />
+                      </div>
                     );
-                  }
+                  
                 })}
               </div>
-              <div className={css.paginated}>{paginated()}</div>
+        
         </div>);
 }

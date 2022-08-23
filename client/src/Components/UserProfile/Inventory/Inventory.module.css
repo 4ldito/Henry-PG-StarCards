@@ -1,12 +1,15 @@
 .cartas {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    overflow-y: scroll;
     align-items: center;
     flex-direction: row;
     width: 75vw;
-    height: 90%;
   }
-  
+  .cardContainer{
+    padding: 10px;
+  }
   .paginated {
     display: flex;
     justify-content: center;
