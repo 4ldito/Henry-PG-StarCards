@@ -25,9 +25,9 @@ export default function Card({ id }) {
   }
 
   const cardCss =
-    card.race === "Zerg"
+    card?.race === "Zerg"
       ? css.zergCard
-      : card.race === "Terran"
+      : card?.race === "Terran"
       ? css.terranCard
       : css.protossCard;
 
@@ -37,16 +37,16 @@ export default function Card({ id }) {
       onClick={() => detail(id)}
     >
       <div className={css.nameContainer}>
-        <h3 className={css.name}>{card.name}</h3>
-        <span className={css.cost}>{card.cost}</span>
+        <h3 className={css.name}>{card?.name}</h3>
+        <span className={css.cost}>{card?.cost}</span>
       </div>
-      <img className={css.img} src={card.image} alt={card.image} />
-      <span className={css.movement}>{card.movement}</span>
-      <p className={css.ability}>{card.ability}</p>
+      <img className={css.img} src={card?.image} alt={card?.image} />
+      <span className={css.movement}>{card?.movement}</span>
+      <p className={css.ability}>{card?.ability}</p>
       <div className={css.stats}>
-        <span className={css.life}>{card.life}</span>
+        <span className={css.life}>{card?.life}</span>
         <span className={css.dmg}>
-          {card.Gdmg}/{card.Admg}
+          {card?.Gdmg}/{card?.Admg}
         </span>
       </div>
     </div>

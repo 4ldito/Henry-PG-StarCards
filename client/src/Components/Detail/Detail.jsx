@@ -4,7 +4,7 @@
 // import { postOpinions } from '../../redux/actions/cards/postOpinions.js'
 // import { useNavigate } from 'react-router-dom';
 // import css from './detail.module.css'
-// export default function Detail () {
+// export default function Detail (id) {
 //     const navigate = useNavigate();
 //     const dispatch = useDispatch()
 //     const detailCard = useSelector(state => state.detailReducer.card)
@@ -41,7 +41,7 @@ import css from "./detail.module.css";
 
 export default function Detail() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const navigate = useNavigate
   const detailCard = useSelector((state) => state.detailReducer.card);
   const opinion = useSelector((state) => state.detailReducer.opinion);
   const user = useSelector((state) => state.userReducer);
@@ -79,7 +79,6 @@ export default function Detail() {
     e.preventDefault();
     if (commented) {
       return alert("Ya comentaste");
-
     }
     dispatch(postOpinions(input));
   }

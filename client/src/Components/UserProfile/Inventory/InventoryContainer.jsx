@@ -15,6 +15,7 @@ export default function InventoryContainer() {
   const [limit, setLimit] = useState({ min: 0, max: cardsPerPage - 1 });
 
  useEffect(() => {
+  console.log(user.userCards);
   dispatch(getAllCards());
   dispatch(getUserCards(user.UserCards, cards))
   }, []);
@@ -89,17 +90,17 @@ export default function InventoryContainer() {
                     return (
                       <Card
                         key={index}
-                        id={card.id}
-                        name={card.name}
-                        image={card.image}
-                        cost={card.cost}
-                        Gdmg={card.Gdmg}
-                        Admg={card.Admg}
-                        life={card.life}
-                        ability={card.ability}
-                        abilities={card.abilities}
-                        race={card.race}
-                        movement={card.movement}
+                        id={card?.id}
+                        name={card?.name}
+                        image={card?.image}
+                        cost={card?.cost}
+                        Gdmg={card?.Gdmg}
+                        Admg={card?.Admg}
+                        life={card?.life}
+                        ability={card?.ability}
+                        abilities={card?.abilities}
+                        race={card?.race}
+                        movement={card?.movement}
                       />
                     );
                   }
