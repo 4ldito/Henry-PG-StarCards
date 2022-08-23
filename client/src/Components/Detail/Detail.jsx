@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { postOpinions } from "../../redux/actions/cards/postOpinions.js";
+import { putOpinions } from "../../redux/actions/cards/putOpinion.js";
 import css from "./detail.module.css";
 
 export default function Detail() {
@@ -46,6 +47,17 @@ export default function Detail() {
     dispatch(postOpinions(input));
   }
 
+  function handleEdit(e) {
+    e.preventDefault();
+    const emi = {
+      comment: "Emiliano",
+      score: 9,
+      cardId: detailCard.id,
+      userId: user.id,
+    };
+    dispatch(putOpinions(emi));
+  }
+
   return (
     <div className={css.all}>
       <div className={css.container}>
@@ -72,7 +84,10 @@ export default function Detail() {
           </div>
           {user.id ? (
             commented ? (
-              <h1>Ya comentaste</h1>
+              <>
+                <h1>Ya comentaste</h1>
+                <button onClick={(e) => handleEdit(e)}>Edit</button>
+              </>
             ) : (
               <form>
                 <label>Comment: </label>
