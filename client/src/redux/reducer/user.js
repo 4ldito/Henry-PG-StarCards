@@ -14,7 +14,8 @@ const initialState = {
 
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case GET_USER: console.log(' ',payload)
+    case GET_USER:
+      // console.log(' ',payload)
       return { ...state, user: payload }
 
     case GET_ALL_USERS:
@@ -32,7 +33,7 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case MODIFY_USER:
 
-      if(payload === 'Incorrect') return {...state, msg: payload}
+      if (payload === 'Incorrect') return { ...state, msg: payload }
       return { ...state, user: payload, msg: 'Correct' }
 
     case DELETE_USER:
@@ -56,7 +57,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       const { updatedUser, error } = payload;
       if (updatedUser && !error) return { ...state, user: updatedUser }
       return { ...state }
-      
+
     default:
       return state
   }

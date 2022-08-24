@@ -14,7 +14,7 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
 
     case BUY_CARD_PACK:
       const { msg, error, updatedInfo } = payload;
-      console.log(payload)
+      // console.log(payload)
       if (error) return { ...state, msg: { type: 'error', info: error, title: 'Error!' } }
       const data = state.cardsPacks.map(pack => {
         updatedInfo.forEach(updatedPack => {
