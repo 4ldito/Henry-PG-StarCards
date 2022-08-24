@@ -43,7 +43,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, token: payload.token, rol: payload.rol, }
 
     case IS_VALID_TOKEN:
-      if (!payload) return { ...state, validToken: payload, user: {}, token: null, rol: null }
+      // console.log('a')
+      if (!payload) return { ...state, validToken: payload, user: {}, token: null, rol: null, id: null }
       return { ...state, validToken: payload }
 
     case LOG_OUT:
