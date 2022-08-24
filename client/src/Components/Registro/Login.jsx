@@ -70,12 +70,12 @@ export default function Login() {
       <div className={style2.options}>
         <form onSubmit={(e) => { login(e) }}>
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Username </label>
+            <label style={{ fontSize: "larger" }}>Nombre de usuario: </label>
             <input className={style3.input} style={{ width: "400px" }} type="email" name="email" onChange={handleOnChange} required />
             {renderErrorMessage("uname")}
           </div>
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Password </label>
+            <label style={{ fontSize: "larger" }}>Contraseña: </label>
             <input className={style3.input} style={{ width: "400px" }} type="password" name="password" onChange={handleOnChange} required autoComplete='on' />
             {renderErrorMessage("pass")}
           </div>
