@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userCleanMsgInfo } from './../../redux/actions/user';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getUserShopCart } from '../../redux/actions/shopCart'
 
 export default function Login() {
