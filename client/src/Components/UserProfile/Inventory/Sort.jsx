@@ -7,6 +7,7 @@ export default function SortCards() {
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.album.filteredUserCards);
   function onSelectChange(e) {
+    
     dispatch(sortUserCards(e.target.value, cards));
   }
 

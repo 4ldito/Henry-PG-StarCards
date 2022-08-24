@@ -24,11 +24,11 @@ export function getUserCards(userCards, allCards){
 }
 
 export function filterUserCards(filter, userCards){
-    
+   const notRepeated = noRepUserCards(userCards);
     // console.log(userCards,'---------',filter)
     const filterRace = filter.race === 'allRaces'
-    ? userCards
-    : userCards.filter((e) => e.race === filter.race)
+    ? notRepeated
+    : notRepeated.filter((e) => e.race === filter.race)
     
     const filterMovement = filter.movements === 'allMovements'
     ? filterRace
@@ -38,12 +38,13 @@ export function filterUserCards(filter, userCards){
 }
 
 export function searchUserCard (search, cards) {
+  const notRepeated = noRepUserCards(cards);
   console.log('search', search)
   console.log('cards', cards)
   if(search === ""){
-    return { type: SEARCH_USER_CARD, payload: cards }
+    return { type: SEARCH_USER_CARD, payload: notRepeated }
   }
-  const result = cards.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
+  const result = notRepeated.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
   return { type: SEARCH_USER_CARD, payload: result }
 }
 

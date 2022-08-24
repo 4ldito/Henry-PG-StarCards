@@ -1,11 +1,13 @@
+*{margin: 0;}
 .cartas {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     overflow-y: scroll;
     align-items: center;
     flex-direction: row;
-    width: 75vw;
+    width: 100vw;
+    margin: 0;
   }
   .cardContainer{
     padding: 10px;
@@ -38,4 +40,11 @@
     border-radius: 20%;
     margin: 0 0.2%;
     padding: 0.5rem;
+  }
+  .inventoryContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }

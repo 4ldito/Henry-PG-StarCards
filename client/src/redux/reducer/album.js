@@ -30,6 +30,7 @@ export default function inventory(state = initialState, { type, payload }) {
     case SORT_USER_CARDS:
       return { ...state, filteredUserCards: payload }
     case SEARCH_USER_CARD:
+      console.log(payload);
       return { ...state, filteredUserCards: payload }
     default:
       return state
