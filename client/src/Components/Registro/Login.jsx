@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userCleanMsgInfo } from './../../redux/actions/user';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   /*const { loginWithRedirect } = useAuth0()
@@ -77,6 +77,7 @@ export default function Login() {
           <div style={{height:"15px"}}></div>
           <div className={style.buttoncontainer}>
             <button className={style2.button} data='Ingresar' type="submit" value='' />
+            <Link to='/'>Recuperar Contraseña</Link>
           </div>
         </form>
       </div>

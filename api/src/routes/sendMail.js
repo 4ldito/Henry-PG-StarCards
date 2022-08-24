@@ -33,7 +33,7 @@ sendMail.post("/sendmail", (req, res) => {
         port: 587,
         auth: {
           user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
-          pass: passwordSendMail // La contraseña de dicho SMTP
+          pass: "odrirfkiagzdeqhq" // La contraseña de dicho SMTP
         }
       });
 

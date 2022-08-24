@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import ProtectedRoutes from './ProtectedRoutes'
 import Registro from './components/Registro/Registro'
 import Login from './components/Registro/Login'
+import RecoverPassword from './components/Registro/RecoverPassword'
 import UserProfile from "./components/UserProfile/UserProfile";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Playroom from "./components/Playroom/Playroom";
@@ -11,7 +12,6 @@ import ShopCart from "./components/Shop/ShopCart/ShopCart";
 import Shop from "./components/Shop/Shop";
 import Detail from "./components/Detail/Detail";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
-import VerifyMail from "./components/Mail/VerifyMail";
 import Nav from "./components/Nav/Nav";
 import About from "./components/About/About";
 

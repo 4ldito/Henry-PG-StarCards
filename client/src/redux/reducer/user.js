@@ -1,4 +1,4 @@
-import { CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
+import { GET_USER_BY_EMAIL, CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
 
 const initialState = {
   user: {},
@@ -19,6 +19,9 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case GET_ALL_USERS:
       return { ...state, users: payload }
+
+    case GET_USER_BY_EMAIL:
+      return { ...state, user: payload }
 
     case CREATE_USER:
       if (payload.error) return { ...state, user: {}, token: null, id: null, rol: null, validToken: false, msg: { type: 'error', text: payload.error, title: 'Error!' } }
