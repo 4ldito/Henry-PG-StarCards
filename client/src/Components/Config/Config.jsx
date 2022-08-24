@@ -35,17 +35,13 @@ export default function Config({ user }) {
 
   useEffect(() => {
        if(!modal && successAction1){
-        console.log('deberia abrirse el input')
         setInput(!input)
-        console.log(input, 'este es el input')
        }
   }, [successAction1])
 
   function sendMail () {
     let email = email1.current.value
-    console.log(user.id, {email : email})
     dispatch(modifyUser(user.id, {email : email}))
-    console.log('mail modificado')
     setInput(!input)
     dispatch(successAction())
   };
@@ -53,6 +49,7 @@ export default function Config({ user }) {
   function changeMail(){
     return(
     <div className={style.mail}>
+      <form onSubmit={sendMail}>
       <label >Email: </label>
       <input
         type="email"
@@ -60,8 +57,9 @@ export default function Config({ user }) {
         placeholder="Ingrese nuevo email..."
         ref={email1}
       />
-      <button className={style.button} onClick={sendMail}>Confirmar</button>
+      <button className={style.button} type="submit">Confirmar</button>
       <button onClick={close}>X</button>
+      </form>
     </div>)
   }
   
@@ -71,8 +69,6 @@ export default function Config({ user }) {
         <h3>
           <center>Profile</center>
         </h3>
-        {console.log(modal,successAction)}
-
         <div className={style.modal}>
           <FaUserSecret />
           <span className={style.span}>
@@ -106,7 +102,7 @@ export default function Config({ user }) {
           </button>
         </div>
       </div>
-      {modal ? <VerifyMail/> : ''}
+      {modal ? <VerifyMail user={user}/> : ''}
     </div>
   );
 }

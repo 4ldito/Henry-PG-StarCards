@@ -3,15 +3,15 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { changeModal, sendMail, successAction } from "../../redux/actions/sendMail";
-import { useNavigate } from 'react-router-dom'
 
 ///////////////////////////////////////////////////////////
 
-export default function App () {
+export default function App ({user}) {
 const email1 = useRef(null);
 const token1 = useRef(null);
 const dispatch = useDispatch()
 const tokenBack = useSelector((state) => state.sendMailReducer.token)
+const modal = useSelector((state) => state.sendMailReducer.modal)
 const [render, setRender] = useState(true)
 const [reenviar, setReenviar] = useState(true)
 const [state, setState] = useState(
@@ -31,18 +31,30 @@ const [state, setState] = useState(
   };
 
   function close(){
-    dispatch(changeModal())
+    console.log(modal)
+    dispatch(changeModal(false))
   }
 
   function enviarEmail(e) {
     e.preventDefault();
-    dispatch(sendMail(state))
-    Swal.fire({
-      title: 'Token',
-      text: 'Se envio Token al Mail ingresado',
-      icon: 'success',
-    });
-    setRender(false)
+    console.log(state.email, user.email)
+    if(state.email===user.email){
+      dispatch(sendMail(state))
+      Swal.fire({
+        title: 'Token',
+        text: 'Se envio Token al Mail ingresado',
+        icon: 'success',
+      });
+      setRender(false)
+    }
+    else{
+      Swal.fire({
+        title: 'Error',
+        text: 'El email ingresado no coincide',
+        icon: 'error',
+      });
+      email1.current.value = ''
+    }
   }
 
   function verifyToken(e){
@@ -104,7 +116,7 @@ const [state, setState] = useState(
               <input
                 type="text"
                 name="token1"
-                placeholder="Ingresar token recibido..."
+                placeholder="Ingresar token recibido por email..."
                 onChange={comprobarCambios}
                 className="form-control"
                 ref={token1}

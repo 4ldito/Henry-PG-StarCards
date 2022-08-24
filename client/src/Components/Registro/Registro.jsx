@@ -8,10 +8,14 @@ import style2 from '../../styles/register/Register.module.css'
 import { userCleanMsgInfo } from "../../redux/actions/user";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import VerifyRegister from '../Mail/VerifyRegister'
+import { changeModal, sendMail, successAction } from "../../redux/actions/sendMail";
 
 export default function Registro() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const modal = useSelector((state) => state.sendMailReducer.modal)
+  const successAction1 = useSelector((state) => state.sendMailReducer.successAction)
   const [input, setInput] = useState({
     username: '',
     email: '',
@@ -37,11 +41,25 @@ export default function Registro() {
     }
   }, [msgInfo]);
 
+  useEffect(() => {
+    if(successAction1 && !modal){
+      dispatch(createUser(input))
+      dispatch(successAction()) 
+    }
+  }, [successAction1])
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!errores) {
-      dispatch(createUser(input))
+      dispatch(sendMail({email: input.email}))
+      dispatch(changeModal(true))
+      Swal.fire({
+        title: 'Token',
+        text: 'Se envio Token al Mail ingresado',
+        icon: 'success',
+      });
+
     }else{
       setShowErrors(true);
     }
@@ -72,7 +90,7 @@ const handleError = (e) => {
 
 
 return (
-  <div className={style.container}>
+  !modal?(<div className={style.container}>
     <form className={style.options} onSubmit={(e) => { handleSubmit(e) }}>
       <div style={{ "fontSize": "50px" }}>
         Registrate
@@ -139,7 +157,7 @@ return (
 
     </form>
 
-  </div>
+  </div>) : <VerifyRegister email={input.email}/>
 )
 
 };
