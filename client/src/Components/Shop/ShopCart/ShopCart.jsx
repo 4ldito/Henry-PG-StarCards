@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -15,10 +15,11 @@ const ShopCart = ({ handleSeeShopcart }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart)
-  const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg)
-  const user = useSelector(state => state.userReducer.user)
-  const { preferenceId } = usePreferenceId(starsPack)
+  const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart);
+  const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg);
+  const user = useSelector(state => state.userReducer.user);
+  const { preferenceId } = usePreferenceId(starsPack);
+
 
   let totalStarsPack = 0;
   let totalCardsPack = 0;
@@ -38,23 +39,17 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: msgInfoPurchase.type,
       })
     }
-    if (msgInfoPurchase.type === 'success') {
-      // console.log('termino')
-    };
+    // if (msgInfoPurchase.type === 'success') {
+    //   // console.log('termino')
+    // };
   }, [msgInfoPurchase]);
 
   const handleRemoveItem = (e, type) => {
     e.preventDefault();
     e.stopPropagation();
     const target = Number(e.target.id)
-    dispatch(removeFromShopCart(target, type))
+    dispatch(removeFromShopCart(target, type, user.id))
   }
-
-  useEffect(() => {
-    return () => {
-      dispatch(cleanPreferenceId());
-    }
-  }, []);
 
   const buyWithStars = useMemo(() => {
     return user?.stars >= totalCardsPack;
@@ -69,12 +64,12 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: 'error',
       })
     }
+    dispatch(cleanPreferenceId());
     dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'decrement' }));
   };
 
   const increaseQuantity = (e, type, item) => {
     e.preventDefault();
-    console.log(item)
     if (item.quantity === item.stock) {
       return Swal.fire({
         title: 'Error!',
@@ -82,12 +77,12 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: 'error',
       })
     }
+    dispatch(cleanPreferenceId());
     dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'increment' }));
   };
 
-
   return (
-    <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>
+    <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) || (!starsPack.length && cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>
       <div className={style.container}>
         <div onClick={e => e.stopPropagation()} className={style.infoContainer}>
           <h2>Carrito</h2>
@@ -138,10 +133,10 @@ const ShopCart = ({ handleSeeShopcart }) => {
                           <p>{item.price} Stars</p>
 
                           <div className={style.containerQuantity}>
-                              <button onClick={(e) => decreaseQuantity(e, 'cardsPack', item)}>-</button>
-                              <span>{item.quantity}</span>
-                              <button onClick={(e) => increaseQuantity(e, 'cardsPack', item)}>+</button>
-                            </div>
+                            <button onClick={(e) => decreaseQuantity(e, 'cardsPack', item)}>-</button>
+                            <span>{item.quantity}</span>
+                            <button onClick={(e) => increaseQuantity(e, 'cardsPack', item)}>+</button>
+                          </div>
 
                           <p>{subtotal} Stars</p>
                           <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'cardsPack')} id={item.id}>X</button>

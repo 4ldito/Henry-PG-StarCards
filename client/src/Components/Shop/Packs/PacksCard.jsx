@@ -85,7 +85,7 @@ const PacksCard = ({ pack, type }) => {
       text: `Añadiste ${quantity} de ${pack.name} correctamente al carrito`,
       icon: "success",
     });
-    dispatch(addToShopCart(pack, quantity, type));
+    dispatch(addToShopCart(pack, quantity, type, user.id));
   };
 
   if (type === "cardsPack") {
