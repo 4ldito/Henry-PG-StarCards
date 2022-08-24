@@ -26,7 +26,6 @@ mercadopagoRoute.post('/checkout/:id', async (req, res, next) => {
   const preference = {
     items,
     payer,
-    additional_info: 'olacomotas',
     back_urls: {
       success: 'http://localhost:5173/purchase-completed?state=success',
       failure: 'http://localhost:5173/purchase-completed?state=failure',
