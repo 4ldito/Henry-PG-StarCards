@@ -45,9 +45,7 @@ shopCartRoute.get("/:id", async (req, res, next) => {
         const cardsPacksQuantities = cardsPacks.map((cp) => {
             cp.dataValues.quantity = infoCardsPacks[cp.id].quantity;
             return cp;
-        })
-
-        // return res.send({ cardsPacksQuantities, starPacksQuantities });
+        });
 
         return res.send({ shopCart: { starsPacks: starPacksQuantities, cardsPacks: cardsPacksQuantities } });
 

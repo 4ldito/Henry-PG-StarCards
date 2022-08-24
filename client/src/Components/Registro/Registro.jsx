@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../redux/actions/user";
@@ -9,6 +8,9 @@ import style3 from './login.module.css'
 import { userCleanMsgInfo } from "../../redux/actions/user";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+
+import VerifyRegister from '../Mail/VerifyRegister'
+import { changeModal, sendMail, successAction } from "../../redux/actions/sendMail";
 
 export default function Registro() {
   const navigate = useNavigate();
@@ -42,7 +44,14 @@ export default function Registro() {
     e.preventDefault();
 
     if (!errores) {
-      dispatch(createUser(input))
+      // dispatch(createUser(input))
+      dispatch(sendMail({ email: input.email }))
+      dispatch(changeModal(true))
+      Swal.fire({
+        title: 'Token',
+        text: 'Se envio Token al Mail ingresado',
+        icon: 'success',
+      });
     } else {
       setShowErrors(true);
     }
@@ -73,85 +82,82 @@ export default function Registro() {
 
 
   return (
-    <div className={style.container}>
-      <form className={style.options} onSubmit={(e) => { handleSubmit(e) }}>
-        <div className={style3.inputcontainer}>
-          <label style={{ fontSize: "larger" }}>Nombre de usuario: </label>
-          <input
-            className={style2.input}
-            autoComplete="on"
-            type="text"
-            name="username"
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            placeholder="Ingrese su nombre aca"
-          />
-        </div>
-        {(errores?.username && showErrors) && <label className={style.error}>{errores.username}</label>}
-        <div className={style3.inputcontainer}>
-        <label style={{ fontSize: "larger" }}>Email: </label>
-        <input
-          className={style2.input}
+    !modal ? (
+      <div className={style.container}>
+        <form className={style.options} onSubmit={(e) => { handleSubmit(e) }}>
+          <div className={style3.inputcontainer}>
+            <label style={{ fontSize: "larger" }}>Nombre de usuario: </label>
+            <input
+              className={style2.input}
+              autoComplete="on"
+              type="text"
+              name="username"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ingrese su nombre aca"
+            />
+          </div>
+          {(errores?.username && showErrors) && <label className={style.error}>{errores.username}</label>}
+          <div className={style3.inputcontainer}>
+            <label style={{ fontSize: "larger" }}>Email: </label>
+            <input
+              className={style2.input}
+              autoComplete="on"
+              type="email"
+              name="email"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ingrese su gmail aca"
+            />
+          </div>
+          {(errores?.email && showErrors) && <label className={style.error}>{errores.email}</label>}
+          <div className={style3.inputcontainer}>
+            <label style={{ fontSize: "larger" }}>Contraseña: </label>
+            <input
+              className={style2.input}
 
-          autoComplete="on"
-          type="email"
-          name="email"
-          onChange={(e) => {
-            handleChange(e);
-          }}
-          placeholder="Ingrese su gmail aca"
-        />
-        </div>
-        {(errores?.email && showErrors) && <label className={style.error}>{errores.email}</label>}
-        <div className={style3.inputcontainer}>
-        <label style={{ fontSize: "larger" }}>Contraseña: </label>
-        <input
-          className={style2.input}
+              autoComplete="on"
+              type="password"
+              name="password"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ingrese su contraseña aca"
+            />
+          </div>
+          {(errores?.password && showErrors) && <label className={style.error} >{errores.password}</label>}
+          <div className={style3.inputcontainer}>
 
-          autoComplete="on"
-          type="password"
-          name="password"
-          onChange={(e) => {
-            handleChange(e);
-          }}
-          placeholder="Ingrese su contraseña aca"
-        />
-         </div>
-        {(errores?.password && showErrors) && <label className={style.error} >{errores.password}</label>}
-        <div className={style3.inputcontainer}>
+            <label style={{ fontSize: "larger" }}>Confirmar contraseña: </label>
 
-        <label style={{ fontSize: "larger" }}>Confirmar contraseña: </label>
+            <input
+              className={style2.input}
+              autoComplete="on"
+              type="password"
+              name="confirm"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Ingrese su contraseña aca"
+            />
+          </div>
 
-        <input
-          className={style2.input}
-
-          autoComplete="on"
-          type="password"
-          name="confirm"
-          onChange={(e) => {
-            handleChange(e);
-          }}
-          placeholder="Ingrese su contraseña aca"
-        />
-         </div>
-
-        {(errores?.confirm && showErrors) && <label className={style.error} >{errores.confirm}</label>}
-        <div style={{ "height": "18px" }}></div>
-        {input.username ? (
-          <button type="submit" data='Registrar usuario' className={style.button} >
-          </button>
-        ) : (
-          <>
-            <button onClick={handleError} data='Registrar usuario' className={style.button} >
+          {(errores?.confirm && showErrors) && <label className={style.error} >{errores.confirm}</label>}
+          <div style={{ "height": "18px" }}></div>
+          {input.username ? (
+            <button type="submit" data='Registrar usuario' className={style.button} >
             </button>
-            {(errores.complete && showErrors) && <label className={style.error}>{errores.complete}</label>}
-          </>
-        )}
-
-      </form>
-
-    </div>
+          ) : (
+            <>
+              <button onClick={handleError} data='Registrar usuario' className={style.button} >
+              </button>
+              {(errores.complete && showErrors) && <label className={style.error}>{errores.complete}</label>}
+            </>
+          )}
+        </form>
+      </div>) : <VerifyRegister email={input.email} />
   )
 
 };

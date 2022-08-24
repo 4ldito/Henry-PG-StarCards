@@ -11,15 +11,19 @@ import { cleanPreferenceId, modifiyQuantity, removeFromShopCart, shopcartBuyCard
 import style from '../styles/ShopCart.module.css';
 import { usePreferenceId } from '../../../hooks/usePreferenceId';
 
+let intervalMercadopago = null;
+
 const ShopCart = ({ handleSeeShopcart }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
 
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart);
   const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg);
   const user = useSelector(state => state.userReducer.user);
   const { preferenceId } = usePreferenceId(starsPack);
 
+  const [seeBtn, setSeeBtn] = useState(true);
 
   let totalStarsPack = 0;
   let totalCardsPack = 0;
@@ -39,9 +43,6 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: msgInfoPurchase.type,
       })
     }
-    // if (msgInfoPurchase.type === 'success') {
-    //   // console.log('termino')
-    // };
   }, [msgInfoPurchase]);
 
   const handleRemoveItem = (e, type) => {
@@ -64,8 +65,12 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: 'error',
       })
     }
-    dispatch(cleanPreferenceId());
+
     dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'decrement' }));
+
+    setSeeBtn(false)
+    if (intervalMercadopago) clearTimeout(intervalMercadopago);
+    intervalMercadopago = setTimeout(() => { setSeeBtn(true); dispatch(cleanPreferenceId()); }, 1000)
   };
 
   const increaseQuantity = (e, type, item) => {
@@ -77,8 +82,11 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: 'error',
       })
     }
-    dispatch(cleanPreferenceId());
     dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'increment' }));
+
+    setSeeBtn(false)
+    if (intervalMercadopago) clearTimeout(intervalMercadopago);
+    intervalMercadopago = setTimeout(() => { setSeeBtn(true); dispatch(cleanPreferenceId()); }, 1000);
   };
 
   return (
@@ -119,7 +127,7 @@ const ShopCart = ({ handleSeeShopcart }) => {
                       })}
                       <p>Total: ${totalStarsPack} ARS</p>
                     </div>
-                    {user?.id ? <Mercadopago preferenceId={preferenceId} shopCartItems={starsPack} /> : <button onClick={() => { navigate("/login") }}>Logeate</button>}
+                    {user?.id ? seeBtn && <Mercadopago preferenceId={preferenceId} shopCartItems={starsPack} /> : <button onClick={() => { navigate("/login") }}>Logeate</button>}
                   </div>)}
                 {cardsPack.length > 0 && (
                   <div className={style.containerCart}>
