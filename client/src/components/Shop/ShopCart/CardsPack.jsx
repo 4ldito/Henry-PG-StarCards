@@ -1,6 +1,10 @@
 import style from '../styles/ShopCart.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const CardsPack = ({ cardsPack, totalCardsPack, user, buyWithStars, handleRemoveItem, decreaseQuantity, increaseQuantity, handleBuyCardsPack }) => {
+    
+    const navigate = useNavigate();
+    
     return (
         <>
             {cardsPack.length > 0 && (
