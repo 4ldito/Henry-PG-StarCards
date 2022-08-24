@@ -88,6 +88,14 @@ export function cleanPurchaseInfo() {
   return { type: SHOPCART_CLEAN_PURCHASE_INFO }
 }
 
-export function modifiyQuantity(payload) {
-  return { type: MODIFY_QUANTITY, payload }
+export function modifiyQuantity({ id, type, modifyType, userId }) {
+  return async function (dispatch) {
+    try {
+
+      dispatch({ type: MODIFY_QUANTITY, payload: { id, type, modifyType } });
+      if (userId) await axios.patch(`shopcart/edit/${userId}`, { info: { id, type, modifyType } });
+    } catch (error) {
+      console.error('STARCARDS_ERROR', error)
+    }
+  }
 }

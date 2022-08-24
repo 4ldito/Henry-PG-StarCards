@@ -1,22 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
-
-import Mercadopago from './Mercadopago';
+import { useSelector, useDispatch } from 'react-redux';
+import StarsPack from './StarsPack';
+import CardsPack from './CardsPack';
 import Swal from 'sweetalert2';
 
 import { cleanPreferenceId, modifiyQuantity, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
+import { usePreferenceId } from '../../../hooks/usePreferenceId';
 
 import style from '../styles/ShopCart.module.css';
-import { usePreferenceId } from '../../../hooks/usePreferenceId';
 
 let intervalMercadopago = null;
 
 const ShopCart = ({ handleSeeShopcart }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
 
   const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart);
   const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg);
@@ -27,12 +23,6 @@ const ShopCart = ({ handleSeeShopcart }) => {
 
   let totalStarsPack = 0;
   let totalCardsPack = 0;
-
-  const handleBuyCardsPack = (e) => {
-    e.preventDefault();
-    const info = { data: [...cardsPack] }
-    dispatch(shopcartBuyCardsPacks(info, user.id));
-  }
 
   useEffect(() => {
     if (msgInfoPurchase.type) {
@@ -65,12 +55,16 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: 'error',
       })
     }
+    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'decrement', userId: user.id }));
 
-    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'decrement' }));
-
-    setSeeBtn(false)
-    if (intervalMercadopago) clearTimeout(intervalMercadopago);
-    intervalMercadopago = setTimeout(() => { setSeeBtn(true); dispatch(cleanPreferenceId()); }, 1000)
+    if (type === 'starsPack') {
+      setSeeBtn(false)
+      if (intervalMercadopago) clearTimeout(intervalMercadopago);
+      intervalMercadopago = setTimeout(() => {
+        setSeeBtn(true);
+        dispatch(cleanPreferenceId());
+      }, 1000)
+    }
   };
 
   const increaseQuantity = (e, type, item) => {
@@ -82,12 +76,23 @@ const ShopCart = ({ handleSeeShopcart }) => {
         icon: 'error',
       })
     }
-    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'increment' }));
+    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'increment', userId: user.id }));
 
-    setSeeBtn(false)
-    if (intervalMercadopago) clearTimeout(intervalMercadopago);
-    intervalMercadopago = setTimeout(() => { setSeeBtn(true); dispatch(cleanPreferenceId()); }, 1000);
+    if (type === 'starsPack') {
+      setSeeBtn(false)
+      if (intervalMercadopago) clearTimeout(intervalMercadopago);
+      intervalMercadopago = setTimeout(() => {
+        setSeeBtn(true);
+        dispatch(cleanPreferenceId());
+      }, 1000);
+    }
   };
+
+  const handleBuyCardsPack = (e) => {
+    e.preventDefault();
+    const info = { data: [...cardsPack] }
+    dispatch(shopcartBuyCardsPacks(info, user.id));
+}
 
   return (
     <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) || (!starsPack.length && cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>
@@ -97,64 +102,26 @@ const ShopCart = ({ handleSeeShopcart }) => {
           {starsPack.length > 0 || cardsPack.length > 0
             ? (
               <>
-                {starsPack.length > 0 && (
-                  <div className={style.containerCart}>
-                    <h2>Carrito de stars</h2>
-                    <div className={style.cartInfoContainer}>
-                      <div className={style.titleContainer}>
-                        <p>Nombre</p>
-                        <p>Precio</p>
-                        <p>Cantidad</p>
-                        <p>Subtotal</p>
-                      </div>
-                      {starsPack.map(item => {
-                        totalStarsPack += item.price * item.quantity
-                        return (
-                          <div className={style.containerItem} key={item.id}>
-                            <p>{item.name}</p>
-                            <p>${item.price} ARS</p>
+                <StarsPack
+                  handleRemoveItem={handleRemoveItem}
+                  decreaseQuantity={decreaseQuantity}
+                  increaseQuantity={increaseQuantity}
+                  preferenceId={preferenceId}
+                  seeBtn={seeBtn}
+                  user={user}
+                  starsPack={starsPack}
+                  totalStarsPack={totalStarsPack} />
 
-                            <div className={style.containerQuantity}>
-                              <button onClick={(e) => decreaseQuantity(e, 'starsPack', item)}>-</button>
-                              <span>{item.quantity}</span>
-                              <button onClick={(e) => increaseQuantity(e, 'starsPack', item)}>+</button>
-                            </div>
+                <CardsPack
+                  handleRemoveItem={handleRemoveItem}
+                  decreaseQuantity={decreaseQuantity}
+                  increaseQuantity={increaseQuantity}
+                  cardsPack={cardsPack}
+                  totalCardsPack={totalCardsPack}
+                  user={user}
+                  buyWithStars={buyWithStars}
+                  handleBuyCardsPack={handleBuyCardsPack} />
 
-                            <p>${item.price * item.quantity} ARS</p>
-                            <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'starsPack')} id={item.id}>X</button>
-                          </div>
-                        )
-                      })}
-                      <p>Total: ${totalStarsPack} ARS</p>
-                    </div>
-                    {user?.id ? seeBtn && <Mercadopago preferenceId={preferenceId} shopCartItems={starsPack} /> : <button onClick={() => { navigate("/login") }}>Logeate</button>}
-                  </div>)}
-                {cardsPack.length > 0 && (
-                  <div className={style.containerCart}>
-                    <h2>Carrito de packs cards</h2>
-                    {cardsPack.map(item => {
-                      const subtotal = item.price * item.quantity
-                      totalCardsPack += subtotal
-                      return (
-                        <div className={style.containerItem} key={item.id}>
-                          <p>{item.name}</p>
-                          <p>{item.price} Stars</p>
-
-                          <div className={style.containerQuantity}>
-                            <button onClick={(e) => decreaseQuantity(e, 'cardsPack', item)}>-</button>
-                            <span>{item.quantity}</span>
-                            <button onClick={(e) => increaseQuantity(e, 'cardsPack', item)}>+</button>
-                          </div>
-
-                          <p>{subtotal} Stars</p>
-                          <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'cardsPack')} id={item.id}>X</button>
-                        </div>
-                      )
-                    })}
-                    <p>Total: {totalCardsPack} Stars</p>
-                    {user?.id ? <button onClick={handleBuyCardsPack} disabled={!buyWithStars}>{buyWithStars ? "Comprar packs de cards" : "Tus Stars son insuficientes"}</button>
-                      : <button onClick={() => { navigate("/login") }}>Logeate</button>}
-                  </div>)}
               </>)
             : <p>El carrito esta vacio</p>}
         </div>

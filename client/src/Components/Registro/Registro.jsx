@@ -15,16 +15,27 @@ import { changeModal, sendMail, successAction } from "../../redux/actions/sendMa
 export default function Registro() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const modal = useSelector((state) => state.sendMailReducer.modal);
+  const successAction1 = useSelector((state) => state.sendMailReducer.successAction);
+
   const [input, setInput] = useState({
     username: '',
     email: '',
     password: '',
     confirm: ''
   });
+
   let msgInfo = useSelector(state => state.userReducer.msg);
   const [errores, setErrores] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
 
+  useEffect(() => {
+    if(successAction1 && !modal){
+      dispatch(createUser(input))
+      dispatch(successAction()) 
+    }
+  }, [successAction1]);
 
   useEffect(() => {
     if (msgInfo?.type) {
