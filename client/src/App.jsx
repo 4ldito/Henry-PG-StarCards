@@ -21,7 +21,6 @@ import Inventory from "./components/UserProfile/Inventory/Inventory";
 // import { setToken } from './redux/actions/user'
 
 // import Profile from './components/Profile/Profile'
-
 function App() {
 
   const dispatch = useDispatch();
