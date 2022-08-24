@@ -23,12 +23,14 @@ export default function inventory(state = initialState, { type, payload }) {
     case SEARCH_CARD:
       return { ...state, filteredCards: payload }
     case GET_USER_CARDS:
-      return { ...state, userCards: payload }
+      return { ...state, userCards: payload.userCardsInventory, userCardsNotRepeated: payload.notRepeated }
     case FILTER_USER_CARDS:
+
       return { ...state, filteredUserCards: payload }
     case SORT_USER_CARDS:
       return { ...state, filteredUserCards: payload }
     case SEARCH_USER_CARD:
+      console.log(payload);
       return { ...state, filteredUserCards: payload }
     default:
       return state

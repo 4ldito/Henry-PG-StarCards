@@ -9,15 +9,15 @@ const LandingPage = () => {
       <div className={style.options}>
 
         <h1 className={style.title} style={{ "fontSize": "50px" }}>Entrar</h1>
-        <div className={style.buttons}>
+       
           <Link to='/register'>
-            <button className={style.button} data='Registro'></button>
+            <button className={style.button} data='Registrarse'></button>
           </Link>
           <Link to='/login'>
-            <button className={style.button} data='login'></button>
+            <button className={style.button} data='Ingresar'></button>
           </Link>
         </div>
-      </div>
+     
     </div>
   )
 }

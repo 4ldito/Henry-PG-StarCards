@@ -10,7 +10,7 @@ div{
 
     font-family: starcardsFont, sans-serif;
     height: 40px;
-    width: 70%;
+    width: 100%;
     border:2px solid #92e5fc;
     background-color: #287accee;
     clip-path: polygon(calc(100% - var(--edge-size)) 0,

@@ -1,6 +1,7 @@
 export const SORT_USER_CARDS = 'SORT_USER_CARDS'
 export const GET_USER_CARDS = 'GET_USER_CARDS'
 export const FILTER_USER_CARDS = 'FILTER_USER_CARDS'
+import noRepUserCards from "../../../components/UserProfile/Inventory/functions/noRepUserCards";
 export const SEARCH_USER_CARD = 'SEARCH_USER_CARD'
 const nameAtoZ = 'nameAtoZ'
 const nameZtoA = 'nameZtoA'
@@ -14,21 +15,20 @@ const ascendentlife = 'ascendentlife'
 const descendentlife = 'descendentlife'
 
 export function getUserCards(userCards, allCards){
-  // console.log(allCards,'<----- asi llega all cards al inventario la primera vez que entras, si no entraste al about antes');
-  // console.log(userCards,'<----- y asi llega userCards');
+
   const userCardIds = userCards?.map(user => user.CardId);
   
   const userCardsInventory = userCardIds?.map((idCard)=>allCards?.find(card => card.id === idCard))
-
-    return {type: GET_USER_CARDS, payload: userCardsInventory}
+  const notRepeated = noRepUserCards(userCardsInventory);
+    return {type: GET_USER_CARDS, payload: {userCardsInventory,notRepeated}}
 }
 
 export function filterUserCards(filter, userCards){
-    
+   const notRepeated = noRepUserCards(userCards);
     // console.log(userCards,'---------',filter)
     const filterRace = filter.race === 'allRaces'
-    ? userCards
-    : userCards.filter((e) => e.race === filter.race)
+    ? notRepeated
+    : notRepeated.filter((e) => e.race === filter.race)
     
     const filterMovement = filter.movements === 'allMovements'
     ? filterRace
@@ -38,12 +38,13 @@ export function filterUserCards(filter, userCards){
 }
 
 export function searchUserCard (search, cards) {
+  const notRepeated = noRepUserCards(cards);
   console.log('search', search)
   console.log('cards', cards)
   if(search === ""){
-    return { type: SEARCH_USER_CARD, payload: cards }
+    return { type: SEARCH_USER_CARD, payload: notRepeated }
   }
-  const result = cards.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
+  const result = notRepeated.filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
   return { type: SEARCH_USER_CARD, payload: result }
 }
 

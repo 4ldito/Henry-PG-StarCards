@@ -10,12 +10,7 @@ export default function SearchUserCard() {
   const cards = useSelector((state) => state.album.userCards);
   const user = useSelector(state => state.userReducer.user)
 
-  function onSubmit(e) {
-    e.preventDefault();
-    search === ""
-      ? dispatch(getUserCards(user.UserCards, cards))
-      : dispatch(searchUserCard(search, cards));
-  }
+
   function onInputChange(e) {
     e.preventDefault();
     setSearch(e.target.value);
@@ -23,7 +18,7 @@ export default function SearchUserCard() {
   }
 
   return (
-    <form className={css.form} onSubmit={onSubmit}>
+    <form className={css.form} >
       <input type="text" onChange={(e) => onInputChange(e)} value={search} />
       <input className={css.btnSearch} type="submit" value="search" />
     </form>
