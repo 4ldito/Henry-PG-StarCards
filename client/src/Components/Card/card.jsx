@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
 import { detailCard } from "../../redux/actions/cards/detailCard.js";
-import { getOpinions } from "../../redux/actions/cards/getOpinions.js";
+import { getOpinions } from "../../redux/actions/cards/opinion.js";
 import DetailPopUp from "../Detail/DetailPopUp.jsx";
 
 import css from "./Card.module.css";

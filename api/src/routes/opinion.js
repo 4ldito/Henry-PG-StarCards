@@ -18,7 +18,11 @@ opinionRoute.get("/all", async (req, res, next) => {
 opinionRoute.get("/:cardId", async (req, res, next) => {
   const { cardId } = req.params;
   try {
-    const opinions = await Opinion.findAll({ where: { CardId: cardId } });
+    const opinions = await Opinion.findAll({
+      where: { CardId: cardId },
+      include: User,
+    });
+
     return res.json(opinions);
   } catch (error) {
     return next(error);

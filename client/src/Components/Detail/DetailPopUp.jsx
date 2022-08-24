@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getOpinions } from "../../redux/actions/cards/getOpinions.js";
 import { detailCard } from "../../redux/actions/cards/detailCard";
-import { postOpinions } from "../../redux/actions/cards/postOpinions.js";
-import { putOpinions } from "../../redux/actions/cards/putOpinion.js";
+import { getOpinions, postOpinions, putOpinions } from "../../redux/actions/cards/opinion";
 
 import css from "./DetailPopUp.module.css";
 
@@ -118,7 +116,7 @@ export default function DetailPopUp({ handleDetail }) {
               {opinion.map((opinion) => {
                 return (
                   <p key={opinion.id}>
-                    {opinion.id}: {opinion.comment}
+                    {opinion.User.username}: {opinion.comment}
                   </p>
                 );
               })}

@@ -1,7 +1,5 @@
-import { PUT_OPINIONS } from '../actions/cards/putOpinion';
+import { PUT_OPINIONS, GET_OPINIONS, POST_OPINIONS } from '../actions/cards/opinion';
 import { CARD_DETAIL } from './../actions/cards/detailCard';
-import { GET_OPINIONS } from './../actions/cards/getOpinions';
-import { POST_OPINIONS } from './../actions/cards/postOpinions';
 
 const initialState = {
   card: {},
