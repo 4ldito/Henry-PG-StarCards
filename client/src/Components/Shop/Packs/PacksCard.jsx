@@ -31,6 +31,14 @@ const PacksCard = ({ pack, type }) => {
     pack.quantity = quantity;
     const info = { data: [{ ...pack }] };
 
+    if (!user.id) {
+      return Swal.fire({
+        title: "Error!",
+        text: "Inicia sesion primero.",
+        icon: "error",
+      });
+    }
+
     if (checkStock(quantity)) {
       return Swal.fire({
         title: "Error!",
