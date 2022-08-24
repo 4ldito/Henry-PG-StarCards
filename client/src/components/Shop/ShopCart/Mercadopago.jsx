@@ -10,7 +10,7 @@ export default function Mercadopago({ preferenceId }) {
     if (preferenceId !== -1) {
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = 'http://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
+      script.src = 'https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js';
       script.setAttribute('data-preference-id', preferenceId.id);
       if (form.current.childNodes.length) {
         while (form.current.firstChild) {
