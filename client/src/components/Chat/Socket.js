@@ -1,5 +1,9 @@
 import io from "socket.io-client";
 
-let socket = io("//localhost:5000");
+const chat = {
+    url: import.meta.env.VITE_CHAT_URL
+  };
+
+let socket = io(chat.url);
 
 export default socket;
