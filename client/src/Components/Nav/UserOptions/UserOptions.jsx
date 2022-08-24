@@ -5,7 +5,7 @@ import { logOut } from "../../../redux/actions/user";
 import css from "./UserOptions.module.css";
 import useValidToken from "../../../hooks/useValidToken";
 import ShopCart from "../../Shop/ShopCart/ShopCart";
-
+import {resetReduxState} from '../../../redux/actions/'
 export default function UserOptions({ handleVisibleUserOptions }) {
 
   const { validToken } = useValidToken({ navigate: false });
@@ -16,6 +16,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
 
   function quit() {
     dispatch(logOut())
+    dispatch(resetReduxState())
     navigate("/login")
   }
 

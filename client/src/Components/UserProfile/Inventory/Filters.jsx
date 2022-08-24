@@ -7,10 +7,11 @@ import { filterUserCards } from '../../../redux/actions/cards/userCards';
 const Filters = () => {
 
     const dispatch = useDispatch();
-    const cards = useSelector((state) => state.album.cards)
+    const cards = useSelector((state) => state.album.userCards)
     const [filters, setFilters] = useState({ race: 'allRaces', movements: "allMovements"});
  
     const onSelectChange = (e) => {
+    
       setFilters({
         ...filters,
         [e.target.name]: e.target.value
@@ -20,7 +21,7 @@ const Filters = () => {
 
     useEffect(() => {
       dispatch(filterUserCards(filters, cards))
-    }, [filters])
+    }, [filters,cards])
 
     return (
         <div className={style.container}>
