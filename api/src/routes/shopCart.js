@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 const { Router } = require("express");
 const db = require("../db");
-const { ShopCart } = db;
+const { ShopCart, StarsPack, CardPacks } = db;
 
 const shopCartRoute = Router();
 
@@ -9,15 +8,48 @@ shopCartRoute.get("/:id", async (req, res, next) => {
     const { id } = req.params;
 
     try {
-        const starsPacks = await ShopCart.findAll({
+        const starsPacksIds = await ShopCart.findAll({
             where: { UserId: id, packTypes: 'starsPack', StatusId: 'active' }
         });
 
-        const cardsPacks = await ShopCart.findAll({
+        const cardsPacksIds = await ShopCart.findAll({
             where: { UserId: id, packTypes: 'cardsPack', StatusId: 'active' }
         });
-        
-        return res.send({ shopCart: { starsPacks, cardsPacks } });
+
+        const starsPacksPromises = starsPacksIds.map(async (sp) => {
+            return StarsPack.findByPk(sp.product);
+        });
+
+        const cardsPacksPromises = cardsPacksIds.map(async (cp) => {
+            return CardPacks.findByPk(cp.product);
+        });
+
+        const starsPacks = await Promise.all(starsPacksPromises);
+        const cardsPacks = await Promise.all(cardsPacksPromises);
+
+        const infoStarsPacks = {};
+        starsPacksIds.forEach((sp) => {
+            infoStarsPacks[sp.product] = { quantity: sp.quantity }
+        });
+
+        const infoCardsPacks = {};
+        cardsPacksIds.forEach((cp) => {
+            infoCardsPacks[cp.product] = { quantity: cp.quantity }
+        });
+
+        const starPacksQuantities = starsPacks.map((sp) => {
+            sp.dataValues.quantity = infoStarsPacks[sp.id].quantity;
+            return sp;
+        })
+
+        const cardsPacksQuantities = cardsPacks.map((cp) => {
+            cp.dataValues.quantity = infoCardsPacks[cp.id].quantity;
+            return cp;
+        })
+
+        // return res.send({ cardsPacksQuantities, starPacksQuantities });
+
+        return res.send({ shopCart: { starsPacks: starPacksQuantities, cardsPacks: cardsPacksQuantities } });
 
     } catch (error) {
         return next(error);

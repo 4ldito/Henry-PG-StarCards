@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { userCleanMsgInfo } from './../../redux/actions/user';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import { getUserShopCart } from '../../redux/actions/shopCart'
 
 export default function Login() {
   /*const { loginWithRedirect } = useAuth0()
@@ -20,6 +21,7 @@ export default function Login() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const msgInfo = useSelector(state => state.userReducer.msg);
+  const userId = useSelector(state => state.userReducer.id);
   // const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [input, setInput] = useState({
@@ -30,7 +32,10 @@ export default function Login() {
   useEffect(() => {
     if (msgInfo?.type) {
       dispatch(userCleanMsgInfo());
-      if (msgInfo.type === 'success') navigate('/userProfile');
+      if (msgInfo.type === 'success') {
+        dispatch(getUserShopCart(userId));
+        navigate('/userProfile');
+      }
       else {
         Swal.fire({
           title: msgInfo.title,
@@ -65,16 +70,16 @@ export default function Login() {
       <div className={style2.options}>
         <form onSubmit={(e) => { login(e) }}>
           <div className={style.inputcontainer}>
-            <label style={{fontSize:"larger"}}>Username </label>
-            <input className= {style3.input} style={{width:"400px"}} type="email" name="email" onChange={handleOnChange} required />
+            <label style={{ fontSize: "larger" }}>Username </label>
+            <input className={style3.input} style={{ width: "400px" }} type="email" name="email" onChange={handleOnChange} required />
             {renderErrorMessage("uname")}
           </div>
           <div className={style.inputcontainer}>
-            <label style={{fontSize:"larger"}}>Password </label>
-            <input  className= {style3.input} style={{width:"400px"}} type="password" name="password" onChange={handleOnChange} required autoComplete='on' />
+            <label style={{ fontSize: "larger" }}>Password </label>
+            <input className={style3.input} style={{ width: "400px" }} type="password" name="password" onChange={handleOnChange} required autoComplete='on' />
             {renderErrorMessage("pass")}
           </div>
-          <div style={{height:"15px"}}></div>
+          <div style={{ height: "15px" }}></div>
           <div className={style.buttoncontainer}>
             <button className={style2.button} data='Ingresar' type="submit" value='' />
           </div>

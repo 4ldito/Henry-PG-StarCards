@@ -11,8 +11,8 @@ const initialState = {
 export default function shopCartReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USER_SHOPCART:
-      console.log(payload)
-      return { ...state }
+      // console.log(payload.shopCart);
+      return { ...state, shopCart: { starsPack: payload.shopCart.starsPacks, cardsPack: payload.shopCart.cardsPacks } }
     case ADD_TO_SHOPCART:
       const { product, quantity, packTypes } = payload
       const alreadyInCart = state.shopCart[packTypes].findIndex(item => item.id === product.id)
