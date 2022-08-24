@@ -7,21 +7,35 @@ const userRoute = Router();
 /// /////////////////////////////////////////////////////////////////////////////////////////////
 userRoute.get("/", async (req, res, next) => {
   try {
-    const { id } = req.query;
+    const { id, email } = req.query;
     if (id) {
       const user = await User.findByPk(id, { include: UserCards, attributes: { exclude: ['password'] } })
       if (user) return res.json(user);
       return res.status(404).json({ error: 'error, User Not Found' })
     }
-    else {
-      const users = await User.findAll({ include: UserCards })
+    else if(email){
+      const user = await User.findOne({ where: { email } })
+      res.json(user)
+    }
+
+    const users = await User.findAll({ include: UserCards })
       if (users) return res.json(users)
       return res.json(new Error('error'))
-    }
+
+
   } catch (error) {
     next(error)
   }
 })
+
+userRoute.get("/:email", async (req, res, next) => {
+  const { email } = req.params;
+  console.log(email)
+
+  const user = await User.findOne({ where: { email } })
+  console.log(user)
+})
+
 
 userRoute.delete('/', async (req, res, next) => {
   try {

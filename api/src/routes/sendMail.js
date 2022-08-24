@@ -15,10 +15,10 @@ function token() {
 };
 
 sendMail.post("/sendmail", (req, res) => {
-  tokenValid = token()
+   tokenValid = token()
   nodemailer.createTestAccount((err, account) => {
-    try {
-      const htmlEmail = `
+  try {
+          const htmlEmail = `
           <img src="https://i.ibb.co/SfKhMg2/Sin-t-tulo-1-Mesa-de-trabajo-1.png" width="1100" height="200" title="Logo">
           <h3 style="text-align:center">--> STARCARDS <--</h3>
 
@@ -31,10 +31,9 @@ sendMail.post("/sendmail", (req, res) => {
       let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
-        // secure: true,
         auth: {
           user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
-          pass: 'odrirfkiagzdeqhq' // La contraseña de dicho SMTP
+          pass: passwordSendMail // La contraseña de dicho SMTP
         }
       });
 
@@ -54,11 +53,11 @@ sendMail.post("/sendmail", (req, res) => {
         }
         res.send(tokenValid)
         console.log("Mensaje enviado");
-      });
-    } catch (error) {
-      next(error)
+      }); 
+  } catch (error) {
+        next(error)
     }
-
+        
   });
 });
 
