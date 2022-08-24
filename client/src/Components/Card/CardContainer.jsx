@@ -3,7 +3,7 @@ import Card from "./Card";
 export function CardContainer({card,repeat}){
     return <>
         
-            <label style={{fontSize:"50px"}}>{repeat}</label>
+            {repeat>1&&<label style={{fontSize:"50px"}}>{repeat}</label>}
              
                 <Card
                   id={card?.id}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPreferenceId } from '../redux/actions/shopCart'
+import { cleanPreferenceId, getPreferenceId } from '../redux/actions/shopCart'
 
 export const usePreferenceId = (shopCartItems) => {
   const dispatch = useDispatch()
@@ -9,7 +9,13 @@ export const usePreferenceId = (shopCartItems) => {
 
   useEffect(() => {
     if (preferenceId === -1 && shopCartItems.length) dispatch(getPreferenceId(shopCartItems, userId))
-  }, [preferenceId])
+  }, [preferenceId]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(cleanPreferenceId());
+    }
+  }, []);
 
   return { preferenceId }
 }

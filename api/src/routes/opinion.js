@@ -56,5 +56,25 @@ opinionRoute.post('/', async (req, res, next)=>{
     }
 })
 
+// PUT Opinion
+opinionRoute.patch("/", async (req, res, next) => {
+  try {
+    let { comment, score, userId, cardId } = req.body;
+
+    const opinion = await Opinion.findOne({
+      where: {
+        UserId: userId,
+        CardId: cardId,
+      },
+    });
+
+    await opinion.update({ comment, score });
+
+    res.status(200).json({ msg: "Opinion modified" });
+  } catch (error) {
+    next(error);
+  }
+});
+
   // PATCH
   module.exports = opinionRoute;

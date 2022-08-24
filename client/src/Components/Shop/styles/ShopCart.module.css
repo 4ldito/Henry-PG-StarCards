@@ -1,8 +1,8 @@
 .background {
     background-color: #1c1b2294;
     position: fixed;
-    left: 0;
-    top: 0;
+    /* left: 0; */
+    /* top: 0; */
     right: 0;
     bottom: 0;
     z-index: 10;
@@ -44,7 +44,26 @@
     border-radius: 20px;
     padding: 1rem;
     margin-bottom: 1rem;
-    border: 2px solid white;
+}
+
+.cartInfoContainer {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    background-color: #171717;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 20px;
+}
+
+.titleContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 0.5rem 1rem;
+}
+
+.titleContainer p {
+    margin: 0;
 }
 
 .containerItem {
@@ -57,7 +76,6 @@
     background-color: var(--container-background-main);
     padding: 0.5rem 1rem;
     border-radius: 20px;
-
 }
 
 .containerItem p {
@@ -72,4 +90,19 @@
     font-weight: bold;
     color: white;
     padding: 0.2rem 0.4rem;
+}
+
+.containerQuantity {
+    border: 1px solid white;
+    padding: 0.3rem 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-radius: 10px;
+    background-color: black;
+    text-align: center;
+    width: 100px;
+}
+
+.containerQuantity button {
+    border-radius: 10px;
 }

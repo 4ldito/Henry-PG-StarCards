@@ -58,11 +58,14 @@ input[type="submit"]:hover {
 .inputcontainer {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 8px;
   margin: 10px;
+  width: 70%;
 }
 label{
-  color: white;
+  text-align: start;
+  color: rgb(236, 251, 252);
 }
 
 .form{
