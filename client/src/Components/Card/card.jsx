@@ -9,24 +9,23 @@ import DetailPopUp from "../Detail/DetailPopUp.jsx";
 import css from "./Card.module.css";
 
 export default function Card({ id }) {
+  const dispatch = useDispatch();
   const allCards = useSelector((state) => state.album.filteredCards);
   const card = allCards.find((c) => c.id === id);
   const [viewDetail, setViewDetail] = useState(false);
-  // const handleSeeDetail = (e) => {
-  //   setViewDetail(!viewDetail);
-  // };
-
-  // const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(detailCard(null));
-  }, []);
 
   function handleDetail() {
     dispatch(detailCard(id));
     dispatch(getOpinions(id));
+  }
+
+  function ver() {
     setViewDetail(!viewDetail);
+  }
+
+  function todo(){
+    handleDetail()
+    ver()
   }
 
   const cardCss =
@@ -38,10 +37,7 @@ export default function Card({ id }) {
 
   return (
     <>
-      <div
-        className={`${cardCss} ${css.cardContainer}`}
-        onClick={handleDetail}
-      >
+      <div className={`${cardCss} ${css.cardContainer}`} onClick={todo}>
         <div className={css.nameContainer}>
           <h3 className={css.name}>{card?.name}</h3>
           <span className={css.cost}>{card?.cost}</span>
@@ -56,7 +52,7 @@ export default function Card({ id }) {
           </span>
         </div>
       </div>
-      {viewDetail && <DetailPopUp handleDetail={handleDetail} />}
+      {viewDetail && <DetailPopUp handleDetail={ver} />}
     </>
   );
 }

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getOpinions } from "../../redux/actions/cards/getOpinions.js";
+import { detailCard } from "../../redux/actions/cards/detailCard";
 import { postOpinions } from "../../redux/actions/cards/postOpinions.js";
 import { putOpinions } from "../../redux/actions/cards/putOpinion.js";
 
@@ -7,7 +9,7 @@ import css from "./DetailPopUp.module.css";
 
 export default function DetailPopUp({ handleDetail }) {
   const dispatch = useDispatch();
-  const detailCard = useSelector((state) => state.detailReducer.card);
+  const detailCards = useSelector((state) => state.detailReducer.card);
   const opinion = useSelector((state) => state.detailReducer.opinion);
   const user = useSelector((state) => state.userReducer);
   const [viewEdit, setViewEdit] = useState(false);
@@ -21,11 +23,18 @@ export default function DetailPopUp({ handleDetail }) {
 
   useEffect(() => {
     opinion.forEach((o) => {
-      if (o.UserId === user.id && o.CardId === detailCard.id) {
+      if (o.UserId === user.id) {
         setCommented(true);
       }
     });
-  }, [opinion, detailCard]);
+  }, [opinion, detailCards]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(detailCard(null));
+      dispatch(getOpinions(null));
+    };
+  }, []);
 
   function Validaciones(valores) {
     let errors = {};
@@ -44,7 +53,7 @@ export default function DetailPopUp({ handleDetail }) {
   function handleInput(e) {
     setInput({
       ...input,
-      cardId: detailCard.id,
+      cardId: detailCards.id,
       userId: user.id,
       [e.target.name]: e.target.value,
     });
@@ -83,24 +92,25 @@ export default function DetailPopUp({ handleDetail }) {
       );
     }
   }
+
   return (
     <div className={css.containerTo}>
       <div className={css.all}>
         <div className={css.container}>
           <div className={css.img}>
-            <h3>{detailCard.name}</h3>
-            <img src={detailCard.image} alt={detailCard.image} />
+            <h3>{detailCards.name}</h3>
+            <img src={detailCards.image} alt={detailCards.image} />
           </div>
           <div className={css.card}>
             <button onClick={handleDetail}>X</button>
             <div>
-              <p>Cost: {detailCard.cost}</p>
-              <p>Ground Damage: {detailCard.Gdmg}</p>
-              <p>Air Damage: {detailCard.Admg}</p>
-              <p>Life: {detailCard.life}</p>
-              <p>Ability: {detailCard.ability}</p>
-              <p>Race: {detailCard.race}</p>
-              <p>Movement: {detailCard.movement}</p>
+              <p>Cost: {detailCards.cost}</p>
+              <p>Ground Damage: {detailCards.Gdmg}</p>
+              <p>Air Damage: {detailCards.Admg}</p>
+              <p>Life: {detailCards.life}</p>
+              <p>Ability: {detailCards.ability}</p>
+              <p>Race: {detailCards.race}</p>
+              <p>Movement: {detailCards.movement}</p>
             </div>
             {rating ? <p>Rating: {rating.toFixed(1)}</p> : ""}
             <div className={css.opinion}>
