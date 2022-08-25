@@ -1,28 +1,31 @@
 .containerTo {
-  background-color: #121010cb;
-  position: absolute;
-  width: 100%;
-  height: 93vh;
-  top: 7vh;
-  left: 0%;
-}
-
-.all {
   display: flex;
   justify-content: center;
-  margin-top: 1%;
+  align-items: center;
+  position: absolute;
+  
+  top: 7vh;
+  left: 0%;
+
+  background-color: rgba(16, 16, 16, 0.288);
+  
+  width: 100%;
+  height: 93vh;
 }
+
 .container {
   display: flex;
+  align-items: center;
+
+  background-color: #101010ea;
+  border: 5px solid rgba(11, 8, 8, 0.488);
+  border-radius: 20px;
   color: white;
 
-  align-items: center;
-  border: 5px solid rgba(11, 8, 8, 0.488);
-  border-radius: 5%;
-  height: 80vh;
   width: 180vh;
-  background-color: #10101098;
+  height: 90%;
 }
+
 .img {
   display: flex;
   flex-direction: column;

@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
-  console.log(user);
   const { validToken } = useValidToken({ navigate: false });
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
 

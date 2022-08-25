@@ -112,67 +112,38 @@ export default function DetailPopUp({ handleDetail }) {
   }
 
   return (
-    <div className={css.containerTo}>
-      <div className={css.all}>
-        <div className={css.container}>
-          <div className={css.img}>
-            <h3>{detailCards.name}</h3>
-            <img src={detailCards.image} alt={detailCards.image} />
+    <div className={css.containerTo} onClick={handleDetail}>
+      <div className={css.container} onClick={(e) => e.stopPropagation()}>
+        <div className={css.img}>
+          <h3>{detailCards.name}</h3>
+          <img src={detailCards.image} alt={detailCards.image} />
+        </div>
+        <div className={css.card}>
+          <button onClick={handleDetail}>X</button>
+          <div>
+            <p>Cost: {detailCards.cost}</p>
+            <p>Ground Damage: {detailCards.Gdmg}</p>
+            <p>Air Damage: {detailCards.Admg}</p>
+            <p>Life: {detailCards.life}</p>
+            <p>Ability: {detailCards.ability}</p>
+            <p>Race: {detailCards.race}</p>
+            <p>Movement: {detailCards.movement}</p>
           </div>
-          <div className={css.card}>
-            <button onClick={handleDetail}>X</button>
-            <div>
-              <p>Cost: {detailCards.cost}</p>
-              <p>Ground Damage: {detailCards.Gdmg}</p>
-              <p>Air Damage: {detailCards.Admg}</p>
-              <p>Life: {detailCards.life}</p>
-              <p>Ability: {detailCards.ability}</p>
-              <p>Race: {detailCards.race}</p>
-              <p>Movement: {detailCards.movement}</p>
-            </div>
-            {rating ? <p>Rating: {rating.toFixed(1)}</p> : ""}
-            <div className={css.opinion}>
-              {opinion.length ? <p>Comments: </p> : ""}
-              {opinion.map((opinion) => {
-                return (
-                  <p key={opinion.id}>
-                    {opinion.User.username}: {opinion.comment}
-                  </p>
-                );
-              })}
-            </div>
-            {user.id ? (
-              haveCard ? (
-                commented ? (
-                  viewEdit ? (
-                    <form>
-                      <label>Comment: </label>
-                      <input
-                        type="text"
-                        name="comment"
-                        value={input.comment}
-                        onChange={(e) => handleInput(e)}
-                      />
-                      <label>Score: </label>
-                      <input
-                        type="number"
-                        name="score"
-                        min="1"
-                        max="5"
-                        value={input.score}
-                        onChange={(e) => handleInput(e)}
-                      />
-                      <button onClick={(e) => handleEdit(e)}>Comment</button>
-                    </form>
-                  ) : (
-                    <>
-                      <h1>Ya comentaste</h1>
-                      <button onClick={(e) => handleSeeShopcart(e)}>
-                        Edit
-                      </button>
-                    </>
-                  )
-                ) : (
+          {rating ? <p>Rating: {rating.toFixed(1)}</p> : ""}
+          <div className={css.opinion}>
+            {opinion.length ? <p>Comments: </p> : ""}
+            {opinion.map((opinion) => {
+              return (
+                <p key={opinion.id}>
+                  {opinion.User.username}: {opinion.comment}
+                </p>
+              );
+            })}
+          </div>
+          {user.id ? (
+            haveCard ? (
+              commented ? (
+                viewEdit ? (
                   <form>
                     <label>Comment: </label>
                     <input
@@ -190,16 +161,41 @@ export default function DetailPopUp({ handleDetail }) {
                       value={input.score}
                       onChange={(e) => handleInput(e)}
                     />
-                    <button onClick={(e) => handleComment(e)}>Comment</button>
+                    <button onClick={(e) => handleEdit(e)}>Comment</button>
                   </form>
+                ) : (
+                  <>
+                    <h1>Ya comentaste</h1>
+                    <button onClick={(e) => handleSeeShopcart(e)}>Edit</button>
+                  </>
                 )
               ) : (
-                <h1>No tienes la carta</h1>
+                <form>
+                  <label>Comment: </label>
+                  <input
+                    type="text"
+                    name="comment"
+                    value={input.comment}
+                    onChange={(e) => handleInput(e)}
+                  />
+                  <label>Score: </label>
+                  <input
+                    type="number"
+                    name="score"
+                    min="1"
+                    max="5"
+                    value={input.score}
+                    onChange={(e) => handleInput(e)}
+                  />
+                  <button onClick={(e) => handleComment(e)}>Comment</button>
+                </form>
               )
             ) : (
-              <h1>Inicia sesión para opinar</h1>
-            )}
-          </div>
+              <h1>No tienes la carta</h1>
+            )
+          ) : (
+            <h1>Inicia sesión para opinar</h1>
+          )}
         </div>
       </div>
     </div>

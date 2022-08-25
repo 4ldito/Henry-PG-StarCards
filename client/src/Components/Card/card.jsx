@@ -18,12 +18,14 @@ export default function Card({ id }) {
   const [haveCard, setHaveCard] = useState(false);
 
   useEffect(() => {
-    dispatch(getUserCards(user.UserCards, cards));
-    userCards.forEach((card) => {
-      if (card.id === id) {
-        setHaveCard(true);
-      }
-    });
+    if (user.id) {
+      dispatch(getUserCards(user.UserCards, cards));
+      userCards.forEach((card) => {
+        if (card.id === id) {
+          setHaveCard(true);
+        }
+      });
+    }
   }, [cards]);
 
   function handleDetail() {
