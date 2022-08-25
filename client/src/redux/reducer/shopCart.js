@@ -1,4 +1,4 @@
-import { ADD_TO_SHOPCART, CLEAN_PREFERENCE_ID, GET_PREFERENCE_ID, GET_PURCHASE_INFO, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO, SHOPCART_CLEAN_PURCHASE_INFO } from "../actions/shopCart"
+import { ADD_TO_SHOPCART, CLEAN_PREFERENCE_ID, GET_PREFERENCE_ID, GET_PURCHASE_INFO, GET_USER_SHOPCART, MODIFY_QUANTITY, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO, SHOPCART_CLEAN_PURCHASE_INFO } from "../actions/shopCart"
 
 const initialState = {
   shopCart: { starsPack: [], cardsPack: [] },
@@ -10,6 +10,9 @@ const initialState = {
 
 export default function shopCartReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case GET_USER_SHOPCART:
+      // console.log(payload.shopCart);
+      return { ...state, shopCart: { starsPack: payload.shopCart.starsPacks, cardsPack: payload.shopCart.cardsPacks } }
     case ADD_TO_SHOPCART:
       const { product, quantity, packTypes } = payload
       const alreadyInCart = state.shopCart[packTypes].findIndex(item => item.id === product.id)
@@ -54,6 +57,12 @@ export default function shopCartReducer(state = initialState, { type, payload })
 
     case SHOPCART_CLEAN_PURCHASE_INFO:
       return { ...state, purchaseInfo: {} }
+
+    case MODIFY_QUANTITY:
+      const item = state.shopCart[payload.type].find(i => i.id === payload.id);
+      if (payload.modifyType === 'increment') item.quantity++
+      else item.quantity--;
+      return { ...state, shopCart: { ...state.shopCart, [payload.packType]: [...state.shopCart[payload.type]] } }
 
     default:
       return state

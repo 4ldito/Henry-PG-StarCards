@@ -5,7 +5,7 @@
 
 .title{
   font-family: starcardsFont, sans-serif;  
-
+    line-height: .7;
 }
 .container {
     color: white;
@@ -21,7 +21,7 @@
 
     display: flex;
     flex-direction: column;
-    height: 30vh;
+    min-height: 40vh;
     width: 600px;
     align-items: center;
     justify-content: space-evenly;
@@ -29,16 +29,17 @@
     border: 1px solid rgb(51, 153, 255, .6);
     background: radial-gradient(circle, #00172cdd 0%, rgb(51, 153, 255, .6) 100%);
     border-radius: 1px;
+    padding: 10px;
 }
 
 .buttons {
     display: flex;
-    height: 50%;
+    height: 100%;
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-direction: column;
     flex-wrap: wrap;
-    align-content: center;
+    align-content: space-around;
     text-transform: uppercase;
 }
 
@@ -96,4 +97,10 @@
 .error{
     color:#d33;
     font-size: 15px;
+}
+.fieldsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 80%;
 }

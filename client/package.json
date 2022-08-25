@@ -1,6 +1,7 @@
 {
   "name": "starcards",
   "private": true,
+  "proxy": "http://localhost:3001",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -25,6 +26,7 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
+    "socket.io-client": "^4.5.1",
     "sweetalert2": "^11.4.28"
   },
   "eslintConfig": {

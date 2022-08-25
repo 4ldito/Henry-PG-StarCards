@@ -1,4 +1,4 @@
-import { CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
+import { GET_USER_BY_EMAIL, CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
 
 const initialState = {
   user: {},
@@ -14,11 +14,15 @@ const initialState = {
 
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case GET_USER: console.log(' ',payload)
+    case GET_USER:
+      // console.log(' ',payload)
       return { ...state, user: payload }
 
     case GET_ALL_USERS:
       return { ...state, users: payload }
+
+    case GET_USER_BY_EMAIL:
+      return { ...state, user: payload }
 
     case CREATE_USER:
       if (payload.error) return { ...state, user: {}, token: null, id: null, rol: null, validToken: false, msg: { type: 'error', text: payload.error, title: 'Error!' } }
@@ -32,7 +36,7 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case MODIFY_USER:
 
-      if(payload === 'Incorrect') return {...state, msg: payload}
+      if (payload === 'Incorrect') return { ...state, msg: payload }
       return { ...state, user: payload, msg: 'Correct' }
 
     case DELETE_USER:
@@ -43,7 +47,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, token: payload.token, rol: payload.rol, }
 
     case IS_VALID_TOKEN:
-      if (!payload) return { ...state, validToken: payload, user: {}, token: null, rol: null }
+      // console.log('a')
+      if (!payload) return { ...state, validToken: payload, user: {}, token: null, rol: null, id: null }
       return { ...state, validToken: payload }
 
     case LOG_OUT:
@@ -55,7 +60,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       const { updatedUser, error } = payload;
       if (updatedUser && !error) return { ...state, user: updatedUser }
       return { ...state }
-      
+
     default:
       return state
   }
