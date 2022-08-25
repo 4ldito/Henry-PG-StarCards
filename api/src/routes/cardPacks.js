@@ -60,6 +60,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
     const packs = await Promise.all(packsId);
     const updatedPacks = packs.map(pack => {
       pack.stock = pack.stock - info[pack.name].quantity;
+      transaction.addCardPacks(pack.id);
       return pack.save();
     });
 
