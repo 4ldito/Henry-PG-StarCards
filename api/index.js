@@ -1,5 +1,5 @@
 const server = require("./src/app");
-const socketIoServer = require("./src/chatServer")
+// const socketIoServer = require("./src/chatServer")
 const db = require("./src/db");
 const users = require("./src/seeders/users");
 const rols = require("./src/seeders/rols");

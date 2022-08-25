@@ -3,24 +3,40 @@ const path = require("path");
 const { Sequelize, DataTypes } = require("sequelize");
 const config = require("./config/config");
 const basename = path.basename(__filename);
-const env =
-  process.env.NODE_ENV !== undefined ? process.env.NODE_ENV : "development";
+const env = process.env.NODE_ENV ? process.env.NODE_ENV : "development";
 const actualConfig = config[env];
 const db = {};
 // const modelsDirectory: string = __dirname + '/models'
 const modelsDirectory = path.join(__dirname, "/models");
 
-// let sequelize: any
-// if (actualConfig.use_env_variable !== null) {
-//   sequelize = new Sequelize(process.env[config.use_env_variable], actualConfig)
-// } else {
-const sequelize = new Sequelize(
+const sequelize = process.env.NODE_ENV === "production" ? new Sequelize({
+  database: actualConfig.database,
+  dialect: "postgres",
+  host: actualConfig.host,
+  port: 5432,
+  username: actualConfig.username,
+  password: actualConfig.password,
+  pool: {
+    max: 3,
+    min: 1,
+    idle: 10000,
+  },
+  dialectOptions: {
+    ssl: {
+      require: true,
+      // Ref.: https://github.com/brianc/node-postgres/issues/2009
+      rejectUnauthorized: false,
+    },
+    keepAlive: true,
+  },
+  ssl: true,
+}) : new Sequelize(
   actualConfig.database,
   actualConfig.username,
   actualConfig.password,
   actualConfig
 );
-// }
+
 
 fs.readdirSync(modelsDirectory)
   .filter((file) => {

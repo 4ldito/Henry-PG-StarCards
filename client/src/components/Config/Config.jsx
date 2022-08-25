@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import style from "../../styles/ProfileUser/Config.module.css";
 import BtnUserProfile from "../Buttons/BtnUserProfile";
 import { useNavigate } from "react-router-dom";
-import { deleteUser } from "../../redux/actions/user";
-import { useDispatch } from "react-redux";
+import { deleteUser, modifyUser } from "../../redux/actions/user";
+import { useDispatch, useSelector } from "react-redux";
 import { FaUserSecret } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
 import Swal from 'sweetalert2';
+import { Button } from 'reactstrap'
+import VerifyMail from '../Mail/VerifyMail'
+import { changeModal, successAction } from "../../redux/actions/sendMail";
 
 export default function Config({ user }) {
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
+  const email1 = useRef(null);
+  const modal = useSelector((state) => state.sendMailReducer.modal)
+  const successAction1 = useSelector((state) => state.sendMailReducer.successAction)
 
+  const [input, setInput] = useState(true)
   function deleteAccount() {
     dispatch(deleteUser(user.id));
     Swal.fire({
@@ -22,6 +29,40 @@ export default function Config({ user }) {
     navigateTo("/");
   }
 
+  function modifyMail(){
+    dispatch(changeModal())
+  }
+
+  useEffect(() => {
+       if(!modal && successAction1){
+        setInput(!input)
+       }
+  }, [successAction1])
+
+  function sendMail () {
+    let email = email1.current.value
+    dispatch(modifyUser(user.id, {email : email}))
+    setInput(!input)
+    dispatch(successAction())
+  };
+
+  function changeMail(){
+    return(
+    <div className={style.mail}>
+      <form onSubmit={sendMail}>
+      <label >Email: </label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Ingrese nuevo email..."
+        ref={email1}
+      />
+      <button className={style.button} type="submit">Confirmar</button>
+      <button onClick={close}>X</button>
+      </form>
+    </div>)
+  }
+  
   return (
     <div className={style.container}>
       <div className={style.config}>
@@ -45,9 +86,10 @@ export default function Config({ user }) {
         <div>
           <BtnUserProfile user={user} property="password" />
         </div>
-        <div className={style.modal}>
-          <span className={style.span}>Email: {user.email}</span>
-        </div>
+        {input ? (<div className={style.modal}>
+          <span className={style.span}>Email: {user.email}</span> 
+          <Button color='success' onClick={modifyMail}>MODIFY</Button>
+        </div>) : changeMail()}
         <div className={style.modal}>
           <span className={style.span}>Score: {user.score}</span>
         </div>
@@ -60,6 +102,7 @@ export default function Config({ user }) {
           </button>
         </div>
       </div>
+      {modal ? <VerifyMail user={user}/> : ''}
     </div>
   );
 }

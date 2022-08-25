@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { userCleanMsgInfo } from './../../redux/actions/user';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
-import { getUserShopCart } from '../../redux/actions/shopCart'
+import { Link, useNavigate } from 'react-router-dom';
+import { addToShopCart, getUserShopCart } from '../../redux/actions/shopCart'
 
 export default function Login() {
   /*const { loginWithRedirect } = useAuth0()
@@ -22,6 +22,7 @@ export default function Login() {
   const [errorMessages, setErrorMessages] = useState({});
   const msgInfo = useSelector(state => state.userReducer.msg);
   const userId = useSelector(state => state.userReducer.id);
+  const shopCart = useSelector(state => state.shopCartReducer.shopCart);
   // const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [input, setInput] = useState({
@@ -29,12 +30,27 @@ export default function Login() {
     email: ''
   });
 
+  async function addItems() {
+    for (const pack in shopCart) {
+      if (shopCart[pack].length) {
+        shopCart[pack].forEach((item) => {
+          dispatch(addToShopCart(item, item.quantity, pack, userId, true));
+        });
+      }
+    }
+    // console.log('aca termino :p')
+  }
+
   useEffect(() => {
     if (msgInfo?.type) {
       dispatch(userCleanMsgInfo());
       if (msgInfo.type === 'success') {
-        dispatch(getUserShopCart(userId));
-        navigate('/userProfile');
+
+        addItems().then(() => {
+          // console.log('aca entro');
+          dispatch(getUserShopCart(userId));
+          navigate('/userProfile');
+        });
       }
       else {
         Swal.fire({
@@ -82,6 +98,7 @@ export default function Login() {
           <div style={{ height: "15px" }}></div>
           <div className={style.buttoncontainer}>
             <button className={style2.button} data='Ingresar' type="submit" value='' />
+            <Link to='/'>Recuperar Contraseña</Link>
           </div>
         </form>
       </div>

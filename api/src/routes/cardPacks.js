@@ -95,7 +95,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
     await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId });
     // updatedInfo = [updatedUser, ...updatedInfo];
-    console.log(updatedUser)
+    // console.log(updatedUser)
     return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo, updatedUser });
   } catch (error) {
     console.error(error)

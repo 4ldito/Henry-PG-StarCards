@@ -22,12 +22,12 @@ export const getUserShopCart = (userId) => {
   }
 }
 
-export const addToShopCart = (product, quantity, packTypes, userId) => {
+export const addToShopCart = (product, quantity, packTypes, userId, notAdd) => {
+  // notAdd sirve para cuando un usuario nuevo se registre, guarde sus productos en la db pero no los vuelva a añadir d nuevo el estado global
   return async function (dispatch) {
     quantity = Number(quantity);
-    // console.log(userId)
     if (userId) await axios.post(`shopcart/add/${userId}`, { info: { product, quantity, packTypes } });
-    dispatch({ type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } })
+    if (!notAdd) dispatch({ type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } })
   }
 }
 
@@ -88,6 +88,14 @@ export function cleanPurchaseInfo() {
   return { type: SHOPCART_CLEAN_PURCHASE_INFO }
 }
 
-export function modifiyQuantity(payload) {
-  return { type: MODIFY_QUANTITY, payload }
+export function modifiyQuantity({ id, type, modifyType, userId }) {
+  return async function (dispatch) {
+    try {
+
+      dispatch({ type: MODIFY_QUANTITY, payload: { id, type, modifyType } });
+      if (userId) await axios.patch(`shopcart/edit/${userId}`, { info: { id, type, modifyType } });
+    } catch (error) {
+      console.error('STARCARDS_ERROR', error)
+    }
+  }
 }
