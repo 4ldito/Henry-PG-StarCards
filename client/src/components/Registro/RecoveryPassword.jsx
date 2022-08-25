@@ -14,7 +14,7 @@ export default function RecoverPassword(){
     const validUser = useSelector(state => state.userReducer.validUser);
     const modal = useSelector((state) => state.sendMailReducer.modal)
     const successAction1 = useSelector((state) => state.sendMailReducer.successAction)
-    const [render, setRender] = useState(true)
+    // const [render, setRender] = useState(true)
     const [userPass, setUserPass] = useState(true)
     const input1 = useRef(null)
     const input2 = useRef(null)
@@ -24,12 +24,14 @@ export default function RecoverPassword(){
       });
 
       useEffect(() => {
-
+        console.log('asdasdasdasd')
       }, [modal])
       
 useEffect(() => {
   if(user.email && validUser){
+    console.log('entra aca')
     if(user.username !== input.username){
+      dispatch(changeModal(false))
       Swal.fire({
         title: 'error',
         text: 'Las credenciales no coinciden',
@@ -37,7 +39,8 @@ useEffect(() => {
       });
       input1.current.value= ''
       input2.current.value= ''
-      dispatch(userClean())    
+      dispatch(userClean())  
+      console.log('credenciales no coinciden')
     }
     else{                             
       dispatch(sendMail({email: input.email}))
@@ -47,10 +50,14 @@ useEffect(() => {
         text: 'Se envio Token al Mail ingresado',
         icon: 'success',
       });
-      input1.current.value= ''
-      input2.current.value= ''
+      // input1.current.value= ''
+      // input2.current.value= ''
       dispatch(userClean())   
-      setRender(false)
+      // setRender(false)
+      dispatch(changeModal(true))
+
+      console.log('entra aca')
+
     }
   }
   else if(!user.email && validUser){
@@ -65,9 +72,12 @@ useEffect(() => {
       }
 }, [user])
 
-function login(e){
+function recoveryPassword(e){
     e.preventDefault();
+    // console.log('email',input.email)
     dispatch(getUserByEmail(input.email))
+    // dispatch(changeModal(true))
+
 }
 
 function handleOnChange (e){
@@ -78,22 +88,28 @@ function handleOnChange (e){
     })
 }
 
+function renderok(){
+  return(
+    <div>
+          <div className={style.inputcontainer}>
+                <label style={{fontSize:"larger"}}>Ingrese Username </label>
+                <input className= {style3.input} style={{width:"400px"}} type="text" name="username"  ref={input1} onChange={handleOnChange} />
+              </div>
+              <div className={style.inputcontainer}>
+                <label style={{fontSize:"larger"}}>Ingrese Email </label>
+                <input  className= {style3.input} style={{width:"400px"}} type="email" name="email" ref={input2} onChange={handleOnChange} />
+              </div>
+              <div style={{height:"15px"}}></div>
+              <div className={style.buttoncontainer}>
+                <button className={style2.button}  onClick={(e)=>recoveryPassword(e)} data='Recuperar Contraseña'></button>
+          </div>
+    </div>
+  )
+}
     return(
         <div className={style.appli}>
         <div className={style2.options}>
-          {(render && !modal)? (
-          <div><div className={style.inputcontainer}>
-            <label style={{fontSize:"larger"}}>Ingrese Username </label>
-            <input className= {style3.input} style={{width:"400px"}} type="text" name="username"  ref={input1} onChange={handleOnChange} />
-          </div>
-          <div className={style.inputcontainer}>
-            <label style={{fontSize:"larger"}}>Ingrese Email </label>
-            <input  className= {style3.input} style={{width:"400px"}} type="email" name="email" ref={input2} onChange={handleOnChange} />
-          </div>
-          <div style={{height:"15px"}}></div>
-          <div className={style.buttoncontainer}>
-            <button className={style2.button}  onClick={(e)=>login(e)} data='Recuperar Contraseña'></button>
-          </div></div>) : <VerifyRegister userPass={userPass} email={input.email}/>}
+          {(!modal)? renderok() : <VerifyRegister email={input.email} userPass={userPass}/>}
       </div>
     </div>
     )

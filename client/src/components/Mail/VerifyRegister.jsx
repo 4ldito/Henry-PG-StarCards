@@ -7,7 +7,7 @@ import { getByEmail, getUserByEmail, modifyUser } from "../../redux/actions/user
 import { useNavigate } from "react-router-dom";
 
 
-export default function VerifyRegister({email, userPass}){
+export default function VerifyRegister({email, userId}){
     const dispatch = useDispatch()
     const navigateTo = useNavigate();
     const token1 = useRef(null);
@@ -83,7 +83,9 @@ export default function VerifyRegister({email, userPass}){
             text: 'Se cambio la contraseña correctamente',
             icon: 'success',
           });
-          dispatch(successAction())
+          // dispatch(successAction())
+          dispatch(changeModal(false))
+          navigateTo('/login')
       }
       function changepassword(){
         return(

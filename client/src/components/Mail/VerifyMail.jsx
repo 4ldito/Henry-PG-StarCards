@@ -83,14 +83,14 @@ const [state, setState] = useState(
 
   function reenviarToken1(e){
     e.preventDefault();
-    console.log('state',state)
-    // dispatch(sendMail(state))
-    //   Swal.fire({
-    //   title: 'Token',
-    //   text: 'Se envio nuevo token',
-    //   icon: 'success',
-    // });
-    // setReenviar(true);
+    console.log('stateasdasdasdas',state.email)
+    dispatch(sendMail({email: state.email}))
+      Swal.fire({
+      title: 'Token',
+      text: 'Se envio nuevo token',
+      icon: 'success',
+    });
+    setReenviar(true);
     // token1.current.value = ''
   }
   

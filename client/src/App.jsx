@@ -17,6 +17,7 @@ import "./App.css";
 import { resetReduxState } from "./redux/actions";
 import Inventory from "./components/UserProfile/Inventory/Inventory";
 
+import RecoveryPassword from './components/Registro/RecoveryPassword';
 import Registro from './components/Registro/Registro';
 
 
@@ -50,6 +51,7 @@ function App() {
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
         <Route path="/inventory" element={<Inventory />} />
+        <Route path="/recovery" element={<RecoveryPassword />} />
         {/* </Route> */}
       </Routes>
     </div>

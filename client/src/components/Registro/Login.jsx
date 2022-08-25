@@ -77,7 +77,7 @@ export default function Login() {
           <div style={{height:"15px"}}></div>
           <div className={style.buttoncontainer}>
             <button className={style2.button} data='Ingresar' type="submit" value='' />
-            <Link to='/'>Recuperar Contraseña</Link>
+            <Link to='/recovery'>Recuperar Contraseña</Link>
           </div>
         </form>
       </div>
