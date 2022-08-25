@@ -1,18 +1,18 @@
 //Servidor con express
-const express = require("express");
-const http = require("http");
-const server = express();
-const socketIoServer = http.createServer(server);
-const cors = require("cors");
+// const express = require("express");
+// const http = require("http"),createServer(server);
+// const server = express();
+// const socketIoServer = http.createServer(server);
+// const cors = require("cors");
 
 //Inicializamos socketio
-const socketio = require("socket.io");
-const io = socketio(socketIoServer, {
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-  },
-});
+// const socketio = require("socket.io");
+// const io = socketio(socketIoServer, {
+//   cors: {
+//     origin: "*",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
 server.use(cors());
 
