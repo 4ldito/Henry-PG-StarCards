@@ -6,7 +6,9 @@ const shopCartRoute = Router();
 
 shopCartRoute.get("/:id", async (req, res, next) => {
     const { id } = req.params;
-
+    // console.log('a');
+    // console.log(id);
+    // if (!id) return res.send({error: 'ID required.'})
     try {
         const starsPacksIds = await ShopCart.findAll({
             where: { UserId: id, packTypes: 'starsPack', StatusId: 'active' }

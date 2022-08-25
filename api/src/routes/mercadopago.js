@@ -9,6 +9,7 @@ const mercadopagoRoute = Router()
 
 mercadopagoRoute.post('/checkout/:id', async (req, res, next) => {
   const { id } = req.params;
+  if (id === 'null') return res.status(404).send({ error: 'User not found' });
   const user = await User.findByPk(id);
 
   if (!user) return res.status(404).send({ error: 'User not found' });

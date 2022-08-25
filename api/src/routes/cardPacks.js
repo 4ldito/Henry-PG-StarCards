@@ -45,7 +45,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
       0
     );
 
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId, { attributes: { exclude: ['password'] } });
 
     // console.log(`${user.username} esta comprando :D`)
 

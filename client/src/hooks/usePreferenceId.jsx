@@ -9,8 +9,7 @@ export const usePreferenceId = (shopCartItems) => {
 
   useEffect(() => {
     if (preferenceId === -1 && shopCartItems.length) { 
-      
-      dispatch(getPreferenceId(shopCartItems, userId)) 
+      if (userId) dispatch(getPreferenceId(shopCartItems, userId)) 
     }
   }, [preferenceId]);
 
