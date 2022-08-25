@@ -7,7 +7,9 @@ class User extends Model {
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
     User.hasMany(models.Deck);
-    User.hasMany(models.Opinion)
+    User.hasMany(models.Opinion);
+    User.hasMany(models.ShopCart);
+    User.belongsToMany(models.CardPacks, {through: "FavPacks"})
   }
 }
 

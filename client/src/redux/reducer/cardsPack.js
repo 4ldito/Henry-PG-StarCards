@@ -1,10 +1,11 @@
-import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS } from "../actions/cardsPack";
+import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS, FAV_USER_PACKS } from "../actions/cardsPack";
 
 const initialState = {
   cardsPacks: [],
   filteredCardsPack: [],
   msg: { type: '', info: '', title: '' },
-  loaded: false
+  loaded: false,
+  favUserPacks: []
 }
 
 export default function cardsPacksReducer(state = initialState, { type, payload }) {
@@ -14,7 +15,7 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
 
     case BUY_CARD_PACK:
       const { msg, error, updatedInfo } = payload;
-      console.log(payload)
+      // console.log(payload)
       if (error) return { ...state, msg: { type: 'error', info: error, title: 'Error!' } }
       const data = state.cardsPacks.map(pack => {
         updatedInfo.forEach(updatedPack => {
@@ -27,8 +28,11 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
       return { ...state, filteredCardsPack: [...data], cardsPacks: [...data], msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
 
     case FILTER_CARDS_PACKS:
-      const { race, order } = payload;
+      const { race, order, favs } = payload;
       let newFilteredCardsPack = [...state.cardsPacks];
+      favs === 'all' ? newFilteredCardsPack = [...state.cardsPacks]
+      :
+      newFilteredCardsPack = [...state.favUserPacks];
       if (race !== 'allRaces') newFilteredCardsPack = state.cardsPacks.filter(cardpack => {
         const hasRace = cardpack.race.find(r => r === race)
         if (hasRace) return cardpack;
@@ -55,6 +59,9 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
 
     case CLEAN_MSG_INFO:
       return { ...state, msg: { type: '', info: '', title: '' } }
+
+    case FAV_USER_PACKS:
+      return { ...state, favUserPacks: payload.CardPacks }
 
     default:
       return state

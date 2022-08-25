@@ -3,6 +3,7 @@ const { Model } = require("sequelize");
 class CardPacks extends Model {
   static associate(models) {
     CardPacks.belongsTo(models.Status);
+    CardPacks.belongsToMany(models.User, {through: "FavPacks"})
   }
 }
 
