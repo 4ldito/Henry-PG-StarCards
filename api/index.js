@@ -107,5 +107,5 @@ db.sequelize.sync({ force: true }).then(async () => {
     console.log(`Server started on port ${PORT}`);
   });
 
-  socketIoServer.listen(5000, () => console.log("Servidor inicializado"));
+  // socketIoServer.listen(5000, () => console.log("Servidor inicializado"));
 });
