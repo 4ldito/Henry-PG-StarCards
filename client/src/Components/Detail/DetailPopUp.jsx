@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailCard } from "../../redux/actions/cards/detailCard";
-import { getOpinions, postOpinions, putOpinions } from "../../redux/actions/cards/opinion";
+import {
+  getOpinions,
+  postOpinions,
+  putOpinions,
+} from "../../redux/actions/cards/opinion";
+import { getUserCards } from "../../redux/actions/cards/userCards";
 
 import css from "./DetailPopUp.module.css";
 
@@ -9,8 +14,11 @@ export default function DetailPopUp({ handleDetail }) {
   const dispatch = useDispatch();
   const detailCards = useSelector((state) => state.detailReducer.card);
   const opinion = useSelector((state) => state.detailReducer.opinion);
+  const userCards = useSelector((state) => state.album.userCards);
+  const cards = useSelector((state) => state.album.cards);
   const user = useSelector((state) => state.userReducer);
   const [viewEdit, setViewEdit] = useState(false);
+  const [haveCard, setHaveCard] = useState(false);
   const [commented, setCommented] = useState(false);
   const [input, setInput] = useState({
     comment: "",
@@ -33,6 +41,18 @@ export default function DetailPopUp({ handleDetail }) {
       dispatch(getOpinions(null));
     };
   }, []);
+
+  useEffect(() => {
+    dispatch(getUserCards(user.user.UserCards, cards));
+  }, [cards]);
+
+  useEffect(() => {
+    userCards.forEach((card) => {
+      if (card.id === detailCards.id) {
+        setHaveCard(true);
+      }
+    });
+  }, [detailCards]);
 
   function Validaciones(valores) {
     let errors = {};
@@ -122,8 +142,37 @@ export default function DetailPopUp({ handleDetail }) {
               })}
             </div>
             {user.id ? (
-              commented ? (
-                viewEdit ? (
+              haveCard ? (
+                commented ? (
+                  viewEdit ? (
+                    <form>
+                      <label>Comment: </label>
+                      <input
+                        type="text"
+                        name="comment"
+                        value={input.comment}
+                        onChange={(e) => handleInput(e)}
+                      />
+                      <label>Score: </label>
+                      <input
+                        type="number"
+                        name="score"
+                        min="1"
+                        max="5"
+                        value={input.score}
+                        onChange={(e) => handleInput(e)}
+                      />
+                      <button onClick={(e) => handleEdit(e)}>Comment</button>
+                    </form>
+                  ) : (
+                    <>
+                      <h1>Ya comentaste</h1>
+                      <button onClick={(e) => handleSeeShopcart(e)}>
+                        Edit
+                      </button>
+                    </>
+                  )
+                ) : (
                   <form>
                     <label>Comment: </label>
                     <input
@@ -141,34 +190,11 @@ export default function DetailPopUp({ handleDetail }) {
                       value={input.score}
                       onChange={(e) => handleInput(e)}
                     />
-                    <button onClick={(e) => handleEdit(e)}>Comment</button>
+                    <button onClick={(e) => handleComment(e)}>Comment</button>
                   </form>
-                ) : (
-                  <>
-                    <h1>Ya comentaste</h1>
-                    <button onClick={(e) => handleSeeShopcart(e)}>Edit</button>
-                  </>
                 )
               ) : (
-                <form>
-                  <label>Comment: </label>
-                  <input
-                    type="text"
-                    name="comment"
-                    value={input.comment}
-                    onChange={(e) => handleInput(e)}
-                  />
-                  <label>Score: </label>
-                  <input
-                    type="number"
-                    name="score"
-                    min="1"
-                    max="5"
-                    value={input.score}
-                    onChange={(e) => handleInput(e)}
-                  />
-                  <button onClick={(e) => handleComment(e)}>Comment</button>
-                </form>
+                <h1>No tienes la carta</h1>
               )
             ) : (
               <h1>Inicia sesión para opinar</h1>

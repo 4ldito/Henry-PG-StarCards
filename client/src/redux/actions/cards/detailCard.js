@@ -9,11 +9,10 @@ export function detailCard(id) {
     };
   }
   return async function (dispatch) {
-    const cards = await axios.get("cards/all");
-    const card = cards.data.find((c) => c.id === id);
+    const card = await axios.get(`cards/${id}`);
     return dispatch({
       type: CARD_DETAIL,
-      payload: card,
+      payload: card.data,
     });
   };
 }

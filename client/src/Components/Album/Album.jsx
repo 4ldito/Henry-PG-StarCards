@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { detailCard } from "../../redux/actions/cards/detailCard";
 import getAllCards from "../../redux/actions/cards/getAllCards";
-// import { getOpinions } from "../../redux/actions/cards/getOpinions";
 import Card from "../Card/Card";
-// import DetailPopUp from "../Detail/DetailPopUp";
 
 import css from "./Album.module.css";
 
@@ -13,11 +10,6 @@ const Album = () => {
   const [limit, setLimit] = useState({ min: 0, max: cardsPerPage - 1 });
   const allCards = useSelector((state) => state.album.filteredCards);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(detailCard(null));
-  //   dispatch(getOpinions(null));
-  // }, []);
 
   useEffect(() => {
     dispatch(getAllCards());
