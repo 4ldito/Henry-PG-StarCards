@@ -104,7 +104,6 @@ db.sequelize.sync({ force: true }).then(async () => {
   ]);
 
   server.listen(PORT, () => {
-    console.log(server);
     console.log(`Server started on port ${PORT}`);
   });
 

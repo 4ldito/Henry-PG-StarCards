@@ -22,12 +22,12 @@ export const getUserShopCart = (userId) => {
   }
 }
 
-export const addToShopCart = (product, quantity, packTypes, userId) => {
+export const addToShopCart = (product, quantity, packTypes, userId, notAdd) => {
+  // notAdd sirve para cuando un usuario nuevo se registre, guarde sus productos en la db pero no los vuelva a añadir d nuevo el estado global
   return async function (dispatch) {
     quantity = Number(quantity);
-    // console.log(userId)
     if (userId) await axios.post(`shopcart/add/${userId}`, { info: { product, quantity, packTypes } });
-    dispatch({ type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } })
+    if (!notAdd) dispatch({ type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } })
   }
 }
 

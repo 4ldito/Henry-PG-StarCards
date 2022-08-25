@@ -11,12 +11,15 @@ import { useNavigate } from "react-router-dom";
 
 import VerifyRegister from '../Mail/VerifyRegister'
 import { changeModal, sendMail, successAction } from "../../redux/actions/sendMail";
+import { addToShopCart } from './../../redux/actions/shopCart';
 
 export default function Registro() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const modal = useSelector((state) => state.sendMailReducer.modal);
+  const user = useSelector((state) => state.userReducer.user);
+  const shopCart = useSelector(state => state.shopCartReducer.shopCart);
   const successAction1 = useSelector((state) => state.sendMailReducer.successAction);
 
   const [input, setInput] = useState({
@@ -31,9 +34,9 @@ export default function Registro() {
   const [showErrors, setShowErrors] = useState(false);
 
   useEffect(() => {
-    if(successAction1 && !modal){
+    if (successAction1 && !modal) {
       dispatch(createUser(input))
-      dispatch(successAction()) 
+      dispatch(successAction())
     }
   }, [successAction1]);
 
@@ -46,6 +49,14 @@ export default function Registro() {
           text: msgInfo.text,
           icon: msgInfo.type,
         });
+      }
+      // console.log(user)
+      for (const pack in shopCart) {
+        if (shopCart[pack].length) {
+          shopCart[pack].forEach((item) => {
+            dispatch(addToShopCart(item, item.quantity, pack, user.id, true));
+          });
+        }
       }
       dispatch(userCleanMsgInfo());
     }

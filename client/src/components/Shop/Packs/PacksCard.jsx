@@ -16,7 +16,7 @@ const PacksCard = ({ pack, type }) => {
 
   const user = useSelector((state) => state.userReducer.user);
   const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
-  let searchFaved = favPacks.find(p => p.id === pack.id)
+  let searchFaved = favPacks?.find(p => p.id === pack.id)
 
   const decreaseQuantity = (e) => {
     e.preventDefault();
