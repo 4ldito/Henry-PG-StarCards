@@ -43,7 +43,9 @@ export default function DetailPopUp({ handleDetail }) {
   }, []);
 
   useEffect(() => {
-    dispatch(getUserCards(user.user.UserCards, cards));
+    if (user.id) {
+      dispatch(getUserCards(user.user.UserCards, cards));
+    }
   }, [cards]);
 
   useEffect(() => {
