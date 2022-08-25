@@ -30,7 +30,8 @@ export default function Config({ user }) {
   }
 
   function modifyMail(){
-    dispatch(changeModal())
+    console.log('changemodal')
+    dispatch(changeModal(true))
   }
 
   useEffect(() => {
