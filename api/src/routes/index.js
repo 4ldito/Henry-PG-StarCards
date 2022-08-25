@@ -8,9 +8,11 @@ const packsRoute = require("./cardPacks");
 const userCardsRoute = require("./userCards");
 const opinionRoute = require ("./opinion");
 const shopCartRoute = require ("./shopCart");
+const userDecksRoute = require('./userDecks');
 
 const router = Router();
 
+router.use('/userDecks', userDecksRoute);
 router.use("/login", logInRoutes);
 router.use("/user", userRoute);
 router.use("/mercadopago", mercadopagoRoute);

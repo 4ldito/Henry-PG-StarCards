@@ -49,11 +49,8 @@ function App() {
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/detail" element={<Detail />} />
         <Route path='/playroom' element={<Playroom />} />
-        {/* <Route element={<ProtectedRoutes />}> */}
         <Route path='/shopcart' element={<ShopCart />} />
         <Route path="/userProfile" element={<UserProfile />} />
-        <Route path="/inventory" element={<Inventory />} />
-        {/* </Route> */}
       </Routes>
     </div>
   );
