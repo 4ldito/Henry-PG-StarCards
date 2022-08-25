@@ -8,8 +8,11 @@ import Rules from "../Rules/Rules";
 import Team from "../Team/Team";
 
 import css from "./About.module.css";
+import getAllCards from "../../redux/actions/cards/getAllCards";
+import { useDispatch } from "react-redux";
 
 export default function About() {
+  const dispatch = useDispatch();
   const [section, setSection] = useState("album");
   const album = useRef(null);
   const rules = useRef(null);
@@ -20,8 +23,12 @@ export default function About() {
     const target = e.target;
     const lastActive = document.querySelector(`.${css.selected}`);
     lastActive.classList.remove(css.selected);
-    target.classList.add(`${css.selected}`)
+    target.classList.add(`${css.selected}`);
     setSection(e.target.name);
+  }
+
+  function clearFilters() {
+    dispatch(getAllCards());
   }
 
   return (
@@ -62,6 +69,7 @@ export default function About() {
               <SearchCard />
               <SortCards />
               <FilterByRace />
+              <button onClick={clearFilters}>Clear Filters</button>
             </div>
           </div>
           <div className={css.cartas}>
