@@ -1,18 +1,23 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToShopCart } from "../../../redux/actions/shopCart";
-
+import { favUserPacks } from "../../../redux/actions/cardsPack";
 import Swal from "sweetalert2";
 import { buyCardPack } from "../../../redux/actions/cardsPack";
 
 import style from "../styles/PacksCards.module.css";
 import Pack from "./Pack";
+import { useEffect } from "react";
 
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [fav, setFav] = useState({action: 'delete', packId:0})
 
   const user = useSelector((state) => state.userReducer.user);
+  const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
+  let searchFaved = favPacks.find(p => p.id === pack.id)
+
 
   const decreaseQuantity = (e) => {
     e.preventDefault();
@@ -88,6 +93,19 @@ const PacksCard = ({ pack, type }) => {
     dispatch(addToShopCart(pack, quantity, type));
   };
 
+  const handleFav = (e) => {
+    e.preventDefault();
+    const userId = user.id
+    if (fav.action === 'add') {
+      setFav({action:'delete', packId:e.target.id})
+      console.log(e.target.id)
+      dispatch(favUserPacks({action:'delete', userId:userId, packId:e.target.id}))
+    } else {
+      setFav({action:'add', packId:e.target.id})
+      dispatch(favUserPacks({action:'add', userId:userId, packId:e.target.id}))
+    }    
+  }
+
   if (type === "cardsPack") {
     return (
       <>
@@ -107,6 +125,12 @@ const PacksCard = ({ pack, type }) => {
               Comprar YA
             </button>
             <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
+            {
+              searchFaved === undefined ?
+              <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Fav</button>
+              :
+              <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Unfav</button>
+            }
           </div>
         </form>}
       </>
