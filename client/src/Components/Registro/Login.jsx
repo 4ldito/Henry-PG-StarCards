@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { userCleanMsgInfo } from './../../redux/actions/user';
 import Swal from 'sweetalert2';
 import { Link, useNavigate } from 'react-router-dom';
+import RecoverPassword from './RecoverPassword'
+import { changeModal, successAction } from '../../redux/actions/sendMail'
 
 export default function Login() {
   /*const { loginWithRedirect } = useAuth0()
@@ -17,8 +19,8 @@ export default function Login() {
     */
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // React States
   const [errorMessages, setErrorMessages] = useState({});
+  const successAction1 = useSelector((state) => state.sendMailReducer.successAction)
   const msgInfo = useSelector(state => state.userReducer.msg);
   // const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -60,8 +62,12 @@ export default function Login() {
       <div className="error">{errorMessages.message}</div>
     );
 
+    function recovery(){
+      dispatch(successAction())
+    }
   return (
-    <div className={style.appli}>
+    <div>{!successAction1?
+    (<div className={style.appli}>
       <div className={style2.options}>
         <form onSubmit={(e) => { login(e) }}>
           <div className={style.inputcontainer}>
@@ -77,10 +83,11 @@ export default function Login() {
           <div style={{height:"15px"}}></div>
           <div className={style.buttoncontainer}>
             <button className={style2.button} data='Ingresar' type="submit" value='' />
-            <Link to='/'>Recuperar Contraseña</Link>
+            <a onClick={recovery}>Recuperar Contraseña</a>
           </div>
         </form>
       </div>
+    </div>) : <RecoverPassword/>}
     </div>
   )
 }

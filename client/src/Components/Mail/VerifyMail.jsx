@@ -33,6 +33,8 @@ const [state, setState] = useState(
   function close(){
     console.log(modal)
     dispatch(changeModal(false))
+    console.log('close2')
+
   }
 
   function enviarEmail(e) {
@@ -66,7 +68,7 @@ const [state, setState] = useState(
         icon: 'error',
       });
       setReenviar(false);
-      token1.current.value = ''
+      // token1.current.value = ''
     }
     else{
       Swal.fire({
@@ -79,16 +81,17 @@ const [state, setState] = useState(
     } 
   }
 
-  function reenviarToken(e){
+  function reenviarToken1(e){
     e.preventDefault();
-    dispatch(sendMail(state))
-    Swal.fire({
-      title: 'Token',
-      text: 'Se envio nuevo token',
-      icon: 'success',
-    });
-    setReenviar(true);
-    token1.current.value = ''
+    console.log('state',state)
+    // dispatch(sendMail(state))
+    //   Swal.fire({
+    //   title: 'Token',
+    //   text: 'Se envio nuevo token',
+    //   icon: 'success',
+    // });
+    // setReenviar(true);
+    // token1.current.value = ''
   }
   
     return (
@@ -123,7 +126,7 @@ const [state, setState] = useState(
               />
               <button className={style.button} type="submit">Verificar</button>
               <button onClick={close}>X</button>
-              {reenviar ? '' : <button className={style.button} onClick={(e)=>reenviarToken(e)}>Reenviar Token</button>}
+              {reenviar ? '' : <button className={style.button} onClick={(e)=>reenviarToken1(e)}>Reenviar Token</button>}
             </div>
           </form>)}
 

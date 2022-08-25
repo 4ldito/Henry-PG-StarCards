@@ -9,9 +9,9 @@ export function sendMail(payload) {
       dispatch({ type: SEND_MAIL, payload: response.data })
     }
   }
-export function changeModal() {
+export function changeModal(payload) {
     return function (dispatch) {
-      dispatch({ type: MODAL })
+      dispatch({ type: MODAL , payload: payload})
     }
   }
 export function successAction() {

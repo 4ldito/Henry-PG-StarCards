@@ -11,7 +11,7 @@ export default function starsPacksReducer (state = initialState, { type, payload
     case SEND_MAIL:
       return { ...state, token: payload }
     case MODAL:
-      return { ...state, modal: !state.modal }
+      return { ...state, modal: payload }
     case SUCCESS_ACTION:
       return { ...state, successAction: !state.successAction }
     default:
