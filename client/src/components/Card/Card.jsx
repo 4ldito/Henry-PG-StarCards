@@ -20,7 +20,7 @@ export default function Card({ id }) {
   useEffect(() => {
     if (user.id) {
       dispatch(getUserCards(user.UserCards, cards));
-      userCards.forEach((card) => {
+      userCards?.forEach((card) => {
         if (card.id === id) {
           setHaveCard(true);
         }

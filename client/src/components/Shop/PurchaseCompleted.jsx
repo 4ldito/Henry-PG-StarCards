@@ -42,7 +42,7 @@ const PurchaseCompleted = () => {
 
   return (
     <div className={style.container}>
-      {console.log(actualPurchaseInfo)}
+      {/* {console.log(actualPurchaseInfo)} */}
       <div className={style.model}>
         {error.type ? <h2>{error.info}</h2> :
           <>
