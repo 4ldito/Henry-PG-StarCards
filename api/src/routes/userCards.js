@@ -9,7 +9,7 @@ userCardsRoute.post("/", async (req, res, next) => {
 
   try {
     const createdUserCards = [];
-    const cardsArray = cardsId.map(async (cardId)=>{
+    const cardsArray = cardsId.map(async (cardId) => {
       const userCard = await UserCards.create();
       createdUserCards.push(userCard);
       const addUserCard = [
@@ -17,11 +17,11 @@ userCardsRoute.post("/", async (req, res, next) => {
         userCard.setUser(userId),
         userCard.setCard(cardId),
       ];
-  
-      return Promise.all(addUserCard);
-    })
 
-    await Promise.all(cardsArray)
+      return Promise.all(addUserCard);
+    });
+
+    await Promise.all(cardsArray);
 
     return res.send(createdUserCards);
   } catch (error) {
@@ -49,6 +49,21 @@ userCardsRoute.get("/", async (req, res, next) => {
     return res.send(cards);
   } catch (error) {
     return next(error);
+  }
+});
+
+userCardsRoute.patch("/", async (req, res, next) => {
+  try {
+    const { id, status } = req.body;
+    const card = await UserCards.findOne({
+      where: { id },
+    });
+
+    await card.setStatus(status);
+
+    res.json(card);
+  } catch (error) {
+    console.log(error);
   }
 });
 
