@@ -6,9 +6,10 @@ const starsPackRoute = require("./starsPacks");
 const cardsRoute = require("./cards");
 const packsRoute = require("./cardPacks");
 const userCardsRoute = require("./userCards");
-const opinionRoute = require ("./opinion");
-const shopCartRoute = require ("./shopCart");
-const sendMail = require ("./sendMail")
+const opinionRoute = require("./opinion");
+const favPacksRoute = require("./favPacks");
+const shopCartRoute = require("./shopCart");
+const sendMail = require("./sendMail");
 
 const router = Router();
 
@@ -22,5 +23,7 @@ router.use("/userCards", userCardsRoute);
 router.use("/opinion", opinionRoute);
 router.use("/", sendMail);
 router.use("/shopcart", shopCartRoute);
+router.use("/favPacks", favPacksRoute);
+
 
 module.exports = router;

@@ -9,6 +9,7 @@ class User extends Model {
     User.hasMany(models.Deck);
     User.hasMany(models.Opinion);
     User.hasMany(models.ShopCart);
+    User.belongsToMany(models.CardPacks, {through: "FavPacks"})
   }
 }
 

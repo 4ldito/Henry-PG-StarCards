@@ -8,7 +8,7 @@ const Filters = () => {
 
     const dispatch = useDispatch();
 
-    const [filters, setFilters] = useState({ race: 'allRaces', order: '' });
+    const [filters, setFilters] = useState({ race: 'allRaces', order: '', favs:'all' });
 
     const onSelectChange = (e) => {
       setFilters({
@@ -29,6 +29,12 @@ const Filters = () => {
                 <option value='Terran'>Terran</option>
                 <option value='Zerg'>Zerg</option>
             </select>
+            {
+              filters.favs === 'all' ?
+            <button onClick={onSelectChange} value='favs' name='favs'> Mostrar sólo favoritos </button>
+            :
+            <button onClick={onSelectChange} value='all' name='favs'> Mostrar todos </button>
+            }
             <select onChange={onSelectChange} name='order'>
                 <option hidden value='allPrices'>Precio</option>
                 <option value='priceDes'>Mayor a Menor</option>
