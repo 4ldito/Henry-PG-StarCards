@@ -22,14 +22,8 @@ export default function Card({ id }) {
     userCards.forEach((card) => {
       if (card.id === id) {
         setHaveCard(true);
-        // console.log("FUNCA");
-      } else {
-        console.log(card.id);
       }
     });
-    // console.log("----------------------------");
-    // console.log(id);
-    // console.log("----------------------------");
   }, [cards]);
 
   function handleDetail() {
@@ -54,24 +48,30 @@ export default function Card({ id }) {
       : css.protossCard;
 
   return (
-    <div className={css.Card}>
-      {haveCard ? <span className={css.haveCard}>You have this letter</span> : <span className={css.haveCard}>You don't have this letter</span>}
-      <div className={`${cardCss} ${css.cardContainer}`} onClick={todo}>
-        <div className={css.nameContainer}>
-          <h3 className={css.name}>{card?.name}</h3>
-          <span className={css.cost}>{card?.cost}</span>
-        </div>
-        <img className={css.img} src={card?.image} alt={card?.image} />
-        <span className={css.movement}>{card?.movement}</span>
-        <p className={css.ability}>{card?.ability}</p>
-        <div className={css.stats}>
-          <span className={css.life}>{card?.life}</span>
-          <span className={css.dmg}>
-            {card?.Gdmg}/{card?.Admg}
-          </span>
+    <>
+      <div className={css.Card}>
+        {haveCard ? (
+          <span className={css.haveCard}>You have this card</span>
+        ) : (
+          <span className={css.haveCard}>You don't have this letter</span>
+        )}
+        <div className={`${cardCss} ${css.cardContainer}`} onClick={todo}>
+          <div className={css.nameContainer}>
+            <h3 className={css.name}>{card?.name}</h3>
+            <span className={css.cost}>{card?.cost}</span>
+          </div>
+          <img className={css.img} src={card?.image} alt={card?.image} />
+          <span className={css.movement}>{card?.movement}</span>
+          <p className={css.ability}>{card?.ability}</p>
+          <div className={css.stats}>
+            <span className={css.life}>{card?.life}</span>
+            <span className={css.dmg}>
+              {card?.Gdmg}/{card?.Admg}
+            </span>
+          </div>
         </div>
       </div>
       {viewDetail && <DetailPopUp handleDetail={ver} />}
-    </div>
+    </>
   );
 }
