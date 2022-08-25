@@ -11,11 +11,12 @@ transactionRoute.post("/", async (req, res, next) => {
   try {
     const transaction = await Transaction.create({ type, paymentId });
 
-    transaction.setUser(userId);
-    transaction.setStatus('active');
+    await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
+    // await transaction.setUser(userId);
+    // await transaction.setStatus('active');
 
-    items.forEach(item => {
-      transaction.addStarsPack(item.id);
+    items.forEach(async item => {
+      await transaction.addStarsPack(item.id);
     });
     // console.log(transaction)
     // return res.send('');

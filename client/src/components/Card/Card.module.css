@@ -3,8 +3,17 @@
   src: url("../../../css/EUROSTIB.ttf");
 }
 
-.cardContainer {
+.Card{
   font-family: starcardsFont;
+  text-align: center;
+  transition: all .3s;
+}
+
+.haveCard{
+  font-size: 3vh;
+}
+
+.cardContainer {
   height: 447px;
   width: 320px;
   background-size: cover;
@@ -17,11 +26,10 @@
   color: rgb(255, 255, 255);
 
   text-shadow: 0 0 6px rgb(0, 0, 0), 0 0 6px rgb(0, 0, 0);
-  transition: all .3s;
   cursor: pointer;
 }
 
-.cardContainer:hover{
+.Card:hover{
   transform: scale(1.03);
 }
 

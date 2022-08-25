@@ -82,32 +82,34 @@ const Album = () => {
   }
 
   return (
-    <div>
-      <div className={css.cartas}>
-        {allCards.map((card, index) => {
-          if (index <= limit.max && index >= limit.min) {
-            return (
-              <Card
-                key={card.id}
-                id={card.id}
-                name={card.name}
-                image={card.image}
-                cost={card.cost}
-                Gdmg={card.Gdmg}
-                Admg={card.Admg}
-                life={card.life}
-                ability={card.ability}
-                abilities={card.abilities}
-                race={card.race}
-                movement={card.movement}
-              />
-            );
-          }
-        })}
-      </div>
+    <>
+      <div>
+        <div className={css.cartas}>
+          {allCards.map((card, index) => {
+            if (index <= limit.max && index >= limit.min) {
+              return (
+                <Card
+                  key={card.id}
+                  id={card.id}
+                  name={card.name}
+                  image={card.image}
+                  cost={card.cost}
+                  Gdmg={card.Gdmg}
+                  Admg={card.Admg}
+                  life={card.life}
+                  ability={card.ability}
+                  abilities={card.abilities}
+                  race={card.race}
+                  movement={card.movement}
+                />
+              );
+            }
+          })}
+        </div>
 
-      <div className={css.paginated}>{paginated()}</div>
-    </div>
+        <div className={css.paginated}>{paginated()}</div>
+      </div>
+    </>
   );
 };
 

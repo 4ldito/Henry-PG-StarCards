@@ -1,27 +1,45 @@
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { detailCard } from "../../redux/actions/cards/detailCard.js";
-import { getOpinions } from "../../redux/actions/cards/getOpinions.js";
+import { getOpinions } from "../../redux/actions/cards/opinion.js";
+import { getUserCards } from "../../redux/actions/cards/userCards.js";
+import DetailPopUp from "../Detail/DetailPopUp.jsx";
 
 import css from "./Card.module.css";
 
 export default function Card({ id }) {
-  const allCards = useSelector((state) => state.album.filteredCards);
-  const card = allCards.find((c) => c.id === id);
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const allCards = useSelector((state) => state.album.filteredCards);
+  const cards = useSelector((state) => state.album.cards);
+  const user = useSelector((state) => state.userReducer.user);
+  const card = allCards.find((c) => c.id === id);
+  const userCards = useSelector((state) => state.album.userCards);
+  const [viewDetail, setViewDetail] = useState(false);
+  const [haveCard, setHaveCard] = useState(false);
 
   useEffect(() => {
-    dispatch(detailCard(null));
-  }, []);
+    if (user.id) {
+      dispatch(getUserCards(user.UserCards, cards));
+      userCards.forEach((card) => {
+        if (card.id === id) {
+          setHaveCard(true);
+        }
+      });
+    }
+  }, [cards]);
 
-  function detail() {
+  function handleDetail() {
     dispatch(detailCard(id));
     dispatch(getOpinions(id));
-    navigate("/detail");
+  }
+
+  function ver() {
+    setViewDetail(!viewDetail);
+  }
+
+  function todo() {
+    handleDetail();
+    ver();
   }
 
   const cardCss =
@@ -32,23 +50,30 @@ export default function Card({ id }) {
       : css.protossCard;
 
   return (
-    <div
-      className={`${cardCss} ${css.cardContainer}`}
-      onClick={() => detail(id)}
-    >
-      <div className={css.nameContainer}>
-        <h3 className={css.name}>{card?.name}</h3>
-        <span className={css.cost}>{card?.cost}</span>
+    <>
+      <div className={css.Card}>
+        {haveCard ? (
+          <span className={css.haveCard}>You have this card</span>
+        ) : (
+          <span className={css.haveCard}>You don't have this letter</span>
+        )}
+        <div className={`${cardCss} ${css.cardContainer}`} onClick={todo}>
+          <div className={css.nameContainer}>
+            <h3 className={css.name}>{card?.name}</h3>
+            <span className={css.cost}>{card?.cost}</span>
+          </div>
+          <img className={css.img} src={card?.image} alt={card?.image} />
+          <span className={css.movement}>{card?.movement}</span>
+          <p className={css.ability}>{card?.ability}</p>
+          <div className={css.stats}>
+            <span className={css.life}>{card?.life}</span>
+            <span className={css.dmg}>
+              {card?.Gdmg}/{card?.Admg}
+            </span>
+          </div>
+        </div>
       </div>
-      <img className={css.img} src={card?.image} alt={card?.image} />
-      <span className={css.movement}>{card?.movement}</span>
-      <p className={css.ability}>{card?.ability}</p>
-      <div className={css.stats}>
-        <span className={css.life}>{card?.life}</span>
-        <span className={css.dmg}>
-          {card?.Gdmg}/{card?.Admg}
-        </span>
-      </div>
-    </div>
+      {viewDetail && <DetailPopUp handleDetail={ver} />}
+    </>
   );
 }
