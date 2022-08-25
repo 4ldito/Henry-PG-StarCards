@@ -110,7 +110,8 @@ userRoute.patch("/:id", async (req, res, next) => {
     let stars = 0;
 
     if (items?.length) stars = items.reduce((acc, item) => {
-      return acc + Number(item.description)
+      // console.log(item)
+      return acc + (Number(item.description) * Number(item.quantity))
     }, 0)
 
     if (RolId) await user.setStatus(RolId);

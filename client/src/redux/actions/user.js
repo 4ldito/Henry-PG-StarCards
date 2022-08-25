@@ -97,9 +97,17 @@ export function isValidToken(id, token) {
   }
 }
 
-export function purchaseCompleted(id, items) {
+export function purchaseCompleted(id, items, paymentId) {
   return async function (dispatch) {
-    const response = await axios.patch(`user/${id}`, { items });
-    dispatch({ type: MODIFY_USER, payload: response.data })
+    try {
+      const { data } = await axios.get(`transaction/${paymentId}`);
+      // Si ya existe data es poruqe la transicción ya fue acreditada.
+      if (data) return;
+      const response = await axios.patch(`user/${id}`, { items });
+      await axios.post('transaction/', { data: { paymentId, items, userId: id, type: 'money' } })
+      dispatch({ type: MODIFY_USER, payload: response.data })
+    } catch (error) {
+      console.log('error')
+    }
   }
 }

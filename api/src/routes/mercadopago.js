@@ -22,6 +22,7 @@ mercadopagoRoute.post('/checkout/:id', async (req, res, next) => {
       quantity: item.quantity,
       description: item.stars.toString(),
       service: item.name,
+      id: item.id,
       currency_id: 'ARS'
     }
   });

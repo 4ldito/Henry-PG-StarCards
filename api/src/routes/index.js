@@ -10,6 +10,7 @@ const opinionRoute = require("./opinion");
 const favPacksRoute = require("./favPacks");
 const shopCartRoute = require("./shopCart");
 const sendMail = require("./sendMail");
+const transactionRoute = require("./transaction");
 
 const router = Router();
 
@@ -24,6 +25,7 @@ router.use("/opinion", opinionRoute);
 router.use("/", sendMail);
 router.use("/shopcart", shopCartRoute);
 router.use("/favPacks", favPacksRoute);
+router.use("/transaction", transactionRoute);
 
 
 module.exports = router;

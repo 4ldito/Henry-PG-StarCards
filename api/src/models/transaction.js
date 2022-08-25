@@ -1,46 +1,43 @@
 const { Model } = require("sequelize");
 
-class ShopCart extends Model {
+class Transaction extends Model {
   static associate(models) {
-    ShopCart.belongsTo(models.Status);
-    ShopCart.belongsTo(models.User);
+    Transaction.belongsTo(models.Status);
+    Transaction.belongsTo(models.User);
+    Transaction.belongsToMany(models.StarsPack, { through: 'Transaction_StarsPack' });
   }
 }
 
 module.exports = (sequelize, DataTypes) => {
-  ShopCart.init(
+  Transaction.init(
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      product: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      packTypes: {
+      type: {
         type: DataTypes.STRING,
-        defaultValue: "starsPack",
+        defaultValue: "money",
         validate: {
           customValidator: (value) => {
-            const enums = ["starsPack", "cardsPack"];
+            const enums = ["money", "stars"];
             if (!enums.includes(value)) {
               throw new Error("not a valid option");
             }
           },
         },
       },
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false
+      paymentId: {
+        type: DataTypes.BIGINT,
+        // allowNull: false
       }
     },
     {
       sequelize,
-      modelName: "ShopCart",
+      modelName: "Transaction",
       //   timestamps: false
     }
   );
-  return ShopCart;
+  return Transaction;
 };
