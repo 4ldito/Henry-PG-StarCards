@@ -34,14 +34,14 @@ export default function UserOptions({ handleVisibleUserOptions }) {
       {validToken ? (
         <ul id="menu" className={css.ul}>
           <li className={css.li}>
-            <Link
+            <button
               onClick={handleSeeShopcart}
-              className={css.link}
               style={option}
-              to="/shopcart"
+              className={css.btn}
+              // to="/shopcart"
             >
               Shopcart
-            </Link>
+            </button>
           </li>
           <li className={css.li}>
             <Link className={css.link} style={option} to="/userProfile">
@@ -61,7 +61,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
               onClick={handleSeeShopcart}
               className={css.btn}
               style={option}
-              to="/shopcart"
+            // to="/shopcart"
             >
               Shopcart
             </button>

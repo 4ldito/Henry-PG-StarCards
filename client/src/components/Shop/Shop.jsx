@@ -40,9 +40,9 @@ const Shop = () => {
         text: msgInfoPurchase.info,
         icon: msgInfoPurchase.type,
       });
-      if (msgInfoPurchase.type === 'success') {
-        console.log('termino')
-      };
+      // if (msgInfoPurchase.type === 'success') {
+      //   // console.log('termino')
+      // };
     }
   }, [msgInfoPurchase]);
 

@@ -16,10 +16,40 @@ const io = require("socket.io")(socketIoServer, {
   },
 });
 
+const userSockets = [];
+
 //Funcionalidad de socket.io en el socketIoServer
 io.on("connection", (socket) => {
   let nombre;
 
+  socket.on("connectPrivateSocket", (userId) => {
+    const currentUser = userSockets.find((u) => u.userId === userId);
+
+    if (currentUser) {
+      currentUser.sockets.push(socket.id);
+    } else currentUser.push({ userId, sockets: [socket.id] });
+  });
+
+  socket.on("privateMessage", (userId, receiverId, message) => {
+    const currentReceiver = userSockets.find((u) => u.userId === receiverId);
+
+    if (currentReceiver.sockets.length) {
+      currentReceiver.sockets.forEach((s) => {
+        socket.to(s).emit({ userId, message });
+      });
+    }
+  });
+
+  socket.on("disconnectPrivateSocket", (userId, socketId) => {
+    const currentUser = userSockets.find((u) => u.userId === userId);
+
+    const newSockets = currentUser.sockets.filter((s) => s !== socket.id);
+
+    currentUser.sockets = [...newSockets];
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // PUBLIC CHAT
   socket.on("conectado", (nomb) => {
     nombre = nomb;
     //socket.broadcast.emit manda el mensaje a todos los clientes excepto al que ha enviado el mensaje

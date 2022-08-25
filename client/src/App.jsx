@@ -7,7 +7,7 @@ import Login from './components/Registro/Login'
 import UserProfile from "./components/UserProfile/UserProfile";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Playroom from "./components/Playroom/Playroom";
-import ShopCart from "./components/Shop/ShopCart/ShopCart";
+// import ShopCart from "./components/Shop/ShopCart/ShopCart";
 import Shop from "./components/Shop/Shop";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
 import Nav from "./components/Nav/Nav";
@@ -47,7 +47,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path='/playroom' element={<Playroom />} />
-        <Route path='/shopcart' element={<ShopCart />} />
+        {/* <Route path='/shopcart' element={<ShopCart />} /> */}
         <Route path="/userProfile" element={<UserProfile />} />
       </Routes>
     </div>

@@ -11,6 +11,7 @@ class User extends Model {
     User.hasMany(models.ShopCart);
     User.hasMany(models.Transaction);
     User.belongsToMany(models.CardPacks, {through: "FavPacks"})
+    User.hasMany(models.Message);
   }
 }
 

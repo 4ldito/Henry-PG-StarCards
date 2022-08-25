@@ -5,6 +5,7 @@ class Transaction extends Model {
     Transaction.belongsTo(models.Status);
     Transaction.belongsTo(models.User);
     Transaction.belongsToMany(models.StarsPack, { through: 'Transaction_StarsPack' });
+    Transaction.belongsToMany(models.CardPacks, { through: 'Transaction_CardPacks' });
   }
 }
 
