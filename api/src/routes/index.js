@@ -11,9 +11,11 @@ const favPacksRoute = require("./favPacks");
 const shopCartRoute = require("./shopCart");
 const sendMail = require("./sendMail");
 const transactionRoute = require("./transaction");
+const userDecksRoute = require('./userDecks');
 
 const router = Router();
 
+router.use('/userDecks', userDecksRoute);
 router.use("/login", logInRoutes);
 router.use("/user", userRoute);
 router.use("/mercadopago", mercadopagoRoute);

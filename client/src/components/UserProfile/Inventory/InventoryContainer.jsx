@@ -21,7 +21,7 @@ export default function InventoryContainer() {
         </div>
       );
     });
-    if (filteredUserCards.length) return cartas;
+    if (filteredUserCards?.length) return cartas;
     return <label>Not cards found</label>;
   }
 

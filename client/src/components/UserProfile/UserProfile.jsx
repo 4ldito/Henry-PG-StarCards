@@ -10,6 +10,7 @@ import useValidToken from "../../hooks/useValidToken";
 
 
 import getAllCards from '../../redux/actions/cards/getAllCards'
+import Inventory from "./Inventory/Inventory";
 export default function UserProfile() {
   const dispatch = useDispatch();
   const userActive = useSelector((state) => state.userReducer.user);
@@ -55,12 +56,11 @@ export default function UserProfile() {
         </Link>
       </div>
       <div className={style.buttonsbar}>
-        <Link to='/inventory'><button>Inventory</button></Link>
+        {/* <Link to='/inventory'><button>Inventory</button></Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
           value="1"
           onClick={(e) => changeRender(e)}
-          disabled
         >
           Inventory
         </button>
@@ -95,7 +95,7 @@ export default function UserProfile() {
             <Config user={user} />
           </div>
         ) : render === "Inventory" ? (
-          "Inventory"
+          <Inventory/>
         ) : render === "Stats" ? (
           "Stats"
         ) : (
