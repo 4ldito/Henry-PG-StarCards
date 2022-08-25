@@ -1,5 +1,4 @@
 const server = require("./src/app");
-// const socketIoServer = require("./src/chatServer")
 const db = require("./src/db");
 const users = require("./src/seeders/users");
 const rols = require("./src/seeders/rols");
@@ -106,6 +105,4 @@ db.sequelize.sync({ force: true }).then(async () => {
   server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
   });
-
-  // socketIoServer.listen(5000, () => console.log("Servidor inicializado"));
 });
