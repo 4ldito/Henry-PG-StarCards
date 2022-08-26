@@ -90,7 +90,7 @@ useEffect(() => {
   function verifyTokens(e){
     e.preventDefault()
     dispatch(verifyToken(state.tokenFront))
-    console.log('recivedToken',recivedToken , 'tokenIstrue',tokenIstrue)
+    // console.log('recivedToken',recivedToken , 'tokenIstrue',tokenIstrue)
     // if(tokenBack !== Number(state.tokenFront)){ //
     //   Swal.fire({
     //     title: 'Token',

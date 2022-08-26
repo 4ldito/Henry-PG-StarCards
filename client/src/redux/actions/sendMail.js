@@ -1,5 +1,5 @@
 import axios from 'axios'
-export const SEND_MAIL = 'SEND_MAIL', MODAL = 'MODAL', SUCCESS_ACTION = 'SUCCESS_ACTION', VERIFY_TOKEN = 'VERIFY_TOKEN', CLEAN_TOKEN = 'CLEAN_TOKEN', CLEAN_RECIVED_TOKEN='CLEAN_RECIVED_TOKEN'
+export const SEND_MAIL = 'SEND_MAIL',CHANGE_RENDER='CHANGE_RENDER', MODAL = 'MODAL', SUCCESS_ACTION = 'SUCCESS_ACTION', VERIFY_TOKEN = 'VERIFY_TOKEN', CLEAN_TOKEN = 'CLEAN_TOKEN', CLEAN_RECIVED_TOKEN='CLEAN_RECIVED_TOKEN'
 
 
 
@@ -33,5 +33,10 @@ export function cleanToken() {
 export function cleanrecivedToken() {
     return function (dispatch) {
       dispatch({ type: CLEAN_RECIVED_TOKEN })
+    }
+  }
+export function renderVerifyRegister() {
+    return function (dispatch) {
+      dispatch({ type: CHANGE_RENDER })
     }
   }

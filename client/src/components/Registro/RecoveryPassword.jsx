@@ -5,15 +5,17 @@ import { useEffect, useRef, useState } from 'react';
 import { getUserByEmail, userClean } from '../../redux/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
-import { changeModal, sendMail, successAction } from '../../redux/actions/sendMail';
+import { changeModal, renderVerifyRegister, sendMail, successAction } from '../../redux/actions/sendMail';
 import VerifyRegister from '../Mail/VerifyRegister';
+import { useNavigate } from "react-router-dom";
 
 export default function RecoverPassword(){
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigateTo = useNavigate();
     const user = useSelector(state => state.userReducer.user);
     const validUser = useSelector(state => state.userReducer.validUser);
     const modal = useSelector((state) => state.sendMailReducer.modal)
-    const successAction1 = useSelector((state) => state.sendMailReducer.successAction)
+    const successActions = useSelector((state) => state.sendMailReducer.successAction)
     // const [render, setRender] = useState(true)
     const [userPass, setUserPass] = useState(true)
     const input1 = useRef(null)
@@ -24,12 +26,24 @@ export default function RecoverPassword(){
       });
 
       useEffect(() => {
-        console.log('asdasdasdasd')
+        if(!modal && successActions){
+          dispatch(changeModal(true))
+          // console.log('email:.' ,input.email)
+          dispatch(renderVerifyRegister())
+
+          // Swal.fire({
+          //   title: 'Completado',
+          //   text: 'La contraseña fue cambiada con exito',
+          //   icon: 'success',
+          // });
+          // navigateTo('/login')
+          dispatch(successAction()) 
+        }
       }, [modal])
       
 useEffect(() => {
   if(user.email && validUser){
-    console.log('entra aca')
+    // console.log('entra aca')
     if(user.username !== input.username){
       dispatch(changeModal(false))
       Swal.fire({
@@ -40,7 +54,7 @@ useEffect(() => {
       input1.current.value= ''
       input2.current.value= ''
       dispatch(userClean())  
-      console.log('credenciales no coinciden')
+      // console.log('credenciales no coinciden')
     }
     else{                             
       dispatch(sendMail({email: input.email}))
@@ -56,7 +70,7 @@ useEffect(() => {
       // setRender(false)
       dispatch(changeModal(true))
 
-      console.log('entra aca')
+      // console.log('entra aca')
 
     }
   }
@@ -109,7 +123,7 @@ function renderok(){
     return(
         <div className={style.appli}>
         <div className={style2.options}>
-          {(!modal)? renderok() : <VerifyRegister email={input.email} userPass={userPass}/>}
+          {(!modal)? renderok() : <VerifyRegister email={input.email} user={userPass}/>}
       </div>
     </div>
     )
