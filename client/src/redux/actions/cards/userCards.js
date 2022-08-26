@@ -1,9 +1,10 @@
+import axios from "axios";
 export const SORT_USER_CARDS = "SORT_USER_CARDS";
 export const GET_USER_CARDS = "GET_USER_CARDS";
 export const FILTER_USER_CARDS = "FILTER_USER_CARDS";
-import axios from "axios";
 import noRepUserCards from "../../../components/UserProfile/Inventory/functions/noRepUserCards";
 export const SEARCH_USER_CARD = "SEARCH_USER_CARD";
+export const SALE_CARD = 'SALE_CARD';
 const nameAtoZ = "nameAtoZ";
 const nameZtoA = "nameZtoA";
 const ascendentCost = "ascendentCost";
@@ -14,12 +15,9 @@ const ascendentAdmg = "ascendentAdmg";
 const descendentAdmg = "descendentAdmg";
 const ascendentlife = "ascendentlife";
 const descendentlife = "descendentlife";
-export const SALE_CARD = 'SALE_CARD';
 
 export function getUserCards(userCards, allCards) {
-
   const userCardsInventory = userCards.map((userCard) => {
-    // console.log(userCard)
     return allCards.find((card) => {
       if (card.id === userCard.CardId) {
         card.userCard = { id: userCard.id, statusId: userCard.StatusId };
@@ -27,22 +25,12 @@ export function getUserCards(userCards, allCards) {
       }
     });
   });
-  // console.log(userCards)
-  // const userCardsInventory = userCardIds?.map((idCard) =>
-  //   allCards?.find((card) => {
-  //     console.log(idCard)
-  //     if (card.id === idCard) return { ...card, userCardId: idCard.id };
-  //   })
-  // );
-  // console.log(userCardsInventory)
 
-  // console.log(userCards)
-  // const notRepeated = noRepUserCards(userCardsInventory);
   return { type: GET_USER_CARDS, payload: { userCardsInventory } };
 }
 
 export function filterUserCards(filter, userCards) {
-  const notRepeated = noRepUserCards(userCards);
+  const { notRepeated } = noRepUserCards(userCards);
   const filterRace =
     filter.race === "allRaces"
       ? notRepeated
@@ -57,7 +45,7 @@ export function filterUserCards(filter, userCards) {
 }
 
 export function searchUserCard(search, cards) {
-  const notRepeated = noRepUserCards(cards);
+  const { notRepeated } = noRepUserCards(cards);
 
   if (search === "") {
     return { type: SEARCH_USER_CARD, payload: notRepeated };
@@ -132,7 +120,7 @@ export function sortUserCards(sort, cards) {
   };
 }
 
-export function saleCard(values) {
+export function handleSaleCard(values) {
   return async function (dispatch) {
     const response = await axios.patch("/userCards", values);
     dispatch({ type: SALE_CARD, payload: response.data })

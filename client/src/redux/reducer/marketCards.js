@@ -8,8 +8,7 @@ const initialState = {
 export default function marketCardsReducer(state = initialState, { type, payload }) {
     switch (type) {
         case GET_ALL_CARDS_IN_SALE:
-            console.log(payload)
-            return { ...state }
+            return { ...state, cardsInSale: payload, loaded: true }
         default:
             return state
     }

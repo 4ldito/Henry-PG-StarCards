@@ -54,14 +54,19 @@ userCardsRoute.get("/", async (req, res, next) => {
 
 userCardsRoute.patch("/", async (req, res, next) => {
   try {
-    const { userId, userCardId, status } = req.body;
-    const card = await UserCards.findOne({
-      where: { UserId: userId, id: userCardId }, include: Card,
-    });
+    const { userId, userCardsIdsToSale, status, price } = req.body;
 
-    await card.setStatus(status);
-    // console.log(card);
-    res.json(card);
+    const userCards = await Promise.all(userCardsIdsToSale.map((userCard) => {
+      return UserCards.findOne({
+        where: { UserId: userId, id: userCard }, include: Card,
+      });
+    }));
+
+    const updatedUserCards = await Promise.all(userCards.map((userCard) => {
+      return userCard.update({ price, StatusId: status });
+    }));
+
+    res.json(updatedUserCards);
   } catch (error) {
     console.log(error);
   }
