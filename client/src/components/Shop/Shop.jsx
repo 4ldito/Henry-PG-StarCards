@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import { useSelector, useDispatch } from 'react-redux';
-
 import { useFetchStarsPack } from '../../hooks/useFetchStarsPack';
 import { useFetchCardsPack } from './../../hooks/useFetchCardsPack';
 import { cleanMsgInfo } from '../../redux/actions/cardsPack';
@@ -16,6 +15,7 @@ const Shop = () => {
   const dispatch = useDispatch();
   const [view, setView] = useState('stars');
   const [viewShopcart, setViewShopcart] = useState(false);
+
 
   const loadedStarsPack = useFetchStarsPack().loaded;
   const loadCardsPack = useFetchCardsPack().loaded;
@@ -49,6 +49,12 @@ const Shop = () => {
   const handleSeeShopcart = (e) => {
     setViewShopcart(!viewShopcart);
   }
+
+  const handleDetail = (e) => {
+    setViewDetail(!viewDetail);
+  }
+
+  
 
   if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
 
