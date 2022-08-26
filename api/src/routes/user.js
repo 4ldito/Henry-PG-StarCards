@@ -58,9 +58,7 @@ userRoute.delete('/', async (req, res, next) => {
   }
 });
 // [tokenValidations.checkToken, tokenValidations.checkAdmin]
-userRoute.post(
-  "/",
-  async (req, res, next) => {
+userRoute.post("/", async (req, res, next) => {
     const { password, username, email } = req.body;
     try {
       const [newUser, created] = await User.findOrCreate({

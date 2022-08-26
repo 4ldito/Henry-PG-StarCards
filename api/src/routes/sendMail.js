@@ -14,7 +14,25 @@ function token() {
   return Math.random().toString().substr(2);
 };
 
-sendMail.post("/sendmail", (req, res) => {
+
+sendMail.get("/sendmail/:token", (req, res, next) => {
+  try {
+    console.log('body',req.params)
+
+    const { token } = req.params;
+    // console.log('back',token, tokenValid)
+    if(Number(token) === Number(tokenValid)){
+      return res.send(true)
+    }else{
+      return res.send(false)
+
+    }
+  } catch (error) {
+      next(error)
+  }
+})
+
+  sendMail.post("/sendmail", (req, res, next) => {
    tokenValid = token()
   nodemailer.createTestAccount((err, account) => {
   try {
