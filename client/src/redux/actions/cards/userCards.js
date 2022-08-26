@@ -39,8 +39,6 @@ export function filterUserCards(filter, userCards){
 
 export function searchUserCard (search, cards) {
   const notRepeated = noRepUserCards(cards);
-  console.log('search', search)
-  console.log('cards', cards)
   if(search === ""){
     return { type: SEARCH_USER_CARD, payload: notRepeated }
   }

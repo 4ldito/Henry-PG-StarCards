@@ -9,7 +9,6 @@ export default function (userCards) {
             e.repeat = 1;
             notRepeated.push(e);
         } else {
-            console.log('entra aca');
             const repeatedOne = notRepeated.find(card => card.name === e.name);
             repeatedOne.repeat++;
         }
