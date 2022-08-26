@@ -18,7 +18,6 @@ export const SALE_CARD = 'SALE_CARD';
 
 export function getUserCards(userCards, allCards) {
   const userCardIds = userCards?.map((user) => user.CardId);
-  console.log(userCards);
   const userCardsInventory = userCardIds?.map((idCard) =>
     allCards?.find((card) => card.id === idCard)
   );
@@ -28,7 +27,6 @@ export function getUserCards(userCards, allCards) {
 
 export function filterUserCards(filter, userCards) {
   const notRepeated = noRepUserCards(userCards);
-  // console.log(userCards,'---------',filter)
   const filterRace =
     filter.race === "allRaces"
       ? notRepeated
@@ -44,8 +42,6 @@ export function filterUserCards(filter, userCards) {
 
 export function searchUserCard(search, cards) {
   const notRepeated = noRepUserCards(cards);
-  console.log("search", search);
-  console.log("cards", cards);
   if (search === "") {
     return { type: SEARCH_USER_CARD, payload: notRepeated };
   }

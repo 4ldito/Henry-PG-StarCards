@@ -30,7 +30,7 @@ export default function inventory(state = initialState, { type, payload }) {
     case GET_USER_CARDS:
       return {
         ...state,
-        // userCards: payload.userCardsInventory,
+        userCards: payload.userCardsInventory,
         userCardsNotRepeated: payload.notRepeated,
       };
     case FILTER_USER_CARDS:

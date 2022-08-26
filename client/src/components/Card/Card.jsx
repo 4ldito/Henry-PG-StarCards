@@ -42,8 +42,6 @@ export default function Card({ id }) {
     ver();
   }
 
-  useEffect(() =>{ console.log(userCards)}, [userCards])
-
   const cardCss =
     card?.race === "Zerg"
       ? css.zergCard

@@ -16,16 +16,33 @@ export default function SearchCard() {
       ? dispatch(getAllCards())
       : dispatch(searchCard(search, cards));
   }
+
   function onInputChange(e) {
     e.preventDefault();
     setSearch(e.target.value);
     dispatch(searchCard(e.target.value, cards));
   }
 
+  function options() {
+    let option = [];
+    cards.forEach((card) => {
+      option.push(<option value={card.name}></option>);
+    });
+    return option;
+  }
+
   return (
-    <form className={css.form} onSubmit={onSubmit}>
-      <input type="text" onChange={(e) => onInputChange(e)} value={search} />
-      <input className={css.btnSearch} type="submit" value="search" />
-    </form>
+    <>
+      <form className={css.form} onSubmit={onSubmit}>
+        <input
+          onChange={(e) => onInputChange(e)}
+          value={search}
+          list="listaCards"
+        />
+        <input className={css.btnSearch} type="submit" value="search" />
+      </form>
+
+      <datalist id="listaCards">{options()}</datalist>
+    </>
   );
 }
