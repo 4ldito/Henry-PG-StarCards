@@ -1,11 +1,12 @@
-import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS, FAV_USER_PACKS } from "../actions/cardsPack";
+import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS, FAV_USER_PACKS, GET_DETAIL_PACK } from "../actions/cardsPack";
 
 const initialState = {
   cardsPacks: [],
   filteredCardsPack: [],
   msg: { type: '', info: '', title: '' },
   loaded: false,
-  favUserPacks: []
+  favUserPacks: [],
+  detailPack: {}
 }
 
 export default function cardsPacksReducer(state = initialState, { type, payload }) {
@@ -62,6 +63,12 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
 
     case FAV_USER_PACKS:
       return { ...state, favUserPacks: payload.CardPacks }
+
+    case GET_DETAIL_PACK:
+        const id = payload
+        let AllCardsPack = [...state.cardsPacks]
+        let filteredDetailPack = AllCardsPack.find(p => p.id === id)
+        return { ...state, detailPack: filteredDetailPack }
 
     default:
       return state
