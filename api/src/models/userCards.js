@@ -7,7 +7,7 @@ class UserCards extends Model {
     UserCards.belongsTo(models.User);
     UserCards.belongsTo(models.Card);
     UserCards.belongsTo(models.Status);
-    UserCards.belongsToMany(models.Deck, { through: 'DeckCard' });
+   
   }
 }
 

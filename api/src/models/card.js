@@ -5,6 +5,7 @@ class Card extends Model {
     Card.hasMany(models.UserCards);
     Card.belongsTo(models.Status);
     Card.hasMany(models.Opinion);
+    Card.belongsToMany(models.Deck, { through: 'DeckCard' });
   }
 }
 

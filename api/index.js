@@ -66,7 +66,7 @@ const createStatus = async () => {
   }
 };
 
-db.sequelize.sync({ force: false }).then(async () => {
+db.sequelize.sync({ force: false}).then(async () => {
   // await createRols();
   // await createStatus();
 
