@@ -54,8 +54,6 @@ const Shop = () => {
     setViewDetail(!viewDetail);
   }
 
-  
-
   if (!loadedStarsPack || !loadCardsPack) return (<p>Loading..</p>)
 
   return (

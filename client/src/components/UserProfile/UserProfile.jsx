@@ -19,6 +19,7 @@ export default function UserProfile() {
   const [user, setUser] = useState({});
   const [render, setRender] = useState();
   const { validToken } = useValidToken({ navigate: true });
+  console.log('se volvio a renderizar');
 
   useEffect(() => {
     dispatch(getUserDecks(idUserActive));
@@ -35,10 +36,10 @@ export default function UserProfile() {
     value === "1"
       ? setRender("Inventory")
       : value === "2"
-      ? setRender("Stats")
-      : value === "3"
-      ? setRender("config")
-      : setRender("Chat");
+        ? setRender("Stats")
+        : value === "3"
+          ? setRender("config")
+          : setRender("Chat");
   }
 
   return Object.keys(user).length !== 0 ? (
@@ -97,8 +98,8 @@ export default function UserProfile() {
             <Config user={user} />
           </div>
         ) : render === "Inventory" ? (
-          <Inventory/>
-          
+          <Inventory />
+
         ) : render === "Stats" ? (
           "Stats"
         ) : (

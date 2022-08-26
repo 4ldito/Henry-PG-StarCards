@@ -17,12 +17,28 @@ const descendentlife = "descendentlife";
 export const SALE_CARD = 'SALE_CARD';
 
 export function getUserCards(userCards, allCards) {
-  const userCardIds = userCards?.map((user) => user.CardId);
-  const userCardsInventory = userCardIds?.map((idCard) =>
-    allCards?.find((card) => card.id === idCard)
-  );
-  const notRepeated = noRepUserCards(userCardsInventory);
-  return { type: GET_USER_CARDS, payload: { userCardsInventory, notRepeated } };
+
+  const userCardsInventory = userCards.map((userCard) => {
+    console.log(userCard)
+    return allCards.find((card) => {
+      if (card.id === userCard.CardId) {
+        card.userCard = { id: userCard.id, statusId: userCard.StatusId };
+        return card;
+      }
+    });
+  });
+  // console.log(userCards)
+  // const userCardsInventory = userCardIds?.map((idCard) =>
+  //   allCards?.find((card) => {
+  //     console.log(idCard)
+  //     if (card.id === idCard) return { ...card, userCardId: idCard.id };
+  //   })
+  // );
+  // console.log(userCardsInventory)
+
+  // console.log(userCards)
+  // const notRepeated = noRepUserCards(userCardsInventory);
+  return { type: GET_USER_CARDS, payload: { userCardsInventory } };
 }
 
 export function filterUserCards(filter, userCards) {

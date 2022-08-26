@@ -36,17 +36,20 @@ export default function DetailPopUp({ handleDetail }) {
   }, [opinion, detailCards]);
 
   useEffect(() => {
+    if (user?.id && !userCards.length) {
+      dispatch(getUserCards(user.user.UserCards, cards));
+    }
     return () => {
       dispatch(detailCard(null));
       dispatch(getOpinions(null));
     };
   }, []);
 
-  useEffect(() => {
-    if (user.id) {
-      dispatch(getUserCards(user.user.UserCards, cards));
-    }
-  }, [cards]);
+  // useEffect(() => {
+  //   if (user.id) {
+  //     // dispatch(getUserCards(user.user.UserCards, cards));
+  //   }
+  // }, [cards]);
 
   useEffect(() => {
     userCards.forEach((card) => {
@@ -54,6 +57,7 @@ export default function DetailPopUp({ handleDetail }) {
         setHaveCard(true);
       }
     });
+    console.log(detailCards)
   }, [detailCards]);
 
   function Validaciones(valores) {

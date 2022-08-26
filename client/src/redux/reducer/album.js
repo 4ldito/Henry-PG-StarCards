@@ -31,7 +31,7 @@ export default function inventory(state = initialState, { type, payload }) {
       return {
         ...state,
         userCards: payload.userCardsInventory,
-        userCardsNotRepeated: payload.notRepeated,
+        // userCardsNotRepeated: payload.notRepeated,
       };
     case FILTER_USER_CARDS:
       return { ...state, filteredUserCards: payload };
@@ -40,9 +40,10 @@ export default function inventory(state = initialState, { type, payload }) {
     case SEARCH_USER_CARD:
       return { ...state, filteredUserCards: payload };
     case SALE_CARD:
-      const actualCard = state.userCards.find((c) => c.id === payload.id);
-      console.log(actualCard);
-      return { ...state };
+      // console.log(payload);
+      const actualCard = state.filteredUserCards.find((c) => c.id === payload.Card.id);
+      actualCard.userCard.statusId = payload.StatusId;
+      return { ...state, filteredUserCards: [...state.filteredUserCards] };
     default:
       return state;
   }

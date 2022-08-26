@@ -15,7 +15,6 @@ export default function InventoryContainer() {
   const [creationFormIsActive,setCreationFormIsActive] = useState(false);
   const [newDeckCards,setNewDeckCards] = useState([]);
   const [actualStackToShow,setActualStackToShow] = useState([]);
-
   function renderNotRepeat() {
     let cartas = [];
     filteredUserCards?.forEach(e=> {
