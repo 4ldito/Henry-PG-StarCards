@@ -10,6 +10,8 @@ export const IS_VALID_TOKEN = 'IS_VALID_TOKEN';
 export const LOG_OUT = 'LOG_OUT';
 export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
 export const GET_USER_CARDS = 'GET_USER_CARDS'
+export const GET_USER_DECKS = 'GET_USER_DECKS_deaa el tipo seguia los protocolos'
+export const DELETE_DECK = 'DELETE_DECK'
 export const USER_MODIFY_STARS = 'USER_MODIFY_STARS';
 export const GET_USER_BY_EMAIL = 'GET_USER_BY_EMAIL';
 export const USER_CLEAN = 'USER_CLEAN';
@@ -123,5 +125,22 @@ export function purchaseCompleted(id, items, paymentId) {
     } catch (error) {
       console.log('error')
     }
+  }
+}
+
+export function getUserDecks(userId,deckId) {
+  return async function (dispatch) {
+      let response;
+      if(deckId) response = await axios.get(`/userDecks/${userId}?deckId=${deckId}`);
+      else{response = await axios.get(`/userDecks/${userId}`);}
+      dispatch({type: GET_USER_DECKS, payload:response.data});
+  }
+}
+
+export function deleteDeck(userId,deckId){
+  return async function (dispatch){
+    const response = await axios.delete(`/userDecks/${deckId}/${userId}`);
+    
+    dispatch({type: DELETE_DECK, payload:response.data});
   }
 }

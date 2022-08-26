@@ -1,4 +1,5 @@
-import { GET_BY_EMAIL, USER_CLEAN, GET_USER_BY_EMAIL, CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
+import { GET_BY_EMAIL, USER_CLEAN, GET_USER_BY_EMAIL,CREATE_USER, DELETE_DECK, DELETE_USER, GET_ALL_USERS, GET_USER, GET_USER_DECKS, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
+
 
 const initialState = {
   user: {},
@@ -11,7 +12,10 @@ const initialState = {
   token: null,
   id: null,
   rol: null,
-};
+
+  decks: []
+}
+
 
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -112,8 +116,12 @@ export default function userReducer(state = initialState, { type, payload }) {
       
     case USER_MODIFY_STARS:
       const { updatedUser, error } = payload;
-      if (updatedUser && !error) return { ...state, user: updatedUser };
-      return { ...state };
+      if (updatedUser && !error) return { ...state, user: updatedUser }
+      return { ...state }
+    case GET_USER_DECKS:
+      return {...state, decks: payload}
+    case DELETE_DECK:
+      return {...state, decks: payload.newDeckList}
 
     default:
       return state;

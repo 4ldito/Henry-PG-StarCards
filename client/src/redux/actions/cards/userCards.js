@@ -42,8 +42,10 @@ export function filterUserCards(filter, userCards) {
 
 export function searchUserCard(search, cards) {
   const notRepeated = noRepUserCards(cards);
+
   if (search === "") {
     return { type: SEARCH_USER_CARD, payload: notRepeated };
+
   }
   const result = notRepeated.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
