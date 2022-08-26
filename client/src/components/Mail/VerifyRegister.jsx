@@ -1,14 +1,21 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeModal, sendMail, successAction } from "../../redux/actions/sendMail";
+import { changeModal, cleanToken, sendMail, successAction, verifyToken } from "../../redux/actions/sendMail";
 import Swal from 'sweetalert2';
 import style from "./Mail.module.css";
+import { getByEmail, getUserByEmail, modifyUser } from "../../redux/actions/user";
+import { useNavigate } from "react-router-dom";
 
 
-export default function VerifyRegister(emailRecived){
+export default function VerifyRegister({email,user}){
     const dispatch = useDispatch()
+    const navigateTo = useNavigate();
     const token1 = useRef(null);
-    const tokenBack = useSelector((state) => state.sendMailReducer.token)
+    const password = useRef(null);
+    const tokenIstrue = useSelector((state) => state.sendMailReducer.token)
+    const recivedToken = useSelector((state) => state.sendMailReducer.recivedToken)
+    const render = useSelector((state) => state.sendMailReducer.render)
+    // const user = useSelector((state) => state.userReducer.user)
     const [reenviar, setReenviar] = useState(true)
     const [state, setState] = useState(
         {
@@ -17,41 +24,53 @@ export default function VerifyRegister(emailRecived){
         }
         )
 
+        useEffect(() => {
+          if(recivedToken && tokenIstrue){ //si llego el token y es tru(coinciden los token)
+            console.log('coincide')
+                  Swal.fire({
+              title: 'Token',
+              text: 'Token verificado con Exito',
+              icon: 'success',
+            });
+            dispatch(cleanToken())
+            dispatch(successAction()) 
+            dispatch(changeModal())
+          }
+          else if(recivedToken && !tokenIstrue){ //si no coinciden
+            console.log('le erraste papu')
+                  Swal.fire({
+              title: 'Token',
+              text: 'El token ingresado es incorrecto',
+              icon: 'error',
+            });
+            setReenviar(false);
+            token1.current.value = ''
+            dispatch(cleanToken())
+      
+          }
+      }, [recivedToken])
+
     function comprobarCambios () {
         let token =  token1.current.value;
         setState({ tokenFront: token });
     };
 
-    function verifyToken(e){
+    function verifyTokens(e){
         e.preventDefault();
-        if(tokenBack !== Number(state.tokenFront)){ //
-          Swal.fire({
-            title: 'Token',
-            text: 'El token ingresado es incorrecto',
-            icon: 'error',
-          });
-          setReenviar(false);
-          token1.current.value = ''
-        }
-        else{
-          Swal.fire({
-            title: 'Token',
-            text: 'Token verificado con Exito',
-            icon: 'success',
-          });
-          dispatch(successAction()) 
-          dispatch(changeModal())
-        } 
+        dispatch(verifyToken(state.tokenFront))
       }
 
-    function close(){
+    function close(e){
+      e.preventDefault();
         dispatch(changeModal(false))
-        console.log('cerrado')
+        console.log('close1')
     }
 
     function reenviarToken(e){
         e.preventDefault();
-        dispatch(sendMail({email: emailRecived.email}))
+        console.log('asd')
+        console.log(email)
+        dispatch(sendMail({email: email}))
         Swal.fire({
           title: 'Token',
           text: 'Se envio nuevo token',
@@ -61,10 +80,48 @@ export default function VerifyRegister(emailRecived){
         token1.current.value = ''
       }
 
+      function sendPassword(e){
+        e.preventDefault();
+          console.log('contraseña cambiada',user)
+          // console.log(user.id, {password: password.current.value})
+          dispatch(modifyUser(user.id, {password : password.current.value}))
+          Swal.fire({
+            title: 'Correcto',
+            text: 'Se cambio la contraseña correctamente',
+            icon: 'success',
+          });
+          // dispatch(successAction())
+          dispatch(changeModal(false))
+          navigateTo('/login')
+      }
+      function changepassword(){
+        return(
+          <div>
+            <div className={style.background}>
+            <div className={style.container}> 
+                <form className="formulario" onSubmit={(e)=>sendPassword(e)}>
+                    <div className={style.mail}>
+                    <input
+                        type="password"
+                        name="passwordNew"
+                        placeholder="Ingresar nueva contraseña"
+                        className="form-control"
+                        ref={password}
+                    />
+                    <button className={style.button} type="submit">Cambiar</button>
+                    </div>
+                </form>
+              </div>
+              </div>
+            </div>)
+      }
+
+
     return(
+      <div>{render?(
         <div className={style.background}>
         <div className={style.container}> 
-            <form className="formulario" onSubmit={verifyToken}>
+            <form className="formulario" onSubmit={(e)=>verifyTokens(e)}>
                 <div className={style.mail}>
                 <input
                     type="text"
@@ -78,9 +135,9 @@ export default function VerifyRegister(emailRecived){
                 {reenviar ? '' : <button className={style.button} onClick={(e)=>reenviarToken(e)}>Reenviar Token</button>}
                 </div>
             </form>
-                <button onClick={close}>X</button>
+                <button onClick={(e)=>close(e)}>X</button>
           </div>
+          </div>) : changepassword()}
           </div>
-
     )
 }

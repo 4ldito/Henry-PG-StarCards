@@ -15,7 +15,8 @@ userRoute.get("/", async (req, res, next) => {
     }
     else if(email){
       const user = await User.findOne({ where: { email } })
-      res.json(user)
+      if(user) return res.json(user)
+      return res.send('User not Found')
     }
 
     const users = await User.findAll({ include: UserCards })
@@ -57,9 +58,7 @@ userRoute.delete('/', async (req, res, next) => {
   }
 });
 // [tokenValidations.checkToken, tokenValidations.checkAdmin]
-userRoute.post(
-  "/",
-  async (req, res, next) => {
+userRoute.post("/", async (req, res, next) => {
     const { password, username, email } = req.body;
     try {
       const [newUser, created] = await User.findOrCreate({
@@ -104,7 +103,7 @@ userRoute.patch("/:id", async (req, res, next) => {
     const { id } = req.params;
     let { username, verifyPassword, password, email, profileImg, coverImg, RolId, items } = req.body;
     const user = await User.findByPk(id);
-    // console.log(req.body,user)
+
     if (!user) return res.status(404).send({ error: 'User not found' })
 
     let stars = 0;
@@ -115,6 +114,10 @@ userRoute.patch("/:id", async (req, res, next) => {
     }, 0)
 
     if (RolId) await user.setStatus(RolId);
+
+    if(!verifyPassword && password){
+      password = await User.prototype.hashPassword(password)
+    }
 
     if(verifyPassword) {
       const isValidPassword = await User.prototype.comparePassword(verifyPassword,user.password)

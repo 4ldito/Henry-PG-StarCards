@@ -14,7 +14,25 @@ function token() {
   return Math.random().toString().substr(2);
 };
 
-sendMail.post("/sendmail", (req, res) => {
+
+sendMail.get("/sendmail/:token", (req, res, next) => {
+  try {
+    console.log('body',req.params)
+
+    const { token } = req.params;
+    // console.log('back',token, tokenValid)
+    if(Number(token) === Number(tokenValid)){
+      return res.send(true)
+    }else{
+      return res.send(false)
+
+    }
+  } catch (error) {
+      next(error)
+  }
+})
+
+  sendMail.post("/sendmail", (req, res, next) => {
    tokenValid = token()
   nodemailer.createTestAccount((err, account) => {
   try {
@@ -33,7 +51,7 @@ sendMail.post("/sendmail", (req, res) => {
         port: 587,
         auth: {
           user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
-          pass: passwordSendMail // La contraseña de dicho SMTP
+          pass: "houhxlzmssscrgha" // La contraseña de dicho SMTP
         }
       });
 

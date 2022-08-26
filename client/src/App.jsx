@@ -18,7 +18,13 @@ import { resetReduxState } from "./redux/actions";
 import Inventory from "./components/UserProfile/Inventory/Inventory";
 // import { setToken } from './redux/actions/user'
 
+<<<<<<< HEAD
 // import Profile from './components/Profile/Profile'
+=======
+import RecoveryPassword from './components/Registro/RecoveryPassword';
+import Registro from './components/Registro/Registro';
+
+>>>>>>> e54558b75127ee3680fc98ff603ef4e18c1cfdea
 
 function App() {
 
@@ -49,6 +55,12 @@ function App() {
         <Route path='/playroom' element={<Playroom />} />
         {/* <Route path='/shopcart' element={<ShopCart />} /> */}
         <Route path="/userProfile" element={<UserProfile />} />
+<<<<<<< HEAD
+=======
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/recovery" element={<RecoveryPassword />} />
+        {/* </Route> */}
+>>>>>>> e54558b75127ee3680fc98ff603ef4e18c1cfdea
       </Routes>
     </div>
   );
