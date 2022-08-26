@@ -9,7 +9,7 @@ import { MdPassword } from "react-icons/md";
 import Swal from 'sweetalert2';
 import { Button } from 'reactstrap'
 import VerifyMail from '../Mail/VerifyMail'
-import { changeModal, successAction } from "../../redux/actions/sendMail";
+import { changeModal, renderVerifyRegister, successAction } from "../../redux/actions/sendMail";
 
 export default function Config({ user }) {
   const dispatch = useDispatch();
@@ -26,11 +26,13 @@ export default function Config({ user }) {
       text: 'Usuario Borrado',
       icon: 'success',
     });
+    // dispatch(renderVerifyRegister())
     navigateTo("/");
   }
 
   function modifyMail(){
-    dispatch(changeModal())
+    // console.log('changemodal')
+    dispatch(changeModal(true))
   }
 
   useEffect(() => {
@@ -39,17 +41,26 @@ export default function Config({ user }) {
        }
   }, [successAction1])
 
-  function sendMail () {
+  function sendMail (e) {
+    e.preventDefault()
     let email = email1.current.value
-    dispatch(modifyUser(user.id, {email : email}))
-    setInput(!input)
-    dispatch(successAction())
+    if(email.length >7){
+      dispatch(modifyUser(user.id, {email : email}))
+      setInput(!input)
+      dispatch(successAction())
+    }
   };
+
+function closed(e){
+  setInput(true)
+  dispatch(successAction())
+
+}
 
   function changeMail(){
     return(
     <div className={style.mail}>
-      <form onSubmit={sendMail}>
+      <form onSubmit={(e)=>sendMail(e)}>
       <label >Email: </label>
       <input
         type="email"
@@ -58,7 +69,7 @@ export default function Config({ user }) {
         ref={email1}
       />
       <button className={style.button} type="submit">Confirmar</button>
-      <button onClick={close}>X</button>
+      <button onClick={(e)=>closed(e)}>X</button>
       </form>
     </div>)
   }

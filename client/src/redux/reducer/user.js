@@ -1,8 +1,9 @@
-import { GET_USER_BY_EMAIL, CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
+import { GET_BY_EMAIL, USER_CLEAN, GET_USER_BY_EMAIL, CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
 
 const initialState = {
   user: {},
-  validPassword: "",
+  validUser: false,
+  validPassword: '',
   users: [],
   msg: {},
   actualUser: {},
@@ -21,7 +22,10 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, users: payload }
 
     case GET_USER_BY_EMAIL:
-      return { ...state, user: payload }
+      return { ...state, user: payload, validUser: true }
+
+    case GET_BY_EMAIL:
+      return { ...state, actualUser: payload}
 
     case CREATE_USER:
       if (payload.error)
@@ -101,7 +105,11 @@ export default function userReducer(state = initialState, { type, payload }) {
       };
 
     case USER_CLEAN_MSG_INFO:
-      return { ...state, msg: {} };
+      return { ...state, msg: {} }
+
+    case USER_CLEAN:
+      return { ...state, validUser: false, user: {} }
+      
     case USER_MODIFY_STARS:
       const { updatedUser, error } = payload;
       if (updatedUser && !error) return { ...state, user: updatedUser };

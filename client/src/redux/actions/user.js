@@ -12,6 +12,9 @@ export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
 export const GET_USER_CARDS = 'GET_USER_CARDS'
 export const USER_MODIFY_STARS = 'USER_MODIFY_STARS';
 export const GET_USER_BY_EMAIL = 'GET_USER_BY_EMAIL';
+export const USER_CLEAN = 'USER_CLEAN';
+export const GET_BY_EMAIL = 'GET_BY_EMAIL';
+
 
 
 // import { useToken } from '../../hooks/useToken'
@@ -35,6 +38,13 @@ export function getUserByEmail(email) {
   return async function (dispatch) {
     const response = await axios(`user?email=${email}`)
     dispatch({ type: GET_USER_BY_EMAIL, payload: response.data })
+  }
+}
+
+export function getByEmail(email) {
+  return async function (dispatch) {
+    const response = await axios(`user?email=${email}`)
+    dispatch({ type: GET_BY_EMAIL, payload: response.data })
   }
 }
 
@@ -68,6 +78,10 @@ export function logOut() {
 
 export const userCleanMsgInfo = () => {
   return { type: USER_CLEAN_MSG_INFO }
+}
+
+export function userClean () {
+  return { type: USER_CLEAN }
 }
 
 
