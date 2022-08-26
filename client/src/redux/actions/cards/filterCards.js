@@ -9,17 +9,3 @@ export function filterCards (filter, cards) {
     : filterRace.filter((e) => e.movement?.includes(filter.movements))
   return { type: FILTER_CARDS, payload: filterMovement }
 }
-
-// export function filterCards (filter, cards) {
-//   if (filter === 'allRaces' || filter === 'Protoss' || filter === 'Terran' || filter === 'Zerg') {
-//     const filterRace = filter === 'allRaces'
-//       ? cards
-//       : cards.filter((e) => e.race?.includes(filter))
-//     return { type: FILTER_CARDS, payload: filterRace }
-//   } else {
-//     const filterMovement = filter === 'allMovements'
-//       ? cards
-//       : cards.filter((e) => e.movement?.includes(filter))
-//     return { type: FILTER_CARDS, payload: filterMovement }
-//   }
-// }

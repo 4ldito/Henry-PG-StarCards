@@ -8,7 +8,9 @@ export const usePreferenceId = (shopCartItems) => {
   const userId = useSelector(state => state.userReducer.id)
 
   useEffect(() => {
-    if (preferenceId === -1 && shopCartItems.length) dispatch(getPreferenceId(shopCartItems, userId))
+    if (preferenceId === -1 && shopCartItems.length) { 
+      if (userId) dispatch(getPreferenceId(shopCartItems, userId)) 
+    }
   }, [preferenceId]);
 
   useEffect(() => {

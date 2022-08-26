@@ -1,5 +1,4 @@
 const server = require("./src/app");
-const socketIoServer = require("./src/chatServer")
 const db = require("./src/db");
 const users = require("./src/seeders/users");
 const rols = require("./src/seeders/rols");
@@ -66,7 +65,8 @@ const createStatus = async () => {
   }
 };
 
-db.sequelize.sync({ force: false}).then(async () => {
+
+db.sequelize.sync({ force: false }).then(async () => {
   // await createRols();
   // await createStatus();
 
@@ -106,6 +106,4 @@ db.sequelize.sync({ force: false}).then(async () => {
   server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
   });
-
-  socketIoServer.listen(5000, () => console.log("Servidor inicializado"));
 });

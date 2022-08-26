@@ -3,7 +3,7 @@ import { useState } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import { CardContainer } from "../../../Card/CardContainer";
 function DeckCreation({card}){
-    const [newDeckCards,setNewDeckCards] = useState([]);
+  
 
     return <div>
         {

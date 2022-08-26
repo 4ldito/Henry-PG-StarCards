@@ -6,7 +6,9 @@ const shopCartRoute = Router();
 
 shopCartRoute.get("/:id", async (req, res, next) => {
     const { id } = req.params;
-
+    // console.log('a');
+    // console.log(id);
+    // if (!id) return res.send({error: 'ID required.'})
     try {
         const starsPacksIds = await ShopCart.findAll({
             where: { UserId: id, packTypes: 'starsPack', StatusId: 'active' }
@@ -45,9 +47,7 @@ shopCartRoute.get("/:id", async (req, res, next) => {
         const cardsPacksQuantities = cardsPacks.map((cp) => {
             cp.dataValues.quantity = infoCardsPacks[cp.id].quantity;
             return cp;
-        })
-
-        // return res.send({ cardsPacksQuantities, starPacksQuantities });
+        });
 
         return res.send({ shopCart: { starsPacks: starPacksQuantities, cardsPacks: cardsPacksQuantities } });
 
@@ -89,6 +89,29 @@ shopCartRoute.patch("/disable/:id", async (req, res, next) => {
         if (itemShopCart) {
             await itemShopCart.update({ StatusId: 'inactive' });
             return res.send('Item eliminado');
+        }
+        return res.send('No se encontró el item =(');
+    } catch (error) {
+        return next(error);
+    }
+});
+
+shopCartRoute.patch("/edit/:userId", async (req, res, next) => {
+    const { info: { id, type, modifyType } } = req.body;
+    const { userId } = req.params;
+
+    // console.log(req.body)
+    // console.log(userId)
+
+    try {
+        const itemShopCart = await ShopCart.findOne({
+            where: { product: id, UserId: userId, packTypes: type, StatusId: 'active' }
+        });
+
+        if (itemShopCart) {
+            await itemShopCart.update({ quantity: modifyType === 'increment' ? ++itemShopCart.quantity : --itemShopCart.quantity });
+            // console.log(itemShopCart)
+            return res.send('Cantidad actualizada');
         }
 
         return res.send('No se encontró el item =(');

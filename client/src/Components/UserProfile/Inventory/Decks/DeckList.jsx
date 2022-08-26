@@ -1,10 +1,9 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import SelectedDeck from "./SelectedDeck";
 import {deleteDeck} from '../../../../redux/actions/user'
-import getAllCards from "../../../../redux/actions/cards/getAllCards";
+
 
 
 function DeckList({userId,showCards}) {
@@ -25,9 +24,9 @@ function DeckList({userId,showCards}) {
             </div>
             )}
         </ul>
-        <div>
+        {/* <div onClick={}>
             Nuevo mazo
-        </div>
+        </div> */}
 
         {selectedDeck&&<>
         <SelectedDeck deck={selectedDeck}></SelectedDeck>

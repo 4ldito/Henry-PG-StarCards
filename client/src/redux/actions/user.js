@@ -13,6 +13,8 @@ export const GET_USER_CARDS = 'GET_USER_CARDS'
 export const GET_USER_DECKS = 'GET_USER_DECKS_deaa el tipo seguia los protocolos'
 export const DELETE_DECK = 'DELETE_DECK'
 export const USER_MODIFY_STARS = 'USER_MODIFY_STARS';
+export const GET_USER_BY_EMAIL = 'GET_USER_BY_EMAIL';
+
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,6 +30,13 @@ export function getAllUsers() {
   return async function (dispatch) {
     const response = await axios('user')
     dispatch({ type: GET_ALL_USERS, payload: response.data })
+  }
+}
+
+export function getUserByEmail(email) {
+  return async function (dispatch) {
+    const response = await axios(`user?email=${email}`)
+    dispatch({ type: GET_USER_BY_EMAIL, payload: response.data })
   }
 }
 
@@ -90,10 +99,18 @@ export function isValidToken(id, token) {
   }
 }
 
-export function purchaseCompleted(id, items) {
+export function purchaseCompleted(id, items, paymentId) {
   return async function (dispatch) {
-    const response = await axios.patch(`user/${id}`, { items });
-    dispatch({ type: MODIFY_USER, payload: response.data })
+    try {
+      const { data } = await axios.get(`transaction/${paymentId}`);
+      // Si ya existe data es poruqe la transicción ya fue acreditada.
+      if (data) return;
+      const response = await axios.patch(`user/${id}`, { items });
+      await axios.post('transaction/', { data: { paymentId, items, userId: id, type: 'money' } })
+      dispatch({ type: MODIFY_USER, payload: response.data })
+    } catch (error) {
+      console.log('error')
+    }
   }
 }
 

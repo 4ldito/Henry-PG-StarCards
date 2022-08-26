@@ -7,6 +7,70 @@ const routes = require("./routes/index");
 const cors = require("cors");
 
 const server = express();
+const socketIoServer = require("http").createServer(server);
+
+const io = require("socket.io")(socketIoServer, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+  },
+});
+
+const userSockets = [];
+
+//Funcionalidad de socket.io en el socketIoServer
+io.on("connection", (socket) => {
+  let nombre;
+
+  socket.on("connectPrivateSocket", (userId) => {
+    const currentUser = userSockets.find((u) => u.userId === userId);
+
+    if (currentUser) {
+      currentUser.sockets.push(socket.id);
+    } else currentUser.push({ userId, sockets: [socket.id] });
+  });
+
+  socket.on("privateMessage", (userId, receiverId, message) => {
+    const currentReceiver = userSockets.find((u) => u.userId === receiverId);
+
+    if (currentReceiver.sockets.length) {
+      currentReceiver.sockets.forEach((s) => {
+        socket.to(s).emit({ userId, message });
+      });
+    }
+  });
+
+  socket.on("disconnectPrivateSocket", (userId, socketId) => {
+    const currentUser = userSockets.find((u) => u.userId === userId);
+
+    const newSockets = currentUser.sockets.filter((s) => s !== socket.id);
+
+    currentUser.sockets = [...newSockets];
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////
+  // PUBLIC CHAT
+  socket.on("conectado", (nomb) => {
+    nombre = nomb;
+    //socket.broadcast.emit manda el mensaje a todos los clientes excepto al que ha enviado el mensaje
+    socket.broadcast.emit("mensajes", {
+      nombre: nombre,
+      mensaje: `${nombre} ha entrado en la sala del chat`,
+    });
+  });
+
+  socket.on("mensaje", (nombre, mensaje) => {
+    //io.emit manda el mensaje a todos los clientes conectados al chat
+    io.emit("mensajes", { nombre, mensaje });
+  });
+
+  socket.on("disconnect", () => {
+    io.emit("mensajes", {
+      socketIoServer: "Servidor",
+      mensaje: `${nombre} ha abandonado la sala`,
+    });
+  });
+});
 
 //////////////////////////////////////
 
@@ -47,4 +111,4 @@ server.use((err, _req, res, _next) => {
   res.status(status).json({ message });
 });
 
-module.exports = server;
+module.exports = socketIoServer;
