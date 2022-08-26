@@ -19,7 +19,6 @@ export default function UserProfile() {
   const [user, setUser] = useState({});
   const [render, setRender] = useState();
   const { validToken } = useValidToken({ navigate: true });
-  console.log('se volvio a renderizar');
 
   useEffect(() => {
     dispatch(getUserDecks(idUserActive));

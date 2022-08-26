@@ -19,7 +19,7 @@ export const SALE_CARD = 'SALE_CARD';
 export function getUserCards(userCards, allCards) {
 
   const userCardsInventory = userCards.map((userCard) => {
-    console.log(userCard)
+    // console.log(userCard)
     return allCards.find((card) => {
       if (card.id === userCard.CardId) {
         card.userCard = { id: userCard.id, statusId: userCard.StatusId };

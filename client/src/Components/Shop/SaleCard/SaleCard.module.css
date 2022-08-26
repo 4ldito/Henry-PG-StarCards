@@ -1,0 +1,26 @@
+.SaleCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+
+  background-color: rgba(16, 16, 16, 0.288);
+
+  top: 7vh;
+  left: 0%;
+
+  width: 100%;
+  height: 93vh;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #101010ea;
+    border-radius: 8px;
+
+    width: 80%;
+    height: 80%;
+}
