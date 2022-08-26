@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { saleCard } from "../../redux/actions/cards/userCards";
+import SaleCard from "../Shop/SaleCard/SaleCard";
 import Card from "./Card";
 
 export function CardContainer({ card, repeat }) {
   const dispatch = useDispatch();
+  const [viewCard, setViewCard] = useState(false);
+
+  function handleViewCard() {
+    setViewCard(!viewCard);
+  }
+
   function Sale() {
     dispatch(
       saleCard({
@@ -30,7 +37,16 @@ export function CardContainer({ card, repeat }) {
         race={card?.race}
         movement={card?.movement}
       />
-      <button onClick={Sale}>Sale</button>
+      <button onClick={handleViewCard}>Sale</button>
+
+      {viewCard && (
+        <SaleCard
+          handleViewCard={handleViewCard}
+          id={card.id}
+          name={card.name}
+          image={card.image}
+        />
+      )}
     </>
   );
 }
