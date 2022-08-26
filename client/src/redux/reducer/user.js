@@ -1,4 +1,4 @@
-import { CREATE_USER, DELETE_USER, GET_ALL_USERS, GET_USER, GET_USER_DECKS, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
+import { CREATE_USER, DELETE_DECK, DELETE_USER, GET_ALL_USERS, GET_USER, GET_USER_DECKS, IS_VALID_TOKEN, LOG_OUT, MODIFY_USER, SET_TOKEN, SIGN_IN, USER_CLEAN_MSG_INFO, USER_MODIFY_STARS } from "../actions/user"
 
 const initialState = {
   user: {},
@@ -60,6 +60,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state }
     case GET_USER_DECKS:
       return {...state, decks: payload}
+    case DELETE_DECK:
+      return {...state, decks: payload.newDeckList}
     default:
       return state
   }

@@ -14,7 +14,7 @@ export default function InventoryContainer() {
   const filteredUserCards = useSelector(state => state.album.filteredUserCards)
   const cards = useSelector((state) => state.album.cards);
   const user = useSelector(state => state.userReducer.user)
-  const [actualStackToShow,setActualStackToShow] = useState({stack:null});
+  const [actualStackToShow,setActualStackToShow] = useState([]);
 
   function renderNotRepeat() {
     let cartas = [];
@@ -29,13 +29,19 @@ export default function InventoryContainer() {
   useEffect(() => {
     dispatch(getUserCards(user.UserCards, cards))
   }, [cards]);
-  
+  function setVisibleStack(name){
+    if(actualStackToShow.includes(name)){
+      setActualStackToShow(actualStackToShow.filter(e=>e!==name));
+    }else{
+      setActualStackToShow([...actualStackToShow,name])
+    }
+  }
   
   return (<div className={css.InventoryContainer}>
-    <button name='cartas' onClick={(e)=>{setActualStackToShow(e.target.name)}}>Cartas</button>
-    <button name='mazos' onClick={(e)=>{setActualStackToShow(e.target.name)}}>Mazos</button>
-    {actualStackToShow==='cartas'?<div className={css.cartas}>{renderNotRepeat()}</div>:actualStackToShow === 'mazos'?<DeckList></DeckList>:<></>}
-    
+    <button name='cartas' onClick={(e)=>{setVisibleStack(e.target.name)}}>Cartas</button>
+    <button name='mazos' onClick={(e)=>{setVisibleStack(e.target.name)}}>Mazos</button>
+    {actualStackToShow.includes('cartas')?<div className={css.cartas}>{renderNotRepeat()}</div>:<></>}
+    {actualStackToShow.includes('mazos')?<DeckList userId={user.id}></DeckList>:<></>}
     
   </div >);
 }

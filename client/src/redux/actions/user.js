@@ -11,6 +11,7 @@ export const LOG_OUT = 'LOG_OUT';
 export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
 export const GET_USER_CARDS = 'GET_USER_CARDS'
 export const GET_USER_DECKS = 'GET_USER_DECKS_deaa el tipo seguia los protocolos'
+export const DELETE_DECK = 'DELETE_DECK'
 export const USER_MODIFY_STARS = 'USER_MODIFY_STARS';
 
 // import { useToken } from '../../hooks/useToken'
@@ -105,3 +106,10 @@ export function getUserDecks(userId,deckId) {
   }
 }
 
+export function deleteDeck(userId,deckId){
+  return async function (dispatch){
+    const response = await axios.delete(`/userDecks/${deckId}/${userId}`);
+    
+    dispatch({type: DELETE_DECK, payload:response.data});
+  }
+}

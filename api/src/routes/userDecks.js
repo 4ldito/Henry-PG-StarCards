@@ -72,12 +72,11 @@ userDecksRoute.put(async (req, res, next) => {
 })
 
 userDecksRoute.delete('/:id/:userId', async (req, res, next) => {
+    console.log('entra');
     const { id, userId } = req.params
-    console.log('hola');
     const user = await User.findByPk(userId, { include: Deck });
     if (!user) return res.json({ error: 'El usuario no existe' });
     const deckToRemove = user.Decks.find((e) => e.id == id);
-    console.log(deckToRemove);
     if (!deckToRemove) return res.json({ error: 'El mazo no existe' });
     try {
         await user.removeDeck(deckToRemove)
