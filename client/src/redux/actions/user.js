@@ -10,6 +10,7 @@ export const IS_VALID_TOKEN = 'IS_VALID_TOKEN';
 export const LOG_OUT = 'LOG_OUT';
 export const USER_CLEAN_MSG_INFO = 'USER_CLEAN_MSG_INFO';
 export const GET_USER_CARDS = 'GET_USER_CARDS'
+export const GET_USER_DECKS = 'GET_USER_DECKS_deaa el tipo seguia los protocolos'
 export const USER_MODIFY_STARS = 'USER_MODIFY_STARS';
 
 // import { useToken } from '../../hooks/useToken'
@@ -94,3 +95,13 @@ export function purchaseCompleted(id, items) {
     dispatch({ type: MODIFY_USER, payload: response.data })
   }
 }
+
+export function getUserDecks(userId,deckId) {
+  return async function (dispatch) {
+      let response;
+      if(deckId) response = await axios.get(`/userDecks/${userId}?deckId=${deckId}`);
+      else{response = await axios.get(`/userDecks/${userId}`);}
+      dispatch({type: GET_USER_DECKS, payload:response.data});
+  }
+}
+

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { getUser } from "../../redux/actions/user";
+import { getUser, getUserDecks } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
 import getAllCards from '../../redux/actions/cards/getAllCards'
 import Inventory from "./Inventory/Inventory";
+import DeckList from "./Inventory/Decks/DeckList";
 export default function UserProfile() {
   const dispatch = useDispatch();
   const userActive = useSelector((state) => state.userReducer.user);
@@ -17,6 +18,7 @@ export default function UserProfile() {
   const { validToken } = useValidToken({ navigate: true });
 
   useEffect(() => {
+    dispatch(getUserDecks(idUserActive));
     dispatch(getUser(idUserActive));
     dispatch(getAllCards());
   }, []);
@@ -93,6 +95,7 @@ export default function UserProfile() {
           </div>
         ) : render === "Inventory" ? (
           <Inventory/>
+          
         ) : render === "Stats" ? (
           "Stats"
         ) : (

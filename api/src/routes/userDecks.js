@@ -31,6 +31,8 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
 userDecksRoute.post('/:userId', async (req, res, next) => {
     const { newDeckCards, name, race } = req.body;
     const userId = req.params.userId;
+    const exists =await Deck.findOne({where:{name}});
+    if(exists)return res.json({error: 'El mazo ya existe'});
     // if (newDeckCards.length !== 20) return res.json({ error: "El mazo debe tener al menos 20 cartas" });
     try {
 
@@ -61,6 +63,8 @@ userDecksRoute.put(async (req, res, next) => {
     try {
         const oldDeck = await Deck.findByPk(oldDeckId);
         if (!oldDeck) return res.json({ error: 'El mazo a remplazar no existe' });
+        user.removeDeck(oldDeck);
+
 
     } catch (err) {
         next(err);

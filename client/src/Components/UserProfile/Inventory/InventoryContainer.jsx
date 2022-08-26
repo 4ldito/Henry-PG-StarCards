@@ -4,6 +4,7 @@ import getAllCards from '../../../redux/actions/cards/getAllCards';
 import { getUserCards } from '../../../redux/actions/cards/userCards';
 import Card from '../../Card/Card';
 import { CardContainer } from '../../Card/CardContainer';
+import DeckList from './Decks/DeckList';
 import css from "./Inventory.module.css";
 
 
@@ -13,7 +14,7 @@ export default function InventoryContainer() {
   const filteredUserCards = useSelector(state => state.album.filteredUserCards)
   const cards = useSelector((state) => state.album.cards);
   const user = useSelector(state => state.userReducer.user)
-
+  const [actualStackToShow,setActualStackToShow] = useState({stack:null});
 
   function renderNotRepeat() {
     let cartas = [];
@@ -31,7 +32,10 @@ export default function InventoryContainer() {
   
   
   return (<div className={css.InventoryContainer}>
-    <div className={css.cartas}>{renderNotRepeat()}</div>
-
+    <button name='cartas' onClick={(e)=>{setActualStackToShow(e.target.name)}}>Cartas</button>
+    <button name='mazos' onClick={(e)=>{setActualStackToShow(e.target.name)}}>Mazos</button>
+    {actualStackToShow==='cartas'?<div className={css.cartas}>{renderNotRepeat()}</div>:actualStackToShow === 'mazos'?<DeckList></DeckList>:<></>}
+    
+    
   </div >);
 }
