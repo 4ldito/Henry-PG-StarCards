@@ -7,7 +7,7 @@ import { buyCardPack } from "../../../redux/actions/cardsPack";
 
 import style from "../styles/PacksCards.module.css";
 import Pack from "./Pack";
-import { useEffect } from "react";
+
 
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
@@ -110,7 +110,7 @@ const PacksCard = ({ pack, type }) => {
       <>
         {pack.stock > 0 && <form className={style.container} name={pack.name} id={pack.id} onSubmit={handleAddItem} key={pack.id}>
           <div className={style.pack}>
-            <Pack name={pack.name} amount={pack.amount} img={pack.image} />
+            <Pack name={pack.name} amount={pack.amount} img={pack.image} pack={pack} id={pack.id}/>
           </div>
           <p>Precio: <span className={style.starsText}>{pack.price} Stars</span></p>
           <p>Stock: <span className={style.stock}>{pack.stock}</span></p>

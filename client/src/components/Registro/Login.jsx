@@ -86,19 +86,19 @@ export default function Login() {
       <div className={style2.options}>
         <form onSubmit={(e) => { login(e) }}>
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Nombre de usuario: </label>
-            <input className={style3.input} style={{ width: "400px" }} type="email" name="email" onChange={handleOnChange} required />
+            <label style={{fontSize:"larger"}}>Username </label>
+            <input className= {style3.input} style={{width:"400px"}} type="email" name="email" onChange={handleOnChange} required />
             {renderErrorMessage("uname")}
           </div>
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Contraseña: </label>
-            <input className={style3.input} style={{ width: "400px" }} type="password" name="password" onChange={handleOnChange} required autoComplete='on' />
+            <label style={{fontSize:"larger"}}>Password </label>
+            <input  className= {style3.input} style={{width:"400px"}} type="password" name="password" onChange={handleOnChange} required autoComplete='on' />
             {renderErrorMessage("pass")}
           </div>
-          <div style={{ height: "15px" }}></div>
+          <div style={{height:"15px"}}></div>
           <div className={style.buttoncontainer}>
             <button className={style2.button} data='Ingresar' type="submit" value='' />
-            <Link to='/'>Recuperar Contraseña</Link>
+            <Link to='/recovery'>Recuperar Contraseña</Link>
           </div>
         </form>
       </div>
