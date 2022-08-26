@@ -9,7 +9,7 @@ import { MdPassword } from "react-icons/md";
 import Swal from 'sweetalert2';
 import { Button } from 'reactstrap'
 import VerifyMail from '../Mail/VerifyMail'
-import { changeModal, successAction } from "../../redux/actions/sendMail";
+import { changeModal, renderVerifyRegister, successAction } from "../../redux/actions/sendMail";
 
 export default function Config({ user }) {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ export default function Config({ user }) {
       text: 'Usuario Borrado',
       icon: 'success',
     });
+    // dispatch(renderVerifyRegister())
     navigateTo("/");
   }
 
