@@ -7,7 +7,7 @@ import {deleteDeck} from '../../../../redux/actions/user'
 import getAllCards from "../../../../redux/actions/cards/getAllCards";
 
 
-function DeckList({userId}) {
+function DeckList({userId,showCards}) {
     const dispatch = useDispatch();
     const decks = useSelector(state => state.userReducer.decks);
     const [selectedDeck, setSelectedDeck] = useState(null);
@@ -26,6 +26,7 @@ function DeckList({userId}) {
             )}
         </ul>
         <div>
+            Nuevo mazo
         </div>
 
         {selectedDeck&&<>
