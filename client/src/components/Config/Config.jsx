@@ -30,7 +30,7 @@ export default function Config({ user }) {
   }
 
   function modifyMail(){
-    console.log('changemodal')
+    // console.log('changemodal')
     dispatch(changeModal(true))
   }
 
@@ -40,17 +40,26 @@ export default function Config({ user }) {
        }
   }, [successAction1])
 
-  function sendMail () {
+  function sendMail (e) {
+    e.preventDefault()
     let email = email1.current.value
-    dispatch(modifyUser(user.id, {email : email}))
-    setInput(!input)
-    dispatch(successAction())
+    if(email.length >7){
+      dispatch(modifyUser(user.id, {email : email}))
+      setInput(!input)
+      dispatch(successAction())
+    }
   };
+
+function closed(e){
+  setInput(true)
+  dispatch(successAction())
+
+}
 
   function changeMail(){
     return(
     <div className={style.mail}>
-      <form onSubmit={sendMail}>
+      <form onSubmit={(e)=>sendMail(e)}>
       <label >Email: </label>
       <input
         type="email"
@@ -59,7 +68,7 @@ export default function Config({ user }) {
         ref={email1}
       />
       <button className={style.button} type="submit">Confirmar</button>
-      <button onClick={close}>X</button>
+      <button onClick={(e)=>closed(e)}>X</button>
       </form>
     </div>)
   }

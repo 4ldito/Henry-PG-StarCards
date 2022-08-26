@@ -1,5 +1,5 @@
 import axios from 'axios'
-export const SEND_MAIL = 'SEND_MAIL', MODAL = 'MODAL', SUCCESS_ACTION = 'SUCCESS_ACTION', VERIFY_TOKEN = 'VERIFY_TOKEN', CLEAN_TOKEN = 'CLEAN_TOKEN'
+export const SEND_MAIL = 'SEND_MAIL', MODAL = 'MODAL', SUCCESS_ACTION = 'SUCCESS_ACTION', VERIFY_TOKEN = 'VERIFY_TOKEN', CLEAN_TOKEN = 'CLEAN_TOKEN', CLEAN_RECIVED_TOKEN='CLEAN_RECIVED_TOKEN'
 
 
 
@@ -10,9 +10,8 @@ export function sendMail(payload) {
     }
   }
 export function verifyToken(payload) {
-  console.log(payload)
     return async function (dispatch) {
-      const response = await axios.get(`sendmail/${payload.token}`)
+      const response = await axios.get(`sendmail/${payload}`)
       dispatch({ type: VERIFY_TOKEN, payload: response.data })
     }
   }
@@ -29,5 +28,10 @@ export function successAction() {
 export function cleanToken() {
     return function (dispatch) {
       dispatch({ type: CLEAN_TOKEN })
+    }
+  }
+export function cleanrecivedToken() {
+    return function (dispatch) {
+      dispatch({ type: CLEAN_RECIVED_TOKEN })
     }
   }
