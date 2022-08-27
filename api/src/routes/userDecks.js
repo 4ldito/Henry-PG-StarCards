@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const db = require("../db");
-const userCards = require("../models/userCards");
 
 const { User, Deck, Card } = db;
 
@@ -15,10 +14,9 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
         if (!deckId) {
             let promisedDecks = user.Decks.map(e => {
                 return Deck.findByPk(e.id, { include: Card });
-
             });
             const decks = await Promise.all(promisedDecks);
-            // const decks = await Promise.all(promisedDecks);
+            console.log(decks);
             return res.json(decks);
         }
         const deckFound = await Deck.findByPk(deckId, { include: Card });
@@ -27,28 +25,26 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+  
 });
 userDecksRoute.post('/:userId', async (req, res, next) => {
-    const { newDeckCards, name, race } = req.body;
+    const { newDeckCards, name} = req.body;
     const userId = req.params.userId;
-    const exists = await Deck.findOne({ where: { name } });
-    if (exists) return res.json({ error: 'El mazo ya existe' });
+    // const exists = await Deck.findOne({ where: { name } });
+    // if (exists) return res.json({ error: 'El mazo ya existe' });
     // if (newDeckCards.length !== 20) return res.json({ error: "El mazo debe tener al menos 20 cartas" });
     try {
 
-        const newDeck = await Deck.create({ name, race }, { include: [Card] });
+        const newDeck = await Deck.create({ name });
         newDeckCards.forEach(async e => {
-            const card = await Card.findByPk(e.id, { include: [Deck] });
-            console.log(newDeck);
-            await card.addDeck(newDeck);
+            const card = await Card.findByPk(e.id);
+            // console.log(card);
             await newDeck.addCard(card);
-            await card.save();
-            await newDeck.save();
-        })
-        const user = await User.findByPk(userId, { include: Deck });
-        user.addDeck(newDeck);
-        user.save();
 
+        })
+        const user = await User.findByPk(userId);
+        await user.addDeck(newDeck);
+        console.log(user);
         res.json(user);
     } catch (err) {
         next(err);
