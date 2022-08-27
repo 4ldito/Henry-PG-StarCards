@@ -87,7 +87,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, user: payload, msg: "Correct" };
 
     case DELETE_USER:
-      const usersUpdated = state.users.filter(((user)) => user.id !== payload);;
+      const usersUpdated = state.users.filter((user) => user.id !== payload);
       return { ...state, users: usersUpdated, user: {} };;
 
     case SET_TOKEN:

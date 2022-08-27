@@ -49,7 +49,7 @@ export default function Nav() {
         className={css.btn}
         onClick={handleVisibleUserOptions}
       >
-        {user.id ? (
+        {user.user.id ? (
           <img
             id="btnMenu"
             className={css.profile}

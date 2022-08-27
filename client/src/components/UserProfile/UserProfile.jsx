@@ -7,6 +7,7 @@ import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
 import { getUserByName } from "../../redux/actions/user";
+import Inventory from "./Inventory/Inventory";
 
 import getAllCards from "../../redux/actions/cards/getAllCards";
 export default function UserProfile() {
@@ -20,7 +21,7 @@ export default function UserProfile() {
   const { validToken } = useValidToken({ navigate: true });
 
   useEffect(() => {
-    dispatch(getUserDecks(idUserActive));
+    dispatch(getUserDecks(activeUser.id));
     dispatch(getUser(activeUser.id));
     dispatch(getAllCards());
   }, []);
@@ -48,10 +49,10 @@ export default function UserProfile() {
     value === "1"
       ? setRender("Inventory")
       : value === "2"
-        ? setRender("Stats")
-        : value === "3"
-          ? setRender("config")
-          : setRender("Chat");
+      ? setRender("Stats")
+      : value === "3"
+      ? setRender("config")
+      : setRender("Chat");
   }
 
   return Object.keys(user).length !== 0 ? (
@@ -113,7 +114,6 @@ export default function UserProfile() {
           </div>
         ) : render === "Inventory" ? (
           <Inventory />
-
         ) : render === "Stats" ? (
           "Stats"
         ) : (
