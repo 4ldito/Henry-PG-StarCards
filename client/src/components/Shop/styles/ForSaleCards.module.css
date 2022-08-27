@@ -1,6 +1,7 @@
 .container {
     display: flex;
     overflow-y: auto;
+    flex-wrap: wrap;
     gap: 5rem;
     margin: 3rem;
     z-index: 10;

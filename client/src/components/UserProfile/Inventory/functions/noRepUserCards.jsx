@@ -3,7 +3,7 @@ export default function (userCards) {
   const forSaleCards = [];
 
   userCards?.forEach((e) => {
-    if (!notRepeated.find((card) => (card.name === e.name)) && !forSaleCards.find((card) => (card.name === e.name))) {
+    if (!forSaleCards.find((card) => (card.name === e.name)) && !notRepeated.find((card) => (card.name === e.name))) {
       e.repeat = 1;
       if (e.userCard.statusId === 'active') {
         notRepeated.push(e);
@@ -20,6 +20,10 @@ export default function (userCards) {
       }
     }
   });
+
+  // console.log(notRepeated);
+  // console.log('////////////')
+  // console.log(forSaleCards)
 
   // let notRepeated =noRuserCards.reduce
   return { notRepeated, forSaleCards };

@@ -1,35 +1,20 @@
 import React, { useState } from "react";
 import Card from "./Card";
-<<<<<<< HEAD
 import { useDispatch } from "react-redux";
-export function CardContainer({ card, repeat,addButton,addCardToDeck,inDeck}) {
-  const dispatch = useDispatch();
-=======
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
-export function CardContainer({ card, repeat }) {
->>>>>>> 85109bbd406e694029691cb8cfae89bec18bf3f6
+export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck }) {
+  const dispatch = useDispatch();
   const [viewCard, setViewCard] = useState(false);
-
-  function Sale() {
-    dispatch(
-      saleCard({
-        id: card.id,
-        status: "onSale",
-      })
-    );
-    }
-
 
   function handleViewCard() {
     setViewCard(!viewCard);
-
   }
-  
+
   return (
     <>
       {repeat > 1 && <label style={{ fontSize: "50px" }}>{repeat}</label>}
-      {addButton && <button onClick={()=>addCardToDeck(card)}>Añadir al mazo</button>}
+      {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
 
       <Card
         id={card.id}
@@ -43,9 +28,8 @@ export function CardContainer({ card, repeat }) {
         abilities={card.abilities}
         race={card.race}
         movement={card.movement}
-      />  
-
-      {!inDeck&&<button onClick={handleViewCard}>{card.userCard.statusId === 'active' ? 'Vender' : 'Quitar de en venta'}</button>}
+      />
+      {!inDeck && <button onClick={handleViewCard}>{card.userCard.statusId === 'active' ? 'Vender' : 'Quitar de en venta'}</button>}
       {viewCard && (
         <SaleCard
           handleViewCard={handleViewCard}
@@ -54,7 +38,6 @@ export function CardContainer({ card, repeat }) {
           image={card.image}
         />
       )}
-
     </>
   );
 }
