@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saleCard } from "../../../redux/actions/cards/userCards";
@@ -21,11 +21,11 @@ export default function SaleCard({ handleViewCard, id, name, image }) {
     setSale({ ...sale, [e.target.name]: e.target.value });
   }
 
-  // useEffect(() => {
-  //   // setCurrentUserCards()
-  //   console.log(userCards)
-  //   // userCards?.filter(userCard => { console.log(userCard); })
-  // }, [userCards])
+  useEffect(() => {
+    // setCurrentUserCards()
+    console.log(userCards)
+    // userCards?.filter(userCard => { console.log(userCard); })
+  }, [userCards])
 
   function handleSubmit(e) {
     e.preventDefault();
