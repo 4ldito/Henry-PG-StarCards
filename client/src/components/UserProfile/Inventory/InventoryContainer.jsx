@@ -13,6 +13,7 @@ export default function InventoryContainer() {
   const cards = useSelector((state) => state.album.cards);
   const user = useSelector(state => state.userReducer.user);
   const [bothStacks,setBothStacks] = useState(false);
+  const [creatingDeck, setCreatingDeck] = useState(false);
   const [newDeckCards,setNewDeckCards] = useState([]);
   const [actualStackToShow,setActualStackToShow] = useState([]);
 
@@ -25,7 +26,6 @@ export default function InventoryContainer() {
       setNewDeckCards(newDeckCards.filter(e=>e.id!==addingCard.id));
     }
   }
-
   function renderNotRepeat() {
     let cartas = [];
     filteredUserCards?.forEach(e=> {
@@ -34,6 +34,7 @@ export default function InventoryContainer() {
     if(filteredUserCards.length)return cartas
     return <label>Not cards found</label> 
   }
+  
   useEffect(()=>{
     actualStackToShow.length===2?setBothStacks(true):setBothStacks(false);
   },[actualStackToShow]);
@@ -56,7 +57,9 @@ export default function InventoryContainer() {
     <button name='cartas' onClick={(e)=>{setVisibleStack(e.target.name)}}>Cartas</button>
     <button name='mazos' onClick={(e)=>{setVisibleStack(e.target.name)}}>Mazos</button>
     {actualStackToShow.includes('cartas')?<div className={css.cartas}>{renderNotRepeat()}</div>:<></>}
-    {actualStackToShow.includes('mazos')?<DeckList newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks} enableAddButton={setBothStacks} userId={user.id}></DeckList>:<></>}
+    {actualStackToShow.includes('mazos')?<DeckList creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
+                                                   newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
+                                                   enableAddButton={setBothStacks} userId={user.id}></DeckList>:<></>}
     
   </div >);
 }

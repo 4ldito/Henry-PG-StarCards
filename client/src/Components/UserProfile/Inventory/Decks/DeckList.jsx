@@ -7,7 +7,7 @@ import { CardContainer } from "../../../Card/CardContainer";
 
 
 
-function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards}) {
+function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards,creatingDeck,setCreatingDeck}) {
     const dispatch = useDispatch();
     const decks = useSelector(state => state.userReducer.decks);
     const [selectedDeck, setSelectedDeck] = useState(null);
@@ -18,6 +18,7 @@ function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards}) {
 
     function openNewDeckTemplate(){
         if(!bothStacks)showCards('cartas');
+        setCreatingDeck(true);
         enableAddButton(true)
     }
     
