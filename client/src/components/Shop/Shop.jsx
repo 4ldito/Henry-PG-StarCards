@@ -10,12 +10,12 @@ import Filters from './Filters';
 
 import style from './styles/Shop.module.css';
 import ShopCart from './ShopCart/ShopCart';
+import ForSaleCards from './ForSaleCards';
 
 const Shop = () => {
   const dispatch = useDispatch();
   const [view, setView] = useState('stars');
   const [viewShopcart, setViewShopcart] = useState(false);
-
 
   const loadedStarsPack = useFetchStarsPack().loaded;
   const loadCardsPack = useFetchCardsPack().loaded;
@@ -62,7 +62,7 @@ const Shop = () => {
         <div className={style.containerBtns}>
           <button onClick={handleChangeView} value='stars' className={`${style.btn} ${style.active}`}>Buy Stars</button>
           <button onClick={handleChangeView} value='packsCards' className={style.btn}>Buy Packs Cards</button>
-          <button onClick={handleChangeView} value='cards' disabled className={`${style.btn} ${style.disabled}`}>Buy Cards</button>
+          <button onClick={handleChangeView} value='cards' className={`${style.btn}`}>Buy Cards</button>
         </div>
         <button onClick={handleSeeShopcart} className={style.btnShopcart}>Shopcart</button>
         {user?.id && <p className={style.avaliableStars}>Stars disponibles: {user.stars}</p>}
@@ -72,7 +72,7 @@ const Shop = () => {
               <Filters />
               <Packs type='cardsPack' />
             </>
-            : <p>Cards</p>
+            : <ForSaleCards />
         }
       </div>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}

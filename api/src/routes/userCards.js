@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db = require("../db");
 
-const { UserCards, Card } = db;
+const { UserCards, Card, User } = db;
 const userCardsRoute = Router();
 
 userCardsRoute.post("/", async (req, res, next) => {
@@ -37,11 +37,11 @@ userCardsRoute.get("/", async (req, res, next) => {
   const findConfig =
     userId && statusId
       ? {
-        where: { UserId: userId, StatusId: statusId },
+        where: { UserId: userId, StatusId: statusId }, include: [Card, User]
       }
       : userId
-        ? { where: { UserId: userId } }
-        : { where: { StatusId: statusId } };
+        ? { where: { UserId: userId }, include: [Card, User] }
+        : { where: { StatusId: statusId }, include: [Card, User] };
   try {
     const cards = await UserCards.findAll(
       userId || statusId ? findConfig : undefined
@@ -54,14 +54,19 @@ userCardsRoute.get("/", async (req, res, next) => {
 
 userCardsRoute.patch("/", async (req, res, next) => {
   try {
-    const { userId, userCardId, status } = req.body;
-    const card = await UserCards.findOne({
-      where: { UserId: userId, id: userCardId }, include: Card,
-    });
+    const { userId, userCardsIdsToSale, status, price } = req.body;
 
-    await card.setStatus(status);
-    // console.log(card);
-    res.json(card);
+    const userCards = await Promise.all(userCardsIdsToSale.map((userCard) => {
+      return UserCards.findOne({
+        where: { UserId: userId, id: userCard }, include: Card,
+      });
+    }));
+
+    const updatedUserCards = await Promise.all(userCards.map((userCard) => {
+      return userCard.update({ price, StatusId: status });
+    }));
+
+    return res.json(updatedUserCards);
   } catch (error) {
     console.log(error);
   }

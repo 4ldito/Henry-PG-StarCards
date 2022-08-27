@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: UUIDV4,
         primaryKey: true,
       },
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+      }
     },
     {
       timestamps: false,

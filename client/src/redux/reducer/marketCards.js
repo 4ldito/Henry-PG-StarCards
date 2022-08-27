@@ -1,4 +1,4 @@
-import { GET_ALL_CARDS_IN_SALE } from "../actions/marketCards"
+import { CLEAR_FOR_SALE_CARDS, GET_ALL_CARDS_IN_SALE } from "../actions/marketCards"
 
 const initialState = {
     cardsInSale: [],
@@ -8,8 +8,9 @@ const initialState = {
 export default function marketCardsReducer(state = initialState, { type, payload }) {
     switch (type) {
         case GET_ALL_CARDS_IN_SALE:
-            console.log(payload)
-            return { ...state }
+            return { ...state, cardsInSale: payload, loaded: true }
+        case CLEAR_FOR_SALE_CARDS:
+            return { ...state, cardsInSale: [], loaded: false }
         default:
             return state
     }
