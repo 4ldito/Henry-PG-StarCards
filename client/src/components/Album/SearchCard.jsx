@@ -28,7 +28,7 @@ export default function SearchCard() {
   function options() {
     let option = [];
     allCards.forEach((card) => {
-      option.push(<option value={card.name}></option>);
+      option.push(<option key={card.name} value={card.name}></option>);
     });
     return option;
   }

@@ -70,6 +70,7 @@ db.sequelize.sync({ force: forceFlag}).then(async () => {
  if(forceFlag){ await createRols();
   await createStatus();
 
+
   const packs = await createAllCardPacks();
   const packsStatus = packs.map(async (pack) => await pack.setStatus("active"));
 
@@ -94,6 +95,7 @@ db.sequelize.sync({ force: forceFlag}).then(async () => {
     });
     return [user.setRol("superadmin"), user.setStatus("active")];
   });
+
 
   await Promise.all([
     Promise.all(packsStatus),

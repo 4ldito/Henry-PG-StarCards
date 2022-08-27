@@ -20,6 +20,7 @@ function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards,crea
             // dispatch(getUserDecks(userId));
         }
     }
+
     function findSelectedDeck(id,userDecks) {
         const deck = userDecks.find(e =>id == e.id);
         setSelectedDeck(deck);
@@ -42,6 +43,7 @@ function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards,crea
         </div>
 
         {/* LISTADO DE MAZOS */}
+
         <ul>
             {decks?.map((e, i) => <div key={i}><div key={i} onClick={(e) => findSelectedDeck(e.target.id,decks)} id={e.id}>{e.name}
             </div>
@@ -60,6 +62,7 @@ function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards,crea
         </>
         }
     </div>      
+
 }
 
 export default DeckList;
