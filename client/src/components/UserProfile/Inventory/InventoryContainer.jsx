@@ -15,6 +15,7 @@ export default function InventoryContainer() {
   const [creationFormIsActive,setCreationFormIsActive] = useState(false);
   const [newDeckCards,setNewDeckCards] = useState([]);
   const [actualStackToShow,setActualStackToShow] = useState([]);
+
   function renderNotRepeat() {
     let cartas = [];
     filteredUserCards?.forEach(e=> {
@@ -23,7 +24,6 @@ export default function InventoryContainer() {
     if(filteredUserCards.length)return cartas
     return <label>Not cards found</label> 
   }
-
 
   useEffect(() => {
     dispatch(getUserCards(user.UserCards, cards))

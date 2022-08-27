@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    overflow-y: auto;
+    gap: 5rem;
+    margin: 3rem;
+    z-index: 10;
+    justify-content: center;
+}
+
+.saleContainer {
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: #0F0E0E;
+    padding: 1rem;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.saleContainer button {
+    margin-top: 1rem;
+}

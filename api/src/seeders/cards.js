@@ -158,7 +158,7 @@ const zergCards = [
     race: "Zerg",
     cost: 175,
     movement: "Flying",
-    image: "hhttps://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FScourge?alt=media&token=cfbc5d9b-99c8-4258-aacc-6b32fe069336",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FScourge?alt=media&token=cfbc5d9b-99c8-4258-aacc-6b32fe069336",
   },
   {
     name: "Mutalisk",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import SaleCard from "../Shop/SaleCard/SaleCard";
 import Card from "./Card";
+import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
 export function CardContainer({ card, repeat }) {
   const [viewCard, setViewCard] = useState(false);
