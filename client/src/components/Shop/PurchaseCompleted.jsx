@@ -28,7 +28,6 @@ const PurchaseCompleted = () => {
       dispatch(purchaseCompleted(purchaseInfo.userId, purchaseInfo.items, paymentId));
       dispatch(getPurchaseInfo());
     }
-    // if (purchaseInfo.userId) console.log(purchaseInfo);
   }, [purchaseInfo, purchaseInfo]);
 
   useEffect(() => {
@@ -42,7 +41,6 @@ const PurchaseCompleted = () => {
 
   return (
     <div className={style.container}>
-      {/* {console.log(actualPurchaseInfo)} */}
       <div className={style.model}>
         {error.type ? <h2>{error.info}</h2> :
           <>

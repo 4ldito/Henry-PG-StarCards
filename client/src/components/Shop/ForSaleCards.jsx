@@ -20,7 +20,6 @@ const ForSaleCards = () => {
   return (
     <div className={css.container}>
       {cardsInSale.map((card) => {
-        console.log(card);
         return (
           <div key={card.id} className={css.card}>
             <h5>{card.Card.name}</h5>

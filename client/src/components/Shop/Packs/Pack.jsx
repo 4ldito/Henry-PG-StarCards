@@ -10,7 +10,6 @@ export default function Pack({ name, amount, img, id }) {
   const dispatch = useDispatch()
 
   const handleDetail = (e) => {
-    console.log(e)
     setViewDetail(!viewDetail)
     dispatch(getDetailCard(id))
   }

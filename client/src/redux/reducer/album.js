@@ -40,7 +40,6 @@ export default function inventory(state = initialState, { type, payload }) {
     case SEARCH_USER_CARD:
       return { ...state, filteredUserCards: payload };
     case SALE_CARD:
-      console.log(payload);
       payload.forEach(userCard => {
         const actualUserCard = state.filteredUserCards.find((c) => c.id === userCard.Card.id);
         actualUserCard.userCard.statusId = userCard.StatusId;

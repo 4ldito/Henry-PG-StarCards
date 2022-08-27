@@ -18,7 +18,6 @@ export const buyCardPack = (info, userId) => {
   return async function (dispatch) {
     const response = await axios.patch('packs/buy', { ...info, userId })
     dispatch({ type: USER_MODIFY_STARS, payload: response.data })
-    // console.log(response)
     dispatch({ type: BUY_CARD_PACK, payload: response.data })
   }
 }

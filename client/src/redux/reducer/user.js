@@ -94,7 +94,6 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, token: payload.token };
 
     case IS_VALID_TOKEN:
-      // console.log('a')
       if (!payload)
         return {
           ...state,

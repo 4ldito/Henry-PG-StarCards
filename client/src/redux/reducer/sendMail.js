@@ -11,7 +11,6 @@ const initialState = {
 export default function starsPacksReducer (state = initialState, { type, payload }) {
   switch (type) {
     case VERIFY_TOKEN:
-      // console.log('payload que vuelve del back',payload,'recivedToken',state.recivedToken)
       return { ...state, token: payload, recivedToken: true}
     case MODAL:
       return { ...state, modal: payload }
