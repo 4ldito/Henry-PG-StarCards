@@ -9,7 +9,7 @@ const zergCards = [
     race: "Zerg",
     cost: 50,
     movement: "Ground",
-    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2Fbasdfa?alt=media&token=0dca6487-e807-42e4-93bd-8fdd4a70f1dc",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FZergling?alt=media&token=161b2622-1a49-4be1-a83b-4fcb36e1c3b7",
   },
   {
     name: "Roach",
@@ -21,7 +21,7 @@ const zergCards = [
     race: "Zerg",
     cost: 125,
     movement: "Ground",
-    image: "https://i.ibb.co/CQbZWyD/Roach.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FRoach?alt=media&token=6a86441a-fdf4-4c31-9e31-0def6ac4f6ab",
   },
   {
     name: "Queen",
@@ -33,7 +33,7 @@ const zergCards = [
     race: "Zerg",
     cost: 150,
     movement: "Ground",
-    image: "https://i.ibb.co/ZWv6PdB/Queen.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FQueen?alt=media&token=4f621eda-a303-40b8-9cd2-b864333a17ef",
   },
   {
     name: "Hydralisk",
@@ -45,7 +45,7 @@ const zergCards = [
     race: "Zerg",
     cost: 200,
     movement: "Ground",
-    image: "https://i.ibb.co/1dTNLvB/Hydralisk.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FHydralisk?alt=media&token=7442d781-83cd-4a3a-8472-c5ae33c9997e",
   },
   {
     name: "Ravager",
@@ -58,7 +58,7 @@ const zergCards = [
     race: "Zerg",
     cost: 300,
     movement: "Ground",
-    image: "https://i.ibb.co/Qd2LY8m/Ravager.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FRavager?alt=media&token=8740278a-4d7f-4c12-80de-b2d55f43b3da",
   },
   {
     name: "Baneling",
@@ -71,7 +71,7 @@ const zergCards = [
     race: "Zerg",
     cost: 100,
     movement: "Ground",
-    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2Fbasdfa?alt=media&token=0dca6487-e807-42e4-93bd-8fdd4a70f1dc",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FBaneling?alt=media&token=7daf5fc6-cde1-4833-8861-dc6ca6c46c35",
   },
   {
     name: "Lurker",
@@ -84,7 +84,7 @@ const zergCards = [
     race: "Zerg",
     cost: 450,
     movement: "Ground",
-    image: "https://i.ibb.co/zFbG8Nz/Zerg-Lurker.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FLurker?alt=media&token=304fd625-49d6-48a5-a038-096a0b5bb894",
   },
   {
     name: "Defiler",
@@ -97,7 +97,7 @@ const zergCards = [
     race: "Zerg",
     cost: 350,
     movement: "Ground",
-    image: "https://i.ibb.co/1zPCh7P/Defiler.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FDefiler?alt=media&token=f2414bb7-dda6-480a-9e16-16fbba0e07d6",
   },
   {
     name: "Infestor",
@@ -109,7 +109,7 @@ const zergCards = [
     race: "Zerg",
     cost: 400,
     movement: "Ground",
-    image: "https://i.ibb.co/4RJ8sdn/Infestor.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FInfestor?alt=media&token=2dfac2f2-e6d2-44e5-a3a6-fb55f723fe4a",
   },
   {
     name: "Swarm Host",
@@ -121,7 +121,7 @@ const zergCards = [
     race: "Zerg",
     cost: 250,
     movement: "Ground",
-    image: "https://i.ibb.co/Gvr1xn9/Swarm-Host.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FSwarm%20Host?alt=media&token=755a7a3a-395e-4c20-8154-eeb7f837c1d6",
   },
   {
     name: "Ultralisk",
@@ -134,7 +134,7 @@ const zergCards = [
     race: "Zerg",
     cost: 700,
     movement: "Ground",
-    image: "https://i.ibb.co/qgKybpV/Ultralisk.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FUltralisk?alt=media&token=8e84f06c-93f8-4c84-8a23-95c5b38ac78f",
   },
   {
     name: "Overlord",
@@ -146,7 +146,7 @@ const zergCards = [
     race: "Zerg",
     cost: 100,
     movement: "Flying",
-    image: "https://i.ibb.co/3rjnDs3/Overlord.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FOverlord?alt=media&token=afb05541-96f9-42a1-aae1-dff06020338e",
   },
   {
     name: "Scourge",
@@ -158,7 +158,7 @@ const zergCards = [
     race: "Zerg",
     cost: 175,
     movement: "Flying",
-    image: "https://i.ibb.co/tq54zJw/Scourge.jpg",
+    image: "hhttps://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FScourge?alt=media&token=cfbc5d9b-99c8-4258-aacc-6b32fe069336",
   },
   {
     name: "Mutalisk",
@@ -171,7 +171,7 @@ const zergCards = [
     race: "Zerg",
     cost: 300,
     movement: "Flying",
-    image: "https://i.ibb.co/SfvdDkj/Mutalisk.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FMutalisk?alt=media&token=da7bdcd5-0ae5-473d-b6b3-e84f4072e19a",
   },
   {
     name: "Corruptor",
@@ -184,7 +184,7 @@ const zergCards = [
     race: "Zerg",
     cost: 350,
     movement: "Flying",
-    image: "https://i.ibb.co/kBqcpFs/Corruptor.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FCorruptor?alt=media&token=5e3236b2-b2d2-44c1-ad65-e1739bcf94ba",
   },
   {
     name: "Viper",
@@ -197,7 +197,7 @@ const zergCards = [
     race: "Zerg",
     cost: 500,
     movement: "Flying",
-    image: "https://i.ibb.co/pyxFPSj/Viper.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FViper?alt=media&token=ab742511-a345-4965-bc95-1e6132aa7e17",
   },
   {
     name: "Brood Lord",
@@ -209,7 +209,7 @@ const zergCards = [
     race: "Zerg",
     cost: 800,
     movement: "Flying",
-    image: "https://i.ibb.co/VMhsDW5/Brood-Lord.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FBrood%20Lord?alt=media&token=68edc8a9-7ff6-42ad-abf7-5f0dc5da56c3",
   },
   {
     name: "Kerrigan",
@@ -221,7 +221,7 @@ const zergCards = [
     race: "Zerg",
     cost: 1500,
     movement: "Ground",
-    image: "https://i.ibb.co/8xxsrK5/Kerrigan.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FZerg%2FKerrigan?alt=media&token=be3cef6f-33e9-4111-afd0-3aec3191d4fa",
   },
 ];
 
