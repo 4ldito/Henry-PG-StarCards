@@ -9,7 +9,7 @@ const zergCards = [
     race: "Zerg",
     cost: 50,
     movement: "Ground",
-    image: "https://i.ibb.co/fry7vwF/Zergling.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2Fbasdfa?alt=media&token=0dca6487-e807-42e4-93bd-8fdd4a70f1dc",
   },
   {
     name: "Roach",
@@ -71,7 +71,7 @@ const zergCards = [
     race: "Zerg",
     cost: 100,
     movement: "Ground",
-    image: "https://i.ibb.co/XC97Kk6/Baneling.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2Fbasdfa?alt=media&token=0dca6487-e807-42e4-93bd-8fdd4a70f1dc",
   },
   {
     name: "Lurker",
