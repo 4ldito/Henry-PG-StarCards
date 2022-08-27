@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { saleCard } from "../../redux/actions/cards/userCards";
 import Card from "./Card";
 
-export function CardContainer({ card, repeat }) {
+export function CardContainer({ card, repeat,addButton,addCardToDeck}) {
   const dispatch = useDispatch();
   function Sale() {
     dispatch(
@@ -16,7 +16,7 @@ export function CardContainer({ card, repeat }) {
   return (
     <>
       {repeat > 1 && <label style={{ fontSize: "50px" }}>{repeat}</label>}
-
+      {addButton && <button onClick={()=>addCardToDeck(card)}>Añadir al mazo</button>}
       <Card
         id={card?.id}
         name={card?.name}
@@ -31,6 +31,7 @@ export function CardContainer({ card, repeat }) {
         movement={card?.movement}
       />
       <button onClick={Sale}>Sale</button>
+      
     </>
   );
 }

@@ -52,11 +52,6 @@ export default function Card({ id }) {
   return (
     <>
       <div className={css.Card}>
-        {haveCard ? (
-          <span className={css.haveCard}>You have this card</span>
-        ) : (
-          <span className={css.haveCard}>You don't have this card</span>
-        )}
         <div className={`${cardCss} ${css.cardContainer}`} onClick={todo}>
           <div className={css.nameContainer}>
             <h3 className={css.name}>{card?.name}</h3>
