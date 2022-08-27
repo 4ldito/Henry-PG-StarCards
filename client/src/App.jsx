@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 // import ProtectedRoutes from './ProtectedRoutes'
-import Registro from './components/Registro/Registro'
+// import Registro from './components/Registro/Registro'
 import Login from './components/Registro/Login'
 import UserProfile from "./components/UserProfile/UserProfile";
 import LandingPage from "./components/LandingPage/LandingPage";
@@ -12,6 +12,7 @@ import Shop from "./components/Shop/Shop";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
 import Nav from "./components/Nav/Nav";
 import About from "./components/About/About";
+import PrivateChat from "./components/UserProfile/PrivateChat/PrivateChat";
 
 import "./App.css";
 import { resetReduxState } from "./redux/actions";
@@ -20,7 +21,7 @@ import Inventory from "./components/UserProfile/Inventory/Inventory";
 
 
 import RecoveryPassword from './components/Registro/RecoveryPassword';
-
+import Registro from "./components/Registro/Registro";import Firebase from "./Components/FirebaseAdmi/Firebase";
 
 
 function App() {
@@ -43,17 +44,21 @@ function App() {
     <div>
       <Nav />
       <Routes>
+        <Route path="/firebase" element={<Firebase />}/>
         <Route path="/" element={<LandingPage />} />
-        <Route path='/register' element={<Registro />} />
-        <Route path='/login' element={<Login />} />
+        <Route path="/register" element={<Registro />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/about" element={<About />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
-        <Route path='/playroom' element={<Playroom />} />
-        {/* <Route path='/shopcart' element={<ShopCart />} /> */}
+        <Route path="/playroom" element={<Playroom />} />
+        {/* <Route path="/shopcart" element={<ShopCart />} /> */}
         <Route path="/userProfile" element={<UserProfile />} />
-        <Route path="/recovery" element={<RecoveryPassword />} />
 
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/recovery" element={<RecoveryPassword />} />
+        {/* </Route> */}
+        <Route path="/privateChat" element={<PrivateChat />} />
       </Routes>
     </div>
   );

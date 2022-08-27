@@ -4,11 +4,13 @@ import { searchCard } from "../../redux/actions/cards/searchCard.js";
 import getAllCards from "../../redux/actions/cards/getAllCards";
 
 import css from "./SearchCard.module.css";
+import { useEffect } from "react";
 
 export default function SearchCard() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const cards = useSelector((state) => state.album.cards);
+  const allCards = useSelector((state) => state.album.filteredCards);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -25,7 +27,7 @@ export default function SearchCard() {
 
   function options() {
     let option = [];
-    cards.forEach((card) => {
+    allCards.forEach((card) => {
       option.push(<option value={card.name}></option>);
     });
     return option;

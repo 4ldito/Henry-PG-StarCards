@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
+import ChatNotifications from "./ChatNotifications/ChatNotifications";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
@@ -9,7 +10,7 @@ import { useSelector } from "react-redux";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
-  const { validToken } = useValidToken({ navigate: false });
+  const { validToken } = useValidToken({ navigate: false });;
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
 
   const handleVisibleUserOptions = () => {
@@ -18,6 +19,7 @@ export default function Nav() {
 
   return (
     <div className={css.nav}>
+      {/* <ChatNotifications style="position: absolute" /> */}
       <NavLink className={css.link} to="/">
         <img className={css.img} src={logo} alt="Logo de StarCards" />
       </NavLink>
@@ -47,7 +49,7 @@ export default function Nav() {
         className={css.btn}
         onClick={handleVisibleUserOptions}
       >
-        {user.id ? (
+        {user.user.id ? (
           <img
             id="btnMenu"
             className={css.profile}

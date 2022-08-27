@@ -85,7 +85,7 @@ const cardPacks = [
       ["Widow Mine", "0.03"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/gDNJCX4/packs9-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2Fbasdfa?alt=media&token=0dca6487-e807-42e4-93bd-8fdd4a70f1dc",
     amount: 10,
   },
   {

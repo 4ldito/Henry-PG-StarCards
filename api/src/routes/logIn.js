@@ -4,7 +4,7 @@ const config = require('../config/config');
 const jwt = require('jsonwebtoken');
 
 const db = require("../db");
-const { User} = db;
+const { User } = db;
 
 const authCtrl = require('../controllers/logIn.controller')
 const userVal = require('../middlewares/userValidations');
@@ -17,13 +17,13 @@ logInRoutes.get('/:token', async (req, res) => {
     const { id } = req.query;
 
     try {
-        if(!id){
+        if (!id) {
             return res.send('nó sé recibió ningún tókén ñ');
-        }else{
+        } else {
             const tokenData = jwt.verify(token, config.SECRET);
             const user = await User.findByPk(tokenData.id);
             if (!user) return res.send(false);
-    
+
             return res.send(tokenData.id === id);
         }
 

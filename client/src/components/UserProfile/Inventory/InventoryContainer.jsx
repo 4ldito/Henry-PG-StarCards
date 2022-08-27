@@ -16,6 +16,7 @@ export default function InventoryContainer() {
   const [newDeckCards,setNewDeckCards] = useState([]);
   const [actualStackToShow,setActualStackToShow] = useState([]);
 
+
   const addCardToDeck= (card,remove)=>{
     const addingCard = newDeckCards.find(e=>e.id === card.id);
     if(!addingCard){
@@ -24,6 +25,7 @@ export default function InventoryContainer() {
       setNewDeckCards(newDeckCards.filter(e=>e.id!==addingCard.id));
     }
   }
+
   function renderNotRepeat() {
     let cartas = [];
     filteredUserCards?.forEach(e=> {

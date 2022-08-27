@@ -1,34 +1,48 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getUser, getUserDecks } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
-
-
-
-import getAllCards from '../../redux/actions/cards/getAllCards'
+import { getUserByName } from "../../redux/actions/user";
 import Inventory from "./Inventory/Inventory";
-import DeckList from "./Inventory/Decks/DeckList";
+
+import getAllCards from "../../redux/actions/cards/getAllCards";
 export default function UserProfile() {
   const dispatch = useDispatch();
-  const userActive = useSelector((state) => state.userReducer.user);
-  const idUserActive = useSelector((state) => state.userReducer.id);
+
+  const activeUser = useSelector((state) => state.userReducer.user);
+  const urlUser = useSelector((state) => state.userReducer.urlUser);
+
   const [user, setUser] = useState({});
   const [render, setRender] = useState();
   const { validToken } = useValidToken({ navigate: true });
 
   useEffect(() => {
-    dispatch(getUserDecks(idUserActive));
-    dispatch(getUser(idUserActive));
+    dispatch(getUserDecks(activeUser.id));
+    dispatch(getUser(activeUser.id));
     dispatch(getAllCards());
   }, []);
 
   useEffect(() => {
-    setUser(userActive);
-  }, [userActive]);
+    if (query === activeUser.username || !query) setUser(activeUser);
+    else setUser(urlUser);
+  }, [activeUser, urlUser]);
+
+  // Read profile owner from url
+  function useQuery() {
+    const { search } = useLocation();
+
+    return useMemo(() => new URLSearchParams(search), [search]);
+  }
+  const query = useQuery().get("username");
+
+  useEffect(() => {
+    if (query) dispatch(getUserByName(query));
+  }, [query]);
+  /////////////////////////////////////////////////
 
   function changeRender(e) {
     let value = e.target.value;
@@ -58,7 +72,9 @@ export default function UserProfile() {
         </Link>
       </div>
       <div className={style.buttonsbar}>
-        {/* <Link to='/inventory'><button>Inventory</button></Link> */}
+        {/* <Link to="/inventory">
+          <button>Inventory</button>
+        </Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
           value="1"
@@ -97,8 +113,7 @@ export default function UserProfile() {
             <Config user={user} />
           </div>
         ) : render === "Inventory" ? (
-          <Inventory/>
-          
+          <Inventory />
         ) : render === "Stats" ? (
           "Stats"
         ) : (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../../redux/actions/user";
 import css from "./UserOptions.module.css";
 import useValidToken from "../../../hooks/useValidToken";
@@ -10,6 +10,8 @@ export default function UserOptions({ handleVisibleUserOptions }) {
   const { validToken } = useValidToken({ navigate: false });
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const user = useSelector((state) => state.userReducer.user);
 
   const [viewShopcart, setViewShopcart] = useState(false);
 
@@ -26,58 +28,45 @@ export default function UserOptions({ handleVisibleUserOptions }) {
 
   const handleSeeShopcart = (e) => {
     setViewShopcart(!viewShopcart);
-  };
+  };;
 
   return (
     <>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
-      {validToken ? (
-        <ul id="menu" className={css.ul}>
+      <ul id="menu" className={css.ul}>
+        <li className={css.li}>
+          <button
+            onClick={handleSeeShopcart}
+            className={css.btn}
+            style={option}
+            to="/shopcart"
+          >
+            Shopcart
+          </button>
+        </li>
+        {validToken && (
           <li className={css.li}>
-            <button
-              onClick={handleSeeShopcart}
+            <Link
+              className={css.link}
               style={option}
-              className={css.btn}
-              // to="/shopcart"
+              to={`/userProfile?username=${user.username}`}
             >
-              Shopcart
-            </button>
-          </li>
-          <li className={css.li}>
-            <Link className={css.link} style={option} to="/userProfile">
               User Profile
             </Link>
           </li>
-          <li className={css.li}>
+        )}
+        <li className={css.li}>
+          {validToken ? (
             <button className={css.btn} onClick={quit}>
               Log out
             </button>
-          </li>
-        </ul>
-      ) : (
-        <ul id="menu" className={css.ul}>
-          <li className={css.li}>
-            <button
-              onClick={handleSeeShopcart}
-              className={css.btn}
-              style={option}
-            // to="/shopcart"
-            >
-              Shopcart
-            </button>
-          </li>
-          <li className={css.li}>
+          ) : (
             <Link className={css.link} style={option} to="/login">
               Log In
             </Link>
-          </li>
-          <li className={css.li}>
-            <Link className={css.link} style={option} to="/register">
-              Sign In
-            </Link>
-          </li>
-        </ul>
-      )}
+          )}
+        </li>
+      </ul>
     </>
   );
 }
