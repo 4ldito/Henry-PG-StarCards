@@ -82,25 +82,25 @@ userRoute.delete("/", async (req, res, next) => {
   }
 });
 // [tokenValidations.checkToken, tokenValidations.checkAdmin]
-userRoute.post("/", async (req, res, next) => {
-    const { password, username, email } = req.body;
-    try {
-      const [newUser, created] = await User.findOrCreate({
-        where: { password, username, email },
-        include: Rol,
-      });
-      if (created) {
-        newUser.setRol("user");
-        newUser.setStatus("active");
-        res.json(newUser).send({ msg: "User Created!" });
-      } else {
-        res.status(400).json({ msg: "user alredy exists" });
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// userRoute.post("/", async (req, res, next) => {
+//     const { password, username, email } = req.body;
+//     try {
+//       const [newUser, created] = await User.findOrCreate({
+//         where: { password, username, email },
+//         include: Rol,
+//       });
+//       if (created) {
+//         newUser.setRol("user");
+//         newUser.setStatus("active");
+//         res.json(newUser).send({ msg: "User Created!" });
+//       } else {
+//         res.status(400).json({ msg: "user alredy exists" });
+//       }
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 userRoute.delete("/", async (req, res, next) => {
   try {
