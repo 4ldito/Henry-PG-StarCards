@@ -6,7 +6,7 @@ import { CardContainer } from "../../../Card/CardContainer";
 function SelectedDeck({deck}){
     
     return <div>
-        {deck.Cards?.map((e,i)=><CardContainer key={i} card={e}></CardContainer>)}
+        {deck.Cards?.map((e,i)=><CardContainer inDeck={true} key={i} card={e}></CardContainer>)}
 
     </div>
 }

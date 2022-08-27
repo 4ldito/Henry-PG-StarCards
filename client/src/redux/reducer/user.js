@@ -14,12 +14,14 @@ import {
   USER_CLEAN_MSG_INFO,
   USER_MODIFY_STARS,
   SET_CHAT_NOTIFICATION,
+  CREATE_DECK,
 } from "../actions/user";
 
 
 
 const initialState = {
   user: {},
+  decks:[],
   validUser: false,
   urlUser: {},
   validPassword: "",
@@ -129,8 +131,11 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, chatNotification: payload };
     case GET_USER_DECKS:
       return {...state, decks: payload}
+    case CREATE_DECK:
+      return {...state, decks:[...state.decks,payload]}
     case DELETE_DECK:
       return {...state, decks: payload.newDeckList}
+    
 
     default:
       return state;;

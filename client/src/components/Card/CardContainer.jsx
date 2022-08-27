@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SaleCard from "../Shop/SaleCard/SaleCard";
 import Card from "./Card";
 import { useDispatch } from "react-redux";
-export function CardContainer({ card, repeat,addButton,addCardToDeck}) {
+export function CardContainer({ card, repeat,addButton,addCardToDeck,inDeck}) {
   const dispatch = useDispatch();
   const [viewCard, setViewCard] = useState(false);
 
@@ -40,7 +40,7 @@ export function CardContainer({ card, repeat,addButton,addCardToDeck}) {
         movement={card.movement}
       />  
 
-      <button onClick={handleViewCard}>{card.userCard.statusId === 'active' ? 'Vender' : 'Quitar de en venta'}</button>
+      {!inDeck&&<button onClick={handleViewCard}>{card.userCard.statusId === 'active' ? 'Vender' : 'Quitar de en venta'}</button>}
       {viewCard && (
         <SaleCard
           handleViewCard={handleViewCard}

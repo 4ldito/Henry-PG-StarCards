@@ -56,10 +56,11 @@ export default function InventoryContainer() {
   return (<div className={css.InventoryContainer}>
     <button name='cartas' onClick={(e)=>{setVisibleStack(e.target.name)}}>Cartas</button>
     <button name='mazos' onClick={(e)=>{setVisibleStack(e.target.name)}}>Mazos</button>
-    {actualStackToShow.includes('cartas')?<div className={css.cartas}>{renderNotRepeat()}</div>:<></>}
+    <div className={css.cartasYMazosContainer}>
+    {actualStackToShow.includes('cartas')?<div className={bothStacks? css.cartasYMazo:css.cartas}>{renderNotRepeat()}</div>:<></>}
     {actualStackToShow.includes('mazos')?<DeckList creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
                                                    newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
                                                    enableAddButton={setBothStacks} userId={user.id}></DeckList>:<></>}
-    
+    </div>
   </div >);
 }

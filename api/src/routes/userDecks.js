@@ -16,7 +16,6 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
                 return Deck.findByPk(e.id, { include: Card });
             });
             const decks = await Promise.all(promisedDecks);
-            console.log(decks);
             return res.json(decks);
         }
         const deckFound = await Deck.findByPk(deckId, { include: Card });
@@ -30,9 +29,7 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
 userDecksRoute.post('/:userId', async (req, res, next) => {
     const { newDeckCards, name} = req.body;
     const userId = req.params.userId;
-    // const exists = await Deck.findOne({ where: { name } });
-    // if (exists) return res.json({ error: 'El mazo ya existe' });
-    // if (newDeckCards.length !== 20) return res.json({ error: "El mazo debe tener al menos 20 cartas" });
+
     try {
 
         const newDeck = await Deck.create({ name });
@@ -40,12 +37,13 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
             const card = await Card.findByPk(e.id);
             // console.log(card);
             await newDeck.addCard(card);
+            newDeck.save();
 
         })
-        const user = await User.findByPk(userId);
+        const user = await User.findByPk(userId,{include:Deck});
         await user.addDeck(newDeck);
-        console.log(user);
-        res.json(user);
+        await user.save();
+        res.json(newDeck);
     } catch (err) {
         next(err);
     }

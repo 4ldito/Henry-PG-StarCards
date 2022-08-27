@@ -10,8 +10,8 @@ export const IS_VALID_TOKEN = "IS_VALID_TOKEN";
 export const LOG_OUT = "LOG_OUT";
 export const USER_CLEAN_MSG_INFO = "USER_CLEAN_MSG_INFO";
 export const GET_USER_CARDS = "GET_USER_CARDS";
-export const GET_USER_DECKS =
-  "GET_USER_DECKS_deaa el tipo seguia los protocolos";
+export const GET_USER_DECKS = "GET_USER_DECKS_deaa el tipo seguia los protocolos";
+export const CREATE_DECK = "CREATE_DECK"
 export const DELETE_DECK = "DELETE_DECK";
 export const USER_MODIFY_STARS = "USER_MODIFY_STARS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
@@ -145,7 +145,13 @@ export function getUserDecks(userId, deckId) {
     dispatch({ type: GET_USER_DECKS, payload: response.data });
   };
 }
-
+export function createDeck(userId,deck,name){
+  // console.log('userId--->',userId,'deck--->', deck,'name--->', name)
+  return async function (dispatch) {
+    const response = await axios.post(`userDecks/${userId}`,{newDeckCards:deck, name});
+    dispatch({type:CREATE_DECK, payload:response.data});
+  } 
+}
 export function deleteDeck(userId, deckId) {
   return async function (dispatch) {
     const response = await axios.delete(`/userDecks/${deckId}/${userId}`);
