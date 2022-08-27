@@ -31,15 +31,28 @@ const ShopCart = ({ handleSeeShopcart }) => {
         title: msgInfoPurchase.title,
         text: msgInfoPurchase.info,
         icon: msgInfoPurchase.type,
-      })
+      });
+      if (msgInfoPurchase.type === 'success' && !starsPack.length) {
+        handleSeeShopcart();
+      };
     }
   }, [msgInfoPurchase]);
 
   const handleRemoveItem = (e, type) => {
     e.preventDefault();
     e.stopPropagation();
-    const target = Number(e.target.id)
-    dispatch(removeFromShopCart(target, type, user.id))
+    const target = Number(e.target.id);
+
+    dispatch(removeFromShopCart(target, type, user.id));
+
+    if (type === 'starsPack') {
+      setSeeBtn(false)
+      if (intervalMercadopago) clearTimeout(intervalMercadopago);
+      intervalMercadopago = setTimeout(() => {
+        setSeeBtn(true);
+        dispatch(cleanPreferenceId());
+      }, 1000);
+    }
   }
 
   const buyWithStars = useMemo(() => {
@@ -92,7 +105,7 @@ const ShopCart = ({ handleSeeShopcart }) => {
     e.preventDefault();
     const info = { data: [...cardsPack] }
     dispatch(shopcartBuyCardsPacks(info, user.id));
-}
+  }
 
   return (
     <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) || (!starsPack.length && cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>

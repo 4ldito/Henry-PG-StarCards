@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 const { Router } = require("express");
 const db = require("../db");
 const axios = require('axios');
 
-const { CardPacks, User, Card } = db;
+const { CardPacks, User, Card, Transaction } = db;
 const packsRoute = Router();
 
 packsRoute.get("/all", async (req, res, next) => {
@@ -45,9 +44,13 @@ packsRoute.patch('/buy', async (req, res, next) => {
       0
     );
 
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId, { attributes: { exclude: ['password'] } });
 
-    // console.log(`${user.username} esta comprando :D`)
+    const transaction = await Transaction.create({ type: 'stars' });
+    await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
+
+    // await transaction.setUser(userId);
+    // await transaction.setStatus('active');
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
 
@@ -57,6 +60,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
     const packs = await Promise.all(packsId);
     const updatedPacks = packs.map(pack => {
       pack.stock = pack.stock - info[pack.name].quantity;
+      transaction.addCardPacks(pack.id);
       return pack.save();
     });
 

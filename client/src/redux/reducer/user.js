@@ -1,11 +1,11 @@
 import {
-  GET_USER_BY_EMAIL,
+  GET_BY_EMAIL, USER_CLEAN, GET_USER_BY_EMAIL,
   GET_USER_BY_NAME,
-  CREATE_USER,
-  DELETE_USER,
+ CREATE_USER,
+  DELETE_DECK, DELETE_USER,
   GET_ALL_USERS,
   GET_USER,
-  IS_VALID_TOKEN,
+  GET_USER_DECKS, IS_VALID_TOKEN,
   LOG_OUT,
   MODIFY_USER,
   SET_TOKEN,
@@ -15,8 +15,10 @@ import {
   SET_CHAT_NOTIFICATION,
 } from "../actions/user";
 
+
 const initialState = {
   user: {},
+  validUser: false,
   urlUser: {},
   validPassword: "",
   users: [],
@@ -26,17 +28,20 @@ const initialState = {
   chatNotification: false,
 };
 
+
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USER:
-      // console.log(' ',payload)
-      return { ...state, user: payload };
+      return { ...state, user: payload };;
 
     case GET_ALL_USERS:
       return { ...state, users: payload };
 
     case GET_USER_BY_EMAIL:
-      return { ...state, user: payload };
+      return { ...state, user: payload, validUser: true }
+
+    case GET_BY_EMAIL:
+      return { ...state, actualUser: payload};
 
     case GET_USER_BY_NAME:
       return { ...state, urlUser: payload };
@@ -82,8 +87,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, user: payload, msg: "Correct" };
 
     case DELETE_USER:
-      const usersUpdated = state.users.filter((user) => user.id !== payload);
-      return { ...state, users: usersUpdated, user: {} };
+      const usersUpdated = state.users.filter(((user)) => user.id !== payload);;
+      return { ...state, users: usersUpdated, user: {} };;
 
     case SET_TOKEN:
       return { ...state, token: payload.token };
@@ -109,6 +114,10 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case USER_CLEAN_MSG_INFO:
       return { ...state, msg: {} };
+
+    case USER_CLEAN:
+      return { ...state, validUser: false, user: {} }
+      
     case USER_MODIFY_STARS:
       const { updatedUser, error } = payload;
       if (updatedUser && !error) return { ...state, user: updatedUser };
@@ -116,8 +125,12 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case SET_CHAT_NOTIFICATION:
       return { ...state, chatNotification: payload };
+    case GET_USER_DECKS:
+      return {...state, decks: payload}
+    case DELETE_DECK:
+      return {...state, decks: payload.newDeckList}
 
     default:
-      return state;
+      return state;;
   }
 }

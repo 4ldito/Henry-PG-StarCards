@@ -65,42 +65,43 @@ const createStatus = async () => {
   }
 };
 
-db.sequelize.sync({ force: true }).then(async () => {
-  await createRols();
-  await createStatus();
 
-  const packs = await createAllCardPacks();
-  const packsStatus = packs.map(async (pack) => await pack.setStatus("active"));
+db.sequelize.sync({ force: false }).then(async () => {
+  // await createRols();
+  // await createStatus();
 
-  const cards = await createAllCards();
-  const cardsStatus = cards.map(async (card) => await card.setStatus("active"));
+  // const packs = await createAllCardPacks();
+  // const packsStatus = packs.map(async (pack) => await pack.setStatus("active"));
 
-  const superadmins = await createAllUsers();
-  const adminCards = [];
-  const userSuperadmin = superadmins.map(async (user) => {
-    cards.forEach(async (card) => {
-      for (let i = 0; i < 1; i++) {
-        const userCard = await UserCards.create();
+  // const cards = await createAllCards();
+  // const cardsStatus = cards.map(async (card) => await card.setStatus("active"));
 
-        const addUserCard = [
-          userCard.setStatus("active"),
-          userCard.setUser(user.id),
-          userCard.setCard(card.id),
-        ];
+  // const superadmins = await createAllUsers();
+  // const adminCards = [];
+  // const userSuperadmin = superadmins.map(async (user) => {
+  //   cards.forEach(async (card) => {
+  //     for (let i = 0; i < 1; i++) {
+  //       const userCard = await UserCards.create();
 
-        adminCards.push(Promise.all(addUserCard));
-      }
-    });
-    return [user.setRol("superadmin"), user.setStatus("active")];
-  });
+  //       const addUserCard = [
+  //         userCard.setStatus("active"),
+  //         userCard.setUser(user.id),
+  //         userCard.setCard(card.id),
+  //       ];
 
-  await Promise.all([
-    Promise.all(packsStatus),
-    Promise.all(cardsStatus),
-    Promise.all(userSuperadmin),
-    Promise.all(adminCards),
-    await createAllStarPacks(),
-  ]);
+  //       adminCards.push(Promise.all(addUserCard));
+  //     }
+  //   });
+  //   return [user.setRol("superadmin"), user.setStatus("active")];
+  // });
+
+  // await Promise.all([
+  //   Promise.all(packsStatus),
+  //   Promise.all(cardsStatus),
+  //   Promise.all(userSuperadmin),
+  //   Promise.all(adminCards),
+  //   await createAllStarPacks(),
+  // ]);
 
   server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);

@@ -7,6 +7,7 @@ class UserCards extends Model {
     UserCards.belongsTo(models.User);
     UserCards.belongsTo(models.Card);
     UserCards.belongsTo(models.Status);
+    UserCards.belongsToMany(models.Deck, { through: "DeckCard" });
   }
 }
 
@@ -18,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: UUIDV4,
         primaryKey: true,
       },
+      price: {
+        type: DataTypes.FLOAT,
+        allowNull: true
+      }
     },
     {
       timestamps: false,

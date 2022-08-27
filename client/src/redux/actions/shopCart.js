@@ -10,6 +10,7 @@ export const CLEAN_PREFERENCE_ID = 'CLEAN_PREFERENCE_ID';
 export const SHOPCART_CLEAN_PURCHASE_INFO = 'SHOPCART_CLEAN_PURCHASE_INFO';
 export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
 export const GET_USER_SHOPCART = 'GET_USER_SHOPCART';
+export const SHOW_PACK_DETAIL = 'SHOW_PACK_DETAIL'
 // export function addToShopCart(product, quantity, packTypes) {
 //   quantity = Number(quantity)
 //   return { type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } }
@@ -98,4 +99,8 @@ export function modifiyQuantity({ id, type, modifyType, userId }) {
       console.error('STARCARDS_ERROR', error)
     }
   }
+}
+
+export function showPackDetail() {
+  return { type: SHOW_PACK_DETAIL }
 }

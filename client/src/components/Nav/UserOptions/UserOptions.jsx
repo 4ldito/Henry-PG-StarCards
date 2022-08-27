@@ -28,7 +28,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
 
   const handleSeeShopcart = (e) => {
     setViewShopcart(!viewShopcart);
-  };
+  };;
 
   return (
     <>

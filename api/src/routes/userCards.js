@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db = require("../db");
 
-const { UserCards } = db;
+const { UserCards, Card, User } = db;
 const userCardsRoute = Router();
 
 userCardsRoute.post("/", async (req, res, next) => {
@@ -9,7 +9,7 @@ userCardsRoute.post("/", async (req, res, next) => {
 
   try {
     const createdUserCards = [];
-    const cardsArray = cardsId.map(async (cardId)=>{
+    const cardsArray = cardsId.map(async (cardId) => {
       const userCard = await UserCards.create();
       createdUserCards.push(userCard);
       const addUserCard = [
@@ -17,11 +17,11 @@ userCardsRoute.post("/", async (req, res, next) => {
         userCard.setUser(userId),
         userCard.setCard(cardId),
       ];
-  
-      return Promise.all(addUserCard);
-    })
 
-    await Promise.all(cardsArray)
+      return Promise.all(addUserCard);
+    });
+
+    await Promise.all(cardsArray);
 
     return res.send(createdUserCards);
   } catch (error) {
@@ -37,11 +37,11 @@ userCardsRoute.get("/", async (req, res, next) => {
   const findConfig =
     userId && statusId
       ? {
-          where: { UserId: userId, StatusId: statusId },
-        }
+        where: { UserId: userId, StatusId: statusId }, include: [Card, User]
+      }
       : userId
-      ? { where: { UserId: userId } }
-      : { where: { StatusId: statusId } };
+        ? { where: { UserId: userId }, include: [Card, User] }
+        : { where: { StatusId: statusId }, include: [Card, User] };
   try {
     const cards = await UserCards.findAll(
       userId || statusId ? findConfig : undefined
@@ -49,6 +49,26 @@ userCardsRoute.get("/", async (req, res, next) => {
     return res.send(cards);
   } catch (error) {
     return next(error);
+  }
+});
+
+userCardsRoute.patch("/", async (req, res, next) => {
+  try {
+    const { userId, userCardsIdsToSale, status, price } = req.body;
+
+    const userCards = await Promise.all(userCardsIdsToSale.map((userCard) => {
+      return UserCards.findOne({
+        where: { UserId: userId, id: userCard }, include: Card,
+      });
+    }));
+
+    const updatedUserCards = await Promise.all(userCards.map((userCard) => {
+      return userCard.update({ price, StatusId: status });
+    }));
+
+    return res.json(updatedUserCards);
+  } catch (error) {
+    console.log(error);
   }
 });
 

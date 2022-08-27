@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-import { getPurchaseInfo, shopCartCleanMsgInfo } from "../../redux/actions/shopCart";
+import { cleanPreferenceId, getPurchaseInfo, shopCartCleanMsgInfo } from "../../redux/actions/shopCart";
 import { purchaseCompleted } from "../../redux/actions/user";
 
 import style from "./styles/PurchaseCompleted.module.css";
@@ -19,15 +19,17 @@ const PurchaseCompleted = () => {
 
   useEffect(() => {
     dispatch(getPurchaseInfo(paymentId));
+    dispatch(cleanPreferenceId());
   }, []);
 
   useEffect(() => {
     if (purchaseInfo.userId) {
       setActualPurchaseInfo(purchaseInfo);
-      dispatch(purchaseCompleted(purchaseInfo.userId, purchaseInfo.items));
+      dispatch(purchaseCompleted(purchaseInfo.userId, purchaseInfo.items, paymentId));
       dispatch(getPurchaseInfo());
     }
-  }, [purchaseInfo]);
+    // if (purchaseInfo.userId) console.log(purchaseInfo);
+  }, [purchaseInfo, purchaseInfo]);
 
   useEffect(() => {
     if (msg.type) {
@@ -48,8 +50,8 @@ const PurchaseCompleted = () => {
             {actualPurchaseInfo.items.map((item) => {
               return (
                 <div key={item.title} className={style.containerItem}>
-                  <p>{item.description} Stars</p>
-                  <p> ${item.unit_price} ARS</p>
+                  <p>{item.description * item.quantity} Stars</p>
+                  <p> ${item.unit_price * item.quantity} ARS</p>
                 </div>)
             })}
           </>

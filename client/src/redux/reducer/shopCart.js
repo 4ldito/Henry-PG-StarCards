@@ -1,11 +1,12 @@
-import { ADD_TO_SHOPCART, CLEAN_PREFERENCE_ID, GET_PREFERENCE_ID, GET_PURCHASE_INFO, GET_USER_SHOPCART, MODIFY_QUANTITY, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO, SHOPCART_CLEAN_PURCHASE_INFO } from "../actions/shopCart"
+import { ADD_TO_SHOPCART, CLEAN_PREFERENCE_ID, GET_PREFERENCE_ID, GET_PURCHASE_INFO, GET_USER_SHOPCART, MODIFY_QUANTITY, REMOVE_FROM_SHOPCART, SHOPCART_BUY_CARDSPACKS, SHOPCART_CLEAN_MSG_INFO, SHOPCART_CLEAN_PURCHASE_INFO, SHOW_PACK_DETAIL } from "../actions/shopCart"
 
 const initialState = {
   shopCart: { starsPack: [], cardsPack: [] },
   purchaseInfo: {},
   loaded: false,
   msg: { type: '', info: '', title: '' },
-  preferenceId: -1
+  preferenceId: -1,
+  showDetail: false
 }
 
 export default function shopCartReducer(state = initialState, { type, payload }) {
@@ -63,7 +64,9 @@ export default function shopCartReducer(state = initialState, { type, payload })
       if (payload.modifyType === 'increment') item.quantity++
       else item.quantity--;
       return { ...state, shopCart: { ...state.shopCart, [payload.packType]: [...state.shopCart[payload.type]] } }
-
+    
+    case SHOW_PACK_DETAIL:
+      return { ...state, showDetail: true }
     default:
       return state
   }

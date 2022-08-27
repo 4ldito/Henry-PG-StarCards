@@ -4,6 +4,7 @@ class CardPacks extends Model {
   static associate(models) {
     CardPacks.belongsTo(models.Status);
     CardPacks.belongsToMany(models.User, {through: "FavPacks"})
+    CardPacks.belongsToMany(models.Transaction, { through: 'Transaction_CardPacks' });
   }
 }
 

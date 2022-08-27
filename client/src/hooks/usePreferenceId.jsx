@@ -11,8 +11,8 @@ export const usePreferenceId = (shopCartItems) => {
   const userId = actualUser.id;
 
   useEffect(() => {
-    if (preferenceId === -1 && shopCartItems.length) {
-      dispatch(getPreferenceId(shopCartItems, userId));
+    if (preferenceId === -1 && shopCartItems.length) { 
+      if (userId) dispatch(getPreferenceId(shopCartItems, userId)) 
     }
   }, [preferenceId]);
 

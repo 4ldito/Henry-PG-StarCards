@@ -30,7 +30,8 @@ userRoute.get("/", async (req, res, next) => {
       return res.status(404).json({ error: "error, User Not Found" });
     } else if (email) {
       const user = await User.findOne({ where: { email } });
-      res.json(user);
+      if(user) return res.json(user);
+      return res.send('User not Found')
     }
 
     const users = await User.findAll({ include: UserCards });
@@ -81,23 +82,25 @@ userRoute.delete("/", async (req, res, next) => {
   }
 });
 // [tokenValidations.checkToken, tokenValidations.checkAdmin]
-// userRoute.post("/", async (req, res, next) => {
-//   const { password, username, email } = req.body;
-//   try {
-//     const [newUser, created] = await User.findOrCreate({
-//       where: { password, username, email },
-//     });
-//     if (created) {
-//       newUser.setRol("user");
-//       newUser.setStatus("active");
-//       res.json(newUser).send({ msg: "User Created!" });
-//     } else {
-//       res.status(400).json({ msg: "user alredy exists" });
-//     }
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+userRoute.post("/", async (req, res, next) => {
+    const { password, username, email } = req.body;
+    try {
+      const [newUser, created] = await User.findOrCreate({
+        where: { password, username, email },
+        include: Rol,
+      });
+      if (created) {
+        newUser.setRol("user");
+        newUser.setStatus("active");
+        res.json(newUser).send({ msg: "User Created!" });
+      } else {
+        res.status(400).json({ msg: "user alredy exists" });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 userRoute.delete("/", async (req, res, next) => {
   try {
@@ -133,17 +136,22 @@ userRoute.patch("/:id", async (req, res, next) => {
       items,
     } = req.body;
     const user = await User.findByPk(id);
-    // console.log(req.body,user)
+
     if (!user) return res.status(404).send({ error: "User not found" });
 
     let stars = 0;
 
     if (items?.length)
       stars = items.reduce((acc, item) => {
-        return acc + Number(item.description);
+      // console.log(item)
+        return acc + (Number(item.description) * Number(item.quantity));
       }, 0);
 
     if (RolId) await user.setStatus(RolId);
+
+    if(!verifyPassword && password){
+      password = await User.prototype.hashPassword(password)
+    }
 
     if (verifyPassword) {
       const isValidPassword = await User.prototype.comparePassword(

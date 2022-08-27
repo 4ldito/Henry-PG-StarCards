@@ -1,4 +1,4 @@
-const { Model, INTEGER } = require("sequelize");
+const { Model } = require("sequelize");
 
 class ShopCart extends Model {
   static associate(models) {

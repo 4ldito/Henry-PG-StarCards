@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { getUser } from "../../redux/actions/user";
+import { getUser, getUserDecks } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
@@ -20,6 +20,7 @@ export default function UserProfile() {
   const { validToken } = useValidToken({ navigate: true });
 
   useEffect(() => {
+    dispatch(getUserDecks(idUserActive));
     dispatch(getUser(activeUser.id));
     dispatch(getAllCards());
   }, []);
@@ -47,10 +48,10 @@ export default function UserProfile() {
     value === "1"
       ? setRender("Inventory")
       : value === "2"
-      ? setRender("Stats")
-      : value === "3"
-      ? setRender("config")
-      : setRender("Chat");
+        ? setRender("Stats")
+        : value === "3"
+          ? setRender("config")
+          : setRender("Chat");
   }
 
   return Object.keys(user).length !== 0 ? (
@@ -70,14 +71,13 @@ export default function UserProfile() {
         </Link>
       </div>
       <div className={style.buttonsbar}>
-        <Link to="/inventory">
+        {/* <Link to="/inventory">
           <button>Inventory</button>
-        </Link>
+        </Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
           value="1"
           onClick={(e) => changeRender(e)}
-          disabled
         >
           Inventory
         </button>
@@ -112,7 +112,8 @@ export default function UserProfile() {
             <Config user={user} />
           </div>
         ) : render === "Inventory" ? (
-          "Inventory"
+          <Inventory />
+
         ) : render === "Stats" ? (
           "Stats"
         ) : (
