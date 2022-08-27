@@ -45,8 +45,6 @@ export default function inventory(state = initialState, { type, payload }) {
         const actualUserCard = state.filteredUserCards.find((c) => c.id === userCard.Card.id);
         actualUserCard.userCard.statusId = userCard.StatusId;
       });
-      // const actualCard = state.filteredUserCards.find((c) => c.id === payload.Card.id);
-      // actualCard.userCard.statusId = payload.StatusId;
       return { ...state, filteredUserCards: [...state.filteredUserCards] };
       // return { ...state }
     default:

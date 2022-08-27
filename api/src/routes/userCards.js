@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db = require("../db");
 
-const { UserCards, Card } = db;
+const { UserCards, Card, User } = db;
 const userCardsRoute = Router();
 
 userCardsRoute.post("/", async (req, res, next) => {
@@ -37,11 +37,11 @@ userCardsRoute.get("/", async (req, res, next) => {
   const findConfig =
     userId && statusId
       ? {
-        where: { UserId: userId, StatusId: statusId },
+        where: { UserId: userId, StatusId: statusId }, include: [Card, User]
       }
       : userId
-        ? { where: { UserId: userId } }
-        : { where: { StatusId: statusId } };
+        ? { where: { UserId: userId }, include: [Card, User] }
+        : { where: { StatusId: statusId }, include: [Card, User] };
   try {
     const cards = await UserCards.findAll(
       userId || statusId ? findConfig : undefined
@@ -66,7 +66,7 @@ userCardsRoute.patch("/", async (req, res, next) => {
       return userCard.update({ price, StatusId: status });
     }));
 
-    res.json(updatedUserCards);
+    return res.json(updatedUserCards);
   } catch (error) {
     console.log(error);
   }

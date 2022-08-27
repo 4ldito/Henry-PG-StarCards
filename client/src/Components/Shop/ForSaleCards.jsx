@@ -1,23 +1,32 @@
-import { useFetchStarsPack } from '../../hooks/useForSaleCards';
+import { useFetchStarsPack } from "../../hooks/useForSaleCards";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { clearForSaleCards } from "../../redux/actions/marketCards";
 
 const ForSaleCards = () => {
-    const { cardsInSale } = useFetchStarsPack();
+  const dispatch = useDispatch();
+  const { cardsInSale } = useFetchStarsPack();
 
-    if (!cardsInSale.length) return <p>No se encontraron cartas a la venta</p>
+  useEffect(() => {
+    return () => {
+      dispatch(clearForSaleCards());
+    };
+  }, []);
 
-    return (
-        <>
-            {
-                cardsInSale.map((card) => {
-                    console.log(card)
-                    return (
-                        <div key={card.id}>
-                            <p>{card.id}</p>
-                        </div>)
-                })
-            }
-        </>
-    )
-}
+  if (!cardsInSale.length) return <p>No se encontraron cartas a la venta</p>;
 
-export default ForSaleCards
+  return (
+    <>
+      {cardsInSale.map((card) => {
+        // console.log(card)
+        return (
+          <div key={card.id}>
+            <p>{card.id}</p>
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
+export default ForSaleCards;
