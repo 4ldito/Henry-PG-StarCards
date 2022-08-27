@@ -56,7 +56,7 @@ const createAllUsers = async () => {
 const createRols = async () => {
   for (const rol of rols) {
     await Rol.create(rol);
-  } 
+  }
 };
 
 const createStatus = async () => {
@@ -65,43 +65,49 @@ const createStatus = async () => {
   }
 };
 
+const forceFlag = true;
+db.sequelize.sync({ force: forceFlag }).then(async () => {
+  if (forceFlag) {
+    await createRols();
+    await createStatus();
 
-db.sequelize.sync({ force: true }).then(async () => {
-  await createRols();
-  await createStatus();
+    const packs = await createAllCardPacks();
+    const packsStatus = packs.map(
+      async (pack) => await pack.setStatus("active")
+    );
 
-  const packs = await createAllCardPacks();
-  const packsStatus = packs.map(async (pack) => await pack.setStatus("active"));
+    const cards = await createAllCards();
+    const cardsStatus = cards.map(
+      async (card) => await card.setStatus("active")
+    );
 
-  const cards = await createAllCards();
-  const cardsStatus = cards.map(async (card) => await card.setStatus("active"));
+    const superadmins = await createAllUsers();
+    const adminCards = [];
+    const userSuperadmin = superadmins.map(async (user) => {
+      cards.forEach(async (card) => {
+        for (let i = 0; i < 1; i++) {
+          const userCard = await UserCards.create();
 
-  const superadmins = await createAllUsers();
-  const adminCards = [];
-  const userSuperadmin = superadmins.map(async (user) => {
-    cards.forEach(async (card) => {
-      for (let i = 0; i < 1; i++) {
-        const userCard = await UserCards.create();
+          const addUserCard = [
+            userCard.setStatus("active"),
+            userCard.setUser(user.id),
+            userCard.setCard(card.id),
+          ];
 
-        const addUserCard = [
-          userCard.setStatus("active"),
-          userCard.setUser(user.id),
-          userCard.setCard(card.id),
-        ];
-
-        adminCards.push(Promise.all(addUserCard));
-      }
+          adminCards.push(Promise.all(addUserCard));
+        }
+      });
+      return [user.setRol("superadmin"), user.setStatus("active")];
     });
-    return [user.setRol("superadmin"), user.setStatus("active")];
-  });
 
-  await Promise.all([
-    Promise.all(packsStatus),
-    Promise.all(cardsStatus),
-    Promise.all(userSuperadmin),
-    Promise.all(adminCards),
-    await createAllStarPacks(),
-  ]);
+    await Promise.all([
+      Promise.all(packsStatus),
+      Promise.all(cardsStatus),
+      Promise.all(userSuperadmin),
+      Promise.all(adminCards),
+      await createAllStarPacks(),
+    ]);
+  }
 
   server.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
