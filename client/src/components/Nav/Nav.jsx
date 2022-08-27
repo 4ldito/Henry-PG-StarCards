@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react";
 import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
+import ChatNotifications from "./ChatNotifications/ChatNotifications";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
 
 export default function Nav() {
-  const { validToken } = useValidToken({ navigate: false })
+  const { validToken } = useValidToken({ navigate: false });
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
 
   const handleVisibleUserOptions = () => {
-    setVisibleUserOptions(!visibleUserOptions)
-  }
+    setVisibleUserOptions(!visibleUserOptions);
+  };
 
   // function handleClick(e) {
   //   // console.log("id:",e.target.id);
@@ -30,6 +31,7 @@ export default function Nav() {
 
   return (
     <div className={css.nav}>
+      {/* <ChatNotifications style="position: absolute" /> */}
       <NavLink className={css.link} to="/">
         <img className={css.img} src={logo} alt="Logo de StarCards" />
       </NavLink>
@@ -41,11 +43,11 @@ export default function Nav() {
           </NavLink>
         </li>
         <li className={css.li}>
-
-          {validToken && <NavLink className={css.link} to="/playroom">
-            Playroom
-          </NavLink>}
-
+          {validToken && (
+            <NavLink className={css.link} to="/playroom">
+              Playroom
+            </NavLink>
+          )}
         </li>
         <li className={css.li}>
           <NavLink className={css.link} to="/about">
@@ -63,7 +65,6 @@ export default function Nav() {
           account_circle
         </span>
       </button>
-
 
       {visibleUserOptions && (
         <div className={css.userOptions}>

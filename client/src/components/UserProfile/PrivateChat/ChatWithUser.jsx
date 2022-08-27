@@ -1,30 +1,14 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import socket from "./Socket";
 
-const PrivateChat = () => {
-  const dispatch = useDispatch();
-
+const ChatWithUser = ({ receiverId }) => {
   const userActive = useSelector((state) => state.userReducer.user);
-
   const [mensaje, setMensaje] = useState("");
   const [messagesArray, setMensajes] = useState([]);
 
   useEffect(() => {
-    dispatch(getUser(userActive.id));
-  }, []);
-
-  const [chatUsers, setChatUsers] = useState();
-  useEffect(() => {
-    if (userActive) {
-      setChatUsers(
-        userActive.PrivateChat.map((c) => ({
-          username: c.ReceiverUser.username,
-          id: c.ReceiverUser.id,
-        }))
-      );
-      socket.emit("connectPrivateSocket", userActive.id);
-    }
+    if (userActive) socket.emit("connectPrivateSocket", userActive.id);
 
     return () => {
       socket.emit("disconnectPrivateSocket", userActive.id);
@@ -59,14 +43,6 @@ const PrivateChat = () => {
 
   return (
     <div>
-      <div>
-        {chatUsers.length
-          ? chatUsers.map((c, i) => {
-              return <div key={i}>{c.username}</div>;
-            })
-          : "No chats"}
-      </div>
-
       <div className="chat">
         {messagesArray.map((e, i) => (
           <div key={i}>
@@ -92,4 +68,4 @@ const PrivateChat = () => {
   );
 };
 
-export default PrivateChat;
+export default ChatWithUser;
