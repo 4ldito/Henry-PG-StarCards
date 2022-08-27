@@ -20,6 +20,7 @@ import Inventory from "./components/UserProfile/Inventory/Inventory";
 
 import RecoveryPassword from './components/Registro/RecoveryPassword';
 import Registro from './components/Registro/Registro';
+import Firebase from "./Components/FirebaseAdmi/Firebase";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
     <div>
       <Nav />
       <Routes>
+        <Route path="/firebase" element={<Firebase />}/>
         <Route path="/" element={<LandingPage />} />
         <Route path='/register' element={<Registro />} />
         <Route path='/login' element={<Login />} />
