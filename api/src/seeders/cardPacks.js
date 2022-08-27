@@ -13,7 +13,8 @@ const cardPacks = [
       ["Lurker", "0.03"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/93Qyhg5/packs2-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Colonia Zerg",
@@ -31,7 +32,8 @@ const cardPacks = [
       ["Overlord", "0.05"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/V274Hh9/packs6-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Colmena de la Supermente",
@@ -49,7 +51,8 @@ const cardPacks = [
       ["Viper", "0.06"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/M2wW9DZ/packs10-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Enjambre de Char",
@@ -65,7 +68,8 @@ const cardPacks = [
       ["Kerrigan", "0.03"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/NrKy13k/packs1-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Bunker Terran",
@@ -81,7 +85,8 @@ const cardPacks = [
       ["Widow Mine", "0.03"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/gDNJCX4/packs9-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Estación Planetaria Terran",
@@ -99,7 +104,8 @@ const cardPacks = [
       ["Viking", "0.05"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/h8C7hG8/packs7-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Dominio en Korhal",
@@ -117,7 +123,8 @@ const cardPacks = [
       ["Liberator", "0.06"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/N23pRXy/packs3-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Aliados del Hyperion",
@@ -133,7 +140,8 @@ const cardPacks = [
       ["Raynor", "0.03"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/wptZmrx/packs4-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Fanáticos Protoss",
@@ -149,7 +157,8 @@ const cardPacks = [
       ["Corsair", "0.03"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/K2CYnVY/packs12-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Consejo de Aiur",
@@ -167,7 +176,8 @@ const cardPacks = [
       ["Colossus", "0.05"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/KGtN3C6/packs11-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Gran Armada Tal'darim",
@@ -185,7 +195,8 @@ const cardPacks = [
       ["Archon", "0.06"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/pWTFGcc/packs5-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Memoria del Prelado Tétrico",
@@ -201,7 +212,8 @@ const cardPacks = [
       ["Zeratul", "0.03"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/ph74s8q/packs8-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
   {
     name: "Entra en el sector Koprulu",
@@ -216,7 +228,8 @@ const cardPacks = [
       ["Thor", "0.11"],
     ],
     stock: 100,
-    image: "",
+    image: "https://i.ibb.co/3TFnfPJ/packs-Mesa-de-trabajo-1-copia-7.png",
+    amount: 10,
   },
 ];
 

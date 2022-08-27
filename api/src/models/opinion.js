@@ -2,7 +2,6 @@ const { Model } = require("sequelize");
 
 class Opinion extends Model {
   static associate(models) {
-    // Opinion.belongsTo(models.User)
     Opinion.belongsTo(models.Status);
     Opinion.belongsTo(models.User);
     Opinion.belongsTo(models.Card);

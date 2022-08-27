@@ -1,21 +1,26 @@
-import { CARD_DETAIL, GET_OPINIONS, POST_OPINIONS } from '../actions/actionTypes'
+import { CARD_DETAIL } from "../actions/cards/detailCard";
+import {
+  PUT_OPINIONS,
+  GET_OPINIONS,
+  POST_OPINIONS,
+} from "../actions/cards/opinion";
 
 const initialState = {
   card: {},
-  opinion: []
-}
+  opinion: [],
+};
 
-export default function detailReducer (state = initialState, action) {
-  switch (action.type) {
+export default function detailReducer(state = initialState, { type, payload }) {
+  switch (type) {
     case CARD_DETAIL:
-      return { ...state, card: action.payload }
+      return { ...state, card: payload };
     case GET_OPINIONS:
-      return { ...state, opinion: action.payload }
+      return { ...state, opinion: payload };
     case POST_OPINIONS:
-      return { ...state, opinion: action.payload }
+      return { ...state, opinion: payload };
+    case PUT_OPINIONS:
+      return { ...state, opinion: payload };
     default:
-      return state
+      return state;
   }
 }
-
-

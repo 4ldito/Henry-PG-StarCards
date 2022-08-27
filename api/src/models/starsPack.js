@@ -2,7 +2,8 @@ const { Model } = require("sequelize");
 
 class StarsPack extends Model {
   static associate(models) {
-    StarsPack.hasOne(models.Status);
+    StarsPack.belongsTo(models.Status);
+    StarsPack.belongsToMany(models.Transaction, { through: 'Transaction_StarsPack' });
   }
 }
 
@@ -26,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      image: {
+        type: DataTypes.STRING,
+
+      }
     },
     {
       sequelize,

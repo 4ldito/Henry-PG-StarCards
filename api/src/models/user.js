@@ -1,18 +1,17 @@
-"use strict";
-
 const { Model, UUIDV4 } = require("sequelize");
 const bcrypt = require("bcryptjs");
+
 class User extends Model {
   static associate(models) {
-    User.belongsTo(models.UserCards);
+    User.hasMany(models.UserCards);
     User.belongsTo(models.Rol);
     User.belongsTo(models.Status);
-    User.hasOne(models.Deck);
-    User.hasMany(models.Opinion)
-    // User.belongsTo(models.UserCards);
-    // User.belongsTo(models.Rol);
-    // User.belongsTo(models.Status);
-    // User.hasMany(models.Deck);
+    User.hasMany(models.Deck);
+    User.hasMany(models.Opinion);
+    User.hasMany(models.ShopCart);
+    User.hasMany(models.Transaction);
+    User.belongsToMany(models.CardPacks, {through: "FavPacks"})
+    User.hasMany(models.Message);
   }
 }
 
@@ -21,9 +20,11 @@ User.prototype.hashPassword = async (password) => {
   const hash = await bcrypt.hash(password, salt);
   return hash;
 };
+
 User.prototype.comparePassword = async (inputPassword, password) => {
   return await bcrypt.compare(inputPassword, password);
 };
+
 module.exports = (sequelize, DataTypes) => {
   User.init(
     {
@@ -52,7 +53,7 @@ module.exports = (sequelize, DataTypes) => {
       profileImg: {
         type: DataTypes.STRING,
         defaultValue:
-          'https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg'
+          "https://static-cdn.jtvnw.net/jtv_user_pictures/jfv888-profile_image-ad6b23cd6b99e422-150x150.jpeg",
       },
       coverImg: {
         type: DataTypes.STRING,

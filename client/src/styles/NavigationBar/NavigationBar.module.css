@@ -1,5 +1,9 @@
-
+@font-face {
+    font-family: starcardsFont;
+    src: url("../../../css/EUROSTIB.ttf");
+  }
 .navBar{
+    font-family: starcardsFont;
     display: flex;
     justify-content: space-around;
     height: 5vh;

@@ -14,6 +14,16 @@ cardsRoute.get("/all", async (req, res, next) => {
   }
 });
 
+cardsRoute.get("/:id", async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const card = await Card.findOne({ where: { id } });
+    return res.json(card);
+  } catch (error) {
+    return next(error);
+  }
+});
+
 cardsRoute.get("/:status", async (req, res, next) => {
   const { status } = req.params;
   try {
