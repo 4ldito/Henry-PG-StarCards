@@ -12,31 +12,29 @@ sendMail.use(bodyParser.urlencoded({ extended: false }));
 
 function token() {
   return Math.random().toString().substr(2);
-};
-
+}
 
 sendMail.get("/sendmail/:token", (req, res, next) => {
   try {
-    console.log('body',req.params)
+    console.log("body", req.params);
 
     const { token } = req.params;
     // console.log('back',token, tokenValid)
-    if(Number(token) === Number(tokenValid)){
-      return res.send(true)
-    }else{
-      return res.send(false)
-
+    if (Number(token) === Number(tokenValid)) {
+      return res.send(true);
+    } else {
+      return res.send(false);
     }
   } catch (error) {
-      next(error)
+    next(error);
   }
-})
+});
 
-  sendMail.post("/sendmail", (req, res, next) => {
-   tokenValid = token()
+sendMail.post("/sendmail", (req, res, next) => {
+  tokenValid = token();
   nodemailer.createTestAccount((err, account) => {
-  try {
-          const htmlEmail = `
+    try {
+      const htmlEmail = `
           <img src="https://i.ibb.co/SfKhMg2/Sin-t-tulo-1-Mesa-de-trabajo-1.png" width="1100" height="200" title="Logo">
           <h3 style="text-align:center">--> STARCARDS <--</h3>
 
@@ -49,10 +47,13 @@ sendMail.get("/sendmail/:token", (req, res, next) => {
       let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
+        tls: {
+          rejectUnauthorized: false,
+        },
         auth: {
           user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
-          pass: "houhxlzmssscrgha" // La contraseña de dicho SMTP
-        }
+          pass: "houhxlzmssscrgha", // La contraseña de dicho SMTP
+        },
       });
 
       let mailOptions = {
@@ -62,20 +63,19 @@ sendMail.get("/sendmail/:token", (req, res, next) => {
         replyTo: "STARCARDS@gmail.com",
         // subject: req.body.asunto, // El asunto del email
         // text: req.body.mensaje, // El mensaje
-        html: htmlEmail // La parte HTML del email
+        html: htmlEmail, // La parte HTML del email
       };
 
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
           return console.log(err);
         }
-        res.send(tokenValid)
+        res.send(tokenValid);
         console.log("Mensaje enviado");
-      }); 
-  } catch (error) {
-        next(error)
+      });
+    } catch (error) {
+      next(error);
     }
-        
   });
 });
 

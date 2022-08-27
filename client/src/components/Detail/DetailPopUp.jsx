@@ -57,7 +57,7 @@ export default function DetailPopUp({ handleDetail }) {
         setHaveCard(true);
       }
     });
-    console.log(detailCards)
+    // console.log(detailCards)
   }, [detailCards]);
 
   function Validaciones(valores) {

@@ -37,11 +37,28 @@ userCardsRoute.get("/", async (req, res, next) => {
   const findConfig =
     userId && statusId
       ? {
-        where: { UserId: userId, StatusId: statusId }, include: [Card, User]
+        where: { UserId: userId, StatusId: statusId },
+        include:
+          [
+            { model: Card },
+            { model: User, attributes: ["id", "username"] }
+          ]
       }
       : userId
-        ? { where: { UserId: userId }, include: [Card, User] }
-        : { where: { StatusId: statusId }, include: [Card, User] };
+        ? {
+          where: { UserId: userId }, include:
+            [
+              { model: Card },
+              { model: User, attributes: ["id", "username"] }
+            ]
+        }
+        : {
+          where: { StatusId: statusId }, include:
+            [
+              { model: Card },
+              { model: User, attributes: ["id", "username"] }
+            ]
+        };
   try {
     const cards = await UserCards.findAll(
       userId || statusId ? findConfig : undefined
@@ -71,5 +88,43 @@ userCardsRoute.patch("/", async (req, res, next) => {
     console.log(error);
   }
 });
+
+userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
+  try {
+    const { buyerUserId } = req.body;
+    const { userCardId } = req.params;
+
+    const userCard = await UserCards.findByPk(userCardId);
+
+    const [buyerUser, sellerUser] = await Promise.all([
+      User.findByPk(buyerUserId, { attributes: { exclude: ["password"] } }),
+      User.findByPk(userCard.UserId, { attributes: { exclude: ["password"] } }) //sellerUser
+    ]);
+
+    if (buyerUser.stars < userCard.price) return res.send({ error: 'Stars insuficientes.' });
+
+
+    // console.log('buyerUser', buyerUser.stars);
+    // console.log('sellerUser', sellerUser.stars);
+    // console.log('userCard', userCard.price);
+    // console.log('-----');
+
+    const [buyerUserUpdated, sellerUserUpdated, userCardUpdated] = await Promise.all([
+      buyerUser.update({ stars: buyerUser.stars - userCard.price }),
+      sellerUser.update({ stars: sellerUser.stars + userCard.price }),
+      userCard.update({ UserId: buyerUser.id, StatusId: 'active', price: null, DeckId: null })
+    ]);
+
+    // console.log('buyerUser', buyerUser.stars);
+    // console.log('sellerUser', sellerUser.stars);
+    // console.log('userCard', userCard.price);
+    // console.log(sellerUser);
+    return res.send({ buyerUser: buyerUserUpdated, sellerUser: sellerUserUpdated, userCard: userCardUpdated });
+  } catch (error) {
+    console.log(error);
+  }
+
+});
+
 
 module.exports = userCardsRoute;

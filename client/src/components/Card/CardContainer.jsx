@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import SaleCard from "../Shop/SaleCard/SaleCard";
 import Card from "./Card";
+<<<<<<< HEAD
 import { useDispatch } from "react-redux";
 export function CardContainer({ card, repeat,addButton,addCardToDeck,inDeck}) {
   const dispatch = useDispatch();
+=======
+import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
+
+export function CardContainer({ card, repeat }) {
+>>>>>>> 85109bbd406e694029691cb8cfae89bec18bf3f6
   const [viewCard, setViewCard] = useState(false);
 
   function Sale() {

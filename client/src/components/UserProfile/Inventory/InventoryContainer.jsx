@@ -26,6 +26,7 @@ export default function InventoryContainer() {
       setNewDeckCards(newDeckCards.filter(e=>e.id!==addingCard.id));
     }
   }
+
   function renderNotRepeat() {
     let cartas = [];
     filteredUserCards?.forEach(e=> {
@@ -34,7 +35,7 @@ export default function InventoryContainer() {
     if(filteredUserCards.length)return cartas
     return <label>Not cards found</label> 
   }
-  
+
   useEffect(()=>{
     actualStackToShow.length===2?setBothStacks(true):setBothStacks(false);
   },[actualStackToShow]);
