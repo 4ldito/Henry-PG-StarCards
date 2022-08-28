@@ -19,7 +19,6 @@ userRoute.get("/", async (req, res, next) => {
               { model: Message },
               {
                 model: User,
-                as: "ReceiverUser",
                 attributes: ["id", "username"],
               },
             ],
@@ -30,8 +29,8 @@ userRoute.get("/", async (req, res, next) => {
       return res.status(404).json({ error: "error, User Not Found" });
     } else if (email) {
       const user = await User.findOne({ where: { email } });
-      if(user) return res.json(user);
-      return res.send('User not Found')
+      if (user) return res.json(user);
+      return res.send("User not Found");
     }
 
     const users = await User.findAll({ include: UserCards });
@@ -143,14 +142,14 @@ userRoute.patch("/:id", async (req, res, next) => {
 
     if (items?.length)
       stars = items.reduce((acc, item) => {
-      // console.log(item)
-        return acc + (Number(item.description) * Number(item.quantity));
+        // console.log(item)
+        return acc + Number(item.description) * Number(item.quantity);
       }, 0);
 
     if (RolId) await user.setStatus(RolId);
 
-    if(!verifyPassword && password){
-      password = await User.prototype.hashPassword(password)
+    if (!verifyPassword && password) {
+      password = await User.prototype.hashPassword(password);
     }
 
     if (verifyPassword) {

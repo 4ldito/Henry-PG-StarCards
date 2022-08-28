@@ -53,14 +53,13 @@ io.on("connection", (socket) => {
   });
 
   socket.on("privateMessage", async (emitter, receiver, message) => {
-    const msg = emitter.username + ": " + message,
-      emitterId = emitter.id;
+    const msg = emitter.username + ": " + message;
     const currentReceiver = userSockets.find((u) => u.userId === receiver.id);
     if (currentReceiver)
-      io.to(currentReceiver.socket).emit("privateMessage", emitterId, msg);
+      io.to(currentReceiver.socket).emit("privateMessage", emitter, msg);
 
-    const currentUser = userSockets.find((u) => u.userId === emitter.id);
-    io.to(currentUser.socket).emit("privateMessage", emitterId, msg);
+    // const currentUser = userSockets.find((u) => u.userId === emitter.id);
+    // io.to(currentUser.socket).emit("privateMessage", emitterId, msg);
 
     await axios.patch("chat", {
       emiterId: emitter.id,

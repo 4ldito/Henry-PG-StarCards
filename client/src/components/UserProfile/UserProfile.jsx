@@ -8,6 +8,8 @@ import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
 import { getUserByName } from "../../redux/actions/user";
 import Inventory from "./Inventory/Inventory";
+import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
+import PrivateChat from "./PrivateChat/PrivateChat";
 
 import getAllCards from "../../redux/actions/cards/getAllCards";
 export default function UserProfile() {
@@ -51,7 +53,7 @@ export default function UserProfile() {
       : value === "2"
       ? setRender("Stats")
       : value === "3"
-      ? setRender("config")
+      ? setRender("Config")
       : setRender("Chat");
   }
 
@@ -107,7 +109,7 @@ export default function UserProfile() {
         </button>
       </div>
 
-      {render === "config" ? (
+      {render === "Config" ? (
         <div className={style.configContainer}>
           <Config user={user} />
         </div>
@@ -115,6 +117,8 @@ export default function UserProfile() {
         <Inventory />
       ) : render === "Stats" ? (
         "Stats"
+      ) : render === "Chat" ? (
+        <PrivateChat />
       ) : (
         ""
       )}
@@ -157,9 +161,7 @@ export default function UserProfile() {
       </div>
 
       {render === "Chat" ? (
-        <PrivateChat
-          newChat={{ username: actualUrlUser.username, id: actualUrlUser.id }}
-        />
+        <SinglePrivateChat newChatUser={actualUrlUser} />
       ) : render === "Inventory" ? (
         <Inventory />
       ) : render === "Stats" ? (

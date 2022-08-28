@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import socket from "./Socket";
 
-const PrivateChat = () => {
+const SinglePrivateChat = ({ newChatUser }) => {
   const dispatch = useDispatch();
 
   const userActive = useSelector((state) => state.userReducer.user);
@@ -10,43 +10,12 @@ const PrivateChat = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState();
 
-  const [actualChatUser, setActualChatUser] = useState();
-
-  function handleChatSelect(c) {
-    setActualChatUser(c);
-  }
-
-  useEffect(() => {
-    const privMessage = userActive.PrivateChat.find(
-      (pc) =>
-        pc.User.find((u) => u.id === emitterId) &&
-        pc.User.find((u) => u.id === receiverId)
-    ).Message;
-
-    if (actualChatUser)
-      setMessages((prev) => ({
-        ...prev,
-        [actualChatUser.id]: {
-          username: actualChatUser.username,
-          id: actualChatUser.id,
-          messages: privMessage,
-        },
-      }));
-  }, [actualChatUser]);
-
   useEffect(() => {
     dispatch(getUser(userActive.id));
   }, []);
 
-  const [chatUsers, setChatUsers] = useState();
   useEffect(() => {
     if (userActive) {
-      setChatUsers(
-        userActive.PrivateChat.map((c) => ({
-          username: c.User.username,
-          id: c.User.id,
-        }))
-      );
       socket.emit("connectPrivateSocket", userActive.id);
     }
 
@@ -78,27 +47,17 @@ const PrivateChat = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    socket.emit("privateMessage", userActive, actualChatUser, message);
+    socket.emit("privateMessage", userActive.id, actualChatUser.id, message);
     setMessage("");
   };
 
   return (
     <div>
-      <div>
-        {chatUsers.length
-          ? chatUsers.map((c) => {
-              return (
-                <div key={c.id} onClick={() => handleChatSelect(c)}>
-                  {c.username}
-                </div>
-              );
-            })
-          : "No chats"}
-      </div>
+      <div>{newChatUser.username}</div>
 
       <div className="chat">
         {messages[actualChatUser.id]
-          ? messages[actualChatUser.id].messages.map((e, i) => (
+          ? messages[actualChatUser.id].map((e, i) => (
               <div key={i}>
                 <div>{e.message}</div>
               </div>
@@ -115,9 +74,6 @@ const PrivateChat = () => {
           rows="10"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") submit(e);
-          }}
         ></textarea>
         <input type="submit" value="Enviar" />
       </form>
@@ -125,4 +81,4 @@ const PrivateChat = () => {
   );
 };
 
-export default PrivateChat;
+export default SinglePrivateChat;
