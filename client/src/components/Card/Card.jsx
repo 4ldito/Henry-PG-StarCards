@@ -52,7 +52,7 @@ export default function Card({ id, name, image, cost, Gdmg, Admg, life, ability,
   return (
     <>
       <div className={css.Card}>
-        <div className={`${cardCss} ${css.cardContainer}`} onClick={todo}>
+        <div  className={`${cardCss} ${css.cardContainer}`} onClick={todo}>
           <div className={css.nameContainer}>
             <h3 className={css.name}>{name}</h3>
             <span className={css.cost}>{cost}</span>

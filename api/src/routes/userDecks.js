@@ -32,7 +32,7 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
 
     try {
 
-        const newDeck = await Deck.create({ name });
+        const newDeck = await Deck.create({ name },{include:Card});
         newDeckCards.forEach(async e => {
             const card = await Card.findByPk(e.id);
             // console.log(card);
@@ -42,8 +42,10 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
         })
         const user = await User.findByPk(userId,{include:Deck});
         await user.addDeck(newDeck);
-        await user.save();
-        res.json(newDeck);
+        user.save();
+
+        const returnDeck =await Deck.findByPk(newDeck.id,{include:Card});
+        res.json(returnDeck);
     } catch (err) {
         next(err);
     }
@@ -66,7 +68,6 @@ userDecksRoute.put(async (req, res, next) => {
 })
 
 userDecksRoute.delete('/:id/:userId', async (req, res, next) => {
-    console.log('entra');
     const { id, userId } = req.params
     const user = await User.findByPk(userId, { include: Deck });
     if (!user) return res.json({ error: 'El usuario no existe' });
@@ -76,8 +77,7 @@ userDecksRoute.delete('/:id/:userId', async (req, res, next) => {
         await user.removeDeck(deckToRemove)
         await user.save()
         Deck.destroy({where:{id:parseInt(id)}})
-        const newDecks = user.Decks.filter(e => e.id !== parseInt(id));
-        res.json({ message: 'Mazo eliminado correctamente', newDeckList: newDecks || 'holaa' });
+        res.json({ message: 'Mazo eliminado correctamente', deckToRemove});
     } catch (err) {
         next(err)
     }
