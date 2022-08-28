@@ -39,7 +39,6 @@ export default function Login() {
         });
       }
     }
-    // console.log('aca termino :p')
   }
 
   useEffect(() => {
@@ -47,7 +46,6 @@ export default function Login() {
       dispatch(userCleanMsgInfo());
       if (msgInfo.type === "success") {
         addItems().then(() => {
-          // console.log('aca entro');
           dispatch(getUserShopCart(userId));
           navigate(`/userProfile?username=${actualUser.username}`);
         });

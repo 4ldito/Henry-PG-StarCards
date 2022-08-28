@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { getUserCards } from '../../../redux/actions/cards/userCards';
-import { CardContainer } from '../../Card/CardContainer';
-import DeckList from './Decks/DeckList';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserCards } from "../../../redux/actions/cards/userCards";
+import { CardContainer } from "../../Card/CardContainer";
+import DeckList from "./Decks/DeckList";
 import css from "./Inventory.module.css";
-
-
 
 export default function InventoryContainer() {
   const dispatch = useDispatch();
-  const filteredUserCards = useSelector(state => state.album.filteredUserCards)
+  const filteredUserCards = useSelector(
+    (state) => state.album.filteredUserCards
+  );
   const cards = useSelector((state) => state.album.cards);
   const user = useSelector(state => state.userReducer.user);
   const [bothStacks, setBothStacks] = useState(false);
@@ -41,7 +41,7 @@ export default function InventoryContainer() {
   }, [actualStackToShow]);
 
   useEffect(() => {
-    dispatch(getUserCards(user.UserCards, cards))
+    dispatch(getUserCards(user.UserCards, cards));
   }, [cards]);
 
   const setVisibleStack = (name) => {

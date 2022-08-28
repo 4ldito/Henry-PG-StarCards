@@ -31,7 +31,6 @@ export default function Config({ user }) {
   }
 
   function modifyMail(){
-    // console.log('changemodal')
     dispatch(changeModal(true))
   }
 

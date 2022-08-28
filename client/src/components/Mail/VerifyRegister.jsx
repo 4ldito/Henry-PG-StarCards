@@ -46,7 +46,6 @@ export default function VerifyRegister({ email, user }) {
       dispatch(changeModal());
     } else if (recivedToken && !tokenIstrue) {
       //si no coinciden
-      console.log("le erraste papu");
       Swal.fire({
         title: "Token",
         text: "El token ingresado es incorrecto",
