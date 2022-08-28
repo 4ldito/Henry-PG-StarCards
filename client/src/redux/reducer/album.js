@@ -42,20 +42,22 @@ export default function inventory(state = initialState, { type, payload }) {
     case SALE_CARD:
       // x ahora lo dejo asi hasta :D
       // console.log(payload);
-      // payload.forEach(userCard => {
-      //   const actualUserCard = state.filteredUserCards.find((c) => c.id === userCard.Card.id);
-      //   actualUserCard.userCard.statusId = userCard.StatusId;
-      // });
-      // const newFilteredCards = [];
-      // state.filteredUserCards.forEach((card) => {
-      //   console.log(card.repeat);
-      //   payload.forEach(userCard => {
-      //     if (userCard.CardId === card.id) {
-      //       --card.repeat;
-      //     }
-      //   });
-      //   newFilteredCards.push(card);
-      // });
+      payload.forEach(userCard => {
+        const actualUserCard = state.filteredUserCards.find((c) => c.id === userCard.Card.id);
+        actualUserCard.userCard.statusId = userCard.StatusId;
+      });
+      const newFilteredCards = [];
+      state.filteredUserCards.forEach((card) => {
+        console.log(card.repeat);
+        payload.forEach(userCard => {
+          if (userCard.CardId === card.id) {
+            --card.repeat;
+          }
+        });
+        newFilteredCards.push(card);
+      });
+
+      // nop
 
       // console.log(newFilteredCards);
       return { ...state }

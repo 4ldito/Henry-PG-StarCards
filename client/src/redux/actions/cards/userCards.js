@@ -26,15 +26,19 @@ export function getUserCards(userCards, allCards) {
     });
   });
 
-  return { type: GET_USER_CARDS, payload: { userCardsInventory } };
+  const { notRepeated } = noRepUserCards(userCardsInventory);
+
+  return { type: GET_USER_CARDS, payload: { userCardsInventory: notRepeated } };
+  //
 }
 
 export function filterUserCards(filter, userCards) {
-  const { notRepeated } = noRepUserCards(userCards);
+  // const { notRepeated } = noRepUserCards(userCards);
+  // se rompia todo xd
   const filterRace =
     filter.race === "allRaces"
-      ? notRepeated
-      : notRepeated.filter((e) => e.race === filter.race);
+      ? userCards
+      : userCards.filter((e) => e.race === filter.race);
 
   const filterMovement =
     filter.movements === "allMovements"
@@ -44,14 +48,17 @@ export function filterUserCards(filter, userCards) {
   return { type: FILTER_USER_CARDS, payload: filterMovement };
 }
 
-export function searchUserCard(search, cards) {
-  const { notRepeated } = noRepUserCards(cards);
+export function searchUserCard(search, userCards) {
+  // const { notRepeated } = noRepUserCards(cards);
+
+  // console.log(userCards);
+  // console.log(notRepeated)
 
   if (search === "") {
-    return { type: SEARCH_USER_CARD, payload: notRepeated };
+    return { type: SEARCH_USER_CARD, payload: userCards };
 
   }
-  const result = notRepeated.filter((c) =>
+  const result = userCards.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
   );
   return { type: SEARCH_USER_CARD, payload: result };
