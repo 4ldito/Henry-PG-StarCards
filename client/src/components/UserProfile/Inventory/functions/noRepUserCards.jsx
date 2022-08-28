@@ -21,9 +21,9 @@ export default function (userCards) {
     }
   });
 
-  // console.log(notRepeated);
-  // console.log('////////////')
-  // console.log(forSaleCards)
+  console.log(notRepeated);
+  console.log('////////////')
+  console.log(forSaleCards)
 
   // let notRepeated =noRuserCards.reduce
   return { notRepeated, forSaleCards };

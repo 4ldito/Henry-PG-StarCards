@@ -33,8 +33,6 @@ export function getUserCards(userCards, allCards) {
 }
 
 export function filterUserCards(filter, userCards) {
-  // const { notRepeated } = noRepUserCards(userCards);
-  // se rompia todo xd
   const filterRace =
     filter.race === "allRaces"
       ? userCards
@@ -49,11 +47,6 @@ export function filterUserCards(filter, userCards) {
 }
 
 export function searchUserCard(search, userCards) {
-  // const { notRepeated } = noRepUserCards(cards);
-
-  // console.log(userCards);
-  // console.log(notRepeated)
-
   if (search === "") {
     return { type: SEARCH_USER_CARD, payload: userCards };
 
