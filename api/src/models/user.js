@@ -11,8 +11,7 @@ class User extends Model {
     User.hasMany(models.ShopCart);
     User.hasMany(models.Transaction);
     User.belongsToMany(models.CardPacks, { through: "FavPacks" });
-    User.hasMany(models.PrivateChat);
-    User.belongsTo(models.PrivateChat, { as: "ReceiverUser" });
+    User.belongsToMany(models.PrivateChat, { through: "User-PrivChat" });
   }
 }
 

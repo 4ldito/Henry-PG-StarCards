@@ -52,16 +52,23 @@ io.on("connection", (socket) => {
     userSockets = [...newArray];
   });
 
-  socket.on("privateMessage", (userId, receiverId, message) => {
-    const currentReceiver = userSockets.find((u) => u.userId === receiverId);
+  socket.on("privateMessage", async (emitter, receiver, message) => {
+    const msg = emitter.username + ": " + message;
+    const currentReceiver = userSockets.find((u) => u.userId === receiver.id);
     if (currentReceiver)
-      io.to(currentReceiver.socket).emit("privateMessage", userId, message);
+      io.to(currentReceiver.socket).emit("privateMessage", emitter, msg);
 
-    const currentUser = userSockets.find((u) => u.userId === userId);
-    io.to(currentUser.socket).emit("privateMessage", userId, message);
+    // const currentUser = userSockets.find((u) => u.userId === emitter.id);
+    // io.to(currentUser.socket).emit("privateMessage", emitterId, msg);
+
+    await axios.patch("chat", {
+      emiterId: emitter.id,
+      receiverId: reveicer.id,
+      msg,
+    });
 
     const receiverNotificationSocket = usersNotificationSocket.find(
-      (u) => u.userId === receiverId
+      (u) => u.userId === receiver.id
     );
     const notificationFlag = true;
     io.to(receiverNotificationSocket).emit(
