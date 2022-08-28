@@ -39,7 +39,7 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
         const newDeck = await Deck.create({ name, race }, { include: [Card] });
         newDeckCards.forEach(async e => {
             const card = await Card.findByPk(e.id, { include: [Deck] });
-            console.log(newDeck);
+            // console.log(newDeck);
             await card.addDeck(newDeck);
             await newDeck.addCard(card);
             await card.save();
@@ -72,7 +72,7 @@ userDecksRoute.put(async (req, res, next) => {
 })
 
 userDecksRoute.delete('/:id/:userId', async (req, res, next) => {
-    console.log('entra');
+    // console.log('entra');
     const { id, userId } = req.params
     const user = await User.findByPk(userId, { include: Deck });
     if (!user) return res.json({ error: 'El usuario no existe' });

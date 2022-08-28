@@ -63,7 +63,7 @@ userCardsRoute.patch("/", async (req, res, next) => {
 
     res.json(card);
   } catch (error) {
-    console.log(error);
+    console.log('error');
   }
 });
 

@@ -31,10 +31,10 @@ userRoute.get("/", async (req, res, next) => {
 
 userRoute.get("/:email", async (req, res, next) => {
   const { email } = req.params;
-  console.log(email)
+  // console.log(email)
 
   const user = await User.findOne({ where: { email } })
-  console.log(user)
+  // console.log(user)
 })
 
 
