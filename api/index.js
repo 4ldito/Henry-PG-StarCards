@@ -72,23 +72,22 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
     await createRols();
     await createStatus();
 
-     const packs = await createAllCardPacks();
-     const packsStatus = packs.map(
+    const packs = await createAllCardPacks();
+    const packsStatus = packs.map(
       async (pack) => await pack.setStatus("active")
     );
 
-     const cards = await createAllCards();
-     const cardsStatus = cards.map(
+    const cards = await createAllCards();
+    const cardsStatus = cards.map(
       async (card) => await card.setStatus("active")
     );
 
-
-     const superadmins = await createAllUsers();
-     const adminCards = [];
-     const userSuperadmin = superadmins.map(async (user) => {
-       cards.forEach(async (card) => {
-         for (let i = 0; i < 1; i++) {
-           const userCard = await UserCards.create();
+    const superadmins = await createAllUsers();
+    const adminCards = [];
+    const userSuperadmin = superadmins.map(async (user) => {
+      cards.forEach(async (card) => {
+        for (let i = 0; i < 1; i++) {
+          const userCard = await UserCards.create();
 
           const addUserCard = [
             userCard.setStatus("active"),
@@ -101,7 +100,6 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
       });
       return [user.setRol("superadmin"), user.setStatus("active")];
     });
-
 
     await Promise.all([
       Promise.all(packsStatus),
