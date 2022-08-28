@@ -22,17 +22,6 @@ export default function UserProfile() {
   const [render, setRender] = useState();
   const { validToken } = useValidToken({ navigate: true });
 
-  useEffect(() => {
-    dispatch(getUserDecks(activeUser.id));
-    dispatch(getUser(activeUser.id));
-    dispatch(getAllCards());
-  }, []);
-
-  const actualUrlUser = useMemo(() => {
-    setUser(activeUser);
-    return query === activeUser.username || !query ? activeUser : urlUser;
-  }, [activeUser, urlUser]);
-
   // Read profile owner from url
   function useQuery() {
     const { search } = useLocation();
@@ -46,6 +35,17 @@ export default function UserProfile() {
   }, [query]);
   /////////////////////////////////////////////////
 
+  useEffect(() => {
+    dispatch(getUserDecks(activeUser.id));
+    dispatch(getUser(activeUser.id));
+    dispatch(getAllCards());
+  }, []);
+
+  const actualUrlUser = useMemo(() => {
+    setUser(activeUser);
+    return query === activeUser.username || !query ? activeUser : urlUser;
+  }, [activeUser, urlUser]);
+
   function changeRender(e) {
     let value = e.target.value;
     value === "1"
@@ -57,126 +57,233 @@ export default function UserProfile() {
       : setRender("Chat");
   }
 
-  const showToOwner = (
-    <>
-      <div className={style.img}>
-        {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
-        {/* <button className={style.changecv}>Change Cover Imagen</button> */}
-        <img
-          className={style.profileimg}
-          src={user.profileImg}
-          alt="ProfileImg"
-        />
-        {/* <button className={style.changep}></button> */}
-        <Link className={style.stars} to="/shop">
-          <FaShoppingCart size={28} />
-          Stars: {user.stars}
-        </Link>
-      </div>
-      <div className={style.buttonsbar}>
-        {/* <Link to="/inventory">
+  // const showToOwner = (
+  //   <>
+  //     <div className={style.img}>
+  //       {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
+  //       {/* <button className={style.changecv}>Change Cover Imagen</button> */}
+  //       <img
+  //         className={style.profileimg}
+  //         src={user.profileImg}
+  //         alt="ProfileImg"
+  //       />
+  //       {/* <button className={style.changep}></button> */}
+  //       <Link className={style.stars} to="/shop">
+  //         <FaShoppingCart size={28} />
+  //         Stars: {user.stars}
+  //       </Link>
+  //     </div>
+  //     <div className={style.buttonsbar}>
+  //       {/* <Link to="/inventory">
+  //         <button>Inventory</button>
+  //       </Link> */}
+  //       <button
+  //         className={`${style.buttons} ${style.disabled}`}
+  //         value="1"
+  //         onClick={(e) => changeRender(e)}
+  //       >
+  //         Inventory
+  //       </button>
+  //       <button
+  //         className={`${style.buttons} ${style.disabled}`}
+  //         value="2"
+  //         onClick={(e) => changeRender(e)}
+  //         disabled
+  //       >
+  //         Stats
+  //       </button>
+  //       <button
+  //         className={`${style.buttons} ${style.disabled}`}
+  //         value="3"
+  //         onClick={(e) => changeRender(e)}
+  //       >
+  //         Config
+  //       </button>
+  //       <button
+  //         className={`${style.buttons} ${style.disabled}`}
+  //         value="4"
+  //         onClick={(e) => changeRender(e)}
+  //         disabled
+  //       >
+  //         Chat
+  //       </button>
+  //     </div>
+
+  //     {render === "Config" ? (
+  //       <div className={style.configContainer}>
+  //         <Config user={user} />
+  //       </div>
+  //     ) : render === "Inventory" ? (
+  //       <Inventory />
+  //     ) : render === "Stats" ? (
+  //       "Stats"
+  //     ) : render === "Chat" ? (
+  //       <PrivateChat />
+  //     ) : (
+  //       ""
+  //     )}
+  //   </>
+  // );
+
+  // const showToVisitor = (
+  //   <>
+  //     <div className={style.img}>
+  //       <img
+  //         className={style.profileimg}
+  //         src={actualUrlUser.profileImg}
+  //         alt="ProfileImg"
+  //       />
+  //     </div>
+  //     <div className={style.buttonsbar}>
+  //       {/* <button
+  //         className={`${style.buttons} ${style.disabled}`}
+  //         value="1"
+  //         onClick={(e) => changeRender(e)}
+  //       >
+  //         Inventory
+  //       </button> */}
+  //       <button
+  //         className={`${style.buttons} ${style.disabled}`}
+  //         value="2"
+  //         onClick={(e) => changeRender(e)}
+  //         disabled
+  //       >
+  //         Stats
+  //       </button>
+  //       <button
+  //         className={`${style.buttons} ${style.disabled}`}
+  //         value="4"
+  //         onClick={(e) => changeRender(e)}
+  //         disabled
+  //       >
+  //         Chat
+  //       </button>
+  //     </div>
+
+  //     {render === "Chat" ? (
+  //       <SinglePrivateChat newChatUser={actualUrlUser} />
+  //     ) : render === "Inventory" ? (
+  //       <Inventory />
+  //     ) : render === "Stats" ? (
+  //       "Stats"
+  //     ) : (
+  //       ""
+  //     )}
+  //   </>
+  // );
+
+  return Object.keys(user).length !== 0 ? (
+    actualUrlUser === user ? (
+      <>
+        <div className={style.img}>
+          {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
+          {/* <button className={style.changecv}>Change Cover Imagen</button> */}
+          <img
+            className={style.profileimg}
+            src={user.profileImg}
+            alt="ProfileImg"
+          />
+          {/* <button className={style.changep}></button> */}
+          <Link className={style.stars} to="/shop">
+            <FaShoppingCart size={28} />
+            Stars: {user.stars}
+          </Link>
+        </div>
+        <div className={style.buttonsbar}>
+          {/* <Link to="/inventory">
           <button>Inventory</button>
         </Link> */}
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="1"
-          onClick={(e) => changeRender(e)}
-        >
-          Inventory
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="2"
-          onClick={(e) => changeRender(e)}
-          disabled
-        >
-          Stats
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="3"
-          onClick={(e) => changeRender(e)}
-        >
-          Config
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="4"
-          onClick={(e) => changeRender(e)}
-          disabled
-        >
-          Chat
-        </button>
-      </div>
-
-      {render === "Config" ? (
-        <div className={style.configContainer}>
-          <Config user={user} />
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            value="1"
+            onClick={(e) => changeRender(e)}
+          >
+            Inventory
+          </button>
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            value="2"
+            onClick={(e) => changeRender(e)}
+            disabled
+          >
+            Stats
+          </button>
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            value="3"
+            onClick={(e) => changeRender(e)}
+          >
+            Config
+          </button>
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            value="4"
+            onClick={(e) => changeRender(e)}
+            disabled
+          >
+            Chat
+          </button>
         </div>
-      ) : render === "Inventory" ? (
-        <Inventory />
-      ) : render === "Stats" ? (
-        "Stats"
-      ) : render === "Chat" ? (
-        <PrivateChat />
-      ) : (
-        ""
-      )}
-    </>
-  );
 
-  const showToVisitor = (
-    <>
-      <div className={style.img}>
-        <img
-          className={style.profileimg}
-          src={actualUrlUser.profileImg}
-          alt="ProfileImg"
-        />
-      </div>
-      <div className={style.buttonsbar}>
-        {/* <button
+        {render === "Config" ? (
+          <div className={style.configContainer}>
+            <Config user={user} />
+          </div>
+        ) : render === "Inventory" ? (
+          <Inventory />
+        ) : render === "Stats" ? (
+          "Stats"
+        ) : render === "Chat" ? (
+          <PrivateChat />
+        ) : (
+          ""
+        )}
+      </>
+    ) : (
+      <>
+        <div className={style.img}>
+          <img
+            className={style.profileimg}
+            src={actualUrlUser.profileImg}
+            alt="ProfileImg"
+          />
+        </div>
+        <div className={style.buttonsbar}>
+          {/* <button
           className={`${style.buttons} ${style.disabled}`}
           value="1"
           onClick={(e) => changeRender(e)}
         >
           Inventory
         </button> */}
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="2"
-          onClick={(e) => changeRender(e)}
-          disabled
-        >
-          Stats
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="4"
-          onClick={(e) => changeRender(e)}
-          disabled
-        >
-          Chat
-        </button>
-      </div>
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            value="2"
+            onClick={(e) => changeRender(e)}
+            disabled
+          >
+            Stats
+          </button>
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            value="4"
+            onClick={(e) => changeRender(e)}
+            disabled
+          >
+            Chat
+          </button>
+        </div>
 
-      {render === "Chat" ? (
-        <SinglePrivateChat newChatUser={actualUrlUser} />
-      ) : render === "Inventory" ? (
-        <Inventory />
-      ) : render === "Stats" ? (
-        "Stats"
-      ) : (
-        ""
-      )}
-    </>
-  );
-
-  return Object.keys(user).length !== 0 ? (
-    actualUrlUser === user ? (
-      { showToOwner }
-    ) : (
-      { showToVisitor }
+        {render === "Chat" ? (
+          <SinglePrivateChat newChatUser={actualUrlUser} />
+        ) : render === "Inventory" ? (
+          <Inventory />
+        ) : render === "Stats" ? (
+          "Stats"
+        ) : (
+          ""
+        )}
+      </>
     )
   ) : (
     <div className={style.response}>'User not logged in'</div>
