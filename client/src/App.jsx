@@ -14,7 +14,7 @@ import { resetReduxState } from "./redux/actions";
 import Inventory from "./components/UserProfile/Inventory/Inventory";
 import RecoveryPassword from './components/Registro/RecoveryPassword';
 import Registro from "./components/Registro/Registro";
-import Firebase from "./Components/FirebaseAdmi/Firebase";
+import Firebase from "./components/FirebaseAdmi/Firebase";
 
 import "./App.css";
 
