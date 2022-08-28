@@ -1,0 +1,169 @@
+@font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+}
+
+.packDetail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: starcardsFont;
+
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 7vh;
+
+  background-color: rgba(16, 16, 16, 0.39);
+
+  width: 100%;
+  height: 93vh;
+}
+
+.background {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background-color: #101010ea;
+  border: 5px solid rgba(82, 82, 82, 0.488);
+  border-radius: 20px;
+
+  width: 60%;
+  height: 60%;
+}
+
+.left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  width: 33%;
+  height: 100%;
+
+  text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0),
+    0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0),
+    0 0 10px rgb(0, 0, 0);
+}
+
+.image {
+  height: 90%;
+}
+
+.fav {
+  position: absolute;
+  top: 6%;
+  left: 10%;
+  border-radius: 50%;
+  padding: 3%;
+  color: red;
+}
+
+.textImage {
+  position: absolute;
+  text-align: start;
+  top: 55%;
+  left: 10%;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  justify-content: space-between;
+
+  width: 67%;
+  height: 100%;
+  padding: 2.2% 0 2.2% 0;
+}
+
+.title {
+  width: 100%;
+  margin: 0;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 30%;
+}
+
+.probability {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 20%;
+}
+
+.seccionPrice {
+  width: 50%;
+  height: 100%;
+}
+
+.price {
+  text-align: center;
+
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+
+  width: 80%;
+
+  margin: 11%;
+}
+
+.seccionBuy {
+  width: 30%;
+  height: 100%;
+}
+
+.buyNow {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+
+  font-size: 1.5rem;
+
+  width: 100%;
+  height: 50%;
+}
+
+.seccionBuytop{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btnM{
+    height: 2%;
+    font-size: 1.5rem;
+}
+
+.amount{
+    margin: 0;
+}
+
+.seccionCar{
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+}
+.car{
+    width: 50%;
+    height: 50%;
+    margin-top: 27%;
+}

@@ -1,0 +1,10 @@
+.userOptions{
+    position: absolute;
+    display: flex;
+    width: 7vw;
+    height: 10vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background:#555;
+}

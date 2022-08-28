@@ -1,0 +1,108 @@
+@font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: var(--color-darker);
+  border-bottom: 1px solid black;
+  z-index: 5000;
+  width: 100%;
+  height: 7vh;
+
+  padding: 0.3rem 1rem;
+}
+
+.img {
+  background-color: rgba(221, 46, 46, 0);
+
+  left: 0;
+
+  height: 5vh;
+
+  transition: all 0.3s;
+}
+
+.img:hover {
+  transform: scale(1.1);
+}
+
+.ul {
+  display: flex;
+  flex-direction: row;
+
+  list-style: none;
+
+  padding: 0%;
+  margin: 0 8% 0 0%;
+}
+
+.li {
+  display: inline-block;
+
+  font-size: 3vh;
+
+  margin: 0 1rem;
+
+  transition: transform 0.3s, color 0.3s;
+}
+
+.li:hover {
+  transform: scale(1.1);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  font-family: starcardsFont, sans serif;
+  text-decoration: none;
+
+  color: white;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+[id="btnMenu"] {
+  color: white;
+  font-size: 6.8vh;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+[id="btnMenu"]:hover {
+  transform: scale(1.1);
+  color: silver;
+}
+
+.userOptions {
+  position: absolute;
+
+  background-color: var(--color-darker);
+  border: 1px solid black;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+
+  right: 0px;
+  top: calc(7vh - 1px);
+
+  width: 150px;
+  height: auto;
+}
+
+.profile {
+  width: 6.2vh;
+  border-radius: 50%;
+}
