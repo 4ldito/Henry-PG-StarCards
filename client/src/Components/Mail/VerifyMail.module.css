@@ -62,7 +62,17 @@
     border-radius: 15%;
     border: 2px solid white;
     margin-bottom: 31%;
-    margin-left: 93%;  
+    margin-left: 75%;  
+    position: absolute;
+  
+}
+.buttonClose2{
+    display: flex;
+    background-color: red;
+    border-radius: 15%;
+    border: 2px solid white;
+    margin-bottom: 31%;
+    margin-left: 77%;  
     position: absolute;
   
 }

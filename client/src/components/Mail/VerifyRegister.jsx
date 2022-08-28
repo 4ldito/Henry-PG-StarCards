@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeModal, cleanToken, sendMail, successAction, verifyToken } from "../../redux/actions/sendMail";
+import { changeModal, cleanToken, sendMail, successAction, verifyToken, renderVerifyRegister } from "../../redux/actions/sendMail";
 import Swal from 'sweetalert2';
 import style from "./Mail.module.css";
 import { getByEmail, getUserByEmail, modifyUser } from "../../redux/actions/user";
@@ -90,7 +90,7 @@ export default function VerifyRegister({email,user}){
             text: 'Se cambio la contraseña correctamente',
             icon: 'success',
           });
-          // dispatch(successAction())
+          dispatch(renderVerifyRegister())
           dispatch(changeModal(false))
           navigateTo('/login')
       }
@@ -121,6 +121,7 @@ export default function VerifyRegister({email,user}){
       <div>{render?(
         <div className={style.background}>
         <div className={style.container}> 
+        <button className={style.buttonClose} onClick={(e)=>close(e)}>X</button>
             <form className="formulario" onSubmit={(e)=>verifyTokens(e)}>
                 <div className={style.mail}>
                 <input
@@ -135,7 +136,6 @@ export default function VerifyRegister({email,user}){
                 {reenviar ? '' : <button className={style.button} onClick={(e)=>reenviarToken(e)}>Reenviar Token</button>}
                 </div>
             </form>
-                <button onClick={(e)=>close(e)}>X</button>
           </div>
           </div>) : changepassword()}
           </div>

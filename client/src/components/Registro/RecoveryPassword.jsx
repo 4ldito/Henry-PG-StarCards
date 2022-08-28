@@ -105,6 +105,8 @@ function handleOnChange (e){
 function renderok(){
   return(
     <div>
+              <div className={style2.options}>
+
           <div className={style.inputcontainer}>
                 <label style={{fontSize:"larger"}}>Ingrese Username </label>
                 <input className= {style3.input} style={{width:"400px"}} type="text" name="username"  ref={input1} onChange={handleOnChange} />
@@ -117,14 +119,16 @@ function renderok(){
               <div className={style.buttoncontainer}>
                 <button className={style2.button}  onClick={(e)=>recoveryPassword(e)} data='Recuperar Contraseña'></button>
           </div>
+                </div>
+
     </div>
   )
 }
     return(
         <div className={style.appli}>
-        <div className={style2.options}>
+        {/* <div className={style2.options}> */}
           {(!modal)? renderok() : <VerifyRegister email={input.email} user={userPass}/>}
       </div>
-    </div>
+    // </div>
     )
 }
