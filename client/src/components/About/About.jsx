@@ -1,85 +1,16 @@
-import React, { useState, useRef } from "react";
-import FilterByRace from "../Album/Filter";
-import SearchCard from "../Album/SearchCard";
-import SortCards from "../Album/Sort";
-import Album from "../Album/Album";
-
-import Rules from "../Rules/Rules";
-import Team from "../Team/Team";
-
+import React from "react";
 import css from "./About.module.css";
-import getAllCards from "../../redux/actions/cards/getAllCards";
-import { useDispatch } from "react-redux";
 
 export default function About() {
-  const dispatch = useDispatch();
-  const [section, setSection] = useState("album");
-  const album = useRef(null);
-  const rules = useRef(null);
-  const team = useRef(null);
 
-  function handleClick(e) {
-    e.preventDefault();
-    const target = e.target;
-    const lastActive = document.querySelector(`.${css.selected}`);
-    lastActive.classList.remove(css.selected);
-    target.classList.add(`${css.selected}`);
-    setSection(e.target.name);
-  }
-
-  function clearFilters() {
-    dispatch(getAllCards());
-  }
-
-  return (
-    <div className={css.about}>
-      <div className={css.secciones}>
-        <button
-          className={`${css.seccion} ${css.selected}`}
-          ref={album}
-          name="album"
-          onClick={(e) => handleClick(e)}
-        >
-          Album
-        </button>
-        <button
-          className={`${css.seccion} ${css.disabled}`}
-          ref={rules}
-          name="rules"
-          onClick={(e) => handleClick(e)}
-          disabled
-        >
-          Rules
-        </button>
-        <button
-          className={`${css.seccion} ${css.disabled}`}
-          ref={team}
-          name="team"
-          onClick={(e) => handleClick(e)}
-          disabled
-        >
-          Team
-        </button>
-      </div>
-
-      {section === "album" && (
-        <div className={css.seccionesLow}>
-          <div className={css.filtrosContainer}>
-            <div className={css.filtros}>
-              <SearchCard />
-              <SortCards />
-              <FilterByRace />
-              <button onClick={clearFilters}>Clear Filters</button>
-            </div>
-          </div>
-          <div className={css.cartas}>
-            <Album />
-          </div>
-        </div>
-      )}
-
-      {section === "rules" && <Rules />}
-      {section === "team" && <Team />}
-    </div>
-  );
+    return <div className={css.about}>
+            <h1>Sobre Starcards</h1>
+            <p>Starcards es un juego de cartas basado en el universo Starcraft. El reconocido juego de estrategia de ciencia ficción se recrea en un formato de juego de cartas en el que los participantes podrán comprar packs de cartas, armar sus mazos y competir con otros jugadores online eligiendo a sus personajes preferidos.</p>
+           <br/>
+           <p>Desarrollamos esta idea para el proyecto grupal final de la carrera de desarrollo full stack de Henry. Starcards surgió como idea de uno de los participantes y se fue potenciando con las experiencias y conocimientos de cada uno. El equipo lo conformamos Aldo Aliscioni, Antu D’Ippolito, Emerson Edward Villalta, Emiliano Aparicio, Fabián Santos, Lautaro Pérez y Manuel Losada.</p>
+           <br/>
+           <p>Para el desarrollo de Starcards utilizamos tecnologías aprendidas en Henry así como también nuevas herramientas en las que nos aventuramos para mejorar la experiencia de usuario. Sin embargo, Starcards no expresa solamente lo aprendido en términos de desarrollo web sino también la formación que tuvimos como fruto de un intenso trabajo colectivo durante algunas semanas. Este proceso, difícil de ver solamente navegando en nuestra página, fue fundamental para adquirir conocimientos de trabajo en equipo, planificación y flujo de trabajo.</p>
+           <br/>
+           <p>Esperamos que este producto les guste tanto como a nosotros. No duden en dejarnos su feedback para seguir mejorando.</p>
+           </div>
 }

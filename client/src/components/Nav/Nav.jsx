@@ -38,6 +38,11 @@ export default function Nav() {
           )}
         </li>
         <li className={css.li}>
+          <NavLink className={css.link} to="/game">
+            Game
+          </NavLink>
+        </li>
+        <li className={css.li}>
           <NavLink className={css.link} to="/about">
             About
           </NavLink>
