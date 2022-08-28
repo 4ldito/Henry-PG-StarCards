@@ -26,9 +26,9 @@ export default function UserProfile() {
     dispatch(getAllCards());
   }, []);
 
-  useEffect(() => {
-    if (query === activeUser.username || !query) setUser(activeUser);
-    else setUser(urlUser);
+  const actualUrlUser = useMemo(() => {
+    setUser(activeUser);
+    return query === activeUser.username || !query ? activeUser : urlUser;
   }, [activeUser, urlUser]);
 
   // Read profile owner from url
@@ -55,16 +55,16 @@ export default function UserProfile() {
       : setRender("Chat");
   }
 
-  return Object.keys(user).length !== 0 ? (
+  const showToOwner = (
     <>
       <div className={style.img}>
         {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
         {/* <button className={style.changecv}>Change Cover Imagen</button> */}
-        {/* <img
+        <img
           className={style.profileimg}
           src={user.profileImg}
           alt="ProfileImg"
-        /> */}
+        />
         {/* <button className={style.changep}></button> */}
         <Link className={style.stars} to="/shop">
           <FaShoppingCart size={28} />
@@ -107,21 +107,75 @@ export default function UserProfile() {
         </button>
       </div>
 
-      {
-        render === "config" ? (
-          <div className={style.configContainer}>
-            <Config user={user} />
-          </div>
-        ) : render === "Inventory" ? (
-          <Inventory />
-        ) : render === "Stats" ? (
-          "Stats"
-        ) : (
-          ""
-        )
-        // : ''
-      }
+      {render === "config" ? (
+        <div className={style.configContainer}>
+          <Config user={user} />
+        </div>
+      ) : render === "Inventory" ? (
+        <Inventory />
+      ) : render === "Stats" ? (
+        "Stats"
+      ) : (
+        ""
+      )}
     </>
+  );
+
+  const showToVisitor = (
+    <>
+      <div className={style.img}>
+        <img
+          className={style.profileimg}
+          src={actualUrlUser.profileImg}
+          alt="ProfileImg"
+        />
+      </div>
+      <div className={style.buttonsbar}>
+        {/* <button
+          className={`${style.buttons} ${style.disabled}`}
+          value="1"
+          onClick={(e) => changeRender(e)}
+        >
+          Inventory
+        </button> */}
+        <button
+          className={`${style.buttons} ${style.disabled}`}
+          value="2"
+          onClick={(e) => changeRender(e)}
+          disabled
+        >
+          Stats
+        </button>
+        <button
+          className={`${style.buttons} ${style.disabled}`}
+          value="4"
+          onClick={(e) => changeRender(e)}
+          disabled
+        >
+          Chat
+        </button>
+      </div>
+
+      {render === "Chat" ? (
+        <PrivateChat
+          newChat={{ username: actualUrlUser.username, id: actualUrlUser.id }}
+        />
+      ) : render === "Inventory" ? (
+        <Inventory />
+      ) : render === "Stats" ? (
+        "Stats"
+      ) : (
+        ""
+      )}
+    </>
+  );
+
+  return Object.keys(user).length !== 0 ? (
+    actualUrlUser === user ? (
+      { showToOwner }
+    ) : (
+      { showToVisitor }
+    )
   ) : (
     <div className={style.response}>'User not logged in'</div>
   );

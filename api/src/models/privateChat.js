@@ -2,9 +2,8 @@ const { Model } = require("sequelize");
 
 class PrivateChat extends Model {
   static associate(models) {
-    PrivateChat.belongsTo(models.User);
+    PrivateChat.belongsToMany(models.User, { through: "User-PrivChat" });
     PrivateChat.hasMany(models.Message);
-    PrivateChat.hasOne(models.User, { as: "ReceiverUser" });
   }
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import socket from "./Socket";
 
-const PrivateChat = () => {
+const PrivateChat = ({ newChat }) => {
   const dispatch = useDispatch();
 
   const userActive = useSelector((state) => state.userReducer.user);

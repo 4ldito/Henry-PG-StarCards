@@ -11,11 +11,12 @@ const favPacksRoute = require("./favPacks");
 const shopCartRoute = require("./shopCart");
 const sendMail = require("./sendMail");
 const transactionRoute = require("./transaction");
-const userDecksRoute = require('./userDecks');
+const userDecksRoute = require("./userDecks");
+const chatRoute = require("./privateChat");
 
 const router = Router();
 
-router.use('/userDecks', userDecksRoute);
+router.use("/userDecks", userDecksRoute);
 router.use("/login", logInRoutes);
 router.use("/user", userRoute);
 router.use("/mercadopago", mercadopagoRoute);
@@ -28,6 +29,6 @@ router.use("/", sendMail);
 router.use("/shopcart", shopCartRoute);
 router.use("/favPacks", favPacksRoute);
 router.use("/transaction", transactionRoute);
-
+router.use("/chat", chatRoute);
 
 module.exports = router;
