@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../../redux/actions/user";
 import socket from "./Socket";
 
+import css from "./PrivateChat.module.css";
+
 const PrivateChat = ({ selected }) => {
   const dispatch = useDispatch();
 
@@ -90,12 +92,17 @@ const PrivateChat = ({ selected }) => {
   };
 
   return (
-    <div>
-      <div>
+    <div className={css.chatContainer}>
+      <div className={css.chatUsers}>
         {chatUsers?.length
           ? chatUsers.map((c, i) => {
               return (
-                <div key={i} id={c.id} onClick={() => handleChatSelect(c)}>
+                <div
+                  key={i}
+                  id={c.id}
+                  onClick={() => handleChatSelect(c)}
+                  className={css.singleChatUser}
+                >
                   {c.username}
                 </div>
               );
