@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import SelectedDeck from "./SelectedDeck";
 import { deleteDeck, createDeck, getUserDecks,setActiveDeck } from '../../../../redux/actions/user'
 import { CardContainer } from "../../../Card/CardContainer";
-
+import css from './DeckList.module.css'
 
 
 function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards,setNewDeckCards, creatingDeck, setCreatingDeck }) {
@@ -15,25 +15,28 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
     const [newDeckName, setNewDeckName] = useState();
 
     useEffect(() => {
+        console.log('se monta');
         setSelectedDeck(activeDeck)
     },[])
+    useEffect(()=>{console.log('se actualiza')});
     useEffect(() => {
-        if (selectedDeck && !decks.includes(e => e.id === selectedDeck.id)) setSelectedDeck([]);
-
-    }, [decks]);
+        if (selectedDeck && !decks.includes(e => e.id === selectedDeck.id)) setSelectedDeck([activeDeck]);
+    }, [decks,activeDeck]);
 
     function createNewDeck(userId, deck, name) {
- 
+      
         if (name && deck.length) {
             dispatch(createDeck(userId, deck, name));
+            const newDeck = {Cards:deck, name};
             setNewDeckCards([]);
             setCreatingDeck(false);
-            setSelectedDeck(activeDeck);
-            // document.querySelector('#newDeckName').value = '';
+            setSelectedDeck(newDeck);
+          
             // dispatch(getUserDecks(userId));
         }
     }
     function removeDeck(userId,deckId){
+        if(activeDeck.id == deckId) dispatch(setActiveDeck({}));
         if(selectedDeck.id===deckId)setSelectedDeck(activeDeck);
         dispatch(deleteDeck(userId, deckId))
     }
@@ -41,6 +44,7 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
         const deck = userDecks.find(e => id == e.id);
         setSelectedDeck(deck);
         setCreatingDeck(false);
+        document.querySelector('#newDeckName').value = deck.name;
     }
 
     function openNewDeckTemplate() {
@@ -49,34 +53,39 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
         enableAddButton(true);
         setNewDeckCards([]);
         setSelectedDeck([]);
+        setNewDeckName('');
+        document.querySelector('#newDeckName').value = '';
+
     }
 
 
-    return <div style={{ height: '100px', width: '200px', backroundColor: '#333', color: 'white' }}>
+    return <div className={css.allContainer}>
 
         {/* CREACION DE MAZO */}
         <div>
             <input id='newDeckName' onChange={(e) => setNewDeckName(e.target.value)} placeholder="Nombra el mazo"></input>
+            <div className={css.actualDeckContainer}>
             {creatingDeck ? newDeckCards?.map((e, i) => <CardContainer key={i} inDeck={true} card={e}></CardContainer>) :
-                selectedDeck?.Cards?.map((e, i) => <CardContainer key={i} inDeck={true} card={e}></CardContainer>)}
+                selectedDeck?.Cards?.map((e, i) => <CardContainer  key={i} inDeck={true} card={e}></CardContainer>)}
             {!creatingDeck&& <button onClick={()=>{dispatch(setActiveDeck(selectedDeck))}}>Usar</button>}
+            </div>
             <button onClick={() => { createNewDeck(userId, newDeckCards, newDeckName) }}>Guardar</button>
         </div>
 
         {/* LISTADO DE MAZOS */}
 
-        <ul>
+        <ul className={css.deckListContainer}>
             {decks?.map((e, i) => <div key={i}><div key={i} onClick={(e) => findSelectedDeck(e.target.id, decks)} id={e.id}>{e.name}
             </div>
                 <button id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
             </div>
             )}
+        <button onClick={() => openNewDeckTemplate()}>
+            Nuevo mazo
+        </button>
         </ul>
 
         {/* BOTON DE CREACION DE NUEVO MAZO */}
-        <div onClick={() => openNewDeckTemplate()}>
-            Nuevo mazo
-        </div>
 
     </div>
 
