@@ -460,7 +460,7 @@ const protossCards = [
     race: "Protoss",
     cost: 100,
     movement: "Ground",
-    image: "https://i.ibb.co/tKtnNMD/Zealot.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FZealot?alt=media&token=7242840a-f70a-4955-a6ed-a3e53a769add",
   },
   {
     name: "Sentry",
@@ -472,7 +472,7 @@ const protossCards = [
     race: "Protoss",
     cost: 250,
     movement: "Ground",
-    image: "https://i.ibb.co/zhVHYz8/Sentry.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FSentry?alt=media&token=49fa1132-ab60-4e03-96b5-efe4e8a82a1b",
   },
   {
     name: "Stalker",
@@ -484,7 +484,7 @@ const protossCards = [
     race: "Protoss",
     cost: 225,
     movement: "Ground",
-    image: "https://i.ibb.co/hYNBxRh/Stalker.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FStalker?alt=media&token=cb9b731d-3ca0-4092-b6f0-44a6bcfd0b65",
   },
   {
     name: "Dragoon",
@@ -496,7 +496,7 @@ const protossCards = [
     race: "Protoss",
     cost: 225,
     movement: "Ground",
-    image: "https://i.ibb.co/YRFMBkf/Dragoon.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FDragoon?alt=media&token=28ad1db2-68d8-4b36-904c-9fbe0c4f5b42",
   },
   {
     name: "Dark Templar",
@@ -508,7 +508,7 @@ const protossCards = [
     race: "Protoss",
     cost: 375,
     movement: "Ground",
-    image: "https://i.ibb.co/pr6krVw/Dark-Templar.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FDark%20Templar?alt=media&token=7ef6e0a5-3387-4b75-8e28-d3928bcb730e",
   },
   {
     name: "Archon",
@@ -520,7 +520,7 @@ const protossCards = [
     race: "Protoss",
     cost: 350,
     movement: "Ground",
-    image: "https://i.ibb.co/mSc1Zs0/Archon.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FArchon?alt=media&token=dc3bb3d4-cf6a-404a-9947-6945d62592bd",
   },
   {
     name: "Immortal",
@@ -532,7 +532,7 @@ const protossCards = [
     race: "Protoss",
     cost: 475,
     movement: "Ground",
-    image: "https://i.ibb.co/kGBHy9H/Immortal.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FImmortal?alt=media&token=19206eb4-8648-4546-b125-9f1b0dbfc262",
   },
   {
     name: "Disruptor",
@@ -545,7 +545,7 @@ const protossCards = [
     race: "Protoss",
     cost: 450,
     movement: "Ground",
-    image: "https://i.ibb.co/K2Fc6Vz/Disruptor.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FDisruptor?alt=media&token=c689adef-f42c-4c02-b23f-51d2c3647836",
   },
   {
     name: "Reaver",
@@ -557,7 +557,7 @@ const protossCards = [
     race: "Protoss",
     cost: 400,
     movement: "Ground",
-    image: "https://i.ibb.co/3CVFJM7/Reaver.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FReaver?alt=media&token=907c36ad-e9ec-4921-8669-4690c919d6ce",
   },
   {
     name: "Colossus",
@@ -569,7 +569,7 @@ const protossCards = [
     race: "Protoss",
     cost: 700,
     movement: "Ground",
-    image: "https://i.ibb.co/jHN0pHr/Colossus.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FColossus?alt=media&token=2c216219-6072-451b-8551-68f7c1c9b5db",
   },
   {
     name: "Observer",
@@ -581,7 +581,7 @@ const protossCards = [
     race: "Protoss",
     cost: 175,
     movement: "Flying",
-    image: "https://i.ibb.co/tp4CStJ/Observer.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FObserver?alt=media&token=a4898109-d030-4406-87d2-a5b31985054f",
   },
   {
     name: "Corsair",
@@ -593,7 +593,7 @@ const protossCards = [
     race: "Protoss",
     cost: 350,
     movement: "Flying",
-    image: "https://i.ibb.co/zRkydd8/Corsair.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FCorsair?alt=media&token=937a11a7-f032-4fba-8936-baed70a80ec8",
   },
   {
     name: "Arbiter",
@@ -605,7 +605,7 @@ const protossCards = [
     race: "Protoss",
     cost: 800,
     movement: "Flying",
-    image: "https://i.ibb.co/C28jkfS/Arbiter.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FArbiter?alt=media&token=464ffbb0-9c48-4f52-b046-236c6b6e956a",
   },
   {
     name: "Void Ray",
@@ -617,7 +617,7 @@ const protossCards = [
     race: "Protoss",
     cost: 550,
     movement: "Flying",
-    image: "https://i.ibb.co/6RJf84p/Void-Ray.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FVoid%20Ray?alt=media&token=15715ba9-e2c7-4f5c-92b5-504b7526d802",
   },
   {
     name: "Tempest",
@@ -629,7 +629,7 @@ const protossCards = [
     race: "Protoss",
     cost: 600,
     movement: "Flying",
-    image: "https://i.ibb.co/JCcxscD/Tempest.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FTempest?alt=media&token=bef7957a-19c2-4972-9e2a-65622b9cbc60",
   },
   {
     name: "Carrier",
@@ -641,7 +641,7 @@ const protossCards = [
     race: "Protoss",
     cost: 970,
     movement: "Flying",
-    image: "https://i.ibb.co/y6PpWft/Carrier.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FCarrier?alt=media&token=f262246d-edfd-47a5-889d-1c105441c4e6",
   },
   {
     name: "Mothership",
@@ -653,7 +653,7 @@ const protossCards = [
     race: "Protoss",
     cost: 1200,
     movement: "Flying",
-    image: "https://i.ibb.co/cg9YMMC/Mothership.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FMothership?alt=media&token=baee18c9-824c-4137-ad99-e0d5b7abb22b",
   },
   {
     name: "Zeratul",
@@ -665,7 +665,7 @@ const protossCards = [
     race: "Protoss",
     cost: 1500,
     movement: "Ground",
-    image: "https://i.ibb.co/pRGsnXV/Zeratul.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/cardUnit%2FProtoss%2FZeratul?alt=media&token=872e6c4b-46e7-4add-bb04-26e7ec22abe1",
   },
 ];
 

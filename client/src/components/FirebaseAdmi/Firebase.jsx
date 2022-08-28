@@ -50,6 +50,7 @@ function Firebase(){
   }
 
   return(
+    /*
       <form onSubmit={handleSubmitCard}>
         <input type='text' name='' id='' placeholder='nombre'
           onChange={(e)=>setName(e.target.value)}
@@ -61,9 +62,9 @@ function Firebase(){
               id='' 
               onChange={(e)=>setFile(e.target.files[0])} />
         <button>new Card</button>
-      </form>
+      </form>*/
       //packs xD
-      /*
+      
     <form onSubmit={handleSubmitPack}>
             <input type='text' name='' id=''
         onChange={(e)=>setNamepack(e.target.value)}
@@ -72,7 +73,7 @@ function Firebase(){
             id='' 
             onChange={(e)=>setFile(e.target.files[0])} />
       <button>new Pack</button>
-    </form>*/
+    </form>
   )
 }
 
