@@ -89,6 +89,7 @@ const Album = () => {
             if (index <= limit.max && index >= limit.min) {
               return (
                 <Card
+                  tamanho={1}
                   key={card.id}
                   id={card.id}
                   name={card.name}

@@ -1,36 +1,43 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { saleCard } from "../../redux/actions/cards/userCards";
+import React, { useState } from "react";
 import Card from "./Card";
+import { useDispatch } from "react-redux";
+import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
-export function CardContainer({ card, repeat }) {
+export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, tamanho,maxT}) {
   const dispatch = useDispatch();
-  function Sale() {
-    dispatch(
-      saleCard({
-        id: card.id,
-        status: "onSale",
-      })
-    );
+  const [viewCard, setViewCard] = useState(false);
+
+  function handleViewCard() {
+    setViewCard(!viewCard);
   }
+
   return (
-    <>
+    <div >
       {repeat > 1 && <label style={{ fontSize: "50px" }}>{repeat}</label>}
+      {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
 
       <Card
-        id={card?.id}
-        name={card?.name}
-        image={card?.image}
-        cost={card?.cost}
-        Gdmg={card?.Gdmg}
-        Admg={card?.Admg}
-        life={card?.life}
-        ability={card?.ability}
-        abilities={card?.abilities}
-        race={card?.race}
-        movement={card?.movement}
+        id={card.id}
+        name={card.name}
+        image={card.image}
+        cost={card.cost}
+        Gdmg={card.Gdmg}
+        Admg={card.Admg}
+        life={card.life}
+        ability={card.ability}
+        abilities={card.abilities}
+        race={card.race}
+        movement={card.movement}
       />
-      <button onClick={Sale}>Sale</button>
-    </>
+      {!inDeck && <button onClick={handleViewCard}>{card.userCard.statusId === 'active' ? 'Vender' : 'Quitar de en venta'}</button>}
+      {viewCard && (
+        <SaleCard
+          handleViewCard={handleViewCard}
+          cardId={card.id}
+          name={card.name}
+          image={card.image}
+        />
+      )}
+    </div>
   );
 }

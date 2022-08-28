@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
+import ChatNotifications from "./ChatNotifications/ChatNotifications";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
@@ -9,7 +10,7 @@ import { useSelector } from "react-redux";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
-  const { validToken } = useValidToken({ navigate: false });
+  const { validToken } = useValidToken({ navigate: false });;
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   const userActive = useSelector((state) => state.userReducer.user);
 
@@ -54,6 +55,11 @@ export default function Nav() {
           )}
         </li>
         <li className={css.li}>
+          <NavLink className={css.link} to="/game">
+            Game
+          </NavLink>
+        </li>
+        <li className={css.li}>
           <NavLink className={css.link} to="/about">
             About
           </NavLink>
@@ -65,7 +71,7 @@ export default function Nav() {
         className={css.btn}
         onClick={handleVisibleUserOptions}
       >
-        {user.id ? (
+        {user.user.id ? (
           <img
             id="btnMenu"
             className={css.profile}

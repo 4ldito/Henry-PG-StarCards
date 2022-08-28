@@ -9,6 +9,7 @@
   transform: translate(-50%, 0);
   top: 22%;
   border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.685);
 }
 .changep {
   position: absolute;

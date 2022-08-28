@@ -29,6 +29,12 @@ const users = [
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "10000",
   },
+  {
+    username: "warded",
+    email: "reaperfocs@gmail.com",
+    password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
+    stars: "10000",
+  },
 ];
 
 module.exports = users;

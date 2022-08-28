@@ -42,7 +42,7 @@ export default function Registro() {
 
   useEffect(() => {
     if (msgInfo?.type) {
-      if (msgInfo.type === 'success') navigate('/userProfile');
+      if (msgInfo.type === 'success') navigate(`/userProfile?username=${user.username}`);
       else {
         Swal.fire({
           title: msgInfo.title,
@@ -50,7 +50,7 @@ export default function Registro() {
           icon: msgInfo.type,
         });
       }
-      // console.log(user)
+
       for (const pack in shopCart) {
         if (shopCart[pack].length) {
           shopCart[pack].forEach((item) => {

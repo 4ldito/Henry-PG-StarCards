@@ -29,13 +29,16 @@ export default function DetailPopUp({ handleDetail }) {
 
   useEffect(() => {
     opinion.forEach((o) => {
-      if (o.UserId === user.id) {
+      if (o.UserId === user.user.id) {
         setCommented(true);
       }
     });
   }, [opinion, detailCards]);
 
   useEffect(() => {
+    if (user?.user.id && !userCards.length) {
+      dispatch(getUserCards(user.user.UserCards, cards));
+    }
     return () => {
       dispatch(detailCard(null));
       dispatch(getOpinions(null));
@@ -43,7 +46,7 @@ export default function DetailPopUp({ handleDetail }) {
   }, []);
 
   useEffect(() => {
-    if (user.id) {
+    if (user.user.id) {
       dispatch(getUserCards(user.user.UserCards, cards));
     }
   }, [cards]);
@@ -54,6 +57,7 @@ export default function DetailPopUp({ handleDetail }) {
         setHaveCard(true);
       }
     });
+    // console.log(detailCards)
   }, [detailCards]);
 
   function Validaciones(valores) {
@@ -74,7 +78,7 @@ export default function DetailPopUp({ handleDetail }) {
     setInput({
       ...input,
       cardId: detailCards.id,
-      userId: user.id,
+      userId: user.user.id,
       [e.target.name]: e.target.value,
     });
   }
@@ -142,7 +146,7 @@ export default function DetailPopUp({ handleDetail }) {
               );
             })}
           </div>
-          {user.id ? (
+          {user.user.id ? (
             haveCard ? (
               commented ? (
                 viewEdit ? (

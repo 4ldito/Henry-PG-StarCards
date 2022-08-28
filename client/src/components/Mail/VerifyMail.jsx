@@ -1,51 +1,57 @@
 import style from "./VerifyMail.module.css";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import Swal from 'sweetalert2';
-import { changeModal, cleanrecivedToken, cleanToken, sendMail, successAction, verifyToken } from "../../redux/actions/sendMail";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
+import {
+  changeModal,
+  cleanrecivedToken,
+  cleanToken,
+  sendMail,
+  successAction,
+  verifyToken,
+} from "../../redux/actions/sendMail";
 
 ///////////////////////////////////////////////////////////
 
-export default function App ({user}) {
-const email1 = useRef(null);
-const token1 = useRef(null);
-const dispatch = useDispatch()
-const tokenIstrue = useSelector((state) => state.sendMailReducer.token)
-const recivedToken = useSelector((state) => state.sendMailReducer.recivedToken)
-// const modal = useSelector((state) => state.sendMailReducer.modal)
-const [render, setRender] = useState(true)
-const [reenviar, setReenviar] = useState(true)
-const [state, setState] = useState(
-  {
+export default function App({ user }) {
+  const email1 = useRef(null);
+  const token1 = useRef(null);
+  const dispatch = useDispatch();
+  const tokenIstrue = useSelector((state) => state.sendMailReducer.token);
+  const recivedToken = useSelector(
+    (state) => state.sendMailReducer.recivedToken
+  );
+  // const modal = useSelector((state) => state.sendMailReducer.modal)
+  const [render, setRender] = useState(true);
+  const [reenviar, setReenviar] = useState(true);
+  const [state, setState] = useState({
     email: "",
     tokenFront: "",
   })
 
-useEffect(() => {
-    if(recivedToken && tokenIstrue){ //si llego el token y es tru(coinciden los token)
-      console.log('coincide')
-            Swal.fire({
-        title: 'Token',
-        text: 'Token verificado con Exito',
-        icon: 'success',
+  useEffect(() => {
+    if (recivedToken && tokenIstrue) {
+      //si llego el token y es tru(coinciden los token)
+      Swal.fire({
+        title: "Token",
+        text: "Token verificado con Exito",
+        icon: "success",
       });
-      dispatch(cleanToken())
-      dispatch(successAction()) 
-      dispatch(changeModal())
-    }
-    else if(recivedToken && !tokenIstrue){ //si no coinciden
-      console.log('le erraste papu')
-            Swal.fire({
-        title: 'Token',
-        text: 'El token ingresado es incorrecto',
-        icon: 'error',
+      dispatch(cleanToken());
+      dispatch(successAction());
+      dispatch(changeModal());
+    } else if (recivedToken && !tokenIstrue) {
+      //si no coinciden
+      Swal.fire({
+        title: "Token",
+        text: "El token ingresado es incorrecto",
+        icon: "error",
       });
       setReenviar(false);
-      token1.current.value = ''
-      dispatch(cleanToken())
-
+      token1.current.value = "";
+      dispatch(cleanToken());
     }
-}, [recivedToken])
+  }, [recivedToken]);
 
   function comprobarCambios () {
     let email = render? email1.current.value : state.email;
@@ -54,10 +60,10 @@ useEffect(() => {
       email: email,
       tokenFront: token,
     });
-  };
+  }
 
-  function close(){
-    dispatch(changeModal(false))
+  function close() {
+    dispatch(changeModal(false));
   }
 
   function enviarEmail(e) {
@@ -65,19 +71,18 @@ useEffect(() => {
     if(state.email===user.email){
       dispatch(sendMail(state))
       Swal.fire({
-        title: 'Token',
-        text: 'Se envio Token al Mail ingresado',
-        icon: 'success',
+        title: "Token",
+        text: "Se envio Token al Mail ingresado",
+        icon: "success",
       });
-      setRender(false)
-    }
-    else{
+      setRender(false);
+    } else {
       Swal.fire({
-        title: 'Error',
-        text: 'El email ingresado no coincide',
-        icon: 'error',
+        title: "Error",
+        text: "El email ingresado no coincide",
+        icon: "error",
       });
-      email1.current.value = ''
+      email1.current.value = "";
     }
   }
 
@@ -86,7 +91,7 @@ useEffect(() => {
     dispatch(verifyToken(state.tokenFront))
   }
 
-  function reenviarToken1(e){
+  function reenviarToken1(e) {
     e.preventDefault();
     dispatch(sendMail({email: state.email}))
       Swal.fire({
@@ -116,9 +121,9 @@ useEffect(() => {
               <button className={style.button} type="submit">Enviar Token</button>
               <button className={style.buttonClose2} onClick={(e)=>close(e)}>X</button>
             </div>
-          </form>)
-        :
-          (<form className="formulario" onSubmit={(e)=>verifyTokens(e)}>
+          </form>
+        ) : (
+          <form className="formulario" onSubmit={(e) => verifyTokens(e)}>
             <div className={style.mail}>
               <input
                 type="text"

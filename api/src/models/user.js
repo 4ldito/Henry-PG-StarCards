@@ -10,8 +10,8 @@ class User extends Model {
     User.hasMany(models.Opinion);
     User.hasMany(models.ShopCart);
     User.hasMany(models.Transaction);
-    User.belongsToMany(models.CardPacks, {through: "FavPacks"})
-    User.hasMany(models.Message);
+    User.belongsToMany(models.CardPacks, { through: "FavPacks" });
+    User.belongsToMany(models.PrivateChat, { through: "User-PrivChat" });
   }
 }
 
@@ -65,9 +65,9 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: 0,
       },
       roles: {
-       type: DataTypes.ARRAY(DataTypes.STRING),
-       defaultValue: ['user']
-      }
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: ["user"],
+      },
     },
     {
       timestamps: false,

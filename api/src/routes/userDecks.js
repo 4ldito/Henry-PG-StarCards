@@ -1,6 +1,5 @@
 const { Router } = require("express");
 const db = require("../db");
-const userCards = require("../models/userCards");
 
 const { User, Deck, Card } = db;
 
@@ -15,10 +14,8 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
         if (!deckId) {
             let promisedDecks = user.Decks.map(e => {
                 return Deck.findByPk(e.id, { include: Card });
-
             });
             const decks = await Promise.all(promisedDecks);
-            // const decks = await Promise.all(promisedDecks);
             return res.json(decks);
         }
         const deckFound = await Deck.findByPk(deckId, { include: Card });
@@ -27,29 +24,28 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
     } catch (err) {
         next(err);
     }
+  
 });
 userDecksRoute.post('/:userId', async (req, res, next) => {
-    const { newDeckCards, name, race } = req.body;
+    const { newDeckCards, name} = req.body;
     const userId = req.params.userId;
-    const exists = await Deck.findOne({ where: { name } });
-    if (exists) return res.json({ error: 'El mazo ya existe' });
-    // if (newDeckCards.length !== 20) return res.json({ error: "El mazo debe tener al menos 20 cartas" });
+
     try {
 
-        const newDeck = await Deck.create({ name, race }, { include: [Card] });
+        const newDeck = await Deck.create({ name },{include:Card});
         newDeckCards.forEach(async e => {
             const card = await Card.findByPk(e.id, { include: [Deck] });
-            // console.log(newDeck);
             await card.addDeck(newDeck);
             await newDeck.addCard(card);
-            await card.save();
-            await newDeck.save();
+            newDeck.save();
+
         })
-        const user = await User.findByPk(userId, { include: Deck });
-        user.addDeck(newDeck);
+        const user = await User.findByPk(userId,{include:Deck});
+        await user.addDeck(newDeck);
         user.save();
 
-        res.json(user);
+        const returnDeck =await Deck.findByPk(newDeck.id,{include:Card});
+        res.json(returnDeck);
     } catch (err) {
         next(err);
     }
@@ -72,7 +68,6 @@ userDecksRoute.put(async (req, res, next) => {
 })
 
 userDecksRoute.delete('/:id/:userId', async (req, res, next) => {
-    // console.log('entra');
     const { id, userId } = req.params
     const user = await User.findByPk(userId, { include: Deck });
     if (!user) return res.json({ error: 'El usuario no existe' });
@@ -82,8 +77,7 @@ userDecksRoute.delete('/:id/:userId', async (req, res, next) => {
         await user.removeDeck(deckToRemove)
         await user.save()
         Deck.destroy({where:{id:parseInt(id)}})
-        const newDecks = user.Decks.filter(e => e.id !== parseInt(id));
-        res.json({ message: 'Mazo eliminado correctamente', newDeckList: newDecks || 'holaa' });
+        res.json({ message: 'Mazo eliminado correctamente', deckToRemove});
     } catch (err) {
         next(err)
     }

@@ -1,11 +1,12 @@
-import { combineReducers } from 'redux'
-import starsPackReducer from './starsPack'
-import shopCartReducer from './shopCart'
-import userReducer from './user'
-import cardsPacksReducer from './cardsPack'
-import detailReducer from './detail'
-import sendMailReducer from './sendMail'
-import album from './album'
+import { combineReducers } from 'redux';
+import starsPackReducer from './starsPack';
+import shopCartReducer from './shopCart';
+import userReducer from './user';
+import cardsPacksReducer from './cardsPack';
+import detailReducer from './detail';
+import sendMailReducer from './sendMail';
+import album from './album';
+import marketCardsReducer from './marketCards';
 
 import { RESET_REDUX_STATE } from "../actions"
 
@@ -18,7 +19,8 @@ const appReducer = combineReducers(
     album,
     cardsPacksReducer,
     detailReducer,
-    sendMailReducer
+    sendMailReducer,
+    marketCardsReducer
   })
 
 export function rootReducer(state, action) {

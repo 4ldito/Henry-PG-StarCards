@@ -97,7 +97,6 @@ const PacksCard = ({ pack, type }) => {
     const userId = user.id
     if (fav.action === 'add') {
       setFav({action:'delete', packId:e.target.id})
-      console.log(e.target.id)
       dispatch(favUserPacks({action:'delete', userId:userId, packId:e.target.id}))
     } else {
       setFav({action:'add', packId:e.target.id})

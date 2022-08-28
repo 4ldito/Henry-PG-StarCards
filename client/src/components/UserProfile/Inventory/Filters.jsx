@@ -20,7 +20,7 @@ const Filters = () => {
     
 
     useEffect(() => {
-      dispatch(filterUserCards(filters, cards))
+      if(cards)dispatch(filterUserCards(filters, cards))
     }, [filters,cards])
 
     return (

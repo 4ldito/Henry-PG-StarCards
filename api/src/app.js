@@ -16,40 +16,71 @@ const io = require("socket.io")(socketIoServer, {
   },
 });
 
-const userSockets = [];
+let userSockets = [];
+let usersNotificationSocket = [];
 
 //Funcionalidad de socket.io en el socketIoServer
 io.on("connection", (socket) => {
-  let nombre;
+  //////////////////////////////////////////////
+  // Chat notifications
+  socket.on("connectUserNotifications", (userId) => {
+    const currentUser = usersNotificationSocket.findIndex(
+      (u) => u.userId === userId
+    );
 
+    if (currentUser === -1)
+      usersNotificationSocket.push({ userId, sockets: [socket.id] });
+    else usersNotificationSocket[currentUser].sockets = [socket.id];
+  });
+
+  socket.on("disconnectUserNotifications", (userId) => {
+    const newArray = usersNotificationSocket.filter((u) => u.userId !== userId);
+    usersNotificationSocket = [...newArray];
+  });
+
+  ////////////////////////////////////////////////
+  // Private chats
   socket.on("connectPrivateSocket", (userId) => {
-    const currentUser = userSockets.find((u) => u.userId === userId);
+    const currentUser = userSockets.findIndex((u) => u.userId === userId);
 
-    if (currentUser) {
-      currentUser.sockets.push(socket.id);
-    } else currentUser.push({ userId, sockets: [socket.id] });
+    if (currentUser === -1) userSockets.push({ userId, socket: socket.id });
+    else userSockets[currentUser].socket = socket.id;
   });
 
-  socket.on("privateMessage", (userId, receiverId, message) => {
-    const currentReceiver = userSockets.find((u) => u.userId === receiverId);
-
-    if (currentReceiver.sockets.length) {
-      currentReceiver.sockets.forEach((s) => {
-        socket.to(s).emit({ userId, message });
-      });
-    }
+  socket.on("disconnectPrivateSocket", (userId) => {
+    const newArray = userSockets.filter((u) => u.userId !== userId);
+    userSockets = [...newArray];
   });
 
-  socket.on("disconnectPrivateSocket", (userId, socketId) => {
-    const currentUser = userSockets.find((u) => u.userId === userId);
+  socket.on("privateMessage", async (emitter, receiver, message) => {
+    const msg = emitter.username + ": " + message;
+    const currentReceiver = userSockets.find((u) => u.userId === receiver.id);
+    if (currentReceiver)
+      io.to(currentReceiver.socket).emit("privateMessage", emitter, msg);
 
-    const newSockets = currentUser.sockets.filter((s) => s !== socket.id);
+    // const currentUser = userSockets.find((u) => u.userId === emitter.id);
+    // io.to(currentUser.socket).emit("privateMessage", emitterId, msg);
 
-    currentUser.sockets = [...newSockets];
+    await axios.patch("chat", {
+      emiterId: emitter.id,
+      receiverId: reveicer.id,
+      msg,
+    });
+
+    const receiverNotificationSocket = usersNotificationSocket.find(
+      (u) => u.userId === receiver.id
+    );
+    const notificationFlag = true;
+    io.to(receiverNotificationSocket).emit(
+      "chatNotification",
+      notificationFlag
+    );
   });
 
   ///////////////////////////////////////////////////////////////////////////////
   // PUBLIC CHAT
+  let nombre;
+
   socket.on("conectado", (nomb) => {
     nombre = nomb;
     //socket.broadcast.emit manda el mensaje a todos los clientes excepto al que ha enviado el mensaje

@@ -12,10 +12,6 @@ export default function SearchCard() {
   const cards = useSelector((state) => state.album.cards);
   const allCards = useSelector((state) => state.album.filteredCards);
 
-  // useEffect(() => {
-  //   dispatch(getAllCards());
-  // }, [allCards]);
-
   function onSubmit(e) {
     e.preventDefault();
     search === ""
@@ -31,8 +27,8 @@ export default function SearchCard() {
 
   function options() {
     let option = [];
-    cards.forEach((card) => {
-      option.push(<option value={card.name}></option>);
+    allCards.forEach((card) => {
+      option.push(<option key={card.name} value={card.name}></option>);
     });
     return option;
   }

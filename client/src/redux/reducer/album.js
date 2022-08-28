@@ -14,7 +14,7 @@ const initialState = {
   cards: [],
   filteredCards: [],
   userCards: [],
-  filteredUserCards: [],
+  filteredUserCards: []
 };
 
 export default function inventory(state = initialState, { type, payload }) {
@@ -31,7 +31,7 @@ export default function inventory(state = initialState, { type, payload }) {
       return {
         ...state,
         userCards: payload.userCardsInventory,
-        userCardsNotRepeated: payload.notRepeated,
+        // userCardsNotRepeated: payload.notRepeated,
       };
     case FILTER_USER_CARDS:
       return { ...state, filteredUserCards: payload };
@@ -40,9 +40,26 @@ export default function inventory(state = initialState, { type, payload }) {
     case SEARCH_USER_CARD:
       return { ...state, filteredUserCards: payload };
     case SALE_CARD:
-      const actualCard = state.userCards.find((c) => c.id === payload.id);
-      console.log(actualCard);
-      return { ...state };
+      // x ahora lo dejo asi hasta :D
+      // console.log(payload);
+      // payload.forEach(userCard => {
+      //   const actualUserCard = state.filteredUserCards.find((c) => c.id === userCard.Card.id);
+      //   actualUserCard.userCard.statusId = userCard.StatusId;
+      // });
+      // const newFilteredCards = [];
+      // state.filteredUserCards.forEach((card) => {
+      //   console.log(card.repeat);
+      //   payload.forEach(userCard => {
+      //     if (userCard.CardId === card.id) {
+      //       --card.repeat;
+      //     }
+      //   });
+      //   newFilteredCards.push(card);
+      // });
+
+      // console.log(newFilteredCards);
+      return { ...state }
+      // return { ...state, filteredUserCards: newFilteredCards };
     default:
       return state;
   }

@@ -3,52 +3,53 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModal, cleanToken, sendMail, successAction, verifyToken, renderVerifyRegister } from "../../redux/actions/sendMail";
 import Swal from 'sweetalert2';
 import style from "./Mail.module.css";
-import { getByEmail, getUserByEmail, modifyUser } from "../../redux/actions/user";
+import {
+  // getByEmail,
+  // getUserByEmail,
+  modifyUser,
+} from "../../redux/actions/user";
 import { useNavigate } from "react-router-dom";
 
+export default function VerifyRegister({ email, user }) {
+  const dispatch = useDispatch();
+  const navigateTo = useNavigate();
+  const token1 = useRef(null);
+  const password = useRef(null);
+  const tokenIstrue = useSelector((state) => state.sendMailReducer.token);
+  const recivedToken = useSelector(
+    (state) => state.sendMailReducer.recivedToken
+  );
+  const render = useSelector((state) => state.sendMailReducer.render);
+  // const user = useSelector((state) => state.userReducer.user)
+  const [reenviar, setReenviar] = useState(true);
+  const [state, setState] = useState({
+    email: "",
+    tokenFront: "",
+  });
 
-export default function VerifyRegister({email,user}){
-    const dispatch = useDispatch()
-    const navigateTo = useNavigate();
-    const token1 = useRef(null);
-    const password = useRef(null);
-    const tokenIstrue = useSelector((state) => state.sendMailReducer.token)
-    const recivedToken = useSelector((state) => state.sendMailReducer.recivedToken)
-    const render = useSelector((state) => state.sendMailReducer.render)
-    // const user = useSelector((state) => state.userReducer.user)
-    const [reenviar, setReenviar] = useState(true)
-    const [state, setState] = useState(
-        {
-          email: "",
-          tokenFront: "",
-        }
-        )
-
-        useEffect(() => {
-          if(recivedToken && tokenIstrue){ //si llego el token y es tru(coinciden los token)
-            console.log('coincide')
-                  Swal.fire({
-              title: 'Token',
-              text: 'Token verificado con Exito',
-              icon: 'success',
-            });
-            dispatch(cleanToken())
-            dispatch(successAction()) 
-            dispatch(changeModal())
-          }
-          else if(recivedToken && !tokenIstrue){ //si no coinciden
-            console.log('le erraste papu')
-                  Swal.fire({
-              title: 'Token',
-              text: 'El token ingresado es incorrecto',
-              icon: 'error',
-            });
-            setReenviar(false);
-            token1.current.value = ''
-            dispatch(cleanToken())
-      
-          }
-      }, [recivedToken])
+  useEffect(() => {
+    if (recivedToken && tokenIstrue) {
+      //si llego el token y es tru(coinciden los token)
+      Swal.fire({
+        title: "Token",
+        text: "Token verificado con Exito",
+        icon: "success",
+      });
+      dispatch(cleanToken());
+      dispatch(successAction());
+      dispatch(changeModal());
+    } else if (recivedToken && !tokenIstrue) {
+      //si no coinciden
+      Swal.fire({
+        title: "Token",
+        text: "El token ingresado es incorrecto",
+        icon: "error",
+      });
+      setReenviar(false);
+      token1.current.value = "";
+      dispatch(cleanToken());
+    }
+  }, [recivedToken]);
 
     function comprobarCambios () {
         let token =  token1.current.value;
@@ -125,19 +126,33 @@ export default function VerifyRegister({email,user}){
             <form className="formulario" onSubmit={(e)=>verifyTokens(e)}>
                 <div className={style.mail}>
                 <input
-                    type="text"
-                    name="token1"
-                    placeholder="Ingresar token recibido por email..."
-                    onChange={comprobarCambios}
-                    className="form-control"
-                    ref={token1}
+                  type="text"
+                  name="token1"
+                  placeholder="Ingresar token recibido por email..."
+                  onChange={comprobarCambios}
+                  className="form-control"
+                  ref={token1}
                 />
-                <button className={style.button} type="submit">Verificar</button>
-                {reenviar ? '' : <button className={style.button} onClick={(e)=>reenviarToken(e)}>Reenviar Token</button>}
-                </div>
+                <button className={style.button} type="submit">
+                  Verificar
+                </button>
+                {reenviar ? (
+                  ""
+                ) : (
+                  <button
+                    className={style.button}
+                    onClick={(e) => reenviarToken(e)}
+                  >
+                    Reenviar Token
+                  </button>
+                )}
+              </div>
             </form>
           </div>
-          </div>) : changepassword()}
-          </div>
-    )
+        </div>
+      ) : (
+        changepassword()
+      )}
+    </div>
+  );
 }

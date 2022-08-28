@@ -12,7 +12,6 @@ const initialState = {
 export default function shopCartReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USER_SHOPCART:
-      // console.log(payload.shopCart);
       return { ...state, shopCart: { starsPack: payload.shopCart.starsPacks, cardsPack: payload.shopCart.cardsPacks } }
     case ADD_TO_SHOPCART:
       const { product, quantity, packTypes } = payload
@@ -25,7 +24,6 @@ export default function shopCartReducer(state = initialState, { type, payload })
       product.quantity = product.quantity + quantity
       // const test = { ...state, shopCart: { ...state.shopCart, [packTypes]: [...state.shopCart[packTypes], product] } }
       return { ...state, shopCart: { ...state.shopCart, [packTypes]: [...state.shopCart[packTypes], product] }, loaded: true }
-    // console.log(test.shopCart.cardsPack)
     // return { ...test, loaded: true }
 
     case REMOVE_FROM_SHOPCART:

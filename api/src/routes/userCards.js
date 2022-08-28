@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db = require("../db");
 
-const { UserCards } = db;
+const { UserCards, Card, User } = db;
 const userCardsRoute = Router();
 
 userCardsRoute.post("/", async (req, res, next) => {
@@ -37,11 +37,28 @@ userCardsRoute.get("/", async (req, res, next) => {
   const findConfig =
     userId && statusId
       ? {
-          where: { UserId: userId, StatusId: statusId },
-        }
+        where: { UserId: userId, StatusId: statusId },
+        include:
+          [
+            { model: Card },
+            { model: User, attributes: ["id", "username"] }
+          ]
+      }
       : userId
-      ? { where: { UserId: userId } }
-      : { where: { StatusId: statusId } };
+        ? {
+          where: { UserId: userId }, include:
+            [
+              { model: Card },
+              { model: User, attributes: ["id", "username"] }
+            ]
+        }
+        : {
+          where: { StatusId: statusId }, include:
+            [
+              { model: Card },
+              { model: User, attributes: ["id", "username"] }
+            ]
+        };
   try {
     const cards = await UserCards.findAll(
       userId || statusId ? findConfig : undefined
@@ -54,17 +71,50 @@ userCardsRoute.get("/", async (req, res, next) => {
 
 userCardsRoute.patch("/", async (req, res, next) => {
   try {
-    const { id, status } = req.body;
-    const card = await UserCards.findOne({
-      where: { id },
-    });
+    const { userId, userCardsIdsToSale, status, price } = req.body;
 
-    await card.setStatus(status);
+    const userCards = await Promise.all(userCardsIdsToSale.map((userCard) => {
+      return UserCards.findOne({
+        where: { UserId: userId, id: userCard }, include: Card,
+      });
+    }));
 
-    res.json(card);
+    const updatedUserCards = await Promise.all(userCards.map((userCard) => {
+      return userCard.update({ price, StatusId: status });
+    }));
+
+    return res.json(updatedUserCards);
   } catch (error) {
     console.log('error');
   }
 });
+
+userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
+  try {
+    const { buyerUserId } = req.body;
+    const { userCardId } = req.params;
+
+    const userCard = await UserCards.findByPk(userCardId, { include: Card });
+
+    const [buyerUser, sellerUser] = await Promise.all([
+      User.findByPk(buyerUserId, { attributes: { exclude: ["password"] } }),
+      User.findByPk(userCard.UserId, { attributes: { exclude: ["password"] } }) //sellerUser
+    ]);
+
+    if (buyerUser.stars < userCard.price) return res.send({ error: 'Stars insuficientes.' });
+
+    const [buyerUserUpdated, sellerUserUpdated, userCardUpdated] = await Promise.all([
+      buyerUser.update({ stars: buyerUser.stars - userCard.price }),
+      sellerUser.update({ stars: sellerUser.stars + userCard.price }),
+      userCard.update({ UserId: buyerUser.id, StatusId: 'active', DeckId: null })
+    ]);
+
+    return res.send({ buyerUser: buyerUserUpdated, sellerUser: sellerUserUpdated, userCard: userCardUpdated });
+  } catch (error) {
+    console.log(error);
+  }
+
+});
+
 
 module.exports = userCardsRoute;
