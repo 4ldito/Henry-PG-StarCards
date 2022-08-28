@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import SelectedDeck from "./SelectedDeck";
@@ -13,6 +13,10 @@ function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards,crea
     const [selectedDeck, setSelectedDeck] = useState(null);
     const [newDeckName, setNewDeckName] = useState();
 
+    useEffect(()=>{
+        if(selectedDeck && !decks.includes(e=>e.id===selectedDeck.id))setSelectedDeck(null);
+    },[decks]);
+
     function createNewDeck(userId,deck,name){
        
         if(name && deck.length){
@@ -22,6 +26,8 @@ function DeckList({userId,enableAddButton,bothStacks,showCards,newDeckCards,crea
     }
 
     function findSelectedDeck(id,userDecks) {
+        console.log(id);
+        console.log(userDecks);
         const deck = userDecks.find(e =>id == e.id);
         setSelectedDeck(deck);
     }

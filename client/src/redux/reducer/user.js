@@ -134,7 +134,7 @@ export default function userReducer(state = initialState, { type, payload }) {
     case CREATE_DECK:
       return {...state, decks:[...state.decks,payload]}
     case DELETE_DECK:
-      return {...state, decks: payload.newDeckList}
+      return {...state, decks: state.decks.filter(e=>e.id!==payload.deckToRemove.id)}
     
 
     default:

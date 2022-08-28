@@ -58,13 +58,13 @@ export default function UserProfile() {
   return Object.keys(user).length !== 0 ? (
     <>
       <div className={style.img}>
-        <img className={style.coverimg} src={user.coverImg} alt="coverImg" />
+        {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
         {/* <button className={style.changecv}>Change Cover Imagen</button> */}
-        <img
+        {/* <img
           className={style.profileimg}
           src={user.profileImg}
           alt="ProfileImg"
-        />
+        /> */}
         {/* <button className={style.changep}></button> */}
         <Link className={style.stars} to="/shop">
           <FaShoppingCart size={28} />

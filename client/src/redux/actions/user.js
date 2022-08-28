@@ -155,7 +155,6 @@ export function createDeck(userId,deck,name){
 export function deleteDeck(userId, deckId) {
   return async function (dispatch) {
     const response = await axios.delete(`/userDecks/${deckId}/${userId}`);
-
     dispatch({ type: DELETE_DECK, payload: response.data });
   };
 }
