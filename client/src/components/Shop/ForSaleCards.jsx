@@ -22,9 +22,9 @@ const ForSaleCards = () => {
       {cardsInSale.map((card) => {
         return (
           <div key={card.id} className={css.card}>
-            <h5>{card.Card.name}</h5>
+            <h3>{card.Card.name}</h3>
             <img src={card.Card.image} alt={card.Card.name} className={css.img} />
-            <h5>Sale {card.User.username}: {card.price} stars</h5>
+            <h4>{card.User.username} la vende a {card.price} Stars</h4>
           </div>
         );
       })}
