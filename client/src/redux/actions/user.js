@@ -13,6 +13,7 @@ export const GET_USER_CARDS = "GET_USER_CARDS";
 export const GET_USER_DECKS = "GET_USER_DECKS_deaa el tipo seguia los protocolos";
 export const CREATE_DECK = "CREATE_DECK"
 export const DELETE_DECK = "DELETE_DECK";
+export const SET_ACTIVE_DECK = "SET_ACTIVE_DECK";
 export const USER_MODIFY_STARS = "USER_MODIFY_STARS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const SET_CHAT_NOTIFICATION = "SET_CHAT_NOTIFICATION";
@@ -157,6 +158,9 @@ export function deleteDeck(userId, deckId) {
     const response = await axios.delete(`/userDecks/${deckId}/${userId}`);
     dispatch({ type: DELETE_DECK, payload: response.data });
   };
+}
+export function setActiveDeck(deck){
+  return {type:SET_ACTIVE_DECK, payload:deck}
 }
 
 export function setChatNotification(flag) {

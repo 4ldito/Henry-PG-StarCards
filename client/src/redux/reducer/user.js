@@ -15,6 +15,7 @@ import {
   USER_MODIFY_STARS,
   SET_CHAT_NOTIFICATION,
   CREATE_DECK,
+  SET_ACTIVE_DECK,
 } from "../actions/user";
 
 
@@ -22,6 +23,7 @@ import {
 const initialState = {
   user: {},
   decks:[],
+  activeDeck:{},
   validUser: false,
   urlUser: {},
   validPassword: "",
@@ -135,7 +137,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return {...state, decks:[...state.decks,payload]}
     case DELETE_DECK:
       return {...state, decks: state.decks.filter(e=>e.id!==payload.deckToRemove.id)}
-    
+    case SET_ACTIVE_DECK:
+      return {...state, activeDeck: payload}
 
     default:
       return state;;

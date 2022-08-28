@@ -19,6 +19,7 @@ export default function InventoryContainer() {
 
 
   const addCardToDeck= (card,remove)=>{
+    console.log(card);
     const addingCard = newDeckCards.find(e=>e.id === card.id);
     if(!addingCard){
       setNewDeckCards([...newDeckCards,card]);
@@ -61,7 +62,7 @@ export default function InventoryContainer() {
     {actualStackToShow.includes('cartas')?<div className={bothStacks? css.cartasYMazo:css.cartas}>{renderNotRepeat()}</div>:<></>}
     {actualStackToShow.includes('mazos')?<DeckList creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
                                                    newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
-                                                   enableAddButton={setBothStacks} userId={user.id}></DeckList>:<></>}
+                                                   enableAddButton={setBothStacks} userId={user.id} setNewDeckCards={setNewDeckCards}></DeckList>:<></>}
     </div>
   </div >);
 }
