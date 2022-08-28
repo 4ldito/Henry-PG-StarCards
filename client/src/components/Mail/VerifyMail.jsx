@@ -1,4 +1,4 @@
-import style from "./Mail.module.css";
+import style from "./VerifyMail.module.css";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -27,7 +27,7 @@ export default function App({ user }) {
   const [state, setState] = useState({
     email: "",
     tokenFront: "",
-  });
+  })
 
   useEffect(() => {
     if (recivedToken && tokenIstrue) {
@@ -53,9 +53,9 @@ export default function App({ user }) {
     }
   }, [recivedToken]);
 
-  function comprobarCambios() {
-    let email = render ? email1.current.value : state.email;
-    let token = render ? state.tokenFront : token1.current.value;
+  function comprobarCambios () {
+    let email = render? email1.current.value : state.email;
+    let token = render? state.tokenFront : token1.current.value;
     setState({
       email: email,
       tokenFront: token,
@@ -68,8 +68,8 @@ export default function App({ user }) {
 
   function enviarEmail(e) {
     e.preventDefault();
-    if (state.email === user.email) {
-      dispatch(sendMail(state));
+    if(state.email===user.email){
+      dispatch(sendMail(state))
       Swal.fire({
         title: "Token",
         text: "Se envio Token al Mail ingresado",
@@ -86,46 +86,28 @@ export default function App({ user }) {
     }
   }
 
-  function verifyTokens(e) {
-    e.preventDefault();
-    dispatch(verifyToken(state.tokenFront));
-    // if(tokenBack !== Number(state.tokenFront)){ //
-    //   Swal.fire({
-    //     title: 'Token',
-    //     text: 'El token ingresado es incorrecto',
-    //     icon: 'error',
-    //   });
-    //   setReenviar(false);
-    //   // token1.current.value = ''
-    // }
-    // else{
-    //   Swal.fire({
-    //     title: 'Token',
-    //     text: 'Token verificado con Exito',
-    //     icon: 'success',
-    //   });
-    //   dispatch(successAction())
-    //   dispatch(changeModal())
-    // }
+  function verifyTokens(e){
+    e.preventDefault()
+    dispatch(verifyToken(state.tokenFront))
   }
 
   function reenviarToken1(e) {
     e.preventDefault();
-    dispatch(sendMail({ email: state.email }));
-    Swal.fire({
-      title: "Token",
-      text: "Se envio nuevo token",
-      icon: "success",
+    dispatch(sendMail({email: state.email}))
+      Swal.fire({
+      title: 'Token',
+      text: 'Se envio nuevo token',
+      icon: 'success',
     });
     setReenviar(true);
-    // token1.current.value = ''
   }
-
-  return (
-    <div className={style.background}>
-      <div className={style.container}>
-        {render ? (
-          <form className="formulario" onSubmit={(e) => enviarEmail(e)}>
+  
+    return (
+      (<div className={style.background}>
+        <div className={style.subbackground}>
+        <div className={style.container}> 
+        {render ?       
+          (<form className="formulario" onSubmit={(e)=>enviarEmail(e)}>
             <div className={style.mail}>
               <label htmlFor="email">Email: </label>
               <input
@@ -136,10 +118,8 @@ export default function App({ user }) {
                 className="form-control"
                 ref={email1}
               />
-              <button className={style.button} type="submit">
-                Enviar Token
-              </button>
-              <button onClick={close}>X</button>
+              <button className={style.button} type="submit">Enviar Token</button>
+              <button className={style.buttonClose2} onClick={(e)=>close(e)}>X</button>
             </div>
           </form>
         ) : (
@@ -153,24 +133,14 @@ export default function App({ user }) {
                 className="form-control"
                 ref={token1}
               />
-              <button className={style.button} type="submit">
-                Verificar
-              </button>
-              <button onClick={close}>X</button>
-              {reenviar ? (
-                ""
-              ) : (
-                <button
-                  className={style.button}
-                  onClick={(e) => reenviarToken1(e)}
-                >
-                  Reenviar Token
-                </button>
-              )}
+              <button className={style.button} type="submit">Verificar</button>
+              <button className={style.buttonClose} onClick={close}>X</button>
+              {reenviar ? '' : <button className={style.button} onClick={(e)=>reenviarToken1(e)}>Reenviar Token</button>}
             </div>
-          </form>
-        )}
-      </div>
-    </div>
-  );
-}
+          </form>)}
+          </div>
+        </div>
+      </div>)
+    );
+  }
+
