@@ -23,12 +23,12 @@ export default function SaleCard({ handleViewCard, cardId, name, image }) {
   function handleSubmit(e, status) {
     e.preventDefault();
     if (!sale.quantity || !sale.price) return;
-    const userCardsIdsToSale = [];
+    const userCardsIdsToUpdate = [];
 
     for (let i = 0; i < sale.quantity; i++) {
-      userCardsIdsToSale.push(currentUserCards[i].id);
+      userCardsIdsToUpdate.push(currentUserCards[i].id);
     }
-    dispatch(handleSaleCard({ userId: user.id, userCardsIdsToSale, status, price: sale.price }))
+    dispatch(handleSaleCard({ userId: user.id, userCardsIdsToUpdate, status, price: sale.price }))
 
   }
 

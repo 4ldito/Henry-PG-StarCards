@@ -71,11 +71,11 @@ userCardsRoute.get("/", async (req, res, next) => {
 
 userCardsRoute.patch("/", async (req, res, next) => {
   try {
-    const { userId, userCardsIdsToSale, status, price } = req.body;
+    const { userId, userCardsIdsToUpdate, status, price } = req.body;
 
-    const userCards = await Promise.all(userCardsIdsToSale.map((userCard) => {
+    const userCards = await Promise.all(userCardsIdsToUpdate.map((userCard) => {
       return UserCards.findOne({
-        where: { UserId: userId, id: userCard }, include: Card,
+        where: {  UserId: userId, id: userCard }, include: Card,
       });
     }));
 
