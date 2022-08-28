@@ -13,7 +13,7 @@ const cardPacks = [
       ["Lurker", "0.03"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/93Qyhg5/packs2-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FCriadero%20Zerg?alt=media&token=7b685250-f067-4b39-9b49-d6f528c618b8",
     amount: 10,
   },
   {
@@ -32,11 +32,11 @@ const cardPacks = [
       ["Overlord", "0.05"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/V274Hh9/packs6-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FColonia%20Zerg?alt=media&token=b380dcb1-8fec-4692-825f-2cc7d3d6b30b",
     amount: 10,
   },
   {
-    name: "Colmena de la Supermente",
+    name: "Colmena de la Mente Suprema",
     price: 300,
     race: ["Zerg"],
     cards: [
@@ -51,7 +51,7 @@ const cardPacks = [
       ["Viper", "0.06"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/M2wW9DZ/packs10-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FColmena%20de%20la%20Mente%20Suprema?alt=media&token=960bf914-edc1-4f89-b38b-c7fd009f089f",
     amount: 10,
   },
   {
@@ -68,7 +68,7 @@ const cardPacks = [
       ["Kerrigan", "0.03"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/NrKy13k/packs1-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FEnjambre%20de%20Char?alt=media&token=091966cb-5d86-4951-be17-06b36b2ed0e1",
     amount: 10,
   },
   {
@@ -85,7 +85,7 @@ const cardPacks = [
       ["Widow Mine", "0.03"],
     ],
     stock: 100,
-    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2Fbasdfa?alt=media&token=0dca6487-e807-42e4-93bd-8fdd4a70f1dc",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FBunker%20Terran?alt=media&token=7741703c-7122-4d4f-9911-cfb84c6244d3",
     amount: 10,
   },
   {
@@ -104,7 +104,7 @@ const cardPacks = [
       ["Viking", "0.05"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/h8C7hG8/packs7-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FEstación%20Planetaria%20Terran?alt=media&token=1eeeb648-6dfd-44e7-b983-9628acf24c44",
     amount: 10,
   },
   {
@@ -123,7 +123,7 @@ const cardPacks = [
       ["Liberator", "0.06"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/N23pRXy/packs3-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FDominio%20en%20Korhal?alt=media&token=31fb09d2-e00d-48b6-99f3-7a0260604dcd",
     amount: 10,
   },
   {
@@ -140,7 +140,7 @@ const cardPacks = [
       ["Raynor", "0.03"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/wptZmrx/packs4-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FAliados%20del%20Hyperion?alt=media&token=d6f926f4-e342-4497-81d7-c76e8fa20cda",
     amount: 10,
   },
   {
@@ -157,7 +157,7 @@ const cardPacks = [
       ["Corsair", "0.03"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/K2CYnVY/packs12-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FFanáticos%20Protoss?alt=media&token=74a7e648-2d5c-4592-957e-5278d5539c56",
     amount: 10,
   },
   {
@@ -176,7 +176,7 @@ const cardPacks = [
       ["Colossus", "0.05"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/KGtN3C6/packs11-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FConsejo%20de%20Aiur?alt=media&token=3f885e66-0fa8-4a5b-8722-efb51a3cf473https://i.ibb.co/KGtN3C6/packs11-Mesa-de-trabajo-1-copia-7.png",
     amount: 10,
   },
   {
@@ -195,7 +195,7 @@ const cardPacks = [
       ["Archon", "0.06"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/pWTFGcc/packs5-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FGran%20Armada%20Tal'darim?alt=media&token=6d6ed1e1-bf9f-496e-81c8-a8a707e6ed82",
     amount: 10,
   },
   {
@@ -212,7 +212,7 @@ const cardPacks = [
       ["Zeratul", "0.03"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/ph74s8q/packs8-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FMemoria%20del%20Prelado%20Tétrico?alt=media&token=0e406ee9-4606-4ce5-9710-25999fba9b01",
     amount: 10,
   },
   {
@@ -228,7 +228,7 @@ const cardPacks = [
       ["Thor", "0.11"],
     ],
     stock: 100,
-    image: "https://i.ibb.co/3TFnfPJ/packs-Mesa-de-trabajo-1-copia-7.png",
+    image: "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FEntrada%20al%20Sector%20Koprulu?alt=media&token=8302396e-cce4-4074-8a93-ab71f2f43c9d",
     amount: 10,
   },
 ];
