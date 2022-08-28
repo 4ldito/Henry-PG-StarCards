@@ -1,7 +1,8 @@
 import { useFetchUsersCardsForSale } from "../../hooks/useForSaleCards";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { buyCard, clearForSaleCards } from "../../redux/actions/marketCards";
+import { buyCard, clearForSaleCards, clearMsgMarketCards } from "../../redux/actions/marketCards";
+import { handleSaleCard } from "../../redux/actions/cards/userCards";
 
 import Swal from 'sweetalert2';
 import Card from './../Card/Card';
@@ -12,10 +13,10 @@ const ForSaleCards = () => {
   const dispatch = useDispatch();
   const { cardsInSale } = useFetchUsersCardsForSale();
   const user = useSelector(state => state.userReducer.user);
+  const msg = useSelector(state => state.marketCardsReducer.msg);
 
   const handleBuyCard = (e, userCard) => {
     e.preventDefault();
-
     if (!user.id) {
       return Swal.fire({
         title: "Error!",
@@ -23,7 +24,6 @@ const ForSaleCards = () => {
         icon: "error",
       });
     }
-
     if (user.stars < userCard.price) {
       return Swal.fire({
         title: "Error!",
@@ -31,7 +31,6 @@ const ForSaleCards = () => {
         icon: "error",
       });
     }
-
     Swal.fire({
       title: `Confirmar`,
       text: `¿Estás seguro que queres comprar ${userCard.Card.name} a ${userCard.User.username} por ${userCard.price} stars?`,
@@ -43,6 +42,34 @@ const ForSaleCards = () => {
       }
     });
   }
+
+  const handleRemoveForSale = (e, userCard) => {
+    e.preventDefault();
+    Swal.fire({
+      title: `Confirmar`,
+      text: `¿Estás seguro que queres quitar de en venta a ${userCard.Card.name} por ${userCard.price} Stars?`,
+      showCancelButton: true,
+      icon: "question",
+      confirmButtonText: "Comprar",
+    }).then(({ isConfirmed }) => {
+      if (isConfirmed) {
+        // dispatch(handleSaleCard({ userId: user.id, userCardsIdsToSale, status: 'active', price: null }))
+      }
+    });
+  }
+
+  useEffect(() => {
+    if (msg.type) {
+      dispatch(clearMsgMarketCards());
+      Swal.fire({
+        title: msg.title,
+        text: msg.info,
+        icon: msg.type,
+      });
+
+    }
+
+  }, [msg]);
 
   useEffect(() => {
     return () => {
@@ -76,7 +103,7 @@ const ForSaleCards = () => {
             />
             {user.id !== userCard.User.id
               ? <button onClick={(e) => handleBuyCard(e, userCard)} value={userCard.id}>Comprar</button>
-              : <button>Quitar de en venta</button>
+              : <button onClick={(e) => handleRemoveForSale(e, userCard)} >Quitar de en venta</button>
             }
           </div>
         );
