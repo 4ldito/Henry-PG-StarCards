@@ -26,7 +26,6 @@ export default function SaleCard({ handleViewCard, card }) {
 
   function handleSubmit(e, status) {
     e.preventDefault();
-    console.log(card);
     if (!sale.quantity || !sale.price) return;
     const userCardsIdsToUpdate = [];
 
