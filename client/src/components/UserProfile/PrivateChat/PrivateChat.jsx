@@ -78,12 +78,10 @@ const PrivateChat = ({ selected }) => {
     };
   }, [messages]);
 
-  useEffect(() => console.log(messages), [messages]);
-
   const divRef = useRef(null);
   useEffect(() => {
-    divRef.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    divRef.current.scrollIntoView({ behavior: "auto" });
+  }, [divRef.current, messages]);
 
   const submit = (e) => {
     e.preventDefault();
@@ -109,37 +107,39 @@ const PrivateChat = ({ selected }) => {
             })
           : "No chats"}
       </div>
+      <div className={css.chatBodyContainer}>
+        <div className={css.chatText}>
+          {actualChatUser
+            ? messages[actualChatUser.id]
+              ? messages[actualChatUser.id].messages?.map((e, i) => (
+                  <div key={i}>{e.message || e}</div>
+                ))
+              : ""
+            : ""}
+          <div ref={divRef}></div>
+        </div>
 
-      <div className="chat">
-        {actualChatUser
-          ? messages[actualChatUser.id]
-            ? messages[actualChatUser.id].messages?.map((e, i) => (
-                <div key={i}>{e.message || e}</div>
-              ))
-            : ""
-          : ""}
-        <div ref={divRef}></div>
+        {actualChatUser ? (
+          <form onSubmit={submit} className={css.chatForm}>
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              value={message}
+              placeholder="Escribe tu mensaje"
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") submit(e);
+              }}
+              className={css.textArea}
+            />
+            <input type="submit" value="Enviar" />
+          </form>
+        ) : (
+          "Selecciona un chat"
+        )}
       </div>
-
-      {actualChatUser ? (
-        <form onSubmit={submit}>
-          <label htmlFor="">Escriba su mensaje</label>
-          <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => {
-              if (e.key === "Enter") submit(e);
-            }}
-          ></textarea>
-          <input type="submit" value="Enviar" />
-        </form>
-      ) : (
-        "Selecciona un chat"
-      )}
     </div>
   );
 };

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../../redux/actions/user";
 import socket from "./Socket";
 
+import css from "./PrivateChat.module.css";
+
 const SinglePrivateChat = ({ newChatUser }) => {
   const dispatch = useDispatch();
 
@@ -37,8 +39,8 @@ const SinglePrivateChat = ({ newChatUser }) => {
 
   const divRef = useRef(null);
   useEffect(() => {
-    divRef.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    divRef.current.scrollIntoView({ behavior: "auto" });
+  }, [divRef.current, messages]);
 
   const submit = (e) => {
     e.preventDefault();
@@ -47,34 +49,33 @@ const SinglePrivateChat = ({ newChatUser }) => {
   };
 
   return (
-    <div>
-      <div>{newChatUser.username}</div>
+    <div className={css.chatContainer}>
+      <div className={css.chatUsers}>{newChatUser.username}</div>
 
-      <div className="chat">
-        {messages.length
-          ? messages.map((e, i) => (
-              <div key={i}>
-                {e}
-              </div>
-            ))
-          : ""}
-        <div ref={divRef}></div>
+      <div className={css.chatBodyContainer}>
+        <div className={css.chatText}>
+          {messages.length
+            ? messages.map((e, i) => <div key={i}>{e}</div>)
+            : ""}
+          <div ref={divRef}></div>
+        </div>
+        <form onSubmit={submit} className={css.chatForm}>
+          <textarea
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+            value={message}
+            placeholder="Escribe tu mensaje"
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") submit(e);
+            }}
+            className={css.textArea}
+          />
+          <input type="submit" value="Enviar" />
+        </form>
       </div>
-      <form onSubmit={submit}>
-        <label htmlFor="">Escriba su mensaje</label>
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyPress={(e) => {
-            if (e.key === "Enter") submit(e);
-          }}
-        ></textarea>
-        <input type="submit" value="Enviar" />
-      </form>
     </div>
   );
 };
