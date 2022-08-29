@@ -16,6 +16,7 @@ import {
   SET_CHAT_NOTIFICATION,
   CREATE_DECK,
   SET_ACTIVE_DECK,
+  ADD_CARD_TO_DECK,
 } from "../actions/user";
 
 
@@ -138,6 +139,8 @@ export default function userReducer(state = initialState, { type, payload }) {
       return {...state, decks: state.decks.filter(e=>e.id!==payload.deckToRemove.id)}
     case SET_ACTIVE_DECK:
       return {...state, activeDeck: payload}
+
+      
 
     default:
       return state;;
