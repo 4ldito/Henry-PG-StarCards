@@ -7,7 +7,6 @@ const Chat = ({ nombre }) => {
   const [mensajes, setMensajes] = useState([]);
 
   useEffect(() => {
-    console.log(nombre);
     socket.emit("conectado", nombre);
   }, [nombre]);
 
@@ -22,13 +21,16 @@ const Chat = ({ nombre }) => {
   }, [mensajes]);
 
   const divRef = useRef(null);
+
   useEffect(() => {
     divRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
-  const submit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    socket.emit("mensaje", nombre, mensaje);
+
+    if (!mensaje) return;
+    socket.emit("mensaje", nombre, mensaje.trim());
     setMensaje("");
   };
 
@@ -37,22 +39,14 @@ const Chat = ({ nombre }) => {
       <div className={style.msgContainer}>
         {mensajes.map((e, i) => (
           <div key={i}>
-            <div>{e.nombre}</div>
-            <div>{e.mensaje}</div>
+            <p className={style.msg}><span className={style.msgUsername}>{e.nombre}:</span> {e.mensaje}</p>
           </div>
         ))}
         <div ref={divRef}></div>
       </div>
-      <form onSubmit={submit} >
+      <form onSubmit={handleSubmit} >
         <label htmlFor="">Escriba su mensaje</label>
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          value={mensaje}
-          onChange={(e) => setMensaje(e.target.value)}
-        ></textarea>
+        <input value={mensaje} onChange={(e) => setMensaje(e.target.value)} />
         <button>Enviar</button>
       </form>
     </div>
