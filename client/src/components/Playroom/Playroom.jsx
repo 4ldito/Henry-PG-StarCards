@@ -9,7 +9,6 @@ import { getUser } from "../../redux/actions/user";
 
 export default function Playroom() {
   useValidToken({ navigate: true });
-  const [nombre, setNombre] = useState("");
   const [registrado, setRegistrado] = useState(false);
   const userActive = useSelector((state) => state.userReducer.user);
 
@@ -33,7 +32,7 @@ export default function Playroom() {
           </div>
         )}
 
-        {registrado && <Chat nombre={nombre} />}
+        {registrado && <Chat nombre={userActive.username} />}
       </div>
     </div>
   );
