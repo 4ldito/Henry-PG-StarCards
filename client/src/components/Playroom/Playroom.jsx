@@ -31,7 +31,6 @@ export default function Playroom() {
             <h2>¡Bienvenido {userActive.username}!</h2>
             <p>Aquí, en nuestro chat global, podrás encontrar un lugar en el cuál resolver tus preguntas acerca del juego, hablar con otras personas de la comunidad, y divertirte :)</p>
             <p>Recuerda ser respetuoso con todo el mundo o podrías acabar con una sanción.</p>
-            <p>ella e callaitaaaaaa ♫</p>
           </div>
           <div className={style.containerBtn}>
             <button onClick={registrar} className={style.btnChat}>Ir al chat</button>

@@ -44,6 +44,8 @@ export function getUserCards(userCards, allCards) {
     }
   });
 
+  console.log(userCardsInventory)
+
   return { type: GET_USER_CARDS, payload: userCardsInventory };
   //
 }
