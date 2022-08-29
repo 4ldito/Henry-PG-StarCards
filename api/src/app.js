@@ -5,6 +5,10 @@ const passport = require("passport");
 const morgan = require("morgan");
 const routes = require("./routes/index");
 const cors = require("cors");
+// const axios = require("axios");
+
+const db = require("./db");
+const { User, PrivateChat, Message } = db;
 
 const server = express();
 const socketIoServer = require("http").createServer(server);
@@ -58,14 +62,61 @@ io.on("connection", (socket) => {
     if (currentReceiver)
       io.to(currentReceiver.socket).emit("privateMessage", emitter, msg);
 
-    // const currentUser = userSockets.find((u) => u.userId === emitter.id);
-    // io.to(currentUser.socket).emit("privateMessage", emitterId, msg);
+    const currentUser = userSockets.find((u) => u.userId === emitter.id);
+    io.to(currentUser.socket).emit("privateMessage", receiver, msg);
 
-    await axios.patch("chat", {
-      emiterId: emitter.id,
-      receiverId: reveicer.id,
-      msg,
-    });
+    // await axios.patch(
+    //   "chat",
+    //   {
+    //     emitterId: emitter.id,
+    //     receiverId: receiver.id,
+    //     msg,
+    //   }
+    //   // { headers: { Accept: "application/json" } }
+    // );
+
+    const [emitterId, receiverId] = [emitter.id, receiver.id];
+    try {
+      const [emitterProm, receiverProm, messageProm] = await Promise.all([
+        User.findOne({
+          where: { id: emitterId },
+          include: [
+            {
+              model: PrivateChat,
+              include: User,
+            },
+          ],
+        }),
+        User.findOne({
+          where: { id: receiverId },
+          include: [
+            {
+              model: PrivateChat,
+              include: User,
+            },
+          ],
+        }),
+        Message.create({ message: msg }),
+      ]);
+
+      let privChat = emitterProm.PrivateChats.find(
+        (pc) =>
+          pc.Users.find((u) => u.id === emitterId) &&
+          pc.Users.find((u) => u.id === receiverId)
+      );
+
+      if (privChat) await privChat.addMessage(messageProm);
+      else {
+        privChat = await PrivateChat.create();
+        await privChat.addMessage(messageProm);
+        await Promise.all([
+          emitterProm.addPrivateChat(privChat),
+          receiverProm.addPrivateChat(privChat),
+        ]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
 
     const receiverNotificationSocket = usersNotificationSocket.find(
       (u) => u.userId === receiver.id
@@ -86,7 +137,7 @@ io.on("connection", (socket) => {
     //socket.broadcast.emit manda el mensaje a todos los clientes excepto al que ha enviado el mensaje
     socket.broadcast.emit("mensajes", {
       nombre: nombre,
-      mensaje: `${nombre} ha entrado en la sala del chat`,
+      mensaje: ` ha entrado en la sala del chat`,
     });
   });
 
@@ -96,10 +147,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    io.emit("mensajes", {
-      socketIoServer: "Servidor",
-      mensaje: `${nombre} ha abandonado la sala`,
-    });
+    if (nombre)
+      io.emit("mensajes", { socketIoServer: "Servidor", mensaje: `${nombre} ha abandonado la sala`, });
   });
 });
 

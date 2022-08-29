@@ -5,10 +5,10 @@ import { handleSaleCard } from "../../../../redux/actions/cards/userCards";
 
 import css from "./SaleCard.module.css";
 
-export default function SaleCard({ handleViewCard, cardId, name, image }) {
+export default function SaleCard({ handleViewCard, card }) {
   const dispatch = useDispatch();
   const user = useSelector(state => state.userReducer.user);
-  const [currentUserCards, setCurrentUserCards] = useState(null);
+  // const [currentUserCards, setCurrentUserCards] = useState(null);
 
   const [sale, setSale] = useState({ quantity: 0, price: 0 });
 
@@ -16,30 +16,31 @@ export default function SaleCard({ handleViewCard, cardId, name, image }) {
     setSale({ ...sale, [e.target.name]: e.target.value });
   }
 
-  useEffect(() => {
-    setCurrentUserCards(user.UserCards?.filter(userCard => userCard.CardId === cardId));
-  }, [user]);
+  // useEffect(() => {
+  //   setCurrentUserCards(user.UserCards?.filter(userCard => userCard.CardId === cardId));
+  // }, [user]);
 
   function handleSubmit(e, status) {
     e.preventDefault();
+    console.log(card);
     if (!sale.quantity || !sale.price) return;
-    const userCardsIdsToSale = [];
+    const userCardsIdsToUpdate = [];
 
     for (let i = 0; i < sale.quantity; i++) {
-      userCardsIdsToSale.push(currentUserCards[i].id);
+      userCardsIdsToUpdate.push(card.userCards[i].id);
     }
-    dispatch(handleSaleCard({ userId: user.id, userCardsIdsToSale, status, price: sale.price }))
+    dispatch(handleSaleCard({ userId: user.id, userCardsIdsToUpdate, status, price: sale.price }))
 
   }
 
   return (
     <div className={css.SaleCard} onClick={handleViewCard}>
       <div className={css.container} onClick={(e) => e.stopPropagation()}>
-        <h1>{name}</h1>
-        <img src={image} alt="" />
+        <h1>{card.name}</h1>
+        <img src={card.image} alt="" />
         <form onSubmit={(e) => handleSubmit(e, 'onSale')}>
           <label htmlFor="">Cantidad</label>
-          <input type="number" name="quantity" min="1" max={currentUserCards?.length} value={sale.quantity} placeholder="quantity" onChange={(e) => handleChange(e)} />
+          <input type="number" name="quantity" min="1" max={card?.userCards?.length} value={sale.quantity} placeholder="quantity" onChange={(e) => handleChange(e)} />
           <label htmlFor="">Precio</label>
           <input type="number" name="price" value={sale.price} placeholder="price" onChange={(e) => handleChange(e)} />
           <input type="submit" value="Sale" />

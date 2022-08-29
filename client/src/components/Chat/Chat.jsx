@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import socket from "./Socket";
-import style from '../Chat/Chat.module.css' ;
+import socket from "../../../Socket";
+import style from '../Chat/Chat.module.css';
 
 const Chat = ({ nombre }) => {
   const [mensaje, setMensaje] = useState("");
@@ -21,38 +21,32 @@ const Chat = ({ nombre }) => {
   }, [mensajes]);
 
   const divRef = useRef(null);
+
   useEffect(() => {
     divRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
-  const submit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    socket.emit("mensaje", nombre, mensaje);
+
+    if (!mensaje) return;
+    socket.emit("mensaje", nombre, mensaje.trim());
     setMensaje("");
   };
 
   return (
     <div className={style.container}>
-      <div >
+      <div className={style.msgContainer}>
         {mensajes.map((e, i) => (
           <div key={i}>
-            <div>{e.nombre}</div>
-            <div>{e.mensaje}</div>
+            <p className={style.msg}><span className={style.msgUsername}>{e.nombre}:</span> {e.mensaje}</p>
           </div>
         ))}
         <div ref={divRef}></div>
       </div>
-      <form onSubmit={submit} >
-        <label htmlFor="">Escriba su mensaje</label>
-        <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          value={mensaje}
-          onChange={(e) => setMensaje(e.target.value)}
-        ></textarea>
-        <button>Enviar</button>
+      <form className={style.formContainer} onSubmit={handleSubmit} >
+        <input placeholder="Escriba aquí.." value={mensaje} onChange={(e) => setMensaje(e.target.value)} />
+        <button className={style.btn}>Enviar</button>
       </form>
     </div>
   );

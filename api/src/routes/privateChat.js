@@ -30,10 +30,10 @@ chatRoute.patch("/", async (req, res, next) => {
       Message.create({ message: msg }),
     ]);
 
-    let privChat = emitter.PrivateChat.find(
+    let privChat = emitter.PrivateChats.find(
       (pc) =>
-        pc.User.find((u) => u.id === emitterId) &&
-        pc.User.find((u) => u.id === receiverId)
+        pc.Users.find((u) => u.id === emitterId) &&
+        pc.Users.find((u) => u.id === receiverId)
     );
 
     if (privChat) await privChat.addMessage(message);

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import Login from './components/Registro/Login'
+import Login from "./components/Registro/Login";
 import UserProfile from "./components/UserProfile/UserProfile";
 import LandingPage from "./components/LandingPage/LandingPage";
 import Playroom from "./components/Playroom/Playroom";
@@ -13,9 +13,9 @@ import About from "./components/About/About";
 import PrivateChat from "./components/UserProfile/PrivateChat/PrivateChat";
 import { resetReduxState } from "./redux/actions";
 import Inventory from "./components/UserProfile/Inventory/Inventory";
+import RecoveryPassword from "./components/Registro/RecoveryPassword";
 import Registro from "./components/Registro/Registro";
 import Firebase from "./components/FirebaseAdmi/Firebase";
-import RecoveryPassword from './components/Registro/RecoveryPassword';
 
 import "./App.css";
 
