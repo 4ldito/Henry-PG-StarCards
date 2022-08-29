@@ -1,0 +1,11 @@
+
+
+
+@media screen and (max-width:480px){
+    .container{
+        transform: scale(.6);
+        max-width: 25vw;
+        height: 200px;
+        
+    }
+}
