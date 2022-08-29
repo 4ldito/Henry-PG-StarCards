@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import socket from "./Socket";
+import style from '../Chat/Chat.module.css' ;
 
 const Chat = ({ nombre }) => {
   const [mensaje, setMensaje] = useState("");
@@ -31,8 +32,8 @@ const Chat = ({ nombre }) => {
   };
 
   return (
-    <div>
-      <div className="chat">
+    <div className={style.container}>
+      <div >
         {mensajes.map((e, i) => (
           <div key={i}>
             <div>{e.nombre}</div>
@@ -41,7 +42,7 @@ const Chat = ({ nombre }) => {
         ))}
         <div ref={divRef}></div>
       </div>
-      <form onSubmit={submit}>
+      <form onSubmit={submit} >
         <label htmlFor="">Escriba su mensaje</label>
         <textarea
           name=""

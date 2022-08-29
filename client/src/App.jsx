@@ -8,6 +8,7 @@ import Playroom from "./components/Playroom/Playroom";
 import Shop from "./components/Shop/Shop";
 import PurchaseCompleted from "./components/Shop/PurchaseCompleted";
 import Nav from "./components/Nav/Nav";
+import Game from "./components/Game/Game";
 import About from "./components/About/About";
 import PrivateChat from "./components/UserProfile/PrivateChat/PrivateChat";
 import { resetReduxState } from "./redux/actions";
@@ -42,6 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/about" element={<About />} />
+        <Route path="/game" element={<Game />} />
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/playroom" element={<Playroom />} />
         <Route path="/userProfile" element={<UserProfile />} />

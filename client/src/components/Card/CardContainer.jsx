@@ -3,9 +3,8 @@ import Card from "./Card";
 // import { useDispatch } from "react-redux";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
-export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck }) {
-  // const dispatch = useDispatch();
-
+export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, tamanho,maxT}) {
+  const dispatch = useDispatch();
   const [viewCard, setViewCard] = useState(false);
 
   function handleViewCard() {
@@ -13,7 +12,7 @@ export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck }
   }
 
   return (
-    <>
+    <div >
       {repeat > 1 && <label style={{ fontSize: "50px" }}>{repeat}</label>}
       {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
 
@@ -37,6 +36,6 @@ export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck }
           card={card}
         />
       )}
-    </>
+    </div>
   );
 }
