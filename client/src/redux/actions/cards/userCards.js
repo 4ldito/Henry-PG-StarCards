@@ -1,9 +1,10 @@
 import axios from "axios";
+import { MODIFY_USER_CARDS } from "../user";
 export const SORT_USER_CARDS = "SORT_USER_CARDS";
 export const GET_USER_CARDS = "GET_USER_CARDS";
 export const FILTER_USER_CARDS = "FILTER_USER_CARDS";
 // import noRepUserCards from "../../../components/UserProfile/Inventory/functions/noRepUserCards";
-export const CLEAN_MSG_USER_CARDS = 'CLEAN_MSG_USER_CARDS'; 
+export const CLEAN_MSG_USER_CARDS = 'CLEAN_MSG_USER_CARDS';
 export const SEARCH_USER_CARD = "SEARCH_USER_CARD";
 export const SALE_CARD = 'SALE_CARD';
 const nameAtoZ = "nameAtoZ";
@@ -18,9 +19,8 @@ const ascendentlife = "ascendentlife";
 const descendentlife = "descendentlife";
 
 export function getUserCards(userCards, allCards) {
-  console.log('hola');
   const userCardsInventory = { userCards: [], forSaleCards: [] };
-  
+
   userCards.forEach(userCard => {
     const actualCardIndex = allCards.findIndex(card => card.id === userCard.CardId);
     const actualCard = { ...allCards[actualCardIndex] }
@@ -45,7 +45,7 @@ export function getUserCards(userCards, allCards) {
     }
   });
 
-  console.log(userCardsInventory)
+  // console.log(userCardsInventory)
 
   return { type: GET_USER_CARDS, payload: userCardsInventory };
   //
@@ -142,7 +142,8 @@ export function sortUserCards(sort, cards) {
 export function handleSaleCard(values) {
   return async function (dispatch) {
     const response = await axios.patch("/userCards", values);
-    dispatch({ type: SALE_CARD, payload: response.data })
+    dispatch({ type: SALE_CARD, payload: response.data });
+    dispatch({ type: MODIFY_USER_CARDS, payload: response.data });
   };
 }
 

@@ -22,6 +22,7 @@ export const SET_CHAT_NOTIFICATION = "SET_CHAT_NOTIFICATION";
 export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
 export const USER_CLEAN = "USER_CLEAN";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
+export const MODIFY_USER_CARDS = 'MODIFY_USER_CARDS'; 
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
