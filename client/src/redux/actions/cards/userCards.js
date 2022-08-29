@@ -17,24 +17,42 @@ const ascendentlife = "ascendentlife";
 const descendentlife = "descendentlife";
 
 export function getUserCards(userCards, allCards) {
-  const userCardsInventory = userCards.map((userCard) => {
-    return allCards.find((card) => {
-      if (card.id === userCard.CardId) {
-        card.userCard = { id: userCard.id, statusId: userCard.StatusId };
-        return card;
-      }
-    });
+
+  const userCardsInventory = { userCards: [], forSaleCards: [] };
+  
+  userCards.forEach(userCard => {
+    const actualCardIndex = allCards.findIndex(card => card.id === userCard.CardId);
+    const actualCard = { ...allCards[actualCardIndex] }
+    let seeIn = '';
+
+    if (userCard.StatusId === 'active') {
+      seeIn = 'userCards'
+    } else if (userCard.StatusId === 'onSale') {
+      seeIn = 'forSaleCards'
+    } else {
+      return;
+    }
+
+    const alreadyExists = userCardsInventory[seeIn].find(card => card.id === actualCard.id);
+    if (!alreadyExists) {
+      actualCard.repeat = 1;
+      userCardsInventory[seeIn].push(actualCard);
+      actualCard.userCards = [userCard];
+    } else {
+      alreadyExists.repeat++;
+      alreadyExists.userCards.push(userCard);
+    }
   });
 
-  return { type: GET_USER_CARDS, payload: { userCardsInventory } };
+  return { type: GET_USER_CARDS, payload: userCardsInventory };
+  //
 }
 
 export function filterUserCards(filter, userCards) {
-  const { notRepeated } = noRepUserCards(userCards);
   const filterRace =
     filter.race === "allRaces"
-      ? notRepeated
-      : notRepeated.filter((e) => e.race === filter.race);
+      ? userCards
+      : userCards.filter((e) => e.race === filter.race);
 
   const filterMovement =
     filter.movements === "allMovements"
@@ -44,14 +62,12 @@ export function filterUserCards(filter, userCards) {
   return { type: FILTER_USER_CARDS, payload: filterMovement };
 }
 
-export function searchUserCard(search, cards) {
-  const { notRepeated } = noRepUserCards(cards);
-
+export function searchUserCard(search, userCards) {
   if (search === "") {
-    return { type: SEARCH_USER_CARD, payload: notRepeated };
+    return { type: SEARCH_USER_CARD, payload: userCards };
 
   }
-  const result = notRepeated.filter((c) =>
+  const result = userCards.filter((c) =>
     c.name.toLowerCase().includes(search.toLowerCase())
   );
   return { type: SEARCH_USER_CARD, payload: result };

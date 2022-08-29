@@ -14,7 +14,8 @@ const initialState = {
   cards: [],
   filteredCards: [],
   userCards: [],
-  filteredUserCards: []
+  filteredUserCards: [],
+  userCardsForSale: []
 };
 
 export default function inventory(state = initialState, { type, payload }) {
@@ -30,7 +31,8 @@ export default function inventory(state = initialState, { type, payload }) {
     case GET_USER_CARDS:
       return {
         ...state,
-        userCards: payload.userCardsInventory,
+        userCards: payload.userCards,
+        userCardsForSale: payload.forSaleCards,
         // userCardsNotRepeated: payload.notRepeated,
       };
     case FILTER_USER_CARDS:
@@ -40,26 +42,14 @@ export default function inventory(state = initialState, { type, payload }) {
     case SEARCH_USER_CARD:
       return { ...state, filteredUserCards: payload };
     case SALE_CARD:
-      // x ahora lo dejo asi hasta :D
-      // console.log(payload);
-      // payload.forEach(userCard => {
-      //   const actualUserCard = state.filteredUserCards.find((c) => c.id === userCard.Card.id);
-      //   actualUserCard.userCard.statusId = userCard.StatusId;
-      // });
-      // const newFilteredCards = [];
-      // state.filteredUserCards.forEach((card) => {
-      //   console.log(card.repeat);
-      //   payload.forEach(userCard => {
-      //     if (userCard.CardId === card.id) {
-      //       --card.repeat;
-      //     }
-      //   });
-      //   newFilteredCards.push(card);
-      // });
+      const actualCard = state.userCards.find(card => card.id === payload[0].CardId);
 
-      // console.log(newFilteredCards);
-      return { ...state }
-      // return { ...state, filteredUserCards: newFilteredCards };
+      if (actualCard.repeat - payload.length === 0) {
+        const newFilteredUserCards = state.userCards.filter(card => card.id !== payload[0].CardId);
+        return { ...state, filteredUserCards: newFilteredUserCards }
+      }
+      actualCard.repeat = actualCard.repeat - payload.length;
+      return { ...state, filteredUserCards: [...state.filteredUserCards] }
     default:
       return state;
   }

@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { sequelize } = require("../db");
 const db = require("../db");
 
 const { UserCards, Card, User } = db;
@@ -71,9 +72,9 @@ userCardsRoute.get("/", async (req, res, next) => {
 
 userCardsRoute.patch("/", async (req, res, next) => {
   try {
-    const { userId, userCardsIdsToSale, status, price } = req.body;
+    const { userId, userCardsIdsToUpdate, status, price } = req.body;
 
-    const userCards = await Promise.all(userCardsIdsToSale.map((userCard) => {
+    const userCards = await Promise.all(userCardsIdsToUpdate.map((userCard) => {
       return UserCards.findOne({
         where: { UserId: userId, id: userCard }, include: Card,
       });
@@ -85,7 +86,7 @@ userCardsRoute.patch("/", async (req, res, next) => {
 
     return res.json(updatedUserCards);
   } catch (error) {
-    console.log(error);
+    console.log('error');
   }
 });
 
@@ -115,6 +116,25 @@ userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
   }
 
 });
+
+// userCardsRoute.get("/repeat", async (req, res, next) => {
+//   const { userId, statusId } = req.query;
+//   try {
+//     const cards = await UserCards.findAll({
+//       where: { UserId: userId, StatusId: statusId },
+//       attributes: ['CardId', [sequelize.fn('count', sequelize.col('CardId')), 'repeat']],
+//       group: ['CardId', 'Card.id', 'User.id'],
+//       include:
+//         [
+//           { model: Card },
+//           { model: User, attributes: ["id", "username"] }
+//         ]
+//     });
+//     return res.send(cards);
+//   } catch (error) {
+//     return next(error);
+//   }
+// });
 
 
 module.exports = userCardsRoute;

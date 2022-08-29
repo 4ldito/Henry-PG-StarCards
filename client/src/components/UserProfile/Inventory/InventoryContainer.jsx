@@ -9,9 +9,7 @@ import noRepUserCards from "./functions/noRepUserCards";
 
 export default function InventoryContainer() {
   const dispatch = useDispatch();
-  const filteredUserCards = useSelector(
-    (state) => state.album.filteredUserCards
-  );
+  const filteredUserCards = useSelector((state) => state.album.filteredUserCards);
   const cards = useSelector((state) => state.album.cards);
   const user = useSelector(state => state.userReducer.user);
   const [bothStacks, setBothStacks] = useState(false);

@@ -41,9 +41,22 @@ export default function UserProfile() {
     dispatch(getAllCards());
   }, []);
 
+  const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
     setUser(activeUser);
     return query === activeUser.username || !query ? activeUser : urlUser;
+  }, [activeUser, urlUser]);
+
+  useEffect(() => {
+    if (activeUser && urlUser)
+      setChatBool(
+        activeUser.PrivateChats?.find((pc) => {
+          return pc.Users.find((u) => u.id === activeUser.id) &&
+            pc.Users.find((u) => u.id === actualUrlUser.id)
+            ? true
+            : false;
+        }) !== undefined
+      );
   }, [activeUser, urlUser]);
 
   function changeRender(e) {
@@ -178,6 +191,7 @@ export default function UserProfile() {
         <div className={style.img}>
           {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
           {/* <button className={style.changecv}>Change Cover Imagen</button> */}
+
           {/* <button className={style.changep}></button> */}
           <Link className={style.stars} to="/shop">
             <FaShoppingCart size={28} />
@@ -214,7 +228,6 @@ export default function UserProfile() {
             className={`${style.buttons} ${style.disabled}`}
             value="4"
             onClick={(e) => changeRender(e)}
-            disabled
           >
             Chat
           </button>
@@ -263,14 +276,17 @@ export default function UserProfile() {
             className={`${style.buttons} ${style.disabled}`}
             value="4"
             onClick={(e) => changeRender(e)}
-            disabled
           >
             Chat
           </button>
         </div>
 
         {render === "Chat" ? (
-          <SinglePrivateChat newChatUser={actualUrlUser} />
+          chatAlreadyExists ? (
+            <PrivateChat selected={actualUrlUser} />
+          ) : (
+            <SinglePrivateChat newChatUser={actualUrlUser} />
+          )
         ) : render === "Inventory" ? (
           <Inventory />
         ) : render === "Stats" ? (
