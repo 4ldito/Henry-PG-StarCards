@@ -34,8 +34,8 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
 
         const newDeck = await Deck.create({ name },{include:Card});
         newDeckCards.forEach(async e => {
-            const card = await Card.findByPk(e.id);
-            // console.log(card);
+            const card = await Card.findByPk(e.id, { include: [Deck] });
+            await card.addDeck(newDeck);
             await newDeck.addCard(card);
             newDeck.save();
 
