@@ -12,6 +12,7 @@ export default function InventoryContainer() {
   const dispatch = useDispatch();
   const filteredUserCards = useSelector((state) => state.album.filteredUserCards);
   const cards = useSelector((state) => state.album.cards);
+  const userCards = useSelector(state=> state.album.userCards);
   const user = useSelector(state => state.userReducer.user);
   const [bothStacks, setBothStacks] = useState(false);
   const [creatingDeck, setCreatingDeck] = useState(false);
@@ -20,10 +21,20 @@ export default function InventoryContainer() {
 
 
   const addCardToDeck = (card, remove,deck) => { 
-    const newCard = newDeckCards.find(e=>e.id===card.id);
-    
-      setNewDeckCards([...newDeckCards, card]);
+    const newCardI = userCards.findIndex(e=>e.id===card.id);
+    const cardAlredyInDeck = newDeckCards.find(e=>e.id === card.id);
+    if(cardAlredyInDeck){
+      cardAlredyInDeck.repeat++;
+      setNewDeckCards([...newDeckCards]);
       dispatch(addDeckCard(card.id));
+    }else{
+      const newCard = {...userCards[newCardI]};
+      newCard.repeat = 1;
+      setNewDeckCards([...newDeckCards, newCard]);
+      dispatch(addDeckCard(card.id));
+    }
+    // console.log();
+    // if(newDeckCards.find())
   }
 
   const removeCardFromDeck = (id)=>{
