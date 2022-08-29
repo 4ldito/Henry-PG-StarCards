@@ -7,8 +7,8 @@ import style from "./AdminProfile.module.css";
 import Swal from 'sweetalert2';
 
 export default function Admin(){
-    const navigateTo = useNavigate()
     const { validToken } = useValidToken({ navigate: false });
+    const navigateTo = useNavigate()
     const dispatch = useDispatch();
     const allUsers = useSelector((state) => state.userReducer.users);
     const user = useSelector((state) => state.userReducer.user);
