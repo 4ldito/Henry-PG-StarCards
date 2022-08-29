@@ -18,7 +18,7 @@ const ascendentlife = "ascendentlife";
 const descendentlife = "descendentlife";
 
 export function getUserCards(userCards, allCards) {
-
+  console.log('hola');
   const userCardsInventory = { userCards: [], forSaleCards: [] };
   
   userCards.forEach(userCard => {
