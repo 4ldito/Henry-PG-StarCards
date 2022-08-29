@@ -10,36 +10,37 @@ import { useSelector } from "react-redux";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
-  const { validToken } = useValidToken({ navigate: false });;
+  const { validToken } = useValidToken({ navigate: false });
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
   const userActive = useSelector((state) => state.userReducer.user);
-
 
   const handleVisibleUserOptions = () => {
     setVisibleUserOptions(!visibleUserOptions);
   };
 
-  function navEnabled(){
-    return(
+  function navEnabled() {
+    return (
       <div>
         <NavLink className={css.link} to="/">
           <img className={css.img} src={logo} alt="Logo de StarCards" />
         </NavLink>
-      </div>)
+      </div>
+    );
   }
 
-  function navDisabled(){
-    return(
+  function navDisabled() {
+    return (
       <div>
         <NavLink className={css.link} to="/userProfile">
           <img className={css.img} src={logo} alt="Logo de StarCards" />
-        </NavLink>      </div>
-    )
+        </NavLink>
+      </div>
+    );
   }
 
   return (
     <div className={css.nav}>
-      {!userActive ? navEnabled() : navDisabled() }
+      {!userActive ? navEnabled() : navDisabled()}
 
       <ul className={css.ul}>
         <li className={css.li}>
@@ -84,6 +85,7 @@ export default function Nav() {
           </span>
         )}
       </button>
+      {validToken && <ChatNotifications />}
 
       {visibleUserOptions && (
         <div className={css.userOptions}>

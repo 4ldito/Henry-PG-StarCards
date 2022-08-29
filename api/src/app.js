@@ -65,16 +65,6 @@ io.on("connection", (socket) => {
     const currentUser = userSockets.find((u) => u.userId === emitter.id);
     io.to(currentUser.socket).emit("privateMessage", receiver, msg);
 
-    // await axios.patch(
-    //   "chat",
-    //   {
-    //     emitterId: emitter.id,
-    //     receiverId: receiver.id,
-    //     msg,
-    //   }
-    //   // { headers: { Accept: "application/json" } }
-    // );
-
     const [emitterId, receiverId] = [emitter.id, receiver.id];
     try {
       const [emitterProm, receiverProm, messageProm] = await Promise.all([
@@ -122,7 +112,7 @@ io.on("connection", (socket) => {
       (u) => u.userId === receiver.id
     );
     const notificationFlag = true;
-    io.to(receiverNotificationSocket).emit(
+    io.to(receiverNotificationSocket.sockets[0]).emit(
       "chatNotification",
       notificationFlag
     );
@@ -148,7 +138,10 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     if (nombre)
-      io.emit("mensajes", { socketIoServer: "Servidor", mensaje: `${nombre} ha abandonado la sala`, });
+      io.emit("mensajes", {
+        socketIoServer: "Servidor",
+        mensaje: `${nombre} ha abandonado la sala`,
+      });
   });
 });
 

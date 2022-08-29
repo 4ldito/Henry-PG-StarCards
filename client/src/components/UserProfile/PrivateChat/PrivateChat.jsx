@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../../redux/actions/user";
 import socket from "../../../../Socket";
+import { setChatNotification } from "../../../redux/actions/user";
 
 import css from "./PrivateChat.module.css";
 
@@ -46,6 +47,7 @@ const PrivateChat = ({ selected }) => {
 
   useEffect(() => {
     dispatch(getUser(userActive.id));
+    dispatch(setChatNotification(false));
   }, []);
 
   const [chatUsers, setChatUsers] = useState([]);
