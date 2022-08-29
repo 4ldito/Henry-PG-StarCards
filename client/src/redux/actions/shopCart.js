@@ -10,6 +10,7 @@ export const CLEAN_PREFERENCE_ID = 'CLEAN_PREFERENCE_ID';
 export const SHOPCART_CLEAN_PURCHASE_INFO = 'SHOPCART_CLEAN_PURCHASE_INFO';
 export const MODIFY_QUANTITY = 'MODIFY_QUANTITY';
 export const GET_USER_SHOPCART = 'GET_USER_SHOPCART';
+export const SHOW_PACK_DETAIL = 'SHOW_PACK_DETAIL'
 // export function addToShopCart(product, quantity, packTypes) {
 //   quantity = Number(quantity)
 //   return { type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } }
@@ -22,18 +23,17 @@ export const getUserShopCart = (userId) => {
   }
 }
 
-export const addToShopCart = (product, quantity, packTypes, userId) => {
+export const addToShopCart = (product, quantity, packTypes, userId, notAdd) => {
+  // notAdd sirve para cuando un usuario nuevo se registre, guarde sus productos en la db pero no los vuelva a añadir d nuevo el estado global
   return async function (dispatch) {
     quantity = Number(quantity);
-    // console.log(userId)
     if (userId) await axios.post(`shopcart/add/${userId}`, { info: { product, quantity, packTypes } });
-    dispatch({ type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } })
+    if (!notAdd) dispatch({ type: ADD_TO_SHOPCART, payload: { product, quantity, packTypes } })
   }
 }
 
 export function removeFromShopCart(product, packTypes, userId) {
   return async function (dispatch) {
-    // console.log(product, packTypes)
     // No se le puede pasar por body a una ruta .delete ??????????
     // if (userId) await axios.delete(`shopcart/remove/${userId}`, { info: { product, packTypes } });
     if (userId) await axios.patch(`shopcart/disable/${userId}`, { info: { product, packTypes } });
@@ -43,9 +43,7 @@ export function removeFromShopCart(product, packTypes, userId) {
 
 export const shopcartBuyCardsPacks = (info, userId) => {
   return async function (dispatch) {
-    // console.log(userId)
     const response = await axios.patch('packs/buy', { ...info, userId })
-    // console.log(response.data)
     dispatch({ type: USER_MODIFY_STARS, payload: response.data })
     dispatch({ type: SHOPCART_BUY_CARDSPACKS, payload: response.data })
   }
@@ -98,4 +96,8 @@ export function modifiyQuantity({ id, type, modifyType, userId }) {
       console.error('STARCARDS_ERROR', error)
     }
   }
+}
+
+export function showPackDetail() {
+  return { type: SHOW_PACK_DETAIL }
 }

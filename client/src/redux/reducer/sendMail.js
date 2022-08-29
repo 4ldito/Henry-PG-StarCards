@@ -1,17 +1,25 @@
-import { SEND_MAIL, MODAL, SUCCESS_ACTION} from "../actions/sendMail"
+import { CLEAN_TOKEN,CLEAN_RECIVED_TOKEN, MODAL,VERIFY_TOKEN, SUCCESS_ACTION,CHANGE_RENDER} from "../actions/sendMail"
 
 const initialState = {
-    token: '',
+    token: false,
+    recivedToken: false,
     modal: false,
     successAction: false,
+    render: true
 }
 
 export default function starsPacksReducer (state = initialState, { type, payload }) {
   switch (type) {
-    case SEND_MAIL:
-      return { ...state, token: payload }
+    case VERIFY_TOKEN:
+      return { ...state, token: payload, recivedToken: true}
     case MODAL:
-      return { ...state, modal: !state.modal }
+      return { ...state, modal: payload }
+    case CLEAN_TOKEN:
+      return { ...state, recivedToken: false, token: false}
+    case CLEAN_RECIVED_TOKEN:
+      return { ...state,  recivedToken: false}
+    case CHANGE_RENDER:
+      return { ...state,  render: !state.render}
     case SUCCESS_ACTION:
       return { ...state, successAction: !state.successAction }
     default:

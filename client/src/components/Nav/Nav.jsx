@@ -1,38 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
+import ChatNotifications from "./ChatNotifications/ChatNotifications";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
+import { useSelector } from "react-redux";
 
 export default function Nav() {
-  const { validToken } = useValidToken({ navigate: false })
+  const user = useSelector((state) => state.userReducer);
+  const { validToken } = useValidToken({ navigate: false });;
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
+  const userActive = useSelector((state) => state.userReducer.user);
+
 
   const handleVisibleUserOptions = () => {
-    setVisibleUserOptions(!visibleUserOptions)
+    setVisibleUserOptions(!visibleUserOptions);
+  };
+
+  function navEnabled(){
+    return(
+      <div>
+        <NavLink className={css.link} to="/">
+          <img className={css.img} src={logo} alt="Logo de StarCards" />
+        </NavLink>
+      </div>)
   }
 
-  // function handleClick(e) {
-  //   // console.log("id:",e.target.id);
-  //   // console.log("this:", this);
-  //   console.log(e.target.className);
-  //   if (e.target.id !== 'btnMenu' && e.target.id != 'menu') {
-  //     setVisibleUserOptions(false)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   document.addEventListener("click", handleClick);
-  //   return () => document.removeEventListener("click", handleClick);
-  // }, []);
+  function navDisabled(){
+    return(
+      <div>
+        <NavLink className={css.link} to="/userProfile">
+          <img className={css.img} src={logo} alt="Logo de StarCards" />
+        </NavLink>      </div>
+    )
+  }
 
   return (
     <div className={css.nav}>
-      <NavLink className={css.link} to="/">
-        <img className={css.img} src={logo} alt="Logo de StarCards" />
-      </NavLink>
+      {!userActive ? navEnabled() : navDisabled() }
 
       <ul className={css.ul}>
         <li className={css.li}>
@@ -41,11 +48,16 @@ export default function Nav() {
           </NavLink>
         </li>
         <li className={css.li}>
-
-          {validToken && <NavLink className={css.link} to="/playroom">
-            Playroom
-          </NavLink>}
-
+          {validToken && (
+            <NavLink className={css.link} to="/playroom">
+              Playroom
+            </NavLink>
+          )}
+        </li>
+        <li className={css.li}>
+          <NavLink className={css.link} to="/game">
+            Game
+          </NavLink>
         </li>
         <li className={css.li}>
           <NavLink className={css.link} to="/about">
@@ -59,11 +71,19 @@ export default function Nav() {
         className={css.btn}
         onClick={handleVisibleUserOptions}
       >
-        <span id="btnMenu" className="material-symbols-outlined">
-          account_circle
-        </span>
+        {user.user.id ? (
+          <img
+            id="btnMenu"
+            className={css.profile}
+            src={user.user.profileImg}
+            alt="image profile"
+          />
+        ) : (
+          <span id="btnMenu" className="material-symbols-outlined">
+            account_circle
+          </span>
+        )}
       </button>
-
 
       {visibleUserOptions && (
         <div className={css.userOptions}>

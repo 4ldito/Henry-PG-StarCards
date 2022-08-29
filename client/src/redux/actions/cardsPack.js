@@ -5,6 +5,7 @@ export const BUY_CARD_PACK = 'BUY_CARD_PACK';
 export const CLEAN_MSG_INFO = 'CLEAN_MSG_INFO';
 export const FILTER_CARDS_PACKS = 'FILTER_CARDS_PACKS';
 export const FAV_USER_PACKS = 'FAV_USER_PACKS'
+export const GET_DETAIL_PACK = 'GET_DETAIL_PACK'
 
 export function getCardsPacks() {
   return async function (dispatch) {
@@ -17,7 +18,6 @@ export const buyCardPack = (info, userId) => {
   return async function (dispatch) {
     const response = await axios.patch('packs/buy', { ...info, userId })
     dispatch({ type: USER_MODIFY_STARS, payload: response.data })
-    // console.log(response)
     dispatch({ type: BUY_CARD_PACK, payload: response.data })
   }
 }
@@ -52,4 +52,8 @@ export const favUserPacks =  (object) => {
       dispatch({ type: FAV_USER_PACKS, payload: response.data })
     }
   }  
+}
+
+export const getDetailCard = (id) => {
+  return { type: GET_DETAIL_PACK, payload: id }
 }

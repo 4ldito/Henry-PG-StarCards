@@ -12,12 +12,6 @@
 
 ![](https://github.com/4ldito/starcards/blob/dev/client/src/img/logoLanding.png?raw=true)
 
-**Table of Contents**
-
-[TOCM]
-
-[TOC]
-
 
 Proyecto Grupal 
 ============
