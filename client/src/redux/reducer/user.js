@@ -149,7 +149,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       console.log(payload);
       payload.forEach(userCard => {
         const actualUserCard = state.user.UserCards.find(uc => userCard.id === uc.id);
-        actualUserCard.StatusId = 'onSale';
+        actualUserCard.StatusId = userCard.StatusId;
       });
 
       return { ...state, user: {...state.user} }

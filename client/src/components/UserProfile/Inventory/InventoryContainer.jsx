@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { cleanMsgUserCards, getUserCards } from "../../../redux/actions/cards/userCards";
+import { getUserCards } from "../../../redux/actions/cards/userCards";
 import { addDeckCard, removeDeckCard } from "../../../redux/actions/user";
 import { CardContainer } from "../../Card/CardContainer";
 import DeckList from "./Decks/DeckList";
-import Swal from "sweetalert2";
 
 import css from "./Inventory.module.css";
 
@@ -13,13 +12,12 @@ export default function InventoryContainer() {
   const filteredUserCards = useSelector((state) => state.album.filteredUserCards);
   const cards = useSelector((state) => state.album.cards);
   const userCards = useSelector(state=> state.album.userCards);
-  const msg = useSelector((state) => state.album.msg);
   const user = useSelector(state => state.userReducer.user);
+
   const [bothStacks, setBothStacks] = useState(false);
   const [creatingDeck, setCreatingDeck] = useState(false);
   const [newDeckCards, setNewDeckCards] = useState([]);
   const [actualStackToShow, setActualStackToShow] = useState([]);
-
 
   const addCardToDeck = (card, remove,deck) => { 
     const newCardI = userCards.findIndex(e=>e.id===card.id);
@@ -34,8 +32,6 @@ export default function InventoryContainer() {
       setNewDeckCards([...newDeckCards, newCard]);
       dispatch(addDeckCard(card.id));
     }
-    // console.log();
-    // if(newDeckCards.find())
   }
 
   const removeCardFromDeck = (id) => {
@@ -61,18 +57,6 @@ export default function InventoryContainer() {
   useEffect(() => {
     dispatch(getUserCards(user.UserCards, cards));
   }, [cards]);
-
-  useEffect(() => {
-    // console.log(msg)
-    if (msg?.type) {
-      dispatch(cleanMsgUserCards());
-      Swal.fire({
-        title: msg.title,
-        text: msg.info,
-        icon: msg.type,
-      });
-    }
-  }, [msg]);
 
   const setVisibleStack = (name) => {
     if (actualStackToShow.includes(name)) {
