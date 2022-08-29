@@ -18,8 +18,6 @@ favPacksRoute.get("/", async (req, res, next) => {
 favPacksRoute.post("/", async (req, res, next) => {
     try {
         let { userId, packId } = req.body;
-        console.log('userId', userId)
-        console.log('packId', packId)
         let cardPackId = await CardPacks.findOne({
             where:{
                 id: packId
@@ -41,8 +39,6 @@ favPacksRoute.post("/", async (req, res, next) => {
 favPacksRoute.delete("/", async (req, res, next) => {
     try {
         let { userId, packId } = req.body;
-        console.log('userId', userId)
-        console.log('packId', packId)
         let cardPackId = await CardPacks.findOne({
             where:{
                 id: packId
