@@ -17,18 +17,34 @@ const ascendentlife = "ascendentlife";
 const descendentlife = "descendentlife";
 
 export function getUserCards(userCards, allCards) {
-  const userCardsInventory = userCards.map((userCard) => {
-    return allCards.find((card) => {
-      if (card.id === userCard.CardId) {
-        card.userCard = { id: userCard.id, statusId: userCard.StatusId };
-        return card;
-      }
-    });
+
+  const userCardsInventory = { userCards: [], forSaleCards: [] };
+  
+  userCards.forEach(userCard => {
+    const actualCardIndex = allCards.findIndex(card => card.id === userCard.CardId);
+    const actualCard = { ...allCards[actualCardIndex] }
+    let seeIn = '';
+
+    if (userCard.StatusId === 'active') {
+      seeIn = 'userCards'
+    } else if (userCard.StatusId === 'onSale') {
+      seeIn = 'forSaleCards'
+    } else {
+      return;
+    }
+
+    const alreadyExists = userCardsInventory[seeIn].find(card => card.id === actualCard.id);
+    if (!alreadyExists) {
+      actualCard.repeat = 1;
+      userCardsInventory[seeIn].push(actualCard);
+      actualCard.userCards = [userCard];
+    } else {
+      alreadyExists.repeat++;
+      alreadyExists.userCards.push(userCard);
+    }
   });
 
-  const { notRepeated } = noRepUserCards(userCardsInventory);
-
-  return { type: GET_USER_CARDS, payload: { userCardsInventory: notRepeated } };
+  return { type: GET_USER_CARDS, payload: userCardsInventory };
   //
 }
 

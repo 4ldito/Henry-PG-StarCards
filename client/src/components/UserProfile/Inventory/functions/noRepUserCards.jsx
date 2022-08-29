@@ -2,6 +2,8 @@ export default function (userCards) {
   const notRepeated = [];
   const forSaleCards = [];
 
+  // console.log('usercards', userCards)
+
   userCards?.forEach((e) => {
     if (!forSaleCards.find((card) => (card.name === e.name)) && !notRepeated.find((card) => (card.name === e.name))) {
       e.repeat = 1;
@@ -21,9 +23,8 @@ export default function (userCards) {
     }
   });
 
-  console.log(notRepeated);
-  console.log('////////////')
-  console.log(forSaleCards)
+  // console.log('/////');
+  // console.log(newUserCards);
 
   // let notRepeated =noRuserCards.reduce
   return { notRepeated, forSaleCards };
