@@ -13,7 +13,6 @@ import About from "./components/About/About";
 import PrivateChat from "./components/UserProfile/PrivateChat/PrivateChat";
 import { resetReduxState } from "./redux/actions";
 import Inventory from "./components/UserProfile/Inventory/Inventory";
-import RecoveryPassword from './components/Registro/RecoveryPassword';
 import Registro from "./components/Registro/Registro";
 import Firebase from "./components/FirebaseAdmi/Firebase";
 import RecoveryPassword from './components/Registro/RecoveryPassword';
