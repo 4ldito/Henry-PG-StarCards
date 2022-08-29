@@ -2,7 +2,7 @@ import { useFetchUsersCardsForSale } from "../../hooks/useForSaleCards";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { buyCard, clearForSaleCards, clearMsgMarketCards } from "../../redux/actions/marketCards";
-import { handleSaleCard } from "../../redux/actions/cards/userCards";
+import { removeForSale } from './../../redux/actions/marketCards';
 
 import Swal from 'sweetalert2';
 import Card from './../Card/Card';
@@ -53,7 +53,7 @@ const ForSaleCards = () => {
       confirmButtonText: "Comprar",
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
-        // dispatch(handleSaleCard({ userId: user.id, userCardsIdsToSale, status: 'active', price: null }))
+        dispatch(removeForSale({ userId: user.id, userCardsIdsToUpdate: [userCard.id], status: 'active', price: null }));
       }
     });
   }
@@ -66,9 +66,7 @@ const ForSaleCards = () => {
         text: msg.info,
         icon: msg.type,
       });
-
     }
-
   }, [msg]);
 
   useEffect(() => {
