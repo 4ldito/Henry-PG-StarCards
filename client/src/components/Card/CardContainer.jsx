@@ -4,7 +4,7 @@ import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
 export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, tamanho,maxT}) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [viewCard, setViewCard] = useState(false);
 
   function handleViewCard() {
