@@ -33,16 +33,14 @@ packsRoute.patch('/buy', async (req, res, next) => {
     const { data, userId } = req.body;
 
     const info = {};
+
     for (const pack of data) {
       info[pack.name] = { quantity: pack.quantity }
       if (pack.stock < pack.quantity) return res.send({ error: 'Stock insuficente' });
       pack.subTotal = pack.quantity * pack.price;
     }
 
-    const total = data.reduce(
-      (acc, currentValue) => acc + currentValue.subTotal,
-      0
-    );
+    const total = data.reduce((acc, currentValue) => acc + currentValue.subTotal, 0);
 
     const user = await User.findByPk(userId, { attributes: { exclude: ['password'] } });
 
@@ -68,24 +66,29 @@ packsRoute.patch('/buy', async (req, res, next) => {
     const updatedUser = updatedInfo.shift();
 
     const cardsPerPack = await Promise.all(updatedInfo.map(async (cardPack) => {
-      let acc = 0;
-      const probabilityArray = cardPack.cards.map((card) => {
-        acc = acc + Number(card[1])
-
-        return acc;
-      })
-
       let chosenArray = [];
-      let chosenCardIndex = probabilityArray.length - 1;
-      for (let i = 0; i < cardPack.amount; i++) {
-        const prob = Math.random();
 
-        for (let j = probabilityArray.length - 1; j >= 0; j--) {
-          if (prob < probabilityArray[j]) chosenCardIndex = j;
+      while (info[cardPack.name].quantity !== 0) {
+        let acc = 0;
+        // console.log(cardPack);
+        console.log(info[cardPack.name].quantity);
+        const probabilityArray = cardPack.cards.map((card) => {
+          acc = acc + Number(card[1]);
+          return acc;
+        })
+
+        let chosenCardIndex = probabilityArray.length - 1;
+        for (let i = 0; i < cardPack.amount; i++) {
+          const prob = Math.random();
+
+          for (let j = probabilityArray.length - 1; j >= 0; j--) {
+            if (prob < probabilityArray[j]) chosenCardIndex = j;
+          }
+          const chosenCardName = cardPack.cards[chosenCardIndex][0];
+          chosenArray.push(Card.findOne({ where: { name: chosenCardName, StatusId: "active" } }));
         }
 
-        const chosenCardName = cardPack.cards[chosenCardIndex][0];
-        chosenArray.push(Card.findOne({ where: { name: chosenCardName, StatusId: "active" } }))
+        info[cardPack.name].quantity--;
       }
       return Promise.all(chosenArray);
     }))
@@ -95,7 +98,9 @@ packsRoute.patch('/buy', async (req, res, next) => {
       cardPack.forEach(card => {
         cardsId.push(card.id)
       })
-    })
+    });
+
+    // console.log(cardsId);
 
     await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId });
     // updatedInfo = [updatedUser, ...updatedInfo];
