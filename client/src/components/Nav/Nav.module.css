@@ -11,7 +11,7 @@
   background-color: var(--color-darker);
   border-bottom: 1px solid black;
   z-index: 5000;
-  width: 100%;
+  width: 100vw;
   height: 7vh;
 
   padding: 0.3rem 1rem;
@@ -105,4 +105,27 @@
 .profile {
   width: 6.2vh;
   border-radius: 50%;
+}
+
+@media screen and (max-width:480px){
+    .nav{
+      width: 100vw;
+      flex-wrap: wrap;
+    }
+    .img{
+      display: none;
+    }
+    .li{
+      font-size: 1rem;
+    }
+}
+@media screen and (max-width:620px){
+    .li{
+      font-size: medium;
+    }
+}
+@media screen and (max-width:900px){
+    .img{
+      display: none;
+    }
 }

@@ -14,6 +14,8 @@ export const GET_USER_DECKS = "GET_USER_DECKS_deaa el tipo seguia los protocolos
 export const CREATE_DECK = "CREATE_DECK"
 export const DELETE_DECK = "DELETE_DECK";
 export const SET_ACTIVE_DECK = "SET_ACTIVE_DECK";
+export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK';
+export const REMOVE_DECK_CARD = 'REMOVE_DECK_CARD';
 export const USER_MODIFY_STARS = "USER_MODIFY_STARS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const SET_CHAT_NOTIFICATION = "SET_CHAT_NOTIFICATION";
@@ -161,7 +163,13 @@ export function deleteDeck(userId, deckId) {
 export function setActiveDeck(deck){
   return {type:SET_ACTIVE_DECK, payload:deck}
 }
-
+export function addDeckCard(cardId){
+  return {type:ADD_CARD_TO_DECK, payload:cardId}
+}
+export function removeDeckCard(cardId){
+  return {type:REMOVE_DECK_CARD, payload:cardId}
+}
 export function setChatNotification(flag) {
   return { type: SET_CHAT_NOTIFICATION, payload: flag };
 }
+
