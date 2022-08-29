@@ -46,6 +46,7 @@ export default function inventory(state = initialState, { type, payload }) {
 
       if (actualCard.repeat - payload.length === 0) {
         const newFilteredUserCards = state.filteredUserCards.filter(card => card.id !== payload[0].CardId);
+        
         return { ...state, filteredUserCards: newFilteredUserCards }
       }
       actualCard.repeat = actualCard.repeat - payload.length;
