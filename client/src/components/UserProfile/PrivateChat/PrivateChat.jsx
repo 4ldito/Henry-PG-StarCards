@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUser } from "../../../redux/actions/user";
-import socket from "./Socket";
+import socket from "../../../../Socket";
 
 import css from "./PrivateChat.module.css";
 
