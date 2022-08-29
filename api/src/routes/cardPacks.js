@@ -28,7 +28,6 @@ packsRoute.get("/:status", async (req, res, next) => {
 
 
 packsRoute.patch('/buy', async (req, res, next) => {
-  // const user = await User.findOne() // user hardcodeado x ahora jeje
   try {
     const { data, userId } = req.body;
 
@@ -46,9 +45,6 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
     const transaction = await Transaction.create({ type: 'stars' });
     await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
-
-    // await transaction.setUser(userId);
-    // await transaction.setStatus('active');
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
 
@@ -70,8 +66,6 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
       while (info[cardPack.name].quantity !== 0) {
         let acc = 0;
-        // console.log(cardPack);
-        console.log(info[cardPack.name].quantity);
         const probabilityArray = cardPack.cards.map((card) => {
           acc = acc + Number(card[1]);
           return acc;
@@ -100,11 +94,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
       })
     });
 
-    // console.log(cardsId);
-
     await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId });
-    // updatedInfo = [updatedUser, ...updatedInfo];
-    // console.log(updatedUser)
     return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo, updatedUser });
   } catch (error) {
     console.error(error)

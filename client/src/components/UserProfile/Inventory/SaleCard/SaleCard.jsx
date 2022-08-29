@@ -16,9 +16,13 @@ export default function SaleCard({ handleViewCard, card }) {
     setSale({ ...sale, [e.target.name]: e.target.value });
   }
 
-  // useEffect(() => {
-  //   setCurrentUserCards(user.UserCards?.filter(userCard => userCard.CardId === cardId));
-  // }, [user]);
+  useEffect(() => {
+    if (sale.quantity > card.userCards.length) setSale({ ...sale, quantity: card.userCards.length });
+  }, [sale]);
+
+  const dontAllowLeters = (e) => {
+    if (!/[0-9]/.test(e.key)) e.preventDefault();
+  }
 
   function handleSubmit(e, status) {
     e.preventDefault();
@@ -29,8 +33,7 @@ export default function SaleCard({ handleViewCard, card }) {
     for (let i = 0; i < sale.quantity; i++) {
       userCardsIdsToUpdate.push(card.userCards[i].id);
     }
-    dispatch(handleSaleCard({ userId: user.id, userCardsIdsToUpdate, status, price: sale.price }))
-
+    dispatch(handleSaleCard({ userId: user.id, userCardsIdsToUpdate, status, price: sale.price }));
   }
 
   return (
@@ -39,10 +42,14 @@ export default function SaleCard({ handleViewCard, card }) {
         <h1>{card.name}</h1>
         <img src={card.image} alt="" />
         <form onSubmit={(e) => handleSubmit(e, 'onSale')}>
-          <label htmlFor="">Cantidad</label>
-          <input type="number" name="quantity" min="1" max={card?.userCards?.length} value={sale.quantity} placeholder="quantity" onChange={(e) => handleChange(e)} />
-          <label htmlFor="">Precio</label>
-          <input type="number" name="price" value={sale.price} placeholder="price" onChange={(e) => handleChange(e)} />
+          <div className="">
+            <label htmlFor="quantity">Cantidad</label>
+            <input type="number" name="quantity" id="quantity" min="1" max={card?.userCards?.length} onKeyPress={dontAllowLeters} value={sale.quantity} placeholder="quantity" onChange={handleChange} />
+          </div>
+          <div className="">
+            <label htmlFor="price">Precio</label>
+            <input type="number" name="price" id="price" value={sale.price} placeholder="price" onKeyPress={dontAllowLeters} onChange={handleChange} />
+          </div>
           <input type="submit" value="Sale" />
         </form>
       </div>

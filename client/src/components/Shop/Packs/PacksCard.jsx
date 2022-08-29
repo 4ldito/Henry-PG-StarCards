@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToShopCart } from "../../../redux/actions/shopCart";
 import { favUserPacks } from "../../../redux/actions/cardsPack";
@@ -12,7 +12,7 @@ import Pack from "./Pack";
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
-  const [fav, setFav] = useState({action: 'delete', packId:0})
+  const [fav, setFav] = useState({ action: 'delete', packId: 0 })
 
   const user = useSelector((state) => state.userReducer.user);
   const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
@@ -53,7 +53,7 @@ const PacksCard = ({ pack, type }) => {
 
     Swal.fire({
       title: `Confrimar`,
-      text: `¿Estás seguro que queres comprar ${pack.name} por ${pack.price} stars?`,
+      text: `¿Estás seguro que queres comprar ${pack.quantity} ${pack.name} por ${pack.price * pack.quantity} stars?`,
       showCancelButton: true,
       confirmButtonText: "Comprar",
     }).then(({ isConfirmed }) => {
@@ -96,12 +96,12 @@ const PacksCard = ({ pack, type }) => {
     e.preventDefault();
     const userId = user.id
     if (fav.action === 'add') {
-      setFav({action:'delete', packId:e.target.id})
-      dispatch(favUserPacks({action:'delete', userId:userId, packId:e.target.id}))
+      setFav({ action: 'delete', packId: e.target.id })
+      dispatch(favUserPacks({ action: 'delete', userId: userId, packId: e.target.id }))
     } else {
-      setFav({action:'add', packId:e.target.id})
-      dispatch(favUserPacks({action:'add', userId:userId, packId:e.target.id}))
-    }    
+      setFav({ action: 'add', packId: e.target.id })
+      dispatch(favUserPacks({ action: 'add', userId: userId, packId: e.target.id }))
+    }
   }
 
   if (type === "cardsPack") {
@@ -109,7 +109,14 @@ const PacksCard = ({ pack, type }) => {
       <>
         {pack.stock > 0 && <form className={style.container} name={pack.name} id={pack.id} onSubmit={handleAddItem} key={pack.id}>
           <div className={style.pack}>
-            <Pack name={pack.name} amount={pack.amount} img={pack.image} pack={pack} id={pack.id}/>
+            <Pack
+              pack={pack}
+              increaseQuantity={increaseQuantity}
+              handleFav={handleFav}
+              handleAddItem={handleAddItem}
+              handleBuyNow={handleBuyNow}
+              decreaseQuantity={decreaseQuantity}
+              quantity={quantity} />
           </div>
           <p>Precio: <span className={style.starsText}>{pack.price} Stars</span></p>
           <p>Stock: <span className={style.stock}>{pack.stock}</span></p>
@@ -125,9 +132,9 @@ const PacksCard = ({ pack, type }) => {
             <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
             {
               searchFaved === undefined ?
-              <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Fav</button>
-              :
-              <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Unfav</button>
+                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Fav</button>
+                :
+                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Unfav</button>
             }
           </div>
         </form>}
