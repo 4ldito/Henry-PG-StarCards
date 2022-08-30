@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards } from "../../redux/actions/cards/filterCards";
 
+import imgSelect from '../../img/select.png';
+import btnFilter from "../../img/circle-15.svg";
+
 import css from "./Filter.module.css";
 
 export default function Filters() {
@@ -57,13 +60,13 @@ export default function Filters() {
 
   return (
     <div className={css.filter}>
-      <img src="../../../css/circle-15.svg" className={css.clearFilter} alt="ClearFilter" />
+      <img src={btnFilter} className={css.clearFilter} alt="ClearFilter" />
       <button onClick={clearFilters} className={css.btnClearFilter}>
         Clear Filters
       </button>
 
       <form className={css.form} onSubmit={onSubmit}>
-        <img src="../../../css/search.png" alt="" />
+        <img src={imgSelect} alt="" />
         <input className={css.input} ref={inputSearch} onChange={onFilterChange} name='search' value={filter.search} list="listaCards" />
         {/* <input className={css.btnSearch} type="submit" value="search" /> */}
       </form>
@@ -71,7 +74,7 @@ export default function Filters() {
       <datalist id="listaCards">{options()}</datalist>
 
       <div>
-        <img src="../../../css/select.png" alt="" />
+        <img src={imgSelect} alt="" />
         <select ref={selectRace} className={css.selectRace} onChange={onFilterChange} name="race">
           <option value="allRaces">All races</option>
           <option value="Protoss">Protoss</option>
@@ -82,7 +85,7 @@ export default function Filters() {
       </div>
 
       <div>
-        <img src="../../../css/select.png" alt="" />
+        <img src={imgSelect} alt="" />
         <select ref={selectMovement} className={css.selectMove} onChange={onFilterChange} name="movements">
           <option value="allMovements">All movements</option>
           <option value="Ground">Ground</option>
@@ -91,7 +94,7 @@ export default function Filters() {
       </div>
 
       <div>
-        <img src="../../../css/select.png" alt="" />
+        <img src={imgSelect} alt="" />
         <select ref={selectOrder} className={css.select} onChange={onFilterChange} name="order">
           <option hidden value='none'>Random Order</option>
           <option value="nameAtoZ">by name - A to Z</option>
@@ -106,6 +109,7 @@ export default function Filters() {
           <option value="descendentlife">by life descendent</option>
         </select>
       </div>
+      <select className={css.test}><option value="testttttt">test</option></select>
       {/* <button onClick={clearFilters}>Clear Filters</button> */}
     </div>
   );

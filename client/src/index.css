@@ -18,7 +18,7 @@ background-size: cover;
 body {
   /* background-color: #9CCDF3; */
   /* background-image: url(https://images3.alphacoders.com/968/thumb-1920-96817.jpg); */
-  background-image: url("../../../css/background.png");
+  background-image: url("./img/background.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
