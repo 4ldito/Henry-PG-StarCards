@@ -9,7 +9,7 @@ export default function About() {
   const user = useSelector((state) => state.userReducer.user);
 
   useEffect(() => {
-    dispatch(getUser(user.id));
+    if (user.id !== undefined) dispatch(getUser(user.id));
   }, []);
 
   return (

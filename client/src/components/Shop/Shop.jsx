@@ -25,7 +25,7 @@ const Shop = () => {
   const user = useSelector((state) => state.userReducer.user);
 
   useEffect(() => {
-    dispatch(getUser(user.id));
+    if (user.id !== undefined) dispatch(getUser(user.id));
   }, []);
 
   const handleChangeView = (e) => {

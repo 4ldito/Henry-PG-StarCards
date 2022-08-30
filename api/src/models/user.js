@@ -64,6 +64,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         defaultValue: 0,
       },
+      notifications: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
       roles: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         defaultValue: ["user"],

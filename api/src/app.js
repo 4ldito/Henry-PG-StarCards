@@ -128,10 +128,15 @@ io.on("connection", (socket) => {
       (u) => u.userId === receiver.id
     );
     const notificationFlag = true;
-    io.to(receiverNotificationSocket.sockets[0]).emit(
-      "chatNotification",
-      notificationFlag
-    );
+
+    const receiverUser = await User.findByPk(receiver.id);
+    if (receiverUser) await receiverUser.update({ notifitations: true });
+
+    if (receiverNotificationSocket?.sockets[0])
+      io.to(receiverNotificationSocket.sockets[0]).emit(
+        "chatNotification",
+        notificationFlag
+      );
   });
 
   ///////////////////////////////////////////////////////////////////////////////

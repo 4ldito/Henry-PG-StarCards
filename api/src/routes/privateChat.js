@@ -60,14 +60,16 @@ chatRoute.patch("/", async (req, res, next) => {
   try {
     const { userId, privChatId, msgNum } = req.body;
 
-    const privChat = await PrivateChat.findByPk(privChatId);
+    if (privChatId !== "undefined" && privChatId !== undefined) {
+      const privChat = await PrivateChat.findByPk(privChatId);
 
-    await privChat.update({
-      lastSeen: [
-        privChat.lastSeen.find((e) => e.user !== userId),
-        { user: userId, msgNum },
-      ],
-    });
+      await privChat.update({
+        lastSeen: [
+          privChat.lastSeen.find((e) => e.user !== userId),
+          { user: userId, msgNum },
+        ],
+      });
+    }
 
     return res.json("LastSeen updated!");
   } catch (error) {

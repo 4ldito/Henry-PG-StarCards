@@ -18,14 +18,13 @@ export default function Game() {
   const user = useSelector((state) => state.userReducer.user);
 
   useEffect(() => {
-    dispatch(getUser(user.id));
+    if (user.id !== undefined) dispatch(getUser(user.id));
   }, []);
 
   const [section, setSection] = useState("album");
   // const album = useRef(null);
   // const rules = useRef(null);
   // const team = useRef(null);
-
 
   function handleClick(e) {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React,{ useEffect } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import style from "../../styles/landingPage/landingPage.module.css";
 
@@ -10,7 +10,7 @@ const LandingPage = () => {
   const user = useSelector((state) => state.userReducer.user);
 
   useEffect(() => {
-    dispatch(getUser(user.id));
+    if (user.id !== undefined) dispatch(getUser(user.id));
   }, []);
 
   return (

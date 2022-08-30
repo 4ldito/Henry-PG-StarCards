@@ -58,7 +58,7 @@ const SinglePrivateChat = ({ newChatUser }) => {
       return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
     });
 
-    dispatch(
+    if (privateChat) dispatch(
       setLastSeenMsg(
         userActive.id,
         privateChat.id,
