@@ -33,12 +33,15 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
     try {
 
         const newDeck = await Deck.create({ name },{include:Card});
+        
         newDeckCards.forEach(async e => {
             let card;
             while(e.repeat >= 1){
+                console.log('e dot repeat------------------->',e.repeat);
                 card = await Card.findByPk(e.id, { include: [Deck] });
-                await newDeck.addCard(card);        
+                await newDeck.addCard(card);   
                 newDeck.save();
+                e.repeat--;     
             }
             // card = await Card.findByPk(e.id, { include: [Deck] });
             // await card.addDeck(newDeck);
