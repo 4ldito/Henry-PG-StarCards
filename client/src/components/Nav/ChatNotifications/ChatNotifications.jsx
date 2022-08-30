@@ -4,6 +4,7 @@ import { setChatNotification } from "../../../redux/actions/user";
 import socket from "../../../../Socket";
 
 const ChatNotifications = () => {
+  const dispatch = useDispatch();
   const userActive = useSelector((state) => state.userReducer.user);
   const chatNotificationFlag = useSelector(
     (state) => state.userReducer.chatNotification
@@ -17,18 +18,16 @@ const ChatNotifications = () => {
     };
   }, [userActive]);
 
+  socket.on("chatNotification", (notificationFlag) => {
+    setNotification(notificationFlag);
+    dispatch(setChatNotification(notificationFlag));
+  });
+
   useEffect(() => {
-    socket.on("chatNotification", (notificationFlag) => {
-      setNotification(notificationFlag);
-      dispatchEvent(setChatNotification(notificationFlag));
-    });
+    setNotification(chatNotificationFlag);
+  }, [chatNotificationFlag]);
 
-    return () => {
-      socket.off();
-    };
-  }, [notification]);
-
-  return <div>NOTIFICACION DE CHAT</div>;
+  return <>{notification ? <div>NOTIFICACION DE CHAT</div> : <></>}</>;
 };
 
 export default ChatNotifications;
