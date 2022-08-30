@@ -8,16 +8,16 @@ import css from "./Inventory.module.css";
 import { useState } from "react";
 
 export default function Inventory() {
-  const [showFilters,setShowFilter] = useState(false);
+  // const [showFilters,setShowFilter] = useState(false);
   return (
     <div className={css.Inventory}>
-      {showFilters&&<div className={css.filters}>
+      <div className={css.filters}>
         <Filters />
         <Sort />
         <SearchUserCard />
         <button onClick={()=>setShowFilter(false)}>hidde</button>
-      </div>}
-      {!showFilters&&<button onClick={()=>{setShowFilter(true)}}>filters</button>}
+      </div>
+      {/* {!showFilters&&<button onClick={()=>{setShowFilter(true)}}>filters</button>} */}
       <InventoryContainer/>
     </div>
   );

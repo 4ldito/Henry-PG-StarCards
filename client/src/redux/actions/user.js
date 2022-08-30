@@ -24,6 +24,7 @@ export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
 export const USER_CLEAN = "USER_CLEAN";
 export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
+export const MODIFY_USER_CARDS = 'MODIFY_USER_CARDS'; 
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
