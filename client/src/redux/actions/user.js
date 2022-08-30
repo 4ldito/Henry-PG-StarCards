@@ -108,7 +108,11 @@ export function modifyUser(id, property, norender) {
   }
 }
 
-export function deleteUser(id) {
+export function deleteUser(id,norender) {
+  if(norender){
+    return function () {
+    axios.delete(`user/?id=${id}`);
+    };}
   return async function (dispatch) {
     const response = await axios.delete(`user/?id=${id}`);
     dispatch({ type: DELETE_USER, payload: response.data });
