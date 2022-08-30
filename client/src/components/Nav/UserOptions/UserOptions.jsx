@@ -19,7 +19,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
   function quit() {
     dispatch(logOut());
     dispatch(resetReduxState());
-    navigate("/login");
+    // navigate("/login");
   }
 
   const option = {
@@ -46,7 +46,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
   function logout(){
     return(
       <>      
-        <button className={css.btn} onClick={quit} >Log out</button>
+        <Link className={css.btn} onClick={quit} to="/login">Log out</Link>
       </>
 )
   }
@@ -54,6 +54,14 @@ export default function UserOptions({ handleVisibleUserOptions }) {
     <>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
       <ul id="menu" className={css.ul}>
+      <li className={css.li}>
+          {validToken && user.roles !== "user" ? (
+            <Link className={css.link} style={option} onClick={closeOptions} to="/admin">
+            Admin
+          </Link>
+          ) : ''
+          }
+        </li>
         <li className={css.li}>
           <button
             onClick={handleSeeShopcart}
@@ -77,14 +85,9 @@ export default function UserOptions({ handleVisibleUserOptions }) {
           </li>
         )}
         <li className={css.li}>
-          {validToken ? logout() : login()}
-        </li>
-        <li className={css.li}>
-          {validToken && user.roles !== "user" ? (
-            <Link className={css.link} style={option} onClick={closeOptions} to="/admin">
-            Admin
-          </Link>
-          ) : ''
+          {validToken ? 
+                <Link className={css.btn} style={option} to="/login" onClick={quit}>Log out</Link>
+          :     <Link className={css.link} style={option} to="/login" onClick={closeOptions}>Log In</Link>
           }
         </li>
       </ul>
