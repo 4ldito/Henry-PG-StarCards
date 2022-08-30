@@ -57,15 +57,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("privateMessage", async (emitter, receiver, message) => {
-    const msg = emitter.username + ": " + message;
-    const currentReceiver = userSockets.find((u) => u.userId === receiver.id);
-    if (currentReceiver)
-      io.to(currentReceiver.socket).emit("privateMessage", emitter, msg);
-
-    const currentUser = userSockets.find((u) => u.userId === emitter.id);
-    io.to(currentUser.socket).emit("privateMessage", receiver, msg);
-
-    const [emitterId, receiverId] = [emitter.id, receiver.id];
+    const [emitterId, receiverId, msg] = [
+      emitter.id,
+      receiver.id,
+      emitter.username + ": " + message,
+    ];
     try {
       const [emitterProm, receiverProm, messageProm] = await Promise.all([
         User.findOne({
@@ -99,8 +95,8 @@ io.on("connection", (socket) => {
       else {
         privChat = await PrivateChat.create({
           lastSeen: [
-            { user: emitter.id, msgNum: -1 },
-            { user: receiver.id, msgNum: -1 },
+            { user: emitter.id, msgNum: 0 },
+            { user: receiver.id, msgNum: 0 },
           ],
         });
         await privChat.addMessage(messageProm);
@@ -109,6 +105,18 @@ io.on("connection", (socket) => {
           receiverProm.addPrivateChat(privChat),
         ]);
       }
+
+      const currentReceiver = userSockets.find((u) => u.userId === receiver.id);
+      if (currentReceiver)
+        io.to(currentReceiver.socket).emit(
+          "privateMessage",
+          emitter,
+          msg,
+          privChat.id
+        );
+
+      const currentUser = userSockets.find((u) => u.userId === emitter.id);
+      io.to(currentUser.socket).emit("privateMessage", receiver, msg);
     } catch (error) {
       console.error(error);
     }

@@ -56,4 +56,23 @@ const chatRoute = Router();
 //     }
 // });
 
+chatRoute.patch("/", async (req, res, next) => {
+  try {
+    const { userId, privChatId, msgNum } = req.body;
+
+    const privChat = await PrivateChat.findByPk(privChatId);
+
+    const payload = await privChat.update({
+      lastSeen: [
+        privChat.lastSeen.find((e) => e.user !== userId),
+        { user: userId, msgNum },
+      ],
+    });
+
+    return res.json("LastSeen updated!");
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = chatRoute;
