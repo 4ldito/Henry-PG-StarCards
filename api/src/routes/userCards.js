@@ -86,7 +86,7 @@ userCardsRoute.patch("/", async (req, res, next) => {
 
     return res.json(updatedUserCards);
   } catch (error) {
-    console.log('error');
+    console.log(error);
   }
 });
 

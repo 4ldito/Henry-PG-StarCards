@@ -8,6 +8,7 @@ import {
   SORT_USER_CARDS,
   SEARCH_USER_CARD,
   SALE_CARD,
+  CLEAN_MSG_USER_CARDS,
 } from "../actions/cards/userCards";
 import { ADD_CARD_TO_DECK, REMOVE_DECK_CARD } from "../actions/user";
 
@@ -16,7 +17,8 @@ const initialState = {
   filteredCards: [],
   userCards: [],
   filteredUserCards: [],
-  userCardsForSale: []
+  userCardsForSale: [],
+  msg: { type: '', info: '', title: '' },
 };
 
 export default function inventory(state = initialState, { type, payload }) {
@@ -33,6 +35,7 @@ export default function inventory(state = initialState, { type, payload }) {
       return {
         ...state,
         userCards: payload.userCards,
+        // filteredUserCards: payload.userCards,
         userCardsForSale: payload.forSaleCards,
         // userCardsNotRepeated: payload.notRepeated,
       };
@@ -43,14 +46,20 @@ export default function inventory(state = initialState, { type, payload }) {
     case SEARCH_USER_CARD:
       return { ...state, filteredUserCards: payload };
     case SALE_CARD:
-      const actualCard = state.userCards.find(card => card.id === payload[0].CardId);
-
+      const actualCard = state.filteredUserCards.find(card => card.id === payload[0].CardId);
+      // console.log(payload);
+      const msg = { type: 'success', info: `Pusiste a la venta ${payload.length} ${payload[0].Card.name} por ${payload[0].price}`, title: 'Exito!' }
       if (actualCard.repeat - payload.length === 0) {
-        const newFilteredUserCards = state.userCards.filter(card => card.id !== payload[0].CardId);
-        return { ...state, filteredUserCards: newFilteredUserCards }
+        const newFilteredUserCards = state.filteredUserCards.filter(card => card.id !== payload[0].CardId);
+
+        return {
+          ...state,
+          filteredUserCards: newFilteredUserCards,
+          msg
+        }
       }
       actualCard.repeat = actualCard.repeat - payload.length;
-      return { ...state, filteredUserCards: [...state.filteredUserCards] }
+      return { ...state, filteredUserCards: [...state.filteredUserCards], msg }
     case ADD_CARD_TO_DECK:
       const card = state.filteredUserCards.find(e => e.id === payload);
       if (card.repeat > 1) {
@@ -67,6 +76,8 @@ export default function inventory(state = initialState, { type, payload }) {
       } else {
         return { ...state, filteredCards: [...state.filteredUserCards, cardBack] }
       }
+    case CLEAN_MSG_USER_CARDS:
+      return { ...state, msg: { type: '', info: '', title: '' } }
     default:
       return state;
   }

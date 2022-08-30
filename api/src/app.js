@@ -137,7 +137,7 @@ io.on("connection", (socket) => {
     //socket.broadcast.emit manda el mensaje a todos los clientes excepto al que ha enviado el mensaje
     socket.broadcast.emit("mensajes", {
       nombre: nombre,
-      mensaje: `${nombre} ha entrado en la sala del chat`,
+      mensaje: ` ha entrado en la sala del chat`,
     });
   });
 
@@ -147,10 +147,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    io.emit("mensajes", {
-      socketIoServer: "Servidor",
-      mensaje: `${nombre} ha abandonado la sala`,
-    });
+    if (nombre)
+      io.emit("mensajes", { socketIoServer: "Servidor", mensaje: `${nombre} ha abandonado la sala`, });
   });
 });
 
