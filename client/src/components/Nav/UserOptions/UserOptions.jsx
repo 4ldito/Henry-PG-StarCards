@@ -79,6 +79,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
               className={css.link}
               style={option}
               to={`/userProfile?username=${user.username}`}
+              onClick={closeOptions}
             >
               User Profile
             </Link>

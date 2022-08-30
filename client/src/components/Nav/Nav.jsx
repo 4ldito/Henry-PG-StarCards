@@ -91,11 +91,11 @@ export default function Nav() {
       </button>
       {validToken && <ChatNotifications />}
 
-      {userOptions && (
+      {userOptions ? (
         <div className={css.userOptions}>
           <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
-      )}
+      ):''}
     </div>
   );
 }

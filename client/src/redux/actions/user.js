@@ -98,11 +98,15 @@ export function userOptionsState() {
   return { type: USER_OPTIONS_STATE };
 }
 
-export function modifyUser(id, property) {
+export function modifyUser(id, property, norender) {
+  if(norender){
+  return function () {
+  axios.patch(`user/${id}`, property);
+  };}
   return async function (dispatch) {
     const response = await axios.patch(`user/${id}`, property);
     dispatch({ type: MODIFY_USER, payload: response.data });
-  };
+  }
 }
 
 export function deleteUser(id) {
