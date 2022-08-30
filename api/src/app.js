@@ -130,7 +130,7 @@ io.on("connection", (socket) => {
     const notificationFlag = true;
 
     const receiverUser = await User.findByPk(receiver.id);
-    if (receiverUser) await receiverUser.update({ notifitations: true });
+    if (receiverUser) await receiverUser.update({ notifications: true });
 
     if (receiverNotificationSocket?.sockets[0])
       io.to(receiverNotificationSocket.sockets[0]).emit(

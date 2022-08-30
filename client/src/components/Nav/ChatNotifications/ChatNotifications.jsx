@@ -12,7 +12,10 @@ const ChatNotifications = () => {
   const [notification, setNotification] = useState(chatNotificationFlag);
 
   useEffect(() => {
-    if (userActive) socket.emit("connectUserNotifications", userActive.id);
+    if (userActive) {
+      setNotification(userActive.notifications);
+      socket.emit("connectUserNotifications", userActive.id);
+    }
     return () => {
       socket.emit("disconnectUserNotifications", userActive.id);
     };
