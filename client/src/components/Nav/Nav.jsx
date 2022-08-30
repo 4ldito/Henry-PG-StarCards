@@ -6,21 +6,16 @@ import ChatNotifications from "./ChatNotifications/ChatNotifications";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
-import { useDispatch, useSelector } from "react-redux";
-import { userOptionsState } from "../../redux/actions/user";
+import { useSelector } from "react-redux";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
-  const { validToken } = useValidToken({ navigate: false });;
+  const { validToken } = useValidToken({ navigate: false });
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
-  const userOptions = useSelector((state) => state.userReducer.userOptions);
+  // const userActive = useSelector((state) => state.userReducer.user);
 
-  const userActive = useSelector((state) => state.userReducer.user);
-  const dispatch = useDispatch();
-
-
-  function handleVisibleUserOptions() {
-    dispatch(userOptionsState())
+  const handleVisibleUserOptions = () => {
+    setVisibleUserOptions(!visibleUserOptions);
   };
 
   // function navEnabled() {
@@ -29,7 +24,8 @@ export default function Nav() {
   //       <NavLink className={css.link} to="/">
   //         <img className={css.img} src={logo} alt="Logo de StarCards" />
   //       </NavLink>
-  //     </div>)
+  //     </div>
+  //   );
   // }
 
   // function navDisabled() {
@@ -37,8 +33,9 @@ export default function Nav() {
   //     <div>
   //       <NavLink className={css.link} to="/userProfile">
   //         <img className={css.img} src={logo} alt="Logo de StarCards" />
-  //       </NavLink>      </div>
-  //   )
+  //       </NavLink>{" "}
+  //     </div>
+  //   );
   // }
 
   return (
@@ -52,24 +49,26 @@ export default function Nav() {
       <ul className={css.ul}>
         <li className={css.li}>
           <NavLink className={css.link} to="/shop">
-            MarketPlace
+            <span className={css.span}>STORE</span>
           </NavLink>
         </li>
-        <li className={css.li}>
-          {validToken && (
-            <NavLink className={css.link} to="/playroom">
-              Playroom
-            </NavLink>
-          )}
-        </li>
-        <li className={css.li}>
+        {validToken && (
+          <>
+            <li className={`${css.li} ${css.liMedium}`}>
+              <NavLink className={css.link} to="/playroom">
+                <span className={css.span}>PLAYROOM</span>
+              </NavLink>
+            </li>
+          </>
+        )}
+        <li className={`${css.li} ${css.liMedium}`}>
           <NavLink className={css.link} to="/game">
-            Game
+            <span className={css.span}>GAME</span>
           </NavLink>
         </li>
         <li className={css.li}>
           <NavLink className={css.link} to="/about">
-            About
+            <span className={css.span}>ABOUT</span>
           </NavLink>
         </li>
       </ul>
@@ -87,13 +86,14 @@ export default function Nav() {
             alt="image profile"
           />
         ) : (
-          <span id="btnMenu" className="material-symbols-outlined">
-            account_circle
-          </span>
+          // <span id="btnMenu" className="material-symbols-outlined">
+          //   account_circle
+          // </span>
+          <img src="../../../css/circle-15.svg" id="btnMenu" alt="Perfil" />
         )}
       </button>
 
-      {userOptions && (
+      {visibleUserOptions && (
         <div className={css.userOptions}>
           <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
