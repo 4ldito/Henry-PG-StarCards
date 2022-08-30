@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser } from "../../../redux/actions/user";
-import socket from "../../../../Socket";
 import {
+  getUser,
   setChatNotification,
   setLastSeenMsg,
 } from "../../../redux/actions/user";
+import socket from "../../../../Socket";
 
 import css from "./PrivateChat.module.css";
 
@@ -116,6 +116,16 @@ const PrivateChat = ({ selected }) => {
   useEffect(() => {
     socket.on("privateMessage", (user, message, privChatId) => {
       setPrivChatId(privChatId);
+
+      // if (actualChatUser.id === user.id)
+      //   dispatch(
+      //     setLastSeenMsg(
+      //       userActive.id,
+      //       privChatId,
+      //       messages[actualChatUser?.id]?.Messages.length
+      //     )
+      //   );
+
       if (chatUsers.find((c) => c.id === user.id) === undefined)
         setChatUsers((prev) => [
           ...prev,
@@ -158,7 +168,7 @@ const PrivateChat = ({ selected }) => {
       setLastSeenMsg(
         userActive.id,
         privateChat.id,
-        messages[actualChatUser.id].Messages.length
+        messages[actualChatUser.id].Messages.length + 1
       )
     );
   };
@@ -185,7 +195,9 @@ const PrivateChat = ({ selected }) => {
                   className={css.singleChatUser}
                 >
                   {c.username}{" "}
-                  {readMsgs(c) === undefined
+                  {actualChatUser && actualChatUser.id === c.id
+                    ? ""
+                    : readMsgs(c) === undefined
                     ? "New"
                     : readMsgs(c) < unreadMsgs(c)
                     ? `${unreadMsgs(c) - readMsgs(c)}`
