@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards } from "../../redux/actions/cards/filterCards";
 
+import imgSearch from '../../img/search.png';
 import imgSelect from '../../img/select.png';
 import btnFilter from "../../img/circle-15.svg";
 
@@ -66,7 +67,7 @@ export default function Filters() {
       </button>
 
       <form className={css.form} onSubmit={onSubmit}>
-        <img src={imgSelect} alt="" />
+        <img src={imgSearch} alt="" />
         <input className={css.input} ref={inputSearch} onChange={onFilterChange} name='search' value={filter.search} list="listaCards" />
         {/* <input className={css.btnSearch} type="submit" value="search" /> */}
       </form>
@@ -109,7 +110,7 @@ export default function Filters() {
           <option value="descendentlife">by life descendent</option>
         </select>
       </div>
-      <select className={css.test}><option value="testttttt">test</option></select>
+      <select className={css.test}><option value="testttttt">testttttttttttt</option></select>
       {/* <button onClick={clearFilters}>Clear Filters</button> */}
     </div>
   );
