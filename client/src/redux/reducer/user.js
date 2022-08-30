@@ -16,6 +16,7 @@ import {
   SET_CHAT_NOTIFICATION,
   CREATE_DECK,
   SET_ACTIVE_DECK,
+  USER_OPTIONS_STATE,
   ADD_CARD_TO_DECK,
   MODIFY_USER_CARDS,
 } from "../actions/user";
@@ -34,6 +35,7 @@ const initialState = {
   validToken: false,
   token: null,
   chatNotification: false,
+  userOptions: false
 };
 
 
@@ -53,6 +55,9 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case GET_USER_BY_NAME:
       return { ...state, urlUser: payload };
+
+    case USER_OPTIONS_STATE:
+      return { ...state, userOptions: !state.userOptions };
 
     case CREATE_USER:
       if (payload.error)

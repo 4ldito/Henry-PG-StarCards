@@ -86,7 +86,7 @@ userCardsRoute.patch("/", async (req, res, next) => {
 
     return res.json(updatedUserCards);
   } catch (error) {
-    console.log(error);
+      next(error)
   }
 });
 
@@ -112,7 +112,7 @@ userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
 
     return res.send({ buyerUser: buyerUserUpdated, sellerUser: sellerUserUpdated, userCard: userCardUpdated });
   } catch (error) {
-    console.log(error);
+      next(error);
   }
 
 });
