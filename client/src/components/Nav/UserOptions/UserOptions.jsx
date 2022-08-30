@@ -54,16 +54,14 @@ export default function UserOptions({ handleVisibleUserOptions }) {
     <>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
       <ul id="menu" className={css.ul}>
-      
+      <li className={css.li}>
           {validToken && user.roles !== "user" ? (
-            <li className={css.li}>
             <Link className={css.link} style={option} onClick={closeOptions} to="/admin">
             Admin
           </Link>
-          </li>
           ) : ''
           }
-
+        </li>
         <li className={css.li}>
           <button
             onClick={handleSeeShopcart}
@@ -81,6 +79,7 @@ export default function UserOptions({ handleVisibleUserOptions }) {
               className={css.link}
               style={option}
               to={`/userProfile?username=${user.username}`}
+              onClick={closeOptions}
             >
               User Profile
             </Link>

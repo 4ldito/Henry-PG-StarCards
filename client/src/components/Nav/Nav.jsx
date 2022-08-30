@@ -89,11 +89,11 @@ export default function Nav() {
         )}
       </button>
 
-      {userOptions && (
+      {userOptions ? (
         <div className={css.userOptions}>
           <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
-      )}
+      ):''}
     </div>
   );
 }
