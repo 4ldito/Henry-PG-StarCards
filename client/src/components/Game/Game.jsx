@@ -40,7 +40,11 @@ export default function Game() {
           name="album"
           onClick={(e) => handleClick(e)}
         >
-          <img src="../../../css/button.png" className={css.btnImage} />
+          {section === "album" ? (
+            <img src="../../../css/button-active.png" className={css.btnImage} />
+          ) : (
+            <img src="../../../css/button.png" className={css.btnImage} />
+          )}
           <h2>ALBUM</h2>
         </div>
         <div
@@ -50,7 +54,11 @@ export default function Game() {
           onClick={(e) => handleClick(e)}
           disabled
         >
-          <img src="../../../css/button.png" className={css.btnImage} />
+          {section === "rules" ? (
+            <img src="../../../css/button-active.png" className={css.btnImage} />
+          ) : (
+            <img src="../../../css/button.png" className={css.btnImage} />
+          )}
           <h2>RULES</h2>
         </div>
         <div
@@ -60,7 +68,11 @@ export default function Game() {
           onClick={(e) => handleClick(e)}
           disabled
         >
-          <img src="../../../css/button.png" className={css.btnImage} />
+          {section === "team" ? (
+            <img src="../../../css/button-active.png" className={css.btnImage} />
+          ) : (
+            <img src="../../../css/button.png" className={css.btnImage} />
+          )}
           <h2>TEAM</h2>
         </div>
       </div>
@@ -69,7 +81,15 @@ export default function Game() {
         <div className={css.seccionesLow}>
           <div className={css.filtrosContainer}>
             <div className={css.filtros}>
-              <button onClick={clearFilters}>Clear Filters</button>
+              <img
+                src="../../../css/circle-15.svg"
+                className={css.clearFilter}
+                alt="ClearFilter"
+                onClick={clearFilters}
+              />
+              <button className={css.btnClearFilter} onClick={clearFilters}>
+                Clear Filters
+              </button>
               <SearchCard />
               <SortCards />
               <FilterByRace />

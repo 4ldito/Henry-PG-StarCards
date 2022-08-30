@@ -110,7 +110,7 @@
 .userOptions {
   position: absolute;
 
-  background-color: rgb(43, 31, 122);
+  background-color: rgba(43, 31, 122, 0.63);
   border-top: none;
   border-radius: 0 0 10px 10px;
 

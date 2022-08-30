@@ -42,6 +42,7 @@ export default function SearchCard() {
           onChange={(e) => onInputChange(e)}
           value={search}
           list="listaCards"
+          placeholder="Search card"
         />
       </form>
 

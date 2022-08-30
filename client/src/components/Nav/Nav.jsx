@@ -85,7 +85,7 @@ export default function Nav() {
           // <span id="btnMenu" className="material-symbols-outlined">
           //   account_circle
           // </span>
-          <img src="../../../css/perfil_Mesa_de_trabajo.png" id="btnMenu" alt="Perfil" />
+          <img src="../../../css/circle-15.svg" id="btnMenu" alt="Perfil" />
         )}
       </button>
 
