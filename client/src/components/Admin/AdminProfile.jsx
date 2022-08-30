@@ -6,12 +6,12 @@ import { getAllUsers, modifyUser } from "../../redux/actions/user";
 import style from "./AdminProfile.module.css";
 import Swal from 'sweetalert2';
 
-export default function Admin(){
+export default function renderAdmin(){
     const { validToken } = useValidToken({ navigate: false });
     const navigateTo = useNavigate()
     const dispatch = useDispatch();
     const allUsers = useSelector((state) => state.userReducer.users);
-    const user = useSelector((state) => state.userReducer.user);
+    const userActual = useSelector((state) => state.userReducer.user);
     const [users, setUsers] = useState(false)
 
     useEffect(() => {
@@ -21,40 +21,49 @@ export default function Admin(){
     
     function changeStatus(e,user){
         user.StatusId === 'active' ?
-        dispatch(modifyUser(user.id, {StatusId: 'inactive'}))
-        :   dispatch(modifyUser(user.id, {StatusId: 'active'}))
+        dispatch(modifyUser(user.id, {StatusId: 'inactive'}, true))
+        :   dispatch(modifyUser(user.id, {StatusId: 'active'}, true))
         setUsers(true)
     }
 
     function changeRol(e,user){
         user.RolId === 'user' ?
-            dispatch(modifyUser(user.id, {RolId: 'admin'}))
-        :   dispatch(modifyUser(user.id, {RolId: 'user'}))    
+            dispatch(modifyUser(user.id, {RolId: 'admin'}, true))
+        :   dispatch(modifyUser(user.id, {RolId: 'user'}, true))    
         setUsers(true)
     }
 
-    
+    function resetPassword(e, user){
+        dispatch(modifyUser(user.id, {password: 'starcards2022'}, true))
+        Swal.fire({
+            title: 'Contraseña Restablecida',
+            text: 'La nueva Contraseña es: starcards2022',
+            icon: 'success',
+          });
+          setUsers(true)
+    }
 
     function listUsers(){
         return(
             <>
-            {validToken && user.Rol !== 'user' ? (<div className={style.containerUsers}>
-                {allUsers.map((user)=>
-                    <ul key={user.id}>
-                        <li>
-                        {<Link to={`/userProfile?username=${user.username}`}>{user.username}</Link>}
+            {(validToken && userActual.RolId !== 'user') ? (<div className={style.containerUsers}>
+                    {<ul >
+                {allUsers.map((u)=>
+                        <li key={u.id}>
+                        {<Link to={`/userProfile?username=${u.username}`}>{u.username}</Link>}
                         
-                        {<label>Status: {user.StatusId}</label>}
-                        {<button onClick={(e)=>changeStatus(e,user)}>{user.StatusId === 'active' ? 'Ban' : 'Unban'}</button>}
+                        {<label>Status: {u.StatusId}</label>}
+                        {<button onClick={(e)=>changeStatus(e,u)}>{u.StatusId === 'active' ? 'Ban' : 'Unban'}</button>}
 
-
-                        {<label>Rol: {user.RolId}</label>}
-                        {<button onClick={(e)=>changeRol(e,user)}>{user.RolId === 'user' ? 'Up to Admin' : 'Low to User'}</button>}
+                        {<label>Rol: {u.RolId}</label>}
+                        {<button onClick={(e)=>changeRol(e,u)}>{u.RolId === 'user' ? 'Up to Admin' : 'Low to User'}</button>}
                         
+                        {<button onClick={(e)=>resetPassword(e,u)}>Reset Password</button>}
                         </li>
+                )}
                     </ul>
-                    )}
-            </div>) : navigateTo('/login')}
+                    }
+            </div>) : console.log(validToken, userActual.RolId)}
             </>
             )
     }
