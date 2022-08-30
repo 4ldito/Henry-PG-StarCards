@@ -16,7 +16,6 @@ export function CardContainer({ card,repeat, addButton, addCardToDeck, inDeck, t
     <div className={css.container}>
       {repeat > 1 && <label style={{ fontSize: "50px" }}>{repeat}</label>}
       {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
-
       <Card
         id={card.id}
         name={card.name}

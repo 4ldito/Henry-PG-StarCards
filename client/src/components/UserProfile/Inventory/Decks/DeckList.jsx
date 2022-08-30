@@ -21,7 +21,6 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
     }, [])
 
     useEffect(() => {
-        console.log(justCreated);
         if (!justCreated && selectedDeck && !decks.includes(e => e.id === selectedDeck.id)) {
             setSelectedDeck(activeDeck)
         };
@@ -70,7 +69,9 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
             <input id='newDeckName' onChange={(e) => setNewDeckName(e.target.value)} placeholder="Nombra el mazo"></input>
             <div className={css.actualDeckContainer}>
                 {creatingDeck ? newDeckCards?.map((e, i) => <CardContainer removeCardFromDeck={removeCardFromDeck} key={i} inDeck={true} repeat={e.repeat} card={e}></CardContainer>) :
-                    selectedDeck?.Cards?.map((e, i) => <CardContainer key={i} inDeck={true} card={e}></CardContainer>)}
+                    selectedDeck?.Cards?.map((e, i) => {
+                    return <CardContainer key={i} inDeck={true} card={e} repeat={e.repeat}></CardContainer>})}
+            
                 {(!creatingDeck && activeDeck.id !== selectedDeck.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
             </div>
             <button onClick={() => { createNewDeck(userId, newDeckCards, newDeckName) }}>Guardar</button>

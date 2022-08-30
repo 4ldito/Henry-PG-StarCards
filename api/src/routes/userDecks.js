@@ -34,10 +34,15 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
 
         const newDeck = await Deck.create({ name },{include:Card});
         newDeckCards.forEach(async e => {
-            const card = await Card.findByPk(e.id, { include: [Deck] });
-            await card.addDeck(newDeck);
-            await newDeck.addCard(card);
-            newDeck.save();
+            let card;
+            while(e.repeat >= 1){
+                card = await Card.findByPk(e.id, { include: [Deck] });
+                await newDeck.addCard(card);        
+                newDeck.save();
+            }
+            // card = await Card.findByPk(e.id, { include: [Deck] });
+            // await card.addDeck(newDeck);
+            // await newDeck.addCard(card);
 
         })
         const user = await User.findByPk(userId,{include:Deck});
