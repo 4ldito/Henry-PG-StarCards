@@ -19,31 +19,35 @@ export default function Nav() {
   const dispatch = useDispatch();
 
 
-  function handleVisibleUserOptions (){
+  function handleVisibleUserOptions() {
     dispatch(userOptionsState())
   };
 
-  function navEnabled(){
-    return(
+  // function navEnabled() {
+  //   return (
+  //     <div>
+  //       <NavLink className={css.link} to="/">
+  //         <img className={css.img} src={logo} alt="Logo de StarCards" />
+  //       </NavLink>
+  //     </div>)
+  // }
+
+  // function navDisabled() {
+  //   return (
+  //     <div>
+  //       <NavLink className={css.link} to="/userProfile">
+  //         <img className={css.img} src={logo} alt="Logo de StarCards" />
+  //       </NavLink>      </div>
+  //   )
+  // }
+
+  return (
+    <div className={css.nav}>
       <div>
         <NavLink className={css.link} to="/">
           <img className={css.img} src={logo} alt="Logo de StarCards" />
         </NavLink>
-      </div>)
-  }
-
-  function navDisabled(){
-    return(
-      <div>
-        <NavLink className={css.link} to="/userProfile">
-          <img className={css.img} src={logo} alt="Logo de StarCards" />
-        </NavLink>      </div>
-    )
-  }
-
-  return (
-    <div className={css.nav}>
-      {!userActive ? navEnabled() : navDisabled() }
+      </div>
 
       <ul className={css.ul}>
         <li className={css.li}>
@@ -89,11 +93,11 @@ export default function Nav() {
         )}
       </button>
 
-      {userOptions ? (
+      {userOptions && (
         <div className={css.userOptions}>
           <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
-      ):''}
+      )}
     </div>
   );
 }
