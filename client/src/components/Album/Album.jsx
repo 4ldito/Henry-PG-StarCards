@@ -9,6 +9,7 @@ const Album = () => {
   const cardsPerPage = 4;
   const [limit, setLimit] = useState({ min: 0, max: cardsPerPage - 1 });
   const allCards = useSelector((state) => state.album.filteredCards);
+  // const allCards = []
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const Album = () => {
   }
 
   function paginated() {
-    const TotalPag = allCards.length / cardsPerPage;
+    const TotalPag = allCards?.length / cardsPerPage;
     const button = [];
     button.push(
       <button className={css.pag} key="back" onClick={pagBack}>
@@ -85,7 +86,7 @@ const Album = () => {
     <>
       <div>
         <div className={css.cartas}>
-          {allCards.map((card, index) => {
+          {allCards?.map((card, index) => {
             if (index <= limit.max && index >= limit.min) {
               return (
                 <Card

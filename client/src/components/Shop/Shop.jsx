@@ -52,10 +52,6 @@ const Shop = () => {
     setViewShopcart(!viewShopcart);
   };
 
-  const handleDetail = (e) => {
-    setViewDetail(!viewDetail);
-  };
-
   if (!loadedStarsPack || !loadCardsPack) return <p>Loading..</p>;
 
   return (

@@ -1,19 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
-import FilterByRace from "../Album/Filter";
-import SearchCard from "../Album/SearchCard";
-import SortCards from "../Album/Sort";
-import Album from "../Album/Album";
+import { useDispatch } from "react-redux";
 
+import getAllCards from "../../redux/actions/cards/getAllCards";
+
+import Filters from "../Album/Filters";
+// import SearchCard from "../Album/SearchCard";
+// import SortCards from "../Album/Sort";
+import Album from "../Album/Album";
 import Rules from "../Rules/Rules";
 import Team from "../Team/Team";
 
 import css from "./Game.module.css";
-import getAllCards from "../../redux/actions/cards/getAllCards";
-import { useSelector, useDispatch } from "react-redux";
-import { getUser } from "../../redux/actions/user";
 
 export default function Game() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const user = useSelector((state) => state.userReducer.user);
 
@@ -22,9 +22,10 @@ export default function Game() {
   }, []);
 
   const [section, setSection] = useState("album");
-  const album = useRef(null);
-  const rules = useRef(null);
-  const team = useRef(null);
+  // const album = useRef(null);
+  // const rules = useRef(null);
+  // const team = useRef(null);
+
 
   function handleClick(e) {
     e.preventDefault();
@@ -35,16 +36,12 @@ export default function Game() {
     setSection(e.target.name);
   }
 
-  function clearFilters() {
-    dispatch(getAllCards());
-  }
-
   return (
     <div className={css.game}>
       <div className={css.secciones}>
         <button
           className={`${css.seccion} ${css.selected}`}
-          ref={album}
+          // ref={album}
           name="album"
           onClick={(e) => handleClick(e)}
         >
@@ -52,7 +49,7 @@ export default function Game() {
         </button>
         <button
           className={`${css.seccion} ${css.disabled}`}
-          ref={rules}
+          // ref={rules}
           name="rules"
           onClick={(e) => handleClick(e)}
           disabled
@@ -61,7 +58,7 @@ export default function Game() {
         </button>
         <button
           className={`${css.seccion} ${css.disabled}`}
-          ref={team}
+          // ref={team}
           name="team"
           onClick={(e) => handleClick(e)}
           disabled
@@ -74,10 +71,9 @@ export default function Game() {
         <div className={css.seccionesLow}>
           <div className={css.filtrosContainer}>
             <div className={css.filtros}>
-              <SearchCard />
-              <SortCards />
-              <FilterByRace />
-              <button onClick={clearFilters}>Clear Filters</button>
+              <Filters />
+              {/* <SortCards />
+              <FilterByRace /> */}
             </div>
           </div>
           <div className={css.cartas}>

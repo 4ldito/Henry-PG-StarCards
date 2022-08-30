@@ -5,9 +5,9 @@ import style from '../styles/ShopCart.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const StarsPack = ({ starsPack, totalStarsPack, user, seeBtn, preferenceId, increaseQuantity, decreaseQuantity, handleRemoveItem }) => {
-    
+
     const navigate = useNavigate();
-    
+
     return (
         <>
             {starsPack.length > 0 && (
