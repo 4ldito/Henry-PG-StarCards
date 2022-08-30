@@ -33,7 +33,14 @@ export default function Admin(){
         setUsers(true)
     }
 
-    
+    function resetPassword(e, user){
+        dispatch(modifyUser(user.id, {password: 'starcards2022'}))
+        Swal.fire({
+            title: 'Contraseña Restablecida',
+            text: 'La nueva Contraseña es: starcards2022',
+            icon: 'success',
+          });
+    }
 
     function listUsers(){
         return(
@@ -47,10 +54,10 @@ export default function Admin(){
                         {<label>Status: {user.StatusId}</label>}
                         {<button onClick={(e)=>changeStatus(e,user)}>{user.StatusId === 'active' ? 'Ban' : 'Unban'}</button>}
 
-
                         {<label>Rol: {user.RolId}</label>}
                         {<button onClick={(e)=>changeRol(e,user)}>{user.RolId === 'user' ? 'Up to Admin' : 'Low to User'}</button>}
                         
+                        {<button onClick={(e)=>resetPassword(e,user)}>Reset Password</button>}
                         </li>
                     </ul>
                     )}

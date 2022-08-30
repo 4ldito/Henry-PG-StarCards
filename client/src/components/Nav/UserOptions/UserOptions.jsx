@@ -54,14 +54,16 @@ export default function UserOptions({ handleVisibleUserOptions }) {
     <>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
       <ul id="menu" className={css.ul}>
-      <li className={css.li}>
+      
           {validToken && user.roles !== "user" ? (
+            <li className={css.li}>
             <Link className={css.link} style={option} onClick={closeOptions} to="/admin">
             Admin
           </Link>
+          </li>
           ) : ''
           }
-        </li>
+
         <li className={css.li}>
           <button
             onClick={handleSeeShopcart}
