@@ -26,16 +26,18 @@
 }
 
 .select {
+    background-image: url('../../img/select.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: contain;
     background-color: rgba(240, 248, 255, 0);
     border: none;
     color: white;
     -webkit-appearance: none;
-    position: absolute;
-    top: 38.5%;
-    left: 2.5%;
-    width: 12%;
-    height: 4%;
-    padding-left: .3%;
+    padding-left: 1rem;
+    height: 50px;
+    width: 250px;
 }
 
 .select:focus {
@@ -47,50 +49,6 @@
     background-color: grey;
 }
 
-.selectRace {
-    background-color: rgba(240, 248, 255, 0);
-    border: none;
-    color: white;
-    -webkit-appearance: none;
-    position: absolute;
-    left: 2.5%;
-    top: 44%;
-    width: 12%;
-    height: 4%;
-    padding-left: .3%;
-}
-
-.selectRace:focus {
-    outline: none;
-    border: none;
-}
-
-.selectRace>option {
-    background-color: grey;
-}
-
-.selectMove {
-    background-color: rgba(240, 248, 255, 0);
-    border: none;
-    color: white;
-    -webkit-appearance: none;
-    position: absolute;
-    left: 2.5%;
-    top: 50%;
-    width: 12%;
-    height: 4%;
-    padding-left: .3%;
-}
-
-.selectMove:focus {
-    outline: none;
-    border: none;
-}
-
-.selectMove>option {
-    background-color: grey;
-}
-
 .form {
     display: flex;
     align-items: center;
@@ -99,12 +57,28 @@
 
 .input {
     background-color: rgba(240, 248, 255, 0);
-    position: absolute;
+    position: absolute; 
     border: none;
     left: 5%;
     color: white;
 }
 
 .test {
-    
+    background-image: url('../../img/select.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: contain;
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    color: white;
+    -webkit-appearance: none;
+    padding-left: 1rem;
+    height: 50px;
+    width: 250px;
+}
+
+.test:focus {
+    outline: none;
+    border: none;
 }

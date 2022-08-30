@@ -75,19 +75,18 @@ export default function Filters() {
       <datalist id="listaCards">{options()}</datalist>
 
       <div>
-        <img src={imgSelect} alt="" />
-        <select ref={selectRace} className={css.selectRace} onChange={onFilterChange} name="race">
+        {/* <img src={imgSelect} alt="" /> */}
+        <select ref={selectRace} className={css.select} onChange={onFilterChange} name="race">
           <option value="allRaces">All races</option>
           <option value="Protoss">Protoss</option>
           <option value="Terran">Terran</option>
           <option value="Zerg">Zerg</option>
         </select>
-
       </div>
 
       <div>
-        <img src={imgSelect} alt="" />
-        <select ref={selectMovement} className={css.selectMove} onChange={onFilterChange} name="movements">
+        {/* <img src={imgSelect} alt="" /> */}
+        <select ref={selectMovement} className={css.select} onChange={onFilterChange} name="movements">
           <option value="allMovements">All movements</option>
           <option value="Ground">Ground</option>
           <option value="Flying">Flying</option>
@@ -95,7 +94,7 @@ export default function Filters() {
       </div>
 
       <div>
-        <img src={imgSelect} alt="" />
+        {/* <img src={imgSelect} alt="" /> */}
         <select ref={selectOrder} className={css.select} onChange={onFilterChange} name="order">
           <option hidden value='none'>Random Order</option>
           <option value="nameAtoZ">by name - A to Z</option>
