@@ -6,8 +6,6 @@ const shopCartRoute = Router();
 
 shopCartRoute.get("/:id", async (req, res, next) => {
     const { id } = req.params;
-    // console.log('a');
-    // console.log(id);
     // if (!id) return res.send({error: 'ID required.'})
     try {
         const starsPacksIds = await ShopCart.findAll({
@@ -100,9 +98,6 @@ shopCartRoute.patch("/edit/:userId", async (req, res, next) => {
     const { info: { id, type, modifyType } } = req.body;
     const { userId } = req.params;
 
-    // console.log(req.body)
-    // console.log(userId)
-
     try {
         const itemShopCart = await ShopCart.findOne({
             where: { product: id, UserId: userId, packTypes: type, StatusId: 'active' }
@@ -110,7 +105,6 @@ shopCartRoute.patch("/edit/:userId", async (req, res, next) => {
 
         if (itemShopCart) {
             await itemShopCart.update({ quantity: modifyType === 'increment' ? ++itemShopCart.quantity : --itemShopCart.quantity });
-            // console.log(itemShopCart)
             return res.send('Cantidad actualizada');
         }
 
