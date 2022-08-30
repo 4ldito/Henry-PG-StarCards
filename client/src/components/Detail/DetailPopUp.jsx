@@ -119,6 +119,8 @@ export default function DetailPopUp({ handleDetail }) {
   return (
     <div className={css.containerTo} onClick={handleDetail}>
       <div className={css.container} onClick={(e) => e.stopPropagation()}>
+        {/* <img src="../../../css/detail-container.png" alt="" />
+        <h2 className={css.Carta}>Carta</h2> */}
         <div className={css.img}>
           <h3>{detailCards.name}</h3>
           <img src={detailCards.image} alt={detailCards.image} />

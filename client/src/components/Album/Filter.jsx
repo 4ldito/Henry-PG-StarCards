@@ -24,13 +24,16 @@ export default function FilterByRace() {
 
   return (
     <div className={css.filter}>
-      <select className={css.select} onChange={onSelectChange} name="race">
+      <img src="../../../css/select.png" alt="" />
+      <select className={css.selectRace} onChange={onSelectChange} name="race">
         <option value="allRaces">All races</option>
         <option value="Protoss">Protoss</option>
         <option value="Terran">Terran</option>
         <option value="Zerg">Zerg</option>
       </select>
-      <select className={css.select} onChange={onSelectChange} name="movements">
+      
+      <img src="../../../css/select.png" alt="" />
+      <select className={css.selectMove} onChange={onSelectChange} name="movements">
         <option value="allMovements">All movements</option>
         <option value="Ground">Ground</option>
         <option value="Flying">Flying</option>

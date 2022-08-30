@@ -3,7 +3,46 @@
     height: 100%;
 }
 
-.select{
-    width: 100%;
-    margin-top: 50%;
+.selectRace{
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    color: white;
+    -webkit-appearance: none;
+    position: absolute;
+    left: 2.5%;
+    top: 37%;
+    width: 12%;
+    height: 4%;
+    padding-left: .3%;
+}
+
+.selectRace:focus{
+    outline: none;
+    border: none;
+}
+
+.selectRace>option{
+    background-color: grey;
+}
+
+.selectMove{
+    background-color: rgba(240, 248, 255, 0);
+    border: none;
+    color: white;
+    -webkit-appearance: none;
+    position: absolute;
+    left: 2.5%;
+    top: 42.7%;
+    width: 12%;
+    height: 4%;
+    padding-left: .3%;
+}
+
+.selectMove:focus{
+    outline: none;
+    border: none;
+}
+
+.selectMove>option{
+    background-color: grey;
 }

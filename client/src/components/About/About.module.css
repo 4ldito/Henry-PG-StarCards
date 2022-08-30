@@ -1,10 +1,77 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 89vh;
+
+  margin-top: 2vh;
+}
+
+.containerAbout{
+  display: flex;
+  /* background-image: url("../../../css/album-card-container.svg"); */
+  border: 1px solid rgb(0, 225, 255);
+  width: 90%;
+}
+
+
+.containerImage{
+  width: 30%;
+  padding: 2%;
+}
+
+.containerImage > img{
+  width: 95%;
+  height: 95%;
+}
+
 .about {
-    background-color: var(--container-background-main);
-    border-radius: 20px;
-    border: 2px solid white;
-    height: 66vh;
-    margin: 6rem;
-    color: white;
-    padding: 4rem;
+  color: white;
+  /* background-color: var(--container-background-main); */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /* border-radius: 20px; */
+
+  width: 70%;
+  height: 90%;
+
+  padding: 1rem 4rem 4rem 4rem;
+}
+
+@media (max-width: 1142px){
+  .container{
+    height: 100vh;
   }
-  
+}
+
+@media (max-width: 870px){
+  .container{
+    height: 110vh;
+  }
+
+  .about{
+    height: 100%;
+  }
+}
+
+
+@media (max-width: 715px){
+  .container{
+    height: 130vh;
+  }
+}
+
+@media (max-width: 590px){
+  .container{
+    height: 150vh;
+  }
+}
+
+@media (max-width: 520px){
+  .container{
+    height: 170vh;
+  }
+}

@@ -34,42 +34,45 @@ export default function Game() {
   return (
     <div className={css.game}>
       <div className={css.secciones}>
-        <button
+        <div
           className={`${css.seccion} ${css.selected}`}
           ref={album}
           name="album"
           onClick={(e) => handleClick(e)}
         >
-          Album
-        </button>
-        <button
+          <img src="../../../css/button.png" className={css.btnImage} />
+          <h2>ALBUM</h2>
+        </div>
+        <div
           className={`${css.seccion} ${css.disabled}`}
           ref={rules}
           name="rules"
           onClick={(e) => handleClick(e)}
           disabled
         >
-          Rules
-        </button>
-        <button
+          <img src="../../../css/button.png" className={css.btnImage} />
+          <h2>RULES</h2>
+        </div>
+        <div
           className={`${css.seccion} ${css.disabled}`}
           ref={team}
           name="team"
           onClick={(e) => handleClick(e)}
           disabled
         >
-          Team
-        </button>
+          <img src="../../../css/button.png" className={css.btnImage} />
+          <h2>TEAM</h2>
+        </div>
       </div>
 
       {section === "album" && (
         <div className={css.seccionesLow}>
           <div className={css.filtrosContainer}>
             <div className={css.filtros}>
+              <button onClick={clearFilters}>Clear Filters</button>
               <SearchCard />
               <SortCards />
               <FilterByRace />
-              <button onClick={clearFilters}>Clear Filters</button>
             </div>
           </div>
           <div className={css.cartas}>
@@ -81,5 +84,26 @@ export default function Game() {
       {section === "rules" && <Rules />}
       {section === "team" && <Team />}
     </div>
+    // <div className={css.game}>
+
+    //   {section === "album" && (
+    //     <div className={css.seccionesLow}>
+    //       <div className={css.filtrosContainer}>
+    //         <div className={css.filtros}>
+    //           <SearchCard />
+    //           <SortCards />
+    //           <FilterByRace />
+    //           <button onClick={clearFilters}>Clear Filters</button>
+    //         </div>
+    //       </div>
+    //       <div className={css.cartas}>
+    //         <Album />
+    //       </div>
+    //     </div>
+    //   )}
+
+    //   {section === "rules" && <Rules />}
+    //   {section === "team" && <Team />}
+    // </div>
   );
 }

@@ -1,87 +1,79 @@
 .game {
-  background-color: var(--container-background-main);
-  border-radius: 20px;
-  border: 2px solid white;
-  height: 88vh;
-  margin: 1rem;
-  color: white;
+  position: absolute;
+  top: 9vh;
+  width: 100%;
+  height: 91vh;
 }
 
 .secciones {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+
   width: 100%;
+  margin-top: 1.5%;
+  margin-bottom: 1.5%;
 }
 
 .seccion {
-  background-color: var(--color-dark);
   padding: 0.5rem;
-  font-size: 1.4rem;
-  width: calc(100% / 3);
-  border: none;
-  border-bottom: 1px solid transparent;
-  transition: background-color 0.3s, border 0.3s, font-weight 0.3s;
   color: white;
+  transition: background-color 0.3s, border 0.3s, font-weight 0.3s;
 }
 
-.seccion:hover {
-  background-color: var(--color-darker);
-  border-bottom: 1px solid black;
+.btnImage {
+  position: relative;
+  cursor: pointer;
 }
 
-.seccion:first-child {
-  border-top-left-radius: 20px;
-  border-right: 1px solid black;
-}
-
-.seccion:last-child {
-  border-top-right-radius: 20px;
-  border-left: 1px solid black;
-}
-
-.selected {
-  background-color: var(--color-darker);
-  color: #0E67EE;
-  border-bottom: 1px solid black;
-  font-weight: bold;
+.seccion > h2 {
+  position: absolute;
+  top: 7%;
+  margin-left: 3.3%;
 }
 
 .seccionesLow {
-  background-color: rgba(255, 0, 0, 0);
+  /* background-color: rgba(247, 57, 57, 0.801); */
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 95%;
+  height: 78%;
 }
 
 .filtrosContainer {
-  background-color: var(--color-darker);
-  width: 20%;
-  height: 98%;
+  /* background-color: green; */
+  width: 15%;
+  height: 100%;
   padding: 1%;
-  /* overflow: hidden; */
-  border-right: 1px solid black;
-  border-bottom-left-radius: 20px;
+  margin-left: 1%;
+  /* border-right: 1px solid black; */
 }
 
-.filtros {
+/* .filtros {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
   height: 50%;
-}
+} */
 
 .cartas {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
+
+  background-image: url(../../../css/album-card-container.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  border: 2px solid cyan;
+  
   width: 1500px;
   height: 98%;
-  margin: 0.5% 0% 0.5% 0%;
-  padding: 1% 1% 0% 1%;
-}
 
+  margin: 0.5% 3% 0.5% 2%;
+  padding: 2% 1% .5% 1%;
+}
 
 .disabled {
   cursor: not-allowed;

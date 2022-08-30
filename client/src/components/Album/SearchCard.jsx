@@ -36,12 +36,13 @@ export default function SearchCard() {
   return (
     <>
       <form className={css.form} onSubmit={onSubmit}>
+        <img src="../../../css/search.png" alt="" />
         <input
+        className={css.input}
           onChange={(e) => onInputChange(e)}
           value={search}
           list="listaCards"
         />
-        <input className={css.btnSearch} type="submit" value="search" />
       </form>
 
       <datalist id="listaCards">{options()}</datalist>
