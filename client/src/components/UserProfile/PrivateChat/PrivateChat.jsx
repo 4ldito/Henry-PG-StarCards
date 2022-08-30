@@ -56,7 +56,11 @@ const PrivateChat = ({ selected }) => {
       setChatUsers(() =>
         userActive.PrivateChats.map((c) => {
           const user = c.Users.find((u) => u.id !== userActive.id);
-          return { username: user.username, id: user.id };
+          return {
+            username: user.username,
+            id: user.id,
+            lastSeen: c.lastSeen.find((e) => e.user === userActive.id).msgNum,
+          };
         })
       );
       setMessages(() => {

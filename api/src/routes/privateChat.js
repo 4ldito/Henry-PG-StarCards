@@ -4,52 +4,56 @@ const { User, Rol, UserCards, PrivateChat, Message } = db;
 const { Router } = require("express");
 const chatRoute = Router();
 
-chatRoute.patch("/", async (req, res, next) => {
-  try {
-    const { emitterId, receiverId, msg } = req.body;
+// chatRoute.patch("/", async (req, res, next) => {
 
-    const [emitter, receiver, message] = await Promise.all([
-      User.findOne({
-        where: { id: emitterId },
-        include: [
-          {
-            model: PrivateChat,
-            include: User,
-          },
-        ],
-      }),
-      User.findOne({
-        where: { id: receiverId },
-        include: [
-          {
-            model: PrivateChat,
-            include: User,
-          },
-        ],
-      }),
-      Message.create({ message: msg }),
-    ]);
+//     const { emitterId, receiverId, msg } = req.body;
 
-    let privChat = emitter.PrivateChats.find(
-      (pc) =>
-        pc.Users.find((u) => u.id === emitterId) &&
-        pc.Users.find((u) => u.id === receiverId)
-    );
+//     try {
+//       const [emitterProm, receiverProm, messageProm] = await Promise.all([
+//         User.findOne({
+//           where: { id: emitterId },
+//           include: [
+//             {
+//               model: PrivateChat,
+//               include: User,
+//             },
+//           ],
+//         }),
+//         User.findOne({
+//           where: { id: receiverId },
+//           include: [
+//             {
+//               model: PrivateChat,
+//               include: User,
+//             },
+//           ],
+//         }),
+//         Message.create({ message: msg }),
+//       ]);
 
-    if (privChat) await privChat.addMessage(message);
-    else {
-      privChat = await PrivateChat.create();
-      await privChat.addMessage(message);
-      await Promise.all([
-        emitter.addPrivateChat(privChat),
-        receiver.addPrivateChat(privChat),
-      ]);
-    }
+//       let privChat = emitterProm.PrivateChats.find(
+//         (pc) =>
+//           pc.Users.find((u) => u.id === emitterId) &&
+//           pc.Users.find((u) => u.id === receiverId)
+//       );
 
-    return res.json(privChat);
-  } catch (error) {
-    next(error);
-  }
-});
+//       if (privChat) await privChat.addMessage(messageProm);
+//       else {
+//         privChat = await PrivateChat.create({
+//           lastSeen: [
+//             { user: emitter.id, msgNum: 0 },
+//             { user: receiver.id, msgNum: 0 },
+//           ],
+//         });
+//         await privChat.addMessage(messageProm);
+//         await Promise.all([
+//           emitterProm.addPrivateChat(privChat),
+//           receiverProm.addPrivateChat(privChat),
+//         ]);
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+// });
 
 module.exports = chatRoute;
