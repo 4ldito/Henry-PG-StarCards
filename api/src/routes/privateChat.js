@@ -62,7 +62,7 @@ chatRoute.patch("/", async (req, res, next) => {
 
     const privChat = await PrivateChat.findByPk(privChatId);
 
-    const payload = await privChat.update({
+    await privChat.update({
       lastSeen: [
         privChat.lastSeen.find((e) => e.user !== userId),
         { user: userId, msgNum },

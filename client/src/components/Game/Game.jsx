@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import FilterByRace from "../Album/Filter";
 import SearchCard from "../Album/SearchCard";
 import SortCards from "../Album/Sort";
@@ -9,10 +9,18 @@ import Team from "../Team/Team";
 
 import css from "./Game.module.css";
 import getAllCards from "../../redux/actions/cards/getAllCards";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../../redux/actions/user";
 
 export default function Game() {
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.userReducer.user);
+
+  useEffect(() => {
+    dispatch(getUser(user.id));
+  }, []);
+
   const [section, setSection] = useState("album");
   const album = useRef(null);
   const rules = useRef(null);
