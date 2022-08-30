@@ -22,6 +22,7 @@ export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const SET_CHAT_NOTIFICATION = "SET_CHAT_NOTIFICATION";
 export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
 export const USER_CLEAN = "USER_CLEAN";
+export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
 
 // import { useToken } from '../../hooks/useToken'
@@ -92,6 +93,9 @@ export const userCleanMsgInfo = () => {
 };
 export function userClean() {
   return { type: USER_CLEAN };
+}
+export function userOptionsState() {
+  return { type: USER_OPTIONS_STATE };
 }
 
 export function modifyUser(id, property) {

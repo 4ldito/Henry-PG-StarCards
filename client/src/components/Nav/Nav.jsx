@@ -6,16 +6,20 @@ import ChatNotifications from "./ChatNotifications/ChatNotifications";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userOptionsState } from "../../redux/actions/user";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
   const { validToken } = useValidToken({ navigate: false });
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
-  const userActive = useSelector((state) => state.userReducer.user);
+  const userOptions = useSelector((state) => state.userReducer.userOptions);
 
-  const handleVisibleUserOptions = () => {
-    setVisibleUserOptions(!visibleUserOptions);
+  const userActive = useSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
+
+  function handleVisibleUserOptions (){
+    dispatch(userOptionsState())
   };
 
   function navEnabled() {
@@ -87,7 +91,7 @@ export default function Nav() {
       </button>
       {validToken && <ChatNotifications />}
 
-      {visibleUserOptions && (
+      {userOptions && (
         <div className={css.userOptions}>
           <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
