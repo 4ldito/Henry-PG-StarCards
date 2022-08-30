@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser } from "../../../redux/actions/user";
+import { getUser, setLastSeenMsg } from "../../../redux/actions/user";
 import socket from "../../../../Socket";
 
 import css from "./PrivateChat.module.css";
@@ -28,8 +28,15 @@ const SinglePrivateChat = ({ newChatUser }) => {
   }, [userActive]);
 
   useEffect(() => {
-    socket.on("privateMessage", (user, message) => {
+    socket.on("privateMessage", (user, message, privChatId) => {
       setMessages((prev) => [...prev, message]);
+      dispatch(
+        setLastSeenMsg(
+          userActive.id,
+          privChatId,
+          messages[user?.id]?.Messages.length
+        )
+      );
     });
 
     return () => {
@@ -46,6 +53,18 @@ const SinglePrivateChat = ({ newChatUser }) => {
     e.preventDefault();
     socket.emit("privateMessage", userActive, newChatUser, message);
     setMessage("");
+
+    const privateChat = userActive.PrivateChats.find((pc) => {
+      return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
+    });
+
+    dispatch(
+      setLastSeenMsg(
+        userActive.id,
+        privateChat.id,
+        messages[newChatUser.id].Messages.length + 1
+      )
+    );
   };
 
   return (
