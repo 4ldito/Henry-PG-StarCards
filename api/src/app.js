@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const routes = require("./routes/index");
 const cors = require("cors");
 // const axios = require("axios");
+const fetch = require("node-fetch");
 
 const db = require("./db");
 const { User, PrivateChat, Message } = db;
@@ -28,6 +29,7 @@ io.on("connection", (socket) => {
   //////////////////////////////////////////////
   // Chat notifications
   socket.on("connectUserNotifications", (userId) => {
+    console.log("connect noti" + socket.id);
     const currentUser = usersNotificationSocket.findIndex(
       (u) => u.userId === userId
     );
@@ -116,6 +118,7 @@ io.on("connection", (socket) => {
       "chatNotification",
       notificationFlag
     );
+    console.log("send noti" + receiverNotificationSocket.sockets[0])
   });
 
   ///////////////////////////////////////////////////////////////////////////////

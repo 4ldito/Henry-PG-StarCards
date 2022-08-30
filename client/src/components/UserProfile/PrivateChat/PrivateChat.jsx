@@ -59,7 +59,7 @@ const PrivateChat = ({ selected }) => {
           return { username: user.username, id: user.id };
         })
       );
-      setMessages((prev) => {
+      setMessages(() => {
         let oldMessages = {};
         userActive.PrivateChats.forEach((pc) => {
           const receiver = pc.Users.find((u) => u.id !== userActive.id);
