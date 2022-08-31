@@ -7,6 +7,7 @@ import detailReducer from './detail';
 import sendMailReducer from './sendMail';
 import album from './album';
 import marketCardsReducer from './marketCards';
+import admin from './admin';
 
 import { RESET_REDUX_STATE } from "../actions"
 
@@ -20,7 +21,8 @@ const appReducer = combineReducers(
     cardsPacksReducer,
     detailReducer,
     sendMailReducer,
-    marketCardsReducer
+    marketCardsReducer,
+    admin
   })
 
 export function rootReducer(state, action) {
