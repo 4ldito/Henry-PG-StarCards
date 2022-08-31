@@ -20,7 +20,6 @@ export default function Filters() {
   }
 
   function onFilterChange(e) {
-    console.log([e.target.name], e.target.value)
     setFilter({
       ...filter,
       [e.target.name]: e.target.value,
@@ -54,7 +53,7 @@ export default function Filters() {
       </select>
 
       <select ref={selectStatus} onChange={(e)=>onFilterChange(e)} name="status">
-        {/* <option value="allStatus">All Status</option> */}
+        <option value="allStatus">All Status</option>
         <option value="active">Active</option>
         <option value="inactive">Inactive</option>
       </select>

@@ -67,6 +67,7 @@ export default function renderAdmin(){
           icon: 'success',
         });
         setUsers(true)
+        if(userActual.id === user.id) navigateTo('/login')
     }
 
     
