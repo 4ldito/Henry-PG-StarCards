@@ -1,10 +1,6 @@
-// const server = require("./app");
-// const axios = require("axios");
+const server = require("./app");
 
-const socketIoServer = require("./gameServer")//require("http").createServer(server);
-
-const db = require("./db");
-const { User, PrivateChat, Message } = db;
+const socketIoServer = require("http").createServer(server);
 
 const io = require("socket.io")(socketIoServer, {
   cors: {
@@ -13,65 +9,54 @@ const io = require("socket.io")(socketIoServer, {
   },
 });
 
+const db = require("./db");
+const { User, Deck } = db;
+
+let playersQueue = [];
 let userSockets = [];
 let usersNotificationSocket = [];
 
-io.on("connection", (socket) => {
+io.on("gameConnection", (socket) => {
   //////////////////////////////////////////////
-  // Chat notifications
-  socket.on("connectUserNotifications", (userId) => {
-    const currentUser = usersNotificationSocket.findIndex(
-      (u) => u.userId === userId
-    );
+  // // Game notifications
+  // socket.on("connectPlayerNotifications", (userId) => {
+  //   const currentUser = usersNotificationSocket.findIndex(
+  //     (u) => u.userId === userId
+  //   );
 
-    if (currentUser === -1)
-      usersNotificationSocket.push({ userId, sockets: [socket.id] });
-    else usersNotificationSocket[currentUser].sockets = [socket.id];
-  });
+  //   if (currentUser === -1)
+  //     usersNotificationSocket.push({ userId, sockets: [socket.id] });
+  //   else usersNotificationSocket[currentUser].sockets = [socket.id];
+  // });
 
-  socket.on("disconnectUserNotifications", (userId) => {
-    const newArray = usersNotificationSocket.filter((u) => u.userId !== userId);
-    usersNotificationSocket = [...newArray];
-  });
+  // socket.on("disconnectPlayerNotifications", (userId) => {
+  //   const newArray = usersNotificationSocket.filter((u) => u.userId !== userId);
+  //   usersNotificationSocket = [...newArray];
+  // });
 
   ////////////////////////////////////////////////
-  // Private chats
-  socket.on("connectPrivateSocket", (userId) => {
+  // Game
+  socket.on("connectGameSocket", (userId) => {
     const currentUser = userSockets.findIndex((u) => u.userId === userId);
 
     if (currentUser === -1) userSockets.push({ userId, socket: socket.id });
     else userSockets[currentUser].socket = socket.id;
   });
 
-  socket.on("disconnectPrivateSocket", (userId) => {
+  socket.on("disconnectGameSocket", (userId) => {
     const newArray = userSockets.filter((u) => u.userId !== userId);
     userSockets = [...newArray];
   });
 
-  socket.on("privateMessage", async (emitter, receiver, message) => {
-    // await axios.post("chat/db", { emitter, receiver, message });
+  socket.on("playRequest", async (playerId) => {
     try {
-      const [emitterProm, receiverProm, messageProm] = await Promise.all([
-        User.findOne({
-          where: { id: emitter.id },
-          include: [
-            {
-              model: PrivateChat,
-              include: User,
-            },
-          ],
-        }),
-        User.findOne({
-          where: { id: receiver.id },
-          include: [
-            {
-              model: PrivateChat,
-              include: User,
-            },
-          ],
-        }),
-        Message.create({ message, emitter }),
-      ]);
+      const [player, deck] = await User.findOne({
+        where: { id: playerId },
+        attributes: ["id", "defaultDeck"],
+      }).then(async (player) => {
+        const deck = await Deck.findByPk(player.defaultDeck);
+        return [player, deck];
+      });
 
       let privChat = emitterProm.PrivateChats.find(
         (pc) =>
@@ -127,30 +112,6 @@ io.on("connection", (socket) => {
       const receiverUser = await User.findByPk(receiver.id);
       if (receiverUser) await receiverUser.update({ notifications: true });
     }
-  });
-
-  ///////////////////////////////////////////////////////////////////////////////
-  // PUBLIC CHAT
-  let nombre;
-
-  socket.on("conectado", (nomb) => {
-    nombre = nomb;
-    socket.broadcast.emit("mensajes", {
-      nombre: nombre,
-      mensaje: ` ha entrado en la sala del chat`,
-    });
-  });
-
-  socket.on("mensaje", (nombre, mensaje) => {
-    io.emit("mensajes", { nombre, mensaje });
-  });
-
-  socket.on("disconnect", () => {
-    if (nombre)
-      io.emit("mensajes", {
-        socketIoServer: "Servidor",
-        mensaje: `${nombre} ha abandonado la sala`,
-      });
   });
 });
 

@@ -68,6 +68,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      onGame: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      defaultDeck: {
+        type: DataTypes.INTEGER,
+      },
       roles: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         defaultValue: ["user"],
