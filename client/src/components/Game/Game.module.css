@@ -51,7 +51,7 @@
   justify-content: space-evenly;
   flex-direction: row;
 
-  background-image: url(../../../css/album-card-container.svg);
+  background-image: url(../../img/album-card-container.svg);
   background-repeat: no-repeat;
   background-size: cover;
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { signIn } from "../../redux/actions/user";
 import style from "./login.module.css";
-import style2 from "../../styles/landingPage/landingPage.module.css";
+// import style2 from "../../styles/landingPage/landingPage.module.css";
 import style3 from "../../styles/register/Register.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";

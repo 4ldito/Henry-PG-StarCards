@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../redux/actions/user";
 import validator from "./functions/validators";
-import style from '../../styles/landingPage/landingPage.module.css'
+// import style from '../../styles/landingPage/landingPage.module.css'
 import style2 from '../../styles/register/Register.module.css'
 import style3 from './login.module.css'
 import { userCleanMsgInfo } from "../../redux/actions/user";

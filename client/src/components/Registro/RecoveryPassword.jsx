@@ -1,5 +1,5 @@
 import style from "./login.module.css";
-import style2 from "../../styles/landingPage/landingPage.module.css";
+// import style2 from "../../styles/landingPage/landingPage.module.css";
 import style3 from "../../styles/register/Register.module.css";
 import { useEffect, useRef, useState } from "react";
 import { getUserByEmail, userClean } from "../../redux/actions/user";
