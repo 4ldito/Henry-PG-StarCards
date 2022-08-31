@@ -81,9 +81,8 @@ chatRoute.patch("/notifications", async (req, res, next) => {
   try {
     const { receiverId, flag } = req.body;
     const receiverUser = await User.findByPk(receiverId);
-    console.log(flag);
+
     await receiverUser.update({ notifications: flag });
-    console.log(receiverUser.notifications);
 
     return res.json("Notifications updated!");
   } catch (error) {

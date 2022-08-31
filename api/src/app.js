@@ -63,7 +63,7 @@ io.on("connection", (socket) => {
     const [emitterId, receiverId, msg] = [
       emitter.id,
       receiver.id,
-      emitter.username + ": " + message,
+      message, //emitter.username + ": " + message,
     ];
     try {
       const [emitterProm, receiverProm, messageProm] = await Promise.all([
@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
             },
           ],
         }),
-        Message.create({ message: msg }),
+        Message.create({ message: msg, emitter: emitter }),
       ]);
 
       let privChat = emitterProm.PrivateChats.find(
@@ -118,8 +118,13 @@ io.on("connection", (socket) => {
           privChat.id
         );
 
-      const currentUser = userSockets.find((u) => u.userId === emitter.id);
-      io.to(currentUser.socket).emit("privateMessage", receiver, msg);
+      // const currentUser = userSockets.find((u) => u.userId === emitter.id);
+      // io.to(currentUser.socket).emit(
+      //   "privateMessage",
+      //   receiver,
+      //   msg,
+      //   privChat.id
+      // );
     } catch (error) {
       console.error(error);
     }
