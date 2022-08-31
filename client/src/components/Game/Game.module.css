@@ -68,24 +68,3 @@
   cursor: not-allowed;
 }
 
-.clearFilter{
-  position: relative;
-  left: 30%;
-  width: 35%;
-  
-}
-
-.btnClearFilter{
-  position: absolute;
-  left: 6%;
-  width:4.5%;
-  height: 10.1%;
-  color: white;
-  background-color: rgba(255, 255, 255, 0);
-  border: none;
-  border-radius: 50%;
-}
-
-.btnClearFilter:focus{
-  outline: none;
-}

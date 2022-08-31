@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setChatNotification } from "../../../redux/actions/user";
-import socket from "./Socket";
+import socket from "../../../../Socket";
 
 const ChatNotifications = () => {
   const userActive = useSelector((state) => state.userReducer.user);

@@ -9,24 +9,7 @@ import css from "./Card.module.css";
 
 export default function Card({ id, name, image, cost, Gdmg, Admg, life, ability, abilities, race, movement }) {
   const dispatch = useDispatch();
-  // const allCards = useSelector((state) => state.album.filteredCards);
-  // const cards = useSelector((state) => state.album.cards);
-  // const user = useSelector((state) => state.userReducer.user);
-  // const card = allCards.find((c) => c.id === id);
-  // const userCards = useSelector((state) => state.album.userCards);
   const [viewDetail, setViewDetail] = useState(false);
-  // const [haveCard, setHaveCard] = useState(false);
-
-  // useEffect(() => {
-  //   if (user.id) {
-  //     dispatch(getUserCards(user.UserCards, cards));
-  //     userCards?.forEach((card) => {
-  //       if (card.id === id) {
-  //         setHaveCard(true);
-  //       }
-  //     });
-  //   }
-  // }, [cards]);
 
   function handleDetail() {
     dispatch(detailCard(id));
@@ -68,7 +51,20 @@ export default function Card({ id, name, image, cost, Gdmg, Admg, life, ability,
           </div>
         </div>
       </div>
-      {viewDetail && <DetailPopUp handleDetail={ver} />}
+      {viewDetail &&
+        <DetailPopUp handleDetail={ver}
+          id={id}
+          name={name}
+          image={image}
+          cost={cost}
+          Gdmg={Gdmg}
+          Admg={Admg}
+          life={life}
+          ability={ability}
+          abilities={abilities}
+          race={race}
+          movement={movement}
+        />}
     </>
   );
 }

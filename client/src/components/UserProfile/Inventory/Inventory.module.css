@@ -110,10 +110,26 @@
   overflow-y: scroll;
   align-items: center;
   flex-direction: row;
+  height: 100vh;
   width: 50vw;
   gap:10px;
   margin: 0;
 }
 .cartasYMazosContainer{
   display: flex;
+}
+
+@media screen and (max-width:480px){
+  .filters{
+    padding: 0;
+    margin:0;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 30vw;
+    height: 26vh;
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+  }
+  
 }

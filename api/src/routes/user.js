@@ -8,6 +8,7 @@ const userRoute = Router();
 userRoute.get("/", async (req, res, next) => {
   try {
     const { id, email } = req.query;
+    console.log("id: ",id)
     if (id) {
       const user = await User.findByPk(id, {
         attributes: { exclude: ["password"] },
@@ -43,10 +44,8 @@ userRoute.get("/", async (req, res, next) => {
 
 userRoute.get("/:email", async (req, res, next) => {
   const { email } = req.params;
-  console.log(email);
 
   const user = await User.findOne({ where: { email } });
-  console.log(user);
 });
 
 userRoute.get("/username/:username", async (req, res, next) => {
@@ -132,6 +131,7 @@ userRoute.patch("/:id", async (req, res, next) => {
       profileImg,
       coverImg,
       RolId,
+      StatusId,
       items,
     } = req.body;
     const user = await User.findByPk(id);
@@ -142,11 +142,11 @@ userRoute.patch("/:id", async (req, res, next) => {
 
     if (items?.length)
       stars = items.reduce((acc, item) => {
-        // console.log(item)
         return acc + Number(item.description) * Number(item.quantity);
       }, 0);
 
-    if (RolId) await user.setStatus(RolId);
+    if (RolId) await user.setRol(RolId);
+    if (StatusId) await user.setStatus(StatusId);
 
     if (!verifyPassword && password) {
       password = await User.prototype.hashPassword(password);

@@ -1,48 +1,84 @@
-.filter{
+.clearFilter {
+    position: relative;
+    left: 30%;
+    width: 35%;
+
+}
+
+.btnClearFilter {
+    position: absolute;
+    left: 6%;
+    width: 4.5%;
+    height: 10.1%;
+    color: white;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    border-radius: 50%;
+}
+
+.btnClearFilter:focus {
+    outline: none;
+}
+
+.filter {
     width: 100%;
     height: 100%;
 }
 
-.selectRace{
+.select {
+    background-image: url('../../img/select.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: contain;
     background-color: rgba(240, 248, 255, 0);
     border: none;
     color: white;
     -webkit-appearance: none;
-    position: absolute;
-    left: 2.5%;
-    top: 44%;
-    width: 12%;
-    height: 4%;
-    padding-left: .3%;
+    padding-left: 1rem;
+    height: 50px;
+    width: 250px;
 }
 
-.selectRace:focus{
+.select:focus {
     outline: none;
     border: none;
 }
 
-.selectRace>option{
+.select>option {
     background-color: grey;
 }
 
-.selectMove{
+.form {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input {
+    background-color: rgba(240, 248, 255, 0);
+    position: absolute; 
+    border: none;
+    left: 5%;
+    color: white;
+}
+
+.test {
+    background-image: url('../../img/select.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: contain;
     background-color: rgba(240, 248, 255, 0);
     border: none;
     color: white;
     -webkit-appearance: none;
-    position: absolute;
-    left: 2.5%;
-    top: 50%;
-    width: 12%;
-    height: 4%;
-    padding-left: .3%;
+    padding-left: 1rem;
+    height: 50px;
+    width: 250px;
 }
 
-.selectMove:focus{
+.test:focus {
     outline: none;
     border: none;
-}
-
-.selectMove>option{
-    background-color: grey;
 }

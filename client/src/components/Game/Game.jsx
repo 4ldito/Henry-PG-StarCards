@@ -1,22 +1,17 @@
 import React, { useState, useRef } from "react";
-import FilterByRace from "../Album/Filter";
-import SearchCard from "../Album/SearchCard";
-import SortCards from "../Album/Sort";
-import Album from "../Album/Album";
 
+import Filters from "../Album/Filters";
+import Album from "../Album/Album";
 import Rules from "../Rules/Rules";
 import Team from "../Team/Team";
 
+import activeBtn from '../../img/button-active.png'
+import normalBtn from '../../img/button.png';
+
 import css from "./Game.module.css";
-import getAllCards from "../../redux/actions/cards/getAllCards";
-import { useDispatch } from "react-redux";
 
 export default function Game() {
-  const dispatch = useDispatch();
   const [section, setSection] = useState("album");
-  const album = useRef(null);
-  const rules = useRef(null);
-  const team = useRef(null);
 
   function handleClick(e) {
     e.preventDefault();
@@ -27,51 +22,47 @@ export default function Game() {
     setSection(e.target.name);
   }
 
-  function clearFilters() {
-    dispatch(getAllCards());
-  }
-
   return (
     <div className={css.game}>
       <div className={css.secciones}>
         <div
           className={`${css.seccion} ${css.selected}`}
-          ref={album}
+          // ref={album}
           name="album"
           onClick={(e) => handleClick(e)}
         >
           {section === "album" ? (
-            <img src="../../../css/button-active.png" className={css.btnImage} />
+            <img src={activeBtn} className={css.btnImage} />
           ) : (
-            <img src="../../../css/button.png" className={css.btnImage} />
+            <img src={normalBtn} className={css.btnImage} />
           )}
           <h2>ALBUM</h2>
         </div>
         <div
           className={`${css.seccion} ${css.disabled}`}
-          ref={rules}
+          // ref={rules}
           name="rules"
           onClick={(e) => handleClick(e)}
           disabled
         >
           {section === "rules" ? (
-            <img src="../../../css/button-active.png" className={css.btnImage} />
+            <img src={activeBtn} className={css.btnImage} />
           ) : (
-            <img src="../../../css/button.png" className={css.btnImage} />
+            <img src={normalBtn} className={css.btnImage} />
           )}
           <h2>RULES</h2>
         </div>
         <div
           className={`${css.seccion} ${css.disabled}`}
-          ref={team}
+          // ref={team}
           name="team"
           onClick={(e) => handleClick(e)}
           disabled
         >
           {section === "team" ? (
-            <img src="../../../css/button-active.png" className={css.btnImage} />
+            <img src={activeBtn} className={css.btnImage} />
           ) : (
-            <img src="../../../css/button.png" className={css.btnImage} />
+            <img src={normalBtn} className={css.btnImage} />
           )}
           <h2>TEAM</h2>
         </div>
@@ -81,18 +72,7 @@ export default function Game() {
         <div className={css.seccionesLow}>
           <div className={css.filtrosContainer}>
             <div className={css.filtros}>
-              <img
-                src="../../../css/circle-15.svg"
-                className={css.clearFilter}
-                alt="ClearFilter"
-                onClick={clearFilters}
-              />
-              <button className={css.btnClearFilter} onClick={clearFilters}>
-                Clear Filters
-              </button>
-              <SearchCard />
-              <SortCards />
-              <FilterByRace />
+              <Filters/>
             </div>
           </div>
           <div className={css.cartas}>
@@ -104,26 +84,5 @@ export default function Game() {
       {section === "rules" && <Rules />}
       {section === "team" && <Team />}
     </div>
-    // <div className={css.game}>
-
-    //   {section === "album" && (
-    //     <div className={css.seccionesLow}>
-    //       <div className={css.filtrosContainer}>
-    //         <div className={css.filtros}>
-    //           <SearchCard />
-    //           <SortCards />
-    //           <FilterByRace />
-    //           <button onClick={clearFilters}>Clear Filters</button>
-    //         </div>
-    //       </div>
-    //       <div className={css.cartas}>
-    //         <Album />
-    //       </div>
-    //     </div>
-    //   )}
-
-    //   {section === "rules" && <Rules />}
-    //   {section === "team" && <Team />}
-    // </div>
   );
 }
