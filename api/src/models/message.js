@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(250),
         allowNull: false,
       },
+      emitter: {
+        type: DataTypes.JSON,
+        allowNull: false,
+      },
     },
     {
       sequelize,
