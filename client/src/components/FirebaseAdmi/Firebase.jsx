@@ -80,6 +80,13 @@ function Firebase() {
         placeholder="razas"
       />
       <input
+        type="text"
+        name=""
+        id=""
+        onChange={(e) => setRace(e.target.value)}
+        placeholder="cantidad"
+      />
+      <input
         type="file"
         name=""
         id=""
