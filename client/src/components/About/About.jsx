@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUser } from "../../redux/actions/user";
 import css from "./About.module.css";
 
 export default function About() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer.user);
+
+  useEffect(() => {
+    if (user.id !== undefined) dispatch(getUser(user.id));
+  }, []);
   return (
     <div className={css.container}>
       <div className={css.containerAbout}>
@@ -48,3 +56,4 @@ export default function About() {
     </div>
   );
 }
+

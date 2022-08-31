@@ -27,7 +27,6 @@ export default function Nav() {
   //     </div>
   //   );
   // }
-
   // function navDisabled() {
   //   return (
   //     <div>
@@ -92,6 +91,7 @@ export default function Nav() {
           <img src="../../../css/circle-15.svg" id="btnMenu" alt="Perfil" />
         )}
       </button>
+      {validToken && <ChatNotifications />}
 
       {visibleUserOptions && (
         <div className={css.userOptions}>

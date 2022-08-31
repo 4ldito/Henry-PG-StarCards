@@ -13,6 +13,12 @@ import css from "./Game.module.css";
 export default function Game() {
   const [section, setSection] = useState("album");
 
+  const user = useSelector((state) => state.userReducer.user);
+
+  useEffect(() => {
+    if (user.id !== undefined) dispatch(getUser(user.id));
+  }, []);
+
   function handleClick(e) {
     e.preventDefault();
     const target = e.target;

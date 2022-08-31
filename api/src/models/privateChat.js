@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      lastSeen: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        allowNull: false,
+      },
     },
     {
       sequelize,
