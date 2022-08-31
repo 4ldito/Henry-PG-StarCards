@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import useValidToken from "../../hooks/useValidToken";
-import { deleteUser, getAllUsers, modifyUser } from "../../redux/actions/user";
+import { deleteUser, modifyUser } from "../../redux/actions/user";
+import { getAllUsers } from "../../redux/actions/admin";
 import style from "./AdminProfile.module.css";
+import useValidToken from "../../hooks/useValidToken";
 import Swal from 'sweetalert2';
+import Filters from './AdminFilters'
 
 export default function renderAdmin(){
     const { validToken } = useValidToken({ navigate: false });
     const navigateTo = useNavigate()
     const dispatch = useDispatch();
-    const allUsers = useSelector((state) => state.userReducer.users);
+    // const allUsers = useSelector((state) => state.userReducer.users);
     const userActual = useSelector((state) => state.userReducer.user);
     const [users, setUsers] = useState(false)
+    const allUsers = useSelector((state) => state.admin.filteredUsers);
 
     useEffect(() => {
                 dispatch(getAllUsers())
@@ -25,6 +28,7 @@ export default function renderAdmin(){
         dispatch(modifyUser(user.id, {StatusId: 'inactive'}, true))
         :   dispatch(modifyUser(user.id, {StatusId: 'active'}, true))
         setUsers(true)
+        dispatch(getAllUsers())
     }
 
     function changeRol(e,user){
@@ -65,16 +69,18 @@ export default function renderAdmin(){
         setUsers(true)
     }
 
+    
     function listUsers(){
         return(
             <>
             {(validToken && userActual.RolId !== 'user') ? (<div className={style.containerUsers}>
+                    <Filters/>
                     {<ul >
                 {allUsers.map((u)=>
                         <li key={u.id}>
                         {<Link to={`/userProfile?username=${u.username}`}>{u.username}</Link>}
                         
-                        {<label>Status: {u.StatusId}</label>}
+                        <label>Status: {u.StatusId}</label>
                         {<button onClick={(e)=>changeStatus(e,u)}>{u.StatusId === 'active' ? 'Ban' : 'Unban'}</button>}
 
                         {/* {<button onClick={(e)=>changeRol(e,u)}>{u.RolId === 'user' ? 'Up to Admin' : 'Low to User'}</button>} */}
