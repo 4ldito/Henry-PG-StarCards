@@ -4,15 +4,13 @@ const { Model, UUIDV4 } = require("sequelize");
 
 class DeckCard extends Model {
   static associate(models) {
-    UserCards.belongsTo(models.User);
-    UserCards.belongsTo(models.Card);
-    UserCards.belongsTo(models.Status);
-    UserCards.belongsToMany(models.Deck, { through: "DeckCard" });
+    DeckCard.belongsTo(models.Card);
+    DeckCard.belongsToMany(models.Deck, { through: "DeckCard" });
   }
 }
 
 module.exports = (sequelize, DataTypes) => {
-  UserCards.init(
+  DeckCard.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -28,9 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       sequelize,
-      modelName: "UserCards",
+      modelName: "DeckCard",
     }
   );
 
-  return UserCards;
+  return DeckCard;
 };

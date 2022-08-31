@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db = require("../db");
 
-const { User, Deck, Card, UserCards } = db;
+const { User, Deck, Card, DeckCard } = db;
 
 const userDecksRoute = Router();
 
@@ -33,19 +33,22 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
     try {
         const newDeck = await Deck.create({ name });
         newDeckCards.forEach(async e => {
-            let newUserCard =await UserCards.findOne({ where: { CardId: e.id } });
-            newUserCard.update({repeat:e.repeat});
-            newUserCard.save();
+            let newDeckCard = await DeckCard.create();
+            const card = await Card.findByPk(e.id);
+            newDeckCard.addDeck(newDeck);
+            newDeckCard.addCard(card);
+            newDeckCard.update({repeat:e.repeat});
+            newDeckCard.save();
             // newUserCard.setStatus("onSale");
-            await newDeck.addUserCards(newUserCard);
+            await newDeck.addDeckCard(newDeckCard);
             
         })
         const user = await User.findByPk(userId, { include: Deck });
         await user.addDeck(newDeck);
         user.save();
 
-        const returnDeck = await Deck.findByPk(newDeck.id, { include: UserCards });
-        console.log(returnDeck)
+        const returnDeck = await Deck.findByPk(newDeck.id, { include: DeckCard});
+        
         res.json(returnDeck);
     } catch (err) {
         next(err);

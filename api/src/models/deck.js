@@ -6,7 +6,7 @@ class Deck extends Model {
   static associate(models) {
     Deck.belongsTo(models.User);
     Deck.belongsTo(models.Status);
-    Deck.belongsToMany(models.UserCards, { through: "DeckCard"});
+    Deck.belongsToMany(models.DeckCard, { through: "DeckCard"});
   }
 }
 
