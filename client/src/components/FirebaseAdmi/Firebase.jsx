@@ -1,55 +1,54 @@
-import {useState} from 'react'
-import {storage} from '../../firebase/config'
-import {ref, uploadBytes, getDownloadURL} from 'firebase/storage'
+import { useState } from "react";
+import { storage } from "../../firebase/config";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-function Firebase(){
-
+function Firebase() {
   //cards
   async function uploadFileCard(file, name, race) {
-    const storageRef = ref(storage, `cardUnit/${race}/${name}`);//nombre de ref para la subida
-    await uploadBytes(storageRef, file) //subida del archivo
-    const url = await getDownloadURL(storageRef);//la url de la subida
+    const storageRef = ref(storage, `cardUnit/${race}/${name}`); //nombre de ref para la subida
+    await uploadBytes(storageRef, file); //subida del archivo
+    const url = await getDownloadURL(storageRef); //la url de la subida
     return url;
   }
 
   //packs
   async function uploadFilePack(file, name) {
-    const storageRef = ref(storage, `packs/${name}`);//nombre de ref para la subida
-    await uploadBytes(storageRef, file) //subida del archivo
-    const url = await getDownloadURL(storageRef);//la url de la subida
+    const storageRef = ref(storage, `packs/${name}`); //nombre de ref para la subida
+    await uploadBytes(storageRef, file); //subida del archivo
+    const url = await getDownloadURL(storageRef); //la url de la subida
     return url;
   }
 
   //hooks
   const [file, setFile] = useState(null);
-  
+
   //zerg/terran/prottoss
-  const [name, setName] = useState('');
-  const [race, setRace] = useState('')
+  const [name, setName] = useState("");
+  const [race, setRace] = useState("");
   //packs
-  const [namepack, setNamepack] = useState('')
+  const [namepack, setNamepack] = useState("");
 
-  const handleSubmitCard = async(e)=>{
+  const handleSubmitCard = async (e) => {
     e.preventDefault();
     try {
-      const result = await uploadFileCard(file, name, race)
+      const result = await uploadFileCard(file, name, race);
       console.log(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  
-  const handleSubmitPack = async(e)=>{
+  };
+
+  const handleSubmitPack = async (e) => {
     e.preventDefault();
     try {
-      const result = await uploadFilePack(file, namepack)
+      const result = await uploadFilePack(file, namepack);
       console.log(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  return(
+  return (
     /*
       <form onSubmit={handleSubmitCard}>
         <input type='text' name='' id='' placeholder='nombre'
@@ -63,18 +62,32 @@ function Firebase(){
               onChange={(e)=>setFile(e.target.files[0])} />
         <button>new Card</button>
       </form>*/
-      //packs xD
-      
+    //packs xD
+
     <form onSubmit={handleSubmitPack}>
-            <input type='text' name='' id=''
-        onChange={(e)=>setNamepack(e.target.value)}
+      <input
+        type="text"
+        name=""
+        id=""
+        onChange={(e) => setNamepack(e.target.value)}
+        placeholder="Name pack"
       />
-      <input type='file' name='' 
-            id='' 
-            onChange={(e)=>setFile(e.target.files[0])} />
+      <input
+        type="text"
+        name=""
+        id=""
+        onChange={(e) => setRace(e.target.value)}
+        placeholder="razas"
+      />
+      <input
+        type="file"
+        name=""
+        id=""
+        onChange={(e) => setFile(e.target.files[0])}
+      />
       <button>new Pack</button>
     </form>
-  )
+  );
 }
 
-export default Firebase
+export default Firebase;
