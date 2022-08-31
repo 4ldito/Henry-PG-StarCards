@@ -1,6 +1,6 @@
 @font-face {
-  font-family: starcardsFont;
-  src: url("../../../css/EUROSTIB.ttf");
+  font-family: starcardsFont-fine;
+  src: url("../../../css/EurostileNextLTPro-Light.otf");
 }
 
 .nav {
@@ -12,12 +12,11 @@
   top: 2.2vh;
   z-index: 10;
 
-  background: rgba(43, 31, 122, 0.63);
-  background: linear-gradient(
-    135deg,
-    rgba(43, 31, 122, 0.63) 10%
-    rgba(43, 0, 110, 0.63) 15%,
-    rgba(5, 113, 155, 0.63) 100%,
+  background: rgb(6, 109, 153);
+  background: radial-gradient(
+    circle,
+    rgb(6, 109, 153) 0%,
+    rgb(43, 0, 110) 75%
   );
 
   width: 100%;
@@ -76,9 +75,8 @@
 .link {
   display: flex;
   align-items: center;
-  font-family: starcardsFont, sans serif;
+  font-family: starcardsFont-fine;
   text-decoration: none;
-
   color: white;
 }
 
@@ -130,32 +128,32 @@
   height: 11vh;
 }
 
-.profile{
+.profile {
   width: 75px;
   height: 75px;
   border-radius: 50%;
   color: white;
 }
 
-@media screen and (max-width:480px){
-  .nav{
+@media screen and (max-width: 480px) {
+  .nav {
     width: 100vw;
     flex-wrap: wrap;
   }
-  .img{
+  .img {
     display: none;
   }
-  .li{
+  .li {
     font-size: 1rem;
   }
 }
-@media screen and (max-width:620px){
-  .li{
+@media screen and (max-width: 620px) {
+  .li {
     font-size: medium;
   }
 }
-@media screen and (max-width:900px){
-  .img{
+@media screen and (max-width: 900px) {
+  .img {
     display: none;
   }
 }

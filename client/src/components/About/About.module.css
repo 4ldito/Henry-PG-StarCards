@@ -1,3 +1,8 @@
+@font-face {
+  font-family: starcardsFont-fine;
+  src: url("../../../css/EurostileNextLTPro-Light.otf");
+}
+
 .containerAll {
   display: flex;
   justify-content: center;
@@ -53,15 +58,44 @@
   margin: 0 0 0.5rem 0;
 }
 
+.InfoAbout > p {
+  font-family: starcardsFont-fine;
+  margin: 0 0 0.5rem 0;
+}
+
 /* ///////////////////////// MEDIUM //////////////////////// */
 .medium{
   display: flex;
   align-items: center;
   flex-direction: column;
+
   color: white;
-  /* background-color: aqua; */
+  text-decoration: none;
+  
   height: 25vh;
   margin-top: 1%;
+}
+
+.medium:hover{
+  color: rgb(161, 161, 161);
+}
+
+.arrow{
+  animation-name: move;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+
+@keyframes move {
+  from{
+    transform: translateY(0);
+  }
+
+  to{
+    transform: translateY(63%);
+  }
 }
 /* ///////////////////////// TEAM ////////////////////////// */
 .containerTeam {
@@ -115,6 +149,7 @@
 }
 
 .containerDataPeople > p {
+  font-family: starcardsFont-fine;
   margin: 0;
 }
 
@@ -147,6 +182,9 @@
   .containerImagePeople {
     padding: 2% 4.5%;
   }
+  .containerDataPeople > div > button {
+    width: 19%;
+  }
 }
 
 @media (max-width: 1400px) {
@@ -155,63 +193,188 @@
     justify-content: center;
     text-align: center;
   }
+  .containerPeople {
+    margin-top: 5vh;
+  }
   .containerImage {
     display:none;
   }
   .containerImagePeople {
     padding: 2% 4%;
   }
+  .containerDataPeople > div > button {
+    width: 20%;
+  }
 }
+@media (max-width: 1350px) {
+  .containerTeam {
+    height: 100vh;
+  }
+  .containerDataPeople > div > button {
+    width: 21%;
+  }
+}
+
 @media (max-width: 1300px) {
   .containerImagePeople {
     padding: 2% 3.5%;
   }
-}
-
-@media (max-width: 1250px) {
-  .containerImagePeople {
-    padding: 2% 3%;
+  .containerDataPeople > div > button {
+    width: 22%;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
   .containerPeople {
-    width: 70%;
+    width: 80%;
     height: 17vh;
     margin: 2%;
   }
 
   .containerImagePeople {
-    padding: 2% 5.5%;
+    padding: 1.5% 6.5%;
+  }
+
+  .containerDataPeople > div > button {
+    width: 14%;
   }
 }
 
 @media (max-width: 1150px) {
   .containerImagePeople {
-    padding: 2% 5%;
+    padding: 1.5% 6.2%;
+  }
+  .containerDataPeople > div > button {
+    width: 15%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .containerImagePeople {
+    padding: 1.5% 5.9%;
+  }
+  .containerDataPeople > div > button {
+    width: 16%;
   }
 }
 
 @media (max-width: 1000px) {
   .containerImagePeople {
-    padding: 2% 4.5%;
+    padding: 2% 5.4%;
+  }
+  .containerDataPeople > div > button {
+    width: 18%;
   }
 }
 
 @media (max-width: 950px) {
   .containerImagePeople {
-    padding: 2% 4%;
+    padding: 2% 4.8%;
+  }
+  .containerDataPeople > div > button {
+    width: 19%;
   }
 }
 
 @media (max-width: 900px) {
   .containerImagePeople {
-    padding: 2% 3.5%;
+    padding: 2% 4.5%;
   }
 }
 
 @media (max-width: 850px) {
   .containerImagePeople {
-    padding: 2% 3%;
+    padding: 2% 4.2%;
+  }
+  .containerDataPeople > div > button {
+    width: 20%;
+  }
+}
+
+@media (max-width: 800px) {
+  .containerImagePeople {
+    padding: 2.5% 3.6%;
+  }
+  .containerDataPeople > div > button {
+    width: 21%;
+  }
+}
+
+@media (max-width: 750px) {
+  .containerPeoples {
+    width: 100%;
+  }
+
+  .containerPeople{
+    width: 100%;
+  }
+
+  .containerImagePeople {
+    padding: 2% 5.3%;
+  }
+  .containerDataPeople > div > button {
+    width: 17%;
+  }
+}
+
+@media (max-width: 700px) {
+  .containerImagePeople {
+    padding: 2% 4.8%;
+  }
+  .containerDataPeople > div > button {
+    width: 18%;
+  }
+}
+
+@media (max-width: 650px) {
+  .containerImagePeople {
+    padding: 2% 4.2%;
+  }
+  .containerDataPeople > div > button {
+    width: 20%;
+  }
+}
+
+@media (max-width: 600px) {
+  .containerImagePeople {
+    padding: 2.4% 3.6%;
+  }
+  .containerDataPeople > div > button {
+    width: 22%;
+  }
+}
+
+@media (max-width: 562px) {
+  .containerDataPeople > h4 {
+   font-size: 1.5rem;
+  }
+  
+  .containerDataPeople > p {
+    font-size: .9rem;
+  }
+
+  .containerImagePeople {
+    padding: 2.4% 3%;
+  }
+  .containerDataPeople > div > button {
+    width: 23%;
+  }
+}
+
+@media (max-width: 524px) {
+  .containerImagePeople {
+    padding: 3.5% 2.7%;
+  }
+  .containerDataPeople > div > button {
+    width: 24%;
+  }
+}
+
+@media (max-width: 500px) {
+  .containerImagePeople {
+    padding: 3.9% 2.7%;
+  }
+  .containerDataPeople > div > button {
+    width: 25%;
   }
 }

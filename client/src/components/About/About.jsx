@@ -1,5 +1,5 @@
 import React from "react";
-import {team} from "./team"
+import { team } from "./team";
 import { BsChevronDown } from "react-icons/bs";
 import css from "./About.module.css";
 
@@ -9,9 +9,7 @@ export default function About() {
       <div className={css.containerAbout}>
         <div className={css.about}>
           <div className={css.containerImage}>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FBunker%20Terran?alt=media&token=7741703c-7122-4d4f-9911-cfb84c6244d3"
-            />
+            <img src="https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FBunker%20Terran?alt=media&token=7741703c-7122-4d4f-9911-cfb84c6244d3" />
           </div>
           <div className={css.InfoAbout}>
             <h1>Sobre Starcards</h1>
@@ -49,11 +47,11 @@ export default function About() {
           </div>
         </div>
       </div>
-      <div className={css.medium}>
+      <a href="#containerTeam" className={css.medium}>
         <h1>THE TEAM BEHIND STARCARDS</h1>
-        <BsChevronDown size={35} />
-      </div>
-      <div className={css.containerTeam}>
+        <BsChevronDown size={35} id="arrow" className={css.arrow} />
+      </a>
+      <div id="containerTeam" className={css.containerTeam}>
         <div className={css.containerPeoples}>
           {team.map((people) => (
             <div className={css.containerPeople}>
@@ -66,7 +64,7 @@ export default function About() {
                 <div>
                   <button>
                     <a href={people.linkedin} target="_blank">
-                      Linkedin
+                      LinkedIn
                     </a>
                   </button>
                   <button>
