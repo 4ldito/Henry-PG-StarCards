@@ -6,14 +6,11 @@ import { cleanMsgUserCards } from "../../redux/actions/cards/userCards";
 import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
-import Swal from "sweetalert2";
 import css from './CardContainer.module.css'
 
-export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, tamanho, maxT, removeCardFromDeck }) {
+export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, removeCardFromDeck, creatingDeck, newDeckCards }) {
   const dispatch = useDispatch();
-
-  // console.log(card);
-
+  const selectedDeck = useSelector(state => state.userReducer.selectedDeck);
   const [viewCard, setViewCard] = useState(false);
   const msg = useSelector((state) => state.album.msg);
 
@@ -21,22 +18,18 @@ export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, 
     setViewCard(!viewCard);
   }
 
-  // useEffect(() => {
-  //   console.log("msg")
-  //   if (msg.type) {
-  //     dispatch(cleanMsgUserCards());
-  //     Swal.fire({
-  //       title: msg.title,
-  //       text: msg.info,
-  //       icon: msg.type,
-  //     });
-  //     if (msg.type === 'success') setViewCard(false);
-  //   }
-  // }, [msg]);
+  let userCard;
+  if(creatingDeck){
+    userCard = newDeckCards.find(el => el.id === card.id)
+  }else{
+    userCard = selectedDeck?.UserCards?.find(el => el.CardId === card.id);
+  }
+  console.log(userCard?.repeat);
+  const repeatToShow = repeat;
 
   return (
     <div className={css.container}>
-      {repeat > 1 && <label style={{ fontSize: "50px" }}>{repeat}</label>}
+      {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeatToShow - userCard?.repeat : repeat}</label>}
       {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
       <Card
         id={card.id}

@@ -18,6 +18,7 @@ import {
   SET_ACTIVE_DECK,
   ADD_CARD_TO_DECK,
   MODIFY_USER_CARDS,
+  SET_SELECTED_DECK,
 } from "../actions/user";
 
 
@@ -26,6 +27,7 @@ const initialState = {
   user: {},
   decks: [],
   activeDeck: {},
+  selectedDeck: {},
   validUser: false,
   urlUser: {},
   validPassword: "",
@@ -144,6 +146,9 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case SET_ACTIVE_DECK:
       return { ...state, activeDeck: payload }
+      
+    case SET_SELECTED_DECK:
+      return {...state, selectedDeck: payload}
 
     case MODIFY_USER_CARDS:
       console.log(payload);
