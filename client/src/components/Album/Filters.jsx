@@ -85,7 +85,6 @@ export default function Filters() {
       </div>
 
       <div>
-        {/* <img src={imgSelect} alt="" /> */}
         <select ref={selectMovement} className={css.select} onChange={onFilterChange} name="movements">
           <option value="allMovements">All movements</option>
           <option value="Ground">Ground</option>
@@ -110,6 +109,7 @@ export default function Filters() {
         </select>
       </div>
       <select className={css.test}><option value="testttttt">testttttttttttt</option></select>
+      <img src={imgSelect} alt="" />
       {/* <button onClick={clearFilters}>Clear Filters</button> */}
     </div>
   );
