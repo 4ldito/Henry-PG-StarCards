@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getUser,
   setChatNotification,
+  setOutNotifications,
   setLastSeenMsg,
 } from "../../../redux/actions/user";
 import socket from "../../../../Socket";
@@ -53,19 +54,21 @@ const PrivateChat = ({ selected }) => {
           )
         );
 
-      let privMessage;
+      let privInfo;
       const chatWithUser = chatUsers.find((c) => c.id === actualChatUser.id);
 
       if (chatWithUser) {
-        privMessage = messages[actualChatUser.id]?.Messages;
-      } else privMessage = privateChat?.Messages;
+        privInfo = messages[actualChatUser.id]?.Messages;
+      } else {
+        privInfo = privateChat?.Messages;
+      }
 
       setMessages((prev) => ({
         ...prev,
         [actualChatUser.id]: {
-          username: actualChatUser.username,
-          id: actualChatUser.id,
-          Messages: privMessage,
+          // username: actualChatUser.username,
+          // id: actualChatUser.id,
+          Messages: privInfo,
         },
       }));
     }
@@ -74,6 +77,7 @@ const PrivateChat = ({ selected }) => {
   useEffect(() => {
     dispatch(getUser(userActive.id));
     dispatch(setChatNotification(false));
+    dispatch(setOutNotifications(userActive.id, false));
   }, []);
 
   const [chatUsers, setChatUsers] = useState([]);
@@ -96,8 +100,8 @@ const PrivateChat = ({ selected }) => {
           oldMessages = {
             ...oldMessages,
             [receiver.id]: {
-              username: receiver.username,
-              id: receiver.id,
+              // username: receiver.username,
+              // id: receiver.id,
               Messages: pc.Messages,
             },
           };
@@ -117,15 +121,6 @@ const PrivateChat = ({ selected }) => {
     socket.on("privateMessage", (user, message, privChatId) => {
       setPrivChatId(privChatId);
 
-      // if (actualChatUser.id === user.id)
-      //   dispatch(
-      //     setLastSeenMsg(
-      //       userActive.id,
-      //       privChatId,
-      //       messages[actualChatUser?.id]?.Messages.length
-      //     )
-      //   );
-
       if (chatUsers.find((c) => c.id === user.id) === undefined)
         setChatUsers((prev) => [
           ...prev,
@@ -137,12 +132,21 @@ const PrivateChat = ({ selected }) => {
         return {
           ...prev,
           [user.id]: {
-            username: user.username,
-            id: user.id,
-            Messages: [...oldMessages, message],
+            // username: user.username,
+            // id: user.id,
+            Messages: [...oldMessages, { emitter: user, message }],
           },
         };
       });
+
+      if (actualChatUser?.id === user.id)
+        dispatch(
+          setLastSeenMsg(
+            userActive.id,
+            privChatId,
+            messages[actualChatUser?.id]?.Messages.length + 1
+          )
+        );
     });
 
     return () => {
@@ -159,6 +163,18 @@ const PrivateChat = ({ selected }) => {
     e.preventDefault();
     socket.emit("privateMessage", userActive, actualChatUser, message);
     setMessage("");
+
+    setMessages((prev) => {
+      const oldMessages = prev[actualChatUser.id]?.Messages || [];
+      return {
+        ...prev,
+        [actualChatUser.id]: {
+          // username: user.username,
+          // id: user.id,
+          Messages: [...oldMessages, { emitter: userActive, message }],
+        },
+      };
+    });
 
     const privateChat = userActive.PrivateChats.find((pc) => {
       return pc.Users.find((u) => u.id === actualChatUser.id) ? true : false;
@@ -212,7 +228,9 @@ const PrivateChat = ({ selected }) => {
           {actualChatUser
             ? messages[actualChatUser.id]
               ? messages[actualChatUser.id].Messages?.map((e, i) => (
-                  <div key={i}>{e.message || e}</div>
+                  <div key={i}>
+                    {e.emitter.username}: {e.message}
+                  </div>
                 ))
               : ""
             : ""}

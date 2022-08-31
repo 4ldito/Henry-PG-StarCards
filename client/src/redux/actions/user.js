@@ -24,7 +24,7 @@ export const GET_USER_BY_NAME = "GET_USER_BY_NAME";
 export const USER_CLEAN = "USER_CLEAN";
 export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
-export const MODIFY_USER_CARDS = 'MODIFY_USER_CARDS'; 
+export const MODIFY_USER_CARDS = "MODIFY_USER_CARDS";
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,14 +100,15 @@ export function userOptionsState() {
 }
 
 export function modifyUser(id, property, norender) {
-  if(norender){
-  return function () {
-  axios.patch(`user/${id}`, property);
-  };}
+  if (norender) {
+    return function () {
+      axios.patch(`user/${id}`, property);
+    };
+  }
   return async function (dispatch) {
     const response = await axios.patch(`user/${id}`, property);
     dispatch({ type: MODIFY_USER, payload: response.data });
-  }
+  };
 }
 
 export function deleteUser(id,norender) {
@@ -195,5 +196,13 @@ export function setLastSeenMsg(userId, privChatId, msgNum) {
     await axios.patch("chat", { userId, privChatId, msgNum });
 
     dispatch(getUser(userId));
+  };
+}
+
+export function setOutNotifications(receiverId, flag) {
+  return async function (dispatch) {
+    await axios.patch("chat/notifications", { receiverId, flag });
+
+    dispatch(getUser(receiverId));
   };
 }

@@ -12,7 +12,6 @@ export default function renderAdmin(){
     const { validToken } = useValidToken({ navigate: false });
     const navigateTo = useNavigate()
     const dispatch = useDispatch();
-    // const allUsers = useSelector((state) => state.userReducer.users);
     const userActual = useSelector((state) => state.userReducer.user);
     const [users, setUsers] = useState(false)
     const allUsers = useSelector((state) => state.admin.filteredUsers);
