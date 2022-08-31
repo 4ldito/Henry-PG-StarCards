@@ -7,6 +7,10 @@ background-repeat: no-repeat;
 background-size: cover;
 } */
 @import url(./normalize.css);
+@font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+}
 
 :root {
   --container-background-main: #10101098;
@@ -27,5 +31,6 @@ body {
 }
 
 .active {
-  color: #0a58ca;
+  color: #ffffff;
+  font-family: starcardsFont;
 }

@@ -3,6 +3,7 @@ import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
 import ChatNotifications from "./ChatNotifications/ChatNotifications";
+import { AiOutlineUser } from "react-icons/ai";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
@@ -78,17 +79,17 @@ export default function Nav() {
         onClick={handleVisibleUserOptions}
       >
         {user.user.id ? (
-          <img
-            id="btnMenu"
-            className={css.profile}
-            src={user.user.profileImg}
-            alt="image profile"
-          />
+          <div id="btnMenu" className={css.divProfile}>
+            <img
+              className={css.profile}
+              src={user.user.profileImg}
+              alt="image profile"
+            />
+          </div>
         ) : (
-          // <span id="btnMenu" className="material-symbols-outlined">
-          //   account_circle
-          // </span>
-          <img src="../../../css/circle-15.svg" id="btnMenu" alt="Perfil" />
+          <div id="btnMenu" className={css.divProfile}>
+            <AiOutlineUser className={css.profile} />
+          </div>
         )}
       </button>
       {validToken && <ChatNotifications />}
