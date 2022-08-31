@@ -20,6 +20,7 @@ export default function InventoryContainer() {
   const [actualStackToShow, setActualStackToShow] = useState([]);
 
   const addCardToDeck = (card, remove,deck) => { 
+    console.log(card);
     const newCardI = userCards.findIndex(e=>e.id===card.id);
     const cardAlredyInDeck = newDeckCards.find(e=>e.id === card.id);
     if(cardAlredyInDeck){

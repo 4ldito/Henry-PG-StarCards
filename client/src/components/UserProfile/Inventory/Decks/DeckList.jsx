@@ -11,6 +11,7 @@ let justCreated = false;
 function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards,removeCardFromDeck, setNewDeckCards, creatingDeck, setCreatingDeck }) {
     const dispatch = useDispatch();
     const decks = useSelector(state => state.userReducer.decks);
+    const cards = useSelector(state => state.album.cards);
     const activeDeck = useSelector(state => state.userReducer.activeDeck);
     const [selectedDeck, setSelectedDeck] = useState([]);
     const [newDeckName, setNewDeckName] = useState();
@@ -47,11 +48,11 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
 
     function findSelectedDeck(id, userDecks) {
         const deck = userDecks.find(e => id == e.id);
+        // console.log(deck);
         setSelectedDeck(deck);
         setCreatingDeck(false);
         document.querySelector('#newDeckName').value = deck.name;
     }
-
     function openNewDeckTemplate() {
         if (!bothStacks) showCards('cartas');
         setCreatingDeck(true);
@@ -63,14 +64,15 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
     }
 
     return <div className={css.allContainer}>
-
         {/* CREACION DE MAZO */}
         <div>
             <input id='newDeckName' onChange={(e) => setNewDeckName(e.target.value)} placeholder="Nombra el mazo"></input>
             <div className={css.actualDeckContainer}>
                 {creatingDeck ? newDeckCards?.map((e, i) => <CardContainer removeCardFromDeck={removeCardFromDeck} key={i} inDeck={true} repeat={e.repeat} card={e}></CardContainer>) :
-                    selectedDeck?.Cards?.map((e, i) => {
-                    return <CardContainer key={i} inDeck={true} card={e} repeat={e.repeat}></CardContainer>})}
+                    selectedDeck?.UserCards?.map((e, i,array) => {
+                    let card = cards.find(el=>el.id===e.CardId); 
+                    console.log(e.repeat);
+                    return <CardContainer key={i} inDeck={true} card={card} repeat={e.repeat}></CardContainer>})}
             
                 {(!creatingDeck && activeDeck.id !== selectedDeck.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
             </div>
