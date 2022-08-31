@@ -138,6 +138,15 @@ const PrivateChat = ({ selected }) => {
           },
         };
       });
+
+      if (actualChatUser?.id === user.id)
+        dispatch(
+          setLastSeenMsg(
+            userActive.id,
+            privChatId,
+            messages[actualChatUser?.id]?.Messages.length + 1
+          )
+        );
     });
 
     return () => {
