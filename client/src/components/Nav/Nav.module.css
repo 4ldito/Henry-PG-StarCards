@@ -30,7 +30,7 @@
 
   left: 0;
 
-  height: 5vh;
+  height: 6vh;
 
   transition: all 0.3s;
 }
@@ -116,7 +116,7 @@
   top: 7vh;
 
   width: 10%;
-  height: 11vh;
+  height: max-content;
 }
 
 .divProfile {

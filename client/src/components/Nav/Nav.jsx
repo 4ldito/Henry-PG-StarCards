@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../../img/logoLanding.png";
+import logo from "../../img/miniLogo-15.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
 import ChatNotifications from "./ChatNotifications/ChatNotifications";

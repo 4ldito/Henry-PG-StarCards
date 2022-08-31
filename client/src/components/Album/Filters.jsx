@@ -66,11 +66,11 @@ export default function Filters() {
         Clear Filters
       </button>
 
-      <form className={css.form} onSubmit={onSubmit}>
-        <img src={imgSearch} alt="" />
-        <input className={css.input} ref={inputSearch} onChange={onFilterChange} name='search' value={filter.search} list="listaCards" />
+      {/* <form className={css.form} onSubmit={onSubmit}>
+        <img src={imgSearch} alt="" /> */}
+        <input className={css.form} ref={inputSearch} onChange={onFilterChange} name='search' value={filter.search} list="listaCards" />
         {/* <input className={css.btnSearch} type="submit" value="search" /> */}
-      </form>
+      {/* </form> */}
 
       <datalist id="listaCards">{options()}</datalist>
 
@@ -108,9 +108,6 @@ export default function Filters() {
           <option value="descendentlife">by life descendent</option>
         </select>
       </div>
-      <select className={css.test}><option value="testttttt">testttttttttttt</option></select>
-      <img src={imgSelect} alt="" />
-      {/* <button onClick={clearFilters}>Clear Filters</button> */}
     </div>
   );
 }
