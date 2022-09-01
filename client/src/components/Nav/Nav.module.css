@@ -10,7 +10,7 @@
   position: sticky;
 
   top: 2.2vh;
-  z-index: 10;
+  z-index: 20;
 
   background: rgb(6, 109, 153);
   background: radial-gradient(
