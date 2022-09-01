@@ -5,7 +5,19 @@ const zergCards = [
     Admg: 0,
     life: 70,
     ability: "Atacante: gana 4.1 de daño terrestre.",
-    abilities: [{ atk: { incStat: { stat: "Gdmg", num: 4.1 } } }],
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            stat: "Gdmg",
+            num: 4.1,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 50,
     movement: "Ground",
@@ -18,7 +30,19 @@ const zergCards = [
     Admg: 0,
     life: 145,
     ability: "Defensor: gana 14.5 de vida.",
-    abilities: [{ def: { incStat: { stat: "life", num: 14.5 } } }],
+    abilities: {
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            stat: "life",
+            num: 14.5,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 125,
     movement: "Ground",
@@ -30,10 +54,21 @@ const zergCards = [
     Gdmg: 11.3,
     Admg: 12.7,
     life: 150,
-    ability: "Atacante: gana 75 de vida. Defensor: repara 75 la base.",
-    abilities: [
-      { atk: { incStat: { stat: "life", num: 75 } }, def: { baseRepair: 75 } },
-    ],
+    ability: "Siempre: cura 10 de vida.",
+    abilities: {
+      all: [
+        {
+          modStat: {
+            mod: "inc",
+            team: "ally",
+            objective: "need",
+            stat: "life",
+            num: 10,
+            time: "everyturn",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 150,
     movement: "Ground",
@@ -46,7 +81,7 @@ const zergCards = [
     Admg: 22.2,
     life: 90,
     ability: "Sin habilidad.",
-    abilities: [{}],
+    abilities: {},
     race: "Zerg",
     cost: 200,
     movement: "Ground",
@@ -58,11 +93,21 @@ const zergCards = [
     Gdmg: 14,
     Admg: 0,
     life: 120,
-    ability:
-      "Atacante: daña 60 la base enemiga. Defensor: gana 10 de daño terrestre.",
-    abilities: [
-      { atk: { baseDamage: 60 }, def: { incStat: { stat: "Gdmg", num: 10 } } },
-    ],
+    ability: "Siempre: daña 7 a los enemigos terrestres.",
+    abilities: {
+      all: [
+        {
+          modStat: {
+            mod: "dec",
+            team: "enemy",
+            objective: "ground",
+            stat: "life",
+            num: 14,
+            time: "everyturn",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 300,
     movement: "Ground",
@@ -71,17 +116,14 @@ const zergCards = [
   },
   {
     name: "Baneling",
-    Gdmg: 0,
+    Gdmg: 80,
     Admg: 0,
-    life: 0,
-    ability:
-      "Atacante: gana 40 de daño terrestre. Defensor: gana 80 de daño terrestre.",
-    abilities: [
-      {
-        atk: { incStat: { stat: "Gdmg", num: 40 } },
-        def: { incStat: { stat: "Gdmg", num: 80 } },
-      },
-    ],
+    life: 30,
+    ability: "Siempre: al atacar muere.",
+    abilities: {
+      all: [{ deathOnAttack: "deathOnAttack" }],
+    },
+
     race: "Zerg",
     cost: 100,
     movement: "Ground",
@@ -93,15 +135,15 @@ const zergCards = [
     Gdmg: 14,
     Admg: 0,
     life: 200,
-    ability:
-      "Siempre: invisible. Atacante: daña 14 la base enemiga. Defensor: Gana 14 de daño terrestre.",
-    abilities: [
-      {
-        all: { invisible: "invisible" },
-        atk: { baseDamage: 14 },
-        def: { incStat: { stat: "Gdmg", num: 14 } },
-      },
-    ],
+    ability: "Siempre: invisible, daña 14 al siguiente enemigo terrestre.",
+    abilities: {
+      all: [
+        {
+          invisible: "invisible",
+          splashDmg: { num: 14, objective: "ground", time: "everyturn" },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 450,
     movement: "Ground",
@@ -113,9 +155,10 @@ const zergCards = [
     Gdmg: 0,
     Admg: 0,
     life: 80,
-    ability:
-      "Siempre: daña 40 a los enemigos terrestres y aéreos. Atacante: daña 4 la base enemiga.",
-    abilities: [{ all: { enemyDamage: { all: 40 } }, atk: { baseDamage: 4 } }],
+    ability: "Siempre: daña 10 a los enemigos terrestres y aéreos en área.",
+    abilities: {
+      all: [{ splashDmg: { num: 10, objective: "need", time: "everyturn" } }],
+    },
     race: "Zerg",
     cost: 350,
     movement: "Ground",
@@ -127,8 +170,8 @@ const zergCards = [
     Gdmg: 0,
     Admg: 0,
     life: 90,
-    ability: "Siempre: controla un enemigo aleatorio.",
-    abilities: [{ all: { enemyControl: "random" } }],
+    ability: "Siempre: controla al último enemigo terrestre en llegar.",
+    abilities: { all: [{ control: "ground" }] },
     race: "Zerg",
     cost: 400,
     movement: "Ground",
@@ -141,7 +184,7 @@ const zergCards = [
     Admg: 0,
     life: 160,
     ability: "Siempre: invisible",
-    abilities: [{ all: { invisible: "invisible" } }],
+    abilities: { all: [{ invisible: "invisible" }] },
     race: "Zerg",
     cost: 250,
     movement: "Ground",
@@ -155,12 +198,32 @@ const zergCards = [
     life: 500,
     ability:
       "Atacante: gana 4.6 de daño terrestre. Defensor: gana 250 de vida.",
-    abilities: [
-      {
-        atk: { incStat: { stat: "Gdmg", num: 4.6 } },
-        def: { incStat: { stat: "life", num: 250 } },
-      },
-    ],
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+
+            stat: "Gdmg",
+            num: 4.6,
+            time: "once",
+          },
+        },
+      ],
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+
+            stat: "life",
+            num: 250,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 700,
     movement: "Ground",
@@ -173,7 +236,7 @@ const zergCards = [
     Admg: 0,
     life: 200,
     ability: "Siempre: detector",
-    abilities: [{ all: { detector: "detector" } }],
+    abilities: { all: [{ detector: "detector" }] },
     race: "Zerg",
     cost: 100,
     movement: "Flying",
@@ -184,9 +247,11 @@ const zergCards = [
     name: "Scourge",
     Gdmg: 0,
     Admg: 220,
-    life: 0,
-    ability: "Sin habilidad.",
-    abilities: [{}],
+    life: 25,
+    ability: "Siempre: al atacar muere.",
+    abilities: {
+      all: [{ deathOnAttack: "deathOnAttack" }],
+    },
     race: "Zerg",
     cost: 175,
     movement: "Flying",
@@ -199,8 +264,32 @@ const zergCards = [
     Admg: 8.3,
     life: 120,
     ability:
-      "Atacante: gana 11.3 de daño terrestre. Defensor: gana 40 de vida.",
-    abilities: [],
+      "Atacante: gana 11.3 de daño terrestre. Defensor: gana 10 de vida.",
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+
+            stat: "Gdmg",
+            num: 11.3,
+            time: "once",
+          },
+        },
+      ],
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            stat: "life",
+            num: 10,
+            time: "everyturn",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 300,
     movement: "Flying",
@@ -212,9 +301,20 @@ const zergCards = [
     Gdmg: 0,
     Admg: 10.3,
     life: 200,
-    ability:
-      "Atacante: daña 35 la base enemiga. Defensor: gana 4.4 de daño aéreo.",
-    abilities: [],
+    ability: "Defensor: gana 4.4 de daño aéreo.",
+    abilities: {
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            stat: "Admg",
+            num: 4.4,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 350,
     movement: "Flying",
@@ -227,8 +327,22 @@ const zergCards = [
     Admg: 0,
     life: 150,
     ability:
-      "Atacante: daña 35 la base enemiga. Defensor: disminuye el ataque aéreo enemigo un 10%",
-    abilities: [],
+      "Atacante: controla al último enemigo aéreo en llegar. Defensor: disminuye el ataque aéreo enemigo un 80%",
+    abilities: {
+      atk: [{ control: "air" }],
+      def: [
+        {
+          modStat: {
+            mod: "dec",
+            objective: "air",
+            team: "enemy",
+            stat: "Admg",
+            perc: 10,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Zerg",
     cost: 500,
     movement: "Flying",
@@ -237,11 +351,11 @@ const zergCards = [
   },
   {
     name: "Brood Lord",
-    Gdmg: 31.1,
+    Gdmg: 51.1,
     Admg: 0,
     life: 300,
-    ability: "Atacante: gana 8.7 de daño terrestre. Defensor: gana 60 de vida.",
-    abilities: [],
+    ability: "Sin habilidad.",
+    abilities: {},
     race: "Zerg",
     cost: 800,
     movement: "Flying",
@@ -254,7 +368,7 @@ const zergCards = [
     Admg: 75,
     life: 1000,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Zerg",
     cost: 1500,
     movement: "Ground",
@@ -270,8 +384,29 @@ const terranCards = [
     Admg: 9.8,
     life: 45,
     ability:
-      "Atacante: gana 5.2 de daño terrestre y aéreo, y pierde 10 de vida.",
-    abilities: [],
+      "Atacante: gana 5.2 de daño terrestre y aéreo, y pierde 15 de vida.",
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "once",
+            stat: "dmg",
+            num: 5.2,
+          },
+        },
+        {
+          modStat: {
+            mod: "dec",
+            objective: "self",
+            time: "once",
+            stat: "life",
+            num: 15,
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 50,
     movement: "Ground",
@@ -284,8 +419,31 @@ const terranCards = [
     Admg: 0,
     life: 125,
     ability:
-      "Atacante: gana 4.8 de daño terrestre y aéreo, y pierde 20 de vida.",
-    abilities: [],
+      "Defensor: gana 4.8 de daño terrestre y aéreo, y pierde 25 de vida.",
+    abilities: {
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+
+            time: "once",
+            stat: "Gdmg",
+            num: 4.8,
+          },
+        },
+        {
+          modStat: {
+            mod: "dec",
+            objective: "self",
+
+            time: "once",
+            stat: "life",
+            num: 25,
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 150,
     movement: "Ground",
@@ -297,9 +455,22 @@ const terranCards = [
     Gdmg: 9.3,
     Admg: 9.3,
     life: 100,
-    ability:
-      "Atacante: invisible. Defensor: gana 80 de daño terrestre y aéreo.",
-    abilities: [],
+    ability: "Atacante: invisible. Defensor: daña 80 al enemigo.",
+    abilities: {
+      atk: [{ invisible: "invisible" }],
+      def: [
+        {
+          modStat: {
+            mod: "dec",
+            objective: "need",
+            team: "enemy",
+            stat: "life",
+            num: 80,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 400,
     movement: "Ground",
@@ -311,8 +482,32 @@ const terranCards = [
     Gdmg: 10.1,
     Admg: 0,
     life: 60,
-    ability: "Atacante: gana 75 de vida. Defensor: repara 75 la base.",
-    abilities: [],
+    ability: "Atacante: gana 20 de daño terrestre. Defensor: gana 7 de vida.",
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+
+            time: "once",
+            stat: "Gdmg",
+            num: 20,
+          },
+        },
+      ],
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "everyturn",
+            stat: "life",
+            num: 7,
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 150,
     movement: "Ground",
@@ -326,7 +521,30 @@ const terranCards = [
     life: 90,
     ability:
       "Atacante: gana 3.4 de daño terrestre. Defensor: gana 6 de daño terrestre.",
-    abilities: [],
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "once",
+            stat: "Gdmg",
+            num: 3.4,
+          },
+        },
+      ],
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "once",
+            stat: "Gdmg",
+            num: 6,
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 100,
     movement: "Ground",
@@ -339,7 +557,7 @@ const terranCards = [
     Admg: 0,
     life: 80,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Terran",
     cost: 75,
     movement: "Ground",
@@ -352,7 +570,7 @@ const terranCards = [
     Admg: 5.7,
     life: 75,
     ability: "Defensor: invisible.",
-    abilities: [],
+    abilities: { def: [{ invisible: "invisible" }] },
     race: "Terran",
     cost: 125,
     movement: "Ground",
@@ -365,7 +583,7 @@ const terranCards = [
     Admg: 20,
     life: 125,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Terran",
     cost: 200,
     movement: "Ground",
@@ -377,8 +595,10 @@ const terranCards = [
     Gdmg: 30,
     Admg: 0,
     life: 175,
-    ability: "Atacante: daña 30 la base enemiga.",
-    abilities: [],
+    ability: "Atacante: daña 20 al siguiente enemigo terrestre.",
+    abilities: {
+      atk: [{ splashDmg: { num: 20, objective: "ground", time: "everyturn" } }],
+    },
     race: "Terran",
     cost: 400,
     movement: "Ground",
@@ -392,7 +612,30 @@ const terranCards = [
     life: 400,
     ability:
       "Atacante: gana 4.1 de daño terrestre. Defensor: gana 30 de daño aéreo.",
-    abilities: [],
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "once",
+            stat: "Gdmg",
+            num: 4.1,
+          },
+        },
+      ],
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "once",
+            stat: "Admg",
+            num: 30,
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 700,
     movement: "Ground",
@@ -404,8 +647,21 @@ const terranCards = [
     Gdmg: 0,
     Admg: 0,
     life: 150,
-    ability: "Siempre: gana 100 de vida terrestre.",
-    abilities: [],
+    ability: "Siempre: gana 20 de vida terrestre.",
+    abilities: {
+      all: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "ground",
+            team: "ally",
+            time: "everyturn",
+            stat: "life",
+            num: 20,
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 300,
     movement: "Flying",
@@ -417,8 +673,17 @@ const terranCards = [
     Gdmg: 16.9,
     Admg: 14,
     life: 125,
-    ability: "Sin habilidad.",
-    abilities: [],
+    ability: "Siempre: toma el movimiento más requerido.",
+    abilities: {
+      all: [
+        {
+          modStat: {
+            mod: "changeMov",
+            change: "need",
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 300,
     movement: "Flying",
@@ -431,7 +696,7 @@ const terranCards = [
     Admg: 20,
     life: 120,
     ability: "Atacante: invisible.",
-    abilities: [],
+    abilities: { atk: [{ invisible: "invisible" }] },
     race: "Terran",
     cost: 350,
     movement: "Flying",
@@ -443,8 +708,12 @@ const terranCards = [
     Gdmg: 27,
     Admg: 0,
     life: 140,
-    ability: "Atacante: daña 10 la base enemiga. Defensor: invisible.",
-    abilities: [],
+    ability:
+      "Atacante: daña 15 al siguiente enemigo terrestre. Defensor: invisible.",
+    abilities: {
+      atk: [{ splashDmg: { num: 15, objective: "ground", time: "everyturn" } }],
+      def: [{ invisible: "invisible" }],
+    },
     race: "Terran",
     cost: 350,
     movement: "Flying",
@@ -457,7 +726,7 @@ const terranCards = [
     Admg: 31.6,
     life: 140,
     ability: "Siempre: detector.",
-    abilities: [],
+    abilities: { all: [{ detector: "detector" }] },
     race: "Terran",
     cost: 500,
     movement: "Flying",
@@ -469,8 +738,29 @@ const terranCards = [
     Gdmg: 0,
     Admg: 7.8,
     life: 180,
-    ability: "Defensor: gana 65.8 de daño terrestre.",
-    abilities: [],
+    ability: "Defensor: gana 65.8 de daño terrestre, pierde 7.8 de daño aéreo.",
+    abilities: {
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "once",
+            stat: "Gdmg",
+            num: 65.8,
+          },
+        },
+        {
+          modStat: {
+            mod: "dec",
+            objective: "self",
+            time: "once",
+            stat: "Admg",
+            num: 7.8,
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 450,
     movement: "Flying",
@@ -482,8 +772,21 @@ const terranCards = [
     Gdmg: 50,
     Admg: 31.3,
     life: 550,
-    ability: "Atacante: daña 240 la base enemiga.",
-    abilities: [],
+    ability: "Atacante: daña 25 a un enemigo.",
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "dec",
+            objective: "need",
+            team: "enemy",
+            stat: "life",
+            num: 25,
+            time: "everyturn",
+          },
+        },
+      ],
+    },
     race: "Terran",
     cost: 1000,
     movement: "Flying",
@@ -496,7 +799,7 @@ const terranCards = [
     Admg: 75,
     life: 1000,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Terran",
     cost: 1500,
     movement: "Ground",
@@ -512,7 +815,7 @@ const protossCards = [
     Admg: 0,
     life: 150,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Protoss",
     cost: 100,
     movement: "Ground",
@@ -524,8 +827,21 @@ const protossCards = [
     Gdmg: 8.5,
     Admg: 8.5,
     life: 80,
-    ability: "Defensor: aumenta 45 de vida.",
-    abilities: [],
+    ability: "Defensor: aumenta 10 de vida a un aliado terrestre.",
+    abilities: {
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "ground",
+            team: "ally",
+            time: "everyturn",
+            stat: "life",
+            num: 10,
+          },
+        },
+      ],
+    },
     race: "Protoss",
     cost: 250,
     movement: "Ground",
@@ -537,8 +853,20 @@ const protossCards = [
     Gdmg: 9.7,
     Admg: 9.7,
     life: 125,
-    ability: "Atacante: daña 9.7 la base enemiga. Defensor: gana 20 de vida.",
-    abilities: [],
+    ability: "Atacante: gana 20 de vida.",
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            stat: "life",
+            num: 20,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Protoss",
     cost: 225,
     movement: "Ground",
@@ -551,7 +879,7 @@ const protossCards = [
     Admg: 12,
     life: 180,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Protoss",
     cost: 225,
     movement: "Ground",
@@ -564,7 +892,7 @@ const protossCards = [
     Admg: 0,
     life: 120,
     ability: "Atacante: invisible.",
-    abilities: [],
+    abilities: { atk: [{ invisible: "invisible" }] },
     race: "Protoss",
     cost: 375,
     movement: "Ground",
@@ -577,7 +905,7 @@ const protossCards = [
     Admg: 20,
     life: 360,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Protoss",
     cost: 350,
     movement: "Ground",
@@ -590,7 +918,19 @@ const protossCards = [
     Admg: 0,
     life: 300,
     ability: "Defensor: gana 200 de vida.",
-    abilities: [],
+    abilities: {
+      def: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "once",
+            stat: "life",
+            num: 200,
+          },
+        },
+      ],
+    },
     race: "Protoss",
     cost: 475,
     movement: "Ground",
@@ -603,8 +943,11 @@ const protossCards = [
     Admg: 0,
     life: 250,
     ability:
-      "Atacante: daña 80 a los enemigos terrestres. Defensor: daña 145 a los enemigos terrestres",
-    abilities: [],
+      "Atacante: daña 20 a los enemigos terrestres. Defensor: daña 30 a los enemigos terrestres",
+    abilities: {
+      atk: [{ splashDmg: { num: 20, objective: "ground", time: "everyturn" } }],
+      def: [{ splashDmg: { num: 30, objective: "ground", time: "everyturn" } }],
+    },
     race: "Protoss",
     cost: 450,
     movement: "Ground",
@@ -613,11 +956,13 @@ const protossCards = [
   },
   {
     name: "Reaver",
-    Gdmg: 25,
+    Gdmg: 0,
     Admg: 0,
     life: 180,
-    ability: "Atacante: daña 50 a la base enemiga.",
-    abilities: [],
+    ability: "Siempre: daña 40 a los enemigos terrestres.",
+    abilities: {
+      all: [{ splashDmg: { num: 40, objective: "ground", time: "everyturn" } }],
+    },
     race: "Protoss",
     cost: 400,
     movement: "Ground",
@@ -629,8 +974,14 @@ const protossCards = [
     Gdmg: 28,
     Admg: 0,
     life: 350,
-    ability: "Siempre: es afectado por daño aéreo.",
-    abilities: [],
+    ability:
+      "Siempre: es afectado por daño aéreo, daña 20 a los enemigos terrestres.",
+    abilities: {
+      all: [
+        { allMoves: "allMoves" },
+        { splashDmg: { num: 20, objective: "ground", time: "everyturn" } },
+      ],
+    },
     race: "Protoss",
     cost: 700,
     movement: "Ground",
@@ -643,7 +994,7 @@ const protossCards = [
     Admg: 0,
     life: 60,
     ability: "Siempre: detector, invisible.",
-    abilities: [],
+    abilities: { all: [{ detector: "detector" }, { invisible: "invisible" }] },
     race: "Protoss",
     cost: 175,
     movement: "Flying",
@@ -656,7 +1007,7 @@ const protossCards = [
     Admg: 12.6,
     life: 180,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Protoss",
     cost: 350,
     movement: "Flying",
@@ -668,8 +1019,21 @@ const protossCards = [
     Gdmg: 10,
     Admg: 10,
     life: 350,
-    ability: "Siempre: reduce 15% el daño enemigo.",
-    abilities: [],
+    ability: "Siempre: reduce 30% el daño enemigo.",
+    abilities: {
+      all: [
+        {
+          modStat: {
+            mod: "dec",
+            objective: "need",
+            stat: "dmg",
+            perc: 30,
+            team: "enemy",
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Protoss",
     cost: 800,
     movement: "Flying",
@@ -681,8 +1045,20 @@ const protossCards = [
     Gdmg: 16.8,
     Admg: 16.8,
     life: 250,
-    ability: "Atacante: daña 12.8 la base enemiga.",
-    abilities: [],
+    ability: "Siempre: gana 2 de daño por turno.",
+    abilities: {
+      all: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "everyturn",
+            stat: "dmg",
+            num: 2,
+          },
+        },
+      ],
+    },
     race: "Protoss",
     cost: 550,
     movement: "Flying",
@@ -695,7 +1071,19 @@ const protossCards = [
     Admg: 12.7,
     life: 300,
     ability: "Atacante: gana 22 de daño terrestre y aéreo.",
-    abilities: [],
+    abilities: {
+      atk: [
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            stat: "dmg",
+            num: 22,
+            time: "once",
+          },
+        },
+      ],
+    },
     race: "Protoss",
     cost: 600,
     movement: "Flying",
@@ -706,9 +1094,9 @@ const protossCards = [
     name: "Carrier",
     Gdmg: 37.3,
     Admg: 37.3,
-    life: 450,
-    ability: "Atacante: gana 640 de vida.",
-    abilities: [],
+    life: 650,
+    ability: "Sin habilidad.",
+    abilities: {},
     race: "Protoss",
     cost: 970,
     movement: "Flying",
@@ -720,8 +1108,8 @@ const protossCards = [
     Gdmg: 22.8,
     Admg: 22.8,
     life: 700,
-    ability: "Siempre: 10 unidades aleatorias son invisibles.",
-    abilities: [],
+    ability: "Siempre: tus unidades son invisibles excepto ésta.",
+    abilities: { all: [{ cloackTema: "cloackTeam" }] },
     race: "Protoss",
     cost: 1200,
     movement: "Flying",
@@ -734,7 +1122,7 @@ const protossCards = [
     Admg: 75,
     life: 1000,
     ability: "Sin habilidad.",
-    abilities: [],
+    abilities: {},
     race: "Protoss",
     cost: 1500,
     movement: "Ground",
