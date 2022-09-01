@@ -62,8 +62,8 @@ export default function About() {
       </a>
       <div id="containerTeam" className={css.containerTeam}>
         <div className={css.containerPeoples}>
-          {team.map((people) => (
-            <div className={css.containerPeople}>
+          {team.map((people, i) => (
+            <div key={i} className={css.containerPeople}>
               <div className={css.containerImagePeople}>
                 <img src={people.image} className={css.imagePeople} />
               </div>

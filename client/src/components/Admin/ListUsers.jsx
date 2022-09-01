@@ -10,6 +10,7 @@ import Filters from './AdminFilters';
 import style from "./ListUsers.module.css";
 
 const ListUsers = () => {
+
     const navigateTo = useNavigate()
     const dispatch = useDispatch();
     const userActual = useSelector((state) => state.userReducer.user);
@@ -84,16 +85,13 @@ const ListUsers = () => {
                             {/* {<button onClick={(e)=>changeRol(e,u)}>{u.RolId === 'user' ? 'Up to Admin' : 'Low to User'}</button>} */}
 
                             {userActual.RolId === 'superadmin' &&
-                                (<>
-                                    <label>Rol:</label>
+                                (<><label>Rol:</label>
                                     <select onChange={(e) => changeRol(e, u)}>
-                                        {/* <option value={u.RolId} hidden={true}>{u.RolId}</option> */}
-                                        <option selected={u.RolId === 'user'} value="user">User</option>
-                                        <option selected={u.RolId === 'admin'} value="admin">Admin</option>
-                                        <option selected={u.RolId === 'superadmin'} value="superadmin">Superadmin</option>
-                                    </select>
-
-                                </>)
+                                        <option value={u.RolId} hidden={true}>{u.RolId}</option>
+                                        <option value="user" >User</option>
+                                        <option value="admin" >Admin</option>
+                                        <option value="superadmin" >Superadmin</option>
+                                    </select></>)
                             }
 
                             {<button onClick={(e) => resetPassword(e, u)}>Reset Password</button>}
