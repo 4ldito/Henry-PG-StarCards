@@ -29,11 +29,11 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
 
     case FILTER_CARDS_PACKS:
       const { race, order, favs } = payload;
-      let newFilteredCardsPack = [...state.cardsPacks];
+      let newFilteredCardsPack = state.cardsPacks;
       favs === 'all' ? newFilteredCardsPack = [...state.cardsPacks]
       :
       newFilteredCardsPack = [...state.favUserPacks];
-      if (race !== 'allRaces') newFilteredCardsPack = state.cardsPacks.filter(cardpack => {
+      if (race !== 'allRaces') newFilteredCardsPack = newFilteredCardsPack.filter(cardpack => {
         const hasRace = cardpack.race.find(r => r === race)
         if (hasRace) return cardpack;
       });
