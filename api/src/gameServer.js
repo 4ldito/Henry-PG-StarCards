@@ -10,7 +10,9 @@ const io = require("socket.io")(socketIoServer, {
 });
 
 const db = require("./db");
-const { User, Deck } = db;
+const { User, Deck, Card, Game } = db;
+
+const gameFunction = require("./controllers/gameFunction");
 
 let playersQueue = [];
 let userSockets = [];
@@ -50,69 +52,65 @@ io.on("gameConnection", (socket) => {
 
   socket.on("playRequest", async (playerId) => {
     try {
-      const [player, deck] = await User.findOne({
+      let [p1, p2] = [],
+        [p1Socket, p2Socket] = [],
+        [p1Deck, p2Deck] = [];
+
+      const newPlayer = await User.findOne({
         where: { id: playerId },
-        attributes: ["id", "defaultDeck"],
-      }).then(async (player) => {
-        const deck = await Deck.findByPk(player.defaultDeck);
-        return [player, deck];
+        attributes: ["id", "onGame", "defaultDeck"],
       });
 
-      let privChat = emitterProm.PrivateChats.find(
-        (pc) =>
-          pc.Users.find((u) => u.id === emitter.id) &&
-          pc.Users.find((u) => u.id === receiver.id)
-      );
+      if (!newPlayer.onGame) {
+        await newPlayer.update({ onGame: true });
+        playersQueue.push(newPlayer);
 
-      if (privChat) await privChat.addMessage(messageProm);
-      else {
-        privChat = await PrivateChat.create({
-          lastSeen: [
-            { user: emitter.id, msgNum: 0 },
-            { user: receiver.id, msgNum: 0 },
-          ],
-        });
-        await privChat.addMessage(messageProm);
-        await Promise.all([
-          emitterProm.addPrivateChat(privChat),
-          receiverProm.addPrivateChat(privChat),
-        ]);
+        if (playersQueue.length >= 2) {
+          [p1, p2] = [playersQueue.shift(), playersQueue.shift()];
+          [p1Socket, p2Socket] = [
+            userSockets.find((e) => e.userId === p1.id)?.socket,
+            userSockets.find((e) => e.userId === p2.id)?.socket,
+          ];
+          [p1Deck, p2Deck] = await Promise.all([
+            Deck.findOne({
+              where: { id: p1.defaultDeck },
+              include: [{ model: Card }],
+            }),
+            Deck.findOne({
+              where: { id: p2.defaultDeck },
+              include: [{ model: Card }],
+            }),
+          ]);
+
+          function gameExe(p1Deck, p2Deck) {
+            return new Promise((resolve, reject) => {
+              const gameInfo = gameFunction(p1Deck, p2Deck);
+              resolve(gameInfo);
+            });
+          }
+
+          gameExe(p1Deck, p2Deck).then(async (gameInfo) => {
+            const game = await Game.create({ info: gameInfo });
+
+            await Promise.all([p1.addGame(game), p2.addGame(game)]);
+            await Promise.all([
+              p1.update({ onGame: false }),
+              p2.update({ onGame: false }),
+            ]);
+
+            if (p1Socket) io.to(p1Socket).emit("gameResults", game);
+            if (p2Socket) io.to(p2Socket).emit("gameResults", game);
+          });
+        }
       }
-
-      const currentReceiver = userSockets.find((u) => u.userId === receiver.id);
-      if (currentReceiver)
-        io.to(currentReceiver.socket).emit(
-          "privateMessage",
-          emitter,
-          message,
-          privChat.id
-        );
-
-      // const currentUser = userSockets.find((u) => u.userId === emitter.id);
-      // io.to(currentUser.socket).emit(
-      //   "privateMessage",
-      //   receiver,
-      //   message,
-      //   privChat.id
-      // );
     } catch (error) {
-      console.error(error);
-    }
-
-    const receiverNotificationSocket = usersNotificationSocket.find(
-      (u) => u.userId === receiver.id
-    );
-
-    if (receiverNotificationSocket?.sockets[0])
-      io.to(receiverNotificationSocket.sockets[0]).emit(
-        "chatNotification",
-        true
-      );
-    else {
-      const receiverUser = await User.findByPk(receiver.id);
-      if (receiverUser) await receiverUser.update({ notifications: true });
+      console.error("StarCards error: " + error);
     }
   });
+
+  let results = [];
+
+  socket.on("gameResults", (gameInfo, playerId) => {});
 });
 
 module.exports = socketIoServer;
