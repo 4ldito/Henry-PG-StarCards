@@ -62,12 +62,12 @@ export default function About() {
                 <h4>{people.name}</h4>
                 <p>{people.summary}</p>
                 <div>
-                  <button>
+                  <button className={css.btnLink}>
                     <a href={people.linkedin} target="_blank">
                       LinkedIn
                     </a>
                   </button>
-                  <button>
+                  <button className={css.btnLink}>
                     <a href={people.github} target="_blank">
                       GitHub
                     </a>

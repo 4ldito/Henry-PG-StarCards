@@ -80,7 +80,8 @@ export default function Login() {
 
   return (
     <div className={style.appli}>
-      <div className={style2.options}>
+      {/* <div className={style2.options}> */}
+      <div>
         <form
           onSubmit={(e) => {
             login(e);
@@ -113,7 +114,8 @@ export default function Login() {
           </div>
           <div style={{height:"15px"}}></div>
           <div className={style.buttoncontainer}>
-            <button className={style2.button} data='Ingresar' type="submit" value='' />
+            {/* <button className={style2.button} data='Ingresar' type="submit" value='' /> */}
+            <button data='Ingresar' type="submit" value='' />
             <Link to='/recovery'>Recuperar Contraseña</Link>
           </div>
         </form>

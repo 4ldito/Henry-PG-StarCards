@@ -27,8 +27,6 @@ export default function LandingPage() {
     function handleScroll() {
       const nave = nave1ref.current;
       const { y } = nave.getBoundingClientRect();
-      console.log(y);
-
       const cambioTamaño = y < 341 ? "50%" : "50.5%";
       setTamaño(cambioTamaño);
     }
@@ -47,9 +45,7 @@ export default function LandingPage() {
           <div>
             <h1>EL JUEGO DE CARTAS DEL UNIVERSO STARCRAFT</h1>
           </div>
-          <div className={css.divBtn}>
-            <button>JUGAR</button>
-          </div>
+          <button className={css.btn}>JUGAR</button>
         </div>
         <img
           ref={nave1ref}
