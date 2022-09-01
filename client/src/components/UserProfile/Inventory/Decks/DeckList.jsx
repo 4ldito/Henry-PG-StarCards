@@ -8,24 +8,27 @@ import css from './DeckList.module.css'
 
 let justCreated = false;
 
-function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards, setNewDeckCards, creatingDeck, setCreatingDeck }) {
+function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards,removeCardFromDeck, setNewDeckCards, creatingDeck, setCreatingDeck }) {
     const dispatch = useDispatch();
     const decks = useSelector(state => state.userReducer.decks);
     const activeDeck = useSelector(state => state.userReducer.activeDeck);
     const [selectedDeck, setSelectedDeck] = useState([]);
     const [newDeckName, setNewDeckName] = useState();
+    
     useEffect(() => {
         setSelectedDeck(activeDeck)
+        document.querySelector('#newDeckName').value = activeDeck.name;
     }, [])
+
     useEffect(() => {
         console.log(justCreated);
         if (!justCreated && selectedDeck && !decks.includes(e => e.id === selectedDeck.id)) {
-            setSelectedDeck(activeDeck)};
-            justCreated = false
+            setSelectedDeck(activeDeck)
+        };
+        justCreated = false
     }, [decks, activeDeck]);
 
     function createNewDeck(userId, deck, name) {
-
         if (name && deck.length) {
             dispatch(createDeck(userId, deck, name));
             const newDeck = { Cards: deck, name };
@@ -35,12 +38,14 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
             justCreated = true;
         }
     }
+
     function removeDeck(userId, deckId) {
         if (activeDeck.id == deckId) dispatch(setActiveDeck({}));
         if (selectedDeck.id === deckId) setSelectedDeck(activeDeck[0]);
         document.querySelector('#newDeckName').value = activeDeck.name;
         dispatch(deleteDeck(userId, deckId))
     }
+
     function findSelectedDeck(id, userDecks) {
         const deck = userDecks.find(e => id == e.id);
         setSelectedDeck(deck);
@@ -56,9 +61,7 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
         setSelectedDeck([]);
         setNewDeckName('');
         document.querySelector('#newDeckName').value = '';
-
     }
-
 
     return <div className={css.allContainer}>
 
@@ -66,9 +69,8 @@ function DeckList({ userId, enableAddButton, bothStacks, showCards, newDeckCards
         <div>
             <input id='newDeckName' onChange={(e) => setNewDeckName(e.target.value)} placeholder="Nombra el mazo"></input>
             <div className={css.actualDeckContainer}>
-                {creatingDeck ? newDeckCards?.map((e, i) => <CardContainer key={i} inDeck={true} card={e}></CardContainer>) :
+                {creatingDeck ? newDeckCards?.map((e, i) => <CardContainer removeCardFromDeck={removeCardFromDeck} key={i} inDeck={true} repeat={e.repeat} card={e}></CardContainer>) :
                     selectedDeck?.Cards?.map((e, i) => <CardContainer key={i} inDeck={true} card={e}></CardContainer>)}
-
                 {(!creatingDeck && activeDeck.id !== selectedDeck.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
             </div>
             <button onClick={() => { createNewDeck(userId, newDeckCards, newDeckName) }}>Guardar</button>

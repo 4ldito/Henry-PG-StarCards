@@ -16,14 +16,17 @@ import {
   SET_CHAT_NOTIFICATION,
   CREATE_DECK,
   SET_ACTIVE_DECK,
+  USER_OPTIONS_STATE,
+  ADD_CARD_TO_DECK,
+  MODIFY_USER_CARDS,
 } from "../actions/user";
 
 
 
 const initialState = {
   user: {},
-  decks:[],
-  activeDeck:{},
+  decks: [],
+  activeDeck: {},
   validUser: false,
   urlUser: {},
   validPassword: "",
@@ -32,6 +35,7 @@ const initialState = {
   validToken: false,
   token: null,
   chatNotification: false,
+  userOptions: false
 };
 
 
@@ -47,10 +51,13 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, user: payload, validUser: true }
 
     case GET_BY_EMAIL:
-      return { ...state, actualUser: payload};
+      return { ...state, actualUser: payload };
 
     case GET_USER_BY_NAME:
       return { ...state, urlUser: payload };
+
+    case USER_OPTIONS_STATE:
+      return { ...state, userOptions: !state.userOptions };
 
     case CREATE_USER:
       if (payload.error)
@@ -122,7 +129,7 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case USER_CLEAN:
       return { ...state, validUser: false, user: {} }
-      
+
     case USER_MODIFY_STARS:
       const { updatedUser, error } = payload;
       if (updatedUser && !error) return { ...state, user: updatedUser };
@@ -130,14 +137,27 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case SET_CHAT_NOTIFICATION:
       return { ...state, chatNotification: payload };
+
     case GET_USER_DECKS:
-      return {...state, decks: payload}
+      return { ...state, decks: payload }
+
     case CREATE_DECK:
-      return {...state, decks:[...state.decks,payload]}
+      return { ...state, decks: [...state.decks, payload] }
+
     case DELETE_DECK:
-      return {...state, decks: state.decks.filter(e=>e.id!==payload.deckToRemove.id)}
+      return { ...state, decks: state.decks.filter(e => e.id !== payload.deckToRemove.id) }
+
     case SET_ACTIVE_DECK:
-      return {...state, activeDeck: payload}
+      return { ...state, activeDeck: payload }
+
+    case MODIFY_USER_CARDS:
+      console.log(payload);
+      payload.forEach(userCard => {
+        const actualUserCard = state.user.UserCards.find(uc => userCard.id === uc.id);
+        actualUserCard.StatusId = userCard.StatusId;
+      });
+
+      return { ...state, user: {...state.user} }
 
     default:
       return state;;

@@ -6,6 +6,7 @@ class Transaction extends Model {
     Transaction.belongsTo(models.User);
     Transaction.belongsToMany(models.StarsPack, { through: 'Transaction_StarsPack' });
     Transaction.belongsToMany(models.CardPacks, { through: 'Transaction_CardPacks' });
+    Transaction.belongsToMany(models.UserCards, { through: 'Transaction_UserCards' });
   }
 }
 
@@ -28,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
             }
           },
         },
+      },
+      priceStars: {
+        type: DataTypes.FLOAT
       },
       paymentId: {
         type: DataTypes.BIGINT,

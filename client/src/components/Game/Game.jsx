@@ -1,22 +1,26 @@
-import React, { useState, useRef } from "react";
-import FilterByRace from "../Album/Filter";
-import SearchCard from "../Album/SearchCard";
-import SortCards from "../Album/Sort";
-import Album from "../Album/Album";
+import React, { useState, useRef, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
+import Filters from "../Album/Filters";
+import Album from "../Album/Album";
 import Rules from "../Rules/Rules";
 import Team from "../Team/Team";
 
+import { getUser } from "../../redux/actions/user";
+
+import activeBtn from '../../img/button-active.png'
+import normalBtn from '../../img/button.png';
+
 import css from "./Game.module.css";
-import getAllCards from "../../redux/actions/cards/getAllCards";
-import { useDispatch } from "react-redux";
 
 export default function Game() {
-  const dispatch = useDispatch();
   const [section, setSection] = useState("album");
-  const album = useRef(null);
-  const rules = useRef(null);
-  const team = useRef(null);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userReducer.user);
+
+  useEffect(() => {
+    if (user.id !== undefined) dispatch(getUser(user.id));
+  }, []);
 
   function handleClick(e) {
     e.preventDefault();
@@ -27,49 +31,57 @@ export default function Game() {
     setSection(e.target.name);
   }
 
-  function clearFilters() {
-    dispatch(getAllCards());
-  }
-
   return (
     <div className={css.game}>
       <div className={css.secciones}>
-        <button
+        <div
           className={`${css.seccion} ${css.selected}`}
-          ref={album}
+          // ref={album}
           name="album"
           onClick={(e) => handleClick(e)}
         >
-          Album
-        </button>
-        <button
+          {section === "album" ? (
+            <img src={activeBtn} className={css.btnImage} />
+          ) : (
+            <img src={normalBtn} className={css.btnImage} />
+          )}
+          <h2>ALBUM</h2>
+        </div>
+        <div
           className={`${css.seccion} ${css.disabled}`}
-          ref={rules}
+          // ref={rules}
           name="rules"
           onClick={(e) => handleClick(e)}
           disabled
         >
-          Rules
-        </button>
-        <button
+          {section === "rules" ? (
+            <img src={activeBtn} className={css.btnImage} />
+          ) : (
+            <img src={normalBtn} className={css.btnImage} />
+          )}
+          <h2>RULES</h2>
+        </div>
+        <div
           className={`${css.seccion} ${css.disabled}`}
-          ref={team}
+          // ref={team}
           name="team"
           onClick={(e) => handleClick(e)}
           disabled
         >
-          Team
-        </button>
+          {section === "team" ? (
+            <img src={activeBtn} className={css.btnImage} />
+          ) : (
+            <img src={normalBtn} className={css.btnImage} />
+          )}
+          <h2>TEAM</h2>
+        </div>
       </div>
 
       {section === "album" && (
         <div className={css.seccionesLow}>
           <div className={css.filtrosContainer}>
             <div className={css.filtros}>
-              <SearchCard />
-              <SortCards />
-              <FilterByRace />
-              <button onClick={clearFilters}>Clear Filters</button>
+              <Filters/>
             </div>
           </div>
           <div className={css.cartas}>

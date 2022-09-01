@@ -1,0 +1,19 @@
+
+
+
+@media screen and (max-width:480px){
+    .container{
+        transform: scale(.6);
+        max-width: 25vw;
+        height: 200px;
+        
+    }
+}
+
+
+.test {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 400px;
+    height: 400px;
+}

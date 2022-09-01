@@ -57,8 +57,9 @@
   top: 6%;
   left: 10%;
   border-radius: 50%;
-  padding: 3%;
   color: red;
+  width: 30px;
+  height: 30px;
 }
 
 .textImage {

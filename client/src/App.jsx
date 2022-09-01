@@ -16,6 +16,7 @@ import Inventory from "./components/UserProfile/Inventory/Inventory";
 import RecoveryPassword from "./components/Registro/RecoveryPassword";
 import Registro from "./components/Registro/Registro";
 import Firebase from "./components/FirebaseAdmi/Firebase";
+import AdminProfile from "./components/Admin/AdminProfile";
 
 import "./App.css";
 
@@ -37,8 +38,8 @@ function App() {
     <div>
       <Nav />
       <Routes>
-        <Route path="/firebase" element={<Firebase />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/firebase" element={<Firebase />} />
         <Route path="/register" element={<Registro />} />
         <Route path="/recovery" element={<RecoveryPassword />} />
         <Route path="/login" element={<Login />} />
@@ -48,6 +49,7 @@ function App() {
         <Route path="/purchase-completed" element={<PurchaseCompleted />} />
         <Route path="/playroom" element={<Playroom />} />
         <Route path="/userProfile" element={<UserProfile />} />
+        <Route path="/admin" element={<AdminProfile />} />
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/recovery" element={<RecoveryPassword />} />
         <Route path="/privateChat" element={<PrivateChat />} />

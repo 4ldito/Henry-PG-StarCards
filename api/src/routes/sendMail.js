@@ -1,7 +1,9 @@
 const express = require("express");
+const db = require("../db");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const sendMail = express();
+const { User } = db;
 
 ///////////////////////////////////////////////////////////
 let tokenValid;
@@ -17,8 +19,6 @@ function token() {
 
 sendMail.get("/sendmail/:token", (req, res, next) => {
   try {
-    console.log("body", req.params);
-
     const { token } = req.params;
     if (Number(token) === Number(tokenValid)) {
       return res.send(true);
@@ -77,19 +77,33 @@ sendMail.post("/sendmail", (req, res, next) => {
   });
 });
 
-///////////////////////////////////Envio de Token//////////////////////////////////////////////
+///////////////////////////////////Envio de Confirmacion de Compra//////////////////////////////////////////////
 
-sendMail.post("/sendmailpurchase", (req, res, next) => {
+sendMail.post("/sendmailpurchase", async (req, res, next) => {
   
- nodemailer.createTestAccount((err, account) => {
+  const {userId, items} = req.body
+  const user = await User.findByPk(userId)
+
+  let response
+  // console.log( items )
+  nodemailer.createTestAccount((err, account) => {
+    console.log(items)
+  response = items.map(({unit_price, quantity, title}) => ({unit_price, quantity, title}))
+  let text
+   text = response.map(e => (text = `Producto: ${e.title}, Cantidad: ${e.quantity}, Precio: ARS ${e.unit_price}`))
+   text = text.join('<br></br>')
+
  try {
          const htmlEmail = `
          <img src="https://i.ibb.co/SfKhMg2/Sin-t-tulo-1-Mesa-de-trabajo-1.png" width="1100" height="200" title="Logo">
          <h3 style="text-align:center">--> STARCARDS <--</h3>
 
-         <h3 style="text-align:center">TOKEN:</h3>
+         <h3 style="text-align:center">Compra Realizada</h3>
          
-         <h4 style="text-align:center">No comparta esta informacion con NADIE. TOKEN de acceso UNICO</h4>
+         <h4 style="text-align:center">${text}</h4>
+
+         <h4 style="text-align:center">GRACIAS POR COMPRAR EN STARCARDS!</h4>
+
        `;
      let transporter = nodemailer.createTransport({
        host: "smtp.gmail.com",
@@ -105,7 +119,7 @@ sendMail.post("/sendmailpurchase", (req, res, next) => {
 
      let mailOptions = {
        from: "STARCARDS@gmail.com", // Quien manda el email
-       to: req.body.email, // El email de destino
+       to: user.email, // El email de destino
        replyTo: "STARCARDS@gmail.com",
        // subject: req.body.asunto, // El asunto del email
        // text: req.body.mensaje, // El mensaje

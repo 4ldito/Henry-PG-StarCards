@@ -1,0 +1,105 @@
+@font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+}
+
+.containerLandingPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  background-image: url(../../img/fondo.png);
+  background-size:cover;
+
+  color: white;
+
+  width: 100%;
+  height: 93vh;
+
+  margin: 0 0 0 0;
+}
+
+.LandingPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40%;
+  height: 60%;
+  /* background-color: red; */
+}
+
+.logo {
+  width: 100%;
+}
+
+.LandingPage > div {
+  width: 70%;
+}
+
+.LandingPage > div > h1 {
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+  letter-spacing: 3px;
+}
+
+.LandingPage > button{
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url(../../img/button-active.png);
+    border: none;
+
+    font-size: 2rem;
+    color: white;
+
+    width: 31%;
+    height: 15%;
+}
+
+/* //////////////////////////////////////////////////////////////// */
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(../../img/background2-14.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: auto;
+}
+
+.containerTitle{
+    text-align: center;
+    color: white;
+    width: 40%;
+    margin-top: 17vh;
+}
+
+.containerCards{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(../../img/imagecontainer.svg);
+    width: 68%;
+    height: 64.5vh;
+
+    padding: 5vh 4%;
+}
+
+.arrow{
+    display: flex;
+    align-items: center;
+    width: 5%;
+    height: 100%;
+}
+
+.cards{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    overflow-y: scroll;
+
+    width: 90%;
+    height: 100%;
+}

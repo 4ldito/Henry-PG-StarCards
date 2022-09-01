@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import socket from "./Socket";
+import socket from "../../../Socket";
 import style from '../Chat/Chat.module.css';
 
 const Chat = ({ nombre }) => {
