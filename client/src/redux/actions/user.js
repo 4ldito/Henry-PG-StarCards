@@ -75,6 +75,7 @@ export function signIn(user) {
   return async function (dispatch) {
     try {
       const response = await axios.post("login/signin", user);
+      console.log(response.data)
       dispatch({ type: SIGN_IN, payload: response.data });
     } catch (err) {
       console.log(err);
@@ -111,7 +112,11 @@ export function modifyUser(id, property, norender) {
   };
 }
 
-export function deleteUser(id) {
+export function deleteUser(id,norender) {
+  if(norender){
+    return function () {
+    axios.delete(`user/?id=${id}`);
+    };}
   return async function (dispatch) {
     const response = await axios.delete(`user/?id=${id}`);
     dispatch({ type: DELETE_USER, payload: response.data });
@@ -133,7 +138,7 @@ export function isValidToken(id, token) {
 export function purchaseCompleted(id, items, paymentId) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(`transaction/${paymentId}`);
+      const { data } = await axios.get(`transaction/paymentId/${paymentId}`);
       // Si ya existe data es poruqe la transicción ya fue acreditada.
       if (data) return;
       const response = await axios.patch(`user/${id}`, { items });

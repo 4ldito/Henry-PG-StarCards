@@ -1,6 +1,6 @@
 import axios from 'axios'
-export const SEND_MAIL = 'SEND_MAIL',CHANGE_RENDER='CHANGE_RENDER', MODAL = 'MODAL', SUCCESS_ACTION = 'SUCCESS_ACTION', VERIFY_TOKEN = 'VERIFY_TOKEN', CLEAN_TOKEN = 'CLEAN_TOKEN', CLEAN_RECIVED_TOKEN='CLEAN_RECIVED_TOKEN'
-
+export const SEND_MAIL = 'SEND_MAIL',CHANGE_RENDER='CHANGE_RENDER', MODAL = 'MODAL', SUCCESS_ACTION = 'SUCCESS_ACTION', VERIFY_TOKEN = 'VERIFY_TOKEN', CLEAN_TOKEN = 'CLEAN_TOKEN', CLEAN_RECIVED_TOKEN='CLEAN_RECIVED_TOKEN',
+SEND_MAIL_PURCHASE='SEND_MAIL_PURCHASE'
 
 
 export function sendMail(payload) {
@@ -38,5 +38,11 @@ export function cleanrecivedToken() {
 export function renderVerifyRegister() {
     return function (dispatch) {
       dispatch({ type: CHANGE_RENDER })
+    }
+  }
+  export function sendMailPurchase(payload) {
+    return function () {
+      axios.post(`sendmailpurchase`, payload)
+      console.log(payload)
     }
   }

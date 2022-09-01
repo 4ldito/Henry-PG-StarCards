@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { sendMailPurchase } from "../../redux/actions/sendMail";
 
 import { cleanPreferenceId, getPurchaseInfo, shopCartCleanMsgInfo } from "../../redux/actions/shopCart";
 import { purchaseCompleted } from "../../redux/actions/user";
@@ -19,7 +20,6 @@ const PurchaseCompleted = () => {
 
   useEffect(() => {
     dispatch(getPurchaseInfo(paymentId));
-    console.log(purchaseInfo)
 
     dispatch(cleanPreferenceId());
   }, []);
@@ -28,8 +28,10 @@ const PurchaseCompleted = () => {
     if (purchaseInfo.userId) {
       setActualPurchaseInfo(purchaseInfo);
       dispatch(purchaseCompleted(purchaseInfo.userId, purchaseInfo.items, paymentId));
+      // console.log(purchaseInfo, purchaseInfo.items, paymentId) //despachar la accion para el email
       dispatch(getPurchaseInfo());
-      console.log(purchaseInfo)
+      // console.log(purchaseInfo)
+      dispatch(sendMailPurchase(purchaseInfo))
     }
   }, [purchaseInfo, purchaseInfo]);
 

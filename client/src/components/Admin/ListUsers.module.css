@@ -1,0 +1,6 @@
+.containerUsers {
+    margin-top: 2rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
