@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const db = require("../db");
 
-const { User, Deck, Card, DeckCard } = db;
+const { User, Deck, Card, UserCards } = db;
 
 const userDecksRoute = Router();
 
@@ -32,23 +32,31 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
 
     try {
         const newDeck = await Deck.create({ name });
-        newDeckCards.forEach(async e => {
-            let newDeckCard = await DeckCard.create();
-            const card = await Card.findByPk(e.id);
-            newDeckCard.addDeck(newDeck);
-            newDeckCard.addCard(card);
-            newDeckCard.update({repeat:e.repeat});
-            newDeckCard.save();
-            // newUserCard.setStatus("onSale");
-            await newDeck.addDeckCard(newDeckCard);
-            
-        })
+        const cardRepeats = [];
+        
+        for (const deckCard of newDeckCards) {
+            const userCard = await UserCards.findOne({ where: { CardId: deckCard.id, StatusId: 'active', UserId: userId } });
+            await newDeck.addUserCards(userCard);
+            console.log(userCard, deckCard.repeat);
+            cardRepeats.push({ userCardId: userCard.id, repeat: deckCard.repeat });
+        }
+        
+        // await newDeckCards.forEach(async e => {
+        //     let newUserCard = await UserCards.findOne({ where: { CardId: e.id, StatusId: 'active', UserId: userId } });
+        //     await newDeck.addUserCards(newUserCard);
+        //     console.log(newUserCard, e.repeat);
+        //     cardRepeats.push({ UserCard: newUserCard, repeat: e.repeat });
+        // });
+        console.log(cardRepeats);
+        
+        newDeck.cardRepeats = JSON.stringify(cardRepeats);
+        newDeck.save();
+
         const user = await User.findByPk(userId, { include: Deck });
         await user.addDeck(newDeck);
         user.save();
 
-        const returnDeck = await Deck.findByPk(newDeck.id, { include: DeckCard});
-        
+        const returnDeck = await Deck.findByPk(newDeck.id, { include: UserCards });
         res.json(returnDeck);
     } catch (err) {
         next(err);

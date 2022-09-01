@@ -43,6 +43,7 @@ export default function InventoryContainer() {
 
   function renderNotRepeat() {
     let cartas = [];
+    console.log(filteredUserCards);
     filteredUserCards?.forEach(e => {
       cartas.push(<CardContainer key={e.id} tamanho='.5' addCardToDeck={addCardToDeck} addButton={bothStacks ? true : false} card={e} repeat={e.repeat} />)
     })

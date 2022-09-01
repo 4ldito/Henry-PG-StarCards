@@ -5,7 +5,7 @@ const { Model, UUIDV4 } = require("sequelize");
 class DeckCard extends Model {
   static associate(models) {
     DeckCard.belongsTo(models.Card);
-    DeckCard.belongsToMany(models.Deck, { through: "DeckCard" });
+
   }
 }
 

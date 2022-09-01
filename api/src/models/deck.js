@@ -6,7 +6,7 @@ class Deck extends Model {
   static associate(models) {
     Deck.belongsTo(models.User);
     Deck.belongsTo(models.Status);
-    Deck.belongsToMany(models.DeckCard, { through: "DeckCard"});
+    Deck.belongsToMany(models.UserCards, { through: "DeckCard"});
   }
 }
 
@@ -21,13 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-       }
-      // cardsMax: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      //   unique: true,
-      // },
-   
+       },
+      cardRepeats:{
+          type: DataTypes.STRING(5000) 
+      }
     },
     {
       sequelize,

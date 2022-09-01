@@ -30,7 +30,6 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
     function createNewDeck(userId, deck, name) {
         if (name && deck.length) {
             dispatch(createDeck(userId, deck, name));
-            const newDeck = { Cards: deck, name };
             setNewDeckCards([]);
             setCreatingDeck(false);
             dispatch(setNewSelectedDeck({}));
@@ -54,8 +53,6 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
 
     function findSelectedDeck(id, userDecks) {
         const deck = userDecks.find(e => id == e.id);
-        // setSelectedDeck(deck);
-        dispatch(setNewSelectedDeck({}));
         dispatch(setNewSelectedDeck(deck));
         setCreatingDeck(false);
         document.querySelector('#newDeckName').value = deck.name;
@@ -71,22 +68,6 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
     }
 
     return <div className={css.allContainer}>
-        {/* CREACION DE MAZO */}
-        <div>
-            <input id='newDeckName' onChange={(e) => setNewDeckName(e.target.value)} placeholder="Nombra el mazo"></input>
-            <div className={css.actualDeckContainer}>
-                {creatingDeck ? newDeckCards?.map((e, i) => <CardContainer newDeckCards={newDeckCards}
-                    creatingDeck={creatingDeck} removeCardFromDeck={removeCardFromDeck} key={i} inDeck={true}
-                    repeat={e.repeat} card={e}></CardContainer>) :
-                    selectedDeck?.UserCards?.map((e, i, array) => {
-                        let card = cards.find(el => el.id === e.CardId);
-                        return <CardContainer key={i} inDeck={true} card={card} repeat={e.repeat}></CardContainer>
-                    })}
-
-                {(!creatingDeck && activeDeck.id !== selectedDeck.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
-            </div>
-            <button onClick={() => { createNewDeck(userId, newDeckCards, newDeckName) }}>Guardar</button>
-        </div>
 
         {/* LISTADO DE MAZOS */}
 
@@ -100,6 +81,33 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 Nuevo mazo
             </button>
         </ul>
+
+        {/* CREACION DE MAZO */}
+        <div className={css.actualDeckContainer}>
+            <input id='newDeckName' onChange={(e) => setNewDeckName(e.target.value)} placeholder="Nombra el mazo"></input>
+            <div className={css.cardsContainer}>
+                {creatingDeck ? newDeckCards?.map((e, i) => (
+                    <div className={css.card}>
+                    <CardContainer
+                        newDeckCards={newDeckCards}
+                        creatingDeck={creatingDeck}
+                        removeCardFromDeck={removeCardFromDeck}
+                        key={i}
+                        inDeck={true}
+                        repeat={e.repeat}
+                        card={e} />
+                    </div>
+                )) :
+                    selectedDeck?.UserCards?.map((e, i, array) => {
+                        let card = cards.find(el => el.id === e.CardId);
+                        return <CardContainer key={i} inDeck={true} card={card} uCard={e} repeat={e.repeat}></CardContainer>
+                    })}
+
+                {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
+            </div>
+            <button onClick={() => { createNewDeck(userId, newDeckCards, newDeckName) }}>Guardar</button>
+        </div>
+
 
         {/* BOTON DE CREACION DE NUEVO MAZO */}
 

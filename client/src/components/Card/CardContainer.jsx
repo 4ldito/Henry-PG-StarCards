@@ -8,28 +8,41 @@ import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
 import css from './CardContainer.module.css'
 
-export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, removeCardFromDeck, creatingDeck, newDeckCards }) {
+export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, inDeck, removeCardFromDeck, creatingDeck, newDeckCards }) {
   const dispatch = useDispatch();
   const selectedDeck = useSelector(state => state.userReducer.selectedDeck);
   const [viewCard, setViewCard] = useState(false);
+  const [userCard, setUserCard] = useState(null);
+  const [cardRepeats,setCardRepeats] = useState(1);
   const msg = useSelector((state) => state.album.msg);
+
+  useEffect(() => {
+
+    if (creatingDeck) {
+      setUserCard(newDeckCards.find(el => el.id === card.id));
+    } else {
+      
+      if(selectedDeck && selectedDeck.cardRepeats && uCard){
+        setCardRepeats(JSON.parse(selectedDeck?.cardRepeats)); 
+      }
+      
+    }
+    
+  }, [selectedDeck,newDeckCards]);
+  useEffect(()=>{
+    
+    if(cardRepeats)console.log(cardRepeats);
+    // setUserCard(cardRepeats?.find(el => el.userCardId === uCard.id));
+
+  },[cardRepeats]);
 
   function handleViewCard() {
     setViewCard(!viewCard);
   }
 
-  let userCard;
-  if(creatingDeck){
-    userCard = newDeckCards.find(el => el.id === card.id)
-  }else{
-    userCard = selectedDeck?.UserCards?.find(el => el.CardId === card.id);
-  }
-  console.log(userCard?.repeat);
-  const repeatToShow = repeat;
-
   return (
     <div className={css.container}>
-      {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeatToShow - userCard?.repeat : repeat}</label>}
+      {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeat - cardRepeats : repeat}</label>}
       {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
       <Card
         id={card.id}

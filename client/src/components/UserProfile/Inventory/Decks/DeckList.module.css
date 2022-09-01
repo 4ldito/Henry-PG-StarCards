@@ -1,19 +1,29 @@
 
 
 .deckListContainer{
-
+   display: flex;
 }
 
 .allContainer{
     color:white;
-
+    background-color: #444;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 .actualDeckContainer{
     display: flex;
-    max-width: 400px;
+
+    width: 100%;
     overflow-x: scroll;
     overflow-y: none;
+    background-color: aliceblue;
+}
+.cardsContainer{
+    display: flex;
+}
+.card{
+
 }
 
 @media screen and (min-width:450px){
