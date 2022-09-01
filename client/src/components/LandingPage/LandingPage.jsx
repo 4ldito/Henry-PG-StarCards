@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import getAllCards from "../../redux/actions/cards/getAllCards";
 
 import logo from "../../img/logo-15.png";
+import imageLanding from "../../img/imagenLanding.png";
 import nave1 from "../../img/nave.png";
 import nave2 from "../../img/nave2.png";
 import nave3 from "../../img/nave3.png";
@@ -100,7 +101,9 @@ export default function LandingPage() {
         <div className={css.containerTitleDown}>
           <h1>ELEGÍ PROTOSS, TERRAN O ZERG PARA ARMAR TU MAZO Y COMPETIR</h1>
         </div>
-        <div className={css.containerCards}></div>
+        <div className={css.containerCards}>
+          <img className={css.imageLanding} src={imageLanding} alt="" />
+        </div>
       </div>
     </>
   );

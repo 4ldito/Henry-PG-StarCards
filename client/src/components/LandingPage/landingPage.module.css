@@ -133,7 +133,7 @@
   width: 60%;
   height: 100%;
 
-  padding: 3% 3.5%;
+  padding: 2% 3.1% 2.5% 3%;
 }
 
 .arrow {
@@ -152,6 +152,10 @@
 
   width: 90%;
   height: 100%;
+}
+
+.imageLanding{
+    width: 100%;
 }
 
 @media (max-width: 1546px) {
