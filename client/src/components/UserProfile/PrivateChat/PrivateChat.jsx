@@ -1,6 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser } from "../../../redux/actions/user";
+import {
+  getUser,
+  setChatNotification,
+  setOutNotifications,
+  setLastSeenMsg,
+} from "../../../redux/actions/user";
 import socket from "../../../../Socket";
 
 import css from "./PrivateChat.module.css";
@@ -8,11 +13,19 @@ import css from "./PrivateChat.module.css";
 const PrivateChat = ({ selected }) => {
   const dispatch = useDispatch();
 
-  const userActive = useSelector((state) => state.userReducer.user);
+  const userActiveGlobal = useSelector((state) => state.userReducer.user);
   const [actualChatUser, setActualChatUser] = useState(selected);
+
+  const [userActive, setUserActive] = useState(userActiveGlobal);
+
+  useEffect(() => {
+    setUserActive(userActiveGlobal);
+  }, [userActiveGlobal]);
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState({});
+
+  const [privChatId, setPrivChatId] = useState();
 
   function handleChatSelect(c) {
     setActualChatUser(c);
@@ -20,25 +33,42 @@ const PrivateChat = ({ selected }) => {
 
   useEffect(() => {
     if (actualChatUser) {
-      let privMessage;
+      const privateChat = userActive.PrivateChats.find((pc) =>
+        pc.Users.find((u) => u.id === actualChatUser.id)
+      );
+
+      if (privateChat)
+        dispatch(
+          setLastSeenMsg(
+            userActive.id,
+            privateChat.id,
+            messages[actualChatUser?.id]?.Messages.length
+          )
+        );
+      else
+        dispatch(
+          setLastSeenMsg(
+            userActive.id,
+            privChatId,
+            messages[actualChatUser?.id]?.Messages.length
+          )
+        );
+
+      let privInfo;
       const chatWithUser = chatUsers.find((c) => c.id === actualChatUser.id);
 
       if (chatWithUser) {
-        privMessage = messages[actualChatUser.id]?.Messages;
-      } else
-        privMessage = userActive.PrivateChats.find((pc) => {
-          return pc.Users.find((u) => u.id === userActive.id) &&
-            pc.Users.find((u) => u.id === actualChatUser.id)
-            ? true
-            : false;
-        })?.Messages;
+        privInfo = messages[actualChatUser.id]?.Messages;
+      } else {
+        privInfo = privateChat?.Messages;
+      }
 
       setMessages((prev) => ({
         ...prev,
         [actualChatUser.id]: {
-          username: actualChatUser.username,
-          id: actualChatUser.id,
-          Messages: privMessage,
+          // username: actualChatUser.username,
+          // id: actualChatUser.id,
+          Messages: privInfo,
         },
       }));
     }
@@ -46,6 +76,8 @@ const PrivateChat = ({ selected }) => {
 
   useEffect(() => {
     dispatch(getUser(userActive.id));
+    dispatch(setChatNotification(false));
+    dispatch(setOutNotifications(userActive.id, false));
   }, []);
 
   const [chatUsers, setChatUsers] = useState([]);
@@ -54,18 +86,22 @@ const PrivateChat = ({ selected }) => {
       setChatUsers(() =>
         userActive.PrivateChats.map((c) => {
           const user = c.Users.find((u) => u.id !== userActive.id);
-          return { username: user.username, id: user.id };
+          return {
+            username: user.username,
+            id: user.id,
+            lastSeen: c.lastSeen.find((e) => e.user === userActive.id).msgNum,
+          };
         })
       );
-      setMessages((prev) => {
+      setMessages(() => {
         let oldMessages = {};
         userActive.PrivateChats.forEach((pc) => {
           const receiver = pc.Users.find((u) => u.id !== userActive.id);
           oldMessages = {
             ...oldMessages,
             [receiver.id]: {
-              username: receiver.username,
-              id: receiver.id,
+              // username: receiver.username,
+              // id: receiver.id,
               Messages: pc.Messages,
             },
           };
@@ -82,7 +118,9 @@ const PrivateChat = ({ selected }) => {
   }, [userActive]);
 
   useEffect(() => {
-    socket.on("privateMessage", (user, message) => {
+    socket.on("privateMessage", (user, message, privChatId) => {
+      setPrivChatId(privChatId);
+
       if (chatUsers.find((c) => c.id === user.id) === undefined)
         setChatUsers((prev) => [
           ...prev,
@@ -94,12 +132,21 @@ const PrivateChat = ({ selected }) => {
         return {
           ...prev,
           [user.id]: {
-            username: user.username,
-            id: user.id,
-            Messages: [...oldMessages, message],
+            // username: user.username,
+            // id: user.id,
+            Messages: [...oldMessages, { emitter: user, message }],
           },
         };
       });
+
+      if (actualChatUser?.id === user.id)
+        dispatch(
+          setLastSeenMsg(
+            userActive.id,
+            privChatId,
+            messages[actualChatUser?.id]?.Messages.length + 1
+          )
+        );
     });
 
     return () => {
@@ -116,6 +163,39 @@ const PrivateChat = ({ selected }) => {
     e.preventDefault();
     socket.emit("privateMessage", userActive, actualChatUser, message);
     setMessage("");
+
+    setMessages((prev) => {
+      const oldMessages = prev[actualChatUser.id]?.Messages || [];
+      return {
+        ...prev,
+        [actualChatUser.id]: {
+          // username: user.username,
+          // id: user.id,
+          Messages: [...oldMessages, { emitter: userActive, message }],
+        },
+      };
+    });
+
+    const privateChat = userActive.PrivateChats.find((pc) => {
+      return pc.Users.find((u) => u.id === actualChatUser.id) ? true : false;
+    });
+
+    dispatch(
+      setLastSeenMsg(
+        userActive.id,
+        privateChat.id,
+        messages[actualChatUser.id].Messages.length + 1
+      )
+    );
+  };
+
+  const readMsgs = (c) => {
+    return userActive.PrivateChats.find((pc) =>
+      pc.Users.find((u) => u.id === c.id)
+    )?.lastSeen.find((e) => e.user === userActive.id).msgNum;
+  };
+  const unreadMsgs = (c) => {
+    return messages[c.id]?.Messages.length;
   };
 
   return (
@@ -130,7 +210,14 @@ const PrivateChat = ({ selected }) => {
                   onClick={() => handleChatSelect(c)}
                   className={css.singleChatUser}
                 >
-                  {c.username}
+                  {c.username}{" "}
+                  {actualChatUser && actualChatUser.id === c.id
+                    ? ""
+                    : readMsgs(c) === undefined
+                    ? "New"
+                    : readMsgs(c) < unreadMsgs(c)
+                    ? `${unreadMsgs(c) - readMsgs(c)}`
+                    : ""}
                 </div>
               );
             })
@@ -141,7 +228,9 @@ const PrivateChat = ({ selected }) => {
           {actualChatUser
             ? messages[actualChatUser.id]
               ? messages[actualChatUser.id].Messages?.map((e, i) => (
-                  <div key={i}>{e.message || e}</div>
+                  <div key={i}>
+                    {e.emitter.username}: {e.message}
+                  </div>
                 ))
               : ""
             : ""}

@@ -19,6 +19,8 @@ const PurchaseCompleted = () => {
 
   useEffect(() => {
     dispatch(getPurchaseInfo(paymentId));
+    console.log(purchaseInfo)
+
     dispatch(cleanPreferenceId());
   }, []);
 
@@ -27,6 +29,7 @@ const PurchaseCompleted = () => {
       setActualPurchaseInfo(purchaseInfo);
       dispatch(purchaseCompleted(purchaseInfo.userId, purchaseInfo.items, paymentId));
       dispatch(getPurchaseInfo());
+      console.log(purchaseInfo)
     }
   }, [purchaseInfo, purchaseInfo]);
 

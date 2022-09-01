@@ -1,7 +1,6 @@
 import { GET_ALL_CARDS } from "./../actions/cards/getAllCards";
 import { FILTER_CARDS } from "./../actions/cards/filterCards";
 import { SORT_CARDS } from "./../actions/cards/sortCards";
-import { SEARCH_CARD } from "./../actions/cards/searchCard";
 import {
   GET_USER_CARDS,
   FILTER_USER_CARDS,
@@ -26,11 +25,75 @@ export default function inventory(state = initialState, { type, payload }) {
     case GET_ALL_CARDS:
       return { ...state, cards: payload, filteredCards: payload };
     case FILTER_CARDS:
-      return { ...state, filteredCards: payload };
+      let newFilteredCards = state.cards;
+      if (payload.search) newFilteredCards = newFilteredCards.filter(c => c.name.toLowerCase().includes(payload.search.toLowerCase()));
+      
+      if (payload.race !== 'allRaces') newFilteredCards = newFilteredCards.filter((e) => e.race?.includes(payload.race));
+      
+      if (payload.movements !== 'allMovements') newFilteredCards = newFilteredCards.filter((e) => e.movement?.includes(payload.movements));
+
+      if (payload.order !== 'none') {
+        newFilteredCards = [...newFilteredCards].sort((a, b) => {
+          switch (payload.order) {
+            case "nameAtoZ":
+              if (a.name < b.name) {
+                return -1
+              } else return 1
+      
+            case "nameZtoA":
+              if (a.name > b.name) {
+                return -1
+              } else return 1
+      
+            case "ascendentCost":
+              if (a.cost < b.cost) {
+                return -1
+              } else return 1
+      
+            case "descendentCost":
+              if (a.cost > b.cost) {
+                return -1
+              } else return 1
+      
+            case "ascendentGdmg":
+              if (a.cost < b.cost) {
+                return -1
+              } else return 1
+      
+            case "descendentGdmg":
+              if (a.cost > b.cost) {
+                return -1
+              } else return 1
+      
+            case "ascendentAdmg":
+              if (a.cost < b.cost) {
+                return -1
+              } else return 1
+      
+            case "descendentAdmg":
+              if (a.cost > b.cost) {
+                return -1
+              } else return 1
+      
+            case "ascendentlife":
+              if (a.cost < b.cost) {
+                return -1
+              } else return 1
+      
+            case "descendentlife":
+              if (a.cost > b.cost) {
+                return -1
+              } else return 1
+      
+            default:
+              return 0
+          }
+        })
+      }
+
+      return { ...state, filteredCards: newFilteredCards };
     case SORT_CARDS:
-      return { ...state, filteredCards: payload };
-    case SEARCH_CARD:
-      return { ...state, filteredCards: payload };
+      return { ...state, filteredCards: [] };
     case GET_USER_CARDS:
       return {
         ...state,

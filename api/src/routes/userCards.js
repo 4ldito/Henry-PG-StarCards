@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const { sequelize } = require("../db");
+// const { sequelize } = require("../db");
 const db = require("../db");
 
-const { UserCards, Card, User } = db;
+const { UserCards, Card, User, Transaction } = db;
 const userCardsRoute = Router();
 
 userCardsRoute.post("/", async (req, res, next) => {
@@ -86,7 +86,7 @@ userCardsRoute.patch("/", async (req, res, next) => {
 
     return res.json(updatedUserCards);
   } catch (error) {
-    console.log(error);
+    next(error)
   }
 });
 
@@ -104,6 +104,11 @@ userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
 
     if (buyerUser.stars < userCard.price) return res.send({ error: 'Stars insuficientes.' });
 
+    const transaction = await Transaction.create({ type: 'stars', priceStars: userCard.price });
+    await Promise.all([transaction.setUser(buyerUser.id), transaction.setStatus('active')]);
+
+    transaction.addUserCards(userCard.id);
+
     const [buyerUserUpdated, sellerUserUpdated, userCardUpdated] = await Promise.all([
       buyerUser.update({ stars: buyerUser.stars - userCard.price }),
       sellerUser.update({ stars: sellerUser.stars + userCard.price }),
@@ -112,7 +117,7 @@ userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
 
     return res.send({ buyerUser: buyerUserUpdated, sellerUser: sellerUserUpdated, userCard: userCardUpdated });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 
 });

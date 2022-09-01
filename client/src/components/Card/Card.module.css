@@ -29,7 +29,7 @@
 }
 
 .Card:hover{
-  transform: scale(1.03);
+  transform: scale(0.8);
 }
 
 .nameContainer {
@@ -106,4 +106,3 @@
 .protossCard {
   background-image: url("https://i.ibb.co/Gxpwy4b/protoss-Front.png");
 }
-

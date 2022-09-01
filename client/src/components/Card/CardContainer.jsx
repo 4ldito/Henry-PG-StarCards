@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { cleanMsgUserCards } from "../../redux/actions/cards/userCards";
@@ -6,7 +6,10 @@ import { cleanMsgUserCards } from "../../redux/actions/cards/userCards";
 import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
+
+import Swal from "sweetalert2";
 import css from './CardContainer.module.css'
+
 
 export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, inDeck, removeCardFromDeck, creatingDeck, newDeckCards }) {
   const dispatch = useDispatch();
@@ -15,6 +18,7 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
   const [userCard, setUserCard] = useState(null);
   const [cardRepeats,setCardRepeats] = useState(1);
   const msg = useSelector((state) => state.album.msg);
+
 
   useEffect(() => {
 
@@ -36,9 +40,11 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
 
   },[cardRepeats]);
 
+
   function handleViewCard() {
     setViewCard(!viewCard);
   }
+
 
   return (
     <div className={css.container}>
@@ -62,9 +68,9 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
       {viewCard && (
         <SaleCard
           handleViewCard={handleViewCard}
-          card={card}
-        />
-      )}
-    </div>
+          card={card}/>
+        )}
+      </div>
+
   );
 }

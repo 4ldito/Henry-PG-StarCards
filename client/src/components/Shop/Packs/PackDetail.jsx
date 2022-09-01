@@ -36,12 +36,9 @@ export default function Pack({ handleDetail, pack, increaseQuantity, handleFav, 
               {pack.stock > 0 && (
                 <div className={style.probability}>
                   {pack.cards.map((card) => (
-                    <>
-                      {console.log(card)}
-                      <h5 key={card[0]}>
-                        {card[0]} - {Math.floor(card[1] * 100)}%
-                      </h5>
-                    </>
+                    <h5 key={card[0]}>
+                      {card[0]} - {Math.floor(card[1] * 100)}%
+                    </h5>
                   ))}
                 </div>
               )}

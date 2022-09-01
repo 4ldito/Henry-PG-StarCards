@@ -17,8 +17,6 @@ function token() {
 
 sendMail.get("/sendmail/:token", (req, res, next) => {
   try {
-    console.log("body", req.params);
-
     const { token } = req.params;
     if (Number(token) === Number(tokenValid)) {
       return res.send(true);
