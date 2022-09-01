@@ -1,7 +1,4 @@
-.containerUsers{
-    color: white;
-    background-color: black;
-    display: flex;
-    flex-direction: column;
+.container {
+    margin: 1rem;
     
 }
