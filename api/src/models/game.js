@@ -1,29 +1,30 @@
+"use strict";
+
 const { Model } = require("sequelize");
 
-class PrivateChat extends Model {
+class Game extends Model {
   static associate(models) {
-    PrivateChat.belongsToMany(models.User, { through: "User-PrivChat" });
-    PrivateChat.hasMany(models.Message);
+    Game.belongsToMany(models.User, { through: "PlayedGame" });
   }
 }
 
 module.exports = (sequelize, DataTypes) => {
-  PrivateChat.init(
+  Game.init(
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      lastSeen: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
+      info: {
+        type: DataTypes.JSON,
         allowNull: false,
       },
     },
     {
       sequelize,
-      modelName: "PrivateChat",
+      modelName: "Game",
     }
   );
-  return PrivateChat;
+  return Game;
 };

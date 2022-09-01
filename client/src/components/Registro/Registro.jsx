@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createUser } from "../../redux/actions/user";
 import validator from "./functions/validators";
-// import style from '../../styles/landingPage/landingPage.module.css'
+import style from '../LandingPage/landingPage.module.css';
 import style2 from '../../styles/register/Register.module.css'
 import style3 from './login.module.css'
 import { userCleanMsgInfo } from "../../redux/actions/user";
@@ -109,61 +109,24 @@ export default function Registro() {
         <form className={style.options} onSubmit={(e) => { handleSubmit(e) }}>
           <div className={style3.inputcontainer}>
             <label style={{ fontSize: "larger" }}>Nombre de usuario: </label>
-            <input
-              className={style2.input}
-              autoComplete="on"
-              type="text"
-              name="username"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="Ingrese su nombre aca"
-            />
+            <input  className={style2.input} autoComplete="on" type="text" name="username" onChange={handleChange} placeholder="Ingrese su nombre aca"/>
           </div>
           {(errores?.username && showErrors) && <label className={style.error}>{errores.username}</label>}
           <div className={style3.inputcontainer}>
             <label style={{ fontSize: "larger" }}>Email: </label>
-            <input
-              className={style2.input}
-              autoComplete="on"
-              type="email"
-              name="email"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="Ingrese su gmail aca"
-            />
+            <input className={style2.input} autoComplete="on" type="email" name="email" onChange={handleChange} placeholder="Ingrese su gmail aca"/>
           </div>
           {(errores?.email && showErrors) && <label className={style.error}>{errores.email}</label>}
           <div className={style3.inputcontainer}>
             <label style={{ fontSize: "larger" }}>Contraseña: </label>
-            <input
-              className={style2.input}
-
-              autoComplete="on"
-              type="password"
-              name="password"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="Ingrese su contraseña aca"
-            />
+            <input className={style2.input} autoComplete="on" type="password" name="password" onChange={handleChange} placeholder="Ingrese su contraseña aca"/>
           </div>
           {(errores?.password && showErrors) && <label className={style.error} >{errores.password}</label>}
           <div className={style3.inputcontainer}>
 
             <label style={{ fontSize: "larger" }}>Confirmar contraseña: </label>
 
-            <input
-              className={style2.input}
-              autoComplete="on"
-              type="password"
-              name="confirm"
-              onChange={(e) => {
-                handleChange(e);
-              }}
-              placeholder="Ingrese su contraseña aca"
-            />
+            <input className={style2.input} autoComplete="on" type="password" name="confirm" onChange={handleChange} placeholder="Ingrese su contraseña aca"/>
           </div>
 
           {(errores?.confirm && showErrors) && <label className={style.error} >{errores.confirm}</label>}

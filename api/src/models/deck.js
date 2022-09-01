@@ -21,13 +21,12 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-       }
+      },
       // cardsMax: {
       //   type: DataTypes.INTEGER,
       //   allowNull: false,
       //   unique: true,
       // },
-   
     },
     {
       sequelize,

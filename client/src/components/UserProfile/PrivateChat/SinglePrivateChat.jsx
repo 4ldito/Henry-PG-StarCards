@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser } from "../../../redux/actions/user";
+import { getUser, setLastSeenMsg } from "../../../redux/actions/user";
 import socket from "../../../../Socket";
 
 import css from "./PrivateChat.module.css";
@@ -28,8 +28,9 @@ const SinglePrivateChat = ({ newChatUser }) => {
   }, [userActive]);
 
   useEffect(() => {
-    socket.on("privateMessage", (user, message) => {
-      setMessages((prev) => [...prev, message]);
+    socket.on("privateMessage", (user, message, privChatId) => {
+      setMessages((prev) => [...prev, { emitter: user, message }]);
+      dispatch(setLastSeenMsg(userActive.id, privChatId, messages.length));
     });
 
     return () => {
@@ -46,6 +47,21 @@ const SinglePrivateChat = ({ newChatUser }) => {
     e.preventDefault();
     socket.emit("privateMessage", userActive, newChatUser, message);
     setMessage("");
+
+    setMessages((prev) => [...prev, { emitter: userActive, message }]);
+
+    const privateChat = userActive.PrivateChats.find((pc) => {
+      return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
+    });
+
+    if (privateChat)
+      dispatch(
+        setLastSeenMsg(
+          userActive.id,
+          privateChat.id,
+          messages[newChatUser.id].Messages.length + 1
+        )
+      );
   };
 
   return (
@@ -55,7 +71,11 @@ const SinglePrivateChat = ({ newChatUser }) => {
       <div className={css.chatBodyContainer}>
         <div className={css.chatText}>
           {messages.length
-            ? messages.map((e, i) => <div key={i}>{e}</div>)
+            ? messages.map((e, i) => (
+                <div key={i}>
+                  {e.emitter.username}: {e.message}
+                </div>
+              ))
             : ""}
           <div ref={divRef}></div>
         </div>

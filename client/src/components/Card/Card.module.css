@@ -29,7 +29,7 @@
 }
 
 .Card:hover{
-  transform: scale(1.03);
+  transform: scale(0.8);
 }
 
 .nameContainer {

@@ -116,7 +116,7 @@
   top: 7vh;
 
   width: 10%;
-  height: 11vh;
+  height: max-content;
 }
 
 .divProfile {

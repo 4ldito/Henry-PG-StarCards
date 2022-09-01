@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import getAllCards from "../../redux/actions/cards/getAllCards";
 
+import { getUser } from "../../redux/actions/user";
 import logo from "../../img/logo-15.png";
 import imageLanding from "../../img/imagenLanding.png";
 import nave1 from "../../img/nave.png";
@@ -18,6 +19,12 @@ export default function LandingPage() {
   const [tamaño, setTamaño] = useState("50.5%");
   const allCards = useSelector((state) => state.album.filteredCards);
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.userReducer.user);
+
+  useEffect(() => {
+    if (user.id !== undefined) dispatch(getUser(user.id));
+  }, []);
 
   useEffect(() => {
     dispatch(getAllCards());
