@@ -19,8 +19,9 @@ transactionRoute.post("/", async (req, res, next) => {
   const { data: { paymentId, items, userId, type } } = req.body;
 
   try {
-    const transaction = await Transaction.create({ type, paymentId });
+    const total = items.reduce((acc, currentValue) => acc + (Number(currentValue.unit_price) * Number(currentValue.quantity)), 0);
 
+    const transaction = await Transaction.create({ type, paymentId, priceMoney: total });
     await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
     // await transaction.setUser(userId);
     // await transaction.setStatus('active');
