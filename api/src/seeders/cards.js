@@ -132,10 +132,10 @@ const zergCards = [
   },
   {
     name: "Lurker",
-    Gdmg: 14,
+    Gdmg: 0,
     Admg: 0,
     life: 200,
-    ability: "Siempre: invisible, daña 14 al siguiente enemigo terrestre.",
+    ability: "Siempre: invisible, daña 14 en área terrestre.",
     abilities: {
       all: [
         {
@@ -592,12 +592,12 @@ const terranCards = [
   },
   {
     name: "Siege Tank",
-    Gdmg: 30,
+    Gdmg: 0,
     Admg: 0,
     life: 175,
     ability: "Atacante: daña 20 al siguiente enemigo terrestre.",
     abilities: {
-      atk: [{ splashDmg: { num: 20, objective: "ground", time: "everyturn" } }],
+      atk: [{ splashDmg: { num: 30, objective: "ground", time: "everyturn" } }],
     },
     race: "Terran",
     cost: 400,
@@ -705,13 +705,12 @@ const terranCards = [
   },
   {
     name: "Banshee",
-    Gdmg: 27,
+    Gdmg: 0,
     Admg: 0,
     life: 140,
-    ability:
-      "Atacante: daña 15 al siguiente enemigo terrestre. Defensor: invisible.",
+    ability: "Atacante: daña 27 en área terrestre. Defensor: invisible.",
     abilities: {
-      atk: [{ splashDmg: { num: 15, objective: "ground", time: "everyturn" } }],
+      atk: [{ splashDmg: { num: 27, objective: "ground", time: "everyturn" } }],
       def: [{ invisible: "invisible" }],
     },
     race: "Terran",
@@ -943,7 +942,7 @@ const protossCards = [
     Admg: 0,
     life: 250,
     ability:
-      "Atacante: daña 20 a los enemigos terrestres. Defensor: daña 30 a los enemigos terrestres",
+      "Atacante: daña 20 en área terrestre. Defensor: daña 30 en área terrestre.",
     abilities: {
       atk: [{ splashDmg: { num: 20, objective: "ground", time: "everyturn" } }],
       def: [{ splashDmg: { num: 30, objective: "ground", time: "everyturn" } }],
@@ -959,7 +958,7 @@ const protossCards = [
     Gdmg: 0,
     Admg: 0,
     life: 180,
-    ability: "Siempre: daña 40 a los enemigos terrestres.",
+    ability: "Siempre: daña 40 en área terrestre.",
     abilities: {
       all: [{ splashDmg: { num: 40, objective: "ground", time: "everyturn" } }],
     },
@@ -971,15 +970,14 @@ const protossCards = [
   },
   {
     name: "Colossus",
-    Gdmg: 28,
+    Gdmg: 0,
     Admg: 0,
     life: 350,
-    ability:
-      "Siempre: es afectado por daño aéreo, daña 20 a los enemigos terrestres.",
+    ability: "Siempre: es afectado por daño aéreo, daña 28 en área terrestre.",
     abilities: {
       all: [
         { allMoves: "allMoves" },
-        { splashDmg: { num: 20, objective: "ground", time: "everyturn" } },
+        { splashDmg: { num: 28, objective: "ground", time: "everyturn" } },
       ],
     },
     race: "Protoss",
