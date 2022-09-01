@@ -107,10 +107,6 @@ io.on("gameConnection", (socket) => {
       console.error("StarCards error: " + error);
     }
   });
-
-  let results = [];
-
-  socket.on("gameResults", (gameInfo, playerId) => {});
 });
 
 module.exports = socketIoServer;
