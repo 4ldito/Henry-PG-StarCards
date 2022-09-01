@@ -1,74 +1,71 @@
 import React, { useState } from "react";
-import logo from "../../img/miniLogo-15.png";
+import logo from "../../img/logoLanding.png";
 import { NavLink } from "react-router-dom";
 import UserOptions from "./UserOptions/UserOptions";
 import ChatNotifications from "./ChatNotifications/ChatNotifications";
-import { AiOutlineUser } from "react-icons/ai";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userOptionsState } from "../../redux/actions/user";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
-  const { validToken } = useValidToken({ navigate: false });
+  const { validToken } = useValidToken({ navigate: false });;
   const [visibleUserOptions, setVisibleUserOptions] = useState(false);
-  // const userActive = useSelector((state) => state.userReducer.user);
+  const userOptions = useSelector((state) => state.userReducer.userOptions);
 
-  const handleVisibleUserOptions = () => {
-    setVisibleUserOptions(!visibleUserOptions);
+  const userActive = useSelector((state) => state.userReducer.user);
+  const dispatch = useDispatch();
+
+
+  function handleVisibleUserOptions (){
+    dispatch(userOptionsState())
   };
 
-  // function navEnabled() {
-  //   return (
-  //     <div>
-  //       <NavLink className={css.link} to="/">
-  //         <img className={css.img} src={logo} alt="Logo de StarCards" />
-  //       </NavLink>
-  //     </div>
-  //   );
-  // }
-  // function navDisabled() {
-  //   return (
-  //     <div>
-  //       <NavLink className={css.link} to="/userProfile">
-  //         <img className={css.img} src={logo} alt="Logo de StarCards" />
-  //       </NavLink>{" "}
-  //     </div>
-  //   );
-  // }
-
-  return (
-    <div className={css.nav}>
+  function navEnabled(){
+    return(
       <div>
         <NavLink className={css.link} to="/">
           <img className={css.img} src={logo} alt="Logo de StarCards" />
         </NavLink>
-      </div>
+      </div>)
+  }
+
+  function navDisabled(){
+    return(
+      <div>
+        <NavLink className={css.link} to="/userProfile">
+          <img className={css.img} src={logo} alt="Logo de StarCards" />
+        </NavLink>      </div>
+    )
+  }
+
+  return (
+    <div className={css.nav}>
+      {!userActive ? navEnabled() : navDisabled() }
 
       <ul className={css.ul}>
         <li className={css.li}>
           <NavLink className={css.link} to="/shop">
-            <span className={css.span}>STORE</span>
+            MarketPlace
           </NavLink>
         </li>
-        {validToken && (
-          <>
-            <li className={`${css.li} ${css.liMedium}`}>
-              <NavLink className={css.link} to="/playroom">
-                <span className={css.span}>PLAYROOM</span>
-              </NavLink>
-            </li>
-          </>
-        )}
-        <li className={`${css.li} ${css.liMedium}`}>
+        <li className={css.li}>
+          {validToken && (
+            <NavLink className={css.link} to="/playroom">
+              Playroom
+            </NavLink>
+          )}
+        </li>
+        <li className={css.li}>
           <NavLink className={css.link} to="/game">
-            <span className={css.span}>GAME</span>
+            Game
           </NavLink>
         </li>
         <li className={css.li}>
           <NavLink className={css.link} to="/about">
-            <span className={css.span}>ABOUT</span>
+            About
           </NavLink>
         </li>
       </ul>
@@ -79,22 +76,20 @@ export default function Nav() {
         onClick={handleVisibleUserOptions}
       >
         {user.user.id ? (
-          <div id="btnMenu" className={css.divProfile}>
-            <img
-              className={css.profile}
-              src={user.user.profileImg}
-              alt="image profile"
-            />
-          </div>
+          <img
+            id="btnMenu"
+            className={css.profile}
+            src={user.user.profileImg}
+            alt="image profile"
+          />
         ) : (
-          <div id="btnMenu" className={css.divProfile}>
-            <AiOutlineUser className={css.profile} />
-          </div>
+          <span id="btnMenu" className="material-symbols-outlined">
+            account_circle
+          </span>
         )}
       </button>
-      {validToken && <ChatNotifications />}
 
-      {visibleUserOptions && (
+      {userOptions && (
         <div className={css.userOptions}>
           <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>
