@@ -8,10 +8,6 @@ import useFetchTransactions from './../../../hooks/useFetchTransactions';
 const Transactions = () => {
   const { filteredTransactions } = useFetchTransactions();
   
-  // useEffect(() => {
-  //   console.log('filteredTransactions cambio', filteredTransactions)
-  // }, [filteredTransactions]);
-
   return (
     <div className={style.container}>
       <h2>Transacciones</h2>

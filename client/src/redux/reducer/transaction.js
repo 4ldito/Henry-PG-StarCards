@@ -1,15 +1,18 @@
 import { formatDate } from "../../utils";
-import { FILTER_TRANSACTIONS, GET_ALL_TRANSACTIONS } from "../actions/transaction"
+import { FILTER_TRANSACTIONS, GET_ALL_TRANSACTIONS, GET_TRANSACTIONS_BY_USER } from "../actions/transaction"
 
 const initialState = {
     transactions: [],
-    filteredTransactions: []
+    filteredTransactions: [],
+    transactionsUser: []
 }
 
 export default function transactionsReducer(state = initialState, { type, payload }) {
     switch (type) {
         case GET_ALL_TRANSACTIONS:
             return { ...state, transactions: payload, filteredTransactions: payload }
+        case GET_TRANSACTIONS_BY_USER:
+            return { ...state, transactionsUser: payload }
         case FILTER_TRANSACTIONS:
             const { filters } = payload;
             let newFilteredTransactions = state.transactions;
