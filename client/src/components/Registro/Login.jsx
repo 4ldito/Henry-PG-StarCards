@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { signIn } from "../../redux/actions/user";
 import style from "./login.module.css";
-// import style2 from "../../styles/landingPage/landingPage.module.css";
 import style3 from "../../styles/register/Register.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -62,7 +61,7 @@ export default function Login() {
 
   const login = (e) => {
     e.preventDefault();
-    console.log('a')
+    console.log("a");
     dispatch(signIn(input));
   };
 
@@ -81,18 +80,17 @@ export default function Login() {
 
   return (
     <div className={style.appli}>
-      {/* <div className={style2.options}> */}
-      <div>
+      <div className={style.options}>
         <form
           onSubmit={(e) => {
             login(e);
           }}
         >
           <div className={style.inputcontainer}>
-            <label style={{fontSize:"larger"}}>Username </label>
+            <label style={{ fontSize: "larger" }}>Username </label>
             <input
-              className= {style3.input}
-              style={{width:"400px"}}
+              className={style3.input}
+              style={{ width: "400px" }}
               type="email"
               name="email"
               onChange={handleOnChange}
@@ -101,10 +99,10 @@ export default function Login() {
             {renderErrorMessage("uname")}
           </div>
           <div className={style.inputcontainer}>
-            <label style={{fontSize:"larger"}}>Password </label>
+            <label style={{ fontSize: "larger" }}>Password </label>
             <input
-               className= {style3.input}
-              style={{width:"400px"}}
+              className={style3.input}
+              style={{ width: "400px" }}
               type="password"
               name="password"
               onChange={handleOnChange}
@@ -113,11 +111,12 @@ export default function Login() {
             />
             {renderErrorMessage("pass")}
           </div>
-          <div style={{height:"15px"}}></div>
+          <div style={{ height: "15px" }}></div>
           <div className={style.buttoncontainer}>
-            {/* <button className={style2.button} data='Ingresar' type="submit" value='' /> */}
-            <button data='Ingresar' type="submit" value='' />
-            <Link to='/recovery'>Recuperar Contraseña</Link>
+            <button className={style.button} data="Ingresar" type="submit">
+              Login
+            </button>
+            <Link to="/recovery">Password recovery</Link>
           </div>
         </form>
       </div>

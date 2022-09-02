@@ -3,13 +3,13 @@
   src: url("../../../css/EUROSTIB.ttf");
 }
 
-.Card{
+.Card {
   font-family: starcardsFont;
   text-align: center;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 
-.haveCard{
+.haveCard {
   font-size: 3vh;
 }
 
@@ -28,8 +28,8 @@
   cursor: pointer;
 }
 
-.Card:hover{
-  transform: scale(.98);
+.Card:hover {
+  transform: scale(0.98);
 }
 
 .nameContainer {
@@ -95,6 +95,10 @@
   user-select: none;
   cursor: pointer;
 }
+
+/* .terranCard {
+  background-image: url("../../img/Background\ Card/terran-22.png");
+} */
 
 .terranCard {
   background-image: url("https://i.ibb.co/kDr0J5s/terran-Front.png");
