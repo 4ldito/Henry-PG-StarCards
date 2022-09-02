@@ -63,7 +63,7 @@ export default function About() {
       <div id="containerTeam" className={css.containerTeam}>
         <div className={css.containerPeoples}>
           {team.map((people) => (
-            <div className={css.containerPeople}>
+            <div className={css.containerPeople} key={people.name}>
               <div className={css.containerImagePeople}>
                 <img src={people.image} className={css.imagePeople} />
               </div>
@@ -71,12 +71,12 @@ export default function About() {
                 <h4>{people.name}</h4>
                 <p>{people.summary}</p>
                 <div>
-                  <button>
+                  <button className={css.btnLink}>
                     <a href={people.linkedin} target="_blank">
                       LinkedIn
                     </a>
                   </button>
-                  <button>
+                  <button className={css.btnLink}>
                     <a href={people.github} target="_blank">
                       GitHub
                     </a>

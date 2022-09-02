@@ -1,13 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { detailCard } from "../../redux/actions/cards/detailCard.js";
 import { getOpinions } from "../../redux/actions/cards/opinion.js";
-// import { getUserCards } from "../../redux/actions/cards/userCards.js";
 import DetailPopUp from "../Detail/DetailPopUp.jsx";
 
 import css from "./Card.module.css";
 
-export default function Card({ id, name, image, cost, Gdmg, Admg, life, ability, abilities, race, movement }) {
+export default function Card({
+  id,
+  name,
+  image,
+  cost,
+  Gdmg,
+  Admg,
+  life,
+  ability,
+  abilities,
+  race,
+  movement,
+}) {
   const dispatch = useDispatch();
   const [viewDetail, setViewDetail] = useState(false);
 
@@ -29,8 +40,8 @@ export default function Card({ id, name, image, cost, Gdmg, Admg, life, ability,
     race === "Zerg"
       ? css.zergCard
       : race === "Terran"
-        ? css.terranCard
-        : css.protossCard;
+      ? css.terranCard
+      : css.protossCard;
 
   return (
     <>
@@ -51,8 +62,9 @@ export default function Card({ id, name, image, cost, Gdmg, Admg, life, ability,
           </div>
         </div>
       </div>
-      {viewDetail &&
-        <DetailPopUp handleDetail={ver}
+      {viewDetail && (
+        <DetailPopUp
+          handleDetail={ver}
           id={id}
           name={name}
           image={image}
@@ -64,7 +76,8 @@ export default function Card({ id, name, image, cost, Gdmg, Admg, life, ability,
           abilities={abilities}
           race={race}
           movement={movement}
-        />}
+        />
+      )}
     </>
   );
 }

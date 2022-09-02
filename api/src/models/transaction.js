@@ -36,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
       paymentId: {
         type: DataTypes.BIGINT,
         // allowNull: false
+      },
+      priceMoney: {
+        type: DataTypes.FLOAT
       }
     },
     {
