@@ -8,8 +8,10 @@
     color:white;
     background-color: #444;
     display: flex;
+    overflow-x: scroll;
     flex-direction: column;
     align-items: flex-start;
+    max-width: 50%;
 }
 .actualDeckContainer{
     display: flex;

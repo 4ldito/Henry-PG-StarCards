@@ -26,26 +26,24 @@ export default function InventoryContainer() {
     if (cardAlredyInDeck) {
       cardAlredyInDeck.repeat++;
       setNewDeckCards([...newDeckCards]);
-      dispatch(addDeckCard(card.id));
+    
     } else {
       const newCard = { ...userCards[newCardI] };
       newCard.repeat = 1;
       setNewDeckCards([...newDeckCards, newCard]);
-      dispatch(addDeckCard(card.id));
     }
   }
 
   const removeCardFromDeck = (id) => {
     const cardBack = newDeckCards.filter(e => e.id !== id);
     setNewDeckCards(cardBack);
-    dispatch(removeDeckCard(id))
+    
   }
 
   function renderNotRepeat() {
     let cartas = [];
-    console.log(filteredUserCards);
     filteredUserCards?.forEach(e => {
-      cartas.push(<CardContainer key={e.id} tamanho='.5' addCardToDeck={addCardToDeck} addButton={bothStacks ? true : false} card={e} repeat={e.repeat} />)
+      cartas.push(<CardContainer key={e.id} inDeck={false} tamanho='.5' newDeckCards={newDeckCards} addCardToDeck={addCardToDeck} addButton={bothStacks ? true : false} card={e} repeat={e.repeat} creatingDeck={creatingDeck} />)
     })
     if (filteredUserCards.length) return cartas
     return <label>Not cards found</label>
@@ -53,6 +51,9 @@ export default function InventoryContainer() {
 
   useEffect(() => {
     actualStackToShow.length === 2 ? setBothStacks(true) : setBothStacks(false);
+    if(!actualStackToShow.includes('mazos')){
+      setCreatingDeck(false);
+    }
   }, [actualStackToShow]);
 
 
@@ -74,7 +75,9 @@ export default function InventoryContainer() {
     <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
     <div className={css.cartasYMazosContainer}>
       {actualStackToShow.includes('cartas') ? <div className={bothStacks ? css.cartasYMazo : css.cartas}>{renderNotRepeat()}</div> : <></>}
-      {actualStackToShow.includes('mazos') ? <DeckList selectedDeck={selectedDeck} removeCardFromDeck={removeCardFromDeck} setNewDeckCards={setNewDeckCards} creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
+      {actualStackToShow.includes('mazos') ? <DeckList selectedDeck={selectedDeck}
+        removeCardFromDeck={removeCardFromDeck} setNewDeckCards={setNewDeckCards}
+        creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
         newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
         enableAddButton={setBothStacks} userId={user.id}></DeckList> : <></>}
     </div>

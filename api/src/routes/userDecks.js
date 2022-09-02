@@ -38,7 +38,7 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
             const userCard = await UserCards.findOne({ where: { CardId: deckCard.id, StatusId: 'active', UserId: userId } });
             await newDeck.addUserCards(userCard);
             console.log(userCard, deckCard.repeat);
-            cardRepeats.push({ userCardId: userCard.id, repeat: deckCard.repeat });
+            cardRepeats.push({ userCard: userCard, repeat: deckCard.repeat });
         }
         
         // await newDeckCards.forEach(async e => {
@@ -47,7 +47,6 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
         //     console.log(newUserCard, e.repeat);
         //     cardRepeats.push({ UserCard: newUserCard, repeat: e.repeat });
         // });
-        console.log(cardRepeats);
         
         newDeck.cardRepeats = JSON.stringify(cardRepeats);
         newDeck.save();
