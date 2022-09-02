@@ -140,8 +140,8 @@ const zergCards = [
       all: [
         {
           invisible: "invisible",
-          splashDmg: { num: 14, objective: "ground", time: "everyturn" },
         },
+        { splashDmg: { num: 14, objective: "ground", time: "everyturn" } },
       ],
     },
     race: "Zerg",
