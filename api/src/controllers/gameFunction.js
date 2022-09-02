@@ -41,12 +41,12 @@ function battle(atk, def) {
                 for (let key in cast) {
                   const detection =
                     defArmy.ground.find((c) => {
-                      c.all.find((e) => e.detector) ||
-                        c.def.find((e) => e.detector);
+                      c.abilities.all.find((e) => e.detector) ||
+                        c.abilities.def.find((e) => e.detector);
                     }) ||
                     defArmy.air.find((c) => {
-                      c.all.find((e) => e.detector) ||
-                        c.def.find((e) => e.detector);
+                      c.abilities.all.find((e) => e.detector) ||
+                        c.abilities.def.find((e) => e.detector);
                     });
                   switch (key) {
                     case "splashDmg":
@@ -76,16 +76,20 @@ function battle(atk, def) {
                         }
                         if (
                           abilityObjective[0] &&
-                          ((!abilityObjective[0].all.find((e) => e.invisible) &&
-                            !abilityObjective[0].atk.find(
+                          ((!abilityObjective[0].abilities.all.find(
+                            (e) => e.invisible
+                          ) &&
+                            !abilityObjective[0].abilities.atk.find(
                               (e) => e.invisible
-                            )) ||
-                            ((abilityObjective[0].all.find(
+                            ) &&
+                            !abilityObjective[0].abilities.cloacked) ||
+                            ((abilityObjective[0].abilities.all.find(
                               (e) => e.invisible
                             ) ||
-                              abilityObjective[0].atk.find(
+                              abilityObjective[0].abilities.atk.find(
                                 (e) => e.invisible
-                              )) &&
+                              ) ||
+                              abilityObjective[0].abilities.cloacked) &&
                               detection))
                         ) {
                           abilityObjective[0].life =
@@ -113,13 +117,15 @@ function battle(atk, def) {
                                 .abilities.all.find((a) => a.invisible) &&
                                 !atkArmy.ground
                                   .at(-1)
-                                  .abilities.atk.find((a) => a.invisible)) ||
+                                  .abilities.atk.find((a) => a.invisible) &&
+                                !atkArmy.ground.at(-1).abilities.cloacked) ||
                               ((atkArmy.ground
                                 .at(-1)
                                 .abilities.all.find((a) => a.invisible) ||
                                 atkArmy.ground
                                   .at(-1)
-                                  .abilities.atk.find((a) => a.invisible)) &&
+                                  .abilities.atk.find((a) => a.invisible) ||
+                                atkArmy.ground.at(-1).abilities.cloacked) &&
                                 detection)
                             ) {
                               defArmy.ground.unshift(atkArmy.ground.pop());
@@ -132,13 +138,15 @@ function battle(atk, def) {
                                 .abilities.all.find((a) => a.invisible) &&
                                 !atkArmy.air
                                   .at(-1)
-                                  .abilities.atk.find((a) => a.invisible)) ||
+                                  .abilities.atk.find((a) => a.invisible) &&
+                                !atkArmy.air.at(-1).abilities.cloacked) ||
                               ((atkArmy.air
                                 .at(-1)
                                 .abilities.all.find((a) => a.invisible) ||
                                 atkArmy.air
                                   .at(-1)
-                                  .abilities.atk.find((a) => a.invisible)) &&
+                                  .abilities.atk.find((a) => a.invisible) ||
+                                atkArmy.air.at(-1).abilities.cloacked) &&
                                 detection)
                             ) {
                               defArmy.air.unshift(atkArmy.air.pop());
@@ -148,13 +156,20 @@ function battle(atk, def) {
                         cast[key].off = true;
                       }
                       break;
-                    case "allMoves":
-                      break;
                     case "cloackTeam":
-                      break;
-                    case "deathOnAttack":
+                      if (!cast[key].off) {
+                        for (let ally of defArmy.ground) {
+                          if (ally.id !== card.id)
+                            ally.abilities.cloacked = true;
+                        }
+                        cast[key].off = true;
+                      }
                       break;
                     case "modStat":
+                      if (!cast[key].off) {
+
+                        if (cast[key].time === "once") cast[key].off = true;
+                      }
                       break;
                   }
                 }
