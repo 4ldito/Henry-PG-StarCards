@@ -94,7 +94,15 @@ const PacksCard = ({ pack, type }) => {
 
   const handleFav = (e) => {
     e.preventDefault();
-    const userId = user.id
+    const userId = user.id;
+    if (!userId) {
+      return Swal.fire({
+        title: "Error!",
+        text: "Inicia sesión para añadir a favoritos.",
+        icon: "error",
+      });
+    }
+
     if (fav.action === 'add') {
       setFav({ action: 'delete', packId: e.target.id })
       dispatch(favUserPacks({ action: 'delete', userId: userId, packId: e.target.id }))

@@ -72,7 +72,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
     const user = await User.findByPk(userId, { attributes: { exclude: ['password'] } });
 
-    const transaction = await Transaction.create({ type: 'stars' });
+    const transaction = await Transaction.create({ type: 'stars', priceStars: total });
     await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });

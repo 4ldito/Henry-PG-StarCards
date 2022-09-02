@@ -9,3 +9,11 @@
         
     }
 }
+
+
+.test {
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 400px;
+    height: 400px;
+}

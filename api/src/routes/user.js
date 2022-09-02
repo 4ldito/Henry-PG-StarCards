@@ -8,6 +8,7 @@ const userRoute = Router();
 userRoute.get("/", async (req, res, next) => {
   try {
     const { id, email } = req.query;
+    console.log("id: ",id)
     if (id) {
       const user = await User.findByPk(id, {
         attributes: { exclude: ["password"] },

@@ -1,10 +1,10 @@
 import axios from 'axios'
-export const ADD_TRANSACTION = 'ADD_TRANSACTION';
+export const GET_ALL_TRANSACTIONS = 'GET_ALL_TRANSACTIONS';
 
-export function getStarsPacks () {
+export function getAllTransactions() {
   return async function (dispatch) {
-    const response = await axios.post('transaction/')
+    const response = await axios.get('transaction/')
 
-    dispatch({ type: ADD_TRANSACTION, payload: response.data })
+    dispatch({ type: GET_ALL_TRANSACTIONS, payload: response.data })
   }
 }

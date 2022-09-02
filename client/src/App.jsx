@@ -39,8 +39,8 @@ function App() {
     <div>
       <Nav />
       <Routes>
-        <Route path="/firebase" element={<Firebase />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/firebase" element={<Firebase />} />
         <Route path="/register" element={<Registro />} />
         <Route path="/recovery" element={<RecoveryPassword />} />
         <Route path="/login" element={<Login />} />

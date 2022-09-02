@@ -1,10 +1,380 @@
+@font-face {
+  font-family: starcardsFont-fine;
+  src: url("../../../css/EurostileNextLTPro-Light.otf");
+}
+
+.containerAll {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+  /* height: auto; */
+
+  margin-top: 8vh;
+}
+
+/* ///////////////////////// ABOUT ///////////////////////// */
+
+.containerAbout {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  /* background-color: rgb(78, 56, 26); */
+}
+
 .about {
-    background-color: var(--container-background-main);
-    border-radius: 20px;
-    border: 2px solid white;
-    height: 66vh;
-    margin: 6rem;
-    color: white;
-    padding: 4rem;
+  display: flex;
+  width: 60%;
+  height: 100%;
+  /* background-color: aqua; */
+}
+
+.containerImage {
+  display: flex;
+  justify-content: center;
+  width: 40%;
+  height: 60vh;
+}
+
+.containerImage > img {
+  height: 90%;
+}
+
+.InfoAbout {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  /* background-color: aqua; */
+
+  width: 60%;
+  height: 100%;
+
+  /* padding: 0 0 0 2rem; */
+}
+
+.InfoAbout > h1 {
+  margin: 0 0 0.5rem 0;
+}
+
+.InfoAbout > p {
+  font-family: starcardsFont-fine;
+  margin: 0 0 0.5rem 0;
+}
+
+/* ///////////////////////// MEDIUM //////////////////////// */
+.medium{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  color: white;
+  text-decoration: none;
+  
+  height: 25vh;
+  margin-top: 1%;
+}
+
+.medium:hover{
+  color: rgb(161, 161, 161);
+}
+
+.arrow{
+  animation-name: move;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+}
+
+@keyframes move {
+  from{
+    transform: translateY(0);
+  }
+
+  to{
+    transform: translateY(63%);
+  }
+}
+/* ///////////////////////// TEAM ////////////////////////// */
+.containerTeam {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 90vh;
+  /* background-color: aquamarine; */
+}
+
+.containerPeoples {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: 90%;
+  height: 100%;
+}
+
+.containerPeople {
+  display: flex;
+  width: 48%;
+  height: 17vh;
+  margin: 1%;
+}
+
+.containerImagePeople {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../img/circle-15.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 25%;
+  height: 100%;
+  padding: 2% 5%;
+}
+
+.imagePeople {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.containerDataPeople {
+  width: 70%;
+  color: white;
+}
+
+.containerDataPeople > h4 {
+  margin: 0;
+}
+
+.containerDataPeople > p {
+  font-family: starcardsFont-fine;
+  margin: 0;
+}
+
+.containerDataPeople > div > button {
+  background-color: rgba(255, 0, 0, 0);
+  background-image: url(../../img/button.png);
+  /* background-image: url(../../img/circle-15.svg); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  object-fit: contain;
+  border: none;
+  color: white;
+  -webkit-appearance: none;
+  border: none;
+
+  width: 18%;
+  height: 4vh;
+
+  /* margin: 0 .2rem 0 .2rem; */
+}
+
+.containerDataPeople > div > button > a {
+  text-decoration: none;
+  color: white;
+}
+/* ///////////////////////// MEDIA ///////////////////////// */
+
+@media (max-width: 1500px) {
+  .containerImagePeople {
+    padding: 2% 4.5%;
+  }
+  .containerDataPeople > div > button {
+    width: 19%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .about {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  .containerPeople {
+    margin-top: 5vh;
+  }
+  .containerImage {
+    display:none;
+  }
+  .containerImagePeople {
+    padding: 2% 4%;
+  }
+  .containerDataPeople > div > button {
+    width: 20%;
+  }
+}
+@media (max-width: 1350px) {
+  .containerTeam {
+    height: 100vh;
+  }
+  .containerDataPeople > div > button {
+    width: 21%;
+  }
+}
+
+@media (max-width: 1300px) {
+  .containerImagePeople {
+    padding: 2% 3.5%;
+  }
+  .containerDataPeople > div > button {
+    width: 22%;
+  }
+}
+
+@media (max-width: 1250px) {
+  .containerPeople {
+    width: 80%;
+    height: 17vh;
+    margin: 2%;
+  }
+
+  .containerImagePeople {
+    padding: 1.5% 6.5%;
+  }
+
+  .containerDataPeople > div > button {
+    width: 14%;
+  }
+}
+
+@media (max-width: 1150px) {
+  .containerImagePeople {
+    padding: 1.5% 6.2%;
+  }
+  .containerDataPeople > div > button {
+    width: 15%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .containerImagePeople {
+    padding: 1.5% 5.9%;
+  }
+  .containerDataPeople > div > button {
+    width: 16%;
+  }
+}
+
+@media (max-width: 1000px) {
+  .containerImagePeople {
+    padding: 2% 5.4%;
+  }
+  .containerDataPeople > div > button {
+    width: 18%;
+  }
+}
+
+@media (max-width: 950px) {
+  .containerImagePeople {
+    padding: 2% 4.8%;
+  }
+  .containerDataPeople > div > button {
+    width: 19%;
+  }
+}
+
+@media (max-width: 900px) {
+  .containerImagePeople {
+    padding: 2% 4.5%;
+  }
+}
+
+@media (max-width: 850px) {
+  .containerImagePeople {
+    padding: 2% 4.2%;
+  }
+  .containerDataPeople > div > button {
+    width: 20%;
+  }
+}
+
+@media (max-width: 800px) {
+  .containerImagePeople {
+    padding: 2.5% 3.6%;
+  }
+  .containerDataPeople > div > button {
+    width: 21%;
+  }
+}
+
+@media (max-width: 750px) {
+  .containerPeoples {
+    width: 100%;
+  }
+
+  .containerPeople{
+    width: 100%;
+  }
+
+  .containerImagePeople {
+    padding: 2% 5.3%;
+  }
+  .containerDataPeople > div > button {
+    width: 17%;
+  }
+}
+
+@media (max-width: 700px) {
+  .containerImagePeople {
+    padding: 2% 4.8%;
+  }
+  .containerDataPeople > div > button {
+    width: 18%;
+  }
+}
+
+@media (max-width: 650px) {
+  .containerImagePeople {
+    padding: 2% 4.2%;
+  }
+  .containerDataPeople > div > button {
+    width: 20%;
+  }
+}
+
+@media (max-width: 600px) {
+  .containerImagePeople {
+    padding: 2.4% 3.6%;
+  }
+  .containerDataPeople > div > button {
+    width: 22%;
+  }
+}
+
+@media (max-width: 562px) {
+  .containerDataPeople > h4 {
+   font-size: 1.5rem;
   }
   
+  .containerDataPeople > p {
+    font-size: .9rem;
+  }
+
+  .containerImagePeople {
+    padding: 2.4% 3%;
+  }
+  .containerDataPeople > div > button {
+    width: 23%;
+  }
+}
+
+@media (max-width: 524px) {
+  .containerImagePeople {
+    padding: 3.5% 2.7%;
+  }
+  .containerDataPeople > div > button {
+    width: 24%;
+  }
+}
+
+@media (max-width: 500px) {
+  .containerImagePeople {
+    padding: 3.9% 2.7%;
+  }
+  .containerDataPeople > div > button {
+    width: 25%;
+  }
+}
