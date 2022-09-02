@@ -2,6 +2,10 @@ import React from 'react'
 import { useState } from "react";
 import { storage } from "../../firebase/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import createPackCardsAdmin from './../../redux/actions/admin/cardPacksMod'
+import getAllCards from './../../redux/actions/cards/getAllCards';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 function CreatePacks() {
     //packs
@@ -11,6 +15,15 @@ function CreatePacks() {
         const url = await getDownloadURL(storageRef); //la url de la subida
         return url;
     }
+
+    const dispatch = useDispatch();
+    const cards = useSelector((state)=>state.cards);
+
+
+    useEffect(()=>{
+      dispatch(getAllCards());
+    }, [dispatch])
+
 
     //hooks
     const [file, setFile] = useState(null);
@@ -23,7 +36,7 @@ function CreatePacks() {
         price: '',
         race: [],
         cards: 
-            [['']],
+            [[]],
         stock: '',
         image: '',
         amount: ''
@@ -37,7 +50,7 @@ function CreatePacks() {
     }
 
     const handleSelect = (e)=>{
-        if(input.race.includes(e.target.value)){
+        if(input.cards.includes(e.target.value)){
             alert('Otra raza');
         }else{
             if(input.cards.includes(e.target.value)){
@@ -64,58 +77,70 @@ function CreatePacks() {
 
 
     return (
+      <>
+      <h1>New Pack</h1>
         <form onSubmit={handleSubmitPack}>
         <input
           type="text"
           name="name"
           value={input.name}
-          onChange={(e) => setNamepack(e.target.value)}
+          onChange={(e) => handleChange(e)}
           placeholder="Name pack"
         />
         <input
           type="number"
-          name="precio"
+          name="price"
           min="1"
           max="3000"
           value={input.price}
+          onChange={(e) => handleChange(e)}
           placeholder="Precio"
         />
         <input
           type="text"
-          name="name"
-          value={input.name}
-          onChange={(e) => setNamepack(e.target.value)}
-          placeholder="Name pack"
+          name="amount"
+          value={input.amount}
+          onChange={(e) => handleChange(e)}
+          placeholder="Amount"
+        />
+        <input
+          type="number"
+          name="stock"
+          value={input.stock}
+          onChange={(e) => handleChange(e)}
+          placeholder="stock"
         />
         <input
           type="text"
-          name="name"
-          value={input.name}
-          onChange={(e) => setNamepack(e.target.value)}
-          placeholder="Name pack"
-        />
-        <input
-          type="text"
-          name=""
-          id=""
-          onChange={(e) => setRace(e.target.value)}
+          name="race"
+          value={input.race}
+          onChange={(e) => handleChange(e)}
           placeholder="razas"
         />
-        <input
-          type="text"
-          name=""
-          id=""
-          onChange={(e) => setRace(e.target.value)}
-          placeholder="cantidad"
-        />
+        <div>
+        <select
+          onChange={(e)=>{handleSelect(e);}}
+        >
+          <option>Select cards</option>
+          {cards?.map((e)=>{
+            return (
+              <option value={e.name}>
+                {e.name}
+              </option>
+            );
+          })}
+        </select>
+          </div>
+
         <input
           type="file"
-          name=""
-          id=""
+          name="image"
+          value={input.image}
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button>new Pack</button>
       </form>  
+    </>
   )
 }
 

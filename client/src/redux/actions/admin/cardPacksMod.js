@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const CREATE_PACKCARDS_ADMIN = 'CREATE_PACKCARDS_ADMIN';
 
-export const createPackCardsAdmin = (payload)=>{
+export default function createPackCardsAdmin(payload){
     return async()=>{
         try {
             const createPack = await axios.post(
