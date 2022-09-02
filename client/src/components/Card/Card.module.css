@@ -29,11 +29,10 @@
 }
 
 .Card:hover{
-  transform: scale(0.8);
+  transform: scale(.98);
 }
 
 .nameContainer {
-  /* margin-top: 26px; */
   margin-top: 8.5%;
   width: 77%;
   display: flex;
@@ -41,12 +40,10 @@
 }
 
 .name {
-  /* font-size: 1.5rem; */
   font-size: 150%;
 }
 
 .cost {
-  /* margin-top: 0.1rem; */
   margin-top: 1%;
 }
 
