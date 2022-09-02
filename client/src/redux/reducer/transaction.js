@@ -1,3 +1,4 @@
+import { formatDate } from "../../utils";
 import { FILTER_TRANSACTIONS, GET_ALL_TRANSACTIONS } from "../actions/transaction"
 
 const initialState = {
@@ -11,28 +12,42 @@ export default function transactionsReducer(state = initialState, { type, payloa
             return { ...state, transactions: payload, filteredTransactions: payload }
         case FILTER_TRANSACTIONS:
             const { filters } = payload;
-            const newFilteredTransactions = state.transactions;
+            let newFilteredTransactions = state.transactions;
+            if (filters.userId) newFilteredTransactions = newFilteredTransactions.filter(t => t.UserId.toLowerCase().includes(filters.userId.toLowerCase().trim()));
+
+            if (filters.type !== 'none') newFilteredTransactions = newFilteredTransactions.filter(transaction => transaction.type === filters.type);
 
             if (filters.order !== 'none') {
-                switch (order) {
-                    case 'ASC_ALPHABETICALLY':
-                        filterByName = filterByName.sort((a, b) => a.name.localeCompare(b.name));
+                switch (filters.order) {
+                    case 'priceStarsASC':
+                        newFilteredTransactions = newFilteredTransactions.sort((a, b) => a.priceStars - b.priceStars);
                         break;
-                    case 'DES_ALPHABETICALLY':
-                        filterByName = filterByName.sort((a, b) => b.name.localeCompare(a.name));
+                    case 'priceStarsDES':
+                        newFilteredTransactions = newFilteredTransactions.sort((a, b) => b.priceStars - a.priceStars);
                         break;
-                    case 'ASC_POPULATION':
-                        filterByName = filterByName.sort((a, b) => a.population - b.population);
+                    case 'priceMoneyASC':
+                        newFilteredTransactions = newFilteredTransactions.sort((a, b) => a.priceMoney - b.priceMoney);
                         break;
-                    case 'DES_POPULATION':
-                        filterByName = filterByName.sort((a, b) => b.population - a.population);
+                    case 'priceMoneyDES':
+                        newFilteredTransactions = newFilteredTransactions.sort((a, b) => b.priceMoney - a.priceMoney);
+                        break;
+                    case 'transactionIdASC':
+                        newFilteredTransactions = newFilteredTransactions.sort((a, b) => a.id - b.id);
+                        break;
+                    case 'transactionIdDES':
+                        newFilteredTransactions = newFilteredTransactions.sort((a, b) => b.id - a.id);
                         break;
                     default:
                         break;
                 }
             }
-
-            return { ...state }
+            if (filters.onlyToday) {
+                const today = new Date().toISOString().slice(0, 10);
+                newFilteredTransactions = newFilteredTransactions.filter(transaction => formatDate(transaction.createdAt) === today);
+                console.log(newFilteredTransactions);
+            }
+            // console.log('devuelve', newFilteredTransactions);
+            return { ...state, filteredTransactions: [...newFilteredTransactions] }
         default:
             return state
     }

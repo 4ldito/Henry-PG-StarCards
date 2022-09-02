@@ -5,6 +5,13 @@
 
 }
 
+.allInfoContainer {
+    background-color: #12498A;
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid #fafafa
+}
+
 .infoContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;

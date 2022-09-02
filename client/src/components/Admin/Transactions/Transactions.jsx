@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { getAllTransactions } from '../../../redux/actions/transaction';
 import { capitalize, formatDate } from '../../../utils';
 
 import style from './Transactions.module.css';
 import TransactionsFilters from './TransactionsFilters';
+import useFetchTransactions from './../../../hooks/useFetchTransactions';
 
 const Transactions = () => {
-  const dispatch = useDispatch();
-
-  const filteredTransactions = useSelector((state) => state.transactionsReducer.filteredTransactions);
-
-  useEffect(() => {
-    dispatch(getAllTransactions());
-  }, []);
-
-  if (!filteredTransactions.length) return <p>No hay transacciones =(..</p>
+  const { filteredTransactions } = useFetchTransactions();
+  
+  // useEffect(() => {
+  //   console.log('filteredTransactions cambio', filteredTransactions)
+  // }, [filteredTransactions]);
 
   return (
     <div className={style.container}>
@@ -32,7 +27,8 @@ const Transactions = () => {
           <p>Fecha</p>
         </div>
         <div className={style.allTransactionsContainer}>
-          {filteredTransactions.map((transaction) => {
+          {filteredTransactions.length ? 
+          filteredTransactions.map((transaction) => {
             return (
               <div className={style.infoTransactionContainer} key={transaction.id}>
                 <p>{transaction.id}</p>
@@ -44,7 +40,7 @@ const Transactions = () => {
                 <p>{formatDate(transaction.createdAt)}</p>
               </div>
             )
-          })}
+          }) : <p>No hay transacciones =(</p>}
         </div>
       </div>
     </div>

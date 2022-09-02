@@ -11,5 +11,5 @@ export function getAllTransactions() {
 }
 
 export function filterTransactions(filters) {
-  return { type: FILTER_TRANSACTIONS, payload: filters }
+  return { type: FILTER_TRANSACTIONS, payload: { filters } }
 }
