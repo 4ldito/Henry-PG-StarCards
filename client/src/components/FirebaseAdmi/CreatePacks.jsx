@@ -17,8 +17,8 @@ function CreatePacks() {
     }
 
     const dispatch = useDispatch();
-    const cards = useSelector((state)=>state.cards);
-
+    const allcards = useSelector((state)=>state.album.cards);
+    console.log(allcards);
 
     useEffect(()=>{
       dispatch(getAllCards());
@@ -68,8 +68,11 @@ function CreatePacks() {
     const handleSubmitPack = async (e) => {
         e.preventDefault();
         try {
-        const result = await uploadFilePack(file, namepack);
-            console.log(result);
+          
+        const result = await uploadFilePack(input.image, input.name);
+            //console.log(result);
+        input.image = result
+        dispatch(createPackCardsAdmin(input))
         } catch (error) {
             alert('intentelo otra vez');
         }
@@ -122,7 +125,7 @@ function CreatePacks() {
           onChange={(e)=>{handleSelect(e);}}
         >
           <option>Select cards</option>
-          {cards?.map((e)=>{
+          {allcards?.map((e)=>{
             return (
               <option value={e.name}>
                 {e.name}
