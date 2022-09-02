@@ -6,27 +6,23 @@ const validator = function(valores){
 
     if(!valores.username){
         hayErrores =true;
-        errores.username = "Ingrese su nombre de usuario"
+        errores.username = "Enter your user name"
     }
     if (!valores.email) {
         hayErrores =true;
-      errores.email = "Por favor ingrese un e-mail";
+      errores.email = "Enter an e-mail address";
     }else if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/.test(valores.email)){
-      errores.email = "El e-mail es invalido";
+      errores.email = "The e-mail address is invalid";
       hayErrores =true;
     }
     if (!valores.password) {
-      errores.password = "Por favor ingrese una contraseña"
+      errores.password = "Enter a password"
       hayErrores =true;
-    // }else if(!validPassword.test(valores.password)){
-        
-    //   errores.password = "la contra no es valida"
-    //   hayErrores =true;
     } else if(valores.password.length < 4){
-      errores.password = "La longitud mínima es de 4 dígitos"
+      errores.password = "Minimum length is 4 digits"
       hayErrores =true;
     }else if(valores.confirm !== valores.password) {
-      errores.confirm = "Las contraseñas no coinciden"
+      errores.confirm = "Passwords do not match"
       hayErrores =true;
     }
 

@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards } from "../../redux/actions/cards/filterCards";
 
-import imgSearch from '../../img/search.png';
-import imgSelect from '../../img/select.png';
 import btnFilter from "../../img/circle-15.svg";
 
 import css from "./Filter.module.css";
@@ -18,10 +16,10 @@ export default function Filters() {
   const selectOrder = useRef(null);
 
   const [filter, setFilter] = useState({
-    search: '',
+    search: "",
     race: "allRaces",
     movements: "allMovements",
-    order: 'none'
+    order: "none",
   });
 
   function onSubmit(e) {
@@ -37,10 +35,10 @@ export default function Filters() {
 
   function clearFilters() {
     setFilter({
-      search: '',
+      search: "",
       race: "allRaces",
       movements: "allMovements",
-      order: 'none'
+      order: "none",
     });
     selectRace.current.selectedIndex = 0;
     selectMovement.current.selectedIndex = 0;
@@ -60,54 +58,69 @@ export default function Filters() {
   }
 
   return (
-    <div className={css.filter}>
-      <img src={btnFilter} className={css.clearFilter} alt="ClearFilter" />
-      <button onClick={clearFilters} className={css.btnClearFilter}>
+    <div className={css.filters}>
+      <button id="clearFilters" onClick={clearFilters} className={css.btnClearFilter}>
         Clear Filters
       </button>
 
-      {/* <form className={css.form} onSubmit={onSubmit}>
-        <img src={imgSearch} alt="" /> */}
-        <input className={css.form} ref={inputSearch} onChange={onFilterChange} name='search' value={filter.search} list="listaCards" />
-        {/* <input className={css.btnSearch} type="submit" value="search" /> */}
-      {/* </form> */}
+      <input
+      id="search"
+        className={css.input}
+        ref={inputSearch}
+        onChange={onFilterChange}
+        name="search"
+        value={filter.search}
+        list="listaCards"
+      />
 
       <datalist id="listaCards">{options()}</datalist>
 
-      <div>
-        {/* <img src={imgSelect} alt="" /> */}
-        <select ref={selectRace} className={css.select} onChange={onFilterChange} name="race">
-          <option value="allRaces">All races</option>
-          <option value="Protoss">Protoss</option>
-          <option value="Terran">Terran</option>
-          <option value="Zerg">Zerg</option>
-        </select>
-      </div>
+      <select
+      id="race"
+        ref={selectRace}
+        className={css.select}
+        onChange={onFilterChange}
+        name="race"
+      >
+        <option value="allRaces">All races</option>
+        <option value="Protoss">Protoss</option>
+        <option value="Terran">Terran</option>
+        <option value="Zerg">Zerg</option>
+      </select>
 
-      <div>
-        <select ref={selectMovement} className={css.select} onChange={onFilterChange} name="movements">
-          <option value="allMovements">All movements</option>
-          <option value="Ground">Ground</option>
-          <option value="Flying">Flying</option>
-        </select>
-      </div>
+      <select
+      id="movements"
+        ref={selectMovement}
+        className={css.select}
+        onChange={onFilterChange}
+        name="movements"
+      >
+        <option value="allMovements">All movements</option>
+        <option value="Ground">Ground</option>
+        <option value="Flying">Flying</option>
+      </select>
 
-      <div>
-        {/* <img src={imgSelect} alt="" /> */}
-        <select ref={selectOrder} className={css.select} onChange={onFilterChange} name="order">
-          <option hidden value='none'>Random Order</option>
-          <option value="nameAtoZ">by name - A to Z</option>
-          <option value="nameZtoA">by name - Z to A</option>
-          <option value="ascendentCost">by cost ascendent</option>
-          <option value="descendentCost">by cost descendent</option>
-          <option value="ascendentGdmg">by Gdmg ascendent</option>
-          <option value="descendentGdmg">by Gdmg descendent</option>
-          <option value="ascendentAdmg">by Admg ascendent</option>
-          <option value="descendentAdmg">by Admg descendent</option>
-          <option value="ascendentlife">by life ascendent</option>
-          <option value="descendentlife">by life descendent</option>
-        </select>
-      </div>
+      <select
+        id="order"
+        ref={selectOrder}
+        className={css.select}
+        onChange={onFilterChange}
+        name="order"
+      >
+        <option hidden value="none">
+          Random Order
+        </option>
+        <option value="nameAtoZ">by name - A to Z</option>
+        <option value="nameZtoA">by name - Z to A</option>
+        <option value="ascendentCost">by cost ascendent</option>
+        <option value="descendentCost">by cost descendent</option>
+        <option value="ascendentGdmg">by Gdmg ascendent</option>
+        <option value="descendentGdmg">by Gdmg descendent</option>
+        <option value="ascendentAdmg">by Admg ascendent</option>
+        <option value="descendentAdmg">by Admg descendent</option>
+        <option value="ascendentlife">by life ascendent</option>
+        <option value="descendentlife">by life descendent</option>
+      </select>
     </div>
   );
 }
