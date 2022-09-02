@@ -65,7 +65,7 @@ const createStatus = async () => {
   }
 };
 
-const forceFlag = false;
+const forceFlag = true;
 
 db.sequelize.sync({ force: forceFlag }).then(async () => {
   if (forceFlag) {
