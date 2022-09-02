@@ -54,7 +54,7 @@ const zergCards = [
     Gdmg: 11.3,
     Admg: 12.7,
     life: 150,
-    ability: "Siempre: cura 10 de vida.",
+    ability: "Siempre: otorga 10 de vida.",
     abilities: {
       all: [
         {
@@ -157,7 +157,10 @@ const zergCards = [
     life: 80,
     ability: "Siempre: daña 10 a los enemigos terrestres y aéreos en área.",
     abilities: {
-      all: [{ splashDmg: { num: 10, objective: "need", time: "everyturn" } }],
+      all: [
+        { splashDmg: { num: 10, objective: "ground", time: "everyturn" } },
+        { splashDmg: { num: 10, objective: "air", time: "everyturn" } },
+      ],
     },
     race: "Zerg",
     cost: 350,
@@ -204,7 +207,6 @@ const zergCards = [
           modStat: {
             mod: "inc",
             objective: "self",
-
             stat: "Gdmg",
             num: 4.6,
             time: "once",
@@ -216,7 +218,6 @@ const zergCards = [
           modStat: {
             mod: "inc",
             objective: "self",
-
             stat: "life",
             num: 250,
             time: "once",
@@ -263,15 +264,13 @@ const zergCards = [
     Gdmg: 8.3,
     Admg: 8.3,
     life: 120,
-    ability:
-      "Atacante: gana 11.3 de daño terrestre. Defensor: gana 10 de vida.",
+    ability: "Atacante: gana 11.3 de daño terrestre. Defensor: gana 1 de vida.",
     abilities: {
       atk: [
         {
           modStat: {
             mod: "inc",
             objective: "self",
-
             stat: "Gdmg",
             num: 11.3,
             time: "once",
@@ -284,7 +283,7 @@ const zergCards = [
             mod: "inc",
             objective: "self",
             stat: "life",
-            num: 10,
+            num: 1,
             time: "everyturn",
           },
         },
@@ -426,7 +425,6 @@ const terranCards = [
           modStat: {
             mod: "inc",
             objective: "self",
-
             time: "once",
             stat: "Gdmg",
             num: 4.8,
@@ -436,7 +434,6 @@ const terranCards = [
           modStat: {
             mod: "dec",
             objective: "self",
-
             time: "once",
             stat: "life",
             num: 25,
@@ -482,14 +479,13 @@ const terranCards = [
     Gdmg: 10.1,
     Admg: 0,
     life: 60,
-    ability: "Atacante: gana 20 de daño terrestre. Defensor: gana 7 de vida.",
+    ability: "Atacante: gana 20 de daño terrestre. Defensor: gana 1 de vida.",
     abilities: {
       atk: [
         {
           modStat: {
             mod: "inc",
             objective: "self",
-
             time: "once",
             stat: "Gdmg",
             num: 20,
@@ -503,7 +499,7 @@ const terranCards = [
             objective: "self",
             time: "everyturn",
             stat: "life",
-            num: 7,
+            num: 1,
           },
         },
       ],
@@ -1024,7 +1020,17 @@ const protossCards = [
           modStat: {
             mod: "dec",
             objective: "need",
-            stat: "dmg",
+            stat: "Gdmg",
+            perc: 30,
+            team: "enemy",
+            time: "once",
+          },
+        },
+        {
+          modStat: {
+            mod: "dec",
+            objective: "need",
+            stat: "Admg",
             perc: 30,
             team: "enemy",
             time: "once",
@@ -1051,7 +1057,16 @@ const protossCards = [
             mod: "inc",
             objective: "self",
             time: "everyturn",
-            stat: "dmg",
+            stat: "Gdmg",
+            num: 2,
+          },
+        },
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "everyturn",
+            stat: "Admg",
             num: 2,
           },
         },
