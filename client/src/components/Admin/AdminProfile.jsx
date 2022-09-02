@@ -1,6 +1,6 @@
 import useValidToken from "../../hooks/useValidToken";
 import ListUsers from "./ListUsers";
-import Transactions from "./Transactions";
+import Transactions from "./Transactions/Transactions";
 
 import style from './AdminProfile.module.css';
 

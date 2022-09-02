@@ -15,12 +15,24 @@ transactionRoute.get("/", async (req, res, next) => {
   }
 });
 
+transactionRoute.get("/:userId", async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const transactions = await Transaction.findAll({ where: { UserId: userId, StatusId: 'active' } });
+    // si la transicción ya existe, no hay que volver a darle el usuario las stars
+    return res.send(transactions);
+  } catch (error) {
+    return next(error);
+  }
+});
+
 transactionRoute.post("/", async (req, res, next) => {
   const { data: { paymentId, items, userId, type } } = req.body;
 
   try {
-    const transaction = await Transaction.create({ type, paymentId });
+    const total = items.reduce((acc, currentValue) => acc + (Number(currentValue.unit_price) * Number(currentValue.quantity)), 0);
 
+    const transaction = await Transaction.create({ type, paymentId, priceMoney: total });
     await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
     // await transaction.setUser(userId);
     // await transaction.setStatus('active');
