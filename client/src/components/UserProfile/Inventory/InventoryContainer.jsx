@@ -35,9 +35,15 @@ export default function InventoryContainer() {
   }
 
   const removeCardFromDeck = (id) => {
-    const cardBack = newDeckCards.filter(e => e.id !== id);
-    setNewDeckCards(cardBack);
-    
+    // setNewDeckCards(cardBack);
+    const cardBack = newDeckCards.find(e=>e.id === id);
+    if(cardBack.repeat>1){
+      cardBack.repeat--;
+      setNewDeckCards([...newDeckCards]);
+    }else{
+      const newNewDeckCards = newDeckCards.filter(e => e.id !== cardBack.id);
+      setNewDeckCards(newNewDeckCards);
+    }
   }
 
   function renderNotRepeat() {

@@ -99,7 +99,7 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
         movement={card.movement}
       />
       {!inDeck && <button onClick={handleViewCard}>{'Vender'}</button>}
-      {inDeck && <button onClick={() => { removeCardFromDeck(card.id) }}>Sacar del mazo</button>}
+      {inDeck && <button onClick={() => {removeCardFromDeck(card.id)}}>Sacar del mazo</button>}
       {viewCard && (
         <SaleCard
           handleViewCard={handleViewCard}
