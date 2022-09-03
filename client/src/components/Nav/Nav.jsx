@@ -7,36 +7,18 @@ import { AiOutlineUser } from "react-icons/ai";
 
 import css from "./Nav.module.css";
 import useValidToken from "../../hooks/useValidToken";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userOptionsState } from "../../redux/actions/user";
 
 export default function Nav() {
   const user = useSelector((state) => state.userReducer);
   const { validToken } = useValidToken({ navigate: false });
-  const [visibleUserOptions, setVisibleUserOptions] = useState(false);
-  // const userActive = useSelector((state) => state.userReducer.user);
+  const userOptions = useSelector((state) => state.userReducer.userOptions);
+  const dispatch = useDispatch();
 
   const handleVisibleUserOptions = () => {
-    setVisibleUserOptions(!visibleUserOptions);
+    dispatch(userOptionsState())
   };
-
-  // function navEnabled() {
-  //   return (
-  //     <div>
-  //       <NavLink className={css.link} to="/">
-  //         <img className={css.img} src={logo} alt="Logo de StarCards" />
-  //       </NavLink>
-  //     </div>
-  //   );
-  // }
-  // function navDisabled() {
-  //   return (
-  //     <div>
-  //       <NavLink className={css.link} to="/userProfile">
-  //         <img className={css.img} src={logo} alt="Logo de StarCards" />
-  //       </NavLink>{" "}
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className={css.nav}>
@@ -94,7 +76,7 @@ export default function Nav() {
       </button>
       {validToken && <ChatNotifications />}
 
-      {visibleUserOptions && (
+      {userOptions && (
         <div className={css.userOptions}>
           <UserOptions handleVisibleUserOptions={handleVisibleUserOptions} />
         </div>

@@ -70,11 +70,12 @@ export default function UserOptions() {
             <Link className={css.link} style={option} to={`/userProfile?username=${user.username}`} onClick={closeOptions}>
               User Profile
             </Link>
+            <br />
           </li>
         )}
         <li className={css.li}>
           {validToken ?
-            <Link className={css.btn} style={option} to="/login" onClick={quit}>Log out</Link>
+            <><Link className={css.link} style={option} to="/login" onClick={quit}>Log out</Link><br /></>
             : <Link className={css.link} style={option} to="/login" onClick={closeOptions}>Log In</Link>
           }
         </li>
@@ -83,6 +84,7 @@ export default function UserOptions() {
             <Link className={css.link} style={option} to={`/register`} onClick={closeOptions}>
               Sign in
             </Link>
+            <br />
           </li>
         )}
       </ul>

@@ -7,7 +7,33 @@
   gap: 20px;
   height: 60vh;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../img/album-card-container.svg);
+  background-size: cover;
+
+  border: 2px solid cyan;
+
+  width: 40%;
+  height: 60%;
+}
+
+.button {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.png);
+  background-size: cover;
+  object-fit: contain;
+
+  border: none;
+  color: white;
+
+  width: 150px;
+  height: 50px;
 }
 
 /* input[type="text"]{
@@ -33,7 +59,8 @@ input[type="submit"]:hover {
 
 .buttoncontainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: baseline;
 }
 
 .login-form {
@@ -58,18 +85,61 @@ input[type="submit"]:hover {
 .inputcontainer {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  align-items: flex-start;
+
+  font-size: 1.5rem;
+
   gap: 8px;
-  margin: 10px;
   width: 70%;
 }
-label{
+
+.inputcontainer > input{
+  font-size: 1rem;
+}
+label {
   text-align: start;
   color: rgb(236, 251, 252);
 }
 
-.form{
+.form {
   background-color: #757576;
   border-radius: 8px;
   padding: 1rem;
+}
+
+/* ////////////////////////// RecoveryPassword ////////////////////////// */
+
+.containerRecoveryPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../img/album-card-container.svg);
+  background-size: cover;
+
+  border: 2px solid cyan;
+
+  width: 40%;
+  height: auto;
+
+  padding: 1.5rem;
+}
+
+.containerRecoveryPassword > label {
+  position: absolute;
+  left: 0;
+}
+
+.btnRecoveryPassword{
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.png);
+  background-size: cover;
+  object-fit: contain;
+
+  border: none;
+  color: white;
+
+  width: 167px;
+  height: 60px;
 }

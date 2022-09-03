@@ -1,4 +1,4 @@
-import { CLEAN_TOKEN,CLEAN_RECIVED_TOKEN, MODAL,VERIFY_TOKEN, SUCCESS_ACTION,CHANGE_RENDER} from "../actions/sendMail"
+import { CLEAN_TOKEN,CLEAN_RECIVED_TOKEN, MODAL,VERIFY_TOKEN, SUCCESS_ACTION,CHANGE_RENDER, SEND_MAIL_PURCHASE} from "../actions/sendMail"
 
 const initialState = {
     token: false,
