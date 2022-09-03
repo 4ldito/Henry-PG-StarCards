@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-oauth/google": "^0.2.6",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
     "dotenv": "^16.0.1",
@@ -17,8 +18,10 @@
     "firebase": "^9.9.3",
     "formik": "^2.2.9",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-google-login": "^5.2.2",
     "react-icons": "^4.4.0",
     "react-jwt": "^1.1.6",
     "react-redux": "^8.0.2",
