@@ -1718,6 +1718,68 @@ function battle(atk, def) {
 
         const attackArray = [atkArmy.ground[round], atkArmy.air[round]];
         const [Gattacker, Aattacker] = attackArray;
+
+        for (let fighter of attackArray) {
+          if (fighter && fighter.life > 0) {
+            for (let ability in fighter.abilities) {
+              if (
+                ability !== "def" &&
+                fighter[ability].find((a) => a.hasOwnProperty("splashDmg"))
+              ) {
+                for (let cast of fighter[ability]) {
+                  for (let key in cast) {
+                    const detection =
+                      atkArmy.ground.find((c) => {
+                        c.abilities.all.find((e) => e.detector) ||
+                          c.abilities.def.find((e) => e.detector);
+                      }) ||
+                      atkArmy.air.find((c) => {
+                        c.abilities.all.find((e) => e.detector) ||
+                          c.abilities.def.find((e) => e.detector);
+                      });
+                    if (!cast[key].off) {
+                      let abilityObjective;
+                      switch (cast[key].objective) {
+                        case "ground":
+                          abilityObjective = defArmy.ground;
+
+                          break;
+                        case "air":
+                          abilityObjective = defArmy.air;
+                          break;
+                      }
+                      let cardObjectiveIndex = abilityObjective.indexOf(
+                        (c) =>
+                          c.abilities.all.find((e) =>
+                            e.invisible ? false : true
+                          ) ||
+                          c.abilities.atk.find((e) =>
+                            e.invisible ? false : true
+                          ) ||
+                          !c.abilities.cloacked ||
+                          detection
+                      );
+
+                      if (cardObjectiveIndex !== -1) {
+                        abilityObjective[cardObjectiveIndex].life = notNegative(
+                          abilityObjective[cardObjectiveIndex].life -
+                            cast[key].num
+                        );
+                        if (abilityObjective[cardObjectiveIndex + 1])
+                          abilityObjective[cardObjectiveIndex + 1].life =
+                            notNegative(
+                              abilityObjective[cardObjectiveIndex + 1].life -
+                                cast[key].num
+                            );
+                      }
+                      if (cast[key].time === "once") cast[key].off = true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
 
       if (!defArmy.ground.length && !defArmy.air.length)
