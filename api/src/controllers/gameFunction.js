@@ -39,49 +39,49 @@ function battle(atk, def) {
 
         for (let ability in card.abilities) {
           switch (true) {
-            case ability === "all" || ability === "def":
+            case (ability === "all" || ability === "def") && card.life > 0:
               for (let cast of card[ability]) {
                 for (let key in cast) {
                   const detection =
-                    defArmy.ground.find((c) => {
-                      c.abilities.all.find((e) => e.detector) ||
-                        c.abilities.def.find((e) => e.detector);
+                    atkArmy.ground.find((c) => {
+                      c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                        c.abilities.atk.find((e) => e.detector && c.life > 0);
                     }) ||
-                    defArmy.air.find((c) => {
-                      c.abilities.all.find((e) => e.detector) ||
-                        c.abilities.def.find((e) => e.detector);
+                    atkArmy.air.find((c) => {
+                      c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                        c.abilities.atk.find((e) => e.detector && c.life > 0);
                     });
                   switch (key) {
                     case "control":
                       if (!cast[key].off) {
                         switch (cast[key]) {
                           case "ground":
-                            defArmy.ground.unshift(
-                              atkArmy.ground.splice(
-                                atkArmy.ground.findLastIndex(
-                                  (c) =>
-                                    (!c.abilities.all.invisible &&
-                                      !c.abilities.atk.invisible &&
-                                      !c.abilities.cloacked) ||
-                                    detection
-                                ),
-                                1
-                              )
+                            let ind = atkArmy.ground.findLastIndex(
+                              (c) =>
+                                ((!c.abilities.all.invisible &&
+                                  !c.abilities.atk.invisible &&
+                                  !c.abilities.cloacked) ||
+                                  detection) &&
+                                c.life > 0
                             );
+                            if (ind !== -1) {
+                              defArmy.ground.unshift(atkArmy.ground[ind]);
+                              atkArmy.ground[ind] = {};
+                            }
                             break;
                           case "air":
-                            defArmy.air.unshift(
-                              atkArmy.air.splice(
-                                atkArmy.air.findLastIndex(
-                                  (c) =>
-                                    (!c.abilities.all.invisible &&
-                                      !c.abilities.atk.invisible &&
-                                      !c.abilities.cloacked) ||
-                                    detection
-                                ),
-                                1
-                              )
+                            ind = atkArmy.air.findLastIndex(
+                              (c) =>
+                                ((!c.abilities.all.invisible &&
+                                  !c.abilities.atk.invisible &&
+                                  !c.abilities.cloacked) ||
+                                  detection) &&
+                                c.life > 0
                             );
+                            if (ind !== -1) {
+                              defArmy.air.unshift(atkArmy.air[ind]);
+                              atkArmy.air[ind] = {};
+                            }
                             break;
                         }
                         cast[key].off = true;
@@ -106,15 +106,17 @@ function battle(atk, def) {
                               case "ground":
                                 if (card.movement !== "ground") {
                                   defArmy.ground.unshift(
-                                    defArmy.air.splice(cardIndex, 1)
+                                    defArmy.air[cardIndex]
                                   );
+                                  defArmy.air[cardIndex] = {};
                                 }
                                 break;
                               case "air":
                                 if (card.movement !== "air") {
                                   defArmy.air.unshift(
-                                    defArmy.ground.splice(cardIndex, 1)
+                                    defArmy.ground[cardIndex]
                                   );
+                                  defArmy.ground[cardIndex] = {};
                                 }
                                 break;
                               case "need":
@@ -133,17 +135,20 @@ function battle(atk, def) {
                                 if (
                                   groundLife <= airLife &&
                                   card.movement === "air"
-                                )
+                                ) {
                                   defArmy.air.unshift(
-                                    defArmy.ground.splice(cardIndex, 1)
+                                    defArmy.ground[cardIndex]
                                   );
-                                else if (
+                                  defArmy.ground[cardIndex] = {};
+                                } else if (
                                   groundLife > airLife &&
                                   card.movement === "ground"
-                                )
+                                ) {
                                   defArmy.ground.unshift(
-                                    defArmy.air.splice(cardIndex, 1)
+                                    defArmy.air[cardIndex]
                                   );
+                                  defArmy.air[cardIndex] = {};
+                                }
                                 break;
                             }
                           case "inc":
@@ -160,55 +165,70 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "ground":
-                                    if (
-                                      cast[key].num &&
-                                      objective.ground.length
-                                    )
-                                      objective.ground[0].Gdmg += cast[key].num;
-                                    else if (objective.ground.length) {
-                                      objective.ground[0].Gdmg =
-                                        objective.ground[0].Gdmg +
-                                        objective.ground[0].Gdmg *
+                                    const GobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && GobjectiveIndex !== -1)
+                                      objective.ground[GobjectiveIndex].Gdmg +=
+                                        cast[key].num;
+                                    else if (GobjectiveIndex !== -1) {
+                                      objective.ground[GobjectiveIndex].Gdmg =
+                                        objective.ground[GobjectiveIndex].Gdmg +
+                                        objective.ground[GobjectiveIndex].Gdmg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "air":
-                                    if (cast[key].num && objective.air.length)
-                                      objective.air[0].Gdmg += cast[key].num;
-                                    else if (objective.air.length) {
-                                      objective.air[0].Gdmg =
-                                        objective.air[0].Gdmg +
-                                        objective.air[0].Gdmg *
+                                    const AobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && AobjectiveIndex !== -1)
+                                      objective.air[AobjectiveIndex].Gdmg +=
+                                        cast[key].num;
+                                    else if (AobjectiveIndex !== -1) {
+                                      objective.air[AobjectiveIndex].Gdmg =
+                                        objective.air[AobjectiveIndex].Gdmg +
+                                        objective.air[AobjectiveIndex].Gdmg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "need":
+                                    const GobjectiveIndex2 =
+                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex2 = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     const groundGdmg =
-                                      objective.ground[0]?.Gdmg;
-                                    const airGdmg = objective.air[0]?.Gdmg;
+                                      objective.ground[GobjectiveIndex2]?.Gdmg;
+                                    const airGdmg =
+                                      objective.air[AobjectiveIndex2]?.Gdmg;
                                     if (groundGdmg <= airGdmg) {
                                       if (
                                         cast[key].num &&
-                                        objective.ground.length
+                                        GobjectiveIndex2 !== -1
                                       )
-                                        objective.ground[0].Gdmg +=
-                                          cast[key].num;
-                                      else if (objective.ground.length) {
-                                        objective.ground[0].Gdmg =
-                                          objective.ground[0].Gdmg +
-                                          objective.ground[0].Gdmg *
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Gdmg += cast[key].num;
+                                      else if (GobjectiveIndex2 !== -1) {
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Gdmg =
+                                          objective.ground[GobjectiveIndex2]
+                                            .Gdmg +
+                                          objective.ground[GobjectiveIndex2]
+                                            .Gdmg *
                                             (cast[key].perc / 100);
                                       }
                                     } else if (
                                       cast[key].num &&
-                                      objective.air.length
+                                      AobjectiveIndex2 !== -1
                                     ) {
                                       if (cast[key].num)
-                                        objective.air[0].Gdmg += cast[key].num;
-                                      else if (objective.air.length) {
-                                        objective.air[0].Gdmg =
-                                          objective.air[0].Gdmg +
-                                          objective.air[0].Gdmg *
+                                        objective.air[AobjectiveIndex2].Gdmg +=
+                                          cast[key].num;
+                                      else if (AobjectiveIndex2 !== -1) {
+                                        objective.air[AobjectiveIndex2].Gdmg =
+                                          objective.air[AobjectiveIndex2].Gdmg +
+                                          objective.air[AobjectiveIndex2].Gdmg *
                                             (cast[key].perc / 100);
                                       }
                                     }
@@ -227,55 +247,70 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "ground":
-                                    if (
-                                      cast[key].num &&
-                                      objective.ground.length
-                                    )
-                                      objective.ground[0].Admg += cast[key].num;
-                                    else if (objective.ground.length) {
-                                      objective.ground[0].Admg =
-                                        objective.ground[0].Admg +
-                                        defArmy.ground[0].Admg *
+                                    const GobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && GobjectiveIndex !== -1)
+                                      objective.ground[GobjectiveIndex].Admg +=
+                                        cast[key].num;
+                                    else if (GobjectiveIndex !== -1) {
+                                      objective.ground[GobjectiveIndex].Admg =
+                                        objective.ground[GobjectiveIndex].Admg +
+                                        objective.ground[GobjectiveIndex].Admg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "air":
-                                    if (cast[key].num && objective.air.length)
-                                      objective.air[0].Admg += cast[key].num;
-                                    else if (objective.air.length) {
-                                      objective.air[0].Admg =
-                                        objective.air[0].Admg +
-                                        objective.air[0].Admg *
+                                    const AobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && AobjectiveIndex !== -1)
+                                      objective.air[AobjectiveIndex].Admg +=
+                                        cast[key].num;
+                                    else if (AobjectiveIndex !== -1) {
+                                      objective.air[AobjectiveIndex].Admg =
+                                        objective.air[AobjectiveIndex].Admg +
+                                        objective.air[AobjectiveIndex].Admg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "need":
+                                    const GobjectiveIndex2 =
+                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex2 = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     const groundGdmg =
-                                      objective.ground[0]?.Admg;
-                                    const airGdmg = objective.air[0]?.Admg;
+                                      objective.ground[GobjectiveIndex2]?.Admg;
+                                    const airGdmg =
+                                      objective.air[AobjectiveIndex2]?.Admg;
                                     if (groundGdmg <= airGdmg) {
                                       if (
                                         cast[key].num &&
-                                        objective.ground.length
+                                        GobjectiveIndex2 !== -1
                                       )
-                                        objective.ground[0].Admg +=
-                                          cast[key].num;
-                                      else if (objective.ground.length) {
-                                        objective.ground[0].Admg =
-                                          objective.ground[0].Admg +
-                                          objective.ground[0].Admg *
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Admg += cast[key].num;
+                                      else if (GobjectiveIndex2 !== -1) {
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Admg =
+                                          objective.ground[GobjectiveIndex2]
+                                            .Admg +
+                                          objective.ground[GobjectiveIndex2]
+                                            .Admg *
                                             (cast[key].perc / 100);
                                       }
                                     } else if (
                                       cast[key].num &&
-                                      defAobjectivermy.air.length
+                                      AobjectiveIndex2 !== -1
                                     ) {
                                       if (cast[key].num)
-                                        objective.air[0].Admg += cast[key].num;
-                                      else if (objective.air.length) {
-                                        objective.air[0].Admg =
-                                          objective.air[0].Admg +
-                                          objective.air[0].Admg *
+                                        objective.air[AobjectiveIndex2].Admg +=
+                                          cast[key].num;
+                                      else if (AobjectiveIndex2 !== -1) {
+                                        objective.air[AobjectiveIndex2].Admg =
+                                          objective.air[AobjectiveIndex2].Admg +
+                                          objective.air[AobjectiveIndex2].Admg *
                                             (cast[key].perc / 100);
                                       }
                                     }
@@ -294,55 +329,71 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "ground":
-                                    if (
-                                      cast[key].num &&
-                                      objective.ground.length
-                                    )
-                                      objective.ground[0].life += cast[key].num;
-                                    else if (objective.ground.length) {
-                                      objective.ground[0].life =
-                                        objective.ground[0].life +
-                                        objective.ground[0].life *
+                                    const GobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && GobjectiveIndex !== -1)
+                                      objective.ground[GobjectiveIndex].life +=
+                                        cast[key].num;
+                                    else if (GobjectiveIndex !== -1) {
+                                      objective.ground[GobjectiveIndex].life =
+                                        objective.ground[GobjectiveIndex].life +
+                                        objective.ground[GobjectiveIndex].life *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "air":
-                                    if (cast[key].num && objective.air.length)
-                                      objective.air[0].life += cast[key].num;
-                                    else if (objective.air.length) {
-                                      objective.air[0].life =
-                                        objective.air[0].life +
-                                        objective.air[0].life *
+                                    const AobjectiveIndex = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
+                                    if (cast[key].num && AobjectiveIndex !== -1)
+                                      objective.air[AobjectiveIndex].life +=
+                                        cast[key].num;
+                                    else if (AobjectiveIndex !== -1) {
+                                      objective.air[AobjectiveIndex].life =
+                                        objective.air[AobjectiveIndex].life +
+                                        objective.air[AobjectiveIndex].life *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "need":
+                                    const GobjectiveIndex2 =
+                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex2 = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     const groundGdmg =
-                                      objective.ground[0]?.life;
-                                    const airGdmg = objective.air[0]?.life;
+                                      objective.ground[GobjectiveIndex2]?.life;
+                                    const airGdmg =
+                                      objective.air[AobjectiveIndex2]?.life;
                                     if (groundGdmg <= airGdmg) {
                                       if (
                                         cast[key].num &&
-                                        objective.ground.length
+                                        GobjectiveIndex2 !== -1
                                       )
-                                        objective.ground[0].life +=
-                                          cast[key].num;
-                                      else if (objective.ground.length) {
-                                        objective.ground[0].life =
-                                          objective.ground[0].life +
-                                          objective.ground[0].life *
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].life += cast[key].num;
+                                      else if (GobjectiveIndex2 !== -1) {
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].life =
+                                          objective.ground[GobjectiveIndex2]
+                                            .life +
+                                          objective.ground[GobjectiveIndex2]
+                                            .life *
                                             (cast[key].perc / 100);
                                       }
                                     } else if (
                                       cast[key].num &&
-                                      objective.air.length
+                                      AobjectiveIndex2 !== -1
                                     ) {
                                       if (cast[key].num)
-                                        objective.air[0].life += cast[key].num;
-                                      else if (objective.air.length) {
-                                        objective.air[0].life =
-                                          objective.air[0].life +
-                                          objective.air[0].life *
+                                        objective.air[AobjectiveIndex2].life +=
+                                          cast[key].num;
+                                      else if (AobjectiveIndex2 !== -1) {
+                                        objective.air[AobjectiveIndex2].life =
+                                          objective.air[AobjectiveIndex2].life +
+                                          objective.air[AobjectiveIndex2].life *
                                             (cast[key].perc / 100);
                                       }
                                     }
@@ -370,14 +421,15 @@ function battle(atk, def) {
                                     const GenemyObjectiveIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -405,14 +457,15 @@ function battle(atk, def) {
                                     const AenemyObjectiveIndex =
                                       objective.air.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -438,25 +491,27 @@ function battle(atk, def) {
                                     const groundIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
+                                      );
+                                    const airIndex = objective.air.indexOf(
+                                      (c) =>
+                                        (c.abilities.all.find((e) =>
+                                          e.invisible ? false : true
+                                        ) ||
                                           c.abilities.atk.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
                                           !c.abilities.cloacked ||
-                                          detection
-                                      );
-                                    const airIndex = objective.air.indexOf(
-                                      (c) =>
-                                        c.abilities.all.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        c.abilities.atk.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        !c.abilities.cloacked ||
-                                        detection
+                                          detection) &&
+                                        c.life > 0
                                     );
                                     const groundGdmg =
                                       objective.ground[groundIndex]?.Gdmg;
@@ -516,14 +571,15 @@ function battle(atk, def) {
                                     const GenemyObjectiveIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -551,14 +607,15 @@ function battle(atk, def) {
                                     const AenemyObjectiveIndex =
                                       objective.air.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -584,25 +641,27 @@ function battle(atk, def) {
                                     const groundIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
+                                      );
+                                    const airIndex = objective.air.indexOf(
+                                      (c) =>
+                                        (c.abilities.all.find((e) =>
+                                          e.invisible ? false : true
+                                        ) ||
                                           c.abilities.atk.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
                                           !c.abilities.cloacked ||
-                                          detection
-                                      );
-                                    const airIndex = objective.air.indexOf(
-                                      (c) =>
-                                        c.abilities.all.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        c.abilities.atk.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        !c.abilities.cloacked ||
-                                        detection
+                                          detection) &&
+                                        c.life > 0
                                     );
                                     const groundGdmg =
                                       objective.ground[groundIndex]?.Admg;
@@ -657,24 +716,20 @@ function battle(atk, def) {
                                           card.life * (cast[key].perc / 100)
                                       );
                                     }
-                                    if (card.life === 0)
-                                      defArmy[card.movement].splice(
-                                        cardIndex,
-                                        1
-                                      );
                                     break;
                                   case "ground":
                                     const GenemyObjectiveIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -697,27 +752,20 @@ function battle(atk, def) {
                                             (cast[key].perc / 100)
                                       );
                                     }
-                                    if (
-                                      objective.ground[GenemyObjectiveIndex]
-                                        .life === 0
-                                    )
-                                      objective.ground.splice(
-                                        GenemyObjectiveIndex,
-                                        1
-                                      );
                                     break;
                                   case "air":
                                     const AenemyObjectiveIndex =
                                       objective.air.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -738,38 +786,32 @@ function battle(atk, def) {
                                               (cast[key].perc / 100)
                                         );
                                     }
-                                    if (
-                                      objective.air[AenemyObjectiveIndex]
-                                        .life === 0
-                                    )
-                                      objective.air.splice(
-                                        AenemyObjectiveIndex,
-                                        1
-                                      );
                                     break;
                                   case "need":
                                     const groundIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
+                                            c.abilities.atk.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
+                                      );
+                                    const airIndex = objective.air.indexOf(
+                                      (c) =>
+                                        (c.abilities.all.find((e) =>
+                                          e.invisible ? false : true
+                                        ) ||
                                           c.abilities.atk.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
                                           !c.abilities.cloacked ||
-                                          detection
-                                      );
-                                    const airIndex = objective.air.indexOf(
-                                      (c) =>
-                                        c.abilities.all.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        c.abilities.atk.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        !c.abilities.cloacked ||
-                                        detection
+                                          detection) &&
+                                        c.life > 0
                                     );
                                     const groundLife =
                                       objective.ground[groundIndex]?.life;
@@ -791,10 +833,6 @@ function battle(atk, def) {
                                                 (cast[key].perc / 100)
                                           );
                                       }
-                                      if (
-                                        objective.ground[groundIndex].life === 0
-                                      )
-                                        objective.ground.splice(groundIndex, 1);
                                     } else if (
                                       cast[key].num &&
                                       airIndex !== -1
@@ -813,8 +851,6 @@ function battle(atk, def) {
                                                 (cast[key].perc / 100)
                                           );
                                       }
-                                      if (objective.air[airIndex].life === 0)
-                                        objective.air.splice(airIndex, 1);
                                     }
                                     break;
                                 }
@@ -840,49 +876,49 @@ function battle(atk, def) {
 
         for (let ability in card.abilities) {
           switch (true) {
-            case ability === "all" || ability === "atk":
+            case (ability === "all" || ability === "atk") && card.life > 0:
               for (let cast of card[ability]) {
                 for (let key in cast) {
                   const detection =
                     atkArmy.ground.find((c) => {
-                      c.abilities.all.find((e) => e.detector) ||
-                        c.abilities.atk.find((e) => e.detector);
+                      c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                        c.abilities.atk.find((e) => e.detector && c.life > 0);
                     }) ||
                     atkArmy.air.find((c) => {
-                      c.abilities.all.find((e) => e.detector) ||
-                        c.abilities.atk.find((e) => e.detector);
+                      c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                        c.abilities.atk.find((e) => e.detector && c.life > 0);
                     });
                   switch (key) {
                     case "control":
                       if (!cast[key].off) {
                         switch (cast[key]) {
                           case "ground":
-                            atkArmy.ground.unshift(
-                              defArmy.ground.splice(
-                                defArmy.ground.findLastIndex(
-                                  (c) =>
-                                    (!c.abilities.all.invisible &&
-                                      !c.abilities.atk.invisible &&
-                                      !c.abilities.cloacked) ||
-                                    detection
-                                ),
-                                1
-                              )
+                            let ind = defArmy.ground.findLastIndex(
+                              (c) =>
+                                ((!c.abilities.all.invisible &&
+                                  !c.abilities.def.invisible &&
+                                  !c.abilities.cloacked) ||
+                                  detection) &&
+                                c.life > 0
                             );
+                            if (ind !== -1) {
+                              atkArmy.ground.unshift(defArmy.ground[ind]);
+                              defArmy.ground[ind] = {};
+                            }
                             break;
                           case "air":
-                            atkArmy.air.unshift(
-                              defArmy.air.splice(
-                                defArmy.air.findLastIndex(
-                                  (c) =>
-                                    (!c.abilities.all.invisible &&
-                                      !c.abilities.atk.invisible &&
-                                      !c.abilities.cloacked) ||
-                                    detection
-                                ),
-                                1
-                              )
+                            ind = defArmy.air.findLastIndex(
+                              (c) =>
+                                ((!c.abilities.all.invisible &&
+                                  !c.abilities.def.invisible &&
+                                  !c.abilities.cloacked) ||
+                                  detection) &&
+                                c.life > 0
                             );
+                            if (ind !== -1) {
+                              atkArmy.air.unshift(defArmy.air[ind]);
+                              defArmy.air[ind] = {};
+                            }
                             break;
                         }
                         cast[key].off = true;
@@ -907,15 +943,17 @@ function battle(atk, def) {
                               case "ground":
                                 if (card.movement !== "ground") {
                                   atkArmy.ground.unshift(
-                                    atkArmy.air.splice(cardIndex, 1)
+                                    atkArmy.air[cardIndex]
                                   );
+                                  atkArmy.air[cardIndex] = {};
                                 }
                                 break;
                               case "air":
                                 if (card.movement !== "air") {
                                   atkArmy.air.unshift(
-                                    atkArmy.ground.splice(cardIndex, 1)
+                                    atkArmy.ground[cardIndex]
                                   );
+                                  atkArmy.ground[cardIndex] = {};
                                 }
                                 break;
                               case "need":
@@ -934,17 +972,20 @@ function battle(atk, def) {
                                 if (
                                   groundLife <= airLife &&
                                   card.movement === "air"
-                                )
+                                ) {
                                   atkArmy.air.unshift(
-                                    atkArmy.ground.splice(cardIndex, 1)
+                                    atkArmy.ground[cardIndex]
                                   );
-                                else if (
+                                  atkArmy.ground[cardIndex] = {};
+                                } else if (
                                   groundLife > airLife &&
                                   card.movement === "ground"
-                                )
+                                ) {
                                   atkArmy.ground.unshift(
-                                    atkArmy.air.splice(cardIndex, 1)
+                                    atkArmy.air[cardIndex]
                                   );
+                                  atkArmy.air[cardIndex] = {};
+                                }
                                 break;
                             }
                           case "inc":
@@ -961,55 +1002,70 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "ground":
-                                    if (
-                                      cast[key].num &&
-                                      objective.ground.length
-                                    )
-                                      objective.ground[0].Gdmg += cast[key].num;
-                                    else if (objective.ground.length) {
-                                      objective.ground[0].Gdmg =
-                                        objective.ground[0].Gdmg +
-                                        objective.ground[0].Gdmg *
+                                    const GobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && GobjectiveIndex !== -1)
+                                      objective.ground[GobjectiveIndex].Gdmg +=
+                                        cast[key].num;
+                                    else if (GobjectiveIndex !== -1) {
+                                      objective.ground[GobjectiveIndex].Gdmg =
+                                        objective.ground[GobjectiveIndex].Gdmg +
+                                        objective.ground[GobjectiveIndex].Gdmg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "air":
-                                    if (cast[key].num && objective.air.length)
-                                      objective.air[0].Gdmg += cast[key].num;
-                                    else if (objective.air.length) {
-                                      objective.air[0].Gdmg =
-                                        objective.air[0].Gdmg +
-                                        objective.air[0].Gdmg *
+                                    const AobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && AobjectiveIndex !== -1)
+                                      objective.air[AobjectiveIndex].Gdmg +=
+                                        cast[key].num;
+                                    else if (AobjectiveIndex !== -1) {
+                                      objective.air[AobjectiveIndex].Gdmg =
+                                        objective.air[AobjectiveIndex].Gdmg +
+                                        objective.air[AobjectiveIndex].Gdmg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "need":
+                                    const GobjectiveIndex2 =
+                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex2 = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     const groundGdmg =
-                                      objective.ground[0]?.Gdmg;
-                                    const airGdmg = objective.air[0]?.Gdmg;
+                                      objective.ground[GobjectiveIndex2]?.Gdmg;
+                                    const airGdmg =
+                                      objective.air[AobjectiveIndex2]?.Gdmg;
                                     if (groundGdmg <= airGdmg) {
                                       if (
                                         cast[key].num &&
-                                        objective.ground.length
+                                        GobjectiveIndex2 !== -1
                                       )
-                                        objective.ground[0].Gdmg +=
-                                          cast[key].num;
-                                      else if (objective.ground.length) {
-                                        objective.ground[0].Gdmg =
-                                          objective.ground[0].Gdmg +
-                                          objective.ground[0].Gdmg *
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Gdmg += cast[key].num;
+                                      else if (GobjectiveIndex2 !== -1) {
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Gdmg =
+                                          objective.ground[GobjectiveIndex2]
+                                            .Gdmg +
+                                          objective.ground[GobjectiveIndex2]
+                                            .Gdmg *
                                             (cast[key].perc / 100);
                                       }
                                     } else if (
                                       cast[key].num &&
-                                      objective.air.length
+                                      AobjectiveIndex2 !== -1
                                     ) {
                                       if (cast[key].num)
-                                        objective.air[0].Gdmg += cast[key].num;
-                                      else if (objective.air.length) {
-                                        objective.air[0].Gdmg =
-                                          objective.air[0].Gdmg +
-                                          objective.air[0].Gdmg *
+                                        objective.air[AobjectiveIndex2].Gdmg +=
+                                          cast[key].num;
+                                      else if (AobjectiveIndex2 !== -1) {
+                                        objective.air[AobjectiveIndex2].Gdmg =
+                                          objective.air[AobjectiveIndex2].Gdmg +
+                                          objective.air[AobjectiveIndex2].Gdmg *
                                             (cast[key].perc / 100);
                                       }
                                     }
@@ -1028,55 +1084,70 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "ground":
-                                    if (
-                                      cast[key].num &&
-                                      objective.ground.length
-                                    )
-                                      objective.ground[0].Admg += cast[key].num;
-                                    else if (objective.ground.length) {
-                                      objective.ground[0].Admg =
-                                        objective.ground[0].Admg +
-                                        defArmy.ground[0].Admg *
+                                    const GobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && GobjectiveIndex !== -1)
+                                      objective.ground[GobjectiveIndex].Admg +=
+                                        cast[key].num;
+                                    else if (GobjectiveIndex !== -1) {
+                                      objective.ground[GobjectiveIndex].Admg =
+                                        objective.ground[GobjectiveIndex].Admg +
+                                        objective.ground[GobjectiveIndex].Admg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "air":
-                                    if (cast[key].num && objective.air.length)
-                                      objective.air[0].Admg += cast[key].num;
-                                    else if (objective.air.length) {
-                                      objective.air[0].Admg =
-                                        objective.air[0].Admg +
-                                        objective.air[0].Admg *
+                                    const AobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && AobjectiveIndex !== -1)
+                                      objective.air[AobjectiveIndex].Admg +=
+                                        cast[key].num;
+                                    else if (AobjectiveIndex !== -1) {
+                                      objective.air[AobjectiveIndex].Admg =
+                                        objective.air[AobjectiveIndex].Admg +
+                                        objective.air[AobjectiveIndex].Admg *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "need":
+                                    const GobjectiveIndex2 =
+                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex2 = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     const groundGdmg =
-                                      objective.ground[0]?.Admg;
-                                    const airGdmg = objective.air[0]?.Admg;
+                                      objective.ground[GobjectiveIndex2]?.Admg;
+                                    const airGdmg =
+                                      objective.air[AobjectiveIndex2]?.Admg;
                                     if (groundGdmg <= airGdmg) {
                                       if (
                                         cast[key].num &&
-                                        objective.ground.length
+                                        GobjectiveIndex2 !== -1
                                       )
-                                        objective.ground[0].Admg +=
-                                          cast[key].num;
-                                      else if (objective.ground.length) {
-                                        objective.ground[0].Admg =
-                                          objective.ground[0].Admg +
-                                          objective.ground[0].Admg *
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Admg += cast[key].num;
+                                      else if (GobjectiveIndex2 !== -1) {
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].Admg =
+                                          objective.ground[GobjectiveIndex2]
+                                            .Admg +
+                                          objective.ground[GobjectiveIndex2]
+                                            .Admg *
                                             (cast[key].perc / 100);
                                       }
                                     } else if (
                                       cast[key].num &&
-                                      defAobjectivermy.air.length
+                                      AobjectiveIndex2 !== -1
                                     ) {
                                       if (cast[key].num)
-                                        objective.air[0].Admg += cast[key].num;
-                                      else if (objective.air.length) {
-                                        objective.air[0].Admg =
-                                          objective.air[0].Admg +
-                                          objective.air[0].Admg *
+                                        objective.air[AobjectiveIndex2].Admg +=
+                                          cast[key].num;
+                                      else if (AobjectiveIndex2 !== -1) {
+                                        objective.air[AobjectiveIndex2].Admg =
+                                          objective.air[AobjectiveIndex2].Admg +
+                                          objective.air[AobjectiveIndex2].Admg *
                                             (cast[key].perc / 100);
                                       }
                                     }
@@ -1095,55 +1166,71 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "ground":
-                                    if (
-                                      cast[key].num &&
-                                      objective.ground.length
-                                    )
-                                      objective.ground[0].life += cast[key].num;
-                                    else if (objective.ground.length) {
-                                      objective.ground[0].life =
-                                        objective.ground[0].life +
-                                        objective.ground[0].life *
+                                    const GobjectiveIndex =
+                                      objective.ground.find((e) => e.life > 0);
+                                    if (cast[key].num && GobjectiveIndex !== -1)
+                                      objective.ground[GobjectiveIndex].life +=
+                                        cast[key].num;
+                                    else if (GobjectiveIndex !== -1) {
+                                      objective.ground[GobjectiveIndex].life =
+                                        objective.ground[GobjectiveIndex].life +
+                                        objective.ground[GobjectiveIndex].life *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "air":
-                                    if (cast[key].num && objective.air.length)
-                                      objective.air[0].life += cast[key].num;
-                                    else if (objective.air.length) {
-                                      objective.air[0].life =
-                                        objective.air[0].life +
-                                        objective.air[0].life *
+                                    const AobjectiveIndex = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
+                                    if (cast[key].num && AobjectiveIndex !== -1)
+                                      objective.air[AobjectiveIndex].life +=
+                                        cast[key].num;
+                                    else if (AobjectiveIndex !== -1) {
+                                      objective.air[AobjectiveIndex].life =
+                                        objective.air[AobjectiveIndex].life +
+                                        objective.air[AobjectiveIndex].life *
                                           (cast[key].perc / 100);
                                     }
                                     break;
                                   case "need":
+                                    const GobjectiveIndex2 =
+                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex2 = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     const groundGdmg =
-                                      objective.ground[0]?.life;
-                                    const airGdmg = objective.air[0]?.life;
+                                      objective.ground[GobjectiveIndex2]?.life;
+                                    const airGdmg =
+                                      objective.air[AobjectiveIndex2]?.life;
                                     if (groundGdmg <= airGdmg) {
                                       if (
                                         cast[key].num &&
-                                        objective.ground.length
+                                        GobjectiveIndex2 !== -1
                                       )
-                                        objective.ground[0].life +=
-                                          cast[key].num;
-                                      else if (objective.ground.length) {
-                                        objective.ground[0].life =
-                                          objective.ground[0].life +
-                                          objective.ground[0].life *
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].life += cast[key].num;
+                                      else if (GobjectiveIndex2 !== -1) {
+                                        objective.ground[
+                                          GobjectiveIndex2
+                                        ].life =
+                                          objective.ground[GobjectiveIndex2]
+                                            .life +
+                                          objective.ground[GobjectiveIndex2]
+                                            .life *
                                             (cast[key].perc / 100);
                                       }
                                     } else if (
                                       cast[key].num &&
-                                      objective.air.length
+                                      AobjectiveIndex2 !== -1
                                     ) {
                                       if (cast[key].num)
-                                        objective.air[0].life += cast[key].num;
-                                      else if (objective.air.length) {
-                                        objective.air[0].life =
-                                          objective.air[0].life +
-                                          objective.air[0].life *
+                                        objective.air[AobjectiveIndex2].life +=
+                                          cast[key].num;
+                                      else if (AobjectiveIndex2 !== -1) {
+                                        objective.air[AobjectiveIndex2].life =
+                                          objective.air[AobjectiveIndex2].life +
+                                          objective.air[AobjectiveIndex2].life *
                                             (cast[key].perc / 100);
                                       }
                                     }
@@ -1171,14 +1258,15 @@ function battle(atk, def) {
                                     const GenemyObjectiveIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -1206,14 +1294,15 @@ function battle(atk, def) {
                                     const AenemyObjectiveIndex =
                                       objective.air.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -1239,25 +1328,27 @@ function battle(atk, def) {
                                     const groundIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     const airIndex = objective.air.indexOf(
                                       (c) =>
-                                        c.abilities.all.find((e) =>
+                                        (c.abilities.all.find((e) =>
                                           e.invisible ? false : true
                                         ) ||
-                                        c.abilities.atk.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        !c.abilities.cloacked ||
-                                        detection
+                                          c.abilities.def.find((e) =>
+                                            e.invisible ? false : true
+                                          ) ||
+                                          !c.abilities.cloacked ||
+                                          detection) &&
+                                        c.life > 0
                                     );
                                     const groundGdmg =
                                       objective.ground[groundIndex]?.Gdmg;
@@ -1317,14 +1408,15 @@ function battle(atk, def) {
                                     const GenemyObjectiveIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -1352,14 +1444,15 @@ function battle(atk, def) {
                                     const AenemyObjectiveIndex =
                                       objective.air.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -1385,25 +1478,27 @@ function battle(atk, def) {
                                     const groundIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     const airIndex = objective.air.indexOf(
                                       (c) =>
-                                        c.abilities.all.find((e) =>
+                                        (c.abilities.all.find((e) =>
                                           e.invisible ? false : true
                                         ) ||
-                                        c.abilities.atk.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        !c.abilities.cloacked ||
-                                        detection
+                                          c.abilities.def.find((e) =>
+                                            e.invisible ? false : true
+                                          ) ||
+                                          !c.abilities.cloacked ||
+                                          detection) &&
+                                        c.life > 0
                                     );
                                     const groundGdmg =
                                       objective.ground[groundIndex]?.Admg;
@@ -1458,24 +1553,20 @@ function battle(atk, def) {
                                           card.life * (cast[key].perc / 100)
                                       );
                                     }
-                                    if (card.life === 0)
-                                      atkArmy[card.movement].splice(
-                                        cardIndex,
-                                        1
-                                      );
                                     break;
                                   case "ground":
                                     const GenemyObjectiveIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -1498,27 +1589,20 @@ function battle(atk, def) {
                                             (cast[key].perc / 100)
                                       );
                                     }
-                                    if (
-                                      objective.ground[GenemyObjectiveIndex]
-                                        .life === 0
-                                    )
-                                      objective.ground.splice(
-                                        GenemyObjectiveIndex,
-                                        1
-                                      );
                                     break;
                                   case "air":
                                     const AenemyObjectiveIndex =
                                       objective.air.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     if (
                                       cast[key].num &&
@@ -1539,38 +1623,32 @@ function battle(atk, def) {
                                               (cast[key].perc / 100)
                                         );
                                     }
-                                    if (
-                                      objective.air[AenemyObjectiveIndex]
-                                        .life === 0
-                                    )
-                                      objective.air.splice(
-                                        AenemyObjectiveIndex,
-                                        1
-                                      );
                                     break;
                                   case "need":
                                     const groundIndex =
                                       objective.ground.indexOf(
                                         (c) =>
-                                          c.abilities.all.find((e) =>
+                                          (c.abilities.all.find((e) =>
                                             e.invisible ? false : true
                                           ) ||
-                                          c.abilities.atk.find((e) =>
-                                            e.invisible ? false : true
-                                          ) ||
-                                          !c.abilities.cloacked ||
-                                          detection
+                                            c.abilities.def.find((e) =>
+                                              e.invisible ? false : true
+                                            ) ||
+                                            !c.abilities.cloacked ||
+                                            detection) &&
+                                          c.life > 0
                                       );
                                     const airIndex = objective.air.indexOf(
                                       (c) =>
-                                        c.abilities.all.find((e) =>
+                                        (c.abilities.all.find((e) =>
                                           e.invisible ? false : true
                                         ) ||
-                                        c.abilities.atk.find((e) =>
-                                          e.invisible ? false : true
-                                        ) ||
-                                        !c.abilities.cloacked ||
-                                        detection
+                                          c.abilities.def.find((e) =>
+                                            e.invisible ? false : true
+                                          ) ||
+                                          !c.abilities.cloacked ||
+                                          detection) &&
+                                        c.life > 0
                                     );
                                     const groundLife =
                                       objective.ground[groundIndex]?.life;
@@ -1592,10 +1670,6 @@ function battle(atk, def) {
                                                 (cast[key].perc / 100)
                                           );
                                       }
-                                      if (
-                                        objective.ground[groundIndex].life === 0
-                                      )
-                                        objective.ground.splice(groundIndex, 1);
                                     } else if (
                                       cast[key].num &&
                                       airIndex !== -1
@@ -1614,8 +1688,6 @@ function battle(atk, def) {
                                                 (cast[key].perc / 100)
                                           );
                                       }
-                                      if (objective.air[airIndex].life === 0)
-                                        objective.air.splice(airIndex, 1);
                                     }
                                     break;
                                 }
@@ -1665,19 +1737,18 @@ function battle(atk, def) {
                   for (let key in cast) {
                     const detection =
                       defArmy.ground.find((c) => {
-                        c.abilities.all.find((e) => e.detector) ||
-                          c.abilities.def.find((e) => e.detector);
+                        c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                          c.abilities.def.find((e) => e.detector && c.life > 0);
                       }) ||
                       defArmy.air.find((c) => {
-                        c.abilities.all.find((e) => e.detector) ||
-                          c.abilities.def.find((e) => e.detector);
+                        c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                          c.abilities.def.find((e) => e.detector && c.life > 0);
                       });
                     if (!cast[key].off) {
                       let abilityObjective;
                       switch (cast[key].objective) {
                         case "ground":
                           abilityObjective = atkArmy.ground;
-
                           break;
                         case "air":
                           abilityObjective = atkArmy.air;
@@ -1685,25 +1756,39 @@ function battle(atk, def) {
                       }
                       let cardObjectiveIndex = abilityObjective.indexOf(
                         (c) =>
-                          c.abilities.all.find((e) =>
+                          (c.abilities.all.find((e) =>
                             e.invisible ? false : true
                           ) ||
-                          c.abilities.atk.find((e) =>
-                            e.invisible ? false : true
-                          ) ||
-                          !c.abilities.cloacked ||
-                          detection
+                            c.abilities.atk.find((e) =>
+                              e.invisible ? false : true
+                            ) ||
+                            !c.abilities.cloacked ||
+                            detection) &&
+                          c.life > 0
                       );
+
+                      let cardSplashedIndex = -1;
+                      if (cardObjectiveIndex !== -1)
+                        for (
+                          let i = cardObjectiveIndex + 1;
+                          i < abilityObjective.length;
+                          i++
+                        ) {
+                          if (abilityObjective[i].life > 0) {
+                            cardSplashedIndex = i;
+                            break;
+                          }
+                        }
 
                       if (cardObjectiveIndex !== -1) {
                         abilityObjective[cardObjectiveIndex].life = notNegative(
                           abilityObjective[cardObjectiveIndex].life -
                             cast[key].num
                         );
-                        if (abilityObjective[cardObjectiveIndex + 1])
-                          abilityObjective[cardObjectiveIndex + 1].life =
+                        if (abilityObjective[cardSplashedIndex])
+                          abilityObjective[cardSplashedIndex].life =
                             notNegative(
-                              abilityObjective[cardObjectiveIndex + 1].life -
+                              abilityObjective[cardSplashedIndex].life -
                                 cast[key].num
                             );
                       }
