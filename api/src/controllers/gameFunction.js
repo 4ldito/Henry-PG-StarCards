@@ -23,7 +23,12 @@ function notNegative(num) {
 }
 
 function battle(atk, def) {
-  const roundsInfo = {};
+  const roundsInfo = {
+    GroundDefArmy: [],
+    GroundAtkArmy: [],
+    AirDefArmy: [],
+    AirAtkArmy: [],
+  };
   const defBase = { life: 5000, attacked: 0 };
   const atkArmy = { ground: [], air: [] },
     defArmy = { ground: [], air: [] };
@@ -33,6 +38,11 @@ function battle(atk, def) {
       newDef = def.shift();
     if (newAtk) atkArmy[newAtk.movement].push(newAtk);
     if (newDef) defArmy[newDef.movement].push(newDef);
+
+    roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.ground];
+    roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.ground];
+    roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.air];
+    roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.air];
 
     // Defender abilities casting
     for (let army in defArmy) {
@@ -875,6 +885,11 @@ function battle(atk, def) {
     atkArmy.ground = atkArmy.ground.filter((c) => c.life > 0);
     atkArmy.air = atkArmy.air.filter((c) => c.life > 0);
 
+    roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.ground];
+    roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.ground];
+    roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.air];
+    roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.air];
+
     // Attacker abilities casting
     for (let army in atkArmy) {
       for (let cardIndex in atkArmy[army]) {
@@ -1716,6 +1731,11 @@ function battle(atk, def) {
     atkArmy.ground = atkArmy.ground.filter((c) => c.life > 0);
     atkArmy.air = atkArmy.air.filter((c) => c.life > 0);
 
+    roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.ground];
+    roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.ground];
+    roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.air];
+    roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.air];
+
     if (!defArmy.ground.length && !defArmy.air.length) defArmy.defeated = true;
     if (!atkArmy.ground.length && !atkArmy.air.length) atkArmy.defeated = true;
 
@@ -2017,7 +2037,7 @@ function battle(atk, def) {
                 fightObjective.life = notNegative(
                   fightObjective.life - fighter[attackType]
                 );
-                if (fightObjective === defBase && figther[attackType] > 0)
+                if (fightObjective === defBase && fighter[attackType] > 0)
                   defBase.attacked = defBase.attacked + 1;
                 if (
                   fighter.abilities.find((a) =>
@@ -2036,6 +2056,11 @@ function battle(atk, def) {
       atkArmy.ground = atkArmy.ground.filter((c) => c.life > 0);
       atkArmy.air = atkArmy.air.filter((c) => c.life > 0);
 
+      roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.ground];
+      roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.ground];
+      roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.air];
+      roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.air];
+
       if (!defArmy.ground.length && !defArmy.air.length)
         defArmy.defeated = true;
       if (!atkArmy.ground.length && !atkArmy.air.length)
@@ -2043,10 +2068,15 @@ function battle(atk, def) {
     }
   }
 
-  if (defArmy.defeated === true) return roundsInfo;
+  roundsInfo.defArmy = defArmy.defeated ? "defeated" : "not defeated";
+  roundsInfo.atkArmy = atkArmy.defeated ? "defeated" : "not defeated";
+  roundsInfo.defBase = defBase;
+
+  return roundsInfo;
 }
 
 function gameFunction(deck1, deck2) {
+  const gameResult = {};
   const [atk1, atk2, def1, def2] = [
     shuffle(
       deck1.length % 2 === 0
@@ -2089,7 +2119,37 @@ function gameFunction(deck1, deck2) {
   const battle1 = battle(atk1, def2);
   const battle2 = battle(atk2, def1);
 
-  return {};
+  battle1.attacker = deck1.userId;
+  battle1.defender = deck2.userId;
+  battle2.attacker = deck2.userId;
+  battle2.defender = deck1.userId;
+
+  gameResult.battle1 = battle1;
+  gameResult.battle2 = battle2;
+
+  switch (true) {
+    case battle1.defBase.life > battle2.defBase.life:
+      gameResult.winner = deck2.Id;
+      break;
+    case battle1.defBase.life < battle2.defBase.life:
+      gameResult.winner = deck1.Id;
+      break;
+    case battle1.defBase.life === battle2.defBase.life:
+      switch (true) {
+        case battle1.defBase.attacked > battle2.defBase.attacked:
+          gameResult.winner = deck2.Id;
+          break;
+        case battle1.defBase.attacked < battle2.defBase.attacked:
+          gameResult.winner = deck1.Id;
+          break;
+        case battle1.defBase.attacked === battle2.defBase.attacked:
+          gameResult.winner = "tie";
+          break;
+      }
+      break;
+  }
+
+  return gameResult;
 }
 
 module.exports = gameFunction;
