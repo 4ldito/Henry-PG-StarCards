@@ -196,8 +196,8 @@ export function addDeckCard(cardId) {
 }
 export function updateDeck(userId, deckId, newDeck) {
   return async function (dispatch) {
-    const response = await axios.patch(`/userDecks/${userId}/${deckId}`,newDeck);
-    dispatch({ type: UPDATE_DECK, payload:response.data});
+    const response = await axios.patch(`/userDecks/${userId}/${deckId}`, newDeck);
+    dispatch({ type: UPDATE_DECK, payload: response.data });
   }
 }
 export function removeDeckCard(cardId) {

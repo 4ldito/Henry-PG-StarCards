@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { cleanMsgUserCards } from "../../redux/actions/cards/userCards";
 
 import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
@@ -32,11 +31,10 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
       }
 
     }
-    console.log(inDeck);
+
     if (!inDeck) {
       // console.log('hola afuera');
       if (!creatingDeck) {
-        console.log(creatingDeck);
 
         if (selectedDeck.UserCards) {
           const cardRepeats = JSON.parse(selectedDeck.cardRepeats);
@@ -47,20 +45,20 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
       } else {
         // console.log('hola');
         const cardInDeckRepeats = newDeckCards?.find(e => e.id === card.id);
-        setNewRepeatForThoseWichAreNotInDeck(cardInDeckRepeats?repeat-cardInDeckRepeats.repeat: repeat);
+        setNewRepeatForThoseWichAreNotInDeck(cardInDeckRepeats ? repeat - cardInDeckRepeats.repeat : repeat);
       }
     }
-  
-  }, [selectedDeck,newDeckCards]);
 
-  useEffect(()=>{
-    if(inDeck){
+  }, [selectedDeck, newDeckCards]);
+
+  useEffect(() => {
+    if (inDeck) {
       setNewRepeatForThoseWichAreNotInDeck(1);
     }
-    if(newRepeatForThoseWichAreNotInDeck>=1){
+    if (newRepeatForThoseWichAreNotInDeck >= 1) {
       setJustPassin(false);
     }
-  },[newRepeatForThoseWichAreNotInDeck]);
+  }, [newRepeatForThoseWichAreNotInDeck]);
 
   useEffect(() => {
     let userCardRepeats = {};
@@ -71,11 +69,11 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
 
   }, [cardsRepeat]);
 
-  useEffect(()=>{
-    if(!inDeck){
+  useEffect(() => {
+    if (!inDeck) {
       setJustPassin(true);
     }
-  },[]);
+  }, []);
 
 
   function handleViewCard() {
@@ -86,34 +84,37 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
   return (
     <div className={css.container}>
       {(newRepeatForThoseWichAreNotInDeck || justPassin) && <>
-      {/* {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeat - thisCardRepeats.repeat : repeat}</label>} */}
-      {inDeck ? creatingDeck ? <label style={{ color: 'violet', fontSize: "50px" }}>{repeat > 1 && repeat}</label> :
-        <label style={{ color: 'violet', fontSize: "50px" }}>{thisCardRepeats > 1 && thisCardRepeats}</label> :
-        repeat > 1 ? <label style={{ fontSize: "50px" }}>{newRepeatForThoseWichAreNotInDeck || repeat}</label> :
-          <></>}
-      {/* {inDeck?<label style={{ color:'violet',fontSize: "50px" }}>{thisCardRepeats}</label>:<></>} */}
-      {/* {!inDeck && repeat>1?<label style={{ fontSize: "50px" }}>{repeat}</label>:<></>} */}
-      {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
-      <Card
-        id={card.id}
-        name={card.name}
-        image={card.image}
-        cost={card.cost}
-        Gdmg={card.Gdmg}
-        Admg={card.Admg}
-        life={card.life}
-        ability={card.ability}
-        abilities={card.abilities}
-        race={card.race}
-        movement={card.movement}
-      />
-      {!inDeck && <button onClick={handleViewCard}>{'Vender'}</button>}
-      {inDeck && <button onClick={() => {removeCardFromDeck(card.id)}}>Sacar del mazo</button>}
-      {viewCard && (
-        <SaleCard
-          handleViewCard={handleViewCard}
-          card={card} />
-      )}
+        {/* {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeat - thisCardRepeats.repeat : repeat}</label>} */}
+        {inDeck ? creatingDeck ? <label style={{ color: 'violet', fontSize: "50px" }}>{repeat > 1 && repeat}</label> :
+          <label style={{ color: 'violet', fontSize: "50px" }}>{thisCardRepeats > 1 && thisCardRepeats}</label> :
+          repeat > 1 ? <label style={{ fontSize: "50px" }}>{newRepeatForThoseWichAreNotInDeck || repeat}</label> :
+            <></>}
+        {/* {inDeck?<label style={{ color:'violet',fontSize: "50px" }}>{thisCardRepeats}</label>:<></>} */}
+        {/* {!inDeck && repeat>1?<label style={{ fontSize: "50px" }}>{repeat}</label>:<></>} */}
+        {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
+        <Card
+          id={card.id}
+          name={card.name}
+          image={card.image}
+          cost={card.cost}
+          Gdmg={card.Gdmg}
+          Admg={card.Admg}
+          life={card.life}
+          ability={card.ability}
+          abilities={card.abilities}
+          race={card.race}
+          movement={card.movement}
+        />
+        {!inDeck && <button onClick={handleViewCard}>{'Vender'}</button>}
+        {inDeck && <button onClick={() => {
+          selectedDeck.name ? removeCardFromDeck(card.id,uCard.id) :
+            removeCardFromDeck(card.id)
+        }}>Sacar del mazo</button>}
+        {viewCard && (
+          <SaleCard
+            handleViewCard={handleViewCard}
+            card={card} />
+        )}
       </>}
     </div>
 

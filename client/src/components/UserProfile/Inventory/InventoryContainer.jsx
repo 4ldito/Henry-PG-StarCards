@@ -17,40 +17,76 @@ export default function InventoryContainer() {
   let selectedDeck = useSelector(state => state.userReducer.selectedDeck);
   const [bothStacks, setBothStacks] = useState(false);
   const [creatingDeck, setCreatingDeck] = useState(false);
+  const [updatingDeck, setUpdatingdeck] = useState({});
   const [newDeckCards, setNewDeckCards] = useState([]);
   const [actualStackToShow, setActualStackToShow] = useState([]);
-  console.log(selectedDeck);
-  const addCardToDeck = (card, remove, deck) => {
-    const newCardI = userCards.findIndex(e => e.id === card.id);
-    const cardAlredyInDeck = newDeckCards.find(e => e.id === card.id);
-    if (cardAlredyInDeck) {
-      cardAlredyInDeck.repeat++;
-      setNewDeckCards([...newDeckCards]);
 
-    } else {
-      const newCard = { ...userCards[newCardI] };
-      newCard.repeat = 1;
-      setNewDeckCards([...newDeckCards, newCard]);
+  const addCardToDeck = (card, remove, deck) => {
+    if(!selectedDeck.name){
+      const newCardI = userCards.findIndex(e => e.id === card.id);
+      const cardAlredyInDeck = newDeckCards.find(e => e.id === card.id);
+      if (cardAlredyInDeck) {
+        cardAlredyInDeck.repeat++;
+        setNewDeckCards([...newDeckCards]);
+  
+      } else {
+        const newCard = { ...userCards[newCardI] };
+        newCard.repeat = 1;
+        setNewDeckCards([...newDeckCards, newCard]);
+      }
+    }else{
+
     }
   }
 
-  const removeCardFromDeck = (id, updating = false) => {
+  const removeCardFromDeck = (id, uCardId) => {
     // setNewDeckCards(cardBack);
 
-    const cardBack = newDeckCards.find(e => e.id === id);
-    if (cardBack.repeat > 1) {
-      cardBack.repeat--;
-      setNewDeckCards([...newDeckCards]);
+    if (!selectedDeck.name) {
+      const cardBack = newDeckCards.find(e => e.id === id);
+      if (cardBack.repeat > 1) {
+        cardBack.repeat--;
+        setNewDeckCards([...newDeckCards]);
+      } else {
+        const newNewDeckCards = newDeckCards.filter(e => e.id !== cardBack.id);
+        setNewDeckCards(newNewDeckCards);
+      }
     } else {
-      const newNewDeckCards = newDeckCards.filter(e => e.id !== cardBack.id);
-      setNewDeckCards(newNewDeckCards);
+
+      if (!updatingDeck.cards) {
+        const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
+        const selectedDeckCards = selectedDeck.UserCards.map(e => {
+
+          let card = cards.find(el => el.id === e.CardId);
+
+          const repeat = userCardsInSD.find(el => el.userCard.id === e.id).repeat;
+
+          card.repeat = repeat;
+          if (e.id === uCardId) card.repeat--;
+          return card;
+        });
+        console.log(selectedDeckCards);
+        setUpdatingdeck({ ...updatingDeck, cards: selectedDeckCards });
+      } else {
+        const removingCard = updatingDeck.cards.find(e => e.id === id);
+        if (removingCard) {
+          if (removingCard.repeat > 1) {
+            removingCard.repeat--
+            setUpdatingdeck({ ...updatingDeck });
+          } else {
+            setUpdatingdeck({ ...updatingDeck, cards: updatingDeck.cards.filter(e => e.id !== removingCard.id) })
+          };
+        }
+        console.log(updatingDeck);
+      }
+
     }
 
   }
 
-  const updateDeck = (userId,deckId, name, cards) => {
-    dispatch(updateDeck());
-  }
+  // const updateDeck = (userId, deckId, name, cards) => {
+  //   dispatch(updateDeck());
+  // }
 
 
   function renderNotRepeat() {

@@ -67,7 +67,7 @@ userDecksRoute.patch('/:userId/:id', async (req, res, next) => {
     try {
         const oldDeck = await Deck.findByPk(id);
         if (!oldDeck) return res.json({ error: 'El mazo a remplazar no existe' });
-        await oldDeck.update({ name });
+        if(name)await oldDeck.update({ name });
         let i = 0;
         const cardRepeats = [];
         for (const card of cards) {
@@ -78,7 +78,6 @@ userDecksRoute.patch('/:userId/:id', async (req, res, next) => {
                 oldDeck.addUserCards(userCard);
             }
             cardRepeats.push({ userCard: userCard, repeat: card.repeat });
-
         }
         oldDeck.cardRepeats = JSON.stringify(cardRepeats);
         oldDeck.save();

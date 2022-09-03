@@ -100,7 +100,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 )) :
                     selectedDeck?.UserCards?.map((e, i, array) => {
                         let card = cards.find(el => el.id === e.CardId);
-                        return <CardContainer key={i} inDeck={true} card={card} uCard={e} repeat={e.repeat}></CardContainer>
+                        return <CardContainer removeCardFromDeck={removeCardFromDeck} key={i} inDeck={true} card={card} uCard={e} repeat={e.repeat}></CardContainer>
                     })}
 
                 {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
