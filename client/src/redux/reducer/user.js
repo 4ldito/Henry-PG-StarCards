@@ -19,6 +19,8 @@ import {
   USER_OPTIONS_STATE,
   ADD_CARD_TO_DECK,
   MODIFY_USER_CARDS,
+  SET_SELECTED_DECK,
+  UPDATE_DECK,
   CREATE_USER_GOOGLE,
 } from "../actions/user";
 
@@ -28,6 +30,7 @@ const initialState = {
   user: {},
   decks: [],
   activeDeck: {},
+  selectedDeck: {},
   validUser: false,
   urlUser: {},
   validPassword: "",
@@ -50,7 +53,7 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case GET_USER_BY_EMAIL:
       return { ...state, user: payload, validUser: true }
-      
+
     case CREATE_USER_GOOGLE:
       return { ...state, user: payload }
 
@@ -148,11 +151,19 @@ export default function userReducer(state = initialState, { type, payload }) {
     case CREATE_DECK:
       return { ...state, decks: [...state.decks, payload] }
 
+    case UPDATE_DECK:
+      const updatedDeckIndex = state.decks.findIndex(e => e.id === payload.id);
+      state.decks[updatedDeckIndex] = payload;
+      return { ...state };
+
     case DELETE_DECK:
       return { ...state, decks: state.decks.filter(e => e.id !== payload.deckToRemove.id) }
 
     case SET_ACTIVE_DECK:
       return { ...state, activeDeck: payload }
+
+    case SET_SELECTED_DECK:
+      return { ...state, selectedDeck: payload }
 
     case MODIFY_USER_CARDS:
       console.log(payload);
@@ -161,7 +172,7 @@ export default function userReducer(state = initialState, { type, payload }) {
         actualUserCard.StatusId = userCard.StatusId;
       });
 
-      return { ...state, user: {...state.user} }
+      return { ...state, user: { ...state.user } }
 
     default:
       return state;;

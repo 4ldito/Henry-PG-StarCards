@@ -3,9 +3,9 @@ const { Model, DataTypes } = require("sequelize");
 class Card extends Model {
   static associate(models) {
     Card.hasMany(models.UserCards);
+    Card.hasMany(models.DeckCard);
     Card.belongsTo(models.Status);
     Card.hasMany(models.Opinion);
-    Card.belongsToMany(models.Deck, { through: "DeckCard" });
   }
 }
 

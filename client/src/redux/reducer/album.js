@@ -125,10 +125,11 @@ export default function inventory(state = initialState, { type, payload }) {
       return { ...state, filteredUserCards: [...state.filteredUserCards], msg }
     case ADD_CARD_TO_DECK:
       const card = state.filteredUserCards.find(e => e.id === payload);
-      if (card.repeat > 1) card.repeat = card.repeat - 1;
-      else {
-        let newFilteredUserCards = state.filteredUserCards.filter(e => e.id !== card.id)
-        return { ...state, filteredUserCards: newFilteredUserCards }
+      if(card.repeat<= 1) {
+        let newFilteredUserCards = state.userCards.filter(e => e.id !== card.id)
+        return { ...state, userCards: newFilteredUserCards }
+      }else{
+        return { ...state}
       }
     case REMOVE_DECK_CARD:
       let cardBack = state.userCards.find(e => e.id === payload);

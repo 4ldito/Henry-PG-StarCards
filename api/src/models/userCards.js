@@ -7,7 +7,9 @@ class UserCards extends Model {
     UserCards.belongsTo(models.User);
     UserCards.belongsTo(models.Card);
     UserCards.belongsTo(models.Status);
+    UserCards.belongsToMany(models.Deck, { through: "DeckCard" });
     UserCards.belongsToMany(models.Transaction, { through: 'Transaction_UserCards' });
+
   }
 }
 
@@ -24,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true
       }
     },
+
     {
       timestamps: false,
       sequelize,
