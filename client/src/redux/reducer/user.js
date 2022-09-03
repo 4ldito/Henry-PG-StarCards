@@ -20,6 +20,7 @@ import {
   ADD_CARD_TO_DECK,
   MODIFY_USER_CARDS,
   SET_SELECTED_DECK,
+  UPDATE_DECK,
 } from "../actions/user";
 
 
@@ -145,6 +146,11 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case CREATE_DECK:
       return { ...state, decks: [...state.decks, payload] }
+
+    case UPDATE_DECK:
+      const updatedDeckIndex = state.decks.findIndex(e=>e.id===payload.id);
+      state.decks[updatedDeckIndex] = payload;
+      return { ...state};
 
     case DELETE_DECK:
       return { ...state, decks: state.decks.filter(e => e.id !== payload.deckToRemove.id) }

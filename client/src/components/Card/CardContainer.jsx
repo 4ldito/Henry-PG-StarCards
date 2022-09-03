@@ -6,8 +6,6 @@ import { cleanMsgUserCards } from "../../redux/actions/cards/userCards";
 import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
-
-import Swal from "sweetalert2";
 import css from './CardContainer.module.css'
 
 
@@ -19,6 +17,7 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
   const [thisCardRepeats, setThisCardRepeats] = useState(0);
   const [newRepeatForThoseWichAreNotInDeck, setNewRepeatForThoseWichAreNotInDeck] = useState(0);
   const [cardsRepeat, setcardsRepeat] = useState(null);
+  const [justPassin, setJustPassin] = useState(null);
   const msg = useSelector((state) => state.album.msg);
 
   useEffect(() => {
@@ -51,11 +50,15 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
         setNewRepeatForThoseWichAreNotInDeck(cardInDeckRepeats?repeat-cardInDeckRepeats.repeat: repeat);
       }
     }
+  
   }, [selectedDeck,newDeckCards]);
 
   useEffect(()=>{
     if(inDeck){
       setNewRepeatForThoseWichAreNotInDeck(1);
+    }
+    if(newRepeatForThoseWichAreNotInDeck>=1){
+      setJustPassin(false);
     }
   },[newRepeatForThoseWichAreNotInDeck]);
 
@@ -68,6 +71,12 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
 
   }, [cardsRepeat]);
 
+  useEffect(()=>{
+    if(!inDeck){
+      setJustPassin(true);
+    }
+  },[]);
+
 
   function handleViewCard() {
     setViewCard(!viewCard);
@@ -76,7 +85,7 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
 
   return (
     <div className={css.container}>
-      {newRepeatForThoseWichAreNotInDeck && <>
+      {(newRepeatForThoseWichAreNotInDeck || justPassin) && <>
       {/* {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeat - thisCardRepeats.repeat : repeat}</label>} */}
       {inDeck ? creatingDeck ? <label style={{ color: 'violet', fontSize: "50px" }}>{repeat > 1 && repeat}</label> :
         <label style={{ color: 'violet', fontSize: "50px" }}>{thisCardRepeats > 1 && thisCardRepeats}</label> :

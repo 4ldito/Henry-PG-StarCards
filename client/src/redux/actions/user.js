@@ -13,6 +13,7 @@ export const GET_USER_CARDS = "GET_USER_CARDS";
 export const GET_USER_DECKS =
   "GET_USER_DECKS_deaa el tipo seguia los protocolos";
 export const CREATE_DECK = "CREATE_DECK";
+export const UPDATE_DECK = "UPDATE_DECK";
 export const DELETE_DECK = "DELETE_DECK";
 export const SET_ACTIVE_DECK = "SET_ACTIVE_DECK";
 export const SET_SELECTED_DECK = "SET_SELECTED_DECK";
@@ -114,11 +115,12 @@ export function modifyUser(id, property, norender) {
   };
 }
 
-export function deleteUser(id,norender) {
-  if(norender){
+export function deleteUser(id, norender) {
+  if (norender) {
     return function () {
-    axios.delete(`user/?id=${id}`);
-    };}
+      axios.delete(`user/?id=${id}`);
+    };
+  }
   return async function (dispatch) {
     const response = await axios.delete(`user/?id=${id}`);
     dispatch({ type: DELETE_USER, payload: response.data });
@@ -191,6 +193,12 @@ export function setNewSelectedDeck(deck) {
 }
 export function addDeckCard(cardId) {
   return { type: ADD_CARD_TO_DECK, payload: cardId }
+}
+export function updateDeck(userId, deckId, newDeck) {
+  return async function (dispatch) {
+    const response = await axios.patch(`/userDecks/${userId}/${deckId}`,newDeck);
+    dispatch({ type: UPDATE_DECK, payload:response.data});
+  }
 }
 export function removeDeckCard(cardId) {
   return { type: REMOVE_DECK_CARD, payload: cardId }

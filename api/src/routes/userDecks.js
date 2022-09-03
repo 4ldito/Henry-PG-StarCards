@@ -29,25 +29,21 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
 userDecksRoute.post('/:userId', async (req, res, next) => {
     const { newDeckCards, name } = req.body;
     const userId = req.params.userId;
-
+    // console.log(newDeckCards);
     try {
         const newDeck = await Deck.create({ name });
+
         const cardRepeats = [];
-        
         for (const deckCard of newDeckCards) {
             const userCard = await UserCards.findOne({ where: { CardId: deckCard.id, StatusId: 'active', UserId: userId } });
+
             await newDeck.addUserCards(userCard);
-            console.log(userCard, deckCard.repeat);
+
+            // console.log(userCard, deckCard.repeat);
             cardRepeats.push({ userCard: userCard, repeat: deckCard.repeat });
         }
-        
-        // await newDeckCards.forEach(async e => {
-        //     let newUserCard = await UserCards.findOne({ where: { CardId: e.id, StatusId: 'active', UserId: userId } });
-        //     await newDeck.addUserCards(newUserCard);
-        //     console.log(newUserCard, e.repeat);
-        //     cardRepeats.push({ UserCard: newUserCard, repeat: e.repeat });
-        // });
-        
+
+
         newDeck.cardRepeats = JSON.stringify(cardRepeats);
         newDeck.save();
 
@@ -56,23 +52,38 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
         user.save();
 
         const returnDeck = await Deck.findByPk(newDeck.id, { include: UserCards });
+        console.log(returnDeck);
         res.json(returnDeck);
     } catch (err) {
         next(err);
     }
 });
 
-userDecksRoute.put(async (req, res, next) => {
-    const { userId, oldDeckId } = req.params;
-    const { newDeck } = req.body;
+userDecksRoute.patch('/:userId/:id', async (req, res, next) => {
+    const { userId, id } = req.params;
+    const { name, cards } = req.body;
     const user = await User.findByPk(userId);
     if (!user) return res.json({ error: 'El usuario no existe' });
     try {
-        const oldDeck = await Deck.findByPk(oldDeckId);
+        const oldDeck = await Deck.findByPk(id);
         if (!oldDeck) return res.json({ error: 'El mazo a remplazar no existe' });
-        user.removeDeck(oldDeck);
+        await oldDeck.update({ name });
+        let i = 0;
+        const cardRepeats = [];
+        for (const card of cards) {
+            const userCard = await UserCards.findOne({ where: { CardId: card.id, StatusId: 'active', UserId: userId } });
+            if (i === 0) {
+                oldDeck.setUserCards(userCard);
+            } else {
+                oldDeck.addUserCards(userCard);
+            }
+            cardRepeats.push({ userCard: userCard, repeat: card.repeat });
 
+        }
+        oldDeck.cardRepeats = JSON.stringify(cardRepeats);
+        oldDeck.save();
 
+        res.json(oldDeck);
     } catch (err) {
         next(err);
     }

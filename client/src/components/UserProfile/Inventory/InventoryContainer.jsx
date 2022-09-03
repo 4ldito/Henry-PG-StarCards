@@ -14,19 +14,19 @@ export default function InventoryContainer() {
   const cards = useSelector((state) => state.album.cards);
   const userCards = useSelector(state => state.album.userCards);
   const user = useSelector(state => state.userReducer.user);
-  const selectedDeck = useSelector(state => state.userReducer.selectedDeck);
+  let selectedDeck = useSelector(state => state.userReducer.selectedDeck);
   const [bothStacks, setBothStacks] = useState(false);
   const [creatingDeck, setCreatingDeck] = useState(false);
   const [newDeckCards, setNewDeckCards] = useState([]);
   const [actualStackToShow, setActualStackToShow] = useState([]);
-
+  console.log(selectedDeck);
   const addCardToDeck = (card, remove, deck) => {
     const newCardI = userCards.findIndex(e => e.id === card.id);
     const cardAlredyInDeck = newDeckCards.find(e => e.id === card.id);
     if (cardAlredyInDeck) {
       cardAlredyInDeck.repeat++;
       setNewDeckCards([...newDeckCards]);
-    
+
     } else {
       const newCard = { ...userCards[newCardI] };
       newCard.repeat = 1;
@@ -34,17 +34,24 @@ export default function InventoryContainer() {
     }
   }
 
-  const removeCardFromDeck = (id) => {
+  const removeCardFromDeck = (id, updating = false) => {
     // setNewDeckCards(cardBack);
-    const cardBack = newDeckCards.find(e=>e.id === id);
-    if(cardBack.repeat>1){
+
+    const cardBack = newDeckCards.find(e => e.id === id);
+    if (cardBack.repeat > 1) {
       cardBack.repeat--;
       setNewDeckCards([...newDeckCards]);
-    }else{
+    } else {
       const newNewDeckCards = newDeckCards.filter(e => e.id !== cardBack.id);
       setNewDeckCards(newNewDeckCards);
     }
+
   }
+
+  const updateDeck = (userId,deckId, name, cards) => {
+    dispatch(updateDeck());
+  }
+
 
   function renderNotRepeat() {
     let cartas = [];
@@ -57,7 +64,7 @@ export default function InventoryContainer() {
 
   useEffect(() => {
     actualStackToShow.length === 2 ? setBothStacks(true) : setBothStacks(false);
-    if(!actualStackToShow.includes('mazos')){
+    if (!actualStackToShow.includes('mazos')) {
       setCreatingDeck(false);
     }
   }, [actualStackToShow]);
