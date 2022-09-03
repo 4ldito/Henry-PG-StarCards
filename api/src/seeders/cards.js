@@ -969,7 +969,8 @@ const protossCards = [
     Gdmg: 0,
     Admg: 0,
     life: 350,
-    ability: "Siempre: es afectado por daño aéreo, daña 28 en área terrestre.",
+    ability:
+      "Siempre: puede ser atacado por anti aéreos, daña 28 en área terrestre.",
     abilities: {
       all: [
         { allMoves: "allMoves" },

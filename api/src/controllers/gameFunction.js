@@ -24,6 +24,7 @@ function notNegative(num) {
 
 function battle(atk, def) {
   const roundsInfo = {};
+  const defBase = { life: 5000, attacked: 0 };
   const atkArmy = { ground: [], air: [] },
     defArmy = { ground: [], air: [] };
 
@@ -33,6 +34,7 @@ function battle(atk, def) {
     if (newAtk) atkArmy[newAtk.movement].push(newAtk);
     if (newDef) defArmy[newDef.movement].push(newDef);
 
+    // Defender abilities casting
     for (let army in defArmy) {
       for (let cardIndex in defArmy[army]) {
         const card = army[cardIndex];
@@ -66,7 +68,7 @@ function battle(atk, def) {
                             );
                             if (ind !== -1) {
                               defArmy.ground.unshift(atkArmy.ground[ind]);
-                              atkArmy.ground[ind] = {};
+                              atkArmy.ground[ind] = { empty: true };
                             }
                             break;
                           case "air":
@@ -80,7 +82,7 @@ function battle(atk, def) {
                             );
                             if (ind !== -1) {
                               defArmy.air.unshift(atkArmy.air[ind]);
-                              atkArmy.air[ind] = {};
+                              atkArmy.air[ind] = { empty: true };
                             }
                             break;
                         }
@@ -108,7 +110,7 @@ function battle(atk, def) {
                                   defArmy.ground.unshift(
                                     defArmy.air[cardIndex]
                                   );
-                                  defArmy.air[cardIndex] = {};
+                                  defArmy.air[cardIndex] = { empty: true };
                                 }
                                 break;
                               case "air":
@@ -116,7 +118,7 @@ function battle(atk, def) {
                                   defArmy.air.unshift(
                                     defArmy.ground[cardIndex]
                                   );
-                                  defArmy.ground[cardIndex] = {};
+                                  defArmy.ground[cardIndex] = { empty: true };
                                 }
                                 break;
                               case "need":
@@ -139,7 +141,7 @@ function battle(atk, def) {
                                   defArmy.air.unshift(
                                     defArmy.ground[cardIndex]
                                   );
-                                  defArmy.ground[cardIndex] = {};
+                                  defArmy.ground[cardIndex] = { empty: true };
                                 } else if (
                                   groundLife > airLife &&
                                   card.movement === "ground"
@@ -147,7 +149,7 @@ function battle(atk, def) {
                                   defArmy.ground.unshift(
                                     defArmy.air[cardIndex]
                                   );
-                                  defArmy.air[cardIndex] = {};
+                                  defArmy.air[cardIndex] = { empty: true };
                                 }
                                 break;
                             }
@@ -178,8 +180,9 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "air":
-                                    const AobjectiveIndex =
-                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     if (cast[key].num && AobjectiveIndex !== -1)
                                       objective.air[AobjectiveIndex].Gdmg +=
                                         cast[key].num;
@@ -869,7 +872,10 @@ function battle(atk, def) {
     }
     defArmy.ground = defArmy.ground.filter((c) => c.life > 0);
     defArmy.air = defArmy.air.filter((c) => c.life > 0);
+    atkArmy.ground = atkArmy.ground.filter((c) => c.life > 0);
+    atkArmy.air = atkArmy.air.filter((c) => c.life > 0);
 
+    // Attacker abilities casting
     for (let army in atkArmy) {
       for (let cardIndex in atkArmy[army]) {
         const card = army[cardIndex];
@@ -903,7 +909,7 @@ function battle(atk, def) {
                             );
                             if (ind !== -1) {
                               atkArmy.ground.unshift(defArmy.ground[ind]);
-                              defArmy.ground[ind] = {};
+                              defArmy.ground[ind] = { empty: true };
                             }
                             break;
                           case "air":
@@ -917,7 +923,7 @@ function battle(atk, def) {
                             );
                             if (ind !== -1) {
                               atkArmy.air.unshift(defArmy.air[ind]);
-                              defArmy.air[ind] = {};
+                              defArmy.air[ind] = { empty: true };
                             }
                             break;
                         }
@@ -945,7 +951,7 @@ function battle(atk, def) {
                                   atkArmy.ground.unshift(
                                     atkArmy.air[cardIndex]
                                   );
-                                  atkArmy.air[cardIndex] = {};
+                                  atkArmy.air[cardIndex] = { empty: true };
                                 }
                                 break;
                               case "air":
@@ -953,7 +959,7 @@ function battle(atk, def) {
                                   atkArmy.air.unshift(
                                     atkArmy.ground[cardIndex]
                                   );
-                                  atkArmy.ground[cardIndex] = {};
+                                  atkArmy.ground[cardIndex] = { empty: true };
                                 }
                                 break;
                               case "need":
@@ -976,7 +982,7 @@ function battle(atk, def) {
                                   atkArmy.air.unshift(
                                     atkArmy.ground[cardIndex]
                                   );
-                                  atkArmy.ground[cardIndex] = {};
+                                  atkArmy.ground[cardIndex] = { empty: true };
                                 } else if (
                                   groundLife > airLife &&
                                   card.movement === "ground"
@@ -984,7 +990,7 @@ function battle(atk, def) {
                                   atkArmy.ground.unshift(
                                     atkArmy.air[cardIndex]
                                   );
-                                  atkArmy.air[cardIndex] = {};
+                                  atkArmy.air[cardIndex] = { empty: true };
                                 }
                                 break;
                             }
@@ -1015,8 +1021,9 @@ function battle(atk, def) {
                                     }
                                     break;
                                   case "air":
-                                    const AobjectiveIndex =
-                                      objective.ground.find((e) => e.life > 0);
+                                    const AobjectiveIndex = objective.air.find(
+                                      (e) => e.life > 0
+                                    );
                                     if (cast[key].num && AobjectiveIndex !== -1)
                                       objective.air[AobjectiveIndex].Gdmg +=
                                         cast[key].num;
@@ -1704,12 +1711,15 @@ function battle(atk, def) {
         }
       }
     }
+    defArmy.ground = defArmy.ground.filter((c) => c.life > 0);
+    defArmy.air = defArmy.air.filter((c) => c.life > 0);
     atkArmy.ground = atkArmy.ground.filter((c) => c.life > 0);
     atkArmy.air = atkArmy.air.filter((c) => c.life > 0);
 
     if (!defArmy.ground.length && !defArmy.air.length) defArmy.defeated = true;
     if (!atkArmy.ground.length && !atkArmy.air.length) atkArmy.defeated = true;
 
+    // Battle
     if (!defArmy.defeated && !atkArmy.defeated) {
       const largestGroundArmy =
         atkArmy.ground.length >= defArmy.ground.length
@@ -1724,148 +1734,307 @@ function battle(atk, def) {
 
       for (let round = 0; round < largestArmy; round++) {
         const defendArray = [atkArmy.ground[round], atkArmy.air[round]];
-        const [Gdefender, Adefender] = defendArray;
+        const attackArray = [atkArmy.ground[round], atkArmy.air[round]];
 
-        for (let fighter of defendArray) {
-          if (fighter && fighter.life > 0) {
-            for (let ability in fighter.abilities) {
-              if (
-                ability !== "atk" &&
-                fighter[ability].find((a) => a.hasOwnProperty("splashDmg"))
-              ) {
-                for (let cast of fighter[ability]) {
-                  for (let key in cast) {
-                    const detection =
-                      defArmy.ground.find((c) => {
-                        c.abilities.all.find((e) => e.detector && c.life > 0) ||
-                          c.abilities.def.find((e) => e.detector && c.life > 0);
-                      }) ||
-                      defArmy.air.find((c) => {
-                        c.abilities.all.find((e) => e.detector && c.life > 0) ||
-                          c.abilities.def.find((e) => e.detector && c.life > 0);
-                      });
-                    if (!cast[key].off) {
-                      let abilityObjective;
-                      switch (cast[key].objective) {
-                        case "ground":
-                          abilityObjective = atkArmy.ground;
-                          break;
-                        case "air":
-                          abilityObjective = atkArmy.air;
-                          break;
-                      }
-                      let cardObjectiveIndex = abilityObjective.indexOf(
-                        (c) =>
-                          (c.abilities.all.find((e) =>
-                            e.invisible ? false : true
-                          ) ||
-                            c.abilities.atk.find((e) =>
+        if (defBase.life > 0) {
+          for (let fighter of defendArray) {
+            const detection =
+              defArmy.ground.find((c) => {
+                c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                  c.abilities.def.find((e) => e.detector && c.life > 0);
+              }) ||
+              defArmy.air.find((c) => {
+                c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                  c.abilities.def.find((e) => e.detector && c.life > 0);
+              });
+            if (fighter && fighter.life > 0) {
+              for (let ability in fighter.abilities) {
+                if (
+                  ability !== "atk" &&
+                  fighter[ability].find((a) => a.hasOwnProperty("splashDmg"))
+                ) {
+                  for (let cast of fighter[ability]) {
+                    for (let key in cast) {
+                      if (!cast[key].off) {
+                        let abilityObjective;
+                        switch (cast[key].objective) {
+                          case "ground":
+                            abilityObjective = atkArmy.ground;
+                            break;
+                          case "air":
+                            abilityObjective = atkArmy.air;
+                            break;
+                        }
+                        let cardObjectiveIndex = abilityObjective.indexOf(
+                          (c) =>
+                            (c.abilities.all.find((e) =>
                               e.invisible ? false : true
                             ) ||
-                            !c.abilities.cloacked ||
-                            detection) &&
-                          c.life > 0
-                      );
+                              c.abilities.atk.find((e) =>
+                                e.invisible ? false : true
+                              ) ||
+                              !c.abilities.cloacked ||
+                              detection) &&
+                            c.life > 0
+                        );
 
-                      let cardSplashedIndex = -1;
-                      if (cardObjectiveIndex !== -1)
-                        for (
-                          let i = cardObjectiveIndex + 1;
-                          i < abilityObjective.length;
-                          i++
-                        ) {
-                          if (abilityObjective[i].life > 0) {
-                            cardSplashedIndex = i;
-                            break;
+                        let cardSplashedIndex = -1;
+                        if (cardObjectiveIndex !== -1)
+                          for (
+                            let i = cardObjectiveIndex + 1;
+                            i < abilityObjective.length;
+                            i++
+                          ) {
+                            if (abilityObjective[i].life > 0) {
+                              cardSplashedIndex = i;
+                              break;
+                            }
                           }
+
+                        if (cardObjectiveIndex !== -1) {
+                          abilityObjective[cardObjectiveIndex].life =
+                            notNegative(
+                              abilityObjective[cardObjectiveIndex].life -
+                                cast[key].num
+                            );
+                          if (abilityObjective[cardSplashedIndex])
+                            abilityObjective[cardSplashedIndex].life =
+                              notNegative(
+                                abilityObjective[cardSplashedIndex].life -
+                                  cast[key].num
+                              );
                         }
-
-                      if (cardObjectiveIndex !== -1) {
-                        abilityObjective[cardObjectiveIndex].life = notNegative(
-                          abilityObjective[cardObjectiveIndex].life -
-                            cast[key].num
-                        );
-                        if (abilityObjective[cardSplashedIndex])
-                          abilityObjective[cardSplashedIndex].life =
-                            notNegative(
-                              abilityObjective[cardSplashedIndex].life -
-                                cast[key].num
-                            );
+                        if (cast[key].time === "once") cast[key].off = true;
                       }
-                      if (cast[key].time === "once") cast[key].off = true;
                     }
                   }
                 }
               }
+              const Genemy = atkArmy.ground.find(
+                (c) =>
+                  ((!c.abilities.all.invisible &&
+                    !c.abilities.atk.invisible &&
+                    !c.abilities.cloacked) ||
+                    detection) &&
+                  c.life > 0
+              );
+              const Aenemy =
+                atkArmy.air.find(
+                  (c) =>
+                    ((!c.abilities.all.invisible &&
+                      !c.abilities.atk.invisible &&
+                      !c.abilities.cloacked) ||
+                      detection) &&
+                    c.life > 0
+                ) ||
+                atkArmy.ground.find(
+                  (c) =>
+                    ((!c.abilities.all.invisible &&
+                      !c.abilities.def.invisible &&
+                      !c.abilities.cloacked) ||
+                      detection) &&
+                    c.life > 0 &&
+                    (c.abilities.all.allMoves || c.abilities.atk.allMoves)
+                );
+              let fightObjective;
+              let attackType;
+              switch (true) {
+                case fighter.Gdmg === 0 && fighter.Admg === 0:
+                  break;
+                case fighter.Gdmg === 0:
+                  fightObjective = Aenemy;
+                  attackType = "Admg";
+                  break;
+                case fighter.Admg === 0:
+                  fightObjective = Genemy;
+                  attackType = "Gdmg";
+                  break;
+                case fighter.Gdmg > 0 && fighter.Admg > 0:
+                  switch (true) {
+                    case fighter.Gdmg >= fighter.Admg:
+                      fightObjective = Genemy
+                        ? Genemy
+                        : Aenemy
+                        ? Aenemy
+                        : undefined;
+                      break;
+                    case fighter.Gdmg < fighter.Admg:
+                      fightObjective = Aenemy
+                        ? Aenemy
+                        : Genemy
+                        ? Genemy
+                        : undefined;
+                      break;
+                  }
+                  break;
+              }
+              if (fightObjective) {
+                fightObjective.life = notNegative(
+                  fightObjective.life - fighter[attackType]
+                );
+                if (
+                  fighter.abilities.find((a) =>
+                    a.hasOwnProperty("deathOnAttack")
+                  )
+                )
+                  fighter.life = 0;
+              }
             }
           }
-        }
 
-        const attackArray = [atkArmy.ground[round], atkArmy.air[round]];
-        const [Gattacker, Aattacker] = attackArray;
-
-        for (let fighter of attackArray) {
-          if (fighter && fighter.life > 0) {
-            for (let ability in fighter.abilities) {
-              if (
-                ability !== "def" &&
-                fighter[ability].find((a) => a.hasOwnProperty("splashDmg"))
-              ) {
-                for (let cast of fighter[ability]) {
-                  for (let key in cast) {
-                    const detection =
-                      atkArmy.ground.find((c) => {
-                        c.abilities.all.find((e) => e.detector) ||
-                          c.abilities.def.find((e) => e.detector);
-                      }) ||
-                      atkArmy.air.find((c) => {
-                        c.abilities.all.find((e) => e.detector) ||
-                          c.abilities.def.find((e) => e.detector);
-                      });
-                    if (!cast[key].off) {
-                      let abilityObjective;
-                      switch (cast[key].objective) {
-                        case "ground":
-                          abilityObjective = defArmy.ground;
-
-                          break;
-                        case "air":
-                          abilityObjective = defArmy.air;
-                          break;
-                      }
-                      let cardObjectiveIndex = abilityObjective.indexOf(
-                        (c) =>
-                          c.abilities.all.find((e) =>
-                            e.invisible ? false : true
-                          ) ||
-                          c.abilities.atk.find((e) =>
-                            e.invisible ? false : true
-                          ) ||
-                          !c.abilities.cloacked ||
-                          detection
-                      );
-
-                      if (cardObjectiveIndex !== -1) {
-                        abilityObjective[cardObjectiveIndex].life = notNegative(
-                          abilityObjective[cardObjectiveIndex].life -
-                            cast[key].num
+          for (let fighter of attackArray) {
+            const detection =
+              atkArmy.ground.find((c) => {
+                c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                  c.abilities.atk.find((e) => e.detector && c.life > 0);
+              }) ||
+              atkArmy.air.find((c) => {
+                c.abilities.all.find((e) => e.detector && c.life > 0) ||
+                  c.abilities.atk.find((e) => e.detector && c.life > 0);
+              });
+            if (fighter && fighter.life > 0) {
+              for (let ability in fighter.abilities) {
+                if (
+                  ability !== "def" &&
+                  fighter[ability].find((a) => a.hasOwnProperty("splashDmg"))
+                ) {
+                  for (let cast of fighter[ability]) {
+                    for (let key in cast) {
+                      if (!cast[key].off) {
+                        let abilityObjective;
+                        switch (cast[key].objective) {
+                          case "ground":
+                            abilityObjective = defArmy.ground;
+                            break;
+                          case "air":
+                            abilityObjective = defArmy.air;
+                            break;
+                        }
+                        let cardObjectiveIndex = abilityObjective.indexOf(
+                          (c) =>
+                            (c.abilities.all.find((e) =>
+                              e.invisible ? false : true
+                            ) ||
+                              c.abilities.def.find((e) =>
+                                e.invisible ? false : true
+                              ) ||
+                              !c.abilities.cloacked ||
+                              detection) &&
+                            c.life > 0
                         );
-                        if (abilityObjective[cardObjectiveIndex + 1])
-                          abilityObjective[cardObjectiveIndex + 1].life =
+
+                        let cardSplashedIndex = -1;
+                        if (cardObjectiveIndex !== -1)
+                          for (
+                            let i = cardObjectiveIndex + 1;
+                            i < abilityObjective.length;
+                            i++
+                          ) {
+                            if (abilityObjective[i].life > 0) {
+                              cardSplashedIndex = i;
+                              break;
+                            }
+                          }
+
+                        if (cardObjectiveIndex !== -1) {
+                          abilityObjective[cardObjectiveIndex].life =
                             notNegative(
-                              abilityObjective[cardObjectiveIndex + 1].life -
+                              abilityObjective[cardObjectiveIndex].life -
                                 cast[key].num
                             );
+                          if (abilityObjective[cardSplashedIndex])
+                            abilityObjective[cardSplashedIndex].life =
+                              notNegative(
+                                abilityObjective[cardSplashedIndex].life -
+                                  cast[key].num
+                              );
+                        }
+                        if (cast[key].time === "once") cast[key].off = true;
                       }
-                      if (cast[key].time === "once") cast[key].off = true;
                     }
                   }
                 }
               }
+              const Genemy = defArmy.ground.find(
+                (c) =>
+                  ((!c.abilities.all.invisible &&
+                    !c.abilities.def.invisible &&
+                    !c.abilities.cloacked) ||
+                    detection) &&
+                  c.life > 0
+              );
+              const Aenemy =
+                defArmy.air.find(
+                  (c) =>
+                    ((!c.abilities.all.invisible &&
+                      !c.abilities.def.invisible &&
+                      !c.abilities.cloacked) ||
+                      detection) &&
+                    c.life > 0
+                ) ||
+                defArmy.ground.find(
+                  (c) =>
+                    ((!c.abilities.all.invisible &&
+                      !c.abilities.def.invisible &&
+                      !c.abilities.cloacked) ||
+                      detection) &&
+                    c.life > 0 &&
+                    (c.abilities.all.allMoves || c.abilities.def.allMoves)
+                );
+              let fightObjective;
+              let attackType;
+              switch (true) {
+                case fighter.Gdmg === 0 && fighter.Admg === 0:
+                  break;
+                case fighter.Gdmg === 0:
+                  fightObjective = Aenemy || defBase;
+                  attackType = "Admg";
+                  break;
+                case fighter.Admg === 0:
+                  fightObjective = Genemy || defBase;
+                  attackType = "Gdmg";
+                  break;
+                case fighter.Gdmg > 0 && fighter.Admg > 0:
+                  switch (true) {
+                    case fighter.Gdmg >= fighter.Admg:
+                      fightObjective = Genemy
+                        ? Genemy
+                        : Aenemy
+                        ? Aenemy
+                        : defBase;
+                      break;
+                    case fighter.Gdmg < fighter.Admg:
+                      fightObjective = Aenemy
+                        ? Aenemy
+                        : Genemy
+                        ? Genemy
+                        : defBase;
+                      break;
+                  }
+                  break;
+              }
+              if (fightObjective) {
+                fightObjective.life = notNegative(
+                  fightObjective.life - fighter[attackType]
+                );
+                if (fightObjective === defBase && figther[attackType] > 0)
+                  defBase.attacked = defBase.attacked + 1;
+                if (
+                  fighter.abilities.find((a) =>
+                    a.hasOwnProperty("deathOnAttack")
+                  )
+                )
+                  fighter.life = 0;
+              }
             }
           }
-        }
+        } else defArmy.defeated = true;
       }
+
+      defArmy.ground = defArmy.ground.filter((c) => c.life > 0);
+      defArmy.air = defArmy.air.filter((c) => c.life > 0);
+      atkArmy.ground = atkArmy.ground.filter((c) => c.life > 0);
+      atkArmy.air = atkArmy.air.filter((c) => c.life > 0);
 
       if (!defArmy.ground.length && !defArmy.air.length)
         defArmy.defeated = true;
@@ -1873,6 +2042,8 @@ function battle(atk, def) {
         atkArmy.defeated = true;
     }
   }
+
+  if (defArmy.defeated === true) return roundsInfo;
 }
 
 function gameFunction(deck1, deck2) {
@@ -1915,8 +2086,8 @@ function gameFunction(deck1, deck2) {
     ),
   ];
 
-  battle(atk1, def2);
-  battle(atk2, def1);
+  const battle1 = battle(atk1, def2);
+  const battle2 = battle(atk2, def1);
 
   return {};
 }
