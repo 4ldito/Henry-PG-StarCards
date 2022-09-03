@@ -9,22 +9,25 @@ import { userCleanMsgInfo } from "./../../redux/actions/user";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { addToShopCart, getUserShopCart } from "../../redux/actions/shopCart";
+// import {useAuth} from '../context/authContext'
+
+import { GoogleOAuthProvider } from "@react-oauth/google"; // npm i "@react-oauth/google"
+import { GoogleLogin } from "@react-oauth/google"; // npm i @react-oauth/google
+import { createOrGetUserGoogle } from "../Registro/utils/userGoogle";
 
 export default function Login() {
-  /*const { loginWithRedirect } = useAuth0()
-  return (
-    <button onClick={() => loginWithRedirect()}>Login</button>
-  )
-    */
+  // const {loginAuth, loginWithGoogle } = useAuth()
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // React States
   const [errorMessages, setErrorMessages] = useState({});
+  // const [errors, setErrors] = useState("");
   const msgInfo = useSelector((state) => state.userReducer.msg);
   const actualUser = useSelector((state) => state.userReducer.user);
   const userId = actualUser.id;
   const shopCart = useSelector((state) => state.shopCartReducer.shopCart);
-  // const [isSubmitted, setIsSubmitted] = useState(false);
+
 
   const [input, setInput] = useState({
     password: "",
@@ -58,7 +61,6 @@ export default function Login() {
       }
     }
   }, [msgInfo]);
-  // User Login info
 
   const login = (e) => {
     e.preventDefault();
@@ -78,6 +80,15 @@ export default function Login() {
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
+
+    // const handleGoogleSignin = async () => {
+    //   try {
+    //     await loginWithGoogle();
+    //     navigate("/");
+    //   } catch (errors) {
+    //     setErrors(errors.message);
+    //   }
+    // };
 
   return (
     <div className={style.appli}>
@@ -118,6 +129,25 @@ export default function Login() {
             <Link to='/recovery'>Recuperar Contraseña</Link>
           </div>
         </form>
+        {/* <button onClick={handleGoogleSignin}>Google</button> */}
+        <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
+          <GoogleLogin
+            className={style.buttonGoogle}
+            onSuccess={(response) => {
+              createOrGetUserGoogle(response);
+              // console.log(response)
+    //                dispatch(signIn({
+    //   password: "$2a$11$NLo50EA2piHpl/zn2KCW5uqmBc9IWWY0aC.xQaW4Fe1QLIepqW/ba",
+    //   email: em,
+    // })
+    // )
+              navigate("/userprofile");
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+        </GoogleOAuthProvider>
       </div>
     </div>
   );
