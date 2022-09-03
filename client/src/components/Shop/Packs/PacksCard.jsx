@@ -12,7 +12,6 @@ import Pack from "./Pack";
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
-  const [fav, setFav] = useState({ action: 'delete', packId: 0 })
 
   const user = useSelector((state) => state.userReducer.user);
   const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
@@ -93,6 +92,7 @@ const PacksCard = ({ pack, type }) => {
   };
 
   const handleFav = (e) => {
+    console.log(e.target.name)
     e.preventDefault();
     const userId = user.id;
     if (!userId) {
@@ -103,11 +103,9 @@ const PacksCard = ({ pack, type }) => {
       });
     }
 
-    if (fav.action === 'add') {
-      setFav({ action: 'delete', packId: e.target.id })
+    if (e.target.name === 'unfav') {
       dispatch(favUserPacks({ action: 'delete', userId: userId, packId: e.target.id }))
     } else {
-      setFav({ action: 'add', packId: e.target.id })
       dispatch(favUserPacks({ action: 'add', userId: userId, packId: e.target.id }))
     }
   }
@@ -140,9 +138,9 @@ const PacksCard = ({ pack, type }) => {
             <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
             {
               searchFaved === undefined ?
-                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Fav</button>
+                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav} name='fav'>Fav</button>
                 :
-                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav}>Unfav</button>
+                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav} name='unfav'>Unfav</button>
             }
           </div>
         </form>}

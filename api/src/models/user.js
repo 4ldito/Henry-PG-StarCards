@@ -80,6 +80,10 @@ module.exports = (sequelize, DataTypes) => {
       //   type: DataTypes.ARRAY(DataTypes.STRING),
       //   defaultValue: ["user"],
       // },
+      loginGoogle:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      }
     },
     {
       timestamps: false,
