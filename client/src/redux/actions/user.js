@@ -25,6 +25,7 @@ export const USER_CLEAN = "USER_CLEAN";
 export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
 export const MODIFY_USER_CARDS = "MODIFY_USER_CARDS";
+export const CREATE_USER_GOOGLE = "CREATE_USER_GOOGLE";
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,6 +69,13 @@ export function createUser(user) {
   return async function (dispatch) {
     const response = await axios.post("login/signup", user);
     dispatch({ type: CREATE_USER, payload: response.data });
+  };
+}
+
+export function createUserGoogle(user) {
+  return async function (dispatch) {
+    const response = await axios.post("createuser", user);
+    dispatch({ type: SIGN_IN, payload: response.data });
   };
 }
 
