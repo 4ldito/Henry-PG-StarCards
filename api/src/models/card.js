@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       abilities: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.JSON,
         allowNull: false,
       },
       race: {

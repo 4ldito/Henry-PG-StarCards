@@ -101,30 +101,48 @@ export default function RecoverPassword() {
 
   function renderok() {
     return (
-      <div>
-        <div className={"style2.options"}>
-
-          <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Ingrese Username </label>
-            <input className={style3.input} style={{ width: "400px" }} type="text" name="username" ref={input1} onChange={handleOnChange} />
-          </div>
-          <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Ingrese Email </label>
-            <input className={style3.input} style={{ width: "400px" }} type="email" name="email" ref={input2} onChange={handleOnChange} />
-          </div>
-          <div style={{ height: "15px" }}></div>
-          <div className={style.buttoncontainer}>
-            <button className={"style2.button"} onClick={(e) => recoveryPassword(e)} data='Recuperar Contraseña'>Recuperar Contraseña</button>
-          </div>
+      <div className={style.containerRecoveryPassword}>
+        <div className={style.inputcontainer}>
+          <label>Enter your user name </label>
+          <input
+            className={style3.input}
+            type="text"
+            name="username"
+            ref={input1}
+            onChange={handleOnChange}
+          />
         </div>
-
+        <div className={style.inputcontainer}>
+          <label style={{ fontSize: "larger" }}>Enter your e-mail </label>
+          <input
+            className={style3.input}
+            type="email"
+            name="email"
+            ref={input2}
+            onChange={handleOnChange}
+          />
+        </div>
+        <div style={{ height: "15px" }}></div>
+        <div className={style.buttoncontainer}>
+          <button
+            className={style.btnRecoveryPassword}
+            onClick={(e) => recoveryPassword(e)}
+            data="Recuperar Contraseña"
+          >
+            Password recovery
+          </button>
+        </div>
       </div>
-    )
+    );
   }
   return (
     <div className={style.appli}>
       {/* <div className={style2.options}> */}
-      {(!modal) ? renderok() : <VerifyRegister email={input.email} user={userPass} />}
+      {!modal ? (
+        renderok()
+      ) : (
+        <VerifyRegister email={input.email} user={userPass} />
+      )}
     </div>
     // </div>
   );

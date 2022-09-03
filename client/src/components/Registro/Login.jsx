@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { createUserGoogle, signIn } from "../../redux/actions/user";
 import style from "./login.module.css";
-// import style2 from "../../styles/landingPage/landingPage.module.css";
 import style3 from "../../styles/register/Register.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -93,14 +92,14 @@ export default function Login() {
 
   return (
     <div className={style.appli}>
-      <div className={"style2.options"}>
+      <div className={style.options}>
         <form
           onSubmit={(e) => {
             login(e);
           }}
         >
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Username </label>
+            <label style={{  fontSize:  "larger"  }}>Username </label>
             <input
               className={style3.input}
               style={{ width: "400px" }}
@@ -112,7 +111,7 @@ export default function Login() {
             {renderErrorMessage("uname")}
           </div>
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Password </label>
+            <label style={{  fontSize:  "larger"  }}>Password </label>
             <input
               className={style3.input}
               style={{ width: "400px" }}
@@ -124,7 +123,7 @@ export default function Login() {
             />
             {renderErrorMessage("pass")}
           </div>
-          <div style={{ height: "15px" }}></div>
+          <div style={{  height:  "15px"  }}></div>
           <div className={style.buttoncontainer}>
             <button
               className={"style2.button"}
@@ -132,9 +131,9 @@ export default function Login() {
               type="submit"
               value=""
             >
-              Entrar
+              Login
             </button>
-            <Link to="/recovery">Recuperar Contraseña</Link>
+            <Link to="/recovery">Recovery Password</Link>
           </div>
         </form>
         <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
@@ -154,3 +153,4 @@ export default function Login() {
     </div>
   );
 }
+

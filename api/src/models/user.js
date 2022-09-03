@@ -12,6 +12,7 @@ class User extends Model {
     User.hasMany(models.Transaction);
     User.belongsToMany(models.CardPacks, { through: "FavPacks" });
     User.belongsToMany(models.PrivateChat, { through: "User-PrivChat" });
+    User.belongsToMany(models.Game, { through: "PlayedGame" });
   }
 }
 
@@ -67,6 +68,13 @@ module.exports = (sequelize, DataTypes) => {
       notifications: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+      },
+      onGame: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      defaultDeck: {
+        type: DataTypes.INTEGER,
       },
       roles: {
         type: DataTypes.ARRAY(DataTypes.STRING),

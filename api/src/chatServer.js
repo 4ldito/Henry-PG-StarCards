@@ -1,7 +1,7 @@
-const server = require("./app");
+// const server = require("./app");
 // const axios = require("axios");
 
-const socketIoServer = require("http").createServer(server);
+const socketIoServer = require("./gameServer"); //require("http").createServer(server);
 
 const db = require("./db");
 const { User, PrivateChat, Message } = db;
@@ -16,7 +16,6 @@ const io = require("socket.io")(socketIoServer, {
 let userSockets = [];
 let usersNotificationSocket = [];
 
-//Funcionalidad de socket.io en el socketIoServer
 io.on("connection", (socket) => {
   //////////////////////////////////////////////
   // Chat notifications
@@ -112,7 +111,7 @@ io.on("connection", (socket) => {
       //   privChat.id
       // );
     } catch (error) {
-      console.error(error);
+      console.error("StarCards error: " + error);
     }
 
     const receiverNotificationSocket = usersNotificationSocket.find(
