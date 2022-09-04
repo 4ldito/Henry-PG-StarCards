@@ -18,7 +18,6 @@ function CreatePacks() {
 
     const dispatch = useDispatch();
     const allcards = useSelector((state)=>state.album.cards);
-    console.log(allcards);
 
     useEffect(()=>{
       dispatch(getAllCards());
@@ -36,9 +35,9 @@ function CreatePacks() {
         price: '',
         race: [],
         cards: 
-            [[]],
+            [],
         stock: '',
-        image: '',
+        image: null,
         amount: ''
     });
 
@@ -50,6 +49,7 @@ function CreatePacks() {
     }
 
     const handleSelect = (e)=>{
+        let arraycards = [];
         if(input.cards.includes(e.target.value)){
             alert('Otra raza');
         }else{
@@ -58,7 +58,8 @@ function CreatePacks() {
             }else{
                 setInput({
                     ...input,
-                    cards:[...input.cards, e.target.value],
+                    race: [...input.race, e.target.value],
+                    cards:[...input.cards,[e.target.value]],
                 });
                 e.target.value = 'Select Card'
             }
@@ -68,14 +69,21 @@ function CreatePacks() {
     const handleSubmitPack = async (e) => {
         e.preventDefault();
         try {
-          
-        const result = await uploadFilePack(input.image, input.name);
+        
+        const result = await uploadFilePack(file, input.name);
             //console.log(result);
         input.image = result
         dispatch(createPackCardsAdmin(input))
         } catch (error) {
             alert('intentelo otra vez');
         }
+    };
+
+    const handleDelete = (e)=>{
+      setInput({
+        ...input,
+        cards: input.cards.filter((card)=>card!==e)
+      });
     };
 
 
@@ -113,18 +121,21 @@ function CreatePacks() {
           onChange={(e) => handleChange(e)}
           placeholder="stock"
         />
-        <input
-          type="text"
-          name="race"
-          value={input.race}
-          onChange={(e) => handleChange(e)}
-          placeholder="razas"
-        />
+        <div>
+          <select 
+            onChange={(e)=>handleSelect(e)}
+          >
+            <option disabled selected>Raza:</option>
+            <option value="Zerg">Zerg</option>
+            <option value="Terran">Terran</option>
+            <option value="Protoss">Protoss</option>
+          </select>
+        </div>
         <div>
         <select
           onChange={(e)=>{handleSelect(e);}}
         >
-          <option>Select cards</option>
+           <option disabled selected>Selecciona una opción</option>
           {allcards?.map((e)=>{
             return (
               <option value={e.name}>
@@ -137,12 +148,32 @@ function CreatePacks() {
 
         <input
           type="file"
-          name="image"
-          value={input.image}
+          name=""
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button>new Pack</button>
-      </form>  
+      </form>
+
+      {/* muestra */}
+      <div>
+        {input.cards?.map((e)=>{
+          return(
+            <div>
+              <p>{e}</p>
+              <input type="text" onChange={(e)=>handleChange(e)} />
+              <button 
+                onClick={()=>{
+                  handleDelete(e);
+                }}
+              >
+                x
+              </button>
+            </div>
+          )
+        })}
+      </div>
+
+
     </>
   )
 }
