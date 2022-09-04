@@ -74,11 +74,11 @@ io.on("gameConnection", (socket) => {
           [p1Deck, p2Deck] = await Promise.all([
             Deck.findOne({
               where: { id: p1.defaultDeck },
-              include: [{ model: Card }],
+              include: [{ model: Card }, { model: User }],
             }),
             Deck.findOne({
               where: { id: p2.defaultDeck },
-              include: [{ model: Card }],
+              include: [{ model: Card }, { model: User }],
             }),
           ]);
 
