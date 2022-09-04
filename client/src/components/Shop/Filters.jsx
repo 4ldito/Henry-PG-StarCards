@@ -1,8 +1,10 @@
-import Swal from "sweetalert2";
 import { useEffect, useState } from 'react';
-import style from './styles/Filters.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { filterCardsPacks } from '../../redux/actions/cardsPack';
+
+import style from './styles/Filters.module.css'
+import { BiFilterAlt } from "react-icons/bi";
+
 
 const Filters = () => {
 
@@ -24,9 +26,11 @@ const Filters = () => {
     }, [filters])
 
     return (
-        <div className={style.container}>
-            <select onChange={onSelectChange} name='race'>
-                <option value='allRaces'>Todas las Razas</option>
+      <div className={style.container}>
+          <button className={style.btnClearFilter}><BiFilterAlt size={50}/></button>
+          <button className={style.btn}>Show favorites</button>
+            <select onChange={onSelectChange} name='race' className={style.select}>
+                <option value='allRaces'>All races</option>
                 <option value='Protoss'>Protoss</option>
                 <option value='Terran'>Terran</option>
                 <option value='Zerg'>Zerg</option>
@@ -41,13 +45,14 @@ const Filters = () => {
               ""
             )
             }
-            <select onChange={onSelectChange} name='order'>
+            <select onChange={onSelectChange} name='order' className={style.select}>
                 <option hidden value='allPrices'>Seleccionar orden</option>
                 <option value='priceDes'>Precio de mayor a menor</option>
                 <option value='priceAsc'>Precio de menor a mayor</option>
                 <option value='stockDes'>Stock de mayor a menor</option>
                 <option value='stockAsc'>Stock de menor a mayor</option>
             </select>
+
             {/* <select onChange={onSelectChange} name='order'>
                 <option hidden value='allStock'>Stock</option>
                 

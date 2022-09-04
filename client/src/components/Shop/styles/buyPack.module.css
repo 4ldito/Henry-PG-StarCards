@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* background-color: antiquewhite; */
+
+  width: 100%;
+  height: 78vh;
+}
+
+.containerPack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* background-color: aqua; */
+  
+  width: 20%;
+  height: auto;
+}
+
+.priceDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #ffffff00;
+  background-image: url(../../../img/priceButton.svg);
+  background-size: cover;
+
+  width: 214px;
+  height: 50px;
+}
+
+.price {
+  color: rgb(0, 0, 0);
+  font-size: 1.6rem;
+}
+
+.containerBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 214px;
+  height: calc(50px + 0.5rem);
+  margin: .3rem 0 .3rem 0;
+}
+
+.buyNow {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/buynowButton.svg);
+  background-size: cover;
+
+  border: none;
+
+  font-size: 1.3rem;
+
+  width: 150px;
+  height: 50px;
+
+  margin: 0 .5rem 0 0;
+}
+
+.btn {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/addShopCart.png);
+  background-size: cover;
+
+  border: none;
+
+  width: 50px;
+  height: 50px;
+
+  margin: 0 0 0 .5rem;
+}
+
+
+.containerQuantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 1.2rem;
+  color: white;
+
+  width: 214px;
+}
+
+.btnMore {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/+button.svg);
+  background-size: cover;
+
+  border-radius: 50%;
+  border: none;
+
+  width: 25px;
+  height: 25px;
+}
+
+.btnMinus {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/-button.svg);
+  background-size: cover;
+
+  border-radius: 50%;
+  border: none;
+
+  width: 25px;
+  height: 25px;
+}
