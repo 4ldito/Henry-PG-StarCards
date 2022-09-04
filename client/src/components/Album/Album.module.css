@@ -1,4 +1,4 @@
-*::-webkit-scrollbar {
+.cartas::-webkit-scrollbar {
   background: rgb(0, 44, 255);
   background: linear-gradient(
     90deg,
@@ -9,7 +9,7 @@
   width: 20px;
 }
 
-*::-webkit-scrollbar-thumb {
+.cartas::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, transparent 15px, cyan 0) top
       left,
     linear-gradient(-135deg, transparent 15px, cyan 0) top right,

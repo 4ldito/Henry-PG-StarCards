@@ -13,6 +13,7 @@ const sendMail = require("./sendMail");
 const transactionRoute = require("./transaction");
 const userDecksRoute = require("./userDecks");
 const chatRoute = require("./privateChat");
+const createuserRoute = require("./RegisterGoogle");
 
 const router = Router();
 
@@ -30,5 +31,6 @@ router.use("/shopcart", shopCartRoute);
 router.use("/favPacks", favPacksRoute);
 router.use("/transaction", transactionRoute);
 router.use("/chat", chatRoute);
+router.use("/createuser", createuserRoute);
 
 module.exports = router;

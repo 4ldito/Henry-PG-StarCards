@@ -1,0 +1,42 @@
+.container {
+    color: white;
+    background-color: #1B2F80;
+    padding: 1rem;
+
+}
+
+.allInfoContainer {
+    background-color: #12498A;
+    padding: 1rem;
+    margin: 1rem 0;
+    border: 1px solid #fafafa
+}
+
+.infoContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.allTransactionsContainer {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.infoTransactionContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    text-align: center;
+    background-color: #270C73;
+    border: 1px solid white;
+    align-items: center;
+}
+
+.infoContainer p,.infoTransactionContainer p {
+    margin: 0;
+}

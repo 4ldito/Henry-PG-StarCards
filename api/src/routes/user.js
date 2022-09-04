@@ -1,5 +1,5 @@
 const db = require("../db");
-const { User, Rol, UserCards, PrivateChat, Message } = db;
+const { User, UserCards, PrivateChat, Message } = db;
 const { tokenValidations } = require("../middlewares");
 
 const { Router } = require("express");

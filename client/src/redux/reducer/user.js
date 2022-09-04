@@ -19,6 +19,7 @@ import {
   USER_OPTIONS_STATE,
   ADD_CARD_TO_DECK,
   MODIFY_USER_CARDS,
+  CREATE_USER_GOOGLE,
 } from "../actions/user";
 
 
@@ -49,6 +50,9 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case GET_USER_BY_EMAIL:
       return { ...state, user: payload, validUser: true }
+      
+    case CREATE_USER_GOOGLE:
+      return { ...state, user: payload }
 
     case GET_BY_EMAIL:
       return { ...state, actualUser: payload };
