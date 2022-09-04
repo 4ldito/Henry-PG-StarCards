@@ -1,5 +1,5 @@
 const db = require("../db");
-const { User, Rol, UserCards, PrivateChat, Message } = db;
+const { User, UserCards, PrivateChat, Message, Game } = db;
 const { tokenValidations } = require("../middlewares");
 
 const { Router } = require("express");
@@ -8,7 +8,6 @@ const userRoute = Router();
 userRoute.get("/", async (req, res, next) => {
   try {
     const { id, email } = req.query;
-    console.log("id: ",id)
     if (id) {
       const user = await User.findByPk(id, {
         attributes: { exclude: ["password"] },
@@ -37,6 +36,18 @@ userRoute.get("/", async (req, res, next) => {
     const users = await User.findAll({ include: UserCards });
     if (users) return res.json(users);
     return res.json(new Error("error"));
+  } catch (error) {
+    next(error);
+  }
+});
+
+userRoute.get("/games", async (req, res, next) => {
+  try {
+    const { id } = req.query;
+    const user = await User.findByPk(id, {
+      include: [{ model: Game }],
+    });
+    return res.json({ games: user.Games });
   } catch (error) {
     next(error);
   }

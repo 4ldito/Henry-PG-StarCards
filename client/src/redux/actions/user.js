@@ -25,6 +25,8 @@ export const USER_CLEAN = "USER_CLEAN";
 export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
 export const MODIFY_USER_CARDS = "MODIFY_USER_CARDS";
+export const CREATE_USER_GOOGLE = "CREATE_USER_GOOGLE";
+export const GET_GAMES = "GET_GAMES";
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +52,13 @@ export function getUserByEmail(email) {
   };
 }
 
+export function getUserGames(id) {
+  return async function (dispatch) {
+    const response = await axios(`user/games?id=${id}`);
+    dispatch({ type: GET_GAMES, payload: response.data.games.reverse() });
+  };
+}
+
 export function getUserByName(username) {
   return async function (dispatch) {
     const response = await axios(`user/username/${username}`);
@@ -71,11 +80,17 @@ export function createUser(user) {
   };
 }
 
+export function createUserGoogle(user) {
+  return async function (dispatch) {
+    const response = await axios.post("createuser", user);
+    dispatch({ type: SIGN_IN, payload: response.data });
+  };
+}
+
 export function signIn(user) {
   return async function (dispatch) {
     try {
       const response = await axios.post("login/signin", user);
-      console.log(response.data)
       dispatch({ type: SIGN_IN, payload: response.data });
     } catch (err) {
       console.log(err);
@@ -112,11 +127,12 @@ export function modifyUser(id, property, norender) {
   };
 }
 
-export function deleteUser(id,norender) {
-  if(norender){
+export function deleteUser(id, norender) {
+  if (norender) {
     return function () {
-    axios.delete(`user/?id=${id}`);
-    };}
+      axios.delete(`user/?id=${id}`);
+    };
+  }
   return async function (dispatch) {
     const response = await axios.delete(`user/?id=${id}`);
     dispatch({ type: DELETE_USER, payload: response.data });
