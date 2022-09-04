@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserCards } from "../../../redux/actions/cards/userCards";
-import { addDeckCard, getUserDecks, removeDeckCard } from "../../../redux/actions/user";
+import { addDeckCard, getUserDecks, removeDeckCard, updateDeck } from "../../../redux/actions/user";
 import { CardContainer } from "../../Card/CardContainer";
 import DeckList from "./Decks/DeckList";
 
@@ -21,21 +21,60 @@ export default function InventoryContainer() {
   const [newDeckCards, setNewDeckCards] = useState([]);
   const [actualStackToShow, setActualStackToShow] = useState([]);
 
-  const addCardToDeck = (card, remove, deck) => {
-    if(!selectedDeck.name){
+  const addCardToDeck = (card, repeat) => {
+    if (!selectedDeck.name) {
       const newCardI = userCards.findIndex(e => e.id === card.id);
       const cardAlredyInDeck = newDeckCards.find(e => e.id === card.id);
       if (cardAlredyInDeck) {
         cardAlredyInDeck.repeat++;
         setNewDeckCards([...newDeckCards]);
-  
+
       } else {
         const newCard = { ...userCards[newCardI] };
         newCard.repeat = 1;
         setNewDeckCards([...newDeckCards, newCard]);
       }
-    }else{
+    } else {
+      const addingCard = cards.find(e => e.id === card.id);
+      const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
 
+      const selectedDeckCards = selectedDeck.UserCards.map(e => {
+        const card = cards.find(el => el.id === e.CardId);
+        const repeat = userCardsInSD.find(el => el.userCard.id === e.id).repeat;
+        if(!updatingDeck.cards){
+          card.repeat = repeat;
+        }
+        return card;
+      });
+
+      let cardAlreadyInDeck;
+      if (!updatingDeck.cards) {
+        cardAlreadyInDeck = selectedDeckCards.find(e => e.id === addingCard.id);
+      } else {
+        cardAlreadyInDeck = updatingDeck.cards.find(e=> e.id === addingCard.id);
+      }
+      if (!cardAlreadyInDeck) {
+        addingCard.repeat = 1;
+        if (!updatingDeck.cards) {
+          setUpdatingdeck({ ...updatingDeck, cards: [...selectedDeckCards, addingCard] })
+        } else {
+          setUpdatingdeck({ ...updatingDeck, cards: [...updatingDeck.cards, addingCard] });
+        }
+      } else {
+        if(cardAlreadyInDeck.repeat<repeat){
+          console.log(cardAlreadyInDeck);
+          cardAlreadyInDeck.repeat++;
+          if (!updatingDeck.cards) {
+            setUpdatingdeck({ ...updatingDeck, cards: [...selectedDeckCards] })
+          } else {
+            setUpdatingdeck({ ...updatingDeck, cards: [...updatingDeck.cards] });
+          }
+        }else{
+          console.log('nope');
+        }
+
+      }
+      console.log(updatingDeck)
     }
   }
 
@@ -128,7 +167,8 @@ export default function InventoryContainer() {
         removeCardFromDeck={removeCardFromDeck} setNewDeckCards={setNewDeckCards}
         creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
         newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
-        enableAddButton={setBothStacks} userId={user.id}></DeckList> : <></>}
+        enableAddButton={setBothStacks} userId={user.id} updatingDeck={updatingDeck}
+        setUpdatingdeck={setUpdatingdeck} ></DeckList> : <></>}
     </div>
   </div >);
 }

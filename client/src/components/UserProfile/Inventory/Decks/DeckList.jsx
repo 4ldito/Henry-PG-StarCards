@@ -8,7 +8,8 @@ import css from './DeckList.module.css'
 
 let justCreated = false;
 
-function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards, newDeckCards, removeCardFromDeck, setNewDeckCards, creatingDeck, setCreatingDeck }) {
+function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards,
+    newDeckCards, removeCardFromDeck, setNewDeckCards, creatingDeck, setCreatingDeck,setUpdatingdeck}) {
     const dispatch = useDispatch();
     const decks = useSelector(state => state.userReducer.decks);
     const cards = useSelector(state => state.album.cards);
@@ -55,8 +56,10 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
         const deck = userDecks.find(e => id == e.id);
         dispatch(setNewSelectedDeck(deck));
         setCreatingDeck(false);
+        setUpdatingdeck({});
         document.querySelector('#newDeckName').value = deck.name;
     }
+    
     function openNewDeckTemplate() {
         if (!bothStacks) showCards('cartas');
         setCreatingDeck(true);
@@ -88,14 +91,14 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
             <div className={css.cardsContainer}>
                 {creatingDeck ? newDeckCards?.map((e, i) => (
                     <div className={css.card}>
-                    <CardContainer
-                        newDeckCards={newDeckCards}
-                        creatingDeck={creatingDeck}
-                        removeCardFromDeck={removeCardFromDeck}
-                        key={i}
-                        inDeck={true}
-                        repeat={e.repeat}
-                        card={e} />
+                        <CardContainer
+                            newDeckCards={newDeckCards}
+                            creatingDeck={creatingDeck}
+                            removeCardFromDeck={removeCardFromDeck}
+                            key={i}
+                            inDeck={true}
+                            repeat={e.repeat}
+                            card={e} />
                     </div>
                 )) :
                     selectedDeck?.UserCards?.map((e, i, array) => {

@@ -91,7 +91,7 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
             <></>}
         {/* {inDeck?<label style={{ color:'violet',fontSize: "50px" }}>{thisCardRepeats}</label>:<></>} */}
         {/* {!inDeck && repeat>1?<label style={{ fontSize: "50px" }}>{repeat}</label>:<></>} */}
-        {addButton && <button onClick={() => addCardToDeck(card)}>Añadir al mazo</button>}
+        {addButton && <button onClick={() => {addCardToDeck(card,repeat)}}>Añadir al mazo</button>}
         <Card
           id={card.id}
           name={card.name}
