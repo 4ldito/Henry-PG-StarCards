@@ -61,13 +61,15 @@ export default function UserProfile() {
 
   function changeRender(e) {
     let value = e.target.value;
-    value === "1"
-      ? setRender("Inventory")
-      : value === "2"
-      ? setRender("Stats")
-      : value === "3"
-      ? setRender("Config")
-      : setRender("Chat");
+    if (value === render) return setRender();
+    setRender(value)
+    // value === "1"
+    //   ? setRender("Inventory")
+    //   : value === "2"
+    //   ? setRender("Stats")
+    //   : value === "3"
+    //   ? setRender("Config")
+    //   : setRender("Chat");
   }
 
   const showToOwner = () => (
@@ -88,14 +90,14 @@ export default function UserProfile() {
         </Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="1"
+          value="Inventory"
           onClick={(e) => changeRender(e)}
         >
           Inventory
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="2"
+          value="Stats"
           onClick={(e) => changeRender(e)}
           disabled
         >
@@ -103,14 +105,14 @@ export default function UserProfile() {
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="3"
+          value="Config"
           onClick={(e) => changeRender(e)}
         >
           Config
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="4"
+          value="Chat"
           onClick={(e) => changeRender(e)}
         >
           Chat

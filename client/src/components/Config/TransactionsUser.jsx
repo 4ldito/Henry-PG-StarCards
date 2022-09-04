@@ -6,7 +6,6 @@ import style from './TransactionsUser.module.css';
 
 const TransactionsUser = ({ userId }) => {
     const { transactionsUser } = useTransactionsUser(userId);
-    console.log(transactionsUser);
     return (
         <div className={style.container}>
             <h2>Transacciones</h2>
