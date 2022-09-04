@@ -184,7 +184,7 @@ export default function UserProfile() {
   );
 
   return Object.keys(user).length !== 0 ? (
-    actualUrlUser === user ? (
+    actualUrlUser === user || urlUser === null ? (
       showToOwner()
     ) : (
       showToVisitor()
