@@ -12,8 +12,6 @@ import style from './CardContainer.module.css'
 export function CardContainer({ card, repeat, addButton, addCardToDeck, inDeck, tamanho, maxT, removeCardFromDeck }) {
   const dispatch = useDispatch();
 
-  console.log('render');
-
   const [viewCard, setViewCard] = useState(false);
   const msg = useSelector((state) => state.album.msg);
 
