@@ -28,6 +28,7 @@ export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
 export const MODIFY_USER_CARDS = "MODIFY_USER_CARDS";
 export const CREATE_USER_GOOGLE = "CREATE_USER_GOOGLE";
+export const GET_GAMES = "GET_GAMES";
 
 
 // import { useToken } from '../../hooks/useToken'
@@ -51,6 +52,13 @@ export function getUserByEmail(email) {
   return async function (dispatch) {
     const response = await axios(`user?email=${email}`);
     dispatch({ type: GET_USER_BY_EMAIL, payload: response.data });
+  };
+}
+
+export function getUserGames(id) {
+  return async function (dispatch) {
+    const response = await axios(`user/games?id=${id}`);
+    dispatch({ type: GET_GAMES, payload: response.data.games.reverse() });
   };
 }
 
