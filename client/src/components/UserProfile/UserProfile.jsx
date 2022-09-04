@@ -192,6 +192,6 @@ export default function UserProfile() {
       showToVisitor()
     )
   ) : (
-    <div className={style.response}>'User not logged in'</div>
+    <div className={style.response}>User not logged in</div>
   );
 }
