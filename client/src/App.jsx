@@ -17,6 +17,7 @@ import RecoveryPassword from "./components/Registro/RecoveryPassword";
 import Registro from "./components/Registro/Registro";
 import Firebase from "./components/FirebaseAdmi/Firebase";
 import AdminProfile from "./components/Admin/AdminProfile";
+import CreatePacks from "./components/FirebaseAdmi/CreatePacks";
 
 import "./App.css";
 
@@ -53,6 +54,7 @@ function App() {
         <Route path="/inventory" element={<Inventory />} />
         <Route path="/recovery" element={<RecoveryPassword />} />
         <Route path="/privateChat" element={<PrivateChat />} />
+        <Route path="/createpack" element={<CreatePacks />} />
       </Routes>
     </div>
   );

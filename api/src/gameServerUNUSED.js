@@ -1,11 +1,12 @@
-const server = require("./app");
+// const server = require("./app");
 
-const socketIoServer = require("http").createServer(server);
+// const socketIoServer = require("http").createServer(server);
+const socketIoServer = require("./socketServer");
 
 const io = require("socket.io")(socketIoServer, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST", "PATCH"],
+    methods: ["GET", "POST"],
   },
 });
 
@@ -18,7 +19,7 @@ let playersQueue = [];
 let userSockets = [];
 let usersNotificationSocket = [];
 
-io.on("gameConnection", (socket) => {
+io.on("connection", (socket) => {
   //////////////////////////////////////////////
   // // Game notifications
   // socket.on("connectPlayerNotifications", (userId) => {

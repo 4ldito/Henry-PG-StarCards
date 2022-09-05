@@ -26,6 +26,7 @@ import {
   UPDATE_DECK,
   CREATE_USER_GOOGLE,
   GET_GAMES,
+
 } from "../actions/user";
 
 const initialState = {
@@ -160,7 +161,11 @@ export default function userReducer(state = initialState, { type, payload }) {
       };
 
     case SET_ACTIVE_DECK:
-      return { ...state, activeDeck: payload };
+      return { ...state, activeDeck: payload }
+      
+    case SET_SELECTED_DECK:
+      return {...state, selectedDeck: payload}
+
 
     case MODIFY_USER_CARDS:
       payload.forEach((userCard) => {

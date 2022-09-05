@@ -29,6 +29,35 @@ packsRoute.get("/:status", async (req, res, next) => {
   }
 });
 
+packsRoute.post('/', async(req,res,next)=>{
+  const {name, amount, price, stock, race, cards, image} = req.body;
+  try {
+    if (name) {
+      const ispack = await CardPacks.findOne({where: {name}});
+      if (ispack) {
+        return res.status(404).send('no exist')
+      }
+      if(!ispack){
+        const newpack = await CardPacks.findOrCreate(
+          {where:{
+          name,
+          amount,
+          price,
+          stock,
+          race,
+          image,
+          cards
+        }});
+        return res.status(201).send(newpack)
+      }
+      return res.status(404).send('name exist');
+    }
+    
+  } catch (error) {
+    return next(error);
+  }
+})
+
 
 packsRoute.patch('/buy', async (req, res, next) => {
   try {

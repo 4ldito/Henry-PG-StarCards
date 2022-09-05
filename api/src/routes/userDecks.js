@@ -29,22 +29,28 @@ userDecksRoute.get('/:userId', async (req, res, next) => {
 userDecksRoute.post('/:userId', async (req, res, next) => {
     const { newDeckCards, name } = req.body;
     const userId = req.params.userId;
-    // console.log(newDeckCards);
+    const isValidDeck = newDeckCards.reduce((prev, curr) => curr.race === newDeckCards[0].race && prev ? true : false, true);
+    const deckCosts = newDeckCards.map(e=>e.cost * e.repeat);
+    const totalCost = deckCosts.reduce((prev, curr) =>  prev + curr);
+    if (totalCost>20000) return res.json({ error: 'el coste maximo es de 20000 unidades'});
+    if (!isValidDeck) return res.json({ error: 'Todas las cartas deben ser de la mima raza' });
+    if (!name) return res.json({ error: 'El mazo debe tener un nombre' });
+    const alreadyExists = await Deck.findOne({where:{name}});
+    if(alreadyExists) return res.json({error:'Ya hay un mazo con ese nombre'});
     try {
         const newDeck = await Deck.create({ name });
-
         const cardRepeats = [];
         for (const deckCard of newDeckCards) {
             const userCard = await UserCards.findOne({ where: { CardId: deckCard.id, StatusId: 'active', UserId: userId } });
 
             await newDeck.addUserCards(userCard);
 
-            // console.log(userCard, deckCard.repeat);
             cardRepeats.push({ userCard: userCard, repeat: deckCard.repeat });
         }
 
 
         newDeck.cardRepeats = JSON.stringify(cardRepeats);
+        newDeck.totalCost = totalCost;
         newDeck.save();
 
         const user = await User.findByPk(userId, { include: Deck });
@@ -52,37 +58,58 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
         user.save();
 
         const returnDeck = await Deck.findByPk(newDeck.id, { include: UserCards });
-        console.log(returnDeck);
         res.json(returnDeck);
     } catch (err) {
         next(err);
     }
 });
 
-userDecksRoute.patch('/:userId/:id', async (req, res, next) => {
+userDecksRoute.put('/:userId/:id', async (req, res, next) => {
     const { userId, id } = req.params;
     const { name, cards } = req.body;
+    console.log(cards);
     const user = await User.findByPk(userId);
+
     if (!user) return res.json({ error: 'El usuario no existe' });
     try {
-        const oldDeck = await Deck.findByPk(id);
+        const oldDeck = await Deck.findByPk(id, { include: UserCards });
         if (!oldDeck) return res.json({ error: 'El mazo a remplazar no existe' });
-        if(name)await oldDeck.update({ name });
+        if (name) await oldDeck.update({ name });
         let i = 0;
         const cardRepeats = [];
-        for (const card of cards) {
-            const userCard = await UserCards.findOne({ where: { CardId: card.id, StatusId: 'active', UserId: userId } });
-            if (i === 0) {
-                oldDeck.setUserCards(userCard);
-            } else {
-                oldDeck.addUserCards(userCard);
-            }
-            cardRepeats.push({ userCard: userCard, repeat: card.repeat });
-        }
-        oldDeck.cardRepeats = JSON.stringify(cardRepeats);
-        oldDeck.save();
+        // for (const card of cards) {
+        //     const userCard = await UserCards.findOne({ where: { CardId: card.id, StatusId: 'active', UserId: userId } });
+        //     if (i === 0) {
+        //         await oldDeck.setUserCards(userCard);
+        //         await oldDeck.save();
 
-        res.json(oldDeck);
+        //     } else {
+        //         await oldDeck.addUserCards(userCard);
+        //         await oldDeck.save();
+
+        //     }
+        //     i++;
+        //     cardRepeats.push({ userCard: userCard, repeat: card.repeat });
+        // }
+        const promisedChanges = cards.map(async card => {
+            console.log('entra ... veces');
+            const userCard = await UserCards.findOne({ where: { CardId: card.id, StatusId: 'active', UserId: userId } });
+            cardRepeats.push({ userCard: userCard, repeat: card.repeat });
+            if (i === 0) {
+                i++;
+                console.log('aca deberia entrar 1na sola vez');
+                return await oldDeck.setUserCards(userCard);
+            } else {
+                console.log('aca deberia entrar las restantes');
+                return await oldDeck.addUserCards(userCard);
+            }
+        });
+        await Promise.all(promisedChanges);
+        oldDeck.cardRepeats = JSON.stringify(cardRepeats);
+        await oldDeck.save();
+        const returnDeck = await Deck.findByPk(oldDeck.id, { include: UserCards });
+        // console.log(returnDeck);
+        res.json(returnDeck);
     } catch (err) {
         next(err);
     }
