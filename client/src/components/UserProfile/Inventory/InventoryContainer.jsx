@@ -19,7 +19,7 @@ export default function InventoryContainer() {
   const [creatingDeck, setCreatingDeck] = useState(false);
   const [updatingDeck, setUpdatingdeck] = useState({});
   const [newDeckCards, setNewDeckCards] = useState([]);
-  const [actualStackToShow, setActualStackToShow] = useState([]);
+  const [actualStackToShow, setActualStackToShow] = useState(['cartas']);
   const [actualCost, setActualCost] = useState(0);
 
 

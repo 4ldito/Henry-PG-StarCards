@@ -19,10 +19,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
     const activeDeck = useSelector(state => state.userReducer.activeDeck);
     const [newDeckName, setNewDeckName] = useState();
     const [creationErrors, setCreationErrors] = useState({});
-    useEffect(() => {
-        // setSelectedDeck(activeDeck)
-        document.querySelector('#newDeckName').value = activeDeck.name;
-    }, [])
+
 
     useEffect(() => {
 
@@ -62,7 +59,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
 
     function createNewDeck(userId, deck, name) {
         setActualCost(0);
-        if (name && deck.length) {
+        if (name && deck.length > 1) {
             const isValidDeck = deck.reduce((prev, curr) => curr.race === deck[0].race && prev ? true : false, true);
             const deckCosts = deck.map(e => e.cost * e.repeat);
             const totalCost = deckCosts.reduce((prev, curr) => prev + curr);
@@ -83,12 +80,15 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 }
             };
         } else {
-            if (!name && !deck.length) {
+            
+            if (!name && !(deck.length)) {
                 setCreationErrors({ error: 'Add some cards to your deck and give it a name' });
-            } else if (!name && deck.length) {
+            } else if (!name && deck.length>1) {
                 setCreationErrors({ error: 'Name your deck' });
-            } else {
+            } else if(!(deck.length)) {
                 setCreationErrors({ error: 'Add some cards' });
+            }else{
+                setCreationErrors({ error: 'Add some more cards' });
             }
 
         }
@@ -135,7 +135,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
         <ul className={css.deckListContainer}>
             {decks?.map((e, i) => <div key={i}><div onClick={(e) => findSelectedDeck(e.target.id, decks)} id={e.id}>{e.name}
             </div>
-                <button id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
+                <button key={i} id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
             </div>
             )}
             <button onClick={() => openNewDeckTemplate()}>
@@ -145,10 +145,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
 
         {/* CREACION DE MAZO */}
         <div className={css.actualDeckContainer}>
-            <input id='newDeckName' onChange={(e) => {
-                creatingDeck ?
-                    setNewDeckName(e.target.value) :
-                    changeDeckName(e.target.value)
+            <input id='newDeckName' onChange={(e) => {  setNewDeckName(e.target.value) 
             }} placeholder="Name you deck"></input>
             <div style={{color:"black"}} className={css.cardsContainer}>
                 {actualCost}
@@ -188,6 +185,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                                 card={card}
                                 uCard={e}
                                 repeat={e.repeat} />
+                                
                         })}
                     </div>
                 }
