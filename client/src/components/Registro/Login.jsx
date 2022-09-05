@@ -58,7 +58,6 @@ export default function Login() {
 
   const login = (e) => {
     e.preventDefault();
-d7bfc60e4fcc9afa37ef38cb9e44f
     dispatch(signIn(input));
   };
 
