@@ -27,7 +27,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
 
     useEffect(() => {
         
-        if (!justCreated && selectedDeck) {
+        if (!justCreated && selectedDeck.name) {
             if (!decks.find(e => e.id === selectedDeck?.id)) {
               
                 let selDeckInd = decks.findIndex(e => e.id === selectedDeck?.id);

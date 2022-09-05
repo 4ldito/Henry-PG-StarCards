@@ -1,4 +1,4 @@
-const server = require("./src/chatServer");
+const server = require("./src/socketServer");
 const db = require("./src/db");
 const users = require("./src/seeders/users");
 const rols = require("./src/seeders/rols");
@@ -11,7 +11,9 @@ const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
 
 const { User, Rol, StarsPack, Card, CardPacks, Status, UserCards } = db;
 
-const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000;
+const forceFlag = true;
+
+const PORT = process.env.PORT !== undefined ? process.env.PORT : 3001;
 
 const createAllCards = async () => {
   const allCards = [];
@@ -65,7 +67,6 @@ const createStatus = async () => {
   }
 };
 
-const forceFlag = false;
 
 db.sequelize.sync({ force: forceFlag }).then(async () => {
   if (forceFlag) {
