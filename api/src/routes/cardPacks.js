@@ -1,9 +1,12 @@
 const { Router } = require("express");
 const db = require("../db");
 const axios = require('axios');
+require('dotenv').config()
 
 const { CardPacks, User, Card, Transaction } = db;
 const packsRoute = Router();
+
+const url = process.env.URL_BACK || "http://localhost:3001";
 
 packsRoute.get("/all", async (req, res, next) => {
   try {
@@ -123,7 +126,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
       })
     });
 
-    await axios.post('http://localhost:3001/userCards', { userId: updatedUser.id, cardsId });
+    await axios.post(`${url}/userCards`, { userId: updatedUser.id, cardsId });
     return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo, updatedUser });
   } catch (error) {
     console.error(error)
