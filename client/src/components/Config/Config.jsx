@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import style from "../../styles/ProfileUser/Config.module.css";
 import BtnUserProfile from "../Buttons/BtnUserProfile";
 import { useNavigate } from "react-router-dom";
-import { deleteUser, modifyUser, userOptionsState } from "../../redux/actions/user";
+import { deleteUser, modifyUser } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserSecret } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
@@ -21,14 +21,14 @@ export default function Config({ user }) {
 
   const [input, setInput] = useState(true)
   function deleteAccount() {
-    navigateTo("/");
     dispatch(deleteUser(user.id));
     Swal.fire({
       title: 'Borrado',
       text: 'Usuario Borrado',
       icon: 'success',
     });
-    // dispatch(userOptionsState())
+    // dispatch(renderVerifyRegister())
+    navigateTo("/");
   }
 
   function modifyMail() {

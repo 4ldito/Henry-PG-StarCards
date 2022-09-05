@@ -14,7 +14,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google"; // npm i "@react-oaut
 import { GoogleLogin } from "@react-oauth/google"; // npm i @react-oauth/google
 
 export default function Login() {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // React States
@@ -59,6 +58,7 @@ export default function Login() {
 
   const login = (e) => {
     e.preventDefault();
+d7bfc60e4fcc9afa37ef38cb9e44f
     dispatch(signIn(input));
   };
 
@@ -86,6 +86,7 @@ export default function Login() {
     };
     dispatch(createUserGoogle(userObject)
     );
+
   }
 
   return (
@@ -97,7 +98,7 @@ export default function Login() {
           }}
         >
           <div className={style.inputcontainer}>
-            <label style={{  fontSize:  "larger"  }}>Username </label>
+            <label style={{ fontSize: "larger" }}>Username </label>
             <input
               className={style3.input}
               style={{ width: "400px" }}
@@ -109,7 +110,7 @@ export default function Login() {
             {renderErrorMessage("uname")}
           </div>
           <div className={style.inputcontainer}>
-            <label style={{  fontSize:  "larger"  }}>Password </label>
+            <label style={{ fontSize: "larger" }}>Password </label>
             <input
               className={style3.input}
               style={{ width: "400px" }}
@@ -121,7 +122,7 @@ export default function Login() {
             />
             {renderErrorMessage("pass")}
           </div>
-          <div style={{  height:  "15px"  }}></div>
+          <div style={{ height: "15px" }}></div>
           <div className={style.buttoncontainer}>
             <button className={style.button} 
             data="Ingresar" 
@@ -135,11 +136,9 @@ export default function Login() {
         <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
           <GoogleLogin
             className={style.buttonGoogle}
-            onSuccess={
-              (response) => {
-                createOrGetUserGoogle(response)
-              }
-            }
+            onSuccess={(response) => {
+              createOrGetUserGoogle(response);
+            }}
             onError={() => {
               console.log("Login Failed");
             }}
@@ -149,4 +148,3 @@ export default function Login() {
     </div>
   );
 }
-
