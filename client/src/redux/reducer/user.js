@@ -19,6 +19,9 @@ import {
   USER_OPTIONS_STATE,
   ADD_CARD_TO_DECK,
   MODIFY_USER_CARDS,
+  GET_USER_FRIENDS,
+  ADD_NEW_FRIEND,
+  DELETE_FRIEND
 } from "../actions/user";
 
 
@@ -35,7 +38,8 @@ const initialState = {
   validToken: false,
   token: null,
   chatNotification: false,
-  userOptions: false
+  userOptions: false,
+  friends: []
 };
 
 
@@ -156,9 +160,17 @@ export default function userReducer(state = initialState, { type, payload }) {
         const actualUserCard = state.user.UserCards.find(uc => userCard.id === uc.id);
         actualUserCard.StatusId = userCard.StatusId;
       });
-
       return { ...state, user: {...state.user} }
+    
+      case GET_USER_FRIENDS:
+        return { ...state, friends: payload };
 
+      case ADD_NEW_FRIEND:
+        console.log('payload', payload)
+          return { ...state, friends: [...state.friends, payload] };
+      case DELETE_FRIEND:
+          return { ...state, friends: payload };
+          
     default:
       return state;;
   }

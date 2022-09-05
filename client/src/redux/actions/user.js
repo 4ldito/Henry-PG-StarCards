@@ -25,6 +25,9 @@ export const USER_CLEAN = "USER_CLEAN";
 export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
 export const MODIFY_USER_CARDS = "MODIFY_USER_CARDS";
+export const GET_USER_FRIENDS = "GET_USER_FRIENDS"
+export const ADD_NEW_FRIEND = "ADD_NEW_FRIEND"
+export const DELETE_FRIEND = "DELETE_FRIEND"
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
@@ -205,5 +208,26 @@ export function setOutNotifications(receiverId, flag) {
     await axios.patch("chat/notifications", { receiverId, flag });
 
     dispatch(getUser(receiverId));
+  };
+}
+
+export function getUserFriends(userId) {
+  return async function (dispatch) {
+    const response = await axios.get(`/userFriends?userId=${userId}`);
+    dispatch({ type: GET_USER_FRIENDS, payload: response.data });
+  };
+}
+
+export function addNewFriend(userId, friendId) {
+  return async function (dispatch) {
+    const response = await axios.post('/userFriends', {userId, friendId});
+    dispatch({ type: ADD_NEW_FRIEND, payload: response.data });
+  };
+}
+
+export function deleteFriend(object) {
+  return async function (dispatch) {
+    const response = await axios.delete('/userFriends', {data: object});
+    dispatch({ type: DELETE_FRIEND, payload: response.data });
   };
 }
