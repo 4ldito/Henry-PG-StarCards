@@ -9,8 +9,8 @@ function Store() {
     const starPacks = useSelector((state) => state.starsPackReducer.starsPacks)
 
     useEffect(() => {
-        !cardPacks && dispatch(getCardsPacks())
-        !starPacks && dispatch(getStarsPacks())
+        // !cardPacks && dispatch(getCardsPacks())
+        // !starPacks && dispatch(getStarsPacks())
     }, [])
     
   return (
