@@ -19,7 +19,7 @@ export default function UserProfile() {
   const urlUser = useSelector((state) => state.userReducer.urlUser);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState();
+  const [render, setRender] = useState("Inventory");
   const { validToken } = useValidToken({ navigate: true });
 
   // Read profile owner from url
@@ -61,15 +61,14 @@ export default function UserProfile() {
 
   function changeRender(e) {
     let value = e.target.value;
-    value === "1"
-      ? setRender("Inventory")
-      : value === "2"
-      ? setRender("Stats")
+      value === "2"
+      ? render==="Stats" ? setRender('Inventory') : setRender("Stats")
       : value === "3"
-      ? setRender("Config")
-      : setRender("Chat");
+      ? render==="Config" ? setRender('Inventory') : setRender("Config")
+      : value === "4"
+      ? render==="Chat" ? setRender('Inventory') : setRender("Chat")
+      : setRender('Inventory')
   }
-
   const showToOwner = () => (
     <>
       <div className={style.img}>
