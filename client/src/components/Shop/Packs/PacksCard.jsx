@@ -120,11 +120,10 @@ const PacksCard = ({ pack, type }) => {
     return (
       <>
         {pack.stock > 0 && (
-          <form
+          <div
             className={css.containerPack}
             name={pack.name}
             id={pack.id}
-            onSubmit={handleAddItem}
             key={pack.id}
           >
             {/* <div className={style.pack}> */}
@@ -144,8 +143,12 @@ const PacksCard = ({ pack, type }) => {
             </div>
 
             <div className={css.containerBtn}>
+              {/* Crear funcion para el "BUY NOW" */}
               <button className={css.buyNow}>BUY NOW</button>
-              <button className={`${css.btn} ${css.btnAddToCart}`} />
+              <button
+                className={`${css.btn} ${css.btnAddToCart}`}
+                onClick={handleAddItem}
+              />
             </div>
 
             <div className={css.containerQuantity}>
@@ -185,7 +188,7 @@ const PacksCard = ({ pack, type }) => {
                 </button>
               )}
             </div> */}
-          </form>
+          </div>
         )}
       </>
     );
@@ -194,11 +197,10 @@ const PacksCard = ({ pack, type }) => {
   return (
     ////////////////////////////////// Tarjetas //////////////////////////////////
     <div className={style.containerTo}>
-      <form
+      <div
         className={style.container}
         name={pack.name}
         id={pack.id}
-        onSubmit={handleAddItem}
         key={pack.id}
       >
         <img src={pack.image} alt="Pack" />
@@ -212,10 +214,13 @@ const PacksCard = ({ pack, type }) => {
         <div className={style.priceDiv}>
           <span className={style.price}>${pack.price}</span>
         </div>
-      </form>
+      </div>
       <div className={style.containerBtn}>
         <button className={style.buyNow}>BUY NOW</button>
-        <button className={`${style.btn} ${style.btnAddToCart}`} />
+        <button
+          className={`${style.btn} ${style.btnAddToCart}`}
+          onClick={handleAddItem}
+        />
       </div>
       <div className={style.containerQuantity}>
         <button className={style.btnMinus} onClick={decreaseQuantity} />

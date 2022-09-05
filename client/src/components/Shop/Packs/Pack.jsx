@@ -24,15 +24,20 @@ export default function Pack({
 
   return (
     <>
-      <div className={css.border} onClick={handleDetail}>
+      <div className={css.border}>
         <div className={css.background}>
-          <img className={css.img} src={pack.image} alt={`${pack.name} pack`} />
-          <button className={css.favNull}>
+          <img
+            className={css.img}
+            src={pack.image}
+            alt={`${pack.name} pack`}
+            onClick={handleDetail}
+          />
+          <button className={css.favNull} onClick={handleFav}>
             <BsSuitHeart size={15} />
           </button>
-          {/* /////No BORRAR///// */}
+          {/* // ! NO BORRAR */}
           {/* <button className={css.fav}><BsSuitHeartFill size={15}/></button> */}
-          {/* /////No BORRAR///// */}
+          {/* // ! NO BORRAR */}
           <div className={css.text}>
             <div className={css.nameCard}>{pack.name}</div>
             <div className={css.raceCard}>

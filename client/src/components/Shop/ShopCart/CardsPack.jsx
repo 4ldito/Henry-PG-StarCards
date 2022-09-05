@@ -25,6 +25,7 @@ const CardsPack = ({
             <span>Subtotal</span>
             <span />
           </div>
+
           {cardsPack.map((item) => {
             const subtotal = item.price * item.quantity;
             totalCardsPack += subtotal;
@@ -60,6 +61,7 @@ const CardsPack = ({
             <span />
             <span />
             <span>{totalCardsPack} STARS</span>
+
             {user?.id ? (
               <button
                 className={style.pay}
@@ -70,11 +72,12 @@ const CardsPack = ({
               </button>
             ) : (
               <button
+              
                 onClick={() => {
                   navigate("/login");
                 }}
               >
-                Logeate
+                Login
               </button>
             )}
           </div>

@@ -149,18 +149,18 @@
   height: 25px;
 }
 
-.total{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr .83fr 0.1fr;
+.total {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 0.83fr 0.1fr;
 
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 
-    padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem;
 }
 
-.pay{
-    background-color: white;
-    border: none;
-    
-    padding: 0 1rem;
+.pay {
+  background-color: white;
+  border: none;
+
+  padding: 0 1rem;
 }
