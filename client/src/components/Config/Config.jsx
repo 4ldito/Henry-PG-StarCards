@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import style from "../../styles/ProfileUser/Config.module.css";
 import BtnUserProfile from "../Buttons/BtnUserProfile";
 import { useNavigate } from "react-router-dom";
-import { deleteUser, modifyUser } from "../../redux/actions/user";
+import { deleteUser, modifyUser, userOptionsState } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserSecret } from "react-icons/fa";
 import { MdPassword } from "react-icons/md";
@@ -21,14 +21,14 @@ export default function Config({ user }) {
 
   const [input, setInput] = useState(true)
   function deleteAccount() {
+    navigateTo("/");
     dispatch(deleteUser(user.id));
     Swal.fire({
       title: 'Borrado',
       text: 'Usuario Borrado',
       icon: 'success',
     });
-    // dispatch(renderVerifyRegister())
-    navigateTo("/");
+    // dispatch(userOptionsState())
   }
 
   function modifyMail() {
@@ -91,13 +91,13 @@ export default function Config({ user }) {
           <div>
             <BtnUserProfile user={user} property="username" />
           </div>
-          <div className={style.modal}>
+          {!user.loginGoogle && (<><div className={style.modal}>
             <MdPassword />
             <span className={style.span}>Password: </span>
           </div>
           <div>
             <BtnUserProfile user={user} property="password" />
-          </div>
+          </div></>)}
           {input ? (<div className={style.modal}>
             <span className={style.span}>Email: {user.email}</span>
             <Button color='success' onClick={modifyMail}>MODIFY</Button>
