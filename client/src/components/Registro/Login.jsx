@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { signIn } from "../../redux/actions/user";
+import { createUserGoogle, signIn } from "../../redux/actions/user";
 import style from "./login.module.css";
 import style3 from "../../styles/register/Register.module.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,13 +8,12 @@ import { userCleanMsgInfo } from "./../../redux/actions/user";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { addToShopCart, getUserShopCart } from "../../redux/actions/shopCart";
+import jwt_decode from "jwt-decode";
+
+import { GoogleOAuthProvider } from "@react-oauth/google"; // npm i "@react-oauth/google"
+import { GoogleLogin } from "@react-oauth/google"; // npm i @react-oauth/google
 
 export default function Login() {
-  /*const { loginWithRedirect } = useAuth0()
-  return (
-    <button onClick={() => loginWithRedirect()}>Login</button>
-  )
-    */
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // React States
@@ -23,7 +22,6 @@ export default function Login() {
   const actualUser = useSelector((state) => state.userReducer.user);
   const userId = actualUser.id;
   const shopCart = useSelector((state) => state.shopCartReducer.shopCart);
-  // const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [input, setInput] = useState({
     password: "",
@@ -57,11 +55,10 @@ export default function Login() {
       }
     }
   }, [msgInfo]);
-  // User Login info
 
   const login = (e) => {
     e.preventDefault();
-    console.log("a");
+d7bfc60e4fcc9afa37ef38cb9e44f
     dispatch(signIn(input));
   };
 
@@ -77,6 +74,20 @@ export default function Login() {
     name === errorMessages.name && (
       <div className="error">{errorMessages.message}</div>
     );
+
+  function createOrGetUserGoogle(response) {
+    const decoded = jwt_decode(response.credential);
+    const { email, name, picture } = decoded;
+    const userObject = {
+      username: name,
+      email,
+      profileImg: picture,
+      loginGoogle: true,
+    };
+    dispatch(createUserGoogle(userObject)
+    );
+
+  }
 
   return (
     <div className={style.appli}>
@@ -113,12 +124,26 @@ export default function Login() {
           </div>
           <div style={{ height: "15px" }}></div>
           <div className={style.buttoncontainer}>
-            <button className={style.button} data="Ingresar" type="submit">
+            <button className={style.button} 
+            data="Ingresar" 
+            type="submit"
+            >
               Login
             </button>
-            <Link to="/recovery">Password recovery</Link>
+            <Link to="/recovery">Recovery Password</Link>
           </div>
         </form>
+        <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
+          <GoogleLogin
+            className={style.buttonGoogle}
+            onSuccess={(response) => {
+              createOrGetUserGoogle(response);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+        </GoogleOAuthProvider>
       </div>
     </div>
   );

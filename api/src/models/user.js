@@ -76,10 +76,14 @@ module.exports = (sequelize, DataTypes) => {
       defaultDeck: {
         type: DataTypes.INTEGER,
       },
-      roles: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue: ["user"],
-      },
+      // roles: {
+      //   type: DataTypes.ARRAY(DataTypes.STRING),
+      //   defaultValue: ["user"],
+      // },
+      loginGoogle:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      }
     },
     {
       timestamps: false,

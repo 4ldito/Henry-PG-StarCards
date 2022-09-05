@@ -1,11 +1,12 @@
-const server = require("./app");
+// const server = require("./app");
 
-const socketIoServer = require("http").createServer(server);
+// const socketIoServer = require("http").createServer(server);
+const socketIoServer = require("./socketServer");
 
 const io = require("socket.io")(socketIoServer, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST", "PATCH"],
+    methods: ["GET", "POST"],
   },
 });
 
@@ -18,7 +19,7 @@ let playersQueue = [];
 let userSockets = [];
 let usersNotificationSocket = [];
 
-io.on("gameConnection", (socket) => {
+io.on("connection", (socket) => {
   //////////////////////////////////////////////
   // // Game notifications
   // socket.on("connectPlayerNotifications", (userId) => {
@@ -74,17 +75,19 @@ io.on("gameConnection", (socket) => {
           [p1Deck, p2Deck] = await Promise.all([
             Deck.findOne({
               where: { id: p1.defaultDeck },
-              include: [{ model: Card }],
+              include: [{ model: Card }, { model: User }],
             }),
             Deck.findOne({
               where: { id: p2.defaultDeck },
-              include: [{ model: Card }],
+              include: [{ model: Card }, { model: User }],
             }),
           ]);
 
           function gameExe(p1Deck, p2Deck) {
             return new Promise((resolve, reject) => {
               const gameInfo = gameFunction(p1Deck, p2Deck);
+              gameInfo.player1 = { userId: p1.id, race: p1Deck[0].race };
+              gameInfo.player2 = { userId: p2.id, race: p2Deck[0].race };
               resolve(gameInfo);
             });
           }
@@ -92,14 +95,16 @@ io.on("gameConnection", (socket) => {
           gameExe(p1Deck, p2Deck).then(async (gameInfo) => {
             const game = await Game.create({ info: gameInfo });
 
-            await Promise.all([p1.addGame(game), p2.addGame(game)]);
             await Promise.all([
-              p1.update({ onGame: false }),
-              p2.update({ onGame: false }),
+              Promise.all([p1.addGame(game), p2.addGame(game)]),
+              Promise.all([
+                p1.update({ onGame: false }),
+                p2.update({ onGame: false }),
+              ]),
             ]);
 
-            if (p1Socket) io.to(p1Socket).emit("gameResults", game);
-            if (p2Socket) io.to(p2Socket).emit("gameResults", game);
+            if (p1Socket) io.to(p1Socket).emit("gameResults", "Game finished");
+            if (p2Socket) io.to(p2Socket).emit("gameResults", "Game finished");
           });
         }
       }
