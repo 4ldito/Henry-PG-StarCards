@@ -48,31 +48,45 @@ function CreatePacks() {
         });
     }
 
-    const handleSelect = (e)=>{
-        let arraycards = [];
-        if(input.cards.includes(e.target.value)){
+    const handleSelectRace = (e)=>{
+        if(input.race.includes(e.target.value)){
             alert('Otra raza');
         }else{
-            if(input.cards.includes(e.target.value)){
-                alert('Otra carta literal')
+            if(input.race.includes(e.target.value)){
+                alert('Otra raza literal')
             }else{
                 setInput({
                     ...input,
                     race: [...input.race, e.target.value],
-                    cards:[...input.cards,[e.target.value]],
                 });
-                e.target.value = 'Select Card'
+                e.target.value = 'Select Race'
             }
         }
+    }
+
+    const handleSelectCards = (e)=>{
+      if(input.cards.includes(e.target.value)){
+          alert('Otra raza');
+      }else{
+          if(input.cards.includes(e.target.value)){
+              alert('Otra carta literal')
+          }else{
+              setInput({
+                  ...input,
+                  cards:[...input.cards,[e.target.value]],
+              });
+              e.target.value = 'Select Card'
+          }
+      }
     }
 
     const handleSubmitPack = async (e) => {
         e.preventDefault();
         try {
         
-        const result = await uploadFilePack(file, input.name);
+        const result = await uploadFilePack(file, input.name);//obteninedo la url con el nombre
             //console.log(result);
-        input.image = result
+        input.image = result//obteniendo en el input.image el url
         dispatch(createPackCardsAdmin(input))
         } catch (error) {
             alert('intentelo otra vez');
@@ -123,22 +137,22 @@ function CreatePacks() {
         />
         <div>
           <select 
-            onChange={(e)=>handleSelect(e)}
+            onChange={(e)=>handleSelectRace(e)}
           >
-            <option disabled selected>Raza:</option>
-            <option value="Zerg">Zerg</option>
-            <option value="Terran">Terran</option>
-            <option value="Protoss">Protoss</option>
+            <option disabled selected key="raza">Raza:</option>
+            <option value="Zerg" key="Zerg">Zerg</option>
+            <option value="Terran" key="Terran">Terran</option>
+            <option value="Protoss" key="Protoss">Protoss</option>
           </select>
         </div>
         <div>
         <select
-          onChange={(e)=>{handleSelect(e);}}
+          onChange={(e)=>{handleSelectCards(e);}}
         >
-           <option disabled selected>Selecciona una opción</option>
+           <option disabled selected key="option">Selecciona una opción</option>
           {allcards?.map((e)=>{
             return (
-              <option value={e.name}>
+              <option value={e.name} key={e.id}>
                 {e.name}
               </option>
             );
