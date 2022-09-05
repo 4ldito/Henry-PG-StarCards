@@ -13,6 +13,7 @@ const getAllStarsPack = async () => {
 starsPackRoute.get("/all", async (req, res, next) => {
   try {
     const packs = await getAllStarsPack();
+    console.log(packs)
     return res.send(packs);
   } catch (error) {
     return next(error);
