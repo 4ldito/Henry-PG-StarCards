@@ -27,7 +27,6 @@ function CreatePacks() {
     //hooks
     const [file, setFile] = useState(null);
     //packs
-    const [namepack, setNamepack] = useState('');
     const [errors, setErrors] = useState('')
 
     const [input, setInput] = useState({
@@ -83,10 +82,14 @@ function CreatePacks() {
     const handleSubmitPack = async (e) => {
         e.preventDefault();
         try {
+        console.log(porcentaje);
         
         const result = await uploadFilePack(file, input.name);//obteninedo la url con el nombre
             //console.log(result);
         input.image = result//obteniendo en el input.image el url
+        const valorespack = input
+
+        console.log(valorespack);
         dispatch(createPackCardsAdmin(input))
         } catch (error) {
             alert('intentelo otra vez');
@@ -166,6 +169,26 @@ function CreatePacks() {
           onChange={(e) => setFile(e.target.files[0])}
         />
         <button>new Pack</button>
+
+        <div>
+        {input.cards?.map((e)=>{
+          return(
+            <div>
+              <p>{e}</p>
+              <input type="number" 
+              value={porcentaje}
+              onChange={(e)=>handleChange(e)} />
+              <button 
+                onClick={()=>{
+                  handleDelete(e);
+                }}
+              >
+                x
+              </button>
+            </div>
+          )
+        })}
+      </div>
       </form>
 
       {/* muestra */}
@@ -174,7 +197,9 @@ function CreatePacks() {
           return(
             <div>
               <p>{e}</p>
-              <input type="text" onChange={(e)=>handleChange(e)} />
+              <input type="number" 
+              value={porcentaje}
+              onChange={(e)=>handleChange(e)} />
               <button 
                 onClick={()=>{
                   handleDelete(e);
