@@ -13,10 +13,12 @@ export const GET_USER_CARDS = "GET_USER_CARDS";
 export const GET_USER_DECKS =
   "GET_USER_DECKS_deaa el tipo seguia los protocolos";
 export const CREATE_DECK = "CREATE_DECK";
+export const UPDATE_DECK = "UPDATE_DECK";
 export const DELETE_DECK = "DELETE_DECK";
 export const SET_ACTIVE_DECK = "SET_ACTIVE_DECK";
-export const ADD_CARD_TO_DECK = "ADD_CARD_TO_DECK";
-export const REMOVE_DECK_CARD = "REMOVE_DECK_CARD";
+export const SET_SELECTED_DECK = "SET_SELECTED_DECK";
+export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK';
+export const REMOVE_DECK_CARD = 'REMOVE_DECK_CARD';
 export const USER_MODIFY_STARS = "USER_MODIFY_STARS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const SET_CHAT_NOTIFICATION = "SET_CHAT_NOTIFICATION";
@@ -25,6 +27,8 @@ export const USER_CLEAN = "USER_CLEAN";
 export const USER_OPTIONS_STATE = "USER_OPTIONS_STATE";
 export const GET_BY_EMAIL = "GET_BY_EMAIL";
 export const MODIFY_USER_CARDS = "MODIFY_USER_CARDS";
+export const CREATE_USER_GOOGLE = "CREATE_USER_GOOGLE";
+export const GET_GAMES = "GET_GAMES";
 export const GET_USER_FRIENDS = "GET_USER_FRIENDS"
 export const ADD_NEW_FRIEND = "ADD_NEW_FRIEND"
 export const DELETE_FRIEND = "DELETE_FRIEND"
@@ -53,6 +57,13 @@ export function getUserByEmail(email) {
   };
 }
 
+export function getUserGames(id) {
+  return async function (dispatch) {
+    const response = await axios(`user/games?id=${id}`);
+    dispatch({ type: GET_GAMES, payload: response.data.games.reverse() });
+  };
+}
+
 export function getUserByName(username) {
   return async function (dispatch) {
     const response = await axios(`user/username/${username}`);
@@ -74,11 +85,17 @@ export function createUser(user) {
   };
 }
 
+export function createUserGoogle(user) {
+  return async function (dispatch) {
+    const response = await axios.post("createuser", user);
+    dispatch({ type: SIGN_IN, payload: response.data });
+  };
+}
+
 export function signIn(user) {
   return async function (dispatch) {
     try {
       const response = await axios.post("login/signin", user);
-      console.log(response.data)
       dispatch({ type: SIGN_IN, payload: response.data });
     } catch (err) {
       console.log(err);
@@ -115,11 +132,12 @@ export function modifyUser(id, property, norender) {
   };
 }
 
-export function deleteUser(id,norender) {
-  if(norender){
+export function deleteUser(id, norender) {
+  if (norender) {
     return function () {
-    axios.delete(`user/?id=${id}`);
-    };}
+      axios.delete(`user/?id=${id}`);
+    };
+  }
   return async function (dispatch) {
     const response = await axios.delete(`user/?id=${id}`);
     dispatch({ type: DELETE_USER, payload: response.data });
@@ -169,6 +187,7 @@ export function getUserDecks(userId, deckId) {
 export function createDeck(userId, deck, name) {
   // console.log('userId--->',userId,'deck--->', deck,'name--->', name)
   return async function (dispatch) {
+
     const response = await axios.post(`userDecks/${userId}`, {
       newDeckCards: deck,
       name,
@@ -183,13 +202,23 @@ export function deleteDeck(userId, deckId) {
   };
 }
 export function setActiveDeck(deck) {
-  return { type: SET_ACTIVE_DECK, payload: deck };
+  
+  return { type: SET_ACTIVE_DECK, payload: deck }
+}
+export function setNewSelectedDeck(deck) {
+  return { type: SET_SELECTED_DECK, payload: deck }
 }
 export function addDeckCard(cardId) {
-  return { type: ADD_CARD_TO_DECK, payload: cardId };
+  return { type: ADD_CARD_TO_DECK, payload: cardId }
+}
+export function updateDeck(userId, deckId, newDeck) {
+  return async function (dispatch) {
+    const response = await axios.patch(`/userDecks/${userId}/${deckId}`, newDeck);
+    dispatch({ type: UPDATE_DECK, payload: response.data });
+  }
 }
 export function removeDeckCard(cardId) {
-  return { type: REMOVE_DECK_CARD, payload: cardId };
+  return { type: REMOVE_DECK_CARD, payload: cardId }
 }
 export function setChatNotification(flag) {
   return { type: SET_CHAT_NOTIFICATION, payload: flag };

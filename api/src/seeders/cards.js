@@ -54,7 +54,7 @@ const zergCards = [
     Gdmg: 11.3,
     Admg: 12.7,
     life: 150,
-    ability: "Siempre: cura 10 de vida.",
+    ability: "Siempre: otorga 10 de vida.",
     abilities: {
       all: [
         {
@@ -132,16 +132,16 @@ const zergCards = [
   },
   {
     name: "Lurker",
-    Gdmg: 14,
+    Gdmg: 0,
     Admg: 0,
     life: 200,
-    ability: "Siempre: invisible, daña 14 al siguiente enemigo terrestre.",
+    ability: "Siempre: invisible, daña 14 en área terrestre.",
     abilities: {
       all: [
         {
           invisible: "invisible",
-          splashDmg: { num: 14, objective: "ground", time: "everyturn" },
         },
+        { splashDmg: { num: 14, objective: "ground", time: "everyturn" } },
       ],
     },
     race: "Zerg",
@@ -157,7 +157,10 @@ const zergCards = [
     life: 80,
     ability: "Siempre: daña 10 a los enemigos terrestres y aéreos en área.",
     abilities: {
-      all: [{ splashDmg: { num: 10, objective: "need", time: "everyturn" } }],
+      all: [
+        { splashDmg: { num: 10, objective: "ground", time: "everyturn" } },
+        { splashDmg: { num: 10, objective: "air", time: "everyturn" } },
+      ],
     },
     race: "Zerg",
     cost: 350,
@@ -204,7 +207,6 @@ const zergCards = [
           modStat: {
             mod: "inc",
             objective: "self",
-
             stat: "Gdmg",
             num: 4.6,
             time: "once",
@@ -216,7 +218,6 @@ const zergCards = [
           modStat: {
             mod: "inc",
             objective: "self",
-
             stat: "life",
             num: 250,
             time: "once",
@@ -263,15 +264,13 @@ const zergCards = [
     Gdmg: 8.3,
     Admg: 8.3,
     life: 120,
-    ability:
-      "Atacante: gana 11.3 de daño terrestre. Defensor: gana 10 de vida.",
+    ability: "Atacante: gana 11.3 de daño terrestre. Defensor: gana 1 de vida.",
     abilities: {
       atk: [
         {
           modStat: {
             mod: "inc",
             objective: "self",
-
             stat: "Gdmg",
             num: 11.3,
             time: "once",
@@ -284,7 +283,7 @@ const zergCards = [
             mod: "inc",
             objective: "self",
             stat: "life",
-            num: 10,
+            num: 1,
             time: "everyturn",
           },
         },
@@ -426,7 +425,6 @@ const terranCards = [
           modStat: {
             mod: "inc",
             objective: "self",
-
             time: "once",
             stat: "Gdmg",
             num: 4.8,
@@ -436,7 +434,6 @@ const terranCards = [
           modStat: {
             mod: "dec",
             objective: "self",
-
             time: "once",
             stat: "life",
             num: 25,
@@ -482,14 +479,13 @@ const terranCards = [
     Gdmg: 10.1,
     Admg: 0,
     life: 60,
-    ability: "Atacante: gana 20 de daño terrestre. Defensor: gana 7 de vida.",
+    ability: "Atacante: gana 20 de daño terrestre. Defensor: gana 1 de vida.",
     abilities: {
       atk: [
         {
           modStat: {
             mod: "inc",
             objective: "self",
-
             time: "once",
             stat: "Gdmg",
             num: 20,
@@ -503,7 +499,7 @@ const terranCards = [
             objective: "self",
             time: "everyturn",
             stat: "life",
-            num: 7,
+            num: 1,
           },
         },
       ],
@@ -592,12 +588,12 @@ const terranCards = [
   },
   {
     name: "Siege Tank",
-    Gdmg: 30,
+    Gdmg: 0,
     Admg: 0,
     life: 175,
     ability: "Atacante: daña 20 al siguiente enemigo terrestre.",
     abilities: {
-      atk: [{ splashDmg: { num: 20, objective: "ground", time: "everyturn" } }],
+      atk: [{ splashDmg: { num: 30, objective: "ground", time: "everyturn" } }],
     },
     race: "Terran",
     cost: 400,
@@ -705,13 +701,12 @@ const terranCards = [
   },
   {
     name: "Banshee",
-    Gdmg: 27,
+    Gdmg: 0,
     Admg: 0,
     life: 140,
-    ability:
-      "Atacante: daña 15 al siguiente enemigo terrestre. Defensor: invisible.",
+    ability: "Atacante: daña 27 en área terrestre. Defensor: invisible.",
     abilities: {
-      atk: [{ splashDmg: { num: 15, objective: "ground", time: "everyturn" } }],
+      atk: [{ splashDmg: { num: 27, objective: "ground", time: "everyturn" } }],
       def: [{ invisible: "invisible" }],
     },
     race: "Terran",
@@ -943,7 +938,7 @@ const protossCards = [
     Admg: 0,
     life: 250,
     ability:
-      "Atacante: daña 20 a los enemigos terrestres. Defensor: daña 30 a los enemigos terrestres",
+      "Atacante: daña 20 en área terrestre. Defensor: daña 30 en área terrestre.",
     abilities: {
       atk: [{ splashDmg: { num: 20, objective: "ground", time: "everyturn" } }],
       def: [{ splashDmg: { num: 30, objective: "ground", time: "everyturn" } }],
@@ -959,7 +954,7 @@ const protossCards = [
     Gdmg: 0,
     Admg: 0,
     life: 180,
-    ability: "Siempre: daña 40 a los enemigos terrestres.",
+    ability: "Siempre: daña 40 en área terrestre.",
     abilities: {
       all: [{ splashDmg: { num: 40, objective: "ground", time: "everyturn" } }],
     },
@@ -971,15 +966,15 @@ const protossCards = [
   },
   {
     name: "Colossus",
-    Gdmg: 28,
+    Gdmg: 0,
     Admg: 0,
     life: 350,
     ability:
-      "Siempre: es afectado por daño aéreo, daña 20 a los enemigos terrestres.",
+      "Siempre: puede ser atacado por anti aéreos, daña 28 en área terrestre.",
     abilities: {
       all: [
         { allMoves: "allMoves" },
-        { splashDmg: { num: 20, objective: "ground", time: "everyturn" } },
+        { splashDmg: { num: 28, objective: "ground", time: "everyturn" } },
       ],
     },
     race: "Protoss",
@@ -1026,7 +1021,17 @@ const protossCards = [
           modStat: {
             mod: "dec",
             objective: "need",
-            stat: "dmg",
+            stat: "Gdmg",
+            perc: 30,
+            team: "enemy",
+            time: "once",
+          },
+        },
+        {
+          modStat: {
+            mod: "dec",
+            objective: "need",
+            stat: "Admg",
             perc: 30,
             team: "enemy",
             time: "once",
@@ -1053,7 +1058,16 @@ const protossCards = [
             mod: "inc",
             objective: "self",
             time: "everyturn",
-            stat: "dmg",
+            stat: "Gdmg",
+            num: 2,
+          },
+        },
+        {
+          modStat: {
+            mod: "inc",
+            objective: "self",
+            time: "everyturn",
+            stat: "Admg",
             num: 2,
           },
         },

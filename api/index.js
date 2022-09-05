@@ -1,4 +1,4 @@
-const server = require("./src/chatServer");
+const server = require("./src/socketServer");
 const db = require("./src/db");
 const users = require("./src/seeders/users");
 const rols = require("./src/seeders/rols");
@@ -11,7 +11,9 @@ const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
 
 const { User, Rol, StarsPack, Card, CardPacks, Status, UserCards } = db;
 
-const PORT = process.env.PORT !== undefined ? process.env.PORT : 3000;
+const forceFlag = true;
+
+const PORT = process.env.PORT !== undefined ? process.env.PORT : 3001;
 
 const createAllCards = async () => {
   const allCards = [];
@@ -65,7 +67,6 @@ const createStatus = async () => {
   }
 };
 
-const forceFlag = false;
 
 db.sequelize.sync({ force: forceFlag }).then(async () => {
   if (forceFlag) {
@@ -79,7 +80,12 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
 
     const cards = await createAllCards();
     const cardsStatus = cards.map(
-      async (card) => await card.setStatus("active")
+      async (card) => card.setStatus("active")
+    );
+
+    const starsPacks = await createAllStarPacks();
+    const starsPacksStatus = starsPacks.map(
+      async (starPack) => starPack.setStatus("active")
     );
 
     const superadmins = await createAllUsers();
@@ -106,7 +112,7 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
       Promise.all(cardsStatus),
       Promise.all(userSuperadmin),
       Promise.all(adminCards),
-      await createAllStarPacks(),
+      Promise.all(starsPacksStatus)
     ]);
   }
 

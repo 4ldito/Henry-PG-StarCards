@@ -91,13 +91,13 @@ export default function Config({ user }) {
           <div>
             <BtnUserProfile user={user} property="username" />
           </div>
-          <div className={style.modal}>
+          {!user.loginGoogle && (<><div className={style.modal}>
             <MdPassword />
             <span className={style.span}>Password: </span>
           </div>
           <div>
             <BtnUserProfile user={user} property="password" />
-          </div>
+          </div></>)}
           {input ? (<div className={style.modal}>
             <span className={style.span}>Email: {user.email}</span>
             <Button color='success' onClick={modifyMail}>MODIFY</Button>

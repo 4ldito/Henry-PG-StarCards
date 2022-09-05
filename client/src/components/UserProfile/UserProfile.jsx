@@ -66,15 +66,17 @@ export default function UserProfile() {
 
   function changeRender(e) {
     let value = e.target.value;
-    value === "1"
-      ? setRender("Inventory")
-      : value === "2"
-      ? setRender("Stats")
-      : value === "3"
-      ? setRender("Config")
-      : value === "5"
-      ? setRender("Friends")
-      : setRender("Chat");
+    if (value === render) return setRender();
+    setRender(value)
+    // value === "1"
+    //   ? setRender("Inventory")
+    //   : value === "2"
+    //   ? setRender("Stats")
+    //   : value === "3"
+    //   ? setRender("Config")
+      // : value === "5"
+      // ? setRender("Friends")
+    //   : setRender("Chat");
   }
 
 
@@ -108,14 +110,14 @@ export default function UserProfile() {
         </Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="1"
+          value="Inventory"
           onClick={(e) => changeRender(e)}
         >
           Inventory
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="2"
+          value="Stats"
           onClick={(e) => changeRender(e)}
           disabled
         >
@@ -123,21 +125,21 @@ export default function UserProfile() {
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="3"
+          value="Config"
           onClick={(e) => changeRender(e)}
         >
           Config
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="4"
+          value="Chat"
           onClick={(e) => changeRender(e)}
         >
           Chat
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="5"
+          value="Friends"
           onClick={(e) => changeRender(e)}
         >
           Friends
@@ -228,12 +230,12 @@ export default function UserProfile() {
   );
 
   return Object.keys(user).length !== 0 ? (
-    actualUrlUser === user ? (
+    actualUrlUser === user || urlUser === null ? (
       showToOwner()
     ) : (
       showToVisitor()
     )
   ) : (
-    <div className={style.response}>'User not logged in'</div>
+    <div className={style.response}>User not logged in</div>
   );
 }

@@ -1,12 +1,15 @@
-
 import {
-  GET_BY_EMAIL, USER_CLEAN, GET_USER_BY_EMAIL,
+  GET_BY_EMAIL,
+  USER_CLEAN,
+  GET_USER_BY_EMAIL,
   GET_USER_BY_NAME,
   CREATE_USER,
-  DELETE_DECK, DELETE_USER,
+  DELETE_DECK,
+  DELETE_USER,
   GET_ALL_USERS,
   GET_USER,
-  GET_USER_DECKS, IS_VALID_TOKEN,
+  GET_USER_DECKS,
+  IS_VALID_TOKEN,
   LOG_OUT,
   MODIFY_USER,
   SET_TOKEN,
@@ -19,17 +22,21 @@ import {
   USER_OPTIONS_STATE,
   ADD_CARD_TO_DECK,
   MODIFY_USER_CARDS,
+  SET_SELECTED_DECK,
+  UPDATE_DECK,
+  CREATE_USER_GOOGLE,
+  GET_GAMES,
   GET_USER_FRIENDS,
   ADD_NEW_FRIEND,
   DELETE_FRIEND
+
 } from "../actions/user";
-
-
 
 const initialState = {
   user: {},
   decks: [],
   activeDeck: {},
+  selectedDeck: {},
   validUser: false,
   urlUser: {},
   validPassword: "",
@@ -39,20 +46,23 @@ const initialState = {
   token: null,
   chatNotification: false,
   userOptions: false,
+  games: [],
   friends: []
 };
-
 
 export default function userReducer(state = initialState, { type, payload }) {
   switch (type) {
     case GET_USER:
-      return { ...state, user: payload };;
+      return { ...state, user: payload };
 
     case GET_ALL_USERS:
       return { ...state, users: payload };
 
     case GET_USER_BY_EMAIL:
-      return { ...state, user: payload, validUser: true }
+      return { ...state, user: payload, validUser: true };
+
+    case CREATE_USER_GOOGLE:
+      return { ...state, user: payload };
 
     case GET_BY_EMAIL:
       return { ...state, actualUser: payload };
@@ -105,7 +115,7 @@ export default function userReducer(state = initialState, { type, payload }) {
 
     case DELETE_USER:
       const usersUpdated = state.users.filter((user) => user.id !== payload);
-      return { ...state, users: usersUpdated, user: {} };;
+      return { ...state, users: usersUpdated, user: {} };
 
     case SET_TOKEN:
       return { ...state, token: payload.token };
@@ -132,7 +142,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, msg: {} };
 
     case USER_CLEAN:
-      return { ...state, validUser: false, user: {} }
+      return { ...state, validUser: false, user: {} };
 
     case USER_MODIFY_STARS:
       const { updatedUser, error } = payload;
@@ -143,24 +153,34 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, chatNotification: payload };
 
     case GET_USER_DECKS:
-      return { ...state, decks: payload }
+      return { ...state, decks: payload };
 
     case CREATE_DECK:
-      return { ...state, decks: [...state.decks, payload] }
+      return { ...state, decks: [...state.decks, payload] };
 
     case DELETE_DECK:
-      return { ...state, decks: state.decks.filter(e => e.id !== payload.deckToRemove.id) }
+      return {
+        ...state,
+        decks: state.decks.filter((e) => e.id !== payload.deckToRemove.id),
+      };
 
     case SET_ACTIVE_DECK:
       return { ...state, activeDeck: payload }
+      
+    case SET_SELECTED_DECK:
+      return {...state, selectedDeck: payload}
+
 
     case MODIFY_USER_CARDS:
-      console.log(payload);
-      payload.forEach(userCard => {
-        const actualUserCard = state.user.UserCards.find(uc => userCard.id === uc.id);
+      payload.forEach((userCard) => {
+        const actualUserCard = state.user.UserCards.find(
+          (uc) => userCard.id === uc.id
+        );
         actualUserCard.StatusId = userCard.StatusId;
       });
-      return { ...state, user: {...state.user} }
+      return { ...state, user: { ...state.user } };
+    case GET_GAMES:
+      return { ...state, games: payload };
     
       case GET_USER_FRIENDS:
         return { ...state, friends: payload };
@@ -170,8 +190,7 @@ export default function userReducer(state = initialState, { type, payload }) {
           return { ...state, friends: [...state.friends, payload] };
       case DELETE_FRIEND:
           return { ...state, friends: payload };
-          
     default:
-      return state;;
+      return state;
   }
 }
