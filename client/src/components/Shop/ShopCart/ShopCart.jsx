@@ -1,22 +1,30 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import StarsPack from './StarsPack';
-import CardsPack from './CardsPack';
-import Swal from 'sweetalert2';
+import React, { useEffect, useMemo, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import StarsPack from "./StarsPack";
+import CardsPack from "./CardsPack";
+import Swal from "sweetalert2";
 
-import { cleanPreferenceId, modifiyQuantity, removeFromShopCart, shopcartBuyCardsPacks, shopCartCleanMsgInfo } from './../../../redux/actions/shopCart';
-import { usePreferenceId } from '../../../hooks/usePreferenceId';
+import {
+  cleanPreferenceId,
+  modifiyQuantity,
+  removeFromShopCart,
+  shopcartBuyCardsPacks,
+  shopCartCleanMsgInfo,
+} from "./../../../redux/actions/shopCart";
+import { usePreferenceId } from "../../../hooks/usePreferenceId";
 
-import style from '../styles/ShopCart.module.css';
+import style from "../styles/ShopCart.module.css";
 
 let intervalMercadopago = null;
 
 const ShopCart = ({ handleSeeShopcart }) => {
   const dispatch = useDispatch();
 
-  const { starsPack, cardsPack } = useSelector(state => state.shopCartReducer.shopCart);
-  const msgInfoPurchase = useSelector(state => state.shopCartReducer.msg);
-  const user = useSelector(state => state.userReducer.user);
+  const { starsPack, cardsPack } = useSelector(
+    (state) => state.shopCartReducer.shopCart
+  );
+  const msgInfoPurchase = useSelector((state) => state.shopCartReducer.msg);
+  const user = useSelector((state) => state.userReducer.user);
   const { preferenceId } = usePreferenceId(starsPack);
 
   const [seeBtn, setSeeBtn] = useState(true);
@@ -26,15 +34,15 @@ const ShopCart = ({ handleSeeShopcart }) => {
 
   useEffect(() => {
     if (msgInfoPurchase.type) {
-      dispatch(shopCartCleanMsgInfo())
+      dispatch(shopCartCleanMsgInfo());
       Swal.fire({
         title: msgInfoPurchase.title,
         text: msgInfoPurchase.info,
         icon: msgInfoPurchase.type,
       });
-      if (msgInfoPurchase.type === 'success' && !starsPack.length) {
+      if (msgInfoPurchase.type === "success" && !starsPack.length) {
         handleSeeShopcart();
-      };
+      }
     }
   }, [msgInfoPurchase]);
 
@@ -45,15 +53,15 @@ const ShopCart = ({ handleSeeShopcart }) => {
 
     dispatch(removeFromShopCart(target, type, user.id));
 
-    if (type === 'starsPack') {
-      setSeeBtn(false)
+    if (type === "starsPack") {
+      setSeeBtn(false);
       if (intervalMercadopago) clearTimeout(intervalMercadopago);
       intervalMercadopago = setTimeout(() => {
         setSeeBtn(true);
         dispatch(cleanPreferenceId());
       }, 1000);
     }
-  }
+  };
 
   const buyWithStars = useMemo(() => {
     return user?.stars >= totalCardsPack;
@@ -63,20 +71,27 @@ const ShopCart = ({ handleSeeShopcart }) => {
     e.preventDefault();
     if (item.quantity === 1) {
       return Swal.fire({
-        title: 'Error!',
-        text: 'No podes bajar la cantidad a 0.',
-        icon: 'error',
-      })
+        title: "Error!",
+        text: "No podes bajar la cantidad a 0.",
+        icon: "error",
+      });
     }
-    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'decrement', userId: user.id }));
+    dispatch(
+      modifiyQuantity({
+        id: item.id,
+        type,
+        modifyType: "decrement",
+        userId: user.id,
+      })
+    );
 
-    if (type === 'starsPack') {
-      setSeeBtn(false)
+    if (type === "starsPack") {
+      setSeeBtn(false);
       if (intervalMercadopago) clearTimeout(intervalMercadopago);
       intervalMercadopago = setTimeout(() => {
         setSeeBtn(true);
         dispatch(cleanPreferenceId());
-      }, 1000)
+      }, 1000);
     }
   };
 
@@ -84,15 +99,22 @@ const ShopCart = ({ handleSeeShopcart }) => {
     e.preventDefault();
     if (item.quantity === item.stock) {
       return Swal.fire({
-        title: 'Error!',
-        text: 'No hay stock disponible.',
-        icon: 'error',
-      })
+        title: "Error!",
+        text: "No hay stock disponible.",
+        icon: "error",
+      });
     }
-    dispatch(modifiyQuantity({ id: item.id, type, modifyType: 'increment', userId: user.id }));
+    dispatch(
+      modifiyQuantity({
+        id: item.id,
+        type,
+        modifyType: "increment",
+        userId: user.id,
+      })
+    );
 
-    if (type === 'starsPack') {
-      setSeeBtn(false)
+    if (type === "starsPack") {
+      setSeeBtn(false);
       if (intervalMercadopago) clearTimeout(intervalMercadopago);
       intervalMercadopago = setTimeout(() => {
         setSeeBtn(true);
@@ -103,17 +125,29 @@ const ShopCart = ({ handleSeeShopcart }) => {
 
   const handleBuyCardsPack = (e) => {
     e.preventDefault();
-    const info = { data: [...cardsPack] }
+    const info = { data: [...cardsPack] };
     dispatch(shopcartBuyCardsPacks(info, user.id));
-  }
+  };
 
   return (
-    <div onClick={(e) => preferenceId !== -1 || !user?.id || (!starsPack.length && !cardsPack.length) || (!starsPack.length && cardsPack.length) ? handleSeeShopcart(e) : ""} className={style.background}>
+    <div
+      onClick={(e) =>
+        preferenceId !== -1 ||
+        !user?.id ||
+        (!starsPack.length && !cardsPack.length) ||
+        (!starsPack.length && cardsPack.length)
+          ? handleSeeShopcart(e)
+          : ""
+      }
+      className={style.background}
+    >
       <div className={style.container}>
-        <div onClick={e => e.stopPropagation()} className={style.infoContainer}>
-          <h2>Carrito</h2>
-          {starsPack.length > 0 || cardsPack.length > 0
-            ? (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={style.infoContainer}
+        >
+          <div className={style.containerScroll}>
+            {starsPack.length > 0 || cardsPack.length > 0 ? (
               <>
                 <StarsPack
                   handleRemoveItem={handleRemoveItem}
@@ -123,7 +157,8 @@ const ShopCart = ({ handleSeeShopcart }) => {
                   seeBtn={seeBtn}
                   user={user}
                   starsPack={starsPack}
-                  totalStarsPack={totalStarsPack} />
+                  totalStarsPack={totalStarsPack}
+                />
 
                 <CardsPack
                   handleRemoveItem={handleRemoveItem}
@@ -133,14 +168,20 @@ const ShopCart = ({ handleSeeShopcart }) => {
                   totalCardsPack={totalCardsPack}
                   user={user}
                   buyWithStars={buyWithStars}
-                  handleBuyCardsPack={handleBuyCardsPack} />
-
-              </>)
-            : <p>El carrito esta vacio</p>}
+                  handleBuyCardsPack={handleBuyCardsPack}
+                />
+              </>
+            ) : (
+              <>
+                <h2>Carrito</h2>
+                <p>El carrito esta vacio</p>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ShopCart
+export default ShopCart;
