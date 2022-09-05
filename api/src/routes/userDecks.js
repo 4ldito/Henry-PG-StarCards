@@ -32,11 +32,11 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
     const isValidDeck = newDeckCards.reduce((prev, curr) => curr.race === newDeckCards[0].race && prev ? true : false, true);
     const deckCosts = newDeckCards.map(e=>e.cost * e.repeat);
     const totalCost = deckCosts.reduce((prev, curr) =>  prev + curr);
-    if (totalCost>20000) return res.json({ error: 'el coste maximo es de 20000 unidades'});
-    if (!isValidDeck) return res.json({ error: 'Todas las cartas deben ser de la mima raza' });
-    if (!name) return res.json({ error: 'El mazo debe tener un nombre' });
-    const alreadyExists = await Deck.findOne({where:{name}});
-    if(alreadyExists) return res.json({error:'Ya hay un mazo con ese nombre'});
+    if (totalCost>20000) return res.json({ error: 'max cost is 20000'});
+    if (!isValidDeck) return res.json({ error: 'All cards must be the same race' });
+    if (!name) return res.json({ error: 'Deck must have a name' });
+    // const alreadyExists = await Deck.findOne({where:{name, UserId:userId}});
+    // if(alreadyExists) return res.json({error:'Deck already exists'});
     try {
         const newDeck = await Deck.create({ name });
         const cardRepeats = [];
