@@ -200,7 +200,7 @@ export function deleteDeck(userId, deckId) {
   };
 }
 export function setActiveDeck(deck) {
-
+  
   return { type: SET_ACTIVE_DECK, payload: deck }
 }
 export function setNewSelectedDeck(deck) {

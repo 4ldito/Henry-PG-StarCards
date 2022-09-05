@@ -20,7 +20,7 @@ export default function InventoryContainer() {
   const [updatingDeck, setUpdatingdeck] = useState({});
   const [newDeckCards, setNewDeckCards] = useState([]);
   const [actualStackToShow, setActualStackToShow] = useState([]);
-  const [actualDeckCost, setActualDeckCost] = useState(0);
+  const [actualCost, setActualCost] = useState(0);
 
 
   const changeDeckName = (name) => {
@@ -51,6 +51,7 @@ export default function InventoryContainer() {
         newCard.repeat = 1;
         setNewDeckCards([...newDeckCards, newCard]);
       }
+      setActualCost(actualCost+card.cost);
     } else {
       const addingCard = cards.find(e => e.id === card.id);
       const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
@@ -105,6 +106,7 @@ export default function InventoryContainer() {
         const newNewDeckCards = newDeckCards.filter(e => e.id !== cardBack.id);
         setNewDeckCards(newNewDeckCards);
       }
+      setActualCost(actualCost-cardBack.cost);
     } else {
 
       if (!updatingDeck.cards) {
@@ -196,7 +198,8 @@ export default function InventoryContainer() {
         newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
         enableAddButton={setBothStacks} userId={user.id} updatingDeck={updatingDeck}
         setUpdatingdeck={setUpdatingdeck} changeDeckName={changeDeckName}
-        updateSelectedDeck={updateSelectedDeck}></DeckList> : <></>}
+        updateSelectedDeck={updateSelectedDeck} setActualCost={setActualCost}
+        actualCost={actualCost}></DeckList> : <></>}
     </div>
   </div >);
 }

@@ -12,14 +12,13 @@ let justDeletedId = null;
 
 function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards,
     newDeckCards, removeCardFromDeck, setNewDeckCards, creatingDeck, setCreatingDeck,
-    changeDeckName, setUpdatingdeck, updatingDeck, updateSelectedDeck }) {
+    changeDeckName, setUpdatingdeck, updatingDeck, updateSelectedDeck,actualCost, setActualCost }) {
     const dispatch = useDispatch();
     const decks = useSelector(state => state.userReducer.decks);
     const cards = useSelector(state => state.album.cards);
     const activeDeck = useSelector(state => state.userReducer.activeDeck);
     const [newDeckName, setNewDeckName] = useState();
     const [creationErrors, setCreationErrors] = useState({});
-    const [actualCost, setActuaCost] = useState(0);
     useEffect(() => {
         // setSelectedDeck(activeDeck)
         document.querySelector('#newDeckName').value = activeDeck.name;
@@ -62,16 +61,16 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
     useEffect(() => { setCreationErrors({}) }, [selectedDeck]);
 
     function createNewDeck(userId, deck, name) {
-
+        setActualCost(0);
         if (name && deck.length) {
             const isValidDeck = deck.reduce((prev, curr) => curr.race === deck[0].race && prev ? true : false, true);
             const deckCosts = deck.map(e => e.cost * e.repeat);
             const totalCost = deckCosts.reduce((prev, curr) => prev + curr);
             console.log(totalCost)
             if (decks.find(e => e.name === name)) {
-                setCreationErrors({ error: 'Ya hay un mazo con ese nombre' });
+                setCreationErrors({ error: 'You Cant Repeat names' });
             } else if (totalCost > 20000) {
-                setCreationErrors({ error: 'El coste maximo es de 20.000 unidades' });
+                setCreationErrors({ error: `You can't exceed the max cost 20000` });
             } else {
                 if (isValidDeck) {
                     dispatch(createDeck(userId, deck, name));
@@ -80,16 +79,16 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                     justCreatedName = name;
                     justCreated = true;
                 } else {
-                    setCreationErrors({ error: 'Todas las cartas deben ser de la misma raza' });
+                    setCreationErrors({ error: 'All cards must to be the same race' });
                 }
             };
         } else {
             if (!name && !deck.length) {
-                setCreationErrors({ error: 'Añadile cartas a tu mazo y nombralo' });
+                setCreationErrors({ error: 'Add some cards to your deck and give it a name' });
             } else if (!name && deck.length) {
-                setCreationErrors({ error: 'Nombrá tu mazo' });
+                setCreationErrors({ error: 'Name your deck' });
             } else {
-                setCreationErrors({ error: 'Añadile cartas a tu mazo' });
+                setCreationErrors({ error: 'Add some cards' });
             }
 
         }
@@ -119,6 +118,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
     }
 
     function openNewDeckTemplate() {
+        setActualCost(0);
         if (!bothStacks) showCards('cartas');
         setCreatingDeck(true);
         enableAddButton(true);
@@ -149,8 +149,8 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 creatingDeck ?
                     setNewDeckName(e.target.value) :
                     changeDeckName(e.target.value)
-            }} placeholder="Nombra el mazo"></input>
-            <div className={css.cardsContainer}>
+            }} placeholder="Name you deck"></input>
+            <div style={{color:"black"}} className={css.cardsContainer}>
                 {actualCost}
                 {creatingDeck ? newDeckCards?.map((e, i) => {
                     return (
