@@ -32,7 +32,7 @@ export default function Pack({
             alt={`${pack.name} pack`}
             onClick={handleDetail}
           />
-          <button className={css.favNull} onClick={handleFav}>
+          <button className={css.favNull} id={pack.id} onClick={handleFav}>
             <BsSuitHeart size={15} />
           </button>
           {/* // ! NO BORRAR */}

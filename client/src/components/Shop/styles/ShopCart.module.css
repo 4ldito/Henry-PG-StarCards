@@ -34,18 +34,42 @@
     rgba(7, 110, 153, 1) 0%,
     rgba(43, 0, 110, 1) 100%
   );
-  border: 2px solid white;
-  border-radius: 20px;
+  border: 2px solid cyan;
   color: white;
 
   width: 70vw;
   max-height: 70vh;
 
-  padding: 1rem 3rem 1rem 1rem;
-  margin: 1rem;
+  padding: 1rem 2rem 1rem 2rem;
+}
 
+.containerScroll{
+  padding: 1rem 3rem 1rem 1rem;
   overflow-y: auto;
 }
+
+.containerScroll::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 40%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  width: 20px;
+}
+
+.containerScroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top
+      left,
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}
+
 
 .containerCart {
   /* background-color: var(--color-dark); */

@@ -37,7 +37,7 @@ const PacksCard = ({ pack, type }) => {
     if (!user.id) {
       return Swal.fire({
         title: "Error!",
-        text: "Inicia sesion primero.",
+        text: "Inicia sesion primero",
         icon: "error",
       });
     }
@@ -144,7 +144,9 @@ const PacksCard = ({ pack, type }) => {
 
             <div className={css.containerBtn}>
               {/* Crear funcion para el "BUY NOW" */}
-              <button className={css.buyNow}>BUY NOW</button>
+              <button className={css.buyNow} onClick={handleBuyNow}>
+                BUY NOW
+              </button>
               <button
                 className={`${css.btn} ${css.btnAddToCart}`}
                 onClick={handleAddItem}
@@ -216,7 +218,9 @@ const PacksCard = ({ pack, type }) => {
         </div>
       </div>
       <div className={style.containerBtn}>
-        <button className={style.buyNow}>BUY NOW</button>
+        <button className={style.buyNow} onClick={handleBuyNow}>
+          BUY NOW
+        </button>
         <button
           className={`${style.btn} ${style.btnAddToCart}`}
           onClick={handleAddItem}
