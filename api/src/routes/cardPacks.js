@@ -32,7 +32,7 @@ packsRoute.post('/', async(req,res,next)=>{
     if (name) {
       const ispack = await CardPacks.findOne({where: {name}});
       if (ispack) {
-        return res.status(404).send('no jodas xD exist')
+        return res.status(404).send('no exist')
       }
       if(!ispack){
         const newpack = await CardPacks.findOrCreate(

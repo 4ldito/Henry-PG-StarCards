@@ -35,6 +35,7 @@ function CreatePacks() {
         race: [],
         cards: 
             [],
+        percent: [],
         stock: '',
         image: null,
         amount: ''
@@ -79,18 +80,37 @@ function CreatePacks() {
       }
     }
 
+    const handleSelectPercent = (e)=>{
+      if(input.percent.includes(e.target.value)){
+        alert('Otra raza');
+    }else{
+        if(input.percent.includes(e.target.value)){
+            alert('Otra carta literal')
+        }else{
+            setInput({
+                ...input,
+                percent:[...input.percent,e.target.value],
+            });
+        }
+    }
+    }
+
     const handleSubmitPack = async (e) => {
         e.preventDefault();
         try {
-        console.log(porcentaje);
-        
         const result = await uploadFilePack(file, input.name);//obteninedo la url con el nombre
             //console.log(result);
         input.image = result//obteniendo en el input.image el url
         const valorespack = input
+        valorespack.percent = valorespack.percent.map((perce)=>perce/100) //división a 100
+
+        for (let i = 0; i < valorespack.percent.length; i++) {//agregado el porcentaje
+          valorespack.cards[i].push(valorespack.percent[i])
+        }
+        valorespack.percent=null//anulando percent
 
         console.log(valorespack);
-        dispatch(createPackCardsAdmin(input))
+        dispatch(createPackCardsAdmin(valorespack)) //enviando los valores reales
         } catch (error) {
             alert('intentelo otra vez');
         }
@@ -99,7 +119,8 @@ function CreatePacks() {
     const handleDelete = (e)=>{
       setInput({
         ...input,
-        cards: input.cards.filter((card)=>card!==e)
+        cards: input.cards.filter((card)=>card!==e),
+        //percent: input.percent.filter((percent)=>percent!==e) falta eliminar porcentaje
       });
     };
 
@@ -173,14 +194,22 @@ function CreatePacks() {
         <div>
         {input.cards?.map((e)=>{
           return(
-            <div>
+            <div key={e}>
               <p>{e}</p>
-              <input type="number" 
-              value={porcentaje}
-              onChange={(e)=>handleChange(e)} />
+              <select onChange={(e)=>handleSelectPercent(e)}>
+                    <option disabled selected>Porcentaje</option>
+                    <option value="1">1%</option>
+                    <option value="2">2%</option>
+                    <option value="3">3%</option>
+                    <option value="5">5%</option>
+                    <option value="7">7%</option>
+                    <option value="10">10%</option>
+                    <option value="15">15%</option>
+                    <option value="20">20%</option>        
+              </select>
               <button 
                 onClick={()=>{
-                  handleDelete(e);
+                  handleDelete(e) 
                 }}
               >
                 x
@@ -190,27 +219,6 @@ function CreatePacks() {
         })}
       </div>
       </form>
-
-      {/* muestra */}
-      <div>
-        {input.cards?.map((e)=>{
-          return(
-            <div>
-              <p>{e}</p>
-              <input type="number" 
-              value={porcentaje}
-              onChange={(e)=>handleChange(e)} />
-              <button 
-                onClick={()=>{
-                  handleDelete(e);
-                }}
-              >
-                x
-              </button>
-            </div>
-          )
-        })}
-      </div>
 
 
     </>
