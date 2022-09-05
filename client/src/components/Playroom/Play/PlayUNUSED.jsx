@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getUser, getUserGames } from "../../../redux/actions/user";
+import { getUserGames } from "../../../redux/actions/user";
 import socket from "../../../../Socket";
 import GameView from "./GameView";
 
-import css from "./PrivateChat.module.css";
+// import css from "./PrivateChat.module.css";
 
 const Play = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,6 @@ const Play = () => {
   }, [reduxGames]);
 
   useEffect(() => {
-    dispatch(getUser(userActive.id));
     dispatch(getUserGames(userActive.id));
   }, []);
 
@@ -41,7 +40,6 @@ const Play = () => {
 
   useEffect(() => {
     socket.on("gameResults", () => {
-      dispatch(getUser(userActive.id));
       dispatch(getUserGames(userActive.id));
     });
     return () => {
@@ -68,16 +66,21 @@ const Play = () => {
       ) : (
         <div>
           <div>
-            <span>Game history</span>
-            {games.length &&
-              games.map((g, i) => {
-                return (
-                  <div key={i} onClick={(e) => handleGameView(g)}>
-                    <span>{g.player1.race}</span> vs{" "}
-                    <span>{g.player2.race}</span>
-                  </div>
-                );
-              })}
+            {games.length !== 0 ? (
+              <>
+                <span>Game history</span>
+                {games.map((g, i) => {
+                  return (
+                    <div key={i} onClick={(e) => handleGameView(g)}>
+                      <span>{g.player1.race}</span> vs{" "}
+                      <span>{g.player2.race}</span>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              "No games played yet!"
+            )}
           </div>
           {onGame ? (
             <button disabled>Queued...</button>
