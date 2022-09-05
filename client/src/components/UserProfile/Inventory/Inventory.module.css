@@ -105,7 +105,7 @@
 .cartasYMazo {
   display: flex;
   align-self: flex-start;
-  justify-content:flex-start;
+  justify-content:flex-end;
   flex-wrap: wrap;
   overflow-y: scroll;
   align-items: center;

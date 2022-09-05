@@ -38,6 +38,7 @@ export function getUserCards(userCards, allCards) {
     if (!alreadyExists) {
       actualCard.repeat = 1;
       userCardsInventory[seeIn].push(actualCard);
+      userCard.onDeck = false;
       actualCard.userCards = [userCard];
     } else {
       alreadyExists.repeat++;

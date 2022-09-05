@@ -1,12 +1,13 @@
 "use strict";
 
+const { INTEGER } = require("sequelize");
 const { Model } = require("sequelize");
 
 class Deck extends Model {
   static associate(models) {
     Deck.belongsTo(models.User);
     Deck.belongsTo(models.Status);
-    Deck.belongsToMany(models.Card, { through: "DeckCard" });
+    Deck.belongsToMany(models.UserCards, { through: "DeckCard"});
   }
 }
 
@@ -21,12 +22,13 @@ module.exports = (sequelize, DataTypes) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+       },
+      cardRepeats:{
+          type: DataTypes.STRING(5000) 
       },
-      // cardsMax: {
-      //   type: DataTypes.INTEGER,
-      //   allowNull: false,
-      //   unique: true,
-      // },
+      tatalCost:{
+        type: DataTypes.INTEGER
+      }
     },
     {
       sequelize,
