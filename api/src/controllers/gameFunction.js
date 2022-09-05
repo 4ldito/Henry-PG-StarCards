@@ -34,8 +34,8 @@ function battle(atk, def) {
     defArmy = { ground: [], air: [] };
 
   while (!defArmy.defeated && !atkArmy.defeated) {
-    const newAtk = atk.shift(),
-      newDef = def.shift();
+    const newAtk = { ...atk.shift() },
+      newDef = { ...def.shift() };
     if (newAtk) atkArmy[newAtk.movement].push(newAtk);
     if (newDef) defArmy[newDef.movement].push(newDef);
 

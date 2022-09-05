@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUser, getUserGames } from "../../redux/actions/user";
 import socket from "../../../Socket";
+import GameView from "./Play/GameView";
 
 import style from "./Playroom.module.css";
 import styleChat from "../Chat/Chat.module.css";
@@ -95,6 +96,7 @@ export default function Playroom() {
 
   function handlePlay() {
     socket.emit("playRequest", userActive.id);
+    setOnGame(true);
   }
 
   function handleGameView(game) {

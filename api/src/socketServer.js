@@ -147,7 +147,6 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("publicMessage", (username, message) => {
-    console.log(message);
     io.emit("messages", { username, message });
   });
 
