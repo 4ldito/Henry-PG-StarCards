@@ -50,6 +50,7 @@ userDecksRoute.post('/:userId', async (req, res, next) => {
 
 
         newDeck.cardRepeats = JSON.stringify(cardRepeats);
+        newDeck.totalCost = totalCost;
         newDeck.save();
 
         const user = await User.findByPk(userId, { include: Deck });

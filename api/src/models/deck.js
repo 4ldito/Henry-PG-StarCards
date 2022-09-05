@@ -1,5 +1,6 @@
 "use strict";
 
+const { INTEGER } = require("sequelize");
 const { Model } = require("sequelize");
 
 class Deck extends Model {
@@ -24,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
        },
       cardRepeats:{
           type: DataTypes.STRING(5000) 
+      },
+      tatalCost:{
+        type: DataTypes.INTEGER
       }
     },
     {

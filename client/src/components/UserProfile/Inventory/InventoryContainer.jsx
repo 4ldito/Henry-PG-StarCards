@@ -20,22 +20,22 @@ export default function InventoryContainer() {
   const [updatingDeck, setUpdatingdeck] = useState({});
   const [newDeckCards, setNewDeckCards] = useState([]);
   const [actualStackToShow, setActualStackToShow] = useState([]);
-  
+  const [actualDeckCost, setActualDeckCost] = useState(0);
 
 
   const changeDeckName = (name) => {
-    if(updatingDeck.cards){
-      setUpdatingdeck({...updatingDeck,name});
-    }else{
+    if (updatingDeck.cards) {
+      setUpdatingdeck({ ...updatingDeck, name });
+    } else {
       const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
 
       const selectedDeckCards = selectedDeck.UserCards.map(e => {
         const card = cards.find(el => el.id === e.CardId);
         const repeat = userCardsInSD.find(el => el.userCard.id === e.id).repeat;
-          card.repeat = repeat;
+        card.repeat = repeat;
         return card;
       });
-      setUpdatingdeck({cards: selectedDeckCards, name});
+      setUpdatingdeck({ cards: selectedDeckCards, name });
     }
   }
   const addCardToDeck = (card, repeat) => {
@@ -141,7 +141,7 @@ export default function InventoryContainer() {
 
   const updateSelectedDeck = (userId, deckId, newDeck) => {
     dispatch(setActiveDeck({}));
-    dispatch(updateDeck(userId,deckId,newDeck));
+    dispatch(updateDeck(userId, deckId, newDeck));
   }
 
 
@@ -175,6 +175,7 @@ export default function InventoryContainer() {
     dispatch(getUserCards(user.UserCards, cards));
   }, [cards]);
 
+  
   const setVisibleStack = (name) => {
     if (actualStackToShow.includes(name)) {
       setActualStackToShow(actualStackToShow.filter(e => e !== name));
@@ -194,7 +195,7 @@ export default function InventoryContainer() {
         creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
         newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
         enableAddButton={setBothStacks} userId={user.id} updatingDeck={updatingDeck}
-        setUpdatingdeck={setUpdatingdeck} changeDeckName={changeDeckName} 
+        setUpdatingdeck={setUpdatingdeck} changeDeckName={changeDeckName}
         updateSelectedDeck={updateSelectedDeck}></DeckList> : <></>}
     </div>
   </div >);
