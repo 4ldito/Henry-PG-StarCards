@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserCards } from "../../../redux/actions/cards/userCards";
-import { addDeckCard, getUserDecks, removeDeckCard, updateDeck } from "../../../redux/actions/user";
+import { addDeckCard, getUserDecks, removeDeckCard, setActiveDeck, updateDeck } from "../../../redux/actions/user";
 import { CardContainer } from "../../Card/CardContainer";
 import DeckList from "./Decks/DeckList";
 
@@ -20,7 +20,24 @@ export default function InventoryContainer() {
   const [updatingDeck, setUpdatingdeck] = useState({});
   const [newDeckCards, setNewDeckCards] = useState([]);
   const [actualStackToShow, setActualStackToShow] = useState([]);
+  
 
+
+  const changeDeckName = (name) => {
+    if(updatingDeck.cards){
+      setUpdatingdeck({...updatingDeck,name});
+    }else{
+      const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
+
+      const selectedDeckCards = selectedDeck.UserCards.map(e => {
+        const card = cards.find(el => el.id === e.CardId);
+        const repeat = userCardsInSD.find(el => el.userCard.id === e.id).repeat;
+          card.repeat = repeat;
+        return card;
+      });
+      setUpdatingdeck({cards: selectedDeckCards, name});
+    }
+  }
   const addCardToDeck = (card, repeat) => {
     if (!selectedDeck.name) {
       const newCardI = userCards.findIndex(e => e.id === card.id);
@@ -40,8 +57,9 @@ export default function InventoryContainer() {
 
       const selectedDeckCards = selectedDeck.UserCards.map(e => {
         const card = cards.find(el => el.id === e.CardId);
-        const repeat = userCardsInSD.find(el => el.userCard.id === e.id).repeat;
-        if(!updatingDeck.cards){
+        const repeat = userCardsInSD.find(el => el.userCard.id === e.id)?.repeat;
+        if (!updatingDeck.cards) {
+          // setCreatingDeck(true);
           card.repeat = repeat;
         }
         return card;
@@ -51,7 +69,7 @@ export default function InventoryContainer() {
       if (!updatingDeck.cards) {
         cardAlreadyInDeck = selectedDeckCards.find(e => e.id === addingCard.id);
       } else {
-        cardAlreadyInDeck = updatingDeck.cards.find(e=> e.id === addingCard.id);
+        cardAlreadyInDeck = updatingDeck.cards.find(e => e.id === addingCard.id);
       }
       if (!cardAlreadyInDeck) {
         addingCard.repeat = 1;
@@ -61,20 +79,17 @@ export default function InventoryContainer() {
           setUpdatingdeck({ ...updatingDeck, cards: [...updatingDeck.cards, addingCard] });
         }
       } else {
-        if(cardAlreadyInDeck.repeat<repeat){
-          console.log(cardAlreadyInDeck);
+        if (cardAlreadyInDeck.repeat < repeat) {
           cardAlreadyInDeck.repeat++;
           if (!updatingDeck.cards) {
             setUpdatingdeck({ ...updatingDeck, cards: [...selectedDeckCards] })
           } else {
             setUpdatingdeck({ ...updatingDeck, cards: [...updatingDeck.cards] });
           }
-        }else{
-          console.log('nope');
+        } else {
         }
 
       }
-      console.log(updatingDeck)
     }
   }
 
@@ -93,45 +108,56 @@ export default function InventoryContainer() {
     } else {
 
       if (!updatingDeck.cards) {
+        // setCreatingDeck(true);
         const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
         const selectedDeckCards = selectedDeck.UserCards.map(e => {
 
           let card = cards.find(el => el.id === e.CardId);
 
-          const repeat = userCardsInSD.find(el => el.userCard.id === e.id).repeat;
+          const repeat = userCardsInSD.find(el => el.userCard.id === e.id)?.repeat;
 
           card.repeat = repeat;
           if (e.id === uCardId) card.repeat--;
           return card;
         });
-        console.log(selectedDeckCards);
+        // console.log(selectedDeckCards);
         setUpdatingdeck({ ...updatingDeck, cards: selectedDeckCards });
       } else {
         const removingCard = updatingDeck.cards.find(e => e.id === id);
         if (removingCard) {
           if (removingCard.repeat > 1) {
             removingCard.repeat--
-            setUpdatingdeck({ ...updatingDeck });
+            setUpdatingdeck({ ...updatingDeck, cards: [...updatingDeck.cards] });
           } else {
             setUpdatingdeck({ ...updatingDeck, cards: updatingDeck.cards.filter(e => e.id !== removingCard.id) })
           };
         }
-        console.log(updatingDeck);
+        // console.log(updatingDeck);
       }
 
     }
 
   }
 
-  // const updateDeck = (userId, deckId, name, cards) => {
-  //   dispatch(updateDeck());
-  // }
+  const updateSelectedDeck = (userId, deckId, newDeck) => {
+    dispatch(setActiveDeck({}));
+    dispatch(updateDeck(userId,deckId,newDeck));
+  }
 
 
   function renderNotRepeat() {
     let cartas = [];
     filteredUserCards?.forEach(e => {
-      cartas.push(<CardContainer key={e.id} inDeck={false} tamanho='.5' newDeckCards={newDeckCards} addCardToDeck={addCardToDeck} addButton={bothStacks ? true : false} card={e} repeat={e.repeat} creatingDeck={creatingDeck} />)
+      cartas.push(<CardContainer key={e.id}
+        inDeck={false}
+        tamanho='.5'
+        newDeckCards={newDeckCards}
+        addCardToDeck={addCardToDeck}
+        addButton={bothStacks ? true : false}
+        card={e}
+        repeat={e.repeat}
+        creatingDeck={creatingDeck}
+        updatingDeck={updatingDeck} />)
     })
     if (filteredUserCards.length) return cartas
     return <label>Not cards found</label>
@@ -168,7 +194,8 @@ export default function InventoryContainer() {
         creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
         newDeckCards={newDeckCards} showCards={setVisibleStack} bothStacks={bothStacks}
         enableAddButton={setBothStacks} userId={user.id} updatingDeck={updatingDeck}
-        setUpdatingdeck={setUpdatingdeck} ></DeckList> : <></>}
+        setUpdatingdeck={setUpdatingdeck} changeDeckName={changeDeckName} 
+        updateSelectedDeck={updateSelectedDeck}></DeckList> : <></>}
     </div>
   </div >);
 }

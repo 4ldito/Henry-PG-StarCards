@@ -8,7 +8,8 @@ import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 import css from './CardContainer.module.css'
 
 
-export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, inDeck, removeCardFromDeck, creatingDeck, newDeckCards }) {
+export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, inDeck,
+                               removeCardFromDeck, creatingDeck, updatingDeck, newDeckCards }) {
   const dispatch = useDispatch();
   const selectedDeck = useSelector(state => state.userReducer.selectedDeck);
   const [viewCard, setViewCard] = useState(false);
@@ -35,21 +36,25 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
     if (!inDeck) {
       // console.log('hola afuera');
       if (!creatingDeck) {
-
-        if (selectedDeck.UserCards) {
+        if (updatingDeck?.cards) {       
+          const cardToAdd = updatingDeck.cards.find(e => e.id === card.id);
+          setNewRepeatForThoseWichAreNotInDeck(cardToAdd ? (repeat - cardToAdd.repeat) : repeat);
+        }else if (selectedDeck?.UserCards) {
+          // console.log('esta entrando aca si');
+          
           const cardRepeats = JSON.parse(selectedDeck.cardRepeats);
           const cuca = cardRepeats.find(e => e.userCard.CardId === card.id);
-
+          
           setNewRepeatForThoseWichAreNotInDeck(cuca ? (repeat - cuca.repeat) : repeat);
         }
       } else {
-        // console.log('hola');
+        
         const cardInDeckRepeats = newDeckCards?.find(e => e.id === card.id);
         setNewRepeatForThoseWichAreNotInDeck(cardInDeckRepeats ? repeat - cardInDeckRepeats.repeat : repeat);
       }
     }
-
-  }, [selectedDeck, newDeckCards]);
+    
+  }, [selectedDeck, newDeckCards, updatingDeck?.cards]);
 
   useEffect(() => {
     if (inDeck) {
@@ -64,7 +69,7 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
     let userCardRepeats = {};
     if (cardsRepeat && uCard) userCardRepeats = (cardsRepeat?.find(el => el.userCard.id === uCard.id));
 
-    setThisCardRepeats(userCardRepeats.repeat);
+    setThisCardRepeats(userCardRepeats?.repeat);
     // console.log(cardsRepeat);
 
   }, [cardsRepeat]);
@@ -85,13 +90,13 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
     <div className={css.container}>
       {(newRepeatForThoseWichAreNotInDeck || justPassin) && <>
         {/* {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeat - thisCardRepeats.repeat : repeat}</label>} */}
-        {inDeck ? creatingDeck ? <label style={{ color: 'violet', fontSize: "50px" }}>{repeat > 1 && repeat}</label> :
+        {inDeck ? creatingDeck || updatingDeck?.cards ? <label style={{ color: 'violet', fontSize: "50px" }}>{repeat > 1 && repeat}</label> :
           <label style={{ color: 'violet', fontSize: "50px" }}>{thisCardRepeats > 1 && thisCardRepeats}</label> :
           repeat > 1 ? <label style={{ fontSize: "50px" }}>{newRepeatForThoseWichAreNotInDeck || repeat}</label> :
             <></>}
         {/* {inDeck?<label style={{ color:'violet',fontSize: "50px" }}>{thisCardRepeats}</label>:<></>} */}
         {/* {!inDeck && repeat>1?<label style={{ fontSize: "50px" }}>{repeat}</label>:<></>} */}
-        {addButton && <button onClick={() => {addCardToDeck(card,repeat)}}>Añadir al mazo</button>}
+        {(addButton && !selectedDeck?.name) && <button onClick={() => { addCardToDeck(card, repeat) }}>Añadir al mazo</button>}
         <Card
           id={card.id}
           name={card.name}
@@ -106,8 +111,8 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
           movement={card.movement}
         />
         {!inDeck && <button onClick={handleViewCard}>{'Vender'}</button>}
-        {inDeck && <button onClick={() => {
-          selectedDeck.name ? removeCardFromDeck(card.id,uCard.id) :
+        {(inDeck&& !selectedDeck?.name) && <button onClick={() => {
+          selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
             removeCardFromDeck(card.id)
         }}>Sacar del mazo</button>}
         {viewCard && (
