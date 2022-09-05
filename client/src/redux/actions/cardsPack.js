@@ -9,7 +9,7 @@ export const GET_DETAIL_PACK = 'GET_DETAIL_PACK'
 
 export function getCardsPacks() {
   return async function (dispatch) {
-    const response = await axios.get('packs/all')
+    const response = await axios.get('packs/active')
     dispatch({ type: GET_ALL_CARDS_PACKS, payload: response.data })
   }
 }

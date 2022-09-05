@@ -87,14 +87,14 @@ export default function UserProfile() {
         </Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="1"
+          value="Inventory"
           onClick={(e) => changeRender(e)}
         >
           Inventory
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="2"
+          value="Stats"
           onClick={(e) => changeRender(e)}
           disabled
         >
@@ -102,14 +102,14 @@ export default function UserProfile() {
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="3"
+          value="Config"
           onClick={(e) => changeRender(e)}
         >
           Config
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="4"
+          value="Chat"
           onClick={(e) => changeRender(e)}
         >
           Chat
@@ -183,12 +183,12 @@ export default function UserProfile() {
   );
 
   return Object.keys(user).length !== 0 ? (
-    actualUrlUser === user ? (
+    actualUrlUser === user || urlUser === null ? (
       showToOwner()
     ) : (
       showToVisitor()
     )
   ) : (
-    <div className={style.response}>'User not logged in'</div>
+    <div className={style.response}>User not logged in</div>
   );
 }

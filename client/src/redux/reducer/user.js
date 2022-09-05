@@ -154,11 +154,6 @@ export default function userReducer(state = initialState, { type, payload }) {
     case CREATE_DECK:
       return { ...state, decks: [...state.decks, payload] };
 
-    case UPDATE_DECK:
-      const updatedDeckIndex = state.decks.findIndex(e=>e.id===payload.id);
-      state.decks[updatedDeckIndex] = payload;
-      return { ...state};
-
     case DELETE_DECK:
       return {
         ...state,
