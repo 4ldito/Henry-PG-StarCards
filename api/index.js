@@ -80,7 +80,12 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
 
     const cards = await createAllCards();
     const cardsStatus = cards.map(
-      async (card) => await card.setStatus("active")
+      async (card) => card.setStatus("active")
+    );
+
+    const starsPacks = await createAllStarPacks();
+    const starsPacksStatus = starsPacks.map(
+      async (starPack) => starPack.setStatus("active")
     );
 
     const superadmins = await createAllUsers();
@@ -107,7 +112,7 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
       Promise.all(cardsStatus),
       Promise.all(userSuperadmin),
       Promise.all(adminCards),
-      await createAllStarPacks(),
+      Promise.all(starsPacksStatus)
     ]);
   }
 
