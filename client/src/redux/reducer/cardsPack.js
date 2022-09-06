@@ -25,7 +25,7 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
         });
         return pack;
       })
-      return { ...state, filteredCardsPack: [...data], cardsPacks: [...data], msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
+      return { ...state, filteredCardsPack: [...data], cardsPacks: [...data], msg: { type: 'success', info: msg, title: 'Purchase completed!' } }
 
     case FILTER_CARDS_PACKS:
       const { race, order, favs } = payload;

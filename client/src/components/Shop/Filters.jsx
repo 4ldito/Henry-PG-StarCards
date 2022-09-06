@@ -56,7 +56,7 @@ const Filters = () => {
           </button>
         ) : (
           <button className={style.btn} onClick={onSelectChange} value="all" name="favs">
-            Mostrar todos
+            Show all
           </button>
         )
       ) : (
@@ -71,11 +71,11 @@ const Filters = () => {
       </select>
 
       <select ref={selectOrder} onChange={onSelectChange} name="order" className={style.select}>
-        <option hidden value="allPrices">Seleccionar orden</option>
-        <option value="priceDes">Precio de mayor a menor</option>
-        <option value="priceAsc">Precio de menor a mayor</option>
-        <option value="stockDes">Stock de mayor a menor</option>
-        <option value="stockAsc">Stock de menor a mayor</option>
+        <option hidden value="allPrices">Select order</option>
+        <option value="priceDes">Price from highest to lowest</option>
+        <option value="priceAsc">Price from lowest to highest</option>
+        <option value="stockDes">Stock from highest to lowest</option>
+        <option value="stockAsc">Stock from lowest to highest</option>
       </select>
 
       {/* <select onChange={onSelectChange} name='order'>

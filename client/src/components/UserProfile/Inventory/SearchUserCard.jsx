@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserCards, searchUserCard } from '../../../redux/actions/cards/userCards';
+import { searchUserCard } from '../../../redux/actions/cards/userCards';
 
 import css from "./SearchCard.module.css";
 
@@ -8,8 +8,7 @@ export default function SearchUserCard() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const cards = useSelector((state) => state.album.userCards);
-  const user = useSelector(state => state.userReducer.user)
-
+  // const user = useSelector(state => state.userReducer.user)
 
   function onInputChange(e) {
     e.preventDefault();
@@ -18,7 +17,7 @@ export default function SearchUserCard() {
   }
 
   return (
-    <form className={css.form} >
+    <form onSubmit={e => e.preventDefault()} className={css.form} >
       <input type="text" onChange={(e) => onInputChange(e)} value={search} />
       <input className={css.btnSearch} type="submit" value="search" />
     </form>

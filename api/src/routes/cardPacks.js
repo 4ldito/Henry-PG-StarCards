@@ -69,7 +69,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
     for (const pack of data) {
       info[pack.name] = { quantity: pack.quantity }
-      if (pack.stock < pack.quantity) return res.send({ error: 'Stock insuficente' });
+      if (pack.stock < pack.quantity) return res.send({ error: 'Not enough stock!' });
       pack.subTotal = pack.quantity * pack.price;
     }
 
@@ -82,7 +82,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
     if (clearShopcart) await ShopCart.destroy({ where: { UserId: userId, packTypes: 'cardsPack' } });
 
-    if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
+    if (user.stars < total) return res.send({ error: 'You dont have enough stars!' });
 
     user.stars = user.stars - total;
 
@@ -131,7 +131,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
     });
 
     await axios.post(`${url}/userCards`, { userId: updatedUser.id, cardsId });
-    return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo, updatedUser });
+    return res.send({ msg: `Purchase completed successfully. Total: ${total}`, updatedInfo, updatedUser });
   } catch (error) {
     console.error(error)
     return res.send(error)

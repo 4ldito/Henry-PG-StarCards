@@ -68,18 +68,7 @@ export default function UserProfile() {
     let value = e.target.value;
     if (value === render) return setRender();
     setRender(value)
-    // value === "1"
-    //   ? setRender("Inventory")
-    //   : value === "2"
-    //   ? setRender("Stats")
-    //   : value === "3"
-    //   ? setRender("Config")
-    // : value === "5"
-    // ? setRender("Friends")
-    //   : setRender("Chat");
   }
-
-
 
   const myFriend = friends?.find((f) => f.id === actualUrlUser.id)
 
@@ -94,16 +83,10 @@ export default function UserProfile() {
 
   const showToOwner = () => (
     <>
-      <div className={style.img}>
-        {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
-        {/* <button className={style.changecv}>Change Cover Imagen</button> */}
-
-        {/* <button className={style.changep}></button> */}
-        <Link className={style.stars} to="/shop">
-          <FaShoppingCart size={28} />
-          Stars: {user.stars}
-        </Link>
-      </div>
+      <Link className={style.stars} to="/shop">
+        <FaShoppingCart size={28} />
+        Stars: {user.stars}
+      </Link>
       <div className={style.buttonsbar}>
         <button
           className={`${style.buttons} ${style.disabled}`}
