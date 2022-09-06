@@ -21,8 +21,8 @@ export default function UserProfile() {
   const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState('Inventory');
-  const { validToken } = useValidToken({ navigate: true });
+  const [render, setRender] = useState("Inventory");
+  useValidToken({ navigate: true });
 
   // Read profile owner from url
   function useQuery() {
@@ -43,8 +43,6 @@ export default function UserProfile() {
     dispatch(getAllCards());
     // dispatch(getUserFriends(activeUser.id));
   }, []);
-
-  
 
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
@@ -69,70 +67,39 @@ export default function UserProfile() {
     if (value === render) return setRender('Inventory');
     setRender(value)
   }
-  
+
   const myFriend = friends?.find((f) => f.id === actualUrlUser.id)
 
-  function addFriend (e) {
-    dispatch(addNewFriend(activeUser.id, actualUrlUser.id ))
+  function addFriend(e) {
+    dispatch(addNewFriend(activeUser.id, actualUrlUser.id))
   }
 
-  function deleteThisFriend (e) {
-    dispatch(deleteFriend({userId: activeUser.id, friendId: actualUrlUser.id }))
+  function deleteThisFriend(e) {
+    dispatch(deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id }))
   }
- 
 
   const showToOwner = () => (
     <>
-      <div className={style.img}>
-        {/* <img className={style.coverimg} src={user.coverImg} alt="coverImg" /> */}
-        {/* <button className={style.changecv}>Change Cover Imagen</button> */}
-
-        {/* <button className={style.changep}></button> */}
+      <div className={style.buttonsbar}>
+        <button className={`${style.buttons} ${style.disabled}`} value="Inventory" onClick={(e) => changeRender(e)}>
+          Inventory
+        </button>
+        <button className={`${style.buttons} ${style.disabled}`} value="Stats" onClick={(e) => changeRender(e)} disabled>
+          Stats
+        </button>
+        <button className={`${style.buttons} ${style.disabled}`} value="Config" onClick={(e) => changeRender(e)}>
+          Config
+        </button>
+        <button className={`${style.buttons} ${style.disabled}`} value="Chat" onClick={(e) => changeRender(e)}>
+          Chat
+        </button>
+        <button className={`${style.buttons} ${style.disabled}`} value="Friends" onClick={(e) => changeRender(e)}>
+          Friends
+        </button>
         <Link className={style.stars} to="/shop">
           <FaShoppingCart size={28} />
           Stars: {user.stars}
         </Link>
-      </div>
-      <div className={style.buttonsbar}>
-        {/* <Link to="/inventory">
-          <button>Inventory</button>
-        </Link> */}
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Inventory"
-          onClick={(e) => changeRender(e)}
-        >
-          Inventory
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Stats"
-          onClick={(e) => changeRender(e)}
-          disabled
-        >
-          Stats
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Config"
-          onClick={(e) => changeRender(e)}
-        >
-          Config
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Chat"
-          onClick={(e) => changeRender(e)}
-        >
-          Chat
-        </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Friends"
-          onClick={(e) => changeRender(e)}
-        >
-          Friends
-        </button>
       </div>
 
       {render === "Config" ? (
@@ -146,7 +113,7 @@ export default function UserProfile() {
       ) : render === "Chat" ? (
         <PrivateChat />
       ) : render === "Friends" ? (
-        <Friends id={activeUser.id}/>
+        <Friends id={activeUser.id} />
       ) : (
         ""
       )}
@@ -163,13 +130,6 @@ export default function UserProfile() {
         />
       </div>
       <div className={style.buttonsbar}>
-        {/* <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="1"
-          onClick={(e) => changeRender(e)}
-        >
-          Inventory
-        </button> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
           value="Stats"
@@ -185,21 +145,21 @@ export default function UserProfile() {
         >
           Chat
         </button>
-       
-        { myFriend ? 
+
+        {myFriend ?
           <button
-          className={`${style.buttons} ${style.disabled}`}
-          onClick={(e) => deleteThisFriend(e)}
-        >
-          Delete friend
-        </button>
-        :
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          onClick={(e) => addFriend(e)}
-        >
-          Add friend
-        </button>}
+            className={`${style.buttons} ${style.disabled}`}
+            onClick={(e) => deleteThisFriend(e)}
+          >
+            Delete friend
+          </button>
+          :
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            onClick={(e) => addFriend(e)}
+          >
+            Add friend
+          </button>}
       </div>
 
       {render === "Chat" ? (

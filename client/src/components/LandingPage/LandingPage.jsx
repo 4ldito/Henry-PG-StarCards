@@ -32,6 +32,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (user.id !== undefined) dispatch(getUser(user.id));
+    window.scroll({ top: 0, behavior: "auto" });
   }, []);
 
   useEffect(() => {

@@ -8,11 +8,11 @@ import { getUser } from "../../redux/actions/user";
 
 import Packs from "./Packs/Packs";
 import Filters from "./Filters";
-
-import pack from "./styles/buyPack.module.css";
-import style from "./styles/Shop.module.css";
 import ShopCart from "./ShopCart/ShopCart";
 import ForSaleCards from "./ForSaleCards";
+
+import style from "./styles/Shop.module.css";
+import stylePack from "./styles/buyPack.module.css";
 
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -95,7 +95,7 @@ const Shop = () => {
         {view === "stars" ? (
           <Packs type="starsPack" />
         ) : view === "packsCards" ? (
-          <div className={pack.container}>
+          <div className={stylePack.container}>
             <Filters />
             <Packs type="cardsPack" />
           </div>

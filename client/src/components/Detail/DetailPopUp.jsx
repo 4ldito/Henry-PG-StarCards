@@ -7,8 +7,7 @@ import {
 } from "../../redux/actions/cards/opinion";
 
 import css from "./DetailPopUp.module.css";
-import { MdStarOutline } from "react-icons/md";
-import { MdStar } from "react-icons/md";
+import { MdStar, MdStarOutline } from "react-icons/md";
 
 export default function DetailPopUp({
   handleDetail,
@@ -30,13 +29,7 @@ export default function DetailPopUp({
   const [viewEdit, setViewEdit] = useState(false);
   const [haveCard, setHaveCard] = useState(false);
   const [commented, setCommented] = useState(false);
-  const [quantity, setQuantity] = useState(1);
-  const [input, setInput] = useState({
-    comment: "",
-    score: 1,
-    cardId: null,
-    userId: 7,
-  });
+  const [input, setInput] = useState({ comment: "", score: 1, cardId: id, userId: user.id });
 
   useEffect(() => {
     opinion.forEach((o) => {
@@ -93,134 +86,15 @@ export default function DetailPopUp({
 
   function ratingStars() {
     let stars = [];
-    let ratingSum = opinion
-      .map((r) => r.score)
-      .reduce((prev, curr) => prev + curr, 0);
+    let ratingSum = opinion.map((r) => r.score).reduce((prev, curr) => prev + curr, 0);
+    let rating = Math.round(ratingSum / opinion.length) || 0;
+    
+    for (let i = 0; i < rating; i++) {
+      stars.push(<span key={i}><MdStar /></span>)
+    }
 
-    let rating = ratingSum / opinion.length;
-
-    if (Math.round(rating) === 0) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 1) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 2) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 3) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 4) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 5) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-        </span>
-      );
-    } else {
-      stars = false;
+    for (let i = 5; i > rating; i--) {
+      stars.push(<span key={i}><MdStarOutline /></span>)
     }
 
     return stars;
@@ -259,8 +133,8 @@ export default function DetailPopUp({
     race === "Zerg"
       ? css.zergCard
       : race === "Terran"
-      ? css.terranCard
-      : css.protossCard;
+        ? css.terranCard
+        : css.protossCard;
 
   return (
     <div className={css.containerTo} onClick={handleDetail}>
@@ -293,11 +167,7 @@ export default function DetailPopUp({
           )}
 
           <div className={css.opinion}>
-            {opinion.length ? (
-              <span className={css.titleComment}>COMMENTS</span>
-            ) : (
-              ""
-            )}
+            <span className={css.titleComment}>COMMENTS</span>
             <div className={css.comments}>
               {opinion.map((opinion, index) => {
                 return (
@@ -307,7 +177,7 @@ export default function DetailPopUp({
                     </p>
                     <span>{opinion.comment}</span>
                   </section>
-                );
+                )
               })}
             </div>
           </div>
@@ -340,7 +210,7 @@ export default function DetailPopUp({
                         className={css.commentButton}
                         onClick={(e) => handleEdit(e)}
                       >
-                        Add comment
+                        Add review
                       </button>
                     </section>
                   </section>
@@ -350,7 +220,7 @@ export default function DetailPopUp({
                       className={css.editComment}
                       onClick={(e) => handleSeeShopcart(e)}
                     >
-                      Edit comment
+                      Edit review
                     </button>
                   </section>
                 )
@@ -377,7 +247,7 @@ export default function DetailPopUp({
                       className={css.commentButton}
                       onClick={(e) => handleComment(e)}
                     >
-                      Add comment
+                      Add review
                     </button>
                   </section>
                 </section>
