@@ -11,7 +11,7 @@ import Pack from "./Pack";
 
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(pack.stock > 0 ? 1 : 0);
+  const [quantity, setQuantity] = useState(pack.stock <= 0 && type === 'cardsPack' ? 0 : 1);
 
   const user = useSelector((state) => state.userReducer.user);
   const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
