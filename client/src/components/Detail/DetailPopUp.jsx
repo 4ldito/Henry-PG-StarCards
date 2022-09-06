@@ -1,23 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { detailCard } from "../../redux/actions/cards/detailCard";
 import {
   getOpinions,
   postOpinions,
   putOpinions,
 } from "../../redux/actions/cards/opinion";
-import { getUserCards } from "../../redux/actions/cards/userCards";
 
 import css from "./DetailPopUp.module.css";
+import { MdStarOutline } from "react-icons/md";
+import { MdStar } from "react-icons/md";
 
-export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg, Admg, life, ability, abilities, race, movement }) {
+export default function DetailPopUp({
+  handleDetail,
+  id,
+  name,
+  image,
+  cost,
+  Gdmg,
+  Admg,
+  life,
+  ability,
+  abilities,
+  race,
+  movement,
+}) {
   const dispatch = useDispatch();
   const opinion = useSelector((state) => state.detailReducer.opinion);
   const user = useSelector((state) => state.userReducer.user);
   const [viewEdit, setViewEdit] = useState(false);
   const [haveCard, setHaveCard] = useState(false);
   const [commented, setCommented] = useState(false);
-  const [input, setInput] = useState({ comment: "", score: 1, cardId: null, userId: 7 });
+  const [quantity, setQuantity] = useState(1);
+  const [input, setInput] = useState({
+    comment: "",
+    score: 1,
+    cardId: null,
+    userId: 7,
+  });
 
   useEffect(() => {
     opinion.forEach((o) => {
@@ -27,39 +46,27 @@ export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg,
     });
   }, [opinion]);
 
-  // useEffect(() => {
-  //   if (user?.user.id && !userCards.length) {
-  //     dispatch(getUserCards(user.user.UserCards, cards));
-  //   }
-  //   return () => {
-  //     dispatch(detailCard(null));
-  //     dispatch(getOpinions(null));
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (user.user.id) {
-  //     dispatch(getUserCards(user.user.UserCards, cards));
-  //   }
-  // }, [cards]);
-
-  // useEffect(() => {
-  //   userCards.forEach((card) => {
-  //     if (card.id === id) {
-  //       setHaveCard(true);
-  //     }
-  //   });
-  // }, [);
-
   useEffect(() => {
     if (user.id) {
-      const card = user.UserCards.find(userCard => userCard.CardId === id);
+      const card = user.UserCards.find((userCard) => userCard.CardId === id);
       if (card) setHaveCard(true);
     }
     return () => {
       dispatch(getOpinions(null));
     };
   }, []);
+
+  const decreaseScore = (e) => {
+    e.preventDefault();
+    if (input.score - 1 <= 0) return;
+    setInput({ ...input, score: input.score - 1 });
+  };
+
+  const increaseScore = (e) => {
+    e.preventDefault();
+    if (input.score + 1 > 5) return;
+    setInput({ ...input, score: input.score + 1 });
+  };
 
   function validations(values) {
     let errors = {};
@@ -84,9 +91,140 @@ export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg,
     });
   }
 
-  let ratingSum = opinion.map((r) => r.score).reduce((prev, curr) => prev + curr, 0);
+  function ratingStars() {
+    let stars = [];
+    let ratingSum = opinion
+      .map((r) => r.score)
+      .reduce((prev, curr) => prev + curr, 0);
 
-  let rating = ratingSum / opinion.length;
+    let rating = ratingSum / opinion.length;
+
+    if (Math.round(rating) === 0) {
+      stars.push(
+        <span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+        </span>
+      );
+    } else if (Math.round(rating) === 1) {
+      stars.push(
+        <span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+        </span>
+      );
+    } else if (Math.round(rating) === 2) {
+      stars.push(
+        <span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+        </span>
+      );
+    } else if (Math.round(rating) === 3) {
+      stars.push(
+        <span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+        </span>
+      );
+    } else if (Math.round(rating) === 4) {
+      stars.push(
+        <span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStarOutline />
+          </span>
+        </span>
+      );
+    } else if (Math.round(rating) === 5) {
+      stars.push(
+        <span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+          <span>
+            <MdStar />
+          </span>
+        </span>
+      );
+    } else {
+      stars = false;
+    }
+
+    return stars;
+  }
 
   function handleComment(e) {
     e.preventDefault();
@@ -117,69 +255,136 @@ export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg,
     }
   }
 
+  const cardCss =
+    race === "Zerg"
+      ? css.zergCard
+      : race === "Terran"
+      ? css.terranCard
+      : css.protossCard;
+
   return (
     <div className={css.containerTo} onClick={handleDetail}>
       <div className={css.container} onClick={(e) => e.stopPropagation()}>
-        {/* <img src="../../../css/detail-container.png" alt="" />
-        <h2 className={css.Carta}>Carta</h2> */}
-        <div className={css.img}>
-          <h3>{name}</h3>
-          <img src={image} alt={image} />
+        <span className={css.titleDetail}>CARD</span>
+
+        <div className={css.Card}>
+          <div className={`${cardCss} ${css.cardContainer}`}>
+            <div className={css.nameContainer}>
+              <h3 className={css.name}>{name}</h3>
+              <span className={css.cost}>{cost}</span>
+            </div>
+            <img className={css.img} src={image} alt={image} />
+            <span className={css.movement}>{movement}</span>
+            <p className={css.ability}>{ability}</p>
+            <div className={css.stats}>
+              <span className={css.life}>{life}</span>
+              <span className={css.dmg}>
+                {Gdmg}/{Admg}
+              </span>
+            </div>
+          </div>
         </div>
+
         <div className={css.card}>
-          <button onClick={handleDetail}>X</button>
-          <div>
-            <p>Cost: {cost}</p>
-            <p>Ground Damage: {Gdmg}</p>
-            <p>Air Damage: {Admg}</p>
-            <p>Life: {life}</p>
-            <p>Ability: {ability}</p>
-            <p>Race: {race}</p>
-            <p>Movement: {movement}</p>
-          </div>
-          {rating ? <p>Rating: {rating.toFixed(1)}</p> : ""}
+          {ratingStars() ? (
+            <span className={css.rating}>RATING {ratingStars()}</span>
+          ) : (
+            <span className={css.rating}>RATING ?????</span>
+          )}
+
           <div className={css.opinion}>
-            {opinion.length ? <p>Comments: </p> : ""}
-            {opinion.map((opinion) => {
-              return (
-                <p key={opinion.id}>
-                  {opinion.User.username}: {opinion.comment}
-                </p>
-              );
-            })}
+            {opinion.length ? (
+              <span className={css.titleComment}>COMMENTS</span>
+            ) : (
+              ""
+            )}
+            <div className={css.comments}>
+              {opinion.map((opinion, index) => {
+                return (
+                  <section key={index}>
+                    <p className={css.username} >
+                      {opinion.User.username} :
+                    </p>
+                    <span>{opinion.comment}</span>
+                  </section>
+                );
+              })}
+            </div>
           </div>
-          {user.id ? (
-            haveCard ? (
+          {user.id &&
+            (haveCard ? (
               commented ? (
                 viewEdit ? (
-                  <form>
-                    <label>Comment: </label>
-                    <input type="text" name="comment" value={input.comment} onChange={(e) => handleInput(e)} />
-                    <label>Score: </label>
-                    <input type="number" name="score" min="1" max="5" value={input.score} onChange={(e) => handleInput(e)} />
-                    <button onClick={(e) => handleEdit(e)}>Comment</button>
-                  </form>
+                  <section>
+                    <input
+                      type="text"
+                      name="comment"
+                      className={css.addComment}
+                      value={input.comment}
+                      placeholder="Add comment"
+                      onChange={(e) => handleInput(e)}
+                    />
+                    <section className={css.commentDown}>
+                      <div className={css.containerQuantity}>
+                        <button
+                          className={css.btnMinus}
+                          onClick={decreaseScore}
+                        />
+                        <span>{input.score}</span>
+                        <button
+                          className={css.btnMore}
+                          onClick={increaseScore}
+                        />
+                      </div>
+                      <button
+                        className={css.commentButton}
+                        onClick={(e) => handleEdit(e)}
+                      >
+                        Add comment
+                      </button>
+                    </section>
+                  </section>
                 ) : (
-                  <>
-                    <h1>Ya comentaste</h1>
-                    <button onClick={(e) => handleSeeShopcart(e)}>Edit</button>
-                  </>
+                  <section className={css.sectionEditComment}>
+                    <button
+                      className={css.editComment}
+                      onClick={(e) => handleSeeShopcart(e)}
+                    >
+                      Edit comment
+                    </button>
+                  </section>
                 )
               ) : (
-                <form>
-                  <label>Comment: </label>
-                  <input type="text" name="comment" value={input.comment} onChange={(e) => handleInput(e)} />
-                  <label>Score: </label>
-                  <input type="number" name="score" min="1" max="5" value={input.score} onChange={(e) => handleInput(e)} />
-                  <button onClick={(e) => handleComment(e)}>Comment</button>
-                </form>
+                <section>
+                  <input
+                    type="text"
+                    name="comment"
+                    className={css.addComment}
+                    value={input.comment}
+                    placeholder="Add comment"
+                    onChange={(e) => handleInput(e)}
+                  />
+                  <section className={css.commentDown}>
+                    <div className={css.containerQuantity}>
+                      <button
+                        className={css.btnMinus}
+                        onClick={decreaseScore}
+                      />
+                      <span>{input.score}</span>
+                      <button className={css.btnMore} onClick={increaseScore} />
+                    </div>
+                    <button
+                      className={css.commentButton}
+                      onClick={(e) => handleComment(e)}
+                    >
+                      Add comment
+                    </button>
+                  </section>
+                </section>
               )
             ) : (
               <h1>No tienes la carta</h1>
-            )
-          ) : (
-            <h1>Inicia sesión para opinar</h1>
-          )}
+            ))}
         </div>
       </div>
     </div>
