@@ -43,8 +43,9 @@ export function removeFromShopCart(product, packTypes, userId) {
 
 export const shopcartBuyCardsPacks = (info, userId) => {
   return async function (dispatch) {
-    const response = await axios.patch('packs/buy', { ...info, userId })
-    dispatch({ type: USER_MODIFY_STARS, payload: response.data })
+    const clearShopcart = true;
+    const response = await axios.patch('packs/buy', { ...info, userId, clearShopcart });
+    dispatch({ type: USER_MODIFY_STARS, payload: response.data });
     dispatch({ type: SHOPCART_BUY_CARDSPACKS, payload: response.data })
   }
 }

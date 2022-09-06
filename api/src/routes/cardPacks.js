@@ -3,7 +3,7 @@ const db = require("../db");
 const axios = require('axios');
 require('dotenv').config()
 
-const { CardPacks, User, Card, Transaction } = db;
+const { CardPacks, User, Card, Transaction, ShopCart } = db;
 const packsRoute = Router();
 
 const url = process.env.URL_BACK || "http://localhost:3001";
@@ -63,7 +63,7 @@ packsRoute.post('/', async (req, res, next) => {
 
 packsRoute.patch('/buy', async (req, res, next) => {
   try {
-    const { data, userId } = req.body;
+    const { data, userId, clearShopcart } = req.body;
 
     const info = {};
 
@@ -79,6 +79,8 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
     const transaction = await Transaction.create({ type: 'stars', priceStars: total });
     await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
+
+    if (clearShopcart) await ShopCart.destroy({ where: { UserId: userId, packTypes: 'cardsPack' } });
 
     if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
 
