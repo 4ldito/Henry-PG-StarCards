@@ -1,40 +1,90 @@
-import style from '../styles/ShopCart.module.css';
-import { useNavigate } from 'react-router-dom';
+import style from "../styles/ShopCart.module.css";
+import { useNavigate } from "react-router-dom";
 
-const CardsPack = ({ cardsPack, totalCardsPack, user, buyWithStars, handleRemoveItem, decreaseQuantity, increaseQuantity, handleBuyCardsPack }) => {
-    
-    const navigate = useNavigate();
-    
-    return (
-        <>
-            {cardsPack.length > 0 && (
-                <div className={style.containerCart}>
-                    <h2>Carrito de packs cards</h2>
-                    {cardsPack.map(item => {
-                        const subtotal = item.price * item.quantity
-                        totalCardsPack += subtotal
-                        return (
-                            <div className={style.containerItem} key={item.id}>
-                                <p>{item.name}</p>
-                                <p>{item.price} Stars</p>
+const CardsPack = ({
+  cardsPack,
+  totalCardsPack,
+  user,
+  buyWithStars,
+  handleRemoveItem,
+  decreaseQuantity,
+  increaseQuantity,
+  handleBuyCardsPack,
+}) => {
+  const navigate = useNavigate();
 
-                                <div className={style.containerQuantity}>
-                                    <button onClick={(e) => decreaseQuantity(e, 'cardsPack', item)}>-</button>
-                                    <span>{item.quantity}</span>
-                                    <button onClick={(e) => increaseQuantity(e, 'cardsPack', item)}>+</button>
-                                </div>
+  return (
+    <>
+      {cardsPack.length > 0 && (
+        <div className={style.containerCart}>
+          <h2>CARDPACKS SHOPCART</h2>
+          <div className={style.seccion}>
+            <span>Name</span>
+            <span>Price</span>
+            <span>Amount</span>
+            <span>Subtotal</span>
+            <span />
+          </div>
 
-                                <p>{subtotal} Stars</p>
-                                <button className={style.btnRemove} onClick={(e) => handleRemoveItem(e, 'cardsPack')} id={item.id}>X</button>
-                            </div>
-                        )
-                    })}
-                    <p>Total: {totalCardsPack} Stars</p>
-                    {user?.id ? <button onClick={handleBuyCardsPack} disabled={!buyWithStars}>{buyWithStars ? "Comprar packs de cards" : "Tus Stars son insuficientes"}</button>
-                        : <button onClick={() => { navigate("/login") }}>Logeate</button>}
-                </div>)}
-        </>
-    )
-}
+          {cardsPack.map((item) => {
+            const subtotal = item.price * item.quantity;
+            totalCardsPack += subtotal;
+            return (
+              <div className={style.containerItem} key={item.id}>
+                <p>{item.name}</p>
+                <p>{item.price} STARS</p>
 
-export default CardsPack
+                <div className={style.containerQuantity}>
+                  <button
+                    className={style.btnMinus}
+                    onClick={(e) => decreaseQuantity(e, "cardsPack", item)}
+                  />
+                  <span>{item.quantity}</span>
+                  <button
+                    className={style.btnMore}
+                    onClick={(e) => increaseQuantity(e, "cardsPack", item)}
+                  />
+                </div>
+
+                <p>{subtotal} STARS</p>
+
+                <button
+                  className={style.btnRemove}
+                  onClick={(e) => handleRemoveItem(e, "cardsPack")}
+                  id={item.id}
+                />
+              </div>
+            );
+          })}
+          <div className={style.total}>
+            <span>Total</span>
+            <span />
+            <span />
+            <span>{totalCardsPack} STARS</span>
+
+            {user?.id ? (
+              <button
+                className={style.pay}
+                onClick={handleBuyCardsPack}
+                disabled={!buyWithStars}
+              >
+                {buyWithStars ? "pay" : "Tus Stars son insuficientes"}
+              </button>
+            ) : (
+              <button
+              
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default CardsPack;

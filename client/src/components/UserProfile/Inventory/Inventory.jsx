@@ -5,19 +5,16 @@ import Sort from "./Sort";
 import SearchUserCard from "./SearchUserCard";
 
 import css from "./Inventory.module.css";
-import { useState } from "react";
 
 export default function Inventory() {
-  // const [showFilters,setShowFilter] = useState(false);
   return (
     <div className={css.Inventory}>
       <div className={css.filters}>
         <Filters />
         <Sort />
         <SearchUserCard />
-        <button onClick={()=>setShowFilter(false)}>hidde</button>
+
       </div>
-      {/* {!showFilters&&<button onClick={()=>{setShowFilter(true)}}>filters</button>} */}
       <InventoryContainer/>
     </div>
   );

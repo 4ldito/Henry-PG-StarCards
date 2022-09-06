@@ -13,6 +13,7 @@ class User extends Model {
     User.belongsToMany(models.CardPacks, { through: "FavPacks" });
     User.belongsToMany(models.PrivateChat, { through: "User-PrivChat" });
     User.belongsToMany(models.Game, { through: "PlayedGame" });
+    User.belongsToMany(User, { as: 'friends', through: 'Friends' });
   }
 }
 
@@ -76,10 +77,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultDeck: {
         type: DataTypes.INTEGER,
       },
-      roles: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        defaultValue: ["user"],
-      },
+      // roles: {
+      //   type: DataTypes.ARRAY(DataTypes.STRING),
+      //   defaultValue: ["user"],
+      // },
       loginGoogle:{
         type: DataTypes.BOOLEAN,
         defaultValue: false,

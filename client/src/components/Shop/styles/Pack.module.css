@@ -3,18 +3,23 @@
   src: url("../../../css/EUROSTIB.ttf");
 }
 
+@font-face {
+  font-family: starcardsFont-fine;
+  src: url(../../../../css/EurostileNextLTPro-Light.otf);
+}
+
+
 .border {
   background-image: url(https://i.ibb.co/r4CZv9L/pack-Border.png);
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-size: cover;
   background-position: center;
 
-  background-size: contain;
-  width: 207px;
-  height: 290px;
+  width: 214px;
+  height: 280px;
 
-  padding: 15px 10px 2.5% 13px;
-  
+  padding: 6px 0px 0px 13px;
+  margin-bottom: 0.5rem;
 }
 
 .background {
@@ -26,10 +31,12 @@
 
   font-family: starcardsFont;
 
-  width: 181px;
-  height: 260px;
+  width: 187px;
+  height: 268px;
 
-  text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
+  text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0),
+    0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0),
+    0 0 10px rgb(0, 0, 0);
 }
 
 .img {
@@ -38,14 +45,59 @@
   height: 100%;
 }
 
-.textup {
+.fav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: absolute;
-  top: 1%;
-  margin: 0%;
+  top: 5px;
+  left: 10px;
+
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/circle-15.svg);
+  border-radius: 40%;
+  border: none;
+  color: red;
+
+  width: 25px;
+  height: 25px;
+
+  padding-top: 3px;
 }
 
-.textDown {
+.favNull{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: absolute;
-  top: 90%;
-  margin: 0%;
+  top: 5px;
+  left: 10px;
+
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/circle-15.svg);
+  border-radius: 40%;
+  border: none;
+  color: white;
+
+  width: 25px;
+  height: 25px;
+
+  padding-top: 3px;
+}
+
+.text {
+  position: absolute;
+  bottom: 6px;
+  left: 12px;
+
+  font-family: starcardsFont-fine;
+  color: white;
+
+  width: 100%;
+}
+
+.nameCard {
+  font-size: 1.4rem;
 }

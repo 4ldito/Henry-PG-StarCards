@@ -6,8 +6,16 @@ export const CLEAN_MSG_INFO = 'CLEAN_MSG_INFO';
 export const FILTER_CARDS_PACKS = 'FILTER_CARDS_PACKS';
 export const FAV_USER_PACKS = 'FAV_USER_PACKS'
 export const GET_DETAIL_PACK = 'GET_DETAIL_PACK'
+export const MODIFY_CARD_PACKS = 'MODIFY_CARD_PACKS'
 
 export function getCardsPacks() {
+  return async function (dispatch) {
+    const response = await axios.get('packs/active')
+    dispatch({ type: GET_ALL_CARDS_PACKS, payload: response.data })
+  }
+}
+
+export function getAllCardsPacks() {
   return async function (dispatch) {
     const response = await axios.get('packs/all')
     dispatch({ type: GET_ALL_CARDS_PACKS, payload: response.data })
@@ -34,6 +42,12 @@ export const addUserCards = () => {
   return async function (dispatch) {
     const response = await axios.patch('packs/buy', info)
     dispatch({ type: BUY_CARD_PACK, payload: response.data })
+  }
+}
+export const modifyCardPacks = (id, payload) => {
+  return async function (dispatch) {
+    const response = await axios.patch(`packs/${id}`, payload)
+    dispatch({ type: MODIFY_CARD_PACKS, payload: response.data })
   }
 }
 

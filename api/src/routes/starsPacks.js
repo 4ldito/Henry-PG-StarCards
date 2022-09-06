@@ -13,6 +13,7 @@ const getAllStarsPack = async () => {
 starsPackRoute.get("/all", async (req, res, next) => {
   try {
     const packs = await getAllStarsPack();
+    console.log(packs)
     return res.send(packs);
   } catch (error) {
     return next(error);
@@ -29,4 +30,26 @@ starsPackRoute.get("/:status", async (req, res, next) => {
   }
 });
 
+starsPackRoute.patch("/:id", async (req, res, next) => {
+  console.log(req.body)
+  const { id } = req.params;
+  const { StatusId, price, stars, name } = req.body;
+
+  try {
+    const pack = await StarsPack.findByPk(id);
+    
+    if (!pack) return res.status(404).send({ error: "pack not found" });
+
+    await pack.update({
+      StatusId,
+      price,
+      stars,
+      name
+    });
+    res.json(pack);
+    
+  } catch (error) {
+      next(error)
+  }
+})
 module.exports = starsPackRoute;
