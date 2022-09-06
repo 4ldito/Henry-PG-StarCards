@@ -2,8 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import style from "../styles/PackDetail.module.css";
-import { BsSuitHeartFill } from "react-icons/bs";
-import { BsSuitHeart } from "react-icons/bs";
+import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { FaDna } from "react-icons/fa";
 
 export default function Pack({
@@ -25,19 +24,11 @@ export default function Pack({
         <div className={style.left}>
           <img src={pack.image} alt={pack.image} className={style.image} />
           {searchFaved === undefined ? (
-            <button
-              className={`${style.favNull} ${style.btnAddToCart}`}
-              id={pack.id}
-              onClick={handleFav}
-            >
+            <button className={`${style.favNull}`} id={pack.id} onClick={e => handleFav(e, pack.id, 'add')}>
               <BsSuitHeart size={15} />
             </button>
           ) : (
-            <button
-              className={`${style.fav} ${style.btnAddToCart}`}
-              id={pack.id}
-              onClick={handleFav}
-            >
+            <button className={`${style.fav}`} onClick={e => handleFav(e, pack.id, 'delete')}>
               <BsSuitHeartFill size={15} />
             </button>
           )}
@@ -82,7 +73,7 @@ export default function Pack({
                 BUY NOW
               </button>
 
-              <button className={`${style.btnCart} ${style.btnAddToCart}`}/>
+              <button className={`${style.btnCart} ${style.btnAddToCart}`} />
             </div>
           </div>
         </div>

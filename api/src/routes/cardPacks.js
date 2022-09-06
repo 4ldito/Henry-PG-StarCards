@@ -3,7 +3,7 @@ const db = require("../db");
 const axios = require('axios');
 require('dotenv').config()
 
-const { CardPacks, User, Card, Transaction } = db;
+const { CardPacks, User, Card, Transaction, ShopCart } = db;
 const packsRoute = Router();
 
 const url = process.env.URL_BACK || "http://localhost:3001";
@@ -21,7 +21,7 @@ packsRoute.get("/:status", async (req, res, next) => {
   const { status } = req.params;
   try {
     const packs = await CardPacks.findAll({
-      where: { StatusId: status },
+      where: { StatusId: status }, order: [['price', 'ASC']]
     });
     return res.send(packs);
   } catch (error) {
@@ -29,30 +29,32 @@ packsRoute.get("/:status", async (req, res, next) => {
   }
 });
 
-packsRoute.post('/', async(req,res,next)=>{
-  const {name, amount, price, stock, race, cards, image} = req.body;
+packsRoute.post('/', async (req, res, next) => {
+  const { name, amount, price, stock, race, cards, image } = req.body;
   try {
     if (name) {
-      const ispack = await CardPacks.findOne({where: {name}});
+      const ispack = await CardPacks.findOne({ where: { name } });
       if (ispack) {
         return res.status(404).send('no exist')
       }
-      if(!ispack){
+      if (!ispack) {
         const newpack = await CardPacks.findOrCreate(
-          {where:{
-          name,
-          amount,
-          price,
-          stock,
-          race,
-          image,
-          cards
-        }});
+          {
+            where: {
+              name,
+              amount,
+              price,
+              stock,
+              race,
+              image,
+              cards
+            }
+          });
         return res.status(201).send(newpack)
       }
       return res.status(404).send('name exist');
     }
-    
+
   } catch (error) {
     return next(error);
   }
@@ -61,13 +63,13 @@ packsRoute.post('/', async(req,res,next)=>{
 
 packsRoute.patch('/buy', async (req, res, next) => {
   try {
-    const { data, userId } = req.body;
+    const { data, userId, clearShopcart } = req.body;
 
     const info = {};
 
     for (const pack of data) {
       info[pack.name] = { quantity: pack.quantity }
-      if (pack.stock < pack.quantity) return res.send({ error: 'Stock insuficente' });
+      if (pack.stock < pack.quantity) return res.send({ error: 'Not enough stock!' });
       pack.subTotal = pack.quantity * pack.price;
     }
 
@@ -78,7 +80,9 @@ packsRoute.patch('/buy', async (req, res, next) => {
     const transaction = await Transaction.create({ type: 'stars', priceStars: total });
     await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);
 
-    if (user.stars < total) return res.send({ error: 'Stars insuficientes!' });
+    if (clearShopcart) await ShopCart.destroy({ where: { UserId: userId, packTypes: 'cardsPack' } });
+
+    if (user.stars < total) return res.send({ error: 'You dont have enough stars!' });
 
     user.stars = user.stars - total;
 
@@ -127,7 +131,7 @@ packsRoute.patch('/buy', async (req, res, next) => {
     });
 
     await axios.post(`${url}/userCards`, { userId: updatedUser.id, cardsId });
-    return res.send({ msg: `Compra realizada correctamente. Total: ${total}`, updatedInfo, updatedUser });
+    return res.send({ msg: `Purchase completed successfully. Total: ${total}`, updatedInfo, updatedUser });
   } catch (error) {
     console.error(error)
     return res.send(error)

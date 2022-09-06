@@ -69,32 +69,32 @@ sendMail.post("/sendmail", (req, res, next) => {
         }
         res.send(tokenValid)
         console.log("Mensaje enviado");
-      }); 
-  } catch (error) {
-        next(error)
+      });
+    } catch (error) {
+      next(error)
     }
-        
+
   });
 });
 
 ///////////////////////////////////Envio de Confirmacion de Compra//////////////////////////////////////////////
 
 sendMail.post("/sendmailpurchase", async (req, res, next) => {
-  
-  const {userId, items} = req.body
+
+  const { userId, items } = req.body
   const user = await User.findByPk(userId)
 
   let response
   // console.log( items )
   nodemailer.createTestAccount((err, account) => {
-    console.log(items)
-  response = items.map(({unit_price, quantity, title}) => ({unit_price, quantity, title}))
-  let text
-   text = response.map(e => (text = `Producto: ${e.title}, Cantidad: ${e.quantity}, Precio: ARS ${e.unit_price}`))
-   text = text.join('<br></br>')
+    // console.log(items)
+    response = items.map(({ unit_price, quantity, title }) => ({ unit_price, quantity, title }))
+    let text
+    text = response.map(e => (text = `Producto: ${e.title}, Cantidad: ${e.quantity}, Precio: ARS ${e.unit_price}`))
+    text = text.join('<br></br>')
 
- try {
-         const htmlEmail = `
+    try {
+      const htmlEmail = `
          <img src="https://i.ibb.co/SfKhMg2/Sin-t-tulo-1-Mesa-de-trabajo-1.png" width="1100" height="200" title="Logo">
          <h3 style="text-align:center">--> STARCARDS <--</h3>
 
@@ -105,38 +105,38 @@ sendMail.post("/sendmailpurchase", async (req, res, next) => {
          <h4 style="text-align:center">GRACIAS POR COMPRAR EN STARCARDS!</h4>
 
        `;
-     let transporter = nodemailer.createTransport({
-       host: "smtp.gmail.com",
-       port: 587,
-       tls: {
-        rejectUnauthorized: false
-      },
-       auth: {
-         user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
-         pass: "houhxlzmssscrgha" // La contraseña de dicho SMTP
-       }
-     });
+      let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        tls: {
+          rejectUnauthorized: false
+        },
+        auth: {
+          user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
+          pass: "houhxlzmssscrgha" // La contraseña de dicho SMTP
+        }
+      });
 
-     let mailOptions = {
-       from: "STARCARDS@gmail.com", // Quien manda el email
-       to: user.email, // El email de destino
-       replyTo: "STARCARDS@gmail.com",
-       // subject: req.body.asunto, // El asunto del email
-       // text: req.body.mensaje, // El mensaje
-       html: htmlEmail // La parte HTML del email
-     };
+      let mailOptions = {
+        from: "STARCARDS@gmail.com", // Quien manda el email
+        to: user.email, // El email de destino
+        replyTo: "STARCARDS@gmail.com",
+        // subject: req.body.asunto, // El asunto del email
+        // text: req.body.mensaje, // El mensaje
+        html: htmlEmail // La parte HTML del email
+      };
 
-     transporter.sendMail(mailOptions, (err, info) => {
-       if (err) {
-         return console.log('err');
-       }
-       res.send(tokenValid)
-       console.log("Mensaje enviado");
-     }); 
- } catch (error) {
-       next(error)
-   }
-       
- });
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          return console.log('err');
+        }
+        res.send(tokenValid)
+        console.log("Mensaje enviado");
+      });
+    } catch (error) {
+      next(error)
+    }
+
+  });
 });
 module.exports = sendMail;

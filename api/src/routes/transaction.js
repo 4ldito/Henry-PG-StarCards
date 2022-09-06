@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const db = require("../db");
-const { Transaction } = db;
+const { Transaction, ShopCart } = db;
 
 const transactionRoute = Router();
 
@@ -31,6 +31,8 @@ transactionRoute.post("/", async (req, res, next) => {
 
   try {
     const total = items.reduce((acc, currentValue) => acc + (Number(currentValue.unit_price) * Number(currentValue.quantity)), 0);
+
+    await ShopCart.destroy({ where: { UserId: userId, packTypes: 'starsPack' } });
 
     const transaction = await Transaction.create({ type, paymentId, priceMoney: total });
     await Promise.all([transaction.setUser(userId), transaction.setStatus('active')]);

@@ -111,7 +111,7 @@ export default function inventory(state = initialState, { type, payload }) {
     case SALE_CARD:
       const actualCard = state.filteredUserCards.find(card => card.id === payload[0].CardId);
       // console.log(payload);
-      const msg = { type: 'success', info: `Pusiste a la venta ${payload.length} ${payload[0].Card.name} por ${payload[0].price}`, title: 'Exito!' }
+      const msg = { type: 'success', info: `You put on sale ${payload.length} ${payload[0].Card.name} for ${payload[0].price}`, title: 'Success!' }
       if (actualCard.repeat - payload.length === 0) {
         const newFilteredUserCards = state.filteredUserCards.filter(card => card.id !== payload[0].CardId);
 

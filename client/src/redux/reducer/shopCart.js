@@ -41,7 +41,7 @@ export default function shopCartReducer(state = initialState, { type, payload })
     case SHOPCART_BUY_CARDSPACKS:
       const { msg, error, updatedInfo } = payload;
       if (error) return { ...state, msg: { type: 'error', info: error, title: 'Error!' } }
-      return { ...state, shopCart: { ...state.shopCart, cardsPack: [] }, msg: { type: 'success', info: msg, title: 'Compra finalizada' } }
+      return { ...state, shopCart: { ...state.shopCart, cardsPack: [] }, msg: { type: 'success', info: msg, title: 'Purchase completed' } }
 
     case GET_PURCHASE_INFO:
       if (payload?.message) return { ...state, msg: { type: 'error', info: payload.message, title: 'Error!' } }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, userOptionsState } from "../../../redux/actions/user";
 import css from "./UserOptions.module.css";
@@ -9,9 +9,8 @@ import { resetReduxState } from "../../../redux/actions/";
 
 export default function UserOptions() {
   const { validToken } = useValidToken({ navigate: false });
-  const dispatch = useDispatch();
-  // const navigate = useNavigate();
 
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.userReducer.user);
 
   const [viewShopcart, setViewShopcart] = useState(false);
@@ -19,7 +18,6 @@ export default function UserOptions() {
   function quit() {
     dispatch(logOut());
     dispatch(resetReduxState());
-    // navigate("/login");
   }
 
   const option = {
@@ -36,20 +34,6 @@ export default function UserOptions() {
     dispatch(userOptionsState());
   }
 
-  // function login() {
-  //   return (
-  //     <>
-  //       <Link className={css.link} style={option} to="/login" onClick={closeOptions}>Log In</Link>
-  //     </>
-  //   )
-  // }
-  // function logout() {
-  //   return (
-  //     <>
-  //       <Link className={css.btn} onClick={quit} to="/login">Log out</Link>
-  //     </>
-  //   )
-  // }
   return (
     <>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
@@ -70,12 +54,11 @@ export default function UserOptions() {
             <Link className={css.link} style={option} to={`/userProfile?username=${user.username}`} onClick={closeOptions}>
               User Profile
             </Link>
-            <br />
           </li>
         )}
         <li className={css.li}>
           {validToken ?
-            <><Link className={css.link} style={option} to="/login" onClick={quit}>Log out</Link><br /></>
+            <><Link className={css.link} style={option} to="/login" onClick={quit}>Log out</Link></>
             : <Link className={css.link} style={option} to="/login" onClick={closeOptions}>Log In</Link>
           }
         </li>
@@ -84,7 +67,6 @@ export default function UserOptions() {
             <Link className={css.link} style={option} to={`/register`} onClick={closeOptions}>
               Sign in
             </Link>
-            <br />
           </li>
         )}
       </ul>

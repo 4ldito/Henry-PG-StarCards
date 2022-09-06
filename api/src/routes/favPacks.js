@@ -8,28 +8,22 @@ const favPacksRoute = Router();
 favPacksRoute.get("/", async (req, res, next) => {
     const { userId } = req.body;
     try {
-      const cardPacks = await User.findByPk( userId , {include:CardPacks} );
-      return res.send(cardPacks);
+        const cardPacks = await User.findByPk(userId, { include: CardPacks });
+        return res.send(cardPacks);
     } catch (error) {
-      return next(error);
+        return next(error);
     }
 });
 
 favPacksRoute.post("/", async (req, res, next) => {
     try {
         let { userId, packId } = req.body;
-        let cardPackId = await CardPacks.findOne({
-            where:{
-                id: packId
-            }
-        });
-        let favUserId = await User.findOne({
-            where:{
-                id: userId
-            }
-        });
+        let cardPackId = await CardPacks.findOne({ where: { id: packId } });
+        let favUserId = await User.findOne({ where: { id: userId } });
+
         await cardPackId.addUser(favUserId)
-        const cardPacks = await User.findByPk( userId , {include:CardPacks} );
+        console.log(cardPackId);
+        const cardPacks = await User.findByPk(userId, { include: CardPacks });
         return res.send(cardPacks)
     } catch (error) {
         next(error)
@@ -39,18 +33,12 @@ favPacksRoute.post("/", async (req, res, next) => {
 favPacksRoute.delete("/", async (req, res, next) => {
     try {
         let { userId, packId } = req.body;
-        let cardPackId = await CardPacks.findOne({
-            where:{
-                id: packId
-            }
-        });
-        let favUserId = await User.findOne({
-            where:{
-                id: userId
-            }
-        });
-        await cardPackId.removeUser(favUserId)
-        const cardPacks = await User.findByPk( userId , {include:CardPacks} );
+        let cardPackId = await CardPacks.findOne({ where: { id: packId } });
+        let favUserId = await User.findOne({ where: { id: userId } });
+
+        await cardPackId.removeUser(favUserId);
+        console.log(cardPackId);
+        const cardPacks = await User.findByPk(userId, { include: CardPacks });
         return res.send(cardPacks)
     } catch (error) {
         next(error)

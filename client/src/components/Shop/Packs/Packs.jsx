@@ -13,14 +13,10 @@ const Packs = ({ type }) => {
 
   return (
     <>
-      <div
-        className={
-          type === "starsPack" ? style.containerStars : style.container
-        }
-      >
-        {pack.map((p) => {
+      <div className={type === "starsPack" ? style.containerStars : style.container}>
+        {pack.length ? pack.map((p) => {
           return <PacksCard key={p.id} pack={p} type={type} />;
-        })}
+        }) : <h2>Not found xd</h2> }
       </div>
       {/* <div className={style.containerStars}>
         {pack.map((p) => {
