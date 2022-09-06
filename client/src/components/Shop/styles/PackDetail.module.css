@@ -3,19 +3,25 @@
   src: url("../../../css/EUROSTIB.ttf");
 }
 
+@font-face {
+  font-family: starcardsFont-fine;
+  src: url("../../../../css/EurostileNextLTPro-Light.otf");
+}
+
+/* @import url('https://fonts.googleapis.com/css2?family=Qwitcher+Grypen&display=swap'); */
+
 .packDetail {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  font-family: starcardsFont;
 
   position: absolute;
   z-index: 10;
   left: 0;
   top: 7vh;
 
-  background-color: rgba(16, 16, 16, 0.39);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
 
   width: 100%;
   height: 93vh;
@@ -26,47 +32,104 @@
   flex-direction: row;
   align-items: center;
 
-  background-color: #101010ea;
-  border: 5px solid rgba(82, 82, 82, 0.488);
-  border-radius: 20px;
+  position: relative;
 
-  width: 60%;
-  height: 60%;
+  background-image: url(../../../img/detail-container.svg);
+  background-size: cover;
+
+  /* background-color: #101010ea;
+  border: 5px solid rgba(82, 82, 82, 0.488); */
+
+  width: 850px;
+  height: 550px;
+
+  padding: 68px 25px 36px 30px;
+}
+
+.titleDetail{
+  position: absolute;
+  top: 12px;
+  left: 295px;
+
+  font-size: 1.9rem;
 }
 
 .left {
   display: flex;
   justify-content: center;
-  align-items: center;
   position: relative;
 
-  width: 33%;
-  height: 100%;
+  width: 330px;
+  height: 443px;
 
-  text-shadow: 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0),
-    0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0),
-    0 0 10px rgb(0, 0, 0);
+  padding: 2%;
 }
 
 .image {
-  height: 90%;
+  height: 100%;
 }
 
 .fav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: absolute;
-  top: 6%;
-  left: 10%;
-  border-radius: 50%;
+  top: 25px;
+  left: 25px;
+
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/circle-15.svg);
+  border-radius: 15px;
+  border: none;
   color: red;
-  width: 30px;
-  height: 30px;
+
+  width: 35px;
+  height: 35px;
+
+  padding-top: 3px;
+}
+
+.favNull {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 25px;
+  left: 25px;
+
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/circle-15.svg);
+  border-radius: 15px;
+  border: none;
+  color: white;
+
+  width: 35px;
+  height: 35px;
+
+  padding-top: 3px;
 }
 
 .textImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+
   position: absolute;
   text-align: start;
+
+  /* background-color: rgba(165, 42, 42, 0.377); */
+
+  width: 70%;
+  height: 38%;
+
   top: 55%;
   left: 10%;
+}
+
+.textImage h1 {
+  margin: 0;
 }
 
 .right {
@@ -98,32 +161,91 @@
   flex-direction: column;
   flex-wrap: wrap;
 
-  width: 100%;
+  font-family: starcardsFont-fine;
+
+  width: 98%;
+  height: 120px;
+
+  margin-top: 6px;
+}
+
+.probability span {
+  font-size: 1.1rem;
 }
 
 .buttons {
   display: flex;
+  flex-direction: column;
+
+  /* background-color: black; */
+
+  width: 96%;
+  height: 101px;
+}
+
+.containerQuantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 1.5rem;
+
+  width: 100%;
+  height: 50px;
+
+  gap: 0 1.2rem;
+  padding: 0 0 0 255px;
+}
+
+.btnMore {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/+button.svg);
+  background-size: cover;
+
+  border-radius: 50%;
+  border: none;
+
+  width: 30px;
+  height: 30px;
+}
+
+.btnMinus {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/-button.svg);
+  background-size: cover;
+
+  border-radius: 50%;
+  border: none;
+
+  width: 30px;
+  height: 30px;
+}
+
+.buttonsLown {
+  display: flex;
   flex-direction: row;
 
   width: 100%;
-  height: 20%;
+  height: 51px;
+
+  gap: 0 1rem;
 }
 
 .seccionPrice {
-  width: 50%;
-  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../../img/priceButton.svg);
+  background-size: cover;
+
+  width: 218px;
+  height: 51px;
 }
 
 .price {
-  text-align: center;
-
-  background-color: white;
-  border: 2px solid black;
   color: black;
-
-  width: 80%;
-
-  margin: 11%;
+  font-size: 2rem;
 }
 
 .seccionBuy {
@@ -132,39 +254,24 @@
 }
 
 .buyNow {
-  background-color: white;
-  border: 2px solid black;
-  color: black;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/buynowButton.svg);
+  background-size: cover;
+
+  border: none;
 
   font-size: 1.5rem;
 
-  width: 100%;
-  height: 50%;
+  width: 152px;
+  height: 51px;
 }
 
-.seccionBuytop{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
+.btnCart{
+  background-image:url(../../../img/addShopCart.png);
+  background-size: cover;
 
-.btnM{
-    height: 2%;
-    font-size: 1.5rem;
-}
+  border: none;
 
-.amount{
-    margin: 0;
-}
-
-.seccionCar{
-    display: flex;
-    justify-content: center;
-    width: 20%;
-    height: 100%;
-}
-.car{
-    width: 50%;
-    height: 50%;
-    margin-top: 27%;
+  width: 51px;
+  height: 51px;
 }
