@@ -1,4 +1,6 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react';
+
+import style from '../styles/Mercadopago.module.css';
 
 const FORM_ID = 'payment-form';
 
@@ -22,6 +24,6 @@ export default function Mercadopago({ preferenceId }) {
   }, [preferenceId])
 
   return (
-    <form ref={form} id={FORM_ID} method='GET' />
+    <form className={style.formContainer} ref={form} id={FORM_ID} method='GET' />
   )
 }
