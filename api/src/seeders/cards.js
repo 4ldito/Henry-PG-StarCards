@@ -1123,7 +1123,7 @@ const protossCards = [
     Admg: 22.8,
     life: 700,
     ability: "Siempre: tus unidades son invisibles excepto ésta.",
-    abilities: { all: [{ cloackTema: "cloackTeam" }] },
+    abilities: { all: [{ cloackTeam: "cloackTeam" }] },
     race: "Protoss",
     cost: 1200,
     movement: "Flying",
