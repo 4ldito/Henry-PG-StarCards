@@ -109,7 +109,7 @@ export default function Playroom() {
     setGameView({ info: undefined, bool: false });
   }
 
-  console.log(games.at(-1));
+  // console.log(games.at(-1));
 
   return (
     <>

@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { detailCard } from "../../redux/actions/cards/detailCard";
-import {
-  getOpinions,
-  postOpinions,
-  putOpinions,
-} from "../../redux/actions/cards/opinion";
-import { getUserCards } from "../../redux/actions/cards/userCards";
+import { getOpinions, postOpinions, putOpinions } from "../../redux/actions/cards/opinion";
 
 import css from "./DetailPopUp.module.css";
 
@@ -17,7 +11,7 @@ export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg,
   const [viewEdit, setViewEdit] = useState(false);
   const [haveCard, setHaveCard] = useState(false);
   const [commented, setCommented] = useState(false);
-  const [input, setInput] = useState({ comment: "", score: 1, cardId: null, userId: 7 });
+  const [input, setInput] = useState({ comment: "", score: 1, cardId: id, userId: user.id });
 
   useEffect(() => {
     opinion.forEach((o) => {
@@ -26,30 +20,6 @@ export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg,
       }
     });
   }, [opinion]);
-
-  // useEffect(() => {
-  //   if (user?.user.id && !userCards.length) {
-  //     dispatch(getUserCards(user.user.UserCards, cards));
-  //   }
-  //   return () => {
-  //     dispatch(detailCard(null));
-  //     dispatch(getOpinions(null));
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (user.user.id) {
-  //     dispatch(getUserCards(user.user.UserCards, cards));
-  //   }
-  // }, [cards]);
-
-  // useEffect(() => {
-  //   userCards.forEach((card) => {
-  //     if (card.id === id) {
-  //       setHaveCard(true);
-  //     }
-  //   });
-  // }, [);
 
   useEffect(() => {
     if (user.id) {
@@ -63,15 +33,12 @@ export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg,
 
   function validations(values) {
     let errors = {};
-
     if (values.comment.length > 100) {
       errors.comment = "El comentario no puede contener más de 100 caracteres";
     }
-
     if (values.score > 5 || values.score < 1) {
       errors.score = "El score no puede ser menor a 1, ni mayor a 5";
     }
-
     return errors;
   }
 
@@ -141,11 +108,11 @@ export default function DetailPopUp({ handleDetail, id, name, image, cost, Gdmg,
           <div className={css.opinion}>
             {opinion.length ? <p>Comments: </p> : ""}
             {opinion.map((opinion) => {
-              return (
+              return opinion.comment ? (
                 <p key={opinion.id}>
                   {opinion.User.username}: {opinion.comment}
                 </p>
-              );
+              ) : <></>
             })}
           </div>
           {user.id ? (

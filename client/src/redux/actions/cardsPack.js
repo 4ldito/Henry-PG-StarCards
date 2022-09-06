@@ -51,21 +51,21 @@ export const modifyCardPacks = (id, payload) => {
   }
 }
 
-export const favUserPacks =  (object) => {
-  const packId = object.packId
-  const userId = object.userId
+export const favUserPacks = (object) => {
+  // const packId = object.packId
+  // const userId = object.userId
   const action = object.action
-  if (action === 'add'){
+  if (action === 'add') {
     return async function (dispatch) {
       const response = await axios.post('favPacks', object)
-      dispatch({ type: FAV_USER_PACKS, payload: response.data})
+      dispatch({ type: FAV_USER_PACKS, payload: response.data })
     }
   } else {
     return async function (dispatch) {
-      const response = await axios.delete('favPacks', {data: object})
+      const response = await axios.delete('favPacks', { data: object })
       dispatch({ type: FAV_USER_PACKS, payload: response.data })
     }
-  }  
+  }
 }
 
 export const getDetailCard = (id) => {

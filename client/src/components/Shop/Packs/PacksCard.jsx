@@ -14,8 +14,6 @@ const PacksCard = ({ pack, type }) => {
   const [quantity, setQuantity] = useState(pack.stock <= 0 && type === 'cardsPack' ? 0 : 1);
 
   const user = useSelector((state) => state.userReducer.user);
-  const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
-  let searchFaved = favPacks?.find((p) => p.id === pack.id);
 
   const decreaseQuantity = (e) => {
     e.preventDefault();
@@ -100,8 +98,7 @@ const PacksCard = ({ pack, type }) => {
     dispatch(addToShopCart(pack, quantity, type, user.id));
   };
 
-  const handleFav = (e) => {
-    console.log(e.target.name);
+  const handleFav = (e, packId, action) => {
     e.preventDefault();
     const userId = user.id;
     if (!userId) {
@@ -112,27 +109,14 @@ const PacksCard = ({ pack, type }) => {
       });
     }
 
-    if (e.target.name === "unfav") {
-      dispatch(
-        favUserPacks({ action: "delete", userId: userId, packId: e.target.id })
-      );
-    } else {
-      dispatch(
-        favUserPacks({ action: "add", userId: userId, packId: e.target.id })
-      );
-    }
+    dispatch(favUserPacks({ action, userId, packId }));
   };
 
   if (type === "cardsPack") {
     return (
       <>
         {/* {pack.stock > 0 && ( */}
-        <div
-          className={css.containerPack}
-          name={pack.name}
-          id={pack.id}
-          key={pack.id}
-        >
+        <div className={css.containerPack} name={pack.name} id={pack.id} key={pack.id}>
           {/* <div className={style.pack}> */}
           <Pack
             pack={pack}
@@ -182,11 +166,7 @@ const PacksCard = ({ pack, type }) => {
         key={pack.id}
       >
         <img src={pack.image} alt="Pack" />
-        <h3
-          className={
-            pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange
-          }
-        >
+        <h3 className={pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange}>
           {pack.stars} Stars
         </h3>
         <div className={style.priceDiv}>
@@ -199,10 +179,7 @@ const PacksCard = ({ pack, type }) => {
           <span>{quantity}</span>
           <button className={style.btnMore} onClick={increaseQuantity} />
         </div>
-        <button
-          className={`${style.btn} ${style.btnAddToCart}`}
-          onClick={handleAddItem}
-        />
+        <button className={`${style.btn} ${style.btnAddToCart}`} onClick={handleAddItem} />
       </div>
     </div>
   );
