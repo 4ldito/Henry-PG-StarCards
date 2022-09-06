@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState } from "react";
-import { storage } from "../../firebase/config";
+import { storage } from "../../../firebase/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import createPackCardsAdmin from './../../redux/actions/admin/cardPacksMod'
-import getAllCards from './../../redux/actions/cards/getAllCards';
+import createPackCardsAdmin from './../../../redux/actions/admin/cardPacksMod'
+import getAllCards from './../../../redux/actions/cards/getAllCards';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -59,7 +59,6 @@ function CreatePacks() {
                     ...input,
                     race: [...input.race, e.target.value],
                 });
-                e.target.value = 'Select Race'
             }
         }
     }
@@ -75,7 +74,6 @@ function CreatePacks() {
                   ...input,
                   cards:[...input.cards,[e.target.value]],
               });
-              e.target.value = 'Select Card'
           }
       }
     }
@@ -163,7 +161,7 @@ function CreatePacks() {
           <select 
             onChange={(e)=>handleSelectRace(e)}
           >
-            <option disabled selected key="raza">Raza:</option>
+            <option hidden={true} key="raza">Raza:</option>
             <option value="Zerg" key="Zerg">Zerg</option>
             <option value="Terran" key="Terran">Terran</option>
             <option value="Protoss" key="Protoss">Protoss</option>
@@ -173,7 +171,7 @@ function CreatePacks() {
         <select
           onChange={(e)=>{handleSelectCards(e);}}
         >
-           <option disabled selected key="option">Selecciona una opción</option>
+           <option hidden={true} key="option">Selecciona una opción</option>
           {allcards?.map((e)=>{
             return (
               <option value={e.name} key={e.id}>
@@ -198,7 +196,7 @@ function CreatePacks() {
             <div key={e}>
               <p>{e}</p>
               <select onChange={(e)=>handleSelectPercent(e)}>
-                    <option disabled selected>Porcentaje</option>
+                    <option hidden={true}>Porcentaje</option>
                     <option value="1">1%</option>
                     <option value="2">2%</option>
                     <option value="3">3%</option>

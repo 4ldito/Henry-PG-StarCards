@@ -21,7 +21,7 @@ const descendentlife = "descendentlife";
 export function getUserCards(userCards, allCards) {
   const userCardsInventory = { userCards: [], forSaleCards: [] };
 
-  userCards.forEach(userCard => {
+  userCards?.forEach(userCard => {
     const actualCardIndex = allCards.findIndex(card => card.id === userCard.CardId);
     const actualCard = { ...allCards[actualCardIndex] }
     let seeIn = '';
