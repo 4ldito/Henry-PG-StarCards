@@ -6,8 +6,8 @@ import Swal from "sweetalert2";
 import { buyCardPack } from "../../../redux/actions/cardsPack";
 
 import style from "../styles/PacksCards.module.css";
+import css from "../styles/buyPack.module.css";
 import Pack from "./Pack";
-
 
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const PacksCard = ({ pack, type }) => {
 
   const user = useSelector((state) => state.userReducer.user);
   const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
-  let searchFaved = favPacks?.find(p => p.id === pack.id)
+  let searchFaved = favPacks?.find((p) => p.id === pack.id);
 
   const decreaseQuantity = (e) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ const PacksCard = ({ pack, type }) => {
     if (!user.id) {
       return Swal.fire({
         title: "Error!",
-        text: "Inicia sesion primero.",
+        text: "Inicia sesion primero",
         icon: "error",
       });
     }
@@ -52,7 +52,9 @@ const PacksCard = ({ pack, type }) => {
 
     Swal.fire({
       title: `Confrimar`,
-      text: `¿Estás seguro que queres comprar ${pack.quantity} ${pack.name} por ${pack.price * pack.quantity} stars?`,
+      text: `¿Estás seguro que queres comprar ${pack.quantity} ${
+        pack.name
+      } por ${pack.price * pack.quantity} stars?`,
       showCancelButton: true,
       confirmButtonText: "Comprar",
     }).then(({ isConfirmed }) => {
@@ -92,7 +94,7 @@ const PacksCard = ({ pack, type }) => {
   };
 
   const handleFav = (e) => {
-    console.log(e.target.name)
+    console.log(e.target.name);
     e.preventDefault();
     const userId = user.id;
     if (!userId) {
@@ -103,18 +105,28 @@ const PacksCard = ({ pack, type }) => {
       });
     }
 
-    if (e.target.name === 'unfav') {
-      dispatch(favUserPacks({ action: 'delete', userId: userId, packId: e.target.id }))
+    if (e.target.name === "unfav") {
+      dispatch(
+        favUserPacks({ action: "delete", userId: userId, packId: e.target.id })
+      );
     } else {
-      dispatch(favUserPacks({ action: 'add', userId: userId, packId: e.target.id }))
+      dispatch(
+        favUserPacks({ action: "add", userId: userId, packId: e.target.id })
+      );
     }
-  }
+  };
 
   if (type === "cardsPack") {
     return (
       <>
-        {pack.stock > 0 && <form className={style.container} name={pack.name} id={pack.id} onSubmit={handleAddItem} key={pack.id}>
-          <div className={style.pack}>
+        {pack.stock > 0 && (
+          <div
+            className={css.containerPack}
+            name={pack.name}
+            id={pack.id}
+            key={pack.id}
+          >
+            {/* <div className={style.pack}> */}
             <Pack
               pack={pack}
               increaseQuantity={increaseQuantity}
@@ -122,49 +134,70 @@ const PacksCard = ({ pack, type }) => {
               handleAddItem={handleAddItem}
               handleBuyNow={handleBuyNow}
               decreaseQuantity={decreaseQuantity}
-              quantity={quantity} />
+              quantity={quantity}
+            />
+            {/* </div> */}
+
+            <div className={css.priceDiv}>
+              <span className={css.price}>{pack.price} Stars</span>
+            </div>
+
+            <div className={css.containerBtn}>
+              {/* Crear funcion para el "BUY NOW" */}
+              <button className={css.buyNow} onClick={handleBuyNow}>
+                BUY NOW
+              </button>
+              <button
+                className={`${css.btn} ${css.btnAddToCart}`}
+                onClick={handleAddItem}
+              />
+            </div>
+
+            <div className={css.containerQuantity}>
+              <span className={style.stock}>STOCK : {pack.stock}</span>
+              <button className={css.btnMinus} onClick={decreaseQuantity} />
+              <span>{quantity}</span>
+              <button className={css.btnMore} onClick={increaseQuantity} />
+            </div>
           </div>
-          <p>Precio: <span className={style.starsText}>{pack.price} Stars</span></p>
-          <p>Stock: <span className={style.stock}>{pack.stock}</span></p>
-          <div className={style.containerQuantity}>
-            <button onClick={decreaseQuantity}>-</button>
-            <span>{quantity}</span>
-            <button onClick={increaseQuantity}>+</button>
-          </div>
-          <div className={style.buttons}>
-            <button className={`${style.btn} ${style.btnBuyNow}`} onClick={handleBuyNow}>
-              Comprar YA
-            </button>
-            <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
-            {
-              searchFaved === undefined ?
-                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav} name='fav'>Fav</button>
-                :
-                <button className={`${style.btn} ${style.btnAddToCart}`} id={pack.id} onClick={handleFav} name='unfav'>Unfav</button>
-            }
-          </div>
-        </form>}
+        )}
       </>
     );
   }
 
   return (
-    <form className={style.container} name={pack.name} id={pack.id} onSubmit={handleAddItem} key={pack.id}>
-      <h3 className={pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange}>{pack.stars} Stars</h3>
-      <img src={pack.image} alt="Pack" />
-      <div className="infoBuy">
-        <p>
+    ////////////////////////////////// Tarjetas //////////////////////////////////
+    <div className={style.containerTo}>
+      <div
+        className={style.container}
+        name={pack.name}
+        id={pack.id}
+        key={pack.id}
+      >
+        <img src={pack.image} alt="Pack" />
+        <h3
+          className={
+            pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange
+          }
+        >
+          {pack.stars} Stars
+        </h3>
+        <div className={style.priceDiv}>
           <span className={style.price}>${pack.price}</span>
-        </p>
-        {/* <p><span className={style.starsText}>{pack.stars} stars</span></p> */}
+        </div>
       </div>
-      <div className={style.containerQuantity}>
-        <button onClick={decreaseQuantity}>-</button>
-        <span>{quantity}</span>
-        <button onClick={increaseQuantity}>+</button>
+      <div className={style.containerBtn}>
+        <div className={style.containerQuantity}>
+          <button className={style.btnMinus} onClick={decreaseQuantity} />
+          <span>{quantity}</span>
+          <button className={style.btnMore} onClick={increaseQuantity} />
+        </div>
+        <button
+          className={`${style.btn} ${style.btnAddToCart}`}
+          onClick={handleAddItem}
+        />
       </div>
-      <button className={`${style.btn} ${style.btnAddToCart}`}>Añadir al carrito</button>
-    </form>
+    </div>
   );
 };
 

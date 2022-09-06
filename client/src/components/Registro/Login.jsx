@@ -58,7 +58,6 @@ export default function Login() {
 
   const login = (e) => {
     e.preventDefault();
-
     dispatch(signIn(input));
   };
 
@@ -84,8 +83,9 @@ export default function Login() {
       profileImg: picture,
       loginGoogle: true,
     };
-    console.log(userObject);
-    dispatch(createUserGoogle(userObject));
+    dispatch(createUserGoogle(userObject)
+    );
+
   }
 
   return (
@@ -123,11 +123,9 @@ export default function Login() {
           </div>
           <div style={{ height: "15px" }}></div>
           <div className={style.buttoncontainer}>
-            <button
-              className={"style2.button"}
-              data="Ingresar"
-              type="submit"
-              value=""
+            <button className={style.button} 
+            data="Ingresar" 
+            type="submit"
             >
               Login
             </button>

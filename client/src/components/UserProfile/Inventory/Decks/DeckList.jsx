@@ -95,7 +95,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
 
     function removeDeck(userId, deckId) {
         if (decks.length >= 2) {
-            if (activeDeck.id == deckId) dispatch(setActiveDeck({}));
+            if (activeDeck.id == deckId) dispatch(setActiveDeck({id: null}, userId));
             if (selectedDeck.id === deckId) {
 
                 dispatch(setNewSelectedDeck({}));
@@ -211,6 +211,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                         createNewDeck(userId, newDeckCards, newDeckName);
                     }
                 }}>Guardar</button>
+
             </div>
             {creationErrors.error && <div>{creationErrors.error}</div>}
 

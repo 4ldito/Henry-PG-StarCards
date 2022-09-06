@@ -9,9 +9,12 @@ import { getUser } from "../../redux/actions/user";
 import Packs from "./Packs/Packs";
 import Filters from "./Filters";
 
+import pack from "./styles/buyPack.module.css";
 import style from "./styles/Shop.module.css";
 import ShopCart from "./ShopCart/ShopCart";
 import ForSaleCards from "./ForSaleCards";
+
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 const Shop = () => {
   const dispatch = useDispatch();
@@ -55,7 +58,7 @@ const Shop = () => {
   if (!loadedStarsPack || !loadCardsPack) return <p>Loading..</p>;
 
   return (
-    <>
+    <div className={style.containerTo}>
       <div className={style.container}>
         <div className={style.containerBtns}>
           <button
@@ -63,26 +66,27 @@ const Shop = () => {
             value="stars"
             className={`${style.btn} ${style.active}`}
           >
-            Buy Stars
+            BUY STARS
           </button>
           <button
             onClick={handleChangeView}
             value="packsCards"
             className={style.btn}
           >
-            Buy Packs Cards
+            BUY PACKS CARDS
           </button>
           <button
             onClick={handleChangeView}
             value="cards"
             className={`${style.btn}`}
           >
-            Buy Cards
+            BUY CARDS
           </button>
+          <button
+            onClick={handleSeeShopcart}
+            className={style.btnShopcart}
+          ><AiOutlineShoppingCart size={38} /></button>
         </div>
-        <button onClick={handleSeeShopcart} className={style.btnShopcart}>
-          Shopcart
-        </button>
         {user?.id && (
           <p className={style.avaliableStars}>
             Stars disponibles: {user.stars}
@@ -91,16 +95,16 @@ const Shop = () => {
         {view === "stars" ? (
           <Packs type="starsPack" />
         ) : view === "packsCards" ? (
-          <>
+          <div className={pack.container}>
             <Filters />
             <Packs type="cardsPack" />
-          </>
+          </div>
         ) : (
           <ForSaleCards />
         )}
       </div>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}
-    </>
+    </div>
   );
 };
 

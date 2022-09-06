@@ -2,12 +2,12 @@ import React from 'react'
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteUser, modifyUser } from "../../redux/actions/user";
-import { getAllUsers } from "../../redux/actions/admin";
+import { deleteUser, modifyUser } from "../../../redux/actions/user";
+import { getAllUsers } from "../../../redux/actions/admin";
 import Swal from 'sweetalert2';
 import Filters from './AdminFilters';
 
-import style from "./ListUsers.module.css";
+import style from "../ListUsers.module.css";
 
 const ListUsers = () => {
 

@@ -3,9 +3,8 @@ import Filters from "./Filters";
 import InventoryContainer from "./InventoryContainer";
 import Sort from "./Sort";
 import SearchUserCard from "./SearchUserCard";
-
-import css from "./Inventory.module.css";
 import { useState } from "react";
+import css from "./Inventory.module.css";
 
 export default function Inventory() {
   const [actualStackToShow, setActualStackToShow] = useState(['cartas']);

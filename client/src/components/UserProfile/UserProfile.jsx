@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { getUser, getUserDecks } from "../../redux/actions/user";
+import { addNewFriend, deleteFriend, getUser, getUserDecks, getUserFriends } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
@@ -12,14 +12,16 @@ import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
 import PrivateChat from "./PrivateChat/PrivateChat";
 
 import getAllCards from "../../redux/actions/cards/getAllCards";
+import Friends from "./Friends/Friends";
 export default function UserProfile() {
   const dispatch = useDispatch();
 
   const activeUser = useSelector((state) => state.userReducer.user);
   const urlUser = useSelector((state) => state.userReducer.urlUser);
+  const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState();
+  const [render, setRender] = useState('Inventory');
   const { validToken } = useValidToken({ navigate: true });
 
   // Read profile owner from url
@@ -39,7 +41,10 @@ export default function UserProfile() {
     dispatch(getUserDecks(activeUser.id));
     dispatch(getUser(activeUser.id));
     dispatch(getAllCards());
+    // dispatch(getUserFriends(activeUser.id));
   }, []);
+
+  
 
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
@@ -61,14 +66,20 @@ export default function UserProfile() {
 
   function changeRender(e) {
     let value = e.target.value;
-    value === "1"
-      ? setRender("Inventory")
-      : value === "2"
-      ? setRender("Stats")
-      : value === "3"
-      ? setRender("Config")
-      : setRender("Chat");
+    if (value === render) return setRender('Inventory');
+    setRender(value)
   }
+  
+  const myFriend = friends?.find((f) => f.id === actualUrlUser.id)
+
+  function addFriend (e) {
+    dispatch(addNewFriend(activeUser.id, actualUrlUser.id ))
+  }
+
+  function deleteThisFriend (e) {
+    dispatch(deleteFriend({userId: activeUser.id, friendId: actualUrlUser.id }))
+  }
+ 
 
   const showToOwner = () => (
     <>
@@ -88,14 +99,14 @@ export default function UserProfile() {
         </Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="1"
+          value="Inventory"
           onClick={(e) => changeRender(e)}
         >
           Inventory
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="2"
+          value="Stats"
           onClick={(e) => changeRender(e)}
           disabled
         >
@@ -103,17 +114,24 @@ export default function UserProfile() {
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="3"
+          value="Config"
           onClick={(e) => changeRender(e)}
         >
           Config
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="4"
+          value="Chat"
           onClick={(e) => changeRender(e)}
         >
           Chat
+        </button>
+        <button
+          className={`${style.buttons} ${style.disabled}`}
+          value="Friends"
+          onClick={(e) => changeRender(e)}
+        >
+          Friends
         </button>
       </div>
 
@@ -127,6 +145,8 @@ export default function UserProfile() {
         "Stats"
       ) : render === "Chat" ? (
         <PrivateChat />
+      ) : render === "Friends" ? (
+        <Friends id={activeUser.id}/>
       ) : (
         ""
       )}
@@ -152,7 +172,7 @@ export default function UserProfile() {
         </button> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="2"
+          value="Stats"
           onClick={(e) => changeRender(e)}
           disabled
         >
@@ -160,11 +180,26 @@ export default function UserProfile() {
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="4"
+          value="Chat"
           onClick={(e) => changeRender(e)}
         >
           Chat
         </button>
+       
+        { myFriend ? 
+          <button
+          className={`${style.buttons} ${style.disabled}`}
+          onClick={(e) => deleteThisFriend(e)}
+        >
+          Delete friend
+        </button>
+        :
+        <button
+          className={`${style.buttons} ${style.disabled}`}
+          onClick={(e) => addFriend(e)}
+        >
+          Add friend
+        </button>}
       </div>
 
       {render === "Chat" ? (
@@ -184,12 +219,12 @@ export default function UserProfile() {
   );
 
   return Object.keys(user).length !== 0 ? (
-    actualUrlUser === user ? (
+    actualUrlUser === user || urlUser === null ? (
       showToOwner()
     ) : (
       showToVisitor()
     )
   ) : (
-    <div className={style.response}>'User not logged in'</div>
+    <div className={style.response}>User not logged in</div>
   );
 }
