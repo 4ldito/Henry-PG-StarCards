@@ -159,37 +159,6 @@ const PacksCard = ({ pack, type }) => {
               <span>{quantity}</span>
               <button className={css.btnMore} onClick={increaseQuantity} />
             </div>
-
-            {/* <div className={style.buttons}>
-              <button
-                className={`${style.btn} ${style.btnBuyNow}`}
-                onClick={handleBuyNow}
-              >
-                Comprar YA
-              </button>
-              <button className={`${style.btn} ${style.btnAddToCart}`}>
-                Añadir al carrito
-              </button>
-              {searchFaved === undefined ? (
-                <button
-                  className={`${style.btn} ${style.btnAddToCart}`}
-                  id={pack.id}
-                  onClick={handleFav}
-                  name="fav"
-                >
-                  Fav
-                </button>
-              ) : (
-                <button
-                  className={`${style.btn} ${style.btnAddToCart}`}
-                  id={pack.id}
-                  onClick={handleFav}
-                  name="unfav"
-                >
-                  Unfav
-                </button>
-              )}
-            </div> */}
           </div>
         )}
       </>
@@ -218,18 +187,15 @@ const PacksCard = ({ pack, type }) => {
         </div>
       </div>
       <div className={style.containerBtn}>
-        <button className={style.buyNow} onClick={handleBuyNow}>
-          BUY NOW
-        </button>
+        <div className={style.containerQuantity}>
+          <button className={style.btnMinus} onClick={decreaseQuantity} />
+          <span>{quantity}</span>
+          <button className={style.btnMore} onClick={increaseQuantity} />
+        </div>
         <button
           className={`${style.btn} ${style.btnAddToCart}`}
           onClick={handleAddItem}
         />
-      </div>
-      <div className={style.containerQuantity}>
-        <button className={style.btnMinus} onClick={decreaseQuantity} />
-        <span>{quantity}</span>
-        <button className={style.btnMore} onClick={increaseQuantity} />
       </div>
     </div>
   );
