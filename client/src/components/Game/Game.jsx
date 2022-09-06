@@ -8,8 +8,8 @@ import Team from "../Team/Team";
 
 import { getUser } from "../../redux/actions/user";
 
-import activeBtn from '../../img/button-active.png'
-import normalBtn from '../../img/button.png';
+import activeBtn from "../../img/button-active.png";
+import normalBtn from "../../img/button.png";
 
 import css from "./Game.module.css";
 
@@ -44,7 +44,6 @@ export default function Game() {
           className={`${css.btn}`}
           name="rules"
           onClick={(e) => handleClick(e)}
-          disabled
         >
           RULES
         </button>

@@ -142,7 +142,7 @@ export default function InventoryContainer() {
   }
 
   const updateSelectedDeck = (userId, deckId, newDeck) => {
-    dispatch(setActiveDeck({}));
+    dispatch(setActiveDeck({id: null}, userId));
     dispatch(updateDeck(userId, deckId, newDeck));
   }
 

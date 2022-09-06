@@ -100,7 +100,7 @@ const zergCards = [
           modStat: {
             mod: "dec",
             team: "enemy",
-            objective: "ground",
+            objective: "Ground",
             stat: "life",
             num: 14,
             time: "everyturn",
@@ -141,7 +141,7 @@ const zergCards = [
         {
           invisible: "invisible",
         },
-        { splashDmg: { num: 14, objective: "ground", time: "everyturn" } },
+        { splashDmg: { num: 14, objective: "Ground", time: "everyturn" } },
       ],
     },
     race: "Zerg",
@@ -158,8 +158,8 @@ const zergCards = [
     ability: "Siempre: daña 10 a los enemigos terrestres y aéreos en área.",
     abilities: {
       all: [
-        { splashDmg: { num: 10, objective: "ground", time: "everyturn" } },
-        { splashDmg: { num: 10, objective: "air", time: "everyturn" } },
+        { splashDmg: { num: 10, objective: "Ground", time: "everyturn" } },
+        { splashDmg: { num: 10, objective: "Flying", time: "everyturn" } },
       ],
     },
     race: "Zerg",
@@ -174,7 +174,7 @@ const zergCards = [
     Admg: 0,
     life: 90,
     ability: "Siempre: controla al último enemigo terrestre en llegar.",
-    abilities: { all: [{ control: "ground" }] },
+    abilities: { all: [{ control: "Ground" }] },
     race: "Zerg",
     cost: 400,
     movement: "Ground",
@@ -328,12 +328,12 @@ const zergCards = [
     ability:
       "Atacante: controla al último enemigo aéreo en llegar. Defensor: disminuye el ataque aéreo enemigo un 80%",
     abilities: {
-      atk: [{ control: "air" }],
+      atk: [{ control: "Flying" }],
       def: [
         {
           modStat: {
             mod: "dec",
-            objective: "air",
+            objective: "Flying",
             team: "enemy",
             stat: "Admg",
             perc: 10,
@@ -593,7 +593,7 @@ const terranCards = [
     life: 175,
     ability: "Atacante: daña 20 al siguiente enemigo terrestre.",
     abilities: {
-      atk: [{ splashDmg: { num: 30, objective: "ground", time: "everyturn" } }],
+      atk: [{ splashDmg: { num: 30, objective: "Ground", time: "everyturn" } }],
     },
     race: "Terran",
     cost: 400,
@@ -649,7 +649,7 @@ const terranCards = [
         {
           modStat: {
             mod: "inc",
-            objective: "ground",
+            objective: "Ground",
             team: "ally",
             time: "everyturn",
             stat: "life",
@@ -706,7 +706,7 @@ const terranCards = [
     life: 140,
     ability: "Atacante: daña 27 en área terrestre. Defensor: invisible.",
     abilities: {
-      atk: [{ splashDmg: { num: 27, objective: "ground", time: "everyturn" } }],
+      atk: [{ splashDmg: { num: 27, objective: "Ground", time: "everyturn" } }],
       def: [{ invisible: "invisible" }],
     },
     race: "Terran",
@@ -828,7 +828,7 @@ const protossCards = [
         {
           modStat: {
             mod: "inc",
-            objective: "ground",
+            objective: "Ground",
             team: "ally",
             time: "everyturn",
             stat: "life",
@@ -940,8 +940,8 @@ const protossCards = [
     ability:
       "Atacante: daña 20 en área terrestre. Defensor: daña 30 en área terrestre.",
     abilities: {
-      atk: [{ splashDmg: { num: 20, objective: "ground", time: "everyturn" } }],
-      def: [{ splashDmg: { num: 30, objective: "ground", time: "everyturn" } }],
+      atk: [{ splashDmg: { num: 20, objective: "Ground", time: "everyturn" } }],
+      def: [{ splashDmg: { num: 30, objective: "Ground", time: "everyturn" } }],
     },
     race: "Protoss",
     cost: 450,
@@ -956,7 +956,7 @@ const protossCards = [
     life: 180,
     ability: "Siempre: daña 40 en área terrestre.",
     abilities: {
-      all: [{ splashDmg: { num: 40, objective: "ground", time: "everyturn" } }],
+      all: [{ splashDmg: { num: 40, objective: "Ground", time: "everyturn" } }],
     },
     race: "Protoss",
     cost: 400,
@@ -974,7 +974,7 @@ const protossCards = [
     abilities: {
       all: [
         { allMoves: "allMoves" },
-        { splashDmg: { num: 28, objective: "ground", time: "everyturn" } },
+        { splashDmg: { num: 28, objective: "Ground", time: "everyturn" } },
       ],
     },
     race: "Protoss",
@@ -1123,7 +1123,7 @@ const protossCards = [
     Admg: 22.8,
     life: 700,
     ability: "Siempre: tus unidades son invisibles excepto ésta.",
-    abilities: { all: [{ cloackTema: "cloackTeam" }] },
+    abilities: { all: [{ cloackTeam: "cloackTeam" }] },
     race: "Protoss",
     cost: 1200,
     movement: "Flying",
