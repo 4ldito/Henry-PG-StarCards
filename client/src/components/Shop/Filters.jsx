@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCardsPacks } from "../../redux/actions/cardsPack";
 
@@ -13,6 +13,9 @@ const Filters = () => {
     order: "",
     favs: "all",
   });
+  const selectRace = useRef(null);
+  const selectOrder = useRef(null);
+
   const user = useSelector((state) => state.userReducer.user);
   const userId = user.id;
   // if (!userId && e.target.name === 'favs' )
@@ -23,6 +26,17 @@ const Filters = () => {
     });
   };
 
+  const handleClearFilters = (e) => {
+    e.preventDefault();
+    setFilters({
+      race: "allRaces",
+      order: "",
+      favs: "all",
+    });
+    selectRace.current.selectedIndex = 0;
+    selectOrder.current.selectedIndex = 0;
+  }
+
   useEffect(() => {
     dispatch(filterCardsPacks(filters));
   }, [filters]);
@@ -32,42 +46,32 @@ const Filters = () => {
       <button className={style.btnClearFilter}>
         <BiFilterAlt size={50} />
       </button>
+      <button className={style.btn} onClick={handleClearFilters} value="favs" name="favs">
+        Clear Filters
+      </button>
       {userId ? (
         filters.favs === "all" ? (
-          <button
-            className={style.btn}
-            onClick={onSelectChange}
-            value="favs"
-            name="favs"
-          >
+          <button className={style.btn} onClick={onSelectChange} value="favs" name="favs">
             Show favorites
           </button>
         ) : (
-          <button
-            className={style.btn}
-            onClick={onSelectChange}
-            value="all"
-            name="favs"
-          >
-            {" "}
-            Mostrar todos{" "}
+          <button className={style.btn} onClick={onSelectChange} value="all" name="favs">
+            Mostrar todos
           </button>
         )
       ) : (
-        ""
+        <></>
       )}
 
-      <select onChange={onSelectChange} name="race" className={style.select}>
+      <select ref={selectRace} onChange={onSelectChange} name="race" className={style.select}>
         <option value="allRaces">All races</option>
         <option value="Protoss">Protoss</option>
         <option value="Terran">Terran</option>
         <option value="Zerg">Zerg</option>
       </select>
 
-      <select onChange={onSelectChange} name="order" className={style.select}>
-        <option hidden value="allPrices">
-          Seleccionar orden
-        </option>
+      <select ref={selectOrder} onChange={onSelectChange} name="order" className={style.select}>
+        <option hidden value="allPrices">Seleccionar orden</option>
         <option value="priceDes">Precio de mayor a menor</option>
         <option value="priceAsc">Precio de menor a mayor</option>
         <option value="stockDes">Stock de mayor a menor</option>
