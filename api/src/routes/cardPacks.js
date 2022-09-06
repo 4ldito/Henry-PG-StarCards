@@ -135,4 +135,25 @@ packsRoute.patch('/buy', async (req, res, next) => {
 
 });
 
+
+packsRoute.patch("/:id", async (req, res, next) => {
+  const { id } = req.params;
+  const { StatusId, stock } = req.body;
+
+  try {
+    const pack = await CardPacks.findByPk(id);
+    
+    if (!pack) return res.status(404).send({ error: "pack not found" });
+
+    await pack.update({
+      StatusId,
+      stock
+    });
+    res.json(pack);
+    
+  } catch (error) {
+      next(error)
+  }
+})
+
 module.exports = packsRoute;
