@@ -4,29 +4,70 @@
    display: flex;
 }
 
-.allContainer{
+.allContainerWhenBothStacks{
     color:white;
-    background-color: #444;
+    background-color: black;
     display: flex;
-    overflow-x: scroll;
+    overflow: hidden;
     flex-direction: column;
     align-items: flex-start;
-    max-width: 50%;
+    width: 90%;
+    height: 90%;
+
+}
+.allContainerWhenOnlyDecks{
+    background: #444;
+    width: 90vw;
+    height: 67vh;
 }
 .actualDeckContainer{
     display: flex;
-
+    height: 100%;
     width: 100%;
-    overflow-x: scroll;
-    overflow-y: none;
-    background-color: aliceblue;
+    justify-content: center;
+    overflow: hidden;
+    background-color: transparent;
 }
 .cardsContainer{
     display: flex;
+    justify-content: center;
+    width: 100%;
 }
-.card{
+.saveAndUseButtons{
+    height: 10%;
+}
+.selectedDeckContainer{
+    padding: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;   
+    align-items: center;
+    width: 100%;
+    gap:8px;
+}
+/* .cardsContainer{
+    width: 90%;
+} */
+.creatingDeckContainer{
+    padding: 5px;
+    overflow-y: scroll;
+    width: 100%;
+    max-height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:8px;    
+}
+.deckList{
+  
+    width: 50%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-}
 
 @media screen and (min-width:450px){
     

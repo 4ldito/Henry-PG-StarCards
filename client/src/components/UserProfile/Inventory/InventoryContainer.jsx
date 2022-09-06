@@ -8,7 +8,10 @@ import DeckList from "./Decks/DeckList";
 
 import css from "./Inventory.module.css";
 
-export default function InventoryContainer() {
+export default function InventoryContainer({
+  actualStackToShow,
+  setActualStackToShow
+}) {
   const dispatch = useDispatch();
   const filteredUserCards = useSelector((state) => state.album.filteredUserCards);
   const cards = useSelector((state) => state.album.cards);
@@ -19,7 +22,6 @@ export default function InventoryContainer() {
   const [creatingDeck, setCreatingDeck] = useState(false);
   const [updatingDeck, setUpdatingdeck] = useState({});
   const [newDeckCards, setNewDeckCards] = useState([]);
-  const [actualStackToShow, setActualStackToShow] = useState(['cartas']);
   const [actualCost, setActualCost] = useState(0);
 
 
@@ -151,6 +153,7 @@ export default function InventoryContainer() {
     let cartas = [];
     filteredUserCards?.forEach(e => {
       cartas.push(<CardContainer key={e.id}
+        actualStackToShow={actualStackToShow}
         inDeck={false}
         tamanho='.5'
         newDeckCards={newDeckCards}
@@ -187,9 +190,11 @@ export default function InventoryContainer() {
     }
   }
 
-  return (<div className={css.InventoryContainer}>
+  return (<div className={css.inventoryContainer}>
+    <div className={css.cardsAndDecksButtons}>
     <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
     <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
+    </div>
     <div className={css.cartasYMazosContainer}>
       {actualStackToShow.includes('cartas') ? <div className={bothStacks ? css.cartasYMazo : css.cartas}>{renderNotRepeat()}</div> : <></>}
       {actualStackToShow.includes('mazos') ? <DeckList selectedDeck={selectedDeck}
@@ -199,7 +204,7 @@ export default function InventoryContainer() {
         enableAddButton={setBothStacks} userId={user.id} updatingDeck={updatingDeck}
         setUpdatingdeck={setUpdatingdeck} changeDeckName={changeDeckName}
         updateSelectedDeck={updateSelectedDeck} setActualCost={setActualCost}
-        actualCost={actualCost}></DeckList> : <></>}
+        actualCost={actualCost} actualStackToShow={actualStackToShow}></DeckList> : <></>}
     </div>
   </div >);
 }

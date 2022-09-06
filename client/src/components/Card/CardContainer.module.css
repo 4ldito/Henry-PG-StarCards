@@ -1,5 +1,47 @@
 
 
+.cardInDeck{
+    position: relative;
+    display: flex;
+    min-width: 100%;
+    height: 5vh;
+    background: #7777dd77;
+    cursor: pointer;
+}
+
+.cardsAnDeckContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+.sacarDelMazoBtn{
+    position: absolute;
+    height: 30%;
+    width: 25px;
+    right: 5px;
+    top:5px;
+    overflow: hidden;
+
+}
+
+.repeat{
+    position:absolute;
+    right: 10px;
+    bottom: 5px;
+    font-size: 20px;
+
+}
+.repeatOutDeck{
+    position: absolute;
+    top:20px;
+    right: 10px;
+    font-size:20px;
+}
+
+
+
+
 
 @media screen and (max-width:480px){
     .container{

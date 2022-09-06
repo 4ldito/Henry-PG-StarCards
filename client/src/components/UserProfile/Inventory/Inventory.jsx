@@ -8,15 +8,18 @@ import css from "./Inventory.module.css";
 import { useState } from "react";
 
 export default function Inventory() {
+  const [actualStackToShow, setActualStackToShow] = useState(['cartas']);
   return (
     <div className={css.Inventory}>
-      <div className={css.filters}>
-        <Filters />
-        <Sort />
-        <SearchUserCard />
+      {(actualStackToShow.includes('cartas') && actualStackToShow.length === 1) &&
+        <div className={css.filters}>
+          <Filters />
+          <Sort />
+          <SearchUserCard />
 
-      </div>
-      <InventoryContainer/>
+        </div>}
+      <InventoryContainer actualStackToShow={actualStackToShow}
+        setActualStackToShow={setActualStackToShow} />
     </div>
   );
 }
