@@ -1,12 +1,52 @@
-.rules{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@font-face {
+  font-family: starcardsFont-fine;
+  src: url("../../../css/EurostileNextLTPro-Light.otf");
+}
 
-    background-color: white;
+.rules {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    width: 100%;
-    height: 93.1%;
+  width: 100%;
+  height: 78vh;
 
-    margin-top: .5%;
+  margin-top: 0.5%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+.seccionInfo {
+  display: flex;
+  justify-content: center;
+  text-align: start;
+
+  font-family: starcardsFont-fine;
+  font-size: 1.3rem;
+
+  color: white;
+
+  width: 50%;
+  height: 100%;
+  padding: 1.5% 7% 0 2%;
+}
+
+.seccionImg {
+  display: flex;
+  justify-content: end;
+
+  width: 50%;
+  height: 100%;
+
+  padding: 2% 2% 0 0;
+}
+
+.img {
+  height: 80%;
 }
