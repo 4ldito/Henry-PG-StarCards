@@ -17,8 +17,8 @@ export const UPDATE_DECK = "UPDATE_DECK";
 export const DELETE_DECK = "DELETE_DECK";
 export const SET_ACTIVE_DECK = "SET_ACTIVE_DECK";
 export const SET_SELECTED_DECK = "SET_SELECTED_DECK";
-export const ADD_CARD_TO_DECK = 'ADD_CARD_TO_DECK';
-export const REMOVE_DECK_CARD = 'REMOVE_DECK_CARD';
+export const ADD_CARD_TO_DECK = "ADD_CARD_TO_DECK";
+export const REMOVE_DECK_CARD = "REMOVE_DECK_CARD";
 export const USER_MODIFY_STARS = "USER_MODIFY_STARS";
 export const GET_USER_BY_EMAIL = "GET_USER_BY_EMAIL";
 export const SET_CHAT_NOTIFICATION = "SET_CHAT_NOTIFICATION";
@@ -29,7 +29,6 @@ export const GET_BY_EMAIL = "GET_BY_EMAIL";
 export const MODIFY_USER_CARDS = "MODIFY_USER_CARDS";
 export const CREATE_USER_GOOGLE = "CREATE_USER_GOOGLE";
 export const GET_GAMES = "GET_GAMES";
-
 
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,7 +184,6 @@ export function getUserDecks(userId, deckId) {
 export function createDeck(userId, deck, name) {
   // console.log('userId--->',userId,'deck--->', deck,'name--->', name)
   return async function (dispatch) {
-
     const response = await axios.post(`userDecks/${userId}`, {
       newDeckCards: deck,
       name,
@@ -199,24 +197,30 @@ export function deleteDeck(userId, deckId) {
     dispatch({ type: DELETE_DECK, payload: response.data });
   };
 }
-export function setActiveDeck(deck) {
+export function setActiveDeck(deck, userId) {
+  return async function (dispatch) {
+    await axios.patch(`/user/defaultDeck/${deck.id}/${userId}`);
 
-  return { type: SET_ACTIVE_DECK, payload: deck }
+    dispatch({ type: SET_ACTIVE_DECK, payload: deck });
+  };
 }
 export function setNewSelectedDeck(deck) {
-  return { type: SET_SELECTED_DECK, payload: deck }
+  return { type: SET_SELECTED_DECK, payload: deck };
 }
 export function addDeckCard(cardId) {
-  return { type: ADD_CARD_TO_DECK, payload: cardId }
+  return { type: ADD_CARD_TO_DECK, payload: cardId };
 }
 export function updateDeck(userId, deckId, newDeck) {
   return async function (dispatch) {
-    const response = await axios.patch(`/userDecks/${userId}/${deckId}`, newDeck);
+    const response = await axios.patch(
+      `/userDecks/${userId}/${deckId}`,
+      newDeck
+    );
     dispatch({ type: UPDATE_DECK, payload: response.data });
-  }
+  };
 }
 export function removeDeckCard(cardId) {
-  return { type: REMOVE_DECK_CARD, payload: cardId }
+  return { type: REMOVE_DECK_CARD, payload: cardId };
 }
 export function setChatNotification(flag) {
   return { type: SET_CHAT_NOTIFICATION, payload: flag };

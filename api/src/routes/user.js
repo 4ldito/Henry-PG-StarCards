@@ -187,4 +187,18 @@ userRoute.patch("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+userRoute.patch("/defaultDeck/:id/:userId", async (req, res, next) => {
+  try {
+    const { id, userId } = req.params;
+    console.log("id " + id);
+    console.log(userId);
+    const user = await User.findByPk(userId);
+    await user.update({ defaultDeck: id });
+    return res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = userRoute;

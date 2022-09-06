@@ -47,6 +47,7 @@ export default function Playroom() {
     });
     socket.on("gameResults", () => {
       dispatch(getUserGames(userActive.id));
+      setOnGame(false);
     });
 
     return () => {
@@ -107,6 +108,8 @@ export default function Playroom() {
     setGameView({ info: undefined, bool: false });
   }
 
+  console.log(games.at(-1));
+
   return (
     <>
       <div className={style.container}>
@@ -121,8 +124,8 @@ export default function Playroom() {
                   {games.map((g, i) => {
                     return (
                       <div key={i} onClick={(e) => handleGameView(g)}>
-                        <span>{g.player1.race}</span> vs{" "}
-                        <span>{g.player2.race}</span>
+                        <span>{g.info.player1.race}</span> vs{" "}
+                        <span>{g.info.player2.race}</span>
                       </div>
                     );
                   })}

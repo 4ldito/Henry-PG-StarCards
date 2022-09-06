@@ -11,7 +11,7 @@ const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
 
 const { User, Rol, StarsPack, Card, CardPacks, Status, UserCards } = db;
 
-const forceFlag = false;
+const forceFlag = true;
 
 const PORT = process.env.PORT !== undefined ? process.env.PORT : 3001;
 
@@ -66,7 +66,6 @@ const createStatus = async () => {
     await Status.create(stat);
   }
 };
-
 
 db.sequelize.sync({ force: forceFlag }).then(async () => {
   if (forceFlag) {
