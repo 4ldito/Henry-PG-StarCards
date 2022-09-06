@@ -11,7 +11,7 @@ import Pack from "./Pack";
 
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(pack.stock > 0 ? 1 : 0);
 
   const user = useSelector((state) => state.userReducer.user);
   const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
@@ -34,6 +34,14 @@ const PacksCard = ({ pack, type }) => {
     pack.quantity = quantity;
     const info = { data: [{ ...pack }] };
 
+    if (checkStock(quantity)) {
+      return Swal.fire({
+        title: "Error!",
+        text: "No hay stock disponible =(",
+        icon: "error",
+      });
+    }
+
     if (!user.id) {
       return Swal.fire({
         title: "Error!",
@@ -52,9 +60,8 @@ const PacksCard = ({ pack, type }) => {
 
     Swal.fire({
       title: `Confrimar`,
-      text: `¿Estás seguro que queres comprar ${pack.quantity} ${
-        pack.name
-      } por ${pack.price * pack.quantity} stars?`,
+      text: `¿Estás seguro que queres comprar ${pack.quantity} ${pack.name
+        } por ${pack.price * pack.quantity} stars?`,
       showCancelButton: true,
       confirmButtonText: "Comprar",
     }).then(({ isConfirmed }) => {
@@ -65,7 +72,7 @@ const PacksCard = ({ pack, type }) => {
   };
 
   const checkStock = (totalQuantity) => {
-    if (pack.stock && totalQuantity > pack.stock) {
+    if (totalQuantity > pack.stock) {
       return true;
     }
     return false;
@@ -119,48 +126,48 @@ const PacksCard = ({ pack, type }) => {
   if (type === "cardsPack") {
     return (
       <>
-        {pack.stock > 0 && (
-          <div
-            className={css.containerPack}
-            name={pack.name}
-            id={pack.id}
-            key={pack.id}
-          >
-            {/* <div className={style.pack}> */}
-            <Pack
-              pack={pack}
-              increaseQuantity={increaseQuantity}
-              handleFav={handleFav}
-              handleAddItem={handleAddItem}
-              handleBuyNow={handleBuyNow}
-              decreaseQuantity={decreaseQuantity}
-              quantity={quantity}
-            />
-            {/* </div> */}
+        {/* {pack.stock > 0 && ( */}
+        <div
+          className={css.containerPack}
+          name={pack.name}
+          id={pack.id}
+          key={pack.id}
+        >
+          {/* <div className={style.pack}> */}
+          <Pack
+            pack={pack}
+            increaseQuantity={increaseQuantity}
+            handleFav={handleFav}
+            handleAddItem={handleAddItem}
+            handleBuyNow={handleBuyNow}
+            decreaseQuantity={decreaseQuantity}
+            quantity={quantity}
+          />
+          {/* </div> */}
 
-            <div className={css.priceDiv}>
-              <span className={css.price}>{pack.price} Stars</span>
-            </div>
-
-            <div className={css.containerBtn}>
-              {/* Crear funcion para el "BUY NOW" */}
-              <button className={css.buyNow} onClick={handleBuyNow}>
-                BUY NOW
-              </button>
-              <button
-                className={`${css.btn} ${css.btnAddToCart}`}
-                onClick={handleAddItem}
-              />
-            </div>
-
-            <div className={css.containerQuantity}>
-              <span className={style.stock}>STOCK : {pack.stock}</span>
-              <button className={css.btnMinus} onClick={decreaseQuantity} />
-              <span>{quantity}</span>
-              <button className={css.btnMore} onClick={increaseQuantity} />
-            </div>
+          <div className={css.priceDiv}>
+            <span className={css.price}>{pack.price} Stars</span>
           </div>
-        )}
+
+          <div className={css.containerBtn}>
+            {/* Crear funcion para el "BUY NOW" */}
+            <button className={pack.stock > 0 ? css.buyNow : `${css.buyNow} ${style.withoutStock}`} onClick={handleBuyNow}>
+              {pack.stock > 0 ? "BUY NOW" : 'SOLD OUT'}
+            </button>
+            <button
+              className={`${css.btn} ${css.btnAddToCart}`}
+              onClick={handleAddItem}
+            />
+          </div>
+
+          <div className={css.containerQuantity}>
+            <span className={pack.stock > 0 ? style.stock : `${style.stock} ${style.withoutStock} ${style.withoutStockText}`}>STOCK : {pack.stock}</span>
+            <button className={css.btnMinus} onClick={decreaseQuantity} />
+            <span>{quantity}</span>
+            <button className={css.btnMore} onClick={increaseQuantity} />
+          </div>
+        </div>
+        {/* )} */}
       </>
     );
   }

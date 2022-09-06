@@ -8,6 +8,7 @@ import socket from "../../../Socket";
 
 import style from "./Playroom.module.css";
 import styleChat from "../Chat/Chat.module.css";
+import GameView from './Play/GameView';
 
 export default function Playroom() {
   useValidToken({ navigate: true });

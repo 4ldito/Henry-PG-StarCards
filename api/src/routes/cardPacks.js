@@ -21,7 +21,7 @@ packsRoute.get("/:status", async (req, res, next) => {
   const { status } = req.params;
   try {
     const packs = await CardPacks.findAll({
-      where: { StatusId: status },
+      where: { StatusId: status }, order: [['price', 'ASC']]
     });
     return res.send(packs);
   } catch (error) {
@@ -29,30 +29,32 @@ packsRoute.get("/:status", async (req, res, next) => {
   }
 });
 
-packsRoute.post('/', async(req,res,next)=>{
-  const {name, amount, price, stock, race, cards, image} = req.body;
+packsRoute.post('/', async (req, res, next) => {
+  const { name, amount, price, stock, race, cards, image } = req.body;
   try {
     if (name) {
-      const ispack = await CardPacks.findOne({where: {name}});
+      const ispack = await CardPacks.findOne({ where: { name } });
       if (ispack) {
         return res.status(404).send('no exist')
       }
-      if(!ispack){
+      if (!ispack) {
         const newpack = await CardPacks.findOrCreate(
-          {where:{
-          name,
-          amount,
-          price,
-          stock,
-          race,
-          image,
-          cards
-        }});
+          {
+            where: {
+              name,
+              amount,
+              price,
+              stock,
+              race,
+              image,
+              cards
+            }
+          });
         return res.status(201).send(newpack)
       }
       return res.status(404).send('name exist');
     }
-    
+
   } catch (error) {
     return next(error);
   }

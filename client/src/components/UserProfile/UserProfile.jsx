@@ -21,8 +21,8 @@ export default function UserProfile() {
   const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState();
-  const { validToken } = useValidToken({ navigate: true });
+  const [render, setRender] = useState("Inventory");
+  useValidToken({ navigate: true });
 
   // Read profile owner from url
   function useQuery() {
@@ -44,7 +44,7 @@ export default function UserProfile() {
     // dispatch(getUserFriends(activeUser.id));
   }, []);
 
-  
+
 
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
@@ -74,8 +74,8 @@ export default function UserProfile() {
     //   ? setRender("Stats")
     //   : value === "3"
     //   ? setRender("Config")
-      // : value === "5"
-      // ? setRender("Friends")
+    // : value === "5"
+    // ? setRender("Friends")
     //   : setRender("Chat");
   }
 
@@ -83,14 +83,14 @@ export default function UserProfile() {
 
   const myFriend = friends?.find((f) => f.id === actualUrlUser.id)
 
-  function addFriend (e) {
-    dispatch(addNewFriend(activeUser.id, actualUrlUser.id ))
+  function addFriend(e) {
+    dispatch(addNewFriend(activeUser.id, actualUrlUser.id))
   }
 
-  function deleteThisFriend (e) {
-    dispatch(deleteFriend({userId: activeUser.id, friendId: actualUrlUser.id }))
+  function deleteThisFriend(e) {
+    dispatch(deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id }))
   }
- 
+
 
   const showToOwner = () => (
     <>
@@ -105,9 +105,6 @@ export default function UserProfile() {
         </Link>
       </div>
       <div className={style.buttonsbar}>
-        {/* <Link to="/inventory">
-          <button>Inventory</button>
-        </Link> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
           value="Inventory"
@@ -157,7 +154,7 @@ export default function UserProfile() {
       ) : render === "Chat" ? (
         <PrivateChat />
       ) : render === "Friends" ? (
-        <Friends id={activeUser.id}/>
+        <Friends id={activeUser.id} />
       ) : (
         ""
       )}
@@ -174,16 +171,9 @@ export default function UserProfile() {
         />
       </div>
       <div className={style.buttonsbar}>
-        {/* <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="1"
-          onClick={(e) => changeRender(e)}
-        >
-          Inventory
-        </button> */}
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="2"
+          value="Stats"
           onClick={(e) => changeRender(e)}
           disabled
         >
@@ -191,26 +181,26 @@ export default function UserProfile() {
         </button>
         <button
           className={`${style.buttons} ${style.disabled}`}
-          value="4"
+          value="Chat"
           onClick={(e) => changeRender(e)}
         >
           Chat
         </button>
-       
-        { myFriend ? 
+
+        {myFriend ?
           <button
-          className={`${style.buttons} ${style.disabled}`}
-          onClick={(e) => deleteThisFriend(e)}
-        >
-          Delete friend
-        </button>
-        :
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          onClick={(e) => addFriend(e)}
-        >
-          Add friend
-        </button>}
+            className={`${style.buttons} ${style.disabled}`}
+            onClick={(e) => deleteThisFriend(e)}
+          >
+            Delete friend
+          </button>
+          :
+          <button
+            className={`${style.buttons} ${style.disabled}`}
+            onClick={(e) => addFriend(e)}
+          >
+            Add friend
+          </button>}
       </div>
 
       {render === "Chat" ? (
