@@ -7,8 +7,7 @@ import {
 } from "../../redux/actions/cards/opinion";
 
 import css from "./DetailPopUp.module.css";
-import { MdStarOutline } from "react-icons/md";
-import { MdStar } from "react-icons/md";
+import { MdStar, MdStarOutline } from "react-icons/md";
 
 export default function DetailPopUp({
   handleDetail,
@@ -30,7 +29,6 @@ export default function DetailPopUp({
   const [viewEdit, setViewEdit] = useState(false);
   const [haveCard, setHaveCard] = useState(false);
   const [commented, setCommented] = useState(false);
-  const [quantity, setQuantity] = useState(1);
   const [input, setInput] = useState({ comment: "", score: 1, cardId: id, userId: user.id });
 
   useEffect(() => {
@@ -88,134 +86,15 @@ export default function DetailPopUp({
 
   function ratingStars() {
     let stars = [];
-    let ratingSum = opinion
-      .map((r) => r.score)
-      .reduce((prev, curr) => prev + curr, 0);
+    let ratingSum = opinion.map((r) => r.score).reduce((prev, curr) => prev + curr, 0);
+    let rating = Math.round(ratingSum / opinion.length) || 0;
+    
+    for (let i = 0; i < rating; i++) {
+      stars.push(<span key={i}><MdStar /></span>)
+    }
 
-    let rating = ratingSum / opinion.length;
-
-    if (Math.round(rating) === 0) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 1) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 2) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 3) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 4) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStarOutline />
-          </span>
-        </span>
-      );
-    } else if (Math.round(rating) === 5) {
-      stars.push(
-        <span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-          <span>
-            <MdStar />
-          </span>
-        </span>
-      );
-    } else {
-      stars = false;
+    for (let i = 5; i > rating; i--) {
+      stars.push(<span key={i}><MdStarOutline /></span>)
     }
 
     return stars;
@@ -291,14 +170,14 @@ export default function DetailPopUp({
             <span className={css.titleComment}>COMMENTS</span>
             <div className={css.comments}>
               {opinion.map((opinion, index) => {
-                return opinion.comment ? (
+                return (
                   <section key={index}>
                     <p className={css.username} >
                       {opinion.User.username} :
                     </p>
                     <span>{opinion.comment}</span>
                   </section>
-                ) : <></>;
+                )
               })}
             </div>
           </div>
