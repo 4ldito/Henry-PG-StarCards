@@ -57,7 +57,7 @@ export default function Playroom() {
   const divRef = useRef(null);
 
   useEffect(() => {
-    divRef.current.scrollIntoView({ behavior: "smooth" });
+    if (openChat) divRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
   const handleSubmit = (e) => {
@@ -81,6 +81,7 @@ export default function Playroom() {
   }, [reduxGames]);
 
   useEffect(() => {
+    window.scroll({ top: 0, behavior: "auto" });
     dispatch(getUserGames(userActive.id));
   }, []);
 
