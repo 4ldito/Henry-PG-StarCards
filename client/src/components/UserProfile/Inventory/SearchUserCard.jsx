@@ -19,7 +19,7 @@ export default function SearchUserCard() {
   return (
     <form onSubmit={e => e.preventDefault()} className={css.form} >
       <input type="text" onChange={(e) => onInputChange(e)} value={search} />
-      <input className={css.btnSearch} type="submit" value="search" />
+      <input className={css.btnSearch} type="submit" value="Search" />
     </form>
   );
 }

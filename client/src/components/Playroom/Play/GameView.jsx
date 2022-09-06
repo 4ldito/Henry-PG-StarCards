@@ -1,7 +1,8 @@
 export default function GameView({ info, close }) {
-
-  return <>
-  <div></div>
-  <button onClick={close}>X</button>
-  </>;
+  return (
+    <>
+      <div></div>
+      <button onClick={close}>X</button>
+    </>
+  );
 }

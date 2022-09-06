@@ -44,8 +44,6 @@ export default function UserProfile() {
     // dispatch(getUserFriends(activeUser.id));
   }, []);
 
-
-
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
     setUser(activeUser);
@@ -66,7 +64,7 @@ export default function UserProfile() {
 
   function changeRender(e) {
     let value = e.target.value;
-    if (value === render) return setRender();
+    if (value === render) return setRender('Inventory');
     setRender(value)
   }
 
@@ -80,50 +78,28 @@ export default function UserProfile() {
     dispatch(deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id }))
   }
 
-
   const showToOwner = () => (
     <>
-      <Link className={style.stars} to="/shop">
-        <FaShoppingCart size={28} />
-        Stars: {user.stars}
-      </Link>
       <div className={style.buttonsbar}>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Inventory"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={`${style.buttons} ${style.disabled}`} value="Inventory" onClick={(e) => changeRender(e)}>
           Inventory
         </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Stats"
-          onClick={(e) => changeRender(e)}
-          disabled
-        >
+        <button className={`${style.buttons} ${style.disabled}`} value="Stats" onClick={(e) => changeRender(e)} disabled>
           Stats
         </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Config"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={`${style.buttons} ${style.disabled}`} value="Config" onClick={(e) => changeRender(e)}>
           Config
         </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Chat"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={`${style.buttons} ${style.disabled}`} value="Chat" onClick={(e) => changeRender(e)}>
           Chat
         </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Friends"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={`${style.buttons} ${style.disabled}`} value="Friends" onClick={(e) => changeRender(e)}>
           Friends
         </button>
+        <Link className={style.stars} to="/shop">
+          <FaShoppingCart size={28} />
+          Stars: {user.stars}
+        </Link>
       </div>
 
       {render === "Config" ? (

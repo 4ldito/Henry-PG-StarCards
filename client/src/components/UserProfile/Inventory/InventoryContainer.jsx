@@ -142,7 +142,7 @@ export default function InventoryContainer() {
   }
 
   const updateSelectedDeck = (userId, deckId, newDeck) => {
-    dispatch(setActiveDeck({}));
+    dispatch(setActiveDeck({id: null}, userId));
     dispatch(updateDeck(userId, deckId, newDeck));
   }
 
@@ -188,8 +188,8 @@ export default function InventoryContainer() {
   }
 
   return (<div className={css.InventoryContainer}>
-    <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
-    <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
+    <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cards</button>
+    <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Decks</button>
     <div className={css.cartasYMazosContainer}>
       {actualStackToShow.includes('cartas') ? <div className={bothStacks ? css.cartasYMazo : css.cartas}>{renderNotRepeat()}</div> : <></>}
       {actualStackToShow.includes('mazos') ? <DeckList selectedDeck={selectedDeck}

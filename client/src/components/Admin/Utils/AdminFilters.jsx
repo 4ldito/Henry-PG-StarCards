@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { filterUsers } from "../../redux/actions/admin";
+import { filterUsers } from "../../../redux/actions/admin";
 
 
 export default function Filters() {

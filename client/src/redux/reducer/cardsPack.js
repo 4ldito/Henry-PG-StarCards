@@ -1,4 +1,4 @@
-import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS, FAV_USER_PACKS, GET_DETAIL_PACK } from "../actions/cardsPack";
+import { BUY_CARD_PACK, CLEAN_MSG_INFO, FILTER_CARDS_PACKS, GET_ALL_CARDS_PACKS, FAV_USER_PACKS, GET_DETAIL_PACK, MODIFY_CARD_PACKS } from "../actions/cardsPack";
 
 const initialState = {
   cardsPacks: [],
@@ -13,6 +13,11 @@ export default function cardsPacksReducer(state = initialState, { type, payload 
   switch (type) {
     case GET_ALL_CARDS_PACKS:
       return { ...state, cardsPacks: payload, filteredCardsPack: payload, loaded: true }
+      
+    case MODIFY_CARD_PACKS:
+     let index = state.cardsPacks.findIndex(c=>c.id === payload.id)
+    state.cardsPacks[index] = payload
+     return { ...state, cardsPacks: [...state.cardsPacks], loaded: true }
 
     case BUY_CARD_PACK:
       const { msg, error, updatedInfo } = payload;

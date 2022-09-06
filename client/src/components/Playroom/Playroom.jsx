@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUser, getUserGames } from "../../redux/actions/user";
 import socket from "../../../Socket";
+import GameView from "./Play/GameView";
 
 import style from "./Playroom.module.css";
 import styleChat from "../Chat/Chat.module.css";
-import GameView from './Play/GameView';
-
+  
 export default function Playroom() {
   useValidToken({ navigate: true });
   const [openChat, setOpenChat] = useState(false);
@@ -47,6 +47,7 @@ export default function Playroom() {
     });
     socket.on("gameResults", () => {
       dispatch(getUserGames(userActive.id));
+      setOnGame(false);
     });
 
     return () => {
@@ -97,6 +98,7 @@ export default function Playroom() {
 
   function handlePlay() {
     socket.emit("playRequest", userActive.id);
+    setOnGame(true);
   }
 
   function handleGameView(game) {
@@ -106,6 +108,8 @@ export default function Playroom() {
   function handleGameViewClose() {
     setGameView({ info: undefined, bool: false });
   }
+
+  console.log(games.at(-1));
 
   return (
     <>
@@ -121,8 +125,8 @@ export default function Playroom() {
                   {games.map((g, i) => {
                     return (
                       <div key={i} onClick={(e) => handleGameView(g)}>
-                        <span>{g.player1.race}</span> vs{" "}
-                        <span>{g.player2.race}</span>
+                        <span>{g.info.player1.race}</span> vs{" "}
+                        <span>{g.info.player2.race}</span>
                       </div>
                     );
                   })}

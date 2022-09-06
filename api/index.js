@@ -67,7 +67,6 @@ const createStatus = async () => {
   }
 };
 
-
 db.sequelize.sync({ force: forceFlag }).then(async () => {
   if (forceFlag) {
     await createRols();
