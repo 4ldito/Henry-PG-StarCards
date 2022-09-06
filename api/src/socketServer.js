@@ -3,7 +3,7 @@ const server = require("./app");
 const socketIoServer = require("http").createServer(server);
 
 const db = require("./db");
-const { User, Deck, Card, Game, PrivateChat, Message } = db;
+const { User, Deck, UserCards, Card, Game, PrivateChat, Message } = db;
 
 const io = require("socket.io")(socketIoServer, {
   cors: {
@@ -147,7 +147,6 @@ io.on("connection", (socket) => {
   // });
 
   socket.on("publicMessage", (username, message) => {
-    console.log(message);
     io.emit("messages", { username, message });
   });
 
@@ -215,16 +214,36 @@ io.on("connection", (socket) => {
             gameUserSockets.find((e) => e.userId === p1.id)?.socket,
             gameUserSockets.find((e) => e.userId === p2.id)?.socket,
           ];
-          [p1Deck, p2Deck] = await Promise.all([
+
+          let [p1DeckC, p2DeckC] = await Promise.all([
             Deck.findOne({
               where: { id: p1.defaultDeck },
-              include: [{ model: Card }, { model: User }],
+              include: [
+                { model: UserCards, include: [{ model: Card }] },
+                { model: User },
+              ],
             }),
             Deck.findOne({
               where: { id: p2.defaultDeck },
-              include: [{ model: Card }, { model: User }],
+              include: [
+                { model: UserCards, include: [{ model: Card }] },
+                { model: User },
+              ],
             }),
           ]);
+
+          let [p1DeckP, p2DeckP] = await Promise.all([
+            Promise.all(p1DeckC.UserCards.map((c) => Card.findByPk(c.CardId))),
+            Promise.all(p2DeckC.UserCards.map((c) => Card.findByPk(c.CardId))),
+          ]);
+
+          [p1Deck, p2Deck] = [
+            p1DeckP.map((c) => c.dataValues),
+            p2DeckP.map((c) => c.dataValues),
+          ];
+
+          console.log(p1Deck);
+          console.log(p2Deck);
 
           function gameExe(p1Deck, p2Deck) {
             return new Promise((resolve, reject) => {

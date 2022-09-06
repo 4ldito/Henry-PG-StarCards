@@ -97,7 +97,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
 
     function removeDeck(userId, deckId) {
         if (decks.length >= 2) {
-            if (activeDeck.id == deckId) dispatch(setActiveDeck({}));
+            if (activeDeck.id == deckId) dispatch(setActiveDeck({id: null}, userId));
             if (selectedDeck.id === deckId) {
 
                 dispatch(setNewSelectedDeck({}));
@@ -189,7 +189,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                         })}
                     </div>
                 }
-                {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
+                {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck, userId)) }}>Usar</button>}
             </div>
             <button onClick={() => {
                 if (updatingDeck.cards || updatingDeck.name) {

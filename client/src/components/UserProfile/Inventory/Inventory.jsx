@@ -5,7 +5,6 @@ import Sort from "./Sort";
 import SearchUserCard from "./SearchUserCard";
 
 import css from "./Inventory.module.css";
-import { useState } from "react";
 
 export default function Inventory() {
   return (

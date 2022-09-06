@@ -26,6 +26,9 @@ import {
   UPDATE_DECK,
   CREATE_USER_GOOGLE,
   GET_GAMES,
+  GET_USER_FRIENDS,
+  ADD_NEW_FRIEND,
+  DELETE_FRIEND
 
 } from "../actions/user";
 
@@ -44,6 +47,7 @@ const initialState = {
   chatNotification: false,
   userOptions: false,
   games: [],
+  friends: []
 };
 
 export default function userReducer(state = initialState, { type, payload }) {
@@ -174,10 +178,18 @@ export default function userReducer(state = initialState, { type, payload }) {
         );
         actualUserCard.StatusId = userCard.StatusId;
       });
-
       return { ...state, user: { ...state.user } };
     case GET_GAMES:
       return { ...state, games: payload };
+    
+      case GET_USER_FRIENDS:
+        return { ...state, friends: payload };
+
+      case ADD_NEW_FRIEND:
+        console.log('payload', payload)
+          return { ...state, friends: [...state.friends, payload] };
+      case DELETE_FRIEND:
+          return { ...state, friends: payload };
     default:
       return state;
   }
