@@ -13,6 +13,7 @@ class User extends Model {
     User.belongsToMany(models.CardPacks, { through: "FavPacks" });
     User.belongsToMany(models.PrivateChat, { through: "User-PrivChat" });
     User.belongsToMany(models.Game, { through: "PlayedGame" });
+    User.belongsToMany(User, { as: 'friends', through: 'Friends' });
   }
 }
 
