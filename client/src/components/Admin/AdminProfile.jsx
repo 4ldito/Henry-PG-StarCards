@@ -13,53 +13,43 @@ export default function renderAdmin() {
 
     const [render, setRender] = useState('ListUsers')
 
-    function changeRender(e) {
+      function changeRender(e) {
         let value = e.target.value;
-        value === "1"
-          ? render==="ListUsers" ? setRender('ListUsers') : setRender("ListUsers")
-          : value === "2"
-          ? render==="Transactions" ? setRender('ListUsers') : setRender("Transactions")
-          : value === "3"
-          ? render==="CreatePacks" ? setRender('ListUsers') : setRender("CreatePacks")
-          : value === "4"
-          ? render==="CreateCards" ? setRender('ListUsers') : setRender("CreateCards")
-          : value === "5"
-          ? render==="Store" ? setRender('ListUsers') : setRender("Store")
-          : setRender('ListUsers')
+        if (value === render) return setRender('ListUsers');
+        setRender(value)
       }
-
     return (
         <div className={style.container}>
             <button 
-                value="1"
+                value="ListUsers"
                 onClick={(e) => changeRender(e)}
                 >
                 ListUsers
             </button>
             
             <button 
-                value="2"
+                value="Transactions"
                 onClick={(e) => changeRender(e)}
                 >
                 Transactions
             </button>
 
             <button 
-                value="3"
+                value="CreatePacks"
                 onClick={(e) => changeRender(e)}
                 >
                 CreatePacks
             </button> 
 
             <button 
-                value="4"
+                value="CreateCards"
                 onClick={(e) => changeRender(e)}
                 >
                 CreateCards
             </button>  
 
             <button 
-                value="5"
+                value="Store"
                 onClick={(e) => changeRender(e)}
                 >
                 Store

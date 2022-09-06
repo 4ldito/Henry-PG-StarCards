@@ -21,7 +21,7 @@ export default function UserProfile() {
   const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState();
+  const [render, setRender] = useState('Inventory');
   const { validToken } = useValidToken({ navigate: true });
 
   // Read profile owner from url
@@ -66,21 +66,10 @@ export default function UserProfile() {
 
   function changeRender(e) {
     let value = e.target.value;
-    if (value === render) return setRender();
+    if (value === render) return setRender('Inventory');
     setRender(value)
-    // value === "1"
-    //   ? setRender("Inventory")
-    //   : value === "2"
-    //   ? setRender("Stats")
-    //   : value === "3"
-    //   ? setRender("Config")
-      // : value === "5"
-      // ? setRender("Friends")
-    //   : setRender("Chat");
   }
-
-
-
+  
   const myFriend = friends?.find((f) => f.id === actualUrlUser.id)
 
   function addFriend (e) {
