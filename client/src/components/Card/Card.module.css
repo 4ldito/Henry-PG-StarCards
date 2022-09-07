@@ -68,37 +68,37 @@
 }
 
 .stats {
-  margin-top: 8%;
-  font-size: 110%;
-  width: 62%;
-  margin-left: 20%;
   display: flex;
+  position: relative;
+
+  font-size: 110%;
+  
+  width: 62%;
+
+  margin-top: 8%;
+  margin-left: 20%;
 }
 
 .life {
-  width: 60%;
+  /* width: 60%; */
+  position: absolute;
 }
 
 .dmg {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: absolute;
+  left: 130px;
+
   font-size: 90%;
-  width: 40%;
+  /* width: 40%; */
 }
 
 .zergCard {
   background-image: url("https://i.ibb.co/PgvMswr/zerg-Front.png");
 }
-
-.card:hover {
-  user-select: none;
-  cursor: pointer;
-}
-
-/* .terranCard {
-  background-image: url("../../img/Background\ Card/terran-22.png");
-} */
 
 .terranCard {
   background-image: url("https://i.ibb.co/kDr0J5s/terran-Front.png");
@@ -106,4 +106,9 @@
 
 .protossCard {
   background-image: url("https://i.ibb.co/Gxpwy4b/protoss-Front.png");
+}
+
+.card:hover {
+  user-select: none;
+  cursor: pointer;
 }

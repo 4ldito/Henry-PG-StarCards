@@ -28,6 +28,7 @@ function battle(atk, def) {
     GroundAtkArmy: [],
     AirDefArmy: [],
     AirAtkArmy: [],
+    Base: [],
     log: [],
   };
 
@@ -35,22 +36,18 @@ function battle(atk, def) {
   const atkArmy = { Ground: [], Flying: [] },
     defArmy = { Ground: [], Flying: [] };
 
-  let roundZero = 0;
-
-  // for (let asd = 0; asd < 2; asd++) {
+  // for (let asd = 0; asd < 30; asd++) {
   while (defBase.life > 0 && !atkArmy.defeated) {
     const newAtk = { ...atk?.shift() },
       newDef = { ...def?.shift() };
     if (newAtk.movement) atkArmy[newAtk.movement].push(newAtk);
     if (newDef.movement) defArmy[newDef.movement].push(newDef);
 
-    if (roundZero === 0) {
-      roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
-      roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
-      roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.Flying];
-      roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.Flying];
-      roundZero++;
-    }
+    roundsInfo.GroundDefArmy.push(defArmy.Ground.map((u) => ({ ...u })));
+    roundsInfo.GroundAtkArmy.push(atkArmy.Ground.map((u) => ({ ...u })));
+    roundsInfo.AirDefArmy.push(defArmy.Flying.map((u) => ({ ...u })));
+    roundsInfo.AirAtkArmy.push(atkArmy.Flying.map((u) => ({ ...u })));
+    roundsInfo.Base.push(defBase.life);
 
     // Defender abilities casting
     for (let army in defArmy) {
@@ -205,9 +202,12 @@ function battle(atk, def) {
                                       card.Gdmg += Number(cast[key].num);
                                     else {
                                       card.Gdmg =
-                                        card.Gdmg +
-                                        card.Gdmg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (card.Gdmg +
+                                            card.Gdmg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -224,9 +224,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (GobjectiveIndex !== -1) {
                                       objective.Ground[GobjectiveIndex].Gdmg =
-                                        objective.Ground[GobjectiveIndex].Gdmg +
-                                        objective.Ground[GobjectiveIndex].Gdmg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Ground[GobjectiveIndex]
+                                            .Gdmg +
+                                            objective.Ground[GobjectiveIndex]
+                                              .Gdmg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -243,9 +248,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (AobjectiveIndex !== -1) {
                                       objective.Flying[AobjectiveIndex].Gdmg =
-                                        objective.Flying[AobjectiveIndex].Gdmg +
-                                        objective.Flying[AobjectiveIndex].Gdmg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Flying[AobjectiveIndex]
+                                            .Gdmg +
+                                            objective.Flying[AobjectiveIndex]
+                                              .Gdmg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -274,11 +284,15 @@ function battle(atk, def) {
                                         objective.Ground[
                                           GobjectiveIndex2
                                         ].Gdmg =
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Gdmg +
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Ground[GobjectiveIndex2]
+                                              .Gdmg +
+                                              objective.Ground[GobjectiveIndex2]
+                                                .Gdmg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -292,11 +306,15 @@ function battle(atk, def) {
                                         objective.Flying[
                                           AobjectiveIndex2
                                         ].Gdmg =
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Gdmg +
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Flying[AobjectiveIndex2]
+                                              .Gdmg +
+                                              objective.Flying[AobjectiveIndex2]
+                                                .Gdmg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     }
                                     // // roundsInfo.log.push("defArmy casts");
@@ -310,9 +328,12 @@ function battle(atk, def) {
                                       card.Admg += Number(cast[key].num);
                                     else {
                                       card.Admg =
-                                        card.Admg +
-                                        card.Admg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (card.Admg +
+                                            card.Admg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -329,9 +350,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (GobjectiveIndex !== -1) {
                                       objective.Ground[GobjectiveIndex].Admg =
-                                        objective.Ground[GobjectiveIndex].Admg +
-                                        objective.Ground[GobjectiveIndex].Admg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Ground[GobjectiveIndex]
+                                            .Admg +
+                                            objective.Ground[GobjectiveIndex]
+                                              .Admg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -348,9 +374,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (AobjectiveIndex !== -1) {
                                       objective.Flying[AobjectiveIndex].Admg =
-                                        objective.Flying[AobjectiveIndex].Admg +
-                                        objective.Flying[AobjectiveIndex].Admg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Flying[AobjectiveIndex]
+                                            .Admg +
+                                            objective.Flying[AobjectiveIndex]
+                                              .Admg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -379,11 +410,15 @@ function battle(atk, def) {
                                         objective.Ground[
                                           GobjectiveIndex2
                                         ].Admg =
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Admg +
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Ground[GobjectiveIndex2]
+                                              .Admg +
+                                              objective.Ground[GobjectiveIndex2]
+                                                .Admg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -397,11 +432,15 @@ function battle(atk, def) {
                                         objective.Flying[
                                           AobjectiveIndex2
                                         ].Admg =
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Admg +
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Flying[AobjectiveIndex2]
+                                              .Admg +
+                                              objective.Flying[AobjectiveIndex2]
+                                                .Admg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("defArmy casts");
@@ -415,9 +454,12 @@ function battle(atk, def) {
                                       card.life += Number(cast[key].num);
                                     else {
                                       card.life =
-                                        card.life +
-                                        card.life *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (card.life +
+                                            card.life *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -434,9 +476,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (GobjectiveIndex !== -1) {
                                       objective.Ground[GobjectiveIndex].life =
-                                        objective.Ground[GobjectiveIndex].life +
-                                        objective.Ground[GobjectiveIndex].life *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Ground[GobjectiveIndex]
+                                            .life +
+                                            objective.Ground[GobjectiveIndex]
+                                              .life *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -453,9 +500,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (AobjectiveIndex !== -1) {
                                       objective.Flying[AobjectiveIndex].life =
-                                        objective.Flying[AobjectiveIndex].life +
-                                        objective.Flying[AobjectiveIndex].life *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Flying[AobjectiveIndex]
+                                            .life +
+                                            objective.Flying[AobjectiveIndex]
+                                              .life *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -484,11 +536,15 @@ function battle(atk, def) {
                                         objective.Ground[
                                           GobjectiveIndex2
                                         ].life =
-                                          objective.Ground[GobjectiveIndex2]
-                                            .life +
-                                          objective.Ground[GobjectiveIndex2]
-                                            .life *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Ground[GobjectiveIndex2]
+                                              .life +
+                                              objective.Ground[GobjectiveIndex2]
+                                                .life *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -502,11 +558,15 @@ function battle(atk, def) {
                                         objective.Flying[
                                           AobjectiveIndex2
                                         ].life =
-                                          objective.Flying[AobjectiveIndex2]
-                                            .life +
-                                          objective.Flying[AobjectiveIndex2]
-                                            .life *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Flying[AobjectiveIndex2]
+                                              .life +
+                                              objective.Flying[AobjectiveIndex2]
+                                                .life *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("defArmy casts");
@@ -521,15 +581,21 @@ function battle(atk, def) {
                                 switch (cast[key].objective) {
                                   case "self":
                                     if (Number(cast[key].num))
-                                      card.Gdmg = notNegative(
-                                        card.Gdmg - Number(cast[key].num)
-                                      );
+                                      card.Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Gdmg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else {
-                                      card.Gdmg = notNegative(
-                                        card.Gdmg -
-                                          card.Gdmg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      card.Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Gdmg -
+                                              card.Gdmg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -553,20 +619,29 @@ function battle(atk, def) {
                                     )
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Gdmg - Number(cast[key].num)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Gdmg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (GenemyObjectiveIndex !== -1) {
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Gdmg -
-                                          objective.Ground[GenemyObjectiveIndex]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Gdmg -
+                                              objective.Ground[
+                                                GenemyObjectiveIndex
+                                              ].Gdmg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -590,20 +665,29 @@ function battle(atk, def) {
                                     )
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Gdmg - Number(cast[key].num)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Gdmg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (AenemyObjectiveIndex !== -1) {
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Gdmg -
-                                          objective.Flying[AenemyObjectiveIndex]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Gdmg -
+                                              objective.Flying[
+                                                AenemyObjectiveIndex
+                                              ].Gdmg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -644,18 +728,23 @@ function battle(atk, def) {
                                         groundIndex !== -1
                                       )
                                         objective.Ground[groundIndex].Gdmg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Gdmg -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Ground[groundIndex]
+                                                .Gdmg - Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (groundIndex !== -1) {
                                         objective.Ground[groundIndex].Gdmg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Gdmg -
+                                          Math.round(
+                                            notNegative(
                                               objective.Ground[groundIndex]
-                                                .Gdmg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                                .Gdmg -
+                                                objective.Ground[groundIndex]
+                                                  .Gdmg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     } else {
                                       if (
@@ -663,17 +752,22 @@ function battle(atk, def) {
                                         airIndex !== -1
                                       )
                                         objective.Flying[airIndex].Gdmg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Gdmg -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Gdmg -
+                                                Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (airIndex !== -1) {
                                         objective.Flying[airIndex].Gdmg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Gdmg -
-                                              objective.Flying[airIndex].Gdmg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Gdmg -
+                                                objective.Flying[airIndex]
+                                                  .Gdmg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("defArmy casts");
@@ -684,15 +778,21 @@ function battle(atk, def) {
                                 switch (cast[key].objective) {
                                   case "self":
                                     if (Number(cast[key].num))
-                                      card.Admg = notNegative(
-                                        card.Admg - Number(cast[key].num)
-                                      );
+                                      card.Admg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Admg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else {
-                                      card.Admg = notNegative(
-                                        card.Admg -
-                                          card.Admg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      card.Admg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Admg -
+                                              card.Admg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -716,20 +816,29 @@ function battle(atk, def) {
                                     )
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Admg - Number(cast[key].num)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Admg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (GenemyObjectiveIndex !== -1) {
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Admg -
-                                          objective.Ground[GenemyObjectiveIndex]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Admg -
+                                              objective.Ground[
+                                                GenemyObjectiveIndex
+                                              ].Admg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -753,20 +862,29 @@ function battle(atk, def) {
                                     )
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Admg - Number(cast[key].num)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Admg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (AenemyObjectiveIndex !== -1) {
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Admg -
-                                          objective.Flying[AenemyObjectiveIndex]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Admg -
+                                              objective.Flying[
+                                                AenemyObjectiveIndex
+                                              ].Admg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -807,18 +925,23 @@ function battle(atk, def) {
                                         groundIndex !== -1
                                       )
                                         objective.Ground[groundIndex].Admg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Admg -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Ground[groundIndex]
+                                                .Admg - Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (groundIndex !== -1) {
                                         objective.Ground[groundIndex].Admg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Admg -
+                                          Math.round(
+                                            notNegative(
                                               objective.Ground[groundIndex]
-                                                .Admg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                                .Admg -
+                                                objective.Ground[groundIndex]
+                                                  .Admg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     } else {
                                       if (
@@ -826,17 +949,22 @@ function battle(atk, def) {
                                         airIndex !== -1
                                       )
                                         objective.Flying[airIndex].Admg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Admg -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Admg -
+                                                Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (airIndex !== -1) {
                                         objective.Flying[airIndex].Admg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Admg -
-                                              objective.Flying[airIndex].Admg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Admg -
+                                                objective.Flying[airIndex]
+                                                  .Admg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("defArmy casts");
@@ -847,15 +975,21 @@ function battle(atk, def) {
                                 switch (cast[key].objective) {
                                   case "self":
                                     if (Number(cast[key].num))
-                                      card.life = notNegative(
-                                        card.life - Number(cast[key].num)
-                                      );
+                                      card.life =
+                                        Math.round(
+                                          notNegative(
+                                            card.life - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else {
-                                      card.life = notNegative(
-                                        card.life -
-                                          card.life *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      card.life =
+                                        Math.round(
+                                          notNegative(
+                                            card.life -
+                                              card.life *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -879,20 +1013,29 @@ function battle(atk, def) {
                                     )
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .life - Number(cast[key].num)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].life - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (GenemyObjectiveIndex !== -1) {
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .life -
-                                          objective.Ground[GenemyObjectiveIndex]
-                                            .life *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].life -
+                                              objective.Ground[
+                                                GenemyObjectiveIndex
+                                              ].life *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -916,20 +1059,29 @@ function battle(atk, def) {
                                     )
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .life - Number(cast[key].num)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].life - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (AenemyObjectiveIndex !== -1) {
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .life -
-                                          objective.Flying[AenemyObjectiveIndex]
-                                            .life *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].life -
+                                              objective.Flying[
+                                                AenemyObjectiveIndex
+                                              ].life *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("defArmy casts");
                                     break;
@@ -969,18 +1121,23 @@ function battle(atk, def) {
                                         groundIndex !== -1
                                       )
                                         objective.Ground[groundIndex].life =
-                                          notNegative(
-                                            objective.Ground[groundIndex].life -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Ground[groundIndex]
+                                                .life - Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (groundIndex !== -1) {
                                         objective.Ground[groundIndex].life =
-                                          notNegative(
-                                            objective.Ground[groundIndex].life -
+                                          Math.round(
+                                            notNegative(
                                               objective.Ground[groundIndex]
-                                                .life *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                                .life -
+                                                objective.Ground[groundIndex]
+                                                  .life *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -988,17 +1145,22 @@ function battle(atk, def) {
                                     ) {
                                       if (Number(cast[key].num))
                                         objective.Flying[airIndex].life =
-                                          notNegative(
-                                            objective.Flying[airIndex].life -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].life -
+                                                Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (airIndex !== -1) {
                                         objective.Flying[airIndex].life =
-                                          notNegative(
-                                            objective.Flying[airIndex].life -
-                                              objective.Flying[airIndex].life *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].life -
+                                                objective.Flying[airIndex]
+                                                  .life *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("defArmy casts");
@@ -1018,10 +1180,10 @@ function battle(atk, def) {
         }
       }
     }
-    defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
-    defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
-    atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
-    atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
+    // defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
+    // defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
+    // atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
+    // atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
 
     // roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
     // roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
@@ -1182,9 +1344,12 @@ function battle(atk, def) {
                                       card.Gdmg += Number(cast[key].num);
                                     else {
                                       card.Gdmg =
-                                        card.Gdmg +
-                                        card.Gdmg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (card.Gdmg +
+                                            card.Gdmg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1201,9 +1366,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (GobjectiveIndex !== -1) {
                                       objective.Ground[GobjectiveIndex].Gdmg =
-                                        objective.Ground[GobjectiveIndex].Gdmg +
-                                        objective.Ground[GobjectiveIndex].Gdmg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Ground[GobjectiveIndex]
+                                            .Gdmg +
+                                            objective.Ground[GobjectiveIndex]
+                                              .Gdmg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1220,9 +1390,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (AobjectiveIndex !== -1) {
                                       objective.Flying[AobjectiveIndex].Gdmg =
-                                        objective.Flying[AobjectiveIndex].Gdmg +
-                                        objective.Flying[AobjectiveIndex].Gdmg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Flying[AobjectiveIndex]
+                                            .Gdmg +
+                                            objective.Flying[AobjectiveIndex]
+                                              .Gdmg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1251,11 +1426,15 @@ function battle(atk, def) {
                                         objective.Ground[
                                           GobjectiveIndex2
                                         ].Gdmg =
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Gdmg +
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Ground[GobjectiveIndex2]
+                                              .Gdmg +
+                                              objective.Ground[GobjectiveIndex2]
+                                                .Gdmg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -1269,11 +1448,15 @@ function battle(atk, def) {
                                         objective.Flying[
                                           AobjectiveIndex2
                                         ].Gdmg =
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Gdmg +
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Flying[AobjectiveIndex2]
+                                              .Gdmg +
+                                              objective.Flying[AobjectiveIndex2]
+                                                .Gdmg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
@@ -1287,9 +1470,12 @@ function battle(atk, def) {
                                       card.Admg += Number(cast[key].num);
                                     else {
                                       card.Admg =
-                                        card.Admg +
-                                        card.Admg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (card.Admg +
+                                            card.Admg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1306,9 +1492,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (GobjectiveIndex !== -1) {
                                       objective.Ground[GobjectiveIndex].Admg =
-                                        objective.Ground[GobjectiveIndex].Admg +
-                                        objective.Ground[GobjectiveIndex].Admg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Ground[GobjectiveIndex]
+                                            .Admg +
+                                            objective.Ground[GobjectiveIndex]
+                                              .Admg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1325,9 +1516,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (AobjectiveIndex !== -1) {
                                       objective.Flying[AobjectiveIndex].Admg =
-                                        objective.Flying[AobjectiveIndex].Admg +
-                                        objective.Flying[AobjectiveIndex].Admg *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Flying[AobjectiveIndex]
+                                            .Admg +
+                                            objective.Flying[AobjectiveIndex]
+                                              .Admg *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1356,11 +1552,15 @@ function battle(atk, def) {
                                         objective.Ground[
                                           GobjectiveIndex2
                                         ].Admg =
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Admg +
-                                          objective.Ground[GobjectiveIndex2]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Ground[GobjectiveIndex2]
+                                              .Admg +
+                                              objective.Ground[GobjectiveIndex2]
+                                                .Admg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -1374,11 +1574,15 @@ function battle(atk, def) {
                                         objective.Flying[
                                           AobjectiveIndex2
                                         ].Admg =
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Admg +
-                                          objective.Flying[AobjectiveIndex2]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Flying[AobjectiveIndex2]
+                                              .Admg +
+                                              objective.Flying[AobjectiveIndex2]
+                                                .Admg *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
@@ -1392,9 +1596,12 @@ function battle(atk, def) {
                                       card.life += Number(cast[key].num);
                                     else {
                                       card.life =
-                                        card.life +
-                                        card.life *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (card.life +
+                                            card.life *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1411,9 +1618,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (GobjectiveIndex !== -1) {
                                       objective.Ground[GobjectiveIndex].life =
-                                        objective.Ground[GobjectiveIndex].life +
-                                        objective.Ground[GobjectiveIndex].life *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Ground[GobjectiveIndex]
+                                            .life +
+                                            objective.Ground[GobjectiveIndex]
+                                              .life *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1430,9 +1642,14 @@ function battle(atk, def) {
                                         Number(cast[key].num);
                                     else if (AobjectiveIndex !== -1) {
                                       objective.Flying[AobjectiveIndex].life =
-                                        objective.Flying[AobjectiveIndex].life +
-                                        objective.Flying[AobjectiveIndex].life *
-                                          (Number(cast[key].perc) / 100);
+                                        Math.round(
+                                          (objective.Flying[AobjectiveIndex]
+                                            .life +
+                                            objective.Flying[AobjectiveIndex]
+                                              .life *
+                                              (Number(cast[key].perc) / 100)) *
+                                            10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1461,11 +1678,15 @@ function battle(atk, def) {
                                         objective.Ground[
                                           GobjectiveIndex2
                                         ].life =
-                                          objective.Ground[GobjectiveIndex2]
-                                            .life +
-                                          objective.Ground[GobjectiveIndex2]
-                                            .life *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Ground[GobjectiveIndex2]
+                                              .life +
+                                              objective.Ground[GobjectiveIndex2]
+                                                .life *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -1479,11 +1700,15 @@ function battle(atk, def) {
                                         objective.Flying[
                                           AobjectiveIndex2
                                         ].life =
-                                          objective.Flying[AobjectiveIndex2]
-                                            .life +
-                                          objective.Flying[AobjectiveIndex2]
-                                            .life *
-                                            (Number(cast[key].perc) / 100);
+                                          Math.round(
+                                            (objective.Flying[AobjectiveIndex2]
+                                              .life +
+                                              objective.Flying[AobjectiveIndex2]
+                                                .life *
+                                                (Number(cast[key].perc) /
+                                                  100)) *
+                                              10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
@@ -1498,15 +1723,21 @@ function battle(atk, def) {
                                 switch (cast[key].objective) {
                                   case "self":
                                     if (Number(cast[key].num))
-                                      card.Gdmg = notNegative(
-                                        card.Gdmg - Number(cast[key].num)
-                                      );
+                                      card.Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Gdmg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else {
-                                      card.Gdmg = notNegative(
-                                        card.Gdmg -
-                                          card.Gdmg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      card.Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Gdmg -
+                                              card.Gdmg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1530,20 +1761,29 @@ function battle(atk, def) {
                                     )
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Gdmg - Number(cast[key].num)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Gdmg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (GenemyObjectiveIndex !== -1) {
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Gdmg -
-                                          objective.Ground[GenemyObjectiveIndex]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Gdmg -
+                                              objective.Ground[
+                                                GenemyObjectiveIndex
+                                              ].Gdmg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1567,20 +1807,29 @@ function battle(atk, def) {
                                     )
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Gdmg - Number(cast[key].num)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Gdmg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (AenemyObjectiveIndex !== -1) {
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Gdmg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Gdmg -
-                                          objective.Flying[AenemyObjectiveIndex]
-                                            .Gdmg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Gdmg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Gdmg -
+                                              objective.Flying[
+                                                AenemyObjectiveIndex
+                                              ].Gdmg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1621,18 +1870,23 @@ function battle(atk, def) {
                                         groundIndex !== -1
                                       )
                                         objective.Ground[groundIndex].Gdmg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Gdmg -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Ground[groundIndex]
+                                                .Gdmg - Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (groundIndex !== -1) {
                                         objective.Ground[groundIndex].Gdmg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Gdmg -
+                                          Math.round(
+                                            notNegative(
                                               objective.Ground[groundIndex]
-                                                .Gdmg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                                .Gdmg -
+                                                objective.Ground[groundIndex]
+                                                  .Gdmg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     } else {
                                       if (
@@ -1640,17 +1894,22 @@ function battle(atk, def) {
                                         airIndex !== -1
                                       )
                                         objective.Flying[airIndex].Gdmg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Gdmg -
-                                              Number(cast[key].num)
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Gdmg -
+                                                Number(cast[key].num) * 10
+                                            ) / 10
                                           );
                                       else if (airIndex !== -1) {
                                         objective.Flying[airIndex].Gdmg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Gdmg -
-                                              objective.Flying[airIndex].Gdmg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Gdmg -
+                                                objective.Flying[airIndex]
+                                                  .Gdmg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
@@ -1661,15 +1920,21 @@ function battle(atk, def) {
                                 switch (cast[key].objective) {
                                   case "self":
                                     if (Number(cast[key].num))
-                                      card.Admg = notNegative(
-                                        card.Admg - Number(cast[key].num)
-                                      );
+                                      card.Admg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Admg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else {
-                                      card.Admg = notNegative(
-                                        card.Admg -
-                                          card.Admg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      card.Admg =
+                                        Math.round(
+                                          notNegative(
+                                            card.Admg -
+                                              card.Admg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1693,20 +1958,29 @@ function battle(atk, def) {
                                     )
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Admg - Number(cast[key].num)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Admg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (GenemyObjectiveIndex !== -1) {
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .Admg -
-                                          objective.Ground[GenemyObjectiveIndex]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].Admg -
+                                              objective.Ground[
+                                                GenemyObjectiveIndex
+                                              ].Admg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1730,20 +2004,29 @@ function battle(atk, def) {
                                     )
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Admg - Number(cast[key].num)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Admg - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (AenemyObjectiveIndex !== -1) {
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].Admg = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .Admg -
-                                          objective.Flying[AenemyObjectiveIndex]
-                                            .Admg *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].Admg =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].Admg -
+                                              objective.Flying[
+                                                AenemyObjectiveIndex
+                                              ].Admg *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1784,18 +2067,23 @@ function battle(atk, def) {
                                         groundIndex !== -1
                                       )
                                         objective.Ground[groundIndex].Admg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Admg -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Ground[groundIndex]
+                                                .Admg - Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (groundIndex !== -1) {
                                         objective.Ground[groundIndex].Admg =
-                                          notNegative(
-                                            objective.Ground[groundIndex].Admg -
+                                          Math.round(
+                                            notNegative(
                                               objective.Ground[groundIndex]
-                                                .Admg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                                .Admg -
+                                                objective.Ground[groundIndex]
+                                                  .Admg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     } else {
                                       if (
@@ -1803,17 +2091,22 @@ function battle(atk, def) {
                                         airIndex !== -1
                                       )
                                         objective.Flying[airIndex].Admg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Admg -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Admg -
+                                                Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (airIndex !== -1) {
                                         objective.Flying[airIndex].Admg =
-                                          notNegative(
-                                            objective.Flying[airIndex].Admg -
-                                              objective.Flying[airIndex].Admg *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].Admg -
+                                                objective.Flying[airIndex]
+                                                  .Admg *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
@@ -1824,15 +2117,21 @@ function battle(atk, def) {
                                 switch (cast[key].objective) {
                                   case "self":
                                     if (Number(cast[key].num))
-                                      card.life = notNegative(
-                                        card.life - Number(cast[key].num)
-                                      );
+                                      card.life =
+                                        Math.round(
+                                          notNegative(
+                                            card.life - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else {
-                                      card.life = notNegative(
-                                        card.life -
-                                          card.life *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      card.life =
+                                        Math.round(
+                                          notNegative(
+                                            card.life -
+                                              card.life *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1856,20 +2155,29 @@ function battle(atk, def) {
                                     )
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .life - Number(cast[key].num)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].life - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (GenemyObjectiveIndex !== -1) {
                                       objective.Ground[
                                         GenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Ground[GenemyObjectiveIndex]
-                                          .life -
-                                          objective.Ground[GenemyObjectiveIndex]
-                                            .life *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Ground[
+                                              GenemyObjectiveIndex
+                                            ].life -
+                                              objective.Ground[
+                                                GenemyObjectiveIndex
+                                              ].life *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1893,20 +2201,29 @@ function battle(atk, def) {
                                     )
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .life - Number(cast[key].num)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].life - Number(cast[key].num)
+                                          ) * 10
+                                        ) / 10;
                                     else if (AenemyObjectiveIndex !== -1) {
                                       objective.Flying[
                                         AenemyObjectiveIndex
-                                      ].life = notNegative(
-                                        objective.Flying[AenemyObjectiveIndex]
-                                          .life -
-                                          objective.Flying[AenemyObjectiveIndex]
-                                            .life *
-                                            (Number(cast[key].perc) / 100)
-                                      );
+                                      ].life =
+                                        Math.round(
+                                          notNegative(
+                                            objective.Flying[
+                                              AenemyObjectiveIndex
+                                            ].life -
+                                              objective.Flying[
+                                                AenemyObjectiveIndex
+                                              ].life *
+                                                (Number(cast[key].perc) / 100)
+                                          ) * 10
+                                        ) / 10;
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
                                     break;
@@ -1946,18 +2263,23 @@ function battle(atk, def) {
                                         groundIndex !== -1
                                       )
                                         objective.Ground[groundIndex].life =
-                                          notNegative(
-                                            objective.Ground[groundIndex].life -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Ground[groundIndex]
+                                                .life - Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (groundIndex !== -1) {
                                         objective.Ground[groundIndex].life =
-                                          notNegative(
-                                            objective.Ground[groundIndex].life -
+                                          Math.round(
+                                            notNegative(
                                               objective.Ground[groundIndex]
-                                                .life *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                                .life -
+                                                objective.Ground[groundIndex]
+                                                  .life *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     } else if (
                                       Number(cast[key].num) &&
@@ -1965,17 +2287,22 @@ function battle(atk, def) {
                                     ) {
                                       if (Number(cast[key].num))
                                         objective.Flying[airIndex].life =
-                                          notNegative(
-                                            objective.Flying[airIndex].life -
-                                              Number(cast[key].num)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].life -
+                                                Number(cast[key].num)
+                                            ) * 10
+                                          ) / 10;
                                       else if (airIndex !== -1) {
                                         objective.Flying[airIndex].life =
-                                          notNegative(
-                                            objective.Flying[airIndex].life -
-                                              objective.Flying[airIndex].life *
-                                                (Number(cast[key].perc) / 100)
-                                          );
+                                          Math.round(
+                                            notNegative(
+                                              objective.Flying[airIndex].life -
+                                                objective.Flying[airIndex]
+                                                  .life *
+                                                  (Number(cast[key].perc) / 100)
+                                            ) * 10
+                                          ) / 10;
                                       }
                                     }
                                     // roundsInfo.log.push("atkArmy casts");
@@ -1995,10 +2322,10 @@ function battle(atk, def) {
         }
       }
     }
-    defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
-    defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
-    atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
-    atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
+    // defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
+    // defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
+    // atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
+    // atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
 
     // roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
     // roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
@@ -2088,16 +2415,21 @@ function battle(atk, def) {
                         }
 
                       if (cardObjectiveIndex !== -1) {
-                        abilityObjective[cardObjectiveIndex].life = notNegative(
-                          abilityObjective[cardObjectiveIndex].life -
-                            Number(cast[key].num)
-                        );
+                        abilityObjective[cardObjectiveIndex].life =
+                          Math.round(
+                            notNegative(
+                              abilityObjective[cardObjectiveIndex].life -
+                                Number(cast[key].num)
+                            ) * 10
+                          ) / 10;
                         if (abilityObjective[cardSplashedIndex])
                           abilityObjective[cardSplashedIndex].life =
-                            notNegative(
-                              abilityObjective[cardSplashedIndex].life -
-                                Number(cast[key].num)
-                            );
+                            Math.round(
+                              notNegative(
+                                abilityObjective[cardSplashedIndex].life -
+                                  Number(cast[key].num)
+                              ) * 10
+                            ) / 10;
                       }
                       if (cast[key].time === "once") cast[key].off = true;
                     }
@@ -2166,9 +2498,10 @@ function battle(atk, def) {
                 break;
             }
             if (fightObjective) {
-              fightObjective.life = notNegative(
-                fightObjective.life - fighter[attackType]
-              );
+              fightObjective.life =
+                Math.round(
+                  notNegative(fightObjective.life - fighter[attackType]) * 10
+                ) / 10;
               // roundsInfo.log.push("defArmy attacks");
               if (
                 fighter.abilities.all?.find((a) =>
@@ -2243,17 +2576,22 @@ function battle(atk, def) {
                         }
 
                       if (cardObjectiveIndex !== -1) {
-                        abilityObjective[cardObjectiveIndex].life = notNegative(
-                          abilityObjective[cardObjectiveIndex].life -
-                            Number(cast[key].num)
-                        );
+                        abilityObjective[cardObjectiveIndex].life =
+                          Math.round(
+                            notNegative(
+                              abilityObjective[cardObjectiveIndex].life -
+                                Number(cast[key].num)
+                            ) * 10
+                          ) / 10;
 
                         if (abilityObjective[cardSplashedIndex])
                           abilityObjective[cardSplashedIndex].life =
-                            notNegative(
-                              abilityObjective[cardSplashedIndex].life -
-                                Number(cast[key].num)
-                            );
+                            Math.round(
+                              notNegative(
+                                abilityObjective[cardSplashedIndex].life -
+                                  Number(cast[key].num)
+                              ) * 10
+                            ) / 10;
                       }
                       if (cast[key].time === "once") cast[key].off = true;
                     }
@@ -2344,15 +2682,20 @@ function battle(atk, def) {
       } else defArmy.defeated = true;
     }
 
-    defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
-    defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
-    atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
-    atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
+    var dummy = [...defArmy.Ground.filter((c) => c?.life > 0)];
+    defArmy.Ground = [...dummy];
+    var dummy = [...defArmy.Flying.filter((c) => c?.life > 0)];
+    defArmy.Flying = [...dummy];
+    var dummy = [...atkArmy.Ground.filter((c) => c?.life > 0)];
+    atkArmy.Ground = [...dummy];
+    var dummy = [...atkArmy.Flying.filter((c) => c?.life > 0)];
+    atkArmy.Flying = [...dummy];
 
-    roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
-    roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
-    roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.Flying];
-    roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.Flying];
+    roundsInfo.GroundDefArmy.push(defArmy.Ground.map((u) => ({ ...u })));
+    roundsInfo.GroundAtkArmy.push(atkArmy.Ground.map((u) => ({ ...u })));
+    roundsInfo.AirDefArmy.push(defArmy.Flying.map((u) => ({ ...u })));
+    roundsInfo.AirAtkArmy.push(atkArmy.Flying.map((u) => ({ ...u })));
+    roundsInfo.Base.push(defBase.life);
 
     if (!defArmy.Ground.length && !defArmy.Flying.length)
       defArmy.defeated = true;
@@ -2369,20 +2712,20 @@ function battle(atk, def) {
 }
 
 function gameFunction(deck1, deck2) {
-  const gameResult = {};
+  const gameResult = { winner: undefined };
   const [atk1, atk2, def1, def2] = [
-    deck1.length % 2 === 0
-      ? shuffle(deck1).filter((c, i) => i < deck1.length / 2)
-      : shuffle(deck1).filter((c, i) => i <= deck1.length / 2),
-    deck2.length % 2 === 0
-      ? shuffle(deck2).filter((c, i) => i < deck2.length / 2)
-      : shuffle(deck2).filter((c, i) => i <= deck2.length / 2),
-    deck1.length % 2 === 0
-      ? shuffle(deck1).filter((c, i) => i >= deck1.length / 2)
-      : shuffle(deck1).filter((c, i) => i > deck1.length / 2),
-    deck2.length % 2 === 0
-      ? shuffle(deck2).filter((c, i) => i >= deck2.length / 2)
-      : shuffle(deck2).filter((c, i) => i > deck2.length / 2),
+    deck1.cards.length % 2 === 0
+      ? shuffle(deck1.cards).filter((c, i) => i < deck1.cards.length / 2)
+      : shuffle(deck1.cards).filter((c, i) => i <= deck1.cards.length / 2),
+    deck2.cards.length % 2 === 0
+      ? shuffle(deck2.cards).filter((c, i) => i < deck2.cards.length / 2)
+      : shuffle(deck2.cards).filter((c, i) => i <= deck2.cards.length / 2),
+    deck1.cards.length % 2 === 0
+      ? shuffle(deck1.cards).filter((c, i) => i >= deck1.cards.length / 2)
+      : shuffle(deck1.cards).filter((c, i) => i > deck1.cards.length / 2),
+    deck2.cards.length % 2 === 0
+      ? shuffle(deck2.cards).filter((c, i) => i >= deck2.cards.length / 2)
+      : shuffle(deck2.cards).filter((c, i) => i > deck2.cards.length / 2),
   ];
 
   const battle1 = battle(atk1, def2);
@@ -2398,18 +2741,18 @@ function gameFunction(deck1, deck2) {
 
   switch (true) {
     case battle1.defBase.life > battle2.defBase.life:
-      gameResult.winner = deck2.Id;
+      gameResult.winner = deck2.userId;
       break;
     case battle1.defBase.life < battle2.defBase.life:
-      gameResult.winner = deck1.Id;
+      gameResult.winner = deck1.userId;
       break;
     case battle1.defBase.life === battle2.defBase.life:
       switch (true) {
         case battle1.defBase.attacked > battle2.defBase.attacked:
-          gameResult.winner = deck2.Id;
+          gameResult.winner = deck2.userId;
           break;
         case battle1.defBase.attacked < battle2.defBase.attacked:
-          gameResult.winner = deck1.Id;
+          gameResult.winner = deck1.userId;
           break;
         case battle1.defBase.attacked === battle2.defBase.attacked:
           gameResult.winner = "tie";

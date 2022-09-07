@@ -20,22 +20,22 @@ const ForSaleCards = () => {
     if (!user.id) {
       return Swal.fire({
         title: "Error!",
-        text: "Inicia sesion primero.",
+        text: "You have to be logged to do buy.",
         icon: "error",
       });
     }
     if (user.stars < userCard.price) {
       return Swal.fire({
         title: "Error!",
-        text: "Stars insuficientes.",
+        text: "You dont have enough stars!",
         icon: "error",
       });
     }
     Swal.fire({
-      title: `Confirmar`,
-      text: `¿Estás seguro que queres comprar ${userCard.Card.name} a ${userCard.User.username} por ${userCard.price} stars?`,
+      title: `Confirm`,
+      text: `Are you sure you want to buy ${userCard.Card.name} from ${userCard.User.username} for ${userCard.price} stars?`,
       showCancelButton: true,
-      confirmButtonText: "Comprar",
+      confirmButtonText: "Buy",
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
         dispatch(buyCard(userCard.id, user.id));
@@ -46,11 +46,11 @@ const ForSaleCards = () => {
   const handleRemoveForSale = (e, userCard) => {
     e.preventDefault();
     Swal.fire({
-      title: `Confirmar`,
-      text: `¿Estás seguro que queres quitar de en venta a ${userCard.Card.name} por ${userCard.price} Stars?`,
+      title: `Confirm`,
+      text: `Are you sure you want to remove ${userCard.Card.name} for ${userCard.price} Stars?`,
       showCancelButton: true,
       icon: "question",
-      confirmButtonText: "Comprar",
+      confirmButtonText: "Remove",
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
         dispatch(removeForSale({ userId: user.id, userCardsIdsToUpdate: [userCard.id], status: 'active', price: null }));
