@@ -109,6 +109,7 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
                 <></>
             }
           </div>
+      
           {(addButton && !selectedDeck?.name) && <button className={css.añadirAlMazoBtn + " material-symbols-outlined"} onClick={() => { addCardToDeck(card, repeat) }}>trending_flat</button>}
           {actualStackToShow.length === 1 ?
 

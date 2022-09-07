@@ -184,11 +184,43 @@
 
 .cardsAndDecksButtons{
   position: absolute;
-  top: 50px;
+  top: 70px;
   width: 100%;
+
   display: flex;
   justify-content: center;
   gap: 20px;
+  /* background-image: ; */
+}
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100px;
+  height: 30px;
+
+  font-size: 24px;
+  color:#ffffffdd;
+  border: 2px solid #00ffffdd;
+  background-color: #00ffff22;
+
+  transition: .3s;
+}
+.buttonActive{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 103px;
+  height: 32px;
+
+  font-size: 24px;
+  color:#ffffffdd;
+  border: 2px solid #ff8800dd;
+  background-color: #ffaa0022;
+
+  transition: .3s;
 }
 
 .cardsList{

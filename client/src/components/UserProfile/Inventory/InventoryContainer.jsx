@@ -184,7 +184,7 @@ export default function InventoryContainer({
 
   const setVisibleStack = (name) => {
     if (actualStackToShow.includes(name)) {
-      if(actualStackToShow.length>1){
+      if (actualStackToShow.length > 1) {
         setActualStackToShow(actualStackToShow.filter(e => e !== name));
         setBothStacks(false);
       }
@@ -196,14 +196,14 @@ export default function InventoryContainer({
 
   return (<div className={css.inventoryContainer}>
     <div className={css.cardsAndDecksButtons}>
-      <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
+      <button className={actualStackToShow.includes('cartas') ? css.buttonActive : css.button} name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
       <hr></hr>
-      <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
+      <button className={actualStackToShow.includes('mazos') ? css.buttonActive : css.button} name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
     </div>
 
     <div className={css.cartasYMazosContainer}>
       {actualStackToShow.includes('cartas') ?
-        <div className={!bothStacks?css.cardsListOnly:css.cardsList}>
+        <div className={!bothStacks ? css.cardsListOnly : css.cardsList}>
           <div className={bothStacks ? css.cartasYMazo : css.cartas}>
             {renderNotRepeat()}
           </div>

@@ -35,6 +35,24 @@
     background-repeat: no-repeat;
     height: 18%;
 }
+.only::-webkit-scrollbar {
+    background: rgb(0, 44, 255);
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 30%,
+            cyan 50%,
+            rgba(255, 255, 255, 0) 70%);
+    width: 20px;
+}
+
+.only::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+        linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+        linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+        linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    height: 18%;
+}
 
 
 
@@ -174,7 +192,6 @@
     padding: 0 4px 40px 4px;
     border-right: 3px solid #00ffff88;
     transition: .3s;
-    margin-right: 10px;
 
 }
 
@@ -213,6 +230,9 @@
     outline: none;
     transition: .3s;
     color: white;
+}
+.name::placeholder{
+    color: #ffffff99;
 }
 .nameInput:focus{
     outline: none;
