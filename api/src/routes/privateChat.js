@@ -82,7 +82,7 @@ chatRoute.patch("/", async (req, res, next) => {
 
       await privChat.update({
         lastSeen: [
-          { ...privChat.lastSeen.find((e) => e.user !== userId), msgNum },
+          { ...privChat.lastSeen.find((e) => e.user !== userId) },
           { user: userId, msgNum },
         ],
       });

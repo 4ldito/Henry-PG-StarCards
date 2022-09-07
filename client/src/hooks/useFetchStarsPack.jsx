@@ -9,8 +9,8 @@ export const useFetchStarsPack = () => {
   const loaded = useSelector(state => state.starsPackReducer.loaded)
 
   useEffect(() => {
-    if (!loaded) dispatch(getStarsPacks())
-  }, [starsPacks])
+    dispatch(getStarsPacks())
+  }, [])
 
   return { starsPacks, loaded }
 }

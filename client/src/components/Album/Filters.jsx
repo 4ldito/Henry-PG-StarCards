@@ -67,7 +67,7 @@ export default function Filters() {
       </button>
 
       <input
-        id="search"
+          id="search"
         className={css.input}
         ref={inputSearch}
         onChange={onFilterChange}
@@ -87,7 +87,7 @@ export default function Filters() {
       </button>
 
       <select
-        id="race"
+          id="race"
         ref={selectRace}
         className={css.select}
         onChange={onFilterChange}
@@ -100,7 +100,7 @@ export default function Filters() {
       </select>
 
       <select
-        id="movements"
+          id="movements"
         ref={selectMovement}
         className={css.select}
         onChange={onFilterChange}
@@ -121,16 +121,16 @@ export default function Filters() {
         <option hidden value="none">
           Random Order
         </option>
-        <option value="nameAtoZ">by name - A to Z</option>
-        <option value="nameZtoA">by name - Z to A</option>
-        <option value="ascendentCost">by cost ascendent</option>
-        <option value="descendentCost">by cost descendent</option>
-        <option value="ascendentGdmg">by Gdmg ascendent</option>
-        <option value="descendentGdmg">by Gdmg descendent</option>
-        <option value="ascendentAdmg">by Admg ascendent</option>
-        <option value="descendentAdmg">by Admg descendent</option>
-        <option value="ascendentlife">by life ascendent</option>
-        <option value="descendentlife">by life descendent</option>
+        <option value="nameAtoZ">By Name - A to Z</option>
+        <option value="nameZtoA">By Name - Z to A</option>
+        <option value="ascendentCost">By ascending Cost</option>
+        <option value="descendentCost">By descending Cost</option>
+        <option value="ascendentGdmg">By ascending Gdmg</option>
+        <option value="descendentGdmg">By descending Gdmg</option>
+        <option value="ascendentAdmg">By ascending Admg</option>
+        <option value="descendentAdmg">By descending Admg</option>
+        <option value="ascendentlife">By ascending Life</option>
+        <option value="descendentlife">By descending Life</option>
       </select>
     </div>
   );

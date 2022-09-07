@@ -9,8 +9,8 @@ export const useFetchCardsPack = () => {
   const loaded = useSelector(state => state.cardsPacksReducer.loaded)
 
   useEffect(() => {
-    if (!loaded) dispatch(getCardsPacks())
-  }, [cardsPack])
+    dispatch(getCardsPacks())
+  }, [])
 
   return { cardsPack, loaded }
 }
