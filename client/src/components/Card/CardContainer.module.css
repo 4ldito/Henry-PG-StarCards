@@ -1,4 +1,119 @@
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+
+.cardInDeck{
+    position: relative;
+    display: flex;
+    min-width: 100%;
+    height: 5vh;
+    background: #7777dddd;
+    cursor: pointer;
+
+}
+.cardInDeckH1{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    padding-left:10px;
+
+}
+.cardInDeckLabel{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    height: 100%;
+    padding-left:10px;
+}
+
+.cardsAnDeckContainer{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.container{
+    position: relative;
+    transition: .2s;
+}
+.container:hover {
+  transform: scale(0.98);
+}
+
+
+
+.repeat{
+    z-index: 500;
+    position:absolute;
+    right: 10px;
+    top: 23px;
+    font-size: 20px;
+}
+.repeatOutDeck{
+    z-index: 500;
+    position: absolute;
+    top:23px;
+    right: 10px;
+    font-size:20px;
+    color:#ffffff;
+}
+.repeatWithCard{
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position:absolute;
+    height: 30px;
+    width: 30px;
+
+    background-color: black;
+    border-radius: 50%;
+}
+.sacarDelMazoBtn{
+    z-index: 500;
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 100px;
+    height: 30px;
+    border: 2px solid #99337f;
+    background-color: #ffd47fdd;
+    height: 25px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(180deg);
+    margin:2px 3px 0 0;
+}
+.añadirAlMazoBtn{
+    margin:2px 3px 0 0;
+
+    z-index: 500;
+    position: absolute;
+    right: 0;
+    top:0;
+    width: 100px;
+    height: 25px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #339999;
+    background-color: #7fffd4dd;
+}
+
+
+
 
 
 @media screen and (max-width:480px){
