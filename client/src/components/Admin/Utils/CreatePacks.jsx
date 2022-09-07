@@ -107,7 +107,7 @@ function CreatePacks() {
           price: "",
           race: "",
           cards: [],
-          percent: [],
+          // percent: [],
           stock: "",
           image: null,
           amount: "",
@@ -216,6 +216,8 @@ function CreatePacks() {
               return (
                 <div key={e}>
                   <p>{e}</p>
+                  <label htmlFor="cardProb">Card probability</label>
+                  <input name="cardProb" />
                   <button
                     onClick={() => {
                       handleDelete(e);
