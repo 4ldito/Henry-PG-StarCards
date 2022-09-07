@@ -68,3 +68,81 @@
 .disabled {
   cursor: not-allowed;
 }
+
+.containerPerfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* background-color: aqua; */
+
+  width: 100%;
+  height: 20vh;
+
+  margin-top: 2.5vh;
+}
+
+.containerImgPerfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../img/circle-15.svg);
+  width: 125px;
+  height: 125px;
+}
+
+.containerImgPerfil img{
+  border-radius: 50%;
+  width: 97px;
+  height: 97px;
+}
+
+.containerName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(143, 79, 79); */
+  width: 80%;
+  height: 60%;
+  padding-left: 1.5rem;
+}
+
+.containerName span {
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+.containerButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.buttons {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button.svg);
+  background-size: cover;
+
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  width: 126px;
+  height: 45px;
+}
+
+.buttonsActive {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.svg);
+  background-size: cover;
+
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  width: 126px;
+  height: 45px;
+}

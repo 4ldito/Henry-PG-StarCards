@@ -2,7 +2,6 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-
 import {
   addNewFriend,
   deleteFriend,
@@ -10,7 +9,9 @@ import {
   getUserDecks,
   getUserFriends,
 } from "../../redux/actions/user";
-import getAllCards from "../../redux/actions/cards/getAllCards";
+import style from "../../styles/ProfileUser/UserProfile.module.css";
+import Config from "../Config/Config";
+import useValidToken from "../../hooks/useValidToken";
 import { getUserByName } from "../../redux/actions/user";
 
 import useValidToken from "../../hooks/useValidToken";
@@ -21,8 +22,7 @@ import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
 import PrivateChat from "./PrivateChat/PrivateChat";
 
 import Friends from "./Friends/Friends";
-import style from "../../styles/ProfileUser/UserProfile.module.css";
-
+import Stats from "../Stats/Stats";
 export default function UserProfile() {
   const dispatch = useDispatch();
 
@@ -90,41 +90,56 @@ export default function UserProfile() {
     );
   }
 
+  function handleClick(e) {
+    e.preventDefault();
+    const lastActive = document.querySelector(`.${style.buttonsActive}`);
+    lastActive.classList.remove(style.buttonsActive);
+    e.target.classList.add(`${style.buttonsActive}`);
+    setSection(e.target.name);
+  }
+
+
   const showToOwner = () => (
     <>
-      <div className={style.buttonsbar}>
-        <button
-          className={`${style.buttons}`}
+      <div className={style.containerPerfil}>
+        <section className={style.containerImgPerfil}>
+          <img src={activeUser.profileImg} alt="" />
+        </section>
+        <div className={style.containerName}>
+          <span>AQUI VA EL USERNAME</span>
+          <section className={style.containerButtons}>
+          <button
+          className={`${style.buttons} ${style.buttonsActive}`}
           value="Inventory"
-          onClick={(e) => changeRender(e)}
+          onClick={(e) => {changeRender(e), handleClick(e)}}
         >
           Inventory
         </button>
         <button
-          className={`${style.buttons}`}
+          className={style.buttons}
           value="Stats"
-          onClick={(e) => changeRender(e)}
+          onClick={(e) => {changeRender(e), handleClick(e)}}
         >
           Stats
         </button>
         <button
-          className={`${style.buttons}`}
+          className={style.buttons}
           value="Config"
-          onClick={(e) => changeRender(e)}
+          onClick={(e) => {changeRender(e), handleClick(e)}}
         >
           Config
         </button>
         <button
-          className={`${style.buttons}`}
+          className={style.buttons}
           value="Chat"
-          onClick={(e) => changeRender(e)}
+          onClick={(e) => {changeRender(e), handleClick(e)}}
         >
           Chat
         </button>
         <button
-          className={`${style.buttons}`}
+          className={style.buttons}
           value="Friends"
-          onClick={(e) => changeRender(e)}
+          onClick={(e) => {changeRender(e), handleClick(e)}}
         >
           Friends
         </button>
@@ -132,6 +147,8 @@ export default function UserProfile() {
           <FaShoppingCart size={28} />
           Stars: {user.stars}
         </Link>
+          </section>
+        </div>
       </div>
 
       {render === "Config" ? (
@@ -204,7 +221,7 @@ export default function UserProfile() {
       ) : render === "Inventory" ? (
         <Inventory />
       ) : render === "Stats" ? (
-        "Stats"
+        <Stats/>
       ) : (
         ""
       )}
