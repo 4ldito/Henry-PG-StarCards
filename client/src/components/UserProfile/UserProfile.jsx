@@ -55,6 +55,7 @@ export default function UserProfile() {
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
     setUser(activeUser);
+    // return query || urlUser;
     return query === activeUser.username || !query ? activeUser : urlUser;
   }, [activeUser, urlUser]);
 

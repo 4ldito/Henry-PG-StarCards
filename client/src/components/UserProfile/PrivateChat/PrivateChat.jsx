@@ -161,32 +161,34 @@ const PrivateChat = ({ selected }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    socket.emit("privateMessage", userActive, actualChatUser, message);
-    setMessage("");
+    if (message.length) {
+      socket.emit("privateMessage", {id: userActive.id, username: userActive.username}, {id: actualChatUser.id, username: actualChatUser.username}, message);
+      setMessage("");
 
-    setMessages((prev) => {
-      const oldMessages = prev[actualChatUser.id]?.Messages || [];
-      return {
-        ...prev,
-        [actualChatUser.id]: {
-          // username: user.username,
-          // id: user.id,
-          Messages: [...oldMessages, { emitter: userActive, message }],
-        },
-      };
-    });
+      setMessages((prev) => {
+        const oldMessages = prev[actualChatUser.id]?.Messages || [];
+        return {
+          ...prev,
+          [actualChatUser.id]: {
+            // username: user.username,
+            // id: user.id,
+            Messages: [...oldMessages, { emitter: userActive, message }],
+          },
+        };
+      });
 
-    const privateChat = userActive.PrivateChats.find((pc) => {
-      return pc.Users.find((u) => u.id === actualChatUser.id) ? true : false;
-    });
+      const privateChat = userActive.PrivateChats.find((pc) => {
+        return pc.Users.find((u) => u.id === actualChatUser.id) ? true : false;
+      });
 
-    dispatch(
-      setLastSeenMsg(
-        userActive.id,
-        privateChat.id,
-        messages[actualChatUser.id].Messages.length + 1
-      )
-    );
+      dispatch(
+        setLastSeenMsg(
+          userActive.id,
+          privateChat.id,
+          messages[actualChatUser.id].Messages.length + 1
+        )
+      );
+    }
   };
 
   const readMsgs = (c) => {
@@ -236,11 +238,12 @@ const PrivateChat = ({ selected }) => {
                     <React.Fragment key={i}>
                       {e.emitter.username === userActive.username ? (
                         <div className={css.messageUserRight}>
-                          Yo <br /> <span>{e.message}</span>
+                          {/* Yo <br />  */}
+                          <span>{e.message}</span>
                         </div>
                       ) : (
                         <div className={css.messageUserLeft}>
-                          <strong>{e.emitter.username}:</strong> <br />{" "}
+                          {/* <strong>{e.emitter.username}:</strong> <br />{" "} */}
                           <span>{e.message}</span>
                         </div>
                       )}

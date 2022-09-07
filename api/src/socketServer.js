@@ -55,6 +55,7 @@ io.on("connection", (socket) => {
 
   socket.on("privateMessage", async (emitter, receiver, message) => {
     // await axios.post("chat/db", { emitter, receiver, message });
+    console.log(emitter, receiver, message);
     try {
       const [emitterProm, receiverProm, messageProm] = await Promise.all([
         User.findOne({
