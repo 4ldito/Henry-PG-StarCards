@@ -19,8 +19,8 @@ export default function Inventory() {
     <div className={css.Inventory}>
       {(actualStackToShow.includes('cartas') && actualStackToShow.length === 1) &&
         <div className={css.filters}>
+          filters:
           <Filters />
-          <Sort />
           <SearchUserCard />
 
         </div>}

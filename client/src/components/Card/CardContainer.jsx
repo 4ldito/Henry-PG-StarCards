@@ -9,6 +9,7 @@ import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
 import css from './CardContainer.module.css'
+import { CardContainerDetail } from "./CardContainerDetail.jsx";
 
 
 export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addCardToDeck, inDeck,
@@ -23,7 +24,11 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
   const [cardsRepeat, setcardsRepeat] = useState(null);
   const [justPassin, setJustPassin] = useState(null);
   const [viewDetail, setViewDetail] = useState(false);
-  
+
+
+  const msg = useSelector((state) => state.album.msg);
+
+
   useEffect(() => {
     if (creatingDeck) {
       setUserCard(newDeckCards?.find(el => el.id === card.id));
@@ -66,6 +71,7 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
     if (cardsRepeat && uCard) userCardRepeats = (cardsRepeat?.find(el => el.userCard.id === uCard.id));
 
     setThisCardRepeats(userCardRepeats?.repeat);
+    // console.log(cardsRepeat);
   }, [cardsRepeat]);
 
   useEffect(() => {
@@ -77,30 +83,21 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
   function handleViewCard() {
     setViewCard(!viewCard);
   }
-  function handleDetail() {
-    dispatch(detailCard(card.id));
-    dispatch(getOpinions(card.id));
-  }
 
   function ver() {
     setViewDetail(!viewDetail);
   }
 
-  function todo() {
-    handleDetail();
-    ver();
-  }
-
   return ((newRepeatForThoseWichAreNotInDeck || justPassin) && <>
     <div className={bothStacks ? css.cardsAnDeckContainer : css.container}>
       {(newRepeatForThoseWichAreNotInDeck || justPassin) && <>
+
         <div className={bothStacks ? !inDeck ? css.repeatOutDeck : css.repeat : css.repeatWithCard}>
           {inDeck ? creatingDeck || updatingDeck?.cards ? <label >{repeat > 1 && repeat}</label> :
             <label >{thisCardRepeats > 1 && thisCardRepeats}</label> :
-            repeat > 1 && <label>{newRepeatForThoseWichAreNotInDeck || repeat}</label>
+            repeat > 1 && <label >{newRepeatForThoseWichAreNotInDeck || repeat}</label>
           }
         </div>
-
         {(addButton && !selectedDeck?.name) && <button className={css.añadirAlMazoBtn + " material-symbols-outlined"} onClick={() => { addCardToDeck(card, repeat) }}>trending_flat</button>}
         {actualStackToShow.length === 1 ?
           <Card
@@ -116,10 +113,18 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
             race={card.race}
             movement={card.movement}
           /> :
-          <div className={css.cardInDeck} onClick={todo}>
+          <div className={css.cardInDeck} onClick={() => {
+            setViewDetail(!viewDetail);
+          }}>
             <h2 className={css.cardInDeckH1}>{card.name}</h2>
-            <label className={css.cardInDeckLabel}>{card.race}</label>
+            <div className={css.cardInDeckLabel}>{
+              card.race === 'Terran' ? <img className={css.raceImg} src="/src/img/terran.svg"></img> :
+                card.race === 'Zerg' ? <img className={css.raceImg} src="/src/img/zerg.svg"></img> :
+                  card.race === 'Protoss' &&
+                  <img className={css.raceImg} src="/src/img/protoss.svg"></img>}
+            </div>
           </div>}
+        {bothStacks && <CardContainerDetail card={card} bothStacks={bothStacks} viewDetail={viewDetail} />}
         {(inDeck && !selectedDeck?.name) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
           selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
             removeCardFromDeck(card.id)
@@ -132,7 +137,6 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
         handleViewCard={handleViewCard}
         card={card} />
     )}
-
   </>
   );
 }
