@@ -114,14 +114,14 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
                   <img className={css.raceImg} src="/src/img/protoss.svg"></img>}
             </div>
           </div>}
-        {bothStacks && <CardContainerDetail card={card} bothStacks={bothStacks} viewDetail={viewDetail} />}
         {(inDeck && !selectedDeck?.name) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
           selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
-            removeCardFromDeck(card.id)
+          removeCardFromDeck(card.id)
         }}>trending_flat</button>}
       </>}
       {!inDeck && actualStackToShow.length === 1 && <button onClick={handleViewCard}>{'Sell card'}</button>}
     </div>
+    {bothStacks && <CardContainerDetail card={card} bothStacks={bothStacks} viewDetail={viewDetail} />}
     {viewCard && (
       <SaleCard
         handleViewCard={handleViewCard}
