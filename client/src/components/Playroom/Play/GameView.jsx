@@ -3,6 +3,7 @@ import Card from "../../Card/Card";
 
 export default function GameView({ info, close }) {
   const [battle, setBattle] = useState(info.info.battle1);
+  const [battleNum, setBattleNum] = useState(1);
   const [roundInfo, setRoundInfo] = useState({
     AirAtkArmy: [],
     AirDefArmy: [],
@@ -16,6 +17,7 @@ export default function GameView({ info, close }) {
     [defender, setDefender] = useState();
   const [final, setFinal] = useState();
   const [winner, setWinner] = useState();
+  const [timeOut, setTimeOut] = useState();
 
   useEffect(() => {
     if (info.info.winner === info.info.player1.userId)
@@ -34,49 +36,90 @@ export default function GameView({ info, close }) {
       setDefender(info.info.player1.username);
     }
 
-    setRoundInfo({
-      AirAtkArmy: battle.AirAtkArmy[0],
-      AirDefArmy: battle.AirDefArmy[0],
-      GroundAtkArmy: battle.GroundAtkArmy[0],
-      GroundDefArmy: battle.GroundDefArmy[0],
-      Base: battle.Base[0],
-    });
+    // setRoundInfo({
+    //   AirAtkArmy: battle.AirAtkArmy[0],
+    //   AirDefArmy: battle.AirDefArmy[0],
+    //   GroundAtkArmy: battle.GroundAtkArmy[0],
+    //   GroundDefArmy: battle.GroundDefArmy[0],
+    //   Base: battle.Base[0],
+    // });
     setRound(0);
 
     setTotalRounds(battle.AirAtkArmy.length);
   }, [battle]);
 
   useEffect(() => {
-    if (round < totalRounds) {
-      setRoundInfo({
-        AirAtkArmy: battle.AirAtkArmy[round],
-        AirDefArmy: battle.AirDefArmy[round],
-        GroundAtkArmy: battle.GroundAtkArmy[round],
-        GroundDefArmy: battle.GroundDefArmy[round],
-        Base: battle.Base[round],
-      });
-      setTimeout(() => {
-        setRound((prev) => prev + 1);
-      }, 3000);
-    } else {
-      if (battle !== info.info.battle2) setBattle(info.info.battle2);
-      else setFinal(true);
+    if (round >= 0 && totalRounds) {
+      if (round < totalRounds) {
+        setRoundInfo({
+          AirAtkArmy: battle.AirAtkArmy[round],
+          AirDefArmy: battle.AirDefArmy[round],
+          GroundAtkArmy: battle.GroundAtkArmy[round],
+          GroundDefArmy: battle.GroundDefArmy[round],
+          Base: battle.Base[round],
+        });
+        setTimeOut(
+          setTimeout(() => {
+            setRound((prev) => prev + 1);
+          }, 500)
+        );
+      } else {
+        if (battleNum < 2) {
+          setBattle(info.info.battle2);
+          setBattleNum(2);
+        } else setFinal(true);
+      }
     }
   }, [round]);
 
-  console.log(
-    roundInfo.GroundAtkArmy.reduce((acc, e) => {
-      return e.life === 0 ? acc + 1 : acc;
-    }, 0)
-  );
+  function handleNextBattle() {
+    clearTimeout(timeOut);
+    if (battleNum === 1) {
+      setBattle(() => {
+        setRoundInfo({
+          AirAtkArmy: [],
+          AirDefArmy: [],
+          GroundAtkArmy: [],
+          GroundDefArmy: [],
+          Base: [],
+        });
+        return info.info.battle2;
+      });
+      setBattleNum(2);
+    } else setFinal(true);
+  }
+
+  function handlePrevBattle() {
+    clearTimeout(timeOut);
+    if (battleNum === 2) {
+      setBattle(() => {
+        setRoundInfo({
+          AirAtkArmy: [],
+          AirDefArmy: [],
+          GroundAtkArmy: [],
+          GroundDefArmy: [],
+          Base: [],
+        });
+        return info.info.battle1;
+      });
+      setBattleNum(1);
+    }
+  }
+
   return (
     <div>
       <button onClick={close}>X</button>
       {!final ? (
         <>
+          {battleNum === 2 ? (
+            <button onClick={handlePrevBattle}>{"<"}</button>
+          ) : (
+            <></>
+          )}
+          <button onClick={handleNextBattle}>{">"}</button>
           <div>
             <span>Attacker: {attacker}</span>
-            <span>Base Lifepoints: {roundInfo.Base[round]}</span>
+            <span>Base Lifepoints: {roundInfo.Base}</span>
             <span>Defender: {defender}</span>
           </div>
           <div>
