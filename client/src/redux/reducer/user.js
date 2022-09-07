@@ -47,7 +47,7 @@ const initialState = {
   chatNotification: false,
   userOptions: false,
   games: [],
-  friends: [],,
+  friends: [],
   usersRanking: []
 };
 
