@@ -1,4 +1,4 @@
-import style from "./VerifyMail.module.css";
+import css from "./VerifyMail.module.css";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -103,12 +103,12 @@ export default function App({ user }) {
   }
   
     return (
-      (<div className={style.background}>
-        <div className={style.subbackground}>
-        <div className={style.container}> 
+      (<div className={css.background}>
+        <div className={css.subbackground}>
+        <div className={css.container}> 
         {render ?       
           (<form className="formulario" onSubmit={(e)=>enviarEmail(e)}>
-            <div className={style.mail}>
+            <div className={css.mail}>
               <label htmlFor="email">Email: </label>
               <input
                 type="email"
@@ -118,13 +118,13 @@ export default function App({ user }) {
                 className="form-control"
                 ref={email1}
               />
-              <button className={style.button} type="submit">Enviar Token</button>
-              <button className={style.buttonClose2} onClick={(e)=>close(e)}>X</button>
+              <button className={css.button} type="submit">Enviar Token</button>
+              <button className={css.buttonClose2} onClick={(e)=>close(e)}>X</button>
             </div>
           </form>
         ) : (
           <form className="formulario" onSubmit={(e) => verifyTokens(e)}>
-            <div className={style.mail}>
+            <div className={css.mail}>
               <input
                 type="text"
                 name="token1"
@@ -133,9 +133,9 @@ export default function App({ user }) {
                 className="form-control"
                 ref={token1}
               />
-              <button className={style.button} type="submit">Verificar</button>
-              <button className={style.buttonClose} onClick={close}>X</button>
-              {reenviar ? '' : <button className={style.button} onClick={(e)=>reenviarToken1(e)}>Reenviar Token</button>}
+              <button className={css.button} type="submit">Verificar</button>
+              <button className={css.buttonClose} onClick={close}>X</button>
+              {reenviar ? '' : <button className={css.button} onClick={(e)=>reenviarToken1(e)}>Reenviar Token</button>}
             </div>
           </form>)}
           </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import style from "../../styles/ProfileUser/Config.module.css";
+import css from "../../styles/ProfileUser/Config.module.css";
 import BtnUserProfile from "../Buttons/BtnUserProfile";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, modifyUser } from "../../redux/actions/user";
@@ -65,7 +65,7 @@ export default function Config({ user }) {
 
   function changeMail() {
     return (
-      <div className={style.mail}>
+      <div className={css.mail}>
         <form onSubmit={(e) => sendMail(e)}>
           <label>Email: </label>
           <input
@@ -74,7 +74,7 @@ export default function Config({ user }) {
             placeholder="Ingrese nuevo email..."
             ref={email1}
           />
-          <button className={style.button} type="submit">
+          <button className={css.button} type="submit">
             Confirmar
           </button>
           <button onClick={(e) => closed(e)}>X</button>
@@ -85,28 +85,28 @@ export default function Config({ user }) {
 
   return (
     <>
-      <div className={style.container}>
-        <div className={style.config}>
-          <div className={style.configUser}>
-            <span className={style.userSpan}>USERNAME : {user.username}</span>
+      <div className={css.container}>
+        <div className={css.config}>
+          <div className={css.configUser}>
+            <span className={css.userSpan}>USERNAME : {user.username}</span>
             <span>
               <BtnUserProfile user={user} property="username" />
             </span>
           </div>
 
-          <div className={style.configUser}>
-            <span className={style.userSpan}>PASSWORD</span>
+          <div className={css.configUser}>
+            <span className={css.userSpan}>PASSWORD</span>
             {!user.loginGoogle && (
-              <div className={style.modal}>
+              <div className={css.modal}>
                 <BtnUserProfile user={user} property="password" />
               </div>
             )}
           </div>
 
-          <div className={style.configUser}>
+          <div className={css.configUser}>
             {input ? (
               <>
-                <span className={style.userSpan}>MAIL : {user.email}</span>
+                <span className={css.userSpan}>MAIL : {user.email}</span>
                 <span onClick={modifyMail}>
                   Edit <FaRegEdit size={30}/>
                 </span>
@@ -116,8 +116,8 @@ export default function Config({ user }) {
             )}
           </div>
 
-          <div className={style.configUser}>
-            <span className={style.userSpan}>DELETE ACCOUNT</span>
+          <div className={css.configUser}>
+            <span className={css.userSpan}>DELETE ACCOUNT</span>
             <span onClick={deleteAccount}>
               Delete <MdOutlineRemoveRedEye size={30}/>
             </span>
