@@ -7,7 +7,8 @@
   color: white;
   padding: 4rem 2rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  text-align: center;
 }
 
 .containerHello {
