@@ -12,7 +12,6 @@ const SinglePrivateChat = ({ newChatUser }) => {
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState({});
-  const [sent, setSent] = useState(false);
 
   useEffect(() => {
     dispatch(getUser(userActive.id));
@@ -26,29 +25,6 @@ const SinglePrivateChat = ({ newChatUser }) => {
     return () => {
       socket.emit("disconnectPrivateSocket", userActive.id);
     };
-  }, [userActive]);
-
-  useEffect(() => {
-    if (sent) {
-      // console.log("newChatUser", newChatUser);
-      // console.log("user", userActive);
-      // console.log(userActive.PrivateChats);
-      // const privateChat = userActive.PrivateChats.find((pc) => {
-      //   return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
-      // });
-
-      // if (privateChat) {
-      //   console.log("asdf");
-      //   dispatch(
-      //     setLastSeenMsg(
-      //       userActive.id,
-      //       privateChat.id,
-      //       messages[newChatUser.id].Messages.length + 1
-      //     )
-      //   );
-      // }
-      setSent(false);
-    }
   }, [userActive]);
 
   useEffect(() => {
@@ -79,25 +55,41 @@ const SinglePrivateChat = ({ newChatUser }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    socket.emit("privateMessage", userActive, newChatUser, message);
-    setMessage("");
+    if (message.length) {
+      socket.emit(
+        "privateMessage",
+        { id: userActive.id, username: userActive.username },
+        { id: newChatUser.id, username: newChatUser.username },
+        message
+      );
+      setMessage("");
 
-    setMessages((prev) => {
-      const oldMessages = prev[newChatUser.id]?.Messages || [];
-      return {
-        ...prev,
-        [newChatUser.id]: {
-          // username: user.username,
-          // id: user.id,
-          Messages: [...oldMessages, { emitter: userActive, message }],
-        },
-      };
-    });
-    // const privateChat = userActive.PrivateChats.find((pc) => {
-    //   return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
-    // });
-    // if (!privateChat) dispatch(getUser(userActive.id));
-    setSent(true);
+      setMessages((prev) => {
+        const oldMessages = prev[newChatUser.id]?.Messages || [];
+        return {
+          ...prev,
+          [newChatUser.id]: {
+            // username: user.username,
+            // id: user.id,
+            Messages: [...oldMessages, { emitter: userActive, message }],
+          },
+        };
+      });
+      const privateChat = userActive.PrivateChats.find((pc) => {
+        return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
+      });
+
+      if (privateChat) {
+        dispatch(
+          setLastSeenMsg(
+            userActive.id,
+            privateChat.id,
+            messages[newChatUser.id].Messages.length + 1
+          )
+        );
+      }
+      dispatch(getUser(userActive.id));
+    }
   };
 
   return (
