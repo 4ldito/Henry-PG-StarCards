@@ -200,6 +200,7 @@ export function deleteDeck(userId, deckId) {
   };
 }
 export function setActiveDeck(deck, userId) {
+  console.log(deck, userId);
   return async function (dispatch) {
     await axios.patch(`/user/defaultDeck/${deck.id}/${userId}`);
 

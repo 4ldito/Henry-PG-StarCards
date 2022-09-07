@@ -1,3 +1,24 @@
+.cartas::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(90deg,
+          rgba(255, 255, 255, 0) 30%,
+          cyan 50%,
+          rgba(255, 255, 255, 0) 70%);
+  width: 20px;
+}
+
+.cartas::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+      linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+      linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+      linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}
+
+
+
 .cartasYMazo::-webkit-scrollbar {
   background: rgb(0, 44, 255);
   background: linear-gradient(
@@ -53,10 +74,11 @@
 
 .cartas {
   display: flex;
-  justify-content: flex-start;
-  background: #3e3d3d77;
+  justify-content: center;
+  background-image: url('../../../img/album-card-container.svg');
+  background-size: cover;
+  border:2px solid #00ffffaa;
   padding: 15px;
-
   gap: 10px;
   flex-wrap: wrap;
   overflow-y: scroll;
@@ -65,7 +87,8 @@
   flex-direction: row;
   width: 90vw;
   height: 67vh;
-  margin: 0;
+  margin: auto;
+  margin-top: 30px;
 }
 .cardContainer {
   padding: 5px;
@@ -151,20 +174,21 @@
 
 }
 .cartasYMazosContainer{
-  justify-content: space-around;
+  justify-content: flex-start;
   display: flex;
   height: 67vh;
   width: 100%;
   gap:10px;
-  margin-top: 20px;
+  margin-top: 100px;
 }
 
 .cardsAndDecksButtons{
   position: absolute;
-  top: 0;
+  top: 50px;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
 }
 
 .cardsList{
@@ -174,6 +198,10 @@
   align-items:center;
   width: 50%;
   min-height: 100%;
+}
+.cardsListOnly{
+  
+  width: 100%;
 }
 
 @media screen and (max-width:480px){

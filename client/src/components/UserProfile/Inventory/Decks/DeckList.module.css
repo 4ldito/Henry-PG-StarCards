@@ -63,9 +63,20 @@
 }
 
 .allContainerWhenOnlyDecks {
-    background: #444;
-    width: 90vw;
-    height: 67vh;
+    color: white;
+    background-image: url('../../../../img/album-card-container.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid #00ffffdd;
+    display: flex;
+    overflow: hidden;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    margin-top: 40px;
 }
 
 .actualDeckContainer {
@@ -124,7 +135,9 @@
     justify-content: center;
     align-items: center;
 }
-
+.deckListOnly{
+    width: 100%;
+}
 .deckName {
     font-size: 30px;
     height: 30px;
@@ -229,6 +242,17 @@
 }
 .saveAndUseButtons{
     display: flex;
+}
+
+.only{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    gap: 8px;
+    margin-top: 20px;
 }
 
 @media screen and (min-width:450px) {}

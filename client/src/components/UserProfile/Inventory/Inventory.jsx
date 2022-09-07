@@ -5,9 +5,16 @@ import Sort from "./Sort";
 import SearchUserCard from "./SearchUserCard";
 import { useState } from "react";
 import css from "./Inventory.module.css";
+import { useEffect } from "react";
 
 export default function Inventory() {
   const [actualStackToShow, setActualStackToShow] = useState(['cartas']);
+  useEffect(()=>{
+    if(!actualStackToShow.length){
+      setActualStackToShow(['cartas']);
+    }
+  },
+  [actualStackToShow.length]);
   return (
     <div className={css.Inventory}>
       {(actualStackToShow.includes('cartas') && actualStackToShow.length === 1) &&

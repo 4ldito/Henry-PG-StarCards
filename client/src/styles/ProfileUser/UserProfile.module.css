@@ -40,18 +40,21 @@
 
 .buttonsbar {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap:10px;
   align-items: center;
   margin-top: 5vh;
 }
 
 .buttons {
-  background-color: white;
+  border:none;
   display: flex;
   height: 4vh;
   width: 12vh;
   align-items: center;
   justify-content: center;
+  background-image: url('../../img/button.svg');
+  background-size: cover;
 }
 .stars {
   display: flex;

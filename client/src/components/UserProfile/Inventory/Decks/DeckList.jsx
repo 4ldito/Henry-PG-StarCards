@@ -56,7 +56,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
     useEffect(() => { setCreationErrors({}) }, [selectedDeck]);
 
     function createNewDeck(userId, deck, name) {
-        if (name && deck.length && ( deck.length > 1 || deck[0].repeat>1)) {
+        if (name && deck.length && (deck.length > 1 || deck[0].repeat > 1)) {
             const isValidDeck = deck.reduce((prev, curr) => curr.race === deck[0].race && prev ? true : false, true);
             const deckCosts = deck.map(e => e.cost * e.repeat);
             const totalCost = deckCosts.reduce((prev, curr) => prev + curr);
@@ -78,24 +78,24 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 }
             };
         } else {
-            
+
             if (!name && !(deck.length)) {
                 setCreationErrors({ error: 'Add some cards to your deck and give it a name' });
             } else if (!name && deck.length > 1) {
                 setCreationErrors({ error: 'Name your deck' });
             } else if (!(deck.length)) {
                 setCreationErrors({ error: 'Add some cards' });
-            } else{
+            } else {
                 setCreationErrors({ error: 'Add some more cards' });
             }
-            
+
         }
 
     }
 
     function removeDeck(userId, deckId) {
         if (decks.length >= 2) {
-            if (activeDeck.id == deckId) dispatch(setActiveDeck({id: null}, userId));
+            if (activeDeck.id == deckId) dispatch(setActiveDeck({ id: null }, userId));
             if (selectedDeck.id === deckId) {
 
                 dispatch(setNewSelectedDeck({}));
@@ -127,22 +127,22 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
         }
     }
 
-    return <div className={css.deckList}>
+    return <div className={bothStacks ? css.deckList : css.deckListOnly}>
         <div className={bothStacks ? css.allContainerWhenBothStacks : css.allContainerWhenOnlyDecks}>
 
             {/* LISTADO DE MAZOS */}
 
             <ul className={css.deckListContainer}>
-           
-                {decks?.map((e, i) => <div 
-                className={selectedDeck?.name===e.name?css.selectedButtonAndDeckNameContainer: css.buttonAndDeckNameContainer} 
-                key={i}><div className={css.deckName} onClick={(e) => findSelectedDeck(e.target.id, decks)} id={e.id}>{e.name}
-                </div>
-                    <button className={selectedDeck?.name===e.name?css.deleteButton + " material-symbols-outlined":css.hidden} key={i} id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
+
+                {decks?.map((e, i) => <div
+                    className={selectedDeck?.name === e.name ? css.selectedButtonAndDeckNameContainer : css.buttonAndDeckNameContainer}
+                    key={i}><div className={css.deckName} onClick={(e) => findSelectedDeck(e.target.id, decks)} id={e.id}>{e.name}
+                    </div>
+                    <button className={selectedDeck?.name === e.name ? css.deleteButton + " material-symbols-outlined" : css.hidden} key={i} id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
                 </div>
                 )}
-        
-                {!creatingDeck&&<button className={css.addButton+" material-symbols-outlined"} onClick={() => openNewDeckTemplate()}>
+
+                {!creatingDeck && <button className={css.addButton + " material-symbols-outlined"} onClick={() => openNewDeckTemplate()}>
                     add
                 </button>}
             </ul>
@@ -150,18 +150,19 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 <input id='newDeckName' autoComplete="off" className={css.nameInput} onChange={(e) => {
                     setNewDeckName(e.target.value)
                 }} placeholder="Name you deck"></input>
-                Total cost: {' '+ creatingDeck && actualCost}
-            </div> : !selectedDeck?.name && <label>{ 'Create a deck'}</label>}
+                Total cost: {' ' + creatingDeck && actualCost}
+            </div> : !selectedDeck?.name && <label>{'Create a deck'}</label>}
             {/* CREACION DE MAZO */}
             <div className={css.actualDeckContainer}>
                 <div style={{ color: "black" }} className={css.cardsContainer}>
 
                     {creatingDeck ?
-                        <div className={css.creatingDeckContainer}>
+                        <div className={bothStacks ? css.creatingDeckContainer : css.only}>
                             {newDeckCards?.map((e, i) => {
                                 return (
 
                                     <CardContainer
+                                        bothStacks={bothStacks}
                                         actualStackToShow={actualStackToShow}
                                         newDeckCards={newDeckCards}
                                         creatingDeck={creatingDeck}
@@ -176,6 +177,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                         </div> : updatingDeck.cards ?
                             updatingDeck?.cards?.map((card, i) => {
                                 return <CardContainer
+                                    bothStacks={bothStacks}
                                     actualStackToShow={actualStackToShow}
                                     removeCardFromDeck={removeCardFromDeck}
                                     key={i}
@@ -186,12 +188,13 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                                 />
 
                             }) :
-                            <div className={css.selectedDeckContainer}>
+                            <div className={bothStacks ? css.selectedDeckContainer : css.only}>
                                 {
 
                                     selectedDeck?.UserCards?.map((e, i, array) => {
                                         let card = cards.find(el => el.id === e.CardId);
                                         return <CardContainer
+                                            bothStacks={bothStacks}
                                             actualStackToShow={actualStackToShow}
                                             removeCardFromDeck={removeCardFromDeck}
                                             key={i}
@@ -206,7 +209,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 </div>
             </div>
             <div className={css.saveAndUseButtons}>
-                {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button className={css.useButton}  onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Use</button>}
+                {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button className={css.useButton} onClick={() => { dispatch(setActiveDeck(selectedDeck, userId)) }}>Use</button>}
                 <button className={css.saveButton} onClick={() => {
                     if (updatingDeck.cards || updatingDeck.name) {
                         setUpdatingdeck({});

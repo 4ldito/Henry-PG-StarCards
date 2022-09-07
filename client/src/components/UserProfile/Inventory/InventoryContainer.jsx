@@ -153,6 +153,7 @@ export default function InventoryContainer({
     let cartas = [];
     filteredUserCards?.forEach(e => {
       cartas.push(<CardContainer key={e.id}
+        bothStacks={bothStacks}
         actualStackToShow={actualStackToShow}
         inDeck={false}
         tamanho='.5'
@@ -183,8 +184,10 @@ export default function InventoryContainer({
 
   const setVisibleStack = (name) => {
     if (actualStackToShow.includes(name)) {
-      setActualStackToShow(actualStackToShow.filter(e => e !== name));
-      setBothStacks(false);
+      if(actualStackToShow.length>1){
+        setActualStackToShow(actualStackToShow.filter(e => e !== name));
+        setBothStacks(false);
+      }
     } else {
       setActualStackToShow([...actualStackToShow, name])
     }
@@ -194,12 +197,13 @@ export default function InventoryContainer({
   return (<div className={css.inventoryContainer}>
     <div className={css.cardsAndDecksButtons}>
       <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
+      <hr></hr>
       <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
     </div>
 
     <div className={css.cartasYMazosContainer}>
       {actualStackToShow.includes('cartas') ?
-        <div className={css.cardsList}>
+        <div className={!bothStacks?css.cardsListOnly:css.cardsList}>
           <div className={bothStacks ? css.cartasYMazo : css.cartas}>
             {renderNotRepeat()}
           </div>
