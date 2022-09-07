@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { getUserGames } from "./../../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 
+import ZERG from '../../../img/zerg.svg'
+import PROTOSS from '../../../img/protoss.svg'
+import TERRAN from '../../../img/terran.svg'
 import style from "./Stats.module.css";
 
 const Stats = () => {
@@ -32,6 +35,8 @@ const Stats = () => {
   }, [games]);
 
   useEffect(() => {
+    console.log(infoGames)
+
     setInfoGames({
       zerg: { wins: 0, loses: 0, ties: 0 },
       protoss: { wins: 0, loses: 0, ties: 0 },
@@ -42,44 +47,40 @@ const Stats = () => {
   }, []);
 
   return (
-    <div className={style.container}>
-      <div className={style.infoContainer}>
-        <div className={style.infoGameContainer}>
-          <img src="" alt="Zerg icon" />
-          <h3>Zerg</h3>
-          <div className={style.infoStatsContainer}>
-            <p>Wins: {infoGames.zerg.wins}</p>
-            <p>Loses: {infoGames.zerg.loses}</p>
-            <p>Ties: {infoGames.zerg.ties}</p>
-          </div>
-        </div>
+    <div className={style.containerTo}>
+      <div className={style.div}>
+        <img className={style.race} src={ZERG} alt="" />
+        <span>ZERG</span>
+        <div className={style.seccion}><strong>WINS: </strong><span className={style.span}>{infoGames.zerg.wins}</span></div>
+        <div className={style.seccion}><strong>LOSES: </strong><span className={style.span}>{infoGames.zerg.loses}</span></div>
+        <div className={style.seccion}><strong>TIES: </strong><span className={style.span}>{infoGames.zerg.ties}</span></div>
+      </div>
 
-        <div className={style.infoGameContainer}>
-          <h3>Protoss</h3>
-          <div className={style.infoStatsContainer}>
-            <p>Wins: {infoGames.protoss.wins}</p>
-            <p>Loses: {infoGames.protoss.loses}</p>
-            <p>Ties: {infoGames.protoss.ties}</p>
-          </div>
-        </div>
+      <div className={style.div}>
+        <img className={style.race} src={PROTOSS} alt="" />
+        <span>PROTOSS</span>
 
-        <div className={style.infoGameContainer}>
-          <h3>Terran</h3>
-          <div className={style.infoStatsContainer}>
-            <p>Wins: {infoGames.terran.wins}</p>
-            <p>Loses: {infoGames.terran.loses}</p>
-            <p>Ties: {infoGames.terran.ties}</p>
-          </div>
-        </div>
+        <div className={style.seccion}><strong>WINS: </strong><span className={style.span}>{infoGames.protoss.wins}</span></div>
+        <div className={style.seccion}><strong>LOSES: </strong><span className={style.span}>{infoGames.protoss.loses}</span></div>
+        <div className={style.seccion}><strong>TIES: </strong><span className={style.span}>{infoGames.protoss.ties}</span></div>
+      </div>
 
-        <div className={style.infoGameContainer}>
-          <h3>Total</h3>
-          <div className={style.infoStatsContainer}>
-            <p>Wins: {infoGames.total.wins}</p>
-            <p>Loses: {infoGames.total.loses}</p>
-            <p>Ties: {infoGames.total.ties}</p>
-          </div>
-        </div>
+      <div className={style.div}>
+        <img className={style.race} src={TERRAN} alt="" />
+        <span>TERRAN</span>
+
+        <div className={style.seccion}><strong>WINS: </strong><span className={style.span}>{infoGames.terran.wins}</span></div>
+        <div className={style.seccion}><strong>LOSES: </strong><span className={style.span}>{infoGames.terran.loses}</span></div>
+        <div className={style.seccion}><strong>TIES: </strong><span className={style.span}>{infoGames.terran.ties}</span></div>
+      </div>
+
+      <div className={style.div}>
+        <div className={style.race} />
+        <span>TOTAL</span>
+
+        <div className={style.seccion}><strong>WINS:</strong><span className={style.span}> 54</span></div>
+        <div className={style.seccion}><strong>LOSES:</strong><span className={style.span}> 54</span></div>
+        <div className={style.seccion}><strong>TIES:</strong><span className={style.span}> 54</span></div>
       </div>
     </div>
   );

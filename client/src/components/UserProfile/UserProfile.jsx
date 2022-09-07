@@ -6,23 +6,19 @@ import {
   addNewFriend,
   deleteFriend,
   getUser,
-  getUserDecks,
-  getUserFriends,
+  getUserDecks
 } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
 import { getUserByName } from "../../redux/actions/user";
 
-import useValidToken from "../../hooks/useValidToken";
-import Stats from "./Stats/Stats";
-import Config from "../Config/Config";
 import Inventory from "./Inventory/Inventory";
 import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
 import PrivateChat from "./PrivateChat/PrivateChat";
 
 import Friends from "./Friends/Friends";
-import Stats from "../Stats/Stats";
+import Stats from "./Stats/Stats";
 export default function UserProfile() {
   const dispatch = useDispatch();
 
@@ -50,7 +46,7 @@ export default function UserProfile() {
   useEffect(() => {
     dispatch(getUserDecks(activeUser.id));
     dispatch(getUser(activeUser.id));
-    dispatch(getAllCards());
+    // dispatch(getAllCards());
     // dispatch(getUserFriends(activeUser.id));
   }, []);
 
@@ -95,7 +91,7 @@ export default function UserProfile() {
     const lastActive = document.querySelector(`.${style.buttonsActive}`);
     lastActive.classList.remove(style.buttonsActive);
     e.target.classList.add(`${style.buttonsActive}`);
-    setSection(e.target.name);
+    // setSection(e.target.name);
   }
 
 
@@ -108,45 +104,45 @@ export default function UserProfile() {
         <div className={style.containerName}>
           <span>AQUI VA EL USERNAME</span>
           <section className={style.containerButtons}>
-          <button
-          className={`${style.buttons} ${style.buttonsActive}`}
-          value="Inventory"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Inventory
-        </button>
-        <button
-          className={style.buttons}
-          value="Stats"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Stats
-        </button>
-        <button
-          className={style.buttons}
-          value="Config"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Config
-        </button>
-        <button
-          className={style.buttons}
-          value="Chat"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Chat
-        </button>
-        <button
-          className={style.buttons}
-          value="Friends"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Friends
-        </button>
-        <Link className={style.stars} to="/shop">
-          <FaShoppingCart size={28} />
-          Stars: {user.stars}
-        </Link>
+            <button
+              className={`${style.buttons} ${style.buttonsActive}`}
+              value="Inventory"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Inventory
+            </button>
+            <button
+              className={style.buttons}
+              value="Stats"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Stats
+            </button>
+            <button
+              className={style.buttons}
+              value="Config"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Config
+            </button>
+            <button
+              className={style.buttons}
+              value="Chat"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Chat
+            </button>
+            <button
+              className={style.buttons}
+              value="Friends"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Friends
+            </button>
+            <Link className={style.stars} to="/shop">
+              <FaShoppingCart size={28} />
+              Stars: {user.stars}
+            </Link>
           </section>
         </div>
       </div>
@@ -221,7 +217,7 @@ export default function UserProfile() {
       ) : render === "Inventory" ? (
         <Inventory />
       ) : render === "Stats" ? (
-        <Stats/>
+        <Stats />
       ) : (
         ""
       )}

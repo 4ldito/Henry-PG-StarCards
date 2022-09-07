@@ -11,7 +11,7 @@ const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
 
 const { User, Rol, StarsPack, Card, CardPacks, Status, UserCards } = db;
 
-const forceFlag = true;
+const forceFlag = false;
 
 const PORT = process.env.PORT !== undefined ? process.env.PORT : 3001;
 
