@@ -199,7 +199,7 @@ const PrivateChat = ({ selected }) => {
   };
 
   return (
-    <div className={css.chatContainer}>
+    <div className={css.containerTo}>
       <div className={css.chatUsers}>
         {chatUsers?.length
           ? chatUsers.map((c, i) => {
@@ -223,40 +223,42 @@ const PrivateChat = ({ selected }) => {
             })
           : "No chats"}
       </div>
-      <div className={css.chatBodyContainer}>
-        <div className={css.chatText}>
-          {actualChatUser
-            ? messages[actualChatUser.id]
-              ? messages[actualChatUser.id].Messages?.map((e, i) => (
-                  <div key={i}>
-                    {e.emitter.username}: {e.message}
-                  </div>
-                ))
-              : ""
-            : ""}
-          <div ref={divRef}></div>
-        </div>
+      <div className={css.chatContainer}>
+        <div className={css.chatBodyContainer}>
+          <div className={css.chatText}>
+            {actualChatUser
+              ? messages[actualChatUser.id]
+                ? messages[actualChatUser.id].Messages?.map((e, i) => (
+                    <div key={i}>
+                      {e.emitter.username}: {e.message}
+                    </div>
+                  ))
+                : ""
+              : ""}
+            <div ref={divRef}></div>
+          </div>
 
-        {actualChatUser ? (
-          <form onSubmit={submit} className={css.chatForm}>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              value={message}
-              placeholder="Escribe tu mensaje"
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") submit(e);
-              }}
-              className={css.textArea}
-            />
-            <input type="submit" value="Enviar" />
-          </form>
-        ) : (
-          "Selecciona un chat"
-        )}
+          {actualChatUser ? (
+            <form onSubmit={submit} className={css.chatForm}>
+              <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                value={message}
+                placeholder="Escribe tu mensaje"
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") submit(e);
+                }}
+                className={css.textArea}
+              />
+              <input type="submit" value="Enviar" />
+            </form>
+          ) : (
+            "Selecciona un chat"
+          )}
+        </div>
       </div>
     </div>
   );

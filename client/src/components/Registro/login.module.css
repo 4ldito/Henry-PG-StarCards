@@ -22,7 +22,6 @@
   width: 40%;
   height: 60%;
 }
-
 .button {
   background-color: rgba(255, 255, 255, 0);
   background-image: url(../../img/button-active.png);
@@ -60,7 +59,7 @@ input[type="submit"]:hover {
 .buttoncontainer {
   display: flex;
   justify-content: space-around;
-  align-items: baseline;
+  align-items: center;
 }
 
 .login-form {
@@ -107,6 +106,21 @@ label {
   padding: 1rem;
 }
 
+.containerLink{
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.link{
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+
+  cursor: pointer;
+}
 /* ////////////////////////// RecoveryPassword ////////////////////////// */
 
 .containerRecoveryPassword {
