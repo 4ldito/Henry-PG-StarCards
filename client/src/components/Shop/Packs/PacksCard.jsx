@@ -35,7 +35,7 @@ const PacksCard = ({ pack, type }) => {
     if (checkStock(quantity)) {
       return Swal.fire({
         title: "Error!",
-        text: "No hay stock disponible =(",
+        text: "No stock available =(",
         icon: "error",
       });
     }
@@ -43,7 +43,7 @@ const PacksCard = ({ pack, type }) => {
     if (!user.id) {
       return Swal.fire({
         title: "Error!",
-        text: "Inicia sesion primero",
+        text: "Sign in first to buy",
         icon: "error",
       });
     }
@@ -51,15 +51,15 @@ const PacksCard = ({ pack, type }) => {
     if (checkStock(quantity)) {
       return Swal.fire({
         title: "Error!",
-        text: "No hay stock disponible =(",
+        text: "No stock available =(",
         icon: "error",
       });
     }
 
     Swal.fire({
       title: `Confrimar`,
-      text: `¿Estás seguro que queres comprar ${pack.quantity} ${pack.name
-        } por ${pack.price * pack.quantity} stars?`,
+      text: `Are you sure you want to buy ${pack.quantity} ${pack.name
+        } for ${pack.price * pack.quantity} stars?`,
       showCancelButton: true,
       confirmButtonText: "Comprar",
     }).then(({ isConfirmed }) => {
@@ -91,8 +91,8 @@ const PacksCard = ({ pack, type }) => {
     }
 
     Swal.fire({
-      title: `Carrito`,
-      text: `Añadiste ${quantity} de ${pack.name} correctamente al carrito`,
+      title: `Shopcart`,
+      text: `You added ${quantity} of ${pack.name} successfully to the cart`,
       icon: "success",
     });
     dispatch(addToShopCart(pack, quantity, type, user.id));
@@ -104,7 +104,7 @@ const PacksCard = ({ pack, type }) => {
     if (!userId) {
       return Swal.fire({
         title: "Error!",
-        text: "Inicia sesión para añadir a favoritos.",
+        text: "Sign in to add to favorites.",
         icon: "error",
       });
     }
