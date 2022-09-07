@@ -204,7 +204,7 @@ export default function UserProfile() {
 
         {myFriend ? (
           <button
-            className={`${style.buttons} ${style.disabled}`}
+            className={`${style.buttonsDelete} ${style.disabled}`}
             onClick={(e) => deleteThisFriend(e)}
           >
             Delete friend

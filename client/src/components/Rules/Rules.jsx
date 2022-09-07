@@ -1,7 +1,7 @@
 import React from "react";
 
 import css from "./Rules.module.css";
-import img from "../../img/rules-img.jpg";
+import img from "../../img/rules.png";
 
 export default function Rules() {
   return (
