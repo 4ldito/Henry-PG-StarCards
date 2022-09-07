@@ -53,7 +53,7 @@ export default function InventoryContainer({
         newCard.repeat = 1;
         setNewDeckCards([...newDeckCards, newCard]);
       }
-      setActualCost(actualCost+card.cost);
+      setActualCost(actualCost + card.cost);
     } else {
       const addingCard = cards.find(e => e.id === card.id);
       const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
@@ -108,7 +108,7 @@ export default function InventoryContainer({
         const newNewDeckCards = newDeckCards.filter(e => e.id !== cardBack.id);
         setNewDeckCards(newNewDeckCards);
       }
-      setActualCost(actualCost-cardBack.cost);
+      setActualCost(actualCost - cardBack.cost);
     } else {
 
       if (!updatingDeck.cards) {
@@ -144,7 +144,7 @@ export default function InventoryContainer({
   }
 
   const updateSelectedDeck = (userId, deckId, newDeck) => {
-    dispatch(setActiveDeck({id: null}, userId));
+    dispatch(setActiveDeck({ id: null }, userId));
     dispatch(updateDeck(userId, deckId, newDeck));
   }
 
@@ -180,7 +180,7 @@ export default function InventoryContainer({
     dispatch(getUserCards(user.UserCards, cards));
   }, [cards]);
 
-  
+
   const setVisibleStack = (name) => {
     if (actualStackToShow.includes(name)) {
       setActualStackToShow(actualStackToShow.filter(e => e !== name));
@@ -192,11 +192,17 @@ export default function InventoryContainer({
 
   return (<div className={css.inventoryContainer}>
     <div className={css.cardsAndDecksButtons}>
-    <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
-    <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
+      <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
+      <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
     </div>
     <div className={css.cartasYMazosContainer}>
-      {actualStackToShow.includes('cartas') ? <div className={bothStacks ? css.cartasYMazo : css.cartas}>{renderNotRepeat()}</div> : <></>}
+      {actualStackToShow.includes('cartas') ?
+        <div className={css.cardsList}>
+          <div className={bothStacks ? css.cartasYMazo : css.cartas}>
+            {renderNotRepeat()}
+          </div>
+        </div>
+        : <></>}
       {actualStackToShow.includes('mazos') ? <DeckList selectedDeck={selectedDeck}
         removeCardFromDeck={removeCardFromDeck} setNewDeckCards={setNewDeckCards}
         creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
@@ -206,5 +212,6 @@ export default function InventoryContainer({
         updateSelectedDeck={updateSelectedDeck} setActualCost={setActualCost}
         actualCost={actualCost} actualStackToShow={actualStackToShow}></DeckList> : <></>}
     </div>
-  </div >);
+  </div >
+  );
 }

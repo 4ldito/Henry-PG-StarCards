@@ -56,8 +56,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
     useEffect(() => { setCreationErrors({}) }, [selectedDeck]);
 
     function createNewDeck(userId, deck, name) {
-        setActualCost(0);
-        if (name && deck.length > 1) {
+        if (name && deck.length && ( deck.length > 1 || deck[0].repeat>1)) {
             const isValidDeck = deck.reduce((prev, curr) => curr.race === deck[0].race && prev ? true : false, true);
             const deckCosts = deck.map(e => e.cost * e.repeat);
             const totalCost = deckCosts.reduce((prev, curr) => prev + curr);
@@ -73,22 +72,23 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                     setCreatingDeck(false);
                     justCreatedName = name;
                     justCreated = true;
+                    setActualCost(0);
                 } else {
                     setCreationErrors({ error: 'All cards must to be the same race' });
                 }
             };
         } else {
-
+            
             if (!name && !(deck.length)) {
                 setCreationErrors({ error: 'Add some cards to your deck and give it a name' });
             } else if (!name && deck.length > 1) {
                 setCreationErrors({ error: 'Name your deck' });
             } else if (!(deck.length)) {
                 setCreationErrors({ error: 'Add some cards' });
-            } else {
+            } else{
                 setCreationErrors({ error: 'Add some more cards' });
             }
-
+            
         }
 
     }
@@ -133,20 +133,24 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
             {/* LISTADO DE MAZOS */}
 
             <ul className={css.deckListContainer}>
-                {decks?.map((e, i) => <div key={i}><div onClick={(e) => findSelectedDeck(e.target.id, decks)} id={e.id}>{e.name}
+           
+                {decks?.map((e, i) => <div 
+                className={selectedDeck?.name===e.name?css.selectedButtonAndDeckNameContainer: css.buttonAndDeckNameContainer} 
+                key={i}><div className={css.deckName} onClick={(e) => findSelectedDeck(e.target.id, decks)} id={e.id}>{e.name}
                 </div>
-                    <button key={i} id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
+                    <button className={selectedDeck?.name===e.name?css.deleteButton + " material-symbols-outlined":css.hidden} key={i} id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
                 </div>
                 )}
-                <button onClick={() => openNewDeckTemplate()}>
-                    Nuevo mazo
-                </button>
+        
+                {!creatingDeck&&<button className={css.addButton+" material-symbols-outlined"} onClick={() => openNewDeckTemplate()}>
+                    add
+                </button>}
             </ul>
             {creatingDeck ? <div className={css.inputAndCost}>
-                <input id='newDeckName' onChange={(e) => {
+                <input id='newDeckName' autoComplete="off" className={css.nameInput} onChange={(e) => {
                     setNewDeckName(e.target.value)
                 }} placeholder="Name you deck"></input>
-                {creatingDeck && actualCost}
+                Total cost: {' '+ creatingDeck && actualCost}
             </div> : !selectedDeck?.name && <label>{ 'Create a deck'}</label>}
             {/* CREACION DE MAZO */}
             <div className={css.actualDeckContainer}>
@@ -202,15 +206,15 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                 </div>
             </div>
             <div className={css.saveAndUseButtons}>
-                {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Usar</button>}
-                <button onClick={() => {
+                {(!creatingDeck && activeDeck?.id !== selectedDeck?.id) && <button className={css.useButton}  onClick={() => { dispatch(setActiveDeck(selectedDeck)) }}>Use</button>}
+                <button className={css.saveButton} onClick={() => {
                     if (updatingDeck.cards || updatingDeck.name) {
                         setUpdatingdeck({});
                         updateSelectedDeck(userId, selectedDeck.id, updatingDeck);
                     } else {
                         createNewDeck(userId, newDeckCards, newDeckName);
                     }
-                }}>Guardar</button>
+                }}>Save</button>
 
             </div>
             {creationErrors.error && <div>{creationErrors.error}</div>}
