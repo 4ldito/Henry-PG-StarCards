@@ -8,7 +8,7 @@ import GameView from "./Play/GameView";
 
 import style from "./Playroom.module.css";
 import styleChat from "../Chat/Chat.module.css";
-
+  
 export default function Playroom() {
   useValidToken({ navigate: true });
   const [openChat, setOpenChat] = useState(false);
@@ -58,8 +58,8 @@ export default function Playroom() {
   const divRef = useRef(null);
 
   useEffect(() => {
-    divRef.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
+    if (openChat) divRef.current.scrollIntoView({ behavior: "smooth" });
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,6 +82,7 @@ export default function Playroom() {
   }, [reduxGames]);
 
   useEffect(() => {
+    window.scroll({ top: 0, behavior: "auto" });
     dispatch(getUserGames(userActive.id));
   }, []);
 
@@ -109,6 +110,8 @@ export default function Playroom() {
   function handleGameViewClose() {
     setGameView({ info: undefined, bool: false });
   }
+
+  // console.log(games.at(-1));
 
   return (
     <>

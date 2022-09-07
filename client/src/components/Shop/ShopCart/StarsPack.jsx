@@ -26,7 +26,7 @@ const StarsPack = ({
             <span>Price</span>
             <span>Amount</span>
             <span>Subtotal</span>
-            <span />
+            {/* <span /> */}
           </div>
 
           {starsPack.map((item) => {
@@ -78,7 +78,7 @@ const StarsPack = ({
                   navigate("/login");
                 }}
               >
-                Login
+                Log In
               </button>
             )}
           </div>
