@@ -29,6 +29,7 @@ import {
   GET_USER_FRIENDS,
   ADD_NEW_FRIEND,
   DELETE_FRIEND,
+  GET_RANKING,
 } from "../actions/user";
 
 const initialState = {
@@ -47,6 +48,7 @@ const initialState = {
   userOptions: false,
   games: [],
   friends: [],
+  usersRanking: []
 };
 
 export default function userReducer(state = initialState, { type, payload }) {
@@ -164,10 +166,10 @@ export default function userReducer(state = initialState, { type, payload }) {
       };
 
     case SET_ACTIVE_DECK:
-      return { ...state, activeDeck: payload };
+      return { ...state, activeDeck: payload }
 
     case SET_SELECTED_DECK:
-      return { ...state, selectedDeck: payload };
+      return { ...state, selectedDeck: payload }
 
     case MODIFY_USER_CARDS:
       payload.forEach((userCard) => {
@@ -184,10 +186,11 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, friends: payload };
 
     case ADD_NEW_FRIEND:
-      console.log("payload", payload);
       return { ...state, friends: [...state.friends, payload] };
     case DELETE_FRIEND:
       return { ...state, friends: payload };
+    case GET_RANKING:
+      return { ...state, usersRanking: payload }
     default:
       return state;
   }

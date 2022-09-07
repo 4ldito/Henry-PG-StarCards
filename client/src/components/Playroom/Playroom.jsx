@@ -8,7 +8,8 @@ import GameView from "./Play/GameView";
 
 import css from "./Playroom.module.css";
 import styleChat from "../Chat/Chat.module.css";
-  
+import Ranking from "./Ranking";
+
 export default function Playroom() {
   useValidToken({ navigate: true });
   const [openChat, setOpenChat] = useState(false);
@@ -150,6 +151,7 @@ export default function Playroom() {
             )}
           </div>
         )}
+        <Ranking />
       </div>
       {
         <div className={!openChat ? `${css.hideChat}` : ""}>

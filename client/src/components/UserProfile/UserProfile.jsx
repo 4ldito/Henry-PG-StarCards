@@ -6,20 +6,21 @@ import {
   addNewFriend,
   deleteFriend,
   getUser,
-  getUserDecks,
-  getUserFriends,
+  getUserDecks
 } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
 import { getUserByName } from "../../redux/actions/user";
+
 import Inventory from "./Inventory/Inventory";
 import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
 import PrivateChat from "./PrivateChat/PrivateChat";
 
 import getAllCards from "../../redux/actions/cards/getAllCards";
+
 import Friends from "./Friends/Friends";
-import Stats from "../Stats/Stats";
+import Stats from "./Stats/Stats";
 export default function UserProfile() {
   const dispatch = useDispatch();
 
@@ -28,7 +29,7 @@ export default function UserProfile() {
   const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState("Inventory");
+  const [render, setRender] = useState("");
   useValidToken({ navigate: true });
 
   // Read profile owner from url
@@ -104,30 +105,30 @@ export default function UserProfile() {
         <div className={style.containerName}>
           <span>AQUI VA EL USERNAME</span>
           <section className={style.containerButtons}>
-          <button
-          className={`${style.buttons} ${style.buttonsActive}`}
-          value="Inventory"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Inventory
-        </button>
-        <button
-          className={style.buttons}
-          value="Stats"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Stats
-        </button>
-        <button
-          className={style.buttons}
-          value="Config"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Config
-        </button>
-        <button
-          className={style.buttons}
-          value="Chat"
+            <button
+              className={`${style.buttons} ${style.buttonsActive}`}
+              value="Inventory"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Inventory
+            </button>
+            <button
+              className={style.buttons}
+              value="Stats"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Stats
+            </button>
+            <button
+              className={style.buttons}
+              value="Config"
+              onClick={(e) => { changeRender(e), handleClick(e) }}
+            >
+              Config
+            </button>
+            <button
+              className={style.buttons}
+              value="Chat"
           onClick={(e) => {changeRender(e), handleClick(e)}}
         >
           Chat
@@ -217,7 +218,7 @@ export default function UserProfile() {
       ) : render === "Inventory" ? (
         <Inventory />
       ) : render === "Stats" ? (
-        <Stats/>
+        <Stats />
       ) : (
         ""
       )}
