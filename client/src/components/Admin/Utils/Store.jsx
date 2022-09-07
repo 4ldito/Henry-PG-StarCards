@@ -33,7 +33,7 @@ function Store() {
       ? dispatch(modifyCardPacks(id, { StatusId: statusId }))
       : dispatch(modifyStarsPack(id, { StatusId: statusId }));
 
-    console.log(id, { StatusId: statusId }, pack);
+    console.log(cardPacks);
   }
 
   function modifyStock(e, id) {
