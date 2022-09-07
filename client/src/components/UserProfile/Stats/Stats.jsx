@@ -49,7 +49,7 @@ const Stats = () => {
   return (
     <div className={style.containerTo}>
       <div className={style.div}>
-        <img className={style.race} src={ZERG} alt="" />
+        <img className={style.race} src={ZERG} alt="Zerg Icon" />
         <span>ZERG</span>
         <div className={style.seccion}><strong>WINS: </strong><span className={style.span}>{infoGames.zerg.wins}</span></div>
         <div className={style.seccion}><strong>LOSES: </strong><span className={style.span}>{infoGames.zerg.loses}</span></div>
@@ -57,7 +57,7 @@ const Stats = () => {
       </div>
 
       <div className={style.div}>
-        <img className={style.race} src={PROTOSS} alt="" />
+        <img className={style.race} src={PROTOSS} alt="Protoss Icon" />
         <span>PROTOSS</span>
 
         <div className={style.seccion}><strong>WINS: </strong><span className={style.span}>{infoGames.protoss.wins}</span></div>
@@ -66,7 +66,7 @@ const Stats = () => {
       </div>
 
       <div className={style.div}>
-        <img className={style.race} src={TERRAN} alt="" />
+        <img className={style.race} src={TERRAN} alt="Terran Icon" />
         <span>TERRAN</span>
 
         <div className={style.seccion}><strong>WINS: </strong><span className={style.span}>{infoGames.terran.wins}</span></div>

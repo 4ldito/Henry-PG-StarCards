@@ -83,13 +83,10 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
   function handleViewCard() {
     setViewCard(!viewCard);
   }
-  
 
   function ver() {
     setViewDetail(!viewDetail);
   }
-
-  
 
   return ((newRepeatForThoseWichAreNotInDeck || justPassin) && <>
     <div className={bothStacks ? css.cardsAnDeckContainer : css.container}>
@@ -98,15 +95,11 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
         <div className={bothStacks ? !inDeck ? css.repeatOutDeck : css.repeat : css.repeatWithCard}>
           {inDeck ? creatingDeck || updatingDeck?.cards ? <label >{repeat > 1 && repeat}</label> :
             <label >{thisCardRepeats > 1 && thisCardRepeats}</label> :
-            repeat > 1 ? <label >{newRepeatForThoseWichAreNotInDeck || repeat}</label> :
-
-              <></>
+            repeat > 1 && <label >{newRepeatForThoseWichAreNotInDeck || repeat}</label>
           }
         </div>
-
         {(addButton && !selectedDeck?.name) && <button className={css.añadirAlMazoBtn + " material-symbols-outlined"} onClick={() => { addCardToDeck(card, repeat) }}>trending_flat</button>}
         {actualStackToShow.length === 1 ?
-
           <Card
             id={card.id}
             name={card.name}
@@ -120,7 +113,7 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
             race={card.race}
             movement={card.movement}
           /> :
-          <div className={css.cardInDeck} onClick={()=>{
+          <div className={css.cardInDeck} onClick={() => {
             setViewDetail(!viewDetail);
           }}>
             <h2 className={css.cardInDeckH1}>{card.name}</h2>
@@ -130,31 +123,20 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
                   card.race === 'Protoss' &&
                   <img className={css.raceImg} src="/src/img/protoss.svg"></img>}
             </div>
-
           </div>}
-          {bothStacks&&<CardContainerDetail                       card={card} bothStacks={bothStacks} viewDetail={viewDetail}/>}
+        {bothStacks && <CardContainerDetail card={card} bothStacks={bothStacks} viewDetail={viewDetail} />}
         {(inDeck && !selectedDeck?.name) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
           selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
             removeCardFromDeck(card.id)
         }}>trending_flat</button>}
-
-        {viewCard && (
-          <SaleCard
-            handleViewCard={handleViewCard}
-            card={card} />
-        )}
       </>}
-      
-
-
       {!inDeck && actualStackToShow.length === 1 && <button onClick={handleViewCard}>{'Sell card'}</button>}
-      {viewCard && (
-        <SaleCard
-          handleViewCard={handleViewCard}
-          card={card} />
-      )}
-
     </div>
+    {viewCard && (
+      <SaleCard
+        handleViewCard={handleViewCard}
+        card={card} />
+    )}
   </>
   );
 }

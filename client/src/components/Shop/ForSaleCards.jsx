@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import Card from './../Card/Card';
 
 import style from './styles/ForSaleCards.module.css';
+import FiltersForSaleCards from "./FiltersForSaleCards";
 
 const ForSaleCards = () => {
   const dispatch = useDispatch();
@@ -78,35 +79,38 @@ const ForSaleCards = () => {
   if (!cardsInSale.length) return <div className={style.noCards}>There are no cards for sale</div>;
 
   return (
-    <div className={style.container}>
-      {cardsInSale.map((userCard) => {
-        // console.log(userCard)
-        return (
-          <div className={style.saleContainer} key={userCard.id}>
-            <p>Price: {userCard.price} Stars</p>
-            <p>Owner: {userCard.User.username}</p>
-            <Card
-              key={userCard.Card.id}
-              id={userCard.Card.id}
-              name={userCard.Card.name}
-              image={userCard.Card.image}
-              cost={userCard.Card.cost}
-              Gdmg={userCard.Card.Gdmg}
-              Admg={userCard.Card.Admg}
-              life={userCard.Card.life}
-              ability={userCard.Card.ability}
-              abilities={userCard.Card.abilities}
-              race={userCard.Card.race}
-              movement={userCard.Card.movement}
-            />
-            {user.id !== userCard.User.id
-              ? <button onClick={(e) => handleBuyCard(e, userCard)} value={userCard.id}>Buy</button>
-              : <button onClick={(e) => handleRemoveForSale(e, userCard)} >Remove for sale</button>
-            }
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <FiltersForSaleCards />
+      <div className={style.container}>
+        {cardsInSale.map((userCard) => {
+          // console.log(userCard)
+          return (
+            <div className={style.saleContainer} key={userCard.id}>
+              <p>Price: {userCard.price} Stars</p>
+              <p>Owner: {userCard.User.username}</p>
+              <Card
+                key={userCard.Card.id}
+                id={userCard.Card.id}
+                name={userCard.Card.name}
+                image={userCard.Card.image}
+                cost={userCard.Card.cost}
+                Gdmg={userCard.Card.Gdmg}
+                Admg={userCard.Card.Admg}
+                life={userCard.Card.life}
+                ability={userCard.Card.ability}
+                abilities={userCard.Card.abilities}
+                race={userCard.Card.race}
+                movement={userCard.Card.movement}
+              />
+              {user.id !== userCard.User.id
+                ? <button onClick={(e) => handleBuyCard(e, userCard)} value={userCard.id}>Buy</button>
+                : <button onClick={(e) => handleRemoveForSale(e, userCard)} >Remove for sale</button>
+              }
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

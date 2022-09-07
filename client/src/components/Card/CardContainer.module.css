@@ -46,9 +46,6 @@
     position: relative;
     transition: .2s;
 }
-.container:hover {
-  transform: scale(0.98);
-}
 
 
 
