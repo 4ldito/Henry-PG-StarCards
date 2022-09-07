@@ -29,7 +29,7 @@ export default function UserProfile() {
   const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState("");
+  const [render, setRender] = useState("Inventory");
   useValidToken({ navigate: true });
 
   // Read profile owner from url
@@ -103,7 +103,7 @@ export default function UserProfile() {
           <img src={activeUser.profileImg} alt="" />
         </section>
         <div className={style.containerName}>
-          <span>AQUI VA EL USERNAME</span>
+          <span>{activeUser.username.toUpperCase()}</span>
           <section className={style.containerButtons}>
             <button
               className={`${style.buttons} ${style.buttonsActive}`}

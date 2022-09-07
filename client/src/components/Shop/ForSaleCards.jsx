@@ -75,7 +75,7 @@ const ForSaleCards = () => {
     };
   }, []);
 
-  if (!cardsInSale.length) return <p>There are no cards for sale</p>;
+  if (!cardsInSale.length) return <div className={style.noCards}>There are no cards for sale</div>;
 
   return (
     <div className={style.container}>
