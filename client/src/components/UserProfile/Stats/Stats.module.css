@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoContainer {
+    display: flex;
+    gap: 10rem;
+    margin-top: 1rem;
+}
+
+
+.infoGameContainer {
+    background: rgb(7, 109, 150);
+    background: linear-gradient(137deg,
+            rgba(7, 109, 150, 1) 0%,
+            rgba(14, 8, 54, 1) 100%);
+    color: white;
+    padding: 1rem;
+}

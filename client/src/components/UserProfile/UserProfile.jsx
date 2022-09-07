@@ -2,17 +2,27 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { addNewFriend, deleteFriend, getUser, getUserDecks, getUserFriends } from "../../redux/actions/user";
-import style from "../../styles/ProfileUser/UserProfile.module.css";
-import Config from "../Config/Config";
-import useValidToken from "../../hooks/useValidToken";
+
+import {
+  addNewFriend,
+  deleteFriend,
+  getUser,
+  getUserDecks,
+  getUserFriends,
+} from "../../redux/actions/user";
+import getAllCards from "../../redux/actions/cards/getAllCards";
 import { getUserByName } from "../../redux/actions/user";
+
+import useValidToken from "../../hooks/useValidToken";
+import Stats from "./Stats/Stats";
+import Config from "../Config/Config";
 import Inventory from "./Inventory/Inventory";
 import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
 import PrivateChat from "./PrivateChat/PrivateChat";
 
-import getAllCards from "../../redux/actions/cards/getAllCards";
 import Friends from "./Friends/Friends";
+import style from "../../styles/ProfileUser/UserProfile.module.css";
+
 export default function UserProfile() {
   const dispatch = useDispatch();
 
@@ -64,36 +74,58 @@ export default function UserProfile() {
 
   function changeRender(e) {
     let value = e.target.value;
-    if (value === render) return setRender('Inventory');
-    setRender(value)
+    if (value === render) return setRender("Inventory");
+    setRender(value);
   }
 
-  const myFriend = friends?.find((f) => f.id === actualUrlUser.id)
+  const myFriend = friends?.find((f) => f.id === actualUrlUser.id);
 
   function addFriend(e) {
-    dispatch(addNewFriend(activeUser.id, actualUrlUser.id))
+    dispatch(addNewFriend(activeUser.id, actualUrlUser.id));
   }
 
   function deleteThisFriend(e) {
-    dispatch(deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id }))
+    dispatch(
+      deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id })
+    );
   }
 
   const showToOwner = () => (
     <>
       <div className={style.buttonsbar}>
-        <button className={`${style.buttons} ${style.disabled}`} value="Inventory" onClick={(e) => changeRender(e)}>
+        <button
+          className={`${style.buttons}`}
+          value="Inventory"
+          onClick={(e) => changeRender(e)}
+        >
           Inventory
         </button>
-        <button className={`${style.buttons} ${style.disabled}`} value="Stats" onClick={(e) => changeRender(e)} disabled>
+        <button
+          className={`${style.buttons}`}
+          value="Stats"
+          onClick={(e) => changeRender(e)}
+        >
           Stats
         </button>
-        <button className={`${style.buttons} ${style.disabled}`} value="Config" onClick={(e) => changeRender(e)}>
+        <button
+          className={`${style.buttons}`}
+          value="Config"
+          onClick={(e) => changeRender(e)}
+        >
           Config
         </button>
-        <button className={`${style.buttons} ${style.disabled}`} value="Chat" onClick={(e) => changeRender(e)}>
+        <button
+          className={`${style.buttons}`}
+          value="Chat"
+          onClick={(e) => changeRender(e)}
+        >
           Chat
         </button>
-        <button className={`${style.buttons} ${style.disabled}`} value="Friends" onClick={(e) => changeRender(e)}>
+        <button
+          className={`${style.buttons}`}
+          value="Friends"
+          onClick={(e) => changeRender(e)}
+        >
           Friends
         </button>
         <Link className={style.stars} to="/shop">
@@ -109,7 +141,7 @@ export default function UserProfile() {
       ) : render === "Inventory" ? (
         <Inventory />
       ) : render === "Stats" ? (
-        "Stats"
+        <Stats />
       ) : render === "Chat" ? (
         <PrivateChat />
       ) : render === "Friends" ? (
@@ -146,20 +178,21 @@ export default function UserProfile() {
           Chat
         </button>
 
-        {myFriend ?
+        {myFriend ? (
           <button
             className={`${style.buttons} ${style.disabled}`}
             onClick={(e) => deleteThisFriend(e)}
           >
             Delete friend
           </button>
-          :
+        ) : (
           <button
             className={`${style.buttons} ${style.disabled}`}
             onClick={(e) => addFriend(e)}
           >
             Add friend
-          </button>}
+          </button>
+        )}
       </div>
 
       {render === "Chat" ? (
