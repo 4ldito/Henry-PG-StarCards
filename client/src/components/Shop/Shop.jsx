@@ -73,7 +73,7 @@ const Shop = () => {
             value="packsCards"
             className={style.btn}
           >
-            BUY PACKS CARDS
+            BUY CARD PACKS
           </button>
           <button
             onClick={handleChangeView}
