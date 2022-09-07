@@ -28,14 +28,13 @@ function battle(atk, def) {
     GroundAtkArmy: [],
     AirDefArmy: [],
     AirAtkArmy: [],
+    Base: [],
     log: [],
   };
 
   const defBase = { life: 1000, attacked: 0 };
   const atkArmy = { Ground: [], Flying: [] },
     defArmy = { Ground: [], Flying: [] };
-
-  let roundZero = 0;
 
   // for (let asd = 0; asd < 2; asd++) {
   while (defBase.life > 0 && !atkArmy.defeated) {
@@ -44,13 +43,11 @@ function battle(atk, def) {
     if (newAtk.movement) atkArmy[newAtk.movement].push(newAtk);
     if (newDef.movement) defArmy[newDef.movement].push(newDef);
 
-    if (roundZero === 0) {
-      roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
-      roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
-      roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.Flying];
-      roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.Flying];
-      roundZero++;
-    }
+    roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
+    roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
+    roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.Flying];
+    roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.Flying];
+    roundsInfo.Base = [...roundsInfo.Base, defBase.life];
 
     // Defender abilities casting
     for (let army in defArmy) {
@@ -1018,10 +1015,10 @@ function battle(atk, def) {
         }
       }
     }
-    defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
-    defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
-    atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
-    atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
+    // defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
+    // defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
+    // atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
+    // atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
 
     // roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
     // roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
@@ -1995,10 +1992,10 @@ function battle(atk, def) {
         }
       }
     }
-    defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
-    defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
-    atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
-    atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
+    // defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
+    // defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
+    // atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
+    // atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
 
     // roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
     // roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
@@ -2344,15 +2341,20 @@ function battle(atk, def) {
       } else defArmy.defeated = true;
     }
 
-    defArmy.Ground = defArmy.Ground.filter((c) => c?.life > 0);
-    defArmy.Flying = defArmy.Flying.filter((c) => c?.life > 0);
-    atkArmy.Ground = atkArmy.Ground.filter((c) => c?.life > 0);
-    atkArmy.Flying = atkArmy.Flying.filter((c) => c?.life > 0);
+    var dummy = [...defArmy.Ground.filter((c) => c?.life > 0)];
+    defArmy.Ground = [...dummy];
+    var dummy = [...defArmy.Flying.filter((c) => c?.life > 0)];
+    defArmy.Flying = [...dummy];
+    var dummy = [...atkArmy.Ground.filter((c) => c?.life > 0)];
+    atkArmy.Ground = [...dummy];
+    var dummy = [...atkArmy.Flying.filter((c) => c?.life > 0)];
+    atkArmy.Flying = [...dummy];
 
     roundsInfo.GroundDefArmy = [...roundsInfo.GroundDefArmy, defArmy.Ground];
     roundsInfo.GroundAtkArmy = [...roundsInfo.GroundAtkArmy, atkArmy.Ground];
     roundsInfo.AirDefArmy = [...roundsInfo.AirDefArmy, defArmy.Flying];
     roundsInfo.AirAtkArmy = [...roundsInfo.AirAtkArmy, atkArmy.Flying];
+    roundsInfo.Base = [...roundsInfo.Base, defBase.life];
 
     if (!defArmy.Ground.length && !defArmy.Flying.length)
       defArmy.defeated = true;
@@ -2369,20 +2371,20 @@ function battle(atk, def) {
 }
 
 function gameFunction(deck1, deck2) {
-  const gameResult = {};
+  const gameResult = { winner: undefined };
   const [atk1, atk2, def1, def2] = [
-    deck1.length % 2 === 0
-      ? shuffle(deck1).filter((c, i) => i < deck1.length / 2)
-      : shuffle(deck1).filter((c, i) => i <= deck1.length / 2),
-    deck2.length % 2 === 0
-      ? shuffle(deck2).filter((c, i) => i < deck2.length / 2)
-      : shuffle(deck2).filter((c, i) => i <= deck2.length / 2),
-    deck1.length % 2 === 0
-      ? shuffle(deck1).filter((c, i) => i >= deck1.length / 2)
-      : shuffle(deck1).filter((c, i) => i > deck1.length / 2),
-    deck2.length % 2 === 0
-      ? shuffle(deck2).filter((c, i) => i >= deck2.length / 2)
-      : shuffle(deck2).filter((c, i) => i > deck2.length / 2),
+    deck1.cards.length % 2 === 0
+      ? shuffle(deck1.cards).filter((c, i) => i < deck1.cards.length / 2)
+      : shuffle(deck1.cards).filter((c, i) => i <= deck1.cards.length / 2),
+    deck2.cards.length % 2 === 0
+      ? shuffle(deck2.cards).filter((c, i) => i < deck2.cards.length / 2)
+      : shuffle(deck2.cards).filter((c, i) => i <= deck2.cards.length / 2),
+    deck1.cards.length % 2 === 0
+      ? shuffle(deck1.cards).filter((c, i) => i >= deck1.cards.length / 2)
+      : shuffle(deck1.cards).filter((c, i) => i > deck1.cards.length / 2),
+    deck2.cards.length % 2 === 0
+      ? shuffle(deck2.cards).filter((c, i) => i >= deck2.cards.length / 2)
+      : shuffle(deck2.cards).filter((c, i) => i > deck2.cards.length / 2),
   ];
 
   const battle1 = battle(atk1, def2);
@@ -2398,18 +2400,18 @@ function gameFunction(deck1, deck2) {
 
   switch (true) {
     case battle1.defBase.life > battle2.defBase.life:
-      gameResult.winner = deck2.Id;
+      gameResult.winner = deck2.userId;
       break;
     case battle1.defBase.life < battle2.defBase.life:
-      gameResult.winner = deck1.Id;
+      gameResult.winner = deck1.userId;
       break;
     case battle1.defBase.life === battle2.defBase.life:
       switch (true) {
         case battle1.defBase.attacked > battle2.defBase.attacked:
-          gameResult.winner = deck2.Id;
+          gameResult.winner = deck2.userId;
           break;
         case battle1.defBase.attacked < battle2.defBase.attacked:
-          gameResult.winner = deck1.Id;
+          gameResult.winner = deck1.userId;
           break;
         case battle1.defBase.attacked === battle2.defBase.attacked:
           gameResult.winner = "tie";
