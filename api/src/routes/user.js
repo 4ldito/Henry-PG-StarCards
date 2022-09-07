@@ -5,6 +5,7 @@ const { tokenValidations } = require("../middlewares");
 const { Router } = require("express");
 const userRoute = Router();
 /// /////////////////////////////////////////////////////////////////////////////////////////////
+
 userRoute.get("/", async (req, res, next) => {
   try {
     const { id, email } = req.query;
@@ -53,10 +54,24 @@ userRoute.get("/games", async (req, res, next) => {
   }
 });
 
+userRoute.get("/ranking", async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      attributes: ["id", "username", "score"],
+      order: [['score', 'DESC']],
+      limit: 10
+    });
+    return res.send(users);
+  } catch (error) {
+    next(error);
+  }
+});
+
 userRoute.get("/:email", async (req, res, next) => {
   const { email } = req.params;
 
   const user = await User.findOne({ where: { email } });
+  res.send(user);
 });
 
 userRoute.get("/username/:username", async (req, res, next) => {

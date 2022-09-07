@@ -199,10 +199,11 @@ const PrivateChat = ({ selected }) => {
   };
 
   return (
-    <div className={css.chatContainer}>
+    <div className={css.containerTo}>
       <div className={css.chatUsers}>
-        {chatUsers?.length
-          ? chatUsers.map((c, i) => {
+        <div className={css.containerChatsUsers}>
+          {chatUsers?.length ? (
+            chatUsers.map((c, i) => {
               return (
                 <div
                   key={i}
@@ -210,7 +211,7 @@ const PrivateChat = ({ selected }) => {
                   onClick={() => handleChatSelect(c)}
                   className={css.singleChatUser}
                 >
-                  {c.username}{" "}
+                  {c.username}
                   {actualChatUser && actualChatUser.id === c.id
                     ? ""
                     : readMsgs(c) === undefined
@@ -221,42 +222,54 @@ const PrivateChat = ({ selected }) => {
                 </div>
               );
             })
-          : "No chats"}
-      </div>
-      <div className={css.chatBodyContainer}>
-        <div className={css.chatText}>
-          {actualChatUser
-            ? messages[actualChatUser.id]
-              ? messages[actualChatUser.id].Messages?.map((e, i) => (
-                  <div key={i}>
-                    {e.emitter.username}: {e.message}
-                  </div>
-                ))
-              : ""
-            : ""}
-          <div ref={divRef}></div>
+          ) : (
+            <div className={css.noChats}>No chats</div>
+          )}
         </div>
+      </div>
+      <div className={css.chatContainer}>
+        <div className={css.chatBodyContainer}>
+          <div className={css.chatText}>
+            {actualChatUser
+              ? messages[actualChatUser.id]
+                ? messages[actualChatUser.id].Messages?.map((e, i) => (
+                    <>
+                      {e.emitter.username === userActive.username ? (
+                        <div className={css.messageUserRight} key={i}>
+                          Yo <br /> <span>{e.message}</span>
+                        </div>
+                      ) : (
+                        <div className={css.messageUserLeft} key={i}>
+                          <strong>{e.emitter.username}:</strong> <br />{" "}
+                          <span>{e.message}</span>
+                        </div>
+                      )}
+                    </>
+                  ))
+                : ""
+              : ""}
+            <div ref={divRef}></div>
+          </div>
 
-        {actualChatUser ? (
-          <form onSubmit={submit} className={css.chatForm}>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              value={message}
-              placeholder="Escribe tu mensaje"
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyPress={(e) => {
-                if (e.key === "Enter") submit(e);
-              }}
-              className={css.textArea}
-            />
-            <input type="submit" value="Enviar" />
-          </form>
-        ) : (
-          "Selecciona un chat"
-        )}
+          {actualChatUser ? (
+            <form onSubmit={submit} className={css.chatForm}>
+              <textarea
+                value={message}
+                placeholder="Write your message"
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") submit(e);
+                }}
+                className={css.textArea}
+              />
+              <input className={css.send} type="submit" value="Send" />
+            </form>
+          ) : (
+            <div className={css.selectAChat}>
+              <span>Select a chat</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

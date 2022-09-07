@@ -89,7 +89,7 @@ const Shop = () => {
         </div>
         {user?.id && (
           <p className={style.avaliableStars}>
-            Stars disponibles: {user.stars}
+            Available Stars: {user.stars}
           </p>
         )}
         {view === "stars" ? (
