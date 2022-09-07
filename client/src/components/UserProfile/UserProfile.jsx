@@ -2,12 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import {
-  addNewFriend,
-  deleteFriend,
-  getUser,
-  getUserDecks,
-} from "../../redux/actions/user";
+import { addNewFriend, deleteFriend, getUser, getUserDecks } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
@@ -89,13 +84,6 @@ export default function UserProfile() {
     );
   }
 
-  function handleClick(e) {
-    e.preventDefault();
-    const lastActive = document.querySelector(`.${style.buttonsActive}`);
-    lastActive.classList.remove(style.buttonsActive);
-    e.target.classList.add(`${style.buttonsActive}`);
-  }
-
   const showToOwner = () => (
     <>
       <div className={style.containerPerfil}>
@@ -105,35 +93,17 @@ export default function UserProfile() {
         <div className={style.containerName}>
           <span>{activeUser.username.toUpperCase()}</span>
           <section className={style.containerButtons}>
-            <button
-              className={`${style.buttons} ${style.buttonsActive}`}
-              value="Inventory"
-              onClick={(e) => {
-                changeRender(e), handleClick(e);
-              }}
-            >
+            <button className={render === "Inventory" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Inventory" onClick={(e) => { changeRender(e), handleClick(e); }}>
               Inventory
             </button>
-            <button
-              className={style.buttons}
-              value="Stats"
-              onClick={(e) => {
-                changeRender(e), handleClick(e);
-              }}
-            >
+            <button className={render === "Stats" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Stats" onClick={(e) => { changeRender(e) }}>
               Stats
             </button>
-            <button
-              className={style.buttons}
-              value="Config"
-              onClick={(e) => {
-                changeRender(e), handleClick(e);
-              }}
-            >
+            <button className={render === "Config" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Config" onClick={(e) => { changeRender(e) }}>
               Config
             </button>
             <button
-              className={style.buttons}
+              className={render === "Chat" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`}
               value="Chat"
               onClick={(e) => {
                 changeRender(e), handleClick(e);
@@ -142,7 +112,7 @@ export default function UserProfile() {
               Chat
             </button>
             <button
-              className={style.buttons}
+              className={render === "Friends" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`}
               value="Friends"
               onClick={(e) => {
                 changeRender(e), handleClick(e);
@@ -225,8 +195,6 @@ export default function UserProfile() {
         ) : (
           <SinglePrivateChat newChatUser={actualUrlUser} />
         )
-      ) : render === "Inventory" ? (
-        <Inventory />
       ) : render === "Stats" ? (
         <Stats />
       ) : (
