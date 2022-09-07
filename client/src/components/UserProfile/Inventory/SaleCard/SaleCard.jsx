@@ -6,10 +6,8 @@ import Swal from "sweetalert2";
 import css from "./SaleCard.module.css";
 
 export default function SaleCard({ handleViewCard, card }) {
-  console.log('esta',card)
   const dispatch = useDispatch();
   const user = useSelector(state => state.userReducer.user);
-  // const [currentUserCards, setCurrentUserCards] = useState(null);
 
   const [sale, setSale] = useState({ quantity: 0, price: 0 });
 
@@ -29,7 +27,6 @@ export default function SaleCard({ handleViewCard, card }) {
   function handleSubmit(e, status) {
     e.preventDefault();
     if (!sale.quantity || sale.price <= 0) {
-      console.log('entra?');
       return Swal.fire({
         title: 'Error!',
         text: 'You have to put a quantity and a price',
@@ -44,13 +41,13 @@ export default function SaleCard({ handleViewCard, card }) {
     }
     dispatch(handleSaleCard({ userId: user.id, userCardsIdsToUpdate, status, price: sale.price }));
   }
-  
+
   const cardCss =
-  card.race === "Zerg"
-    ? css.zergCard
-    : card.race === "Terran"
-    ? css.terranCard
-    : css.protossCard;
+    card.race === "Zerg"
+      ? css.zergCard
+      : card.race === "Terran"
+        ? css.terranCard
+        : css.protossCard;
 
   return (
     <div className={css.SaleCard} onClick={handleViewCard}>
