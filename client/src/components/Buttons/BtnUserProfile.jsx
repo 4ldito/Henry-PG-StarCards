@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { useDispatch, useSelector } from "react-redux";
 import { modifyUser, userCleanMsgInfo } from "../../redux/actions/user";
 import Swal from 'sweetalert2';
+import { FaRegEdit } from "react-icons/fa";
+
+import css from './BtnUserProfile.module.css'
 
 ////////////////////////////////////////////////////////////////////////
 export default function username({ user, property }) {
@@ -87,7 +90,7 @@ export default function username({ user, property }) {
             <>
                 <div className={s.principal}>
                     <div className={s.secundario}>
-                        <Button color='success' onClick={openModal}>MODIFY</Button>
+                        <span className={css.btnModify} onClick={openModal}>Edit <FaRegEdit size={30}/></span>
                     </div></div>
                 <div className={s.global}>
                     <Modal isOpen={state.open} style={modalStyles}>
@@ -111,7 +114,7 @@ export default function username({ user, property }) {
             <>
                 <div className={s.principal}>
                     <div className={s.secundario}>
-                        <Button color='success' onClick={openModal}>MODIFY</Button>
+                        <span className={css.btnModify} onClick={openModal}>Edit <FaRegEdit size={30} /></span>
                     </div></div>
                 <div className={s.global}>
                     <Modal isOpen={state.open} style={modalStyles}>

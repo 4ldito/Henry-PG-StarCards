@@ -4,12 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Filters from "../Album/Filters";
 import Album from "../Album/Album";
 import Rules from "../Rules/Rules";
-import Team from "../Team/Team";
 
 import { getUser } from "../../redux/actions/user";
-
-import activeBtn from "../../img/button-active.png";
-import normalBtn from "../../img/button.png";
 
 import css from "./Game.module.css";
 
