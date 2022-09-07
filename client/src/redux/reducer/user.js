@@ -29,8 +29,7 @@ import {
   GET_USER_FRIENDS,
   ADD_NEW_FRIEND,
   DELETE_FRIEND,
-  GET_RANKING
-
+  GET_RANKING,
 } from "../actions/user";
 
 const initialState = {
@@ -48,7 +47,7 @@ const initialState = {
   chatNotification: false,
   userOptions: false,
   games: [],
-  friends: [],
+  friends: [],,
   usersRanking: []
 };
 
@@ -187,7 +186,6 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, friends: payload };
 
     case ADD_NEW_FRIEND:
-      console.log('payload', payload)
       return { ...state, friends: [...state.friends, payload] };
     case DELETE_FRIEND:
       return { ...state, friends: payload };
