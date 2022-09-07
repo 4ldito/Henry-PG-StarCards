@@ -23,30 +23,27 @@ export default function About() {
           <div className={css.InfoAbout}>
             <h1>Sobre Starcards</h1>
             <p>
-              Starcards es un juego de cartas basado en el universo Starcraft.
-              El reconocido juego de estrategia de ciencia ficción se recrea en
-              un formato de juego de cartas en el que los participantes podrán
-              comprar packs de cartas, armar sus mazos y competir con otros
-              jugadores online eligiendo a sus personajes preferidos.
+              Starcards is a card game based on the Starcraft universe. 
+              The famous science fiction strategy game is recreated in a card 
+              game format in which participants can buy packs of cards, assemble 
+              their decks and compete against other players online  choosing 
+              their favorite characters. 
             </p>
             <p>
-              Desarrollamos esta idea para el proyecto grupal final de la
-              carrera de desarrollo full stack de Henry. Starcards surgió como
-              idea de uno de los participantes y se fue potenciando con las
-              experiencias y conocimientos de cada uno. El equipo lo conformamos
-              Aldo Aliscioni, Antu D’Ippolito, Emerson Edward Villalta, Emiliano
-              Aparicio, Fabián Santos, Lautaro Pérez y Manuel Losada.
+              We developed this idea for the final group project of Henry's full 
+              stack development career. Starcards appeared as an idea of ​​one of 
+              the participants and was strengthened with the experiences and knowledge 
+              of each one of the participants. The team is made up of Aldo Aliscioni, 
+              Antu D'Ippolito, Emerson Edward Villalta, Emiliano Aparicio, Fabián Santos, 
+              Lautaro Pérez and Manuel Losada.
             </p>
             <p>
-              Para el desarrollo de Starcards utilizamos tecnologías aprendidas
-              en Henry así como también nuevas herramientas en las que nos
-              aventuramos para mejorar la experiencia de usuario. Sin embargo,
-              Starcards no expresa solamente lo aprendido en términos de
-              desarrollo web sino también la formación que tuvimos como fruto de
-              un intenso trabajo colectivo durante algunas semanas. Este
-              proceso, difícil de ver solamente navegando en nuestra página, fue
-              fundamental para adquirir conocimientos de trabajo en equipo,
-              planificación y flujo de trabajo.
+             For the development of Starcards we use technologies learned at Henry as 
+             well as new tools that we acquire to improve the user experience.
+              However, Starcards is not only what we learned in terms of web development 
+              but also what we learned as a result of intense collective work for a 
+              few weeks. This process, difficult to see only by browsing our page, 
+              was essential to gain knowledge of teamwork, planning and workflow.
             </p>
             {/* <br />
           <p>

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import css from "./SaleCard.module.css";
 
 export default function SaleCard({ handleViewCard, card }) {
+  console.log('esta',card)
   const dispatch = useDispatch();
   const user = useSelector(state => state.userReducer.user);
   // const [currentUserCards, setCurrentUserCards] = useState(null);
@@ -59,7 +60,7 @@ export default function SaleCard({ handleViewCard, card }) {
             <label htmlFor="price">Price</label>
             <input type="number" name="price" id="price" min="0" value={sale.price} placeholder="Price" onKeyPress={dontAllowLeters} onChange={handleChange} />
           </div>
-          <input type="submit" value="Sale" />
+          <input type="submit" value="Sell" />
         </form>
       </div>
     </div>
