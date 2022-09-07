@@ -82,15 +82,12 @@ const Shop = () => {
           >
             BUY CARDS
           </button>
-          <button
-            onClick={handleSeeShopcart}
-            className={style.btnShopcart}
-          ><AiOutlineShoppingCart size={38} /></button>
+          <button onClick={handleSeeShopcart} className={style.btnShopcart}>
+            <AiOutlineShoppingCart size={38} />
+          </button>
         </div>
         {user?.id && (
-          <p className={style.avaliableStars}>
-            Available Stars: {user.stars}
-          </p>
+          <p className={style.avaliableStars}>Available Stars: {user.stars}</p>
         )}
         {view === "stars" ? (
           <Packs type="starsPack" />
@@ -100,7 +97,9 @@ const Shop = () => {
             <Packs type="cardsPack" />
           </div>
         ) : (
-          <ForSaleCards />
+          <div className={stylePack.container}>
+            <ForSaleCards />
+          </div>
         )}
       </div>
       {viewShopcart && <ShopCart handleSeeShopcart={handleSeeShopcart} />}

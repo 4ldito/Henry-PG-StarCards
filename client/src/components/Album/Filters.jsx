@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterCards } from "../../redux/actions/cards/filterCards";
 
 import css from "./Filter.module.css";
+import { BiFilterAlt } from "react-icons/bi";
 
 export default function Filters() {
   const dispatch = useDispatch();
@@ -57,12 +58,16 @@ export default function Filters() {
 
   return (
     <div className={css.filters}>
-      <button id="clearFilters" onClick={clearFilters} className={css.btnClearFilter}>
-        Clear Filters
+      <button
+        id="clearFilters"
+        onClick={clearFilters}
+        className={css.btnFilters}
+      >
+        <BiFilterAlt size={55} />
       </button>
 
       <input
-      id="search"
+        id="search"
         className={css.input}
         ref={inputSearch}
         onChange={onFilterChange}
@@ -73,8 +78,16 @@ export default function Filters() {
 
       <datalist id="listaCards">{options()}</datalist>
 
+      <button
+        id="clearFilters"
+        onClick={clearFilters}
+        className={css.btnClearFilter}
+      >
+        Clear Filters
+      </button>
+
       <select
-      id="race"
+        id="race"
         ref={selectRace}
         className={css.select}
         onChange={onFilterChange}
@@ -87,7 +100,7 @@ export default function Filters() {
       </select>
 
       <select
-      id="movements"
+        id="movements"
         ref={selectMovement}
         className={css.select}
         onChange={onFilterChange}

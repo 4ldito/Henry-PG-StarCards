@@ -149,12 +149,12 @@ export default function UserProfile() {
             >
               Friends
             </button>
-            <Link className={style.stars} to="/shop">
-              <FaShoppingCart size={28} />
-              Stars: {user.stars}
-            </Link>
           </section>
         </div>
+        <Link className={style.stars} to="/shop">
+          <FaShoppingCart size={28} />
+          Stars: {user.stars}
+        </Link>
       </div>
 
       {render === "Config" ? (
