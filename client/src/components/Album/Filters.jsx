@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards } from "../../redux/actions/cards/filterCards";
-
+import { BiFilterAlt } from "react-icons/bi";
 import css from "./Filter.module.css";
 
 export default function Filters() {
@@ -58,12 +58,11 @@ export default function Filters() {
   return (
     <div className={css.filters}>
       <button
-        id="clearFilters"
-        onClick={clearFilters}
-        className={css.btnClearFilter}
-      >
-        Clear Filters
+        className={css.btnFilter}>
+          <BiFilterAlt size={50} />
       </button>
+
+      
 
       <input
         id="search"
@@ -123,6 +122,14 @@ export default function Filters() {
         <option value="ascendentlife">By ascending Life</option>
         <option value="descendentlife">By descending Life</option>
       </select>
+      
+      <button
+        id="clearFilters"
+        onClick={clearFilters}
+        className={css.btnClearFilter}
+      >
+        Clear Filters
+      </button>
     </div>
   );
 }
