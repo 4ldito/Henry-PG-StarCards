@@ -4,7 +4,7 @@ import { getUser } from "../../redux/actions/user";
 import logo from "../../img/logo-15.png";
 import imageLanding from "../../img/imagenLanding.png";
 import nave1 from "../../img/nave.png";
-import nave2 from "../../img/nave2.png";
+import nave2 from "../../img/nave-violeta.png";
 import nave3 from "../../img/nave3.png";
 import prev from "../../img/prev.svg";
 import next from "../../img/next.svg";

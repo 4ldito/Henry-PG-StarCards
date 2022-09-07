@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { detailCard } from "../../redux/actions/cards/detailCard.js";
+import { getOpinions } from "../../redux/actions/cards/opinion.js";
+import DetailPopUp from "../Detail/DetailPopUp.jsx";
 
 import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
 import css from './CardContainer.module.css'
+import { CardContainerDetail } from "./CardContainerDetail.jsx";
 
 
-export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, inDeck,
-  removeCardFromDeck, creatingDeck, updatingDeck, newDeckCards }) {
+export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addCardToDeck, inDeck,
+  removeCardFromDeck, creatingDeck, updatingDeck, newDeckCards, actualStackToShow }) {
+
   const dispatch = useDispatch();
   const selectedDeck = useSelector(state => state.userReducer.selectedDeck);
   const [viewCard, setViewCard] = useState(false);
@@ -18,7 +23,11 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
   const [newRepeatForThoseWichAreNotInDeck, setNewRepeatForThoseWichAreNotInDeck] = useState(0);
   const [cardsRepeat, setcardsRepeat] = useState(null);
   const [justPassin, setJustPassin] = useState(null);
-  // const msg = useSelector((state) => state.album.msg);
+  const [viewDetail, setViewDetail] = useState(false);
+
+
+  const msg = useSelector((state) => state.album.msg);
+
 
   useEffect(() => {
     if (creatingDeck) {
@@ -75,42 +84,59 @@ export function CardContainer({ card, uCard, repeat, addButton, addCardToDeck, i
     setViewCard(!viewCard);
   }
 
-  return (
-    <div className={css.container}>
-      {(newRepeatForThoseWichAreNotInDeck || justPassin) && <>
-        {/* {repeat > 1 && <label style={{ fontSize: "50px" }}>{userCard && !inDeck ? repeat - thisCardRepeats.repeat : repeat}</label>} */}
-        {inDeck ? creatingDeck || updatingDeck?.cards ? <label style={{ color: 'violet', fontSize: "50px" }}>{repeat > 1 && repeat}</label> :
-          <label style={{ color: 'violet', fontSize: "50px" }}>{thisCardRepeats > 1 && thisCardRepeats}</label> :
-          repeat > 1 ? <label style={{ fontSize: "50px" }}>{newRepeatForThoseWichAreNotInDeck || repeat}</label> :
-            <></>}
-        {/* {inDeck?<label style={{ color:'violet',fontSize: "50px" }}>{thisCardRepeats}</label>:<></>} */}
-        {/* {!inDeck && repeat>1?<label style={{ fontSize: "50px" }}>{repeat}</label>:<></>} */}
-        {(addButton && !selectedDeck?.name) && <button onClick={() => { addCardToDeck(card, repeat) }}>Añadir al mazo</button>}
-        <Card
-          id={card.id}
-          name={card.name}
-          image={card.image}
-          cost={card.cost}
-          Gdmg={card.Gdmg}
-          Admg={card.Admg}
-          life={card.life}
-          ability={card.ability}
-          abilities={card.abilities}
-          race={card.race}
-          movement={card.movement}
-        />
-        {!inDeck && <button onClick={handleViewCard}>{'Sell card'}</button>}
-        {(inDeck && !selectedDeck?.name) && <button onClick={() => {
-          selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
-            removeCardFromDeck(card.id)
-        }}>Remove from deck</button>}
-        {viewCard && (
-          <SaleCard
-            handleViewCard={handleViewCard}
-            card={card} />
-        )}
-      </>}
-    </div>
+  function ver() {
+    setViewDetail(!viewDetail);
+  }
 
+  return ((newRepeatForThoseWichAreNotInDeck || justPassin) && <>
+    <div className={bothStacks ? css.cardsAnDeckContainer : css.container}>
+      {(newRepeatForThoseWichAreNotInDeck || justPassin) && <>
+
+        <div className={bothStacks ? !inDeck ? css.repeatOutDeck : css.repeat : css.repeatWithCard}>
+          {inDeck ? creatingDeck || updatingDeck?.cards ? <label >{repeat > 1 && repeat}</label> :
+            <label >{thisCardRepeats > 1 && thisCardRepeats}</label> :
+            repeat > 1 && <label >{newRepeatForThoseWichAreNotInDeck || repeat}</label>
+          }
+        </div>
+        {(addButton && !selectedDeck?.name) && <button className={css.añadirAlMazoBtn + " material-symbols-outlined"} onClick={() => { addCardToDeck(card, repeat) }}>trending_flat</button>}
+        {actualStackToShow.length === 1 ?
+          <Card
+            id={card.id}
+            name={card.name}
+            image={card.image}
+            cost={card.cost}
+            Gdmg={card.Gdmg}
+            Admg={card.Admg}
+            life={card.life}
+            ability={card.ability}
+            abilities={card.abilities}
+            race={card.race}
+            movement={card.movement}
+          /> :
+          <div className={css.cardInDeck} onClick={() => {
+            setViewDetail(!viewDetail);
+          }}>
+            <h2 className={css.cardInDeckH1}>{card.name}</h2>
+            <div className={css.cardInDeckLabel}>{
+              card.race === 'Terran' ? <img className={css.raceImg} src="/src/img/terran.svg"></img> :
+                card.race === 'Zerg' ? <img className={css.raceImg} src="/src/img/zerg.svg"></img> :
+                  card.race === 'Protoss' &&
+                  <img className={css.raceImg} src="/src/img/protoss.svg"></img>}
+            </div>
+          </div>}
+        {(inDeck && !selectedDeck?.name) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
+          selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
+          removeCardFromDeck(card.id)
+        }}>trending_flat</button>}
+      </>}
+      {!inDeck && actualStackToShow.length === 1 && <button onClick={handleViewCard}>{'Sell card'}</button>}
+    </div>
+    {bothStacks && <CardContainerDetail card={card} bothStacks={bothStacks} viewDetail={viewDetail} />}
+    {viewCard && (
+      <SaleCard
+        handleViewCard={handleViewCard}
+        card={card} />
+    )}
+  </>
   );
 }

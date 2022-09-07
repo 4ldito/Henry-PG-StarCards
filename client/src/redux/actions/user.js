@@ -10,8 +10,7 @@ export const IS_VALID_TOKEN = "IS_VALID_TOKEN";
 export const LOG_OUT = "LOG_OUT";
 export const USER_CLEAN_MSG_INFO = "USER_CLEAN_MSG_INFO";
 export const GET_USER_CARDS = "GET_USER_CARDS";
-export const GET_USER_DECKS =
-  "GET_USER_DECKS_deaa el tipo seguia los protocolos";
+export const GET_USER_DECKS = "GET_USER_DECKS";
 export const CREATE_DECK = "CREATE_DECK";
 export const UPDATE_DECK = "UPDATE_DECK";
 export const DELETE_DECK = "DELETE_DECK";
@@ -32,6 +31,7 @@ export const GET_GAMES = "GET_GAMES";
 export const GET_USER_FRIENDS = "GET_USER_FRIENDS";
 export const ADD_NEW_FRIEND = "ADD_NEW_FRIEND";
 export const DELETE_FRIEND = "DELETE_FRIEND";
+export const GET_RANKING = "GET_RANKING";
 // import { useToken } from '../../hooks/useToken'
 /// ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -200,6 +200,7 @@ export function deleteDeck(userId, deckId) {
   };
 }
 export function setActiveDeck(deck, userId) {
+  console.log(deck, userId);
   return async function (dispatch) {
     await axios.patch(`/user/defaultDeck/${deck.id}/${userId}`);
 
@@ -262,5 +263,12 @@ export function deleteFriend(object) {
   return async function (dispatch) {
     const response = await axios.delete("/userFriends", { data: object });
     dispatch({ type: DELETE_FRIEND, payload: response.data });
+  };
+}
+
+export function getRanking() {
+  return async function (dispatch) {
+    const response = await axios(`user/ranking`);
+    dispatch({ type: GET_RANKING, payload: response.data });
   };
 }

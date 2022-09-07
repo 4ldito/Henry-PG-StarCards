@@ -73,7 +73,7 @@ const Shop = () => {
             value="packsCards"
             className={style.btn}
           >
-            BUY PACKS CARDS
+            BUY CARD PACKS
           </button>
           <button
             onClick={handleChangeView}
@@ -89,7 +89,7 @@ const Shop = () => {
         </div>
         {user?.id && (
           <p className={style.avaliableStars}>
-            Stars disponibles: {user.stars}
+            Available Stars: {user.stars}
           </p>
         )}
         {view === "stars" ? (

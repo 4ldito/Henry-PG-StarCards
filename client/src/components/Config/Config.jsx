@@ -1,122 +1,132 @@
 import React, { useEffect, useRef, useState } from "react";
-import style from "../../styles/ProfileUser/Config.module.css";
+import css from "../../styles/ProfileUser/Config.module.css";
 import BtnUserProfile from "../Buttons/BtnUserProfile";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, modifyUser } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserSecret } from "react-icons/fa";
-import { MdPassword } from "react-icons/md";
-import Swal from 'sweetalert2';
-import { Button } from 'reactstrap'
-import VerifyMail from '../Mail/VerifyMail'
-import { changeModal, renderVerifyRegister, successAction } from "../../redux/actions/sendMail";
-import TransactionsUser from './TransactionsUser';
+
+import { FaRegEdit } from "react-icons/fa";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import Swal from "sweetalert2";
+import { Button } from "reactstrap";
+import VerifyMail from "../Mail/VerifyMail";
+import {
+  changeModal,
+  renderVerifyRegister,
+  successAction,
+} from "../../redux/actions/sendMail";
+import TransactionsUser from "./TransactionsUser";
 
 export default function Config({ user }) {
   const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const email1 = useRef(null);
-  const modal = useSelector((state) => state.sendMailReducer.modal)
-  const successAction1 = useSelector((state) => state.sendMailReducer.successAction)
+  const modal = useSelector((state) => state.sendMailReducer.modal);
+  const successAction1 = useSelector(
+    (state) => state.sendMailReducer.successAction
+  );
 
-  const [input, setInput] = useState(true)
+  const [input, setInput] = useState(true);
   function deleteAccount() {
     dispatch(deleteUser(user.id));
     Swal.fire({
-      title: 'Borrado',
-      text: 'Usuario Borrado',
-      icon: 'success',
+      title: "Borrado",
+      text: "Usuario Borrado",
+      icon: "success",
     });
     // dispatch(renderVerifyRegister())
     navigateTo("/");
   }
 
   function modifyMail() {
-    dispatch(changeModal(true))
+    dispatch(changeModal(true));
   }
 
   useEffect(() => {
     if (!modal && successAction1) {
-      setInput(!input)
+      setInput(!input);
     }
-  }, [successAction1])
+  }, [successAction1]);
 
   function sendMail(e) {
-    e.preventDefault()
-    let email = email1.current.value
+    e.preventDefault();
+    let email = email1.current.value;
     if (email.length > 7) {
-      dispatch(modifyUser(user.id, { email: email }))
-      setInput(!input)
-      dispatch(successAction())
+      dispatch(modifyUser(user.id, { email: email }));
+      setInput(!input);
+      dispatch(successAction());
     }
-  };
+  }
 
   function closed(e) {
-    setInput(true)
-    dispatch(successAction())
-
+    setInput(true);
+    dispatch(successAction());
   }
 
   function changeMail() {
     return (
-      <div className={style.mail}>
+      <div className={css.mail}>
         <form onSubmit={(e) => sendMail(e)}>
-          <label >Email: </label>
+          <label>Email: </label>
           <input
             type="email"
             name="email"
             placeholder="Ingrese nuevo email..."
             ref={email1}
           />
-          <button className={style.button} type="submit">Confirmar</button>
+          <button className={css.button} type="submit">
+            Confirmar
+          </button>
           <button onClick={(e) => closed(e)}>X</button>
         </form>
-      </div>)
+      </div>
+    );
   }
 
   return (
     <>
-      <div className={style.container}>
-        <div className={style.config}>
-          <h3>
-            <center>Profile</center>
-          </h3>
-          <div className={style.modal}>
-            <FaUserSecret />
-            <span className={style.span}>
-              Username: {user.username}
-              {user.RolId !== "user" && ` (${user.RolId})`}
+      <div className={css.container}>
+        <div className={css.config}>
+          <div className={css.configUser}>
+            <span className={css.userSpan}>USERNAME : {user.username}</span>
+            <span>
+              <BtnUserProfile user={user} property="username" />
             </span>
           </div>
-          <div>
-            <BtnUserProfile user={user} property="username" />
+
+          <div className={css.configUser}>
+            <span className={css.userSpan}>PASSWORD</span>
+            {!user.loginGoogle && (
+              <div className={css.modal}>
+                <BtnUserProfile user={user} property="password" />
+              </div>
+            )}
           </div>
-          {!user.loginGoogle && (<><div className={style.modal}>
-            <MdPassword />
-            <span className={style.span}>Password: </span>
+
+          <div className={css.configUser}>
+            {input ? (
+              <>
+                <span className={css.userSpan}>MAIL : {user.email}</span>
+                <span onClick={modifyMail}>
+                  Edit <FaRegEdit size={30}/>
+                </span>
+              </>
+            ) : (
+              changeMail()
+            )}
           </div>
-          <div>
-            <BtnUserProfile user={user} property="password" />
-          </div></>)}
-          {input ? (<div className={style.modal}>
-            <span className={style.span}>Email: {user.email}</span>
-            <Button color='success' onClick={modifyMail}>MODIFY</Button>
-          </div>) : changeMail()}
-          <div className={style.modal}>
-            <span className={style.span}>Score: {user.score}</span>
-          </div>
-          <div className={style.modal}>
-            <span className={style.span}>Deck:{user.DeckId}</span>
-          </div>
-          <div>
-            <button className={style.bdelete} onClick={deleteAccount}>
-              Delete Account
-            </button>
+
+          <div className={css.configUser}>
+            <span className={css.userSpan}>DELETE ACCOUNT</span>
+            <span onClick={deleteAccount}>
+              Delete <MdOutlineRemoveRedEye size={30}/>
+            </span>
           </div>
         </div>
       </div>
+
       <TransactionsUser userId={user.id} />
-      {modal ? <VerifyMail user={user} /> : ''}
+      {modal ? <VerifyMail user={user} /> : ""}
     </>
   );
 }
