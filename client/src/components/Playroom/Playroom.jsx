@@ -1,8 +1,7 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import useValidToken from "./../../hooks/useValidToken";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { getUser, getUserGames } from "../../redux/actions/user";
 import socket from "../../../Socket";
 import GameView from "./Play/GameView";
@@ -14,6 +13,7 @@ export default function Playroom() {
   useValidToken({ navigate: true });
   const [openChat, setOpenChat] = useState(false);
   const userActiveGlobal = useSelector((state) => state.userReducer.user);
+  const players = useSelector((state) => state.userReducer.players);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -59,7 +59,7 @@ export default function Playroom() {
 
   useEffect(() => {
     divRef.current.scrollIntoView({ behavior: "smooth" });
-  });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -96,8 +96,10 @@ export default function Playroom() {
   }, [userActive]);
 
   function handlePlay() {
-    socket.emit("playRequest", userActive.id);
-    setOnGame(true);
+    if (userActive.defaultDeck) {
+      socket.emit("playRequest", userActive.id);
+      setOnGame(true);
+    }
   }
 
   function handleGameView(game) {
@@ -107,8 +109,6 @@ export default function Playroom() {
   function handleGameViewClose() {
     setGameView({ info: undefined, bool: false });
   }
-
-  console.log(games.at(-1));
 
   return (
     <>
@@ -124,8 +124,14 @@ export default function Playroom() {
                   {games.map((g, i) => {
                     return (
                       <div key={i} onClick={(e) => handleGameView(g)}>
-                        <span>{g.info.player1.race}</span> vs{" "}
-                        <span>{g.info.player2.race}</span>
+                        <div>
+                          <span>{g.info.player1.username}</span> vs{" "}
+                          <span>{g.info.player2.username}</span>
+                        </div>
+                        <div>
+                          <span>{g.info.player1.race}</span> vs{" "}
+                          <span>{g.info.player2.race}</span>
+                        </div>
                       </div>
                     );
                   })}
