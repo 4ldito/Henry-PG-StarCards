@@ -95,7 +95,7 @@ export default function Login() {
           }}
         >
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Username </label>
+            <label style={{ fontSize: "larger" }}>E-mail </label>
             <input
               className={style3.input}
               style={{ width: "400px" }}
@@ -139,7 +139,9 @@ export default function Login() {
             </div>
           </div>
           <section className={style.containerLink}>
-            <Link className={style.link} to="/recovery">Recovery Password</Link>
+            <Link className={style.link} to="/recovery">
+              Password Recovery
+            </Link>
           </section>
         </form>
       </div>

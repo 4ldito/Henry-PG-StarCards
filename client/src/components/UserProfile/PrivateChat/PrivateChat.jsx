@@ -214,7 +214,7 @@ const PrivateChat = ({ selected }) => {
                   {c.username}
                   {actualChatUser && actualChatUser.id === c.id
                     ? ""
-                    : readMsgs(c) === undefined
+                    : readMsgs(c) === 0
                     ? "New"
                     : readMsgs(c) < unreadMsgs(c)
                     ? `${unreadMsgs(c) - readMsgs(c)}`
@@ -233,18 +233,18 @@ const PrivateChat = ({ selected }) => {
             {actualChatUser
               ? messages[actualChatUser.id]
                 ? messages[actualChatUser.id].Messages?.map((e, i) => (
-                    <>
+                    <React.Fragment key={i}>
                       {e.emitter.username === userActive.username ? (
-                        <div className={css.messageUserRight} key={i}>
+                        <div className={css.messageUserRight}>
                           Yo <br /> <span>{e.message}</span>
                         </div>
                       ) : (
-                        <div className={css.messageUserLeft} key={i}>
+                        <div className={css.messageUserLeft}>
                           <strong>{e.emitter.username}:</strong> <br />{" "}
                           <span>{e.message}</span>
                         </div>
                       )}
-                    </>
+                    </React.Fragment>
                   ))
                 : ""
               : ""}

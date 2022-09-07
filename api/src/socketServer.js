@@ -88,7 +88,7 @@ io.on("connection", (socket) => {
       else {
         privChat = await PrivateChat.create({
           lastSeen: [
-            { user: emitter.id, msgNum: 0 },
+            { user: emitter.id, msgNum: 1 },
             { user: receiver.id, msgNum: 0 },
           ],
         });
