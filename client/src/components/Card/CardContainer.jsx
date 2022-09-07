@@ -132,7 +132,7 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
             </div>
 
           </div>}
-          {bothStacks&&<CardContainerDetail card={card} bothStacks={bothStacks} viewDetail={viewDetail}/>}
+          {bothStacks&&<CardContainerDetail                       card={card} bothStacks={bothStacks} viewDetail={viewDetail}/>}
         {(inDeck && !selectedDeck?.name) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
           selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
             removeCardFromDeck(card.id)
