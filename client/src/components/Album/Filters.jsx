@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { filterCards } from "../../redux/actions/cards/filterCards";
 
-import btnFilter from "../../img/circle-15.svg";
-
 import css from "./Filter.module.css";
 
 export default function Filters() {

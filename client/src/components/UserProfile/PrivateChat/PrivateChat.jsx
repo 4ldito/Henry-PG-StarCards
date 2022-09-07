@@ -263,7 +263,9 @@ const PrivateChat = ({ selected }) => {
               <input className={css.send} type="submit" value="Send" />
             </form>
           ) : (
-            "Select a chat"
+            <div className={css.selectAChat}>
+              <span>Select a chat</span> 
+            </div>
           )}
         </div>
       </div>
