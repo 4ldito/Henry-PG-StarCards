@@ -9,7 +9,7 @@ import {
   renderVerifyRegister,
 } from "../../redux/actions/sendMail";
 import Swal from "sweetalert2";
-import style from "./Mail.module.css";
+import css from "./Mail.module.css";
 import {
   // getByEmail,
   // getUserByEmail,
@@ -100,10 +100,10 @@ export default function VerifyRegister({ email, user }) {
   function changepassword() {
     return (
       <div>
-        <div className={style.background}>
-          <div className={style.container}>
+        <div className={css.background}>
+          <div className={css.container}>
             <form className="formulario" onSubmit={(e) => sendPassword(e)}>
-              <div className={style.mail}>
+              <div className={css.mail}>
                 <input
                   type="password"
                   name="passwordNew"
@@ -111,7 +111,7 @@ export default function VerifyRegister({ email, user }) {
                   className="form-control"
                   ref={password}
                 />
-                <button className={style.button} type="submit">
+                <button className={css.button} type="submit">
                   Change
                 </button>
               </div>
@@ -125,23 +125,23 @@ export default function VerifyRegister({ email, user }) {
   return (
     <>
       {render ? (
-        <div className={style.background}>
-          <div className={style.container}>
-            <button className={style.close} onClick={(e) => close(e)}>
+        <div className={css.background}>
+          <div className={css.container}>
+            <button className={css.close} onClick={(e) => close(e)}>
               X
             </button>
 
-            <div className={style.mail}>
+            <div className={css.mail}>
               <input
                 type="text"
                 name="token1"
-                className={style.input}
+                className={css.input}
                 ref={token1}
                 onChange={comprobarCambios}
                 placeholder="Enter the token received by e-mail..."
               />
               <button
-                className={style.button}
+                className={css.button}
                 type="submit"
                 onClick={verifyTokens}
               >
@@ -151,7 +151,7 @@ export default function VerifyRegister({ email, user }) {
                 ""
               ) : (
                 <button
-                  className={style.button}
+                  className={css.button}
                   onClick={(e) => reenviarToken(e)}
                 >
                   Resend Token

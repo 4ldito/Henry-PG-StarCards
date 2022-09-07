@@ -83,9 +83,7 @@ export default function Login() {
       profileImg: picture,
       loginGoogle: true,
     };
-    dispatch(createUserGoogle(userObject)
-    );
-
+    dispatch(createUserGoogle(userObject));
   }
 
   return (
@@ -97,7 +95,7 @@ export default function Login() {
           }}
         >
           <div className={style.inputcontainer}>
-            <label style={{ fontSize: "larger" }}>Username </label>
+            <label style={{ fontSize: "larger" }}>E-mail </label>
             <input
               className={style3.input}
               style={{ width: "400px" }}
@@ -123,26 +121,29 @@ export default function Login() {
           </div>
           <div style={{ height: "15px" }}></div>
           <div className={style.buttoncontainer}>
-            <button className={style.button} 
-            data="Ingresar" 
-            type="submit"
-            >
+            <button className={style.button} data="Ingresar" type="submit">
               Login
             </button>
-            <Link to="/recovery">Recovery Password</Link>
+            <div>
+              <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
+                <GoogleLogin
+                  className={style.buttonGoogle}
+                  onSuccess={(response) => {
+                    createOrGetUserGoogle(response);
+                  }}
+                  onError={() => {
+                    console.log("Login Failed");
+                  }}
+                />
+              </GoogleOAuthProvider>
+            </div>
           </div>
+          <section className={style.containerLink}>
+            <Link className={style.link} to="/recovery">
+              Password Recovery
+            </Link>
+          </section>
         </form>
-        <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
-          <GoogleLogin
-            className={style.buttonGoogle}
-            onSuccess={(response) => {
-              createOrGetUserGoogle(response);
-            }}
-            onError={() => {
-              console.log("Login Failed");
-            }}
-          />
-        </GoogleOAuthProvider>
       </div>
     </div>
   );

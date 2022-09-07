@@ -17,7 +17,6 @@ import RecoveryPassword from "./components/Registro/RecoveryPassword";
 import Registro from "./components/Registro/Registro";
 import Firebase from "./components/FirebaseAdmi/Firebase";
 import AdminProfile from "./components/Admin/AdminProfile";
-import "./App.css";
 
 function App() {
   const dispatch = useDispatch();

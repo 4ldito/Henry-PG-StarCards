@@ -1,37 +1,53 @@
-import React from 'react'
-import useTransactionsUser from '../../hooks/useTransactionsUser';
-import { capitalize, formatDate } from '../../utils/index';
+import React from "react";
+import useTransactionsUser from "../../hooks/useTransactionsUser";
+import { capitalize, formatDate } from "../../utils/index";
 
-import style from './TransactionsUser.module.css';
+import css from "./TransactionsUser.module.css";
 
 const TransactionsUser = ({ userId }) => {
-    const { transactionsUser } = useTransactionsUser(userId);
-    return (
-        <div className={style.container}>
-            <h2>Transacciones</h2>
-            <div className={style.allInfoContainer}>
-                <div className={style.infoContainer}>
-                    <p>Tipo</p>
-                    <p>Precio (Stars)</p>
-                    <p>Precio (ARS)</p>
-                    <p>Fecha</p>
-                </div>
-                <div className={style.allTransactionsContainer}>
-                    {transactionsUser.length ?
-                        transactionsUser.map((transaction) => {
-                            return (
-                                <div className={style.infoTransactionContainer} key={transaction.id}>
-                                    <p>{capitalize(transaction.type)}</p>
-                                    <p>{transaction.type === 'stars' ? transaction.priceStars : "-"}</p>
-                                    <p>{transaction.type === 'money' ? transaction.priceMoney : "-"}</p>
-                                    <p>{formatDate(transaction.createdAt)}</p>
-                                </div>
-                            )
-                        }) : <p>No hay transacciones =(</p>}
-                </div>
-            </div>
+  const { transactionsUser } = useTransactionsUser(userId);
+  return (
+    <section className={css.containerTo}>
+      <div className={css.container}>
+        <h2>Transactions</h2>
+        <div className={css.allInfoContainer}>
+          <div className={css.infoContainer}>
+            <p>Type</p>
+            <p>Price (Stars)</p>
+            <p>Price (ARS)</p>
+            <p>Date</p>
+          </div>
+          <div className={css.allTransactionsContainer}>
+            {transactionsUser.length ? (
+              transactionsUser.map((transaction) => {
+                return (
+                  <div
+                    className={css.infoTransactionContainer}
+                    key={transaction.id}
+                  >
+                    <p>{capitalize(transaction.type)}</p>
+                    <p>
+                      {transaction.type === "stars"
+                        ? transaction.priceStars
+                        : "-"}
+                    </p>
+                    <p>
+                      {transaction.type === "money"
+                        ? transaction.priceMoney
+                        : "-"}
+                    </p>
+                    <p>{formatDate(transaction.createdAt)}</p>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No hay transacciones =(</p>
+            )}
+          </div>
         </div>
-    )
-}
+      </div>
+    </section>
+  );
+};
 
-export default TransactionsUser
+export default TransactionsUser;

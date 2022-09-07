@@ -6,9 +6,10 @@ import { getUser, getUserGames } from "../../redux/actions/user";
 import socket from "../../../Socket";
 import GameView from "./Play/GameView";
 
-import style from "./Playroom.module.css";
+import css from "./Playroom.module.css";
 import styleChat from "../Chat/Chat.module.css";
-  
+import Ranking from "./Ranking";
+
 export default function Playroom() {
   useValidToken({ navigate: true });
   const [openChat, setOpenChat] = useState(false);
@@ -115,7 +116,7 @@ export default function Playroom() {
 
   return (
     <>
-      <div className={style.container}>
+      <div className={css.container}>
         {gameView.bool ? (
           <GameView info={gameView.info} close={handleGameViewClose} />
         ) : (
@@ -150,9 +151,10 @@ export default function Playroom() {
             )}
           </div>
         )}
+        <Ranking />
       </div>
       {
-        <div className={!openChat ? `${style.hideChat}` : ""}>
+        <div className={!openChat ? `${css.hideChat}` : ""}>
           <div className={styleChat.container}>
             <div className={styleChat.msgContainer}>
               <p className={styleChat.msg}>
@@ -179,8 +181,8 @@ export default function Playroom() {
           </div>
         </div>
       }
-      <div className={style.containerBtn}>
-        <button onClick={handleChatOpen} className={style.btnChat}>
+      <div className={css.containerBtn}>
+        <button onClick={handleChatOpen} className={css.btnChat}>
           Public Chat
         </button>
       </div>

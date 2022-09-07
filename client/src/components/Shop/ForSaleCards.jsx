@@ -75,7 +75,7 @@ const ForSaleCards = () => {
     };
   }, []);
 
-  if (!cardsInSale.length) return <p>No se encontraron cartas a la venta</p>;
+  if (!cardsInSale.length) return <div className={style.noCards}>There are no cards for sale</div>;
 
   return (
     <div className={style.container}>
@@ -83,8 +83,8 @@ const ForSaleCards = () => {
         // console.log(userCard)
         return (
           <div className={style.saleContainer} key={userCard.id}>
-            <p>Precio: {userCard.price} Stars</p>
-            <p>Dueño: {userCard.User.username}</p>
+            <p>Price: {userCard.price} Stars</p>
+            <p>Owner: {userCard.User.username}</p>
             <Card
               key={userCard.Card.id}
               id={userCard.Card.id}
@@ -100,8 +100,8 @@ const ForSaleCards = () => {
               movement={userCard.Card.movement}
             />
             {user.id !== userCard.User.id
-              ? <button onClick={(e) => handleBuyCard(e, userCard)} value={userCard.id}>Comprar</button>
-              : <button onClick={(e) => handleRemoveForSale(e, userCard)} >Quitar de en venta</button>
+              ? <button onClick={(e) => handleBuyCard(e, userCard)} value={userCard.id}>Buy</button>
+              : <button onClick={(e) => handleRemoveForSale(e, userCard)} >Remove for sale</button>
             }
           </div>
         );
