@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUser } from "../../redux/actions/user";
 
-import style from "./Playroom.module.css";
+import css from "./Playroom.module.css";
 
 export default function Playroom() {
   useValidToken({ navigate: true });
@@ -25,14 +25,14 @@ export default function Playroom() {
 
   return (
     <>
-      <div className={style.container}>{/* <Play /> */}</div>
+      <div className={css.container}>{/* <Play /> */}</div>
       {
-        <div className={!openChat ? `${style.hideChat}` : ""}>
+        <div className={!openChat ? `${css.hideChat}` : ""}>
           <Chat username={userActive.username} />
         </div>
       }
-      <div className={style.containerBtn}>
-        <button onClick={handleChatOpen} className={style.btnChat}>
+      <div className={css.containerBtn}>
+        <button onClick={handleChatOpen} className={css.btnChat}>
           Public Chat
         </button>
       </div>

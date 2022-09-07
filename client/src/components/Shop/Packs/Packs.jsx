@@ -4,7 +4,7 @@ import { useFetchCardsPack } from "./../../../hooks/useFetchCardsPack";
 
 import PacksCard from "./PacksCard";
 
-import style from "../styles/Packs.module.css";
+import css from "../styles/Packs.module.css";
 
 const Packs = ({ type }) => {
   let pack;
@@ -13,12 +13,12 @@ const Packs = ({ type }) => {
 
   return (
     <>
-      <div className={type === "starsPack" ? style.containerStars : style.container}>
+      <div className={type === "starsPack" ? css.containerStars : css.container}>
         {pack.length ? pack.map((p) => {
           return <PacksCard key={p.id} pack={p} type={type} />;
-        }) : <h2>Not found xd</h2> }
+        }) : <div className={css.notFound}>No favorites <br /> 💔</div> }
       </div>
-      {/* <div className={style.containerStars}>
+      {/* <div className={css.containerStars}>
         {pack.map((p) => {
           return <PacksCard key={p.id} pack={p} type={type} />;
         })}

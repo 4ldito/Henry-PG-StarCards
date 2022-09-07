@@ -201,27 +201,29 @@ const PrivateChat = ({ selected }) => {
   return (
     <div className={css.containerTo}>
       <div className={css.chatUsers}>
-        {chatUsers?.length
-          ? chatUsers.map((c, i) => {
-              return (
-                <div
-                  key={i}
-                  id={c.id}
-                  onClick={() => handleChatSelect(c)}
-                  className={css.singleChatUser}
-                >
-                  {c.username}{" "}
-                  {actualChatUser && actualChatUser.id === c.id
-                    ? ""
-                    : readMsgs(c) === undefined
-                    ? "New"
-                    : readMsgs(c) < unreadMsgs(c)
-                    ? `${unreadMsgs(c) - readMsgs(c)}`
-                    : ""}
-                </div>
-              );
-            })
-          : "No chats"}
+        <div className={css.containerChatsUsers}>
+          {chatUsers?.length
+            ? chatUsers.map((c, i) => {
+                return (
+                  <div
+                    key={i}
+                    id={c.id}
+                    onClick={() => handleChatSelect(c)}
+                    className={css.singleChatUser}
+                  >
+                    {c.username}
+                    {actualChatUser && actualChatUser.id === c.id
+                      ? ""
+                      : readMsgs(c) === undefined
+                      ? "New"
+                      : readMsgs(c) < unreadMsgs(c)
+                      ? `${unreadMsgs(c) - readMsgs(c)}`
+                      : ""}
+                  </div>
+                );
+              })
+            : "No chats"}
+        </div>
       </div>
       <div className={css.chatContainer}>
         <div className={css.chatBodyContainer}>
@@ -229,9 +231,18 @@ const PrivateChat = ({ selected }) => {
             {actualChatUser
               ? messages[actualChatUser.id]
                 ? messages[actualChatUser.id].Messages?.map((e, i) => (
-                    <div key={i}>
-                      {e.emitter.username}: {e.message}
-                    </div>
+                    <>
+                      {e.emitter.username === userActive.username ? (
+                        <div className={css.messageUserRight} key={i}>
+                          Yo <br /> <span>{e.message}</span>
+                        </div>
+                      ) : (
+                        <div className={css.messageUserLeft} key={i}>
+                          <strong>{e.emitter.username}:</strong> <br />{" "}
+                          <span>{e.message}</span>
+                        </div>
+                      )}
+                    </>
                   ))
                 : ""
               : ""}
@@ -241,22 +252,20 @@ const PrivateChat = ({ selected }) => {
           {actualChatUser ? (
             <form onSubmit={submit} className={css.chatForm}>
               <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
                 value={message}
-                placeholder="Escribe tu mensaje"
+                placeholder="Write your message"
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyPress={(e) => {
                   if (e.key === "Enter") submit(e);
                 }}
                 className={css.textArea}
               />
-              <input type="submit" value="Enviar" />
+              <input className={css.send} type="submit" value="Send" />
             </form>
           ) : (
-            "Selecciona un chat"
+            <div className={css.selectAChat}>
+              <span>Select a chat</span> 
+            </div>
           )}
         </div>
       </div>

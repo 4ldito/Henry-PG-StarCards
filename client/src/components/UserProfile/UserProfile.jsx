@@ -92,7 +92,6 @@ export default function UserProfile() {
     const lastActive = document.querySelector(`.${style.buttonsActive}`);
     lastActive.classList.remove(style.buttonsActive);
     e.target.classList.add(`${style.buttonsActive}`);
-    setSection(e.target.name);
   }
 
 
