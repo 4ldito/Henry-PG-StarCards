@@ -1,33 +1,278 @@
-
-
-.deckListContainer{
-   display: flex;
+.creatingDeckContainer::-webkit-scrollbar {
+    background: rgb(0, 44, 255);
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 30%,
+            cyan 50%,
+            rgba(255, 255, 255, 0) 70%);
+    width: 20px;
 }
 
-.allContainer{
-    color:white;
-    background-color: #444;
+.creatingDeckContainer::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+        linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+        linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+        linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    height: 18%;
+}
+
+.selectedDeckContainer::-webkit-scrollbar {
+    background: rgb(0, 44, 255);
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 30%,
+            cyan 50%,
+            rgba(255, 255, 255, 0) 70%);
+    width: 20px;
+}
+
+.selectedDeckContainer::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+        linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+        linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+        linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    height: 18%;
+}
+.only::-webkit-scrollbar {
+    background: rgb(0, 44, 255);
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 30%,
+            cyan 50%,
+            rgba(255, 255, 255, 0) 70%);
+    width: 20px;
+}
+
+.only::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+        linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+        linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+        linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    height: 18%;
+}
+
+
+
+.deckListContainer {
     display: flex;
     overflow-x: scroll;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.allContainerWhenBothStacks {
+    color: white;
+    background-image: url('../../../../img/album-card-container.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid #00ffffdd;
+    display: flex;
+    overflow: hidden;
     flex-direction: column;
     align-items: flex-start;
-    max-width: 50%;
-}
-.actualDeckContainer{
-    display: flex;
+    padding: 10px;
+    width: 90%;
+    height: 90%;
 
+}
+
+.allContainerWhenOnlyDecks {
+    color: white;
+    background-image: url('../../../../img/album-card-container.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid #00ffffdd;
+    display: flex;
+    overflow: hidden;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.actualDeckContainer {
+    display: flex;
+    height: 100%;
     width: 100%;
-    overflow-x: scroll;
-    overflow-y: none;
-    background-color: aliceblue;
+    justify-content: center;
+    overflow: hidden;
+    background-color: transparent;
 }
-.cardsContainer{
+
+.cardsContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.saveAndUseButtons {
+    height: 10%;
+}
+
+.selectedDeckContainer {
+    padding: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+    margin-top: 20px;
+
+}
+
+/* .cardsContainer{
+    width: 90%;
+} */
+.creatingDeckContainer {
+    padding: 5px;
+    overflow-y: scroll;
+    width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+   
+}
+
+.deckList {
+    position: relative;
+    width: 50%;
+    min-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.deckListOnly{
+    width: 100%;
+}
+.deckName {
+    font-size: 30px;
+    height: 30px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.deleteButton {
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    display: flex;
+    width: 25px;
+    height: 25px;
+    border: none;
+    background-color: transparent;
+    color: #dd4444;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+    background-color: #9999;
+    border-radius: 1px;
+
+}
+.hidden{
+    display: none;
+    transition: .3s;
+}
+.buttonAndDeckNameContainer {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 110px;
+    padding: 0 4px 40px 4px;
+    border-right: 3px solid #00ffff88;
+    transition: .3s;
+
+}
+
+.selectedButtonAndDeckNameContainer {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 110px;
+    padding: 0 4px 40px 4px;
+    border-right: 3px solid #00ffff88;
+    background-color: #ffffff45;
+    backdrop-filter: blur(4px);
+    transition: .3s;
+    
+
+}
+.addButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    border: 3px solid #00ffff88;
+    margin-left: 10px;
+    font-size: 50px;
+    background-color: #dddddd44;
+    color:white;
+}
+
+.nameInput{
+    height: 50px;
+    width: 340px;
+    border: none;
+    border-bottom: 3px solid #00ffff44;
+    background-color: transparent;
+    font-size: 30px;
+    outline: none;
+    transition: .3s;
+    color: white;
+}
+.name::placeholder{
+    color: #ffffff99;
+}
+.nameInput:focus{
+    outline: none;
+    border-bottom: 3px solid #00ffffdd;
+}
+.saveButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    border: 3px solid #00ffff88;
+    margin-left: 10px;
+    font-size: 50px;
+    background-color: #dddddd44;
+    color:white;
+}
+.useButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    border: 3px solid #00ffff88;
+    margin-left: 10px;
+    font-size: 50px;
+    background-color: #dddddd44;
+    color:white;
+}
+.saveAndUseButtons{
     display: flex;
 }
-.card{
 
+.only{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    width: 100%;
+    gap: 8px;
+    margin-top: 20px;
 }
 
-@media screen and (min-width:450px){
-    
-}
+@media screen and (min-width:450px) {}

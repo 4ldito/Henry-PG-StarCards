@@ -8,7 +8,10 @@ import DeckList from "./Decks/DeckList";
 
 import css from "./Inventory.module.css";
 
-export default function InventoryContainer() {
+export default function InventoryContainer({
+  actualStackToShow,
+  setActualStackToShow
+}) {
   const dispatch = useDispatch();
   const filteredUserCards = useSelector((state) => state.album.filteredUserCards);
   const cards = useSelector((state) => state.album.cards);
@@ -19,7 +22,6 @@ export default function InventoryContainer() {
   const [creatingDeck, setCreatingDeck] = useState(false);
   const [updatingDeck, setUpdatingdeck] = useState({});
   const [newDeckCards, setNewDeckCards] = useState([]);
-  const [actualStackToShow, setActualStackToShow] = useState(['cartas']);
   const [actualCost, setActualCost] = useState(0);
 
 
@@ -51,7 +53,7 @@ export default function InventoryContainer() {
         newCard.repeat = 1;
         setNewDeckCards([...newDeckCards, newCard]);
       }
-      setActualCost(actualCost+card.cost);
+      setActualCost(actualCost + card.cost);
     } else {
       const addingCard = cards.find(e => e.id === card.id);
       const userCardsInSD = JSON.parse(selectedDeck.cardRepeats);
@@ -106,7 +108,7 @@ export default function InventoryContainer() {
         const newNewDeckCards = newDeckCards.filter(e => e.id !== cardBack.id);
         setNewDeckCards(newNewDeckCards);
       }
-      setActualCost(actualCost-cardBack.cost);
+      setActualCost(actualCost - cardBack.cost);
     } else {
 
       if (!updatingDeck.cards) {
@@ -142,7 +144,7 @@ export default function InventoryContainer() {
   }
 
   const updateSelectedDeck = (userId, deckId, newDeck) => {
-    dispatch(setActiveDeck({id: null}, userId));
+    dispatch(setActiveDeck({ id: null }, userId));
     dispatch(updateDeck(userId, deckId, newDeck));
   }
 
@@ -151,6 +153,8 @@ export default function InventoryContainer() {
     let cartas = [];
     filteredUserCards?.forEach(e => {
       cartas.push(<CardContainer key={e.id}
+        bothStacks={bothStacks}
+        actualStackToShow={actualStackToShow}
         inDeck={false}
         tamanho='.5'
         newDeckCards={newDeckCards}
@@ -177,21 +181,34 @@ export default function InventoryContainer() {
     dispatch(getUserCards(user.UserCards, cards));
   }, [cards]);
 
-  
+
   const setVisibleStack = (name) => {
     if (actualStackToShow.includes(name)) {
-      setActualStackToShow(actualStackToShow.filter(e => e !== name));
-      setBothStacks(false);
+      if (actualStackToShow.length > 1) {
+        setActualStackToShow(actualStackToShow.filter(e => e !== name));
+        setBothStacks(false);
+      }
     } else {
       setActualStackToShow([...actualStackToShow, name])
     }
   }
 
-  return (<div className={css.InventoryContainer}>
-    <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cards</button>
-    <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Decks</button>
+
+  return (<div className={css.inventoryContainer}>
+    <div className={css.cardsAndDecksButtons}>
+      <button className={actualStackToShow.includes('cartas') ? css.buttonActive : css.button} name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
+      <hr></hr>
+      <button className={actualStackToShow.includes('mazos') ? css.buttonActive : css.button} name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
+    </div>
+
     <div className={css.cartasYMazosContainer}>
-      {actualStackToShow.includes('cartas') ? <div className={bothStacks ? css.cartasYMazo : css.cartas}>{renderNotRepeat()}</div> : <></>}
+      {actualStackToShow.includes('cartas') ?
+        <div className={!bothStacks ? css.cardsListOnly : css.cardsList}>
+          <div className={bothStacks ? css.cartasYMazo : css.cartas}>
+            {renderNotRepeat()}
+          </div>
+        </div>
+        : <></>}
       {actualStackToShow.includes('mazos') ? <DeckList selectedDeck={selectedDeck}
         removeCardFromDeck={removeCardFromDeck} setNewDeckCards={setNewDeckCards}
         creatingDeck={creatingDeck} setCreatingDeck={setCreatingDeck}
@@ -199,7 +216,8 @@ export default function InventoryContainer() {
         enableAddButton={setBothStacks} userId={user.id} updatingDeck={updatingDeck}
         setUpdatingdeck={setUpdatingdeck} changeDeckName={changeDeckName}
         updateSelectedDeck={updateSelectedDeck} setActualCost={setActualCost}
-        actualCost={actualCost}></DeckList> : <></>}
+        actualCost={actualCost} actualStackToShow={actualStackToShow}></DeckList> : <></>}
     </div>
-  </div >);
+  </div >
+  );
 }
