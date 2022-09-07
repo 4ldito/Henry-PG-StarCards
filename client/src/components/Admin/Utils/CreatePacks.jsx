@@ -2,12 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { storage } from "../../../firebase/config";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import createPackCardsAdmin from "./../../../redux/actions/admin/cardPacksMod";
 import getAllCards from "./../../../redux/actions/cards/getAllCards";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useRef } from "react";
 import style from "./CreatePacks.module.css";
+import Swal from "sweetalert2";
+import {
+  createPackCardsAdmin,
+  cleanCreatePackCardsAdmin,
+} from "../../../redux/actions/admin/cardPacksMod";
 
 function CreatePacks() {
   //packs
@@ -15,6 +19,7 @@ function CreatePacks() {
   const price = useRef(null);
   const amount = useRef(null);
   const stock = useRef(null);
+  const select2 = useRef(null);
   async function uploadFilePack(file, name) {
     const storageRef = ref(storage, `packs/${name}`); //nombre de ref para la subida
     await uploadBytes(storageRef, file); //subida del archivo
@@ -24,6 +29,33 @@ function CreatePacks() {
 
   const dispatch = useDispatch();
   const allcards = useSelector((state) => state.album.cards);
+  const packCard = useSelector((state) => state.admin.packCard);
+
+  useEffect(() => {
+    if (Object.keys(packCard).length !== 0) {
+      Swal.fire({
+        title: "PackCard Created!",
+        text: "Created successful",
+        icon: "success",
+      });
+      dispatch(cleanCreatePackCardsAdmin());
+      setInput({
+        name: "",
+        price: "",
+        race: [],
+        cards: [],
+        percent: [],
+        stock: "",
+        image: null,
+        amount: "",
+      });
+      name2.current.value = "";
+      price.current.value = "";
+      amount.current.value = "";
+      stock.current.value = "";
+      select2.current.value = "0";
+    }
+  }, [packCard]);
 
   useEffect(() => {
     dispatch(getAllCards());
@@ -37,9 +69,8 @@ function CreatePacks() {
   const [input, setInput] = useState({
     name: "",
     price: "",
-    race: "",
+    race: [],
     cards: [],
-    // percent: [],
     stock: "",
     image: null,
     amount: "",
@@ -55,7 +86,7 @@ function CreatePacks() {
           [e.target.name]: e.target.value,
         });
       } else {
-        setErrors("solo letras");
+        setErrors("only letters");
       }
     } else {
       setInput({
@@ -66,54 +97,54 @@ function CreatePacks() {
   };
 
   const handleSelectRace = (e) => {
-    if (input.race.includes(e.target.value)) {
-      alert("Otra raza");
-    } else {
-      setInput({
-        ...input,
-        race: e.target.value,
-      });
-    }
+    setInput({
+      ...input,
+      race: [e.target.value],
+    });
   };
 
   const handleSelectCards = (e) => {
-    if (!input.cards.includes(e.target.value)) {
-      setInput({
-        ...input,
-        cards: [...input.cards, [e.target.value]],
-      });
+    for (const card of input.cards) {
+      if (card[0] === e.target.value) {
+        return;
+      }
     }
+    setInput({
+      ...input,
+      cards: [...input.cards, [e.target.value]],
+    });
   };
 
   const handleSubmitPack = async (e) => {
     e.preventDefault();
 
     try {
-      if (!errors) {
+      if (
+        !errors &&
+        // select1.current.value !== "0"
+        //  &&
+        select2.current.value !== "0"
+      ) {
         const result = await uploadFilePack(file, input.name); //obteninedo la url con el nombre
         input.image = result; //obteniendo en el input.image el url
         const valorespack = input;
-        // valorespack.percent = valorespack.percent.map((perce) => perce / 100); //división a 100
-
-        // for (let i = 0; i < valorespack.percent.length; i++) {
-        //   //agregado el porcentaje
-        //   valorespack.cards[i].push(valorespack.percent[i]);
-        // }
-        // valorespack.percent = null; //anulando percent
-        console.log(valorespack);
+        const total = input.cards.reduce((a, e) => a + e[1], 0);
+        input.cards.forEach(
+          (c) => (c[1] = Math.round((c[1] / total) * 10) / 10)
+        );
         dispatch(createPackCardsAdmin(valorespack));
-        setInput({
-          name: "",
-          price: "",
-          race: "",
-          cards: [],
-          percent: [],
-          stock: "",
-          image: null,
-          amount: "",
-        });
       } else {
-        alert("Name incorrect");
+        errors
+          ? Swal.fire({
+              title: "Error!",
+              text: "Enter a valid name",
+              icon: "error",
+            })
+          : Swal.fire({
+              title: "Error!",
+              text: "Complete all fields",
+              icon: "error",
+            });
       }
     } catch (error) {
       alert("Retry");
@@ -121,11 +152,25 @@ function CreatePacks() {
   };
 
   const handleDelete = (e) => {
+    e.preventDefault();
     setInput({
       ...input,
-      cards: input.cards.filter((card) => card !== e),
+      cards: input.cards.filter((card) => card[0] !== e.target.value),
     });
   };
+
+  function inputCard(e, c) {
+    e.preventDefault();
+    input.cards.find((e) => e[0] === c[0])[1] = e.target.value;
+  }
+
+  function inputRace(e) {
+    if (!input.race.includes(e.target.value)) {
+      return setInput({ ...input, race: [...input.race, e.target.value] });
+    }
+    let newRace = input.race.filter((r) => r !== e.target.value);
+    setInput({ ...input, race: newRace });
+  }
 
   return (
     <>
@@ -148,9 +193,9 @@ function CreatePacks() {
             min="1"
             max="3000"
             onChange={(e) => handleChange(e)}
-            placeholder="Precio"
-            required
+            placeholder="Price"
             ref={price}
+            required
           />
           <input
             type="number"
@@ -167,23 +212,33 @@ function CreatePacks() {
             onChange={(e) => handleChange(e)}
             placeholder="stock"
             required
-            ref={stock}
             min="1"
+            ref={stock}
           />
           <div>
             <label>Race: </label>
-            <select onChange={(e) => handleSelectRace(e)} required>
-              <option hidden={true} key="raza"></option>
-              <option value="Zerg" key="Zerg">
-                Zerg
-              </option>
-              <option value="Terran" key="Terran">
-                Terran
-              </option>
-              <option value="Protoss" key="Protoss">
-                Protoss
-              </option>
-            </select>
+            <br />
+            <label>Zerg: </label>
+            <input
+              value="Zerg"
+              key="Zerg"
+              type="checkbox"
+              onChange={(e) => inputRace(e)}
+            ></input>
+            <label>Terran: </label>
+            <input
+              value="Terran"
+              key="Terran"
+              type="checkbox"
+              onChange={(e) => inputRace(e)}
+            ></input>
+            <label>Protoss: </label>
+            <input
+              value="Protoss"
+              key="Protoss"
+              type="checkbox"
+              onChange={(e) => inputRace(e)}
+            ></input>
           </div>
           <div>
             <label>Select one option: </label>
@@ -191,9 +246,10 @@ function CreatePacks() {
               onChange={(e) => {
                 handleSelectCards(e);
               }}
+              ref={select2}
               required
             >
-              <option hidden={true} key="option"></option>
+              <option value="0" hidden={true} key="option"></option>
               {allcards?.map((e) => {
                 return (
                   <option value={e.name} key={e.id}>
@@ -212,12 +268,18 @@ function CreatePacks() {
           <button>Create</button>
 
           <div>
-            {input.cards?.map((e) => {
+            {input.cards?.map((c, i) => {
               return (
-                <div key={e}>
-                  <p>{e}</p>
+                <div key={i}>
+                  <p>{c[0]}</p>
+                  <input
+                    type="number"
+                    min="0"
+                    onChange={(e) => inputCard(e, c)}
+                  ></input>
                   <button
-                    onClick={() => {
+                    value={c}
+                    onClick={(e) => {
                       handleDelete(e);
                     }}
                   >
