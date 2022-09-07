@@ -6,7 +6,7 @@ import {
   addNewFriend,
   deleteFriend,
   getUser,
-  getUserDecks
+  getUserDecks,
 } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
@@ -55,6 +55,7 @@ export default function UserProfile() {
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
     setUser(activeUser);
+    // return query || urlUser;
     return query === activeUser.username || !query ? activeUser : urlUser;
   }, [activeUser, urlUser]);
 
@@ -95,7 +96,6 @@ export default function UserProfile() {
     e.target.classList.add(`${style.buttonsActive}`);
   }
 
-
   const showToOwner = () => (
     <>
       <div className={style.containerPerfil}>
@@ -108,42 +108,52 @@ export default function UserProfile() {
             <button
               className={`${style.buttons} ${style.buttonsActive}`}
               value="Inventory"
-              onClick={(e) => { changeRender(e), handleClick(e) }}
+              onClick={(e) => {
+                changeRender(e), handleClick(e);
+              }}
             >
               Inventory
             </button>
             <button
               className={style.buttons}
               value="Stats"
-              onClick={(e) => { changeRender(e), handleClick(e) }}
+              onClick={(e) => {
+                changeRender(e), handleClick(e);
+              }}
             >
               Stats
             </button>
             <button
               className={style.buttons}
               value="Config"
-              onClick={(e) => { changeRender(e), handleClick(e) }}
+              onClick={(e) => {
+                changeRender(e), handleClick(e);
+              }}
             >
               Config
             </button>
             <button
               className={style.buttons}
               value="Chat"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Chat
-        </button>
-        <button
-          className={style.buttons}
-          value="Friends"
-          onClick={(e) => {changeRender(e), handleClick(e)}}
-        >
-          Friends
-        </button>
-        <Link className={style.stars} to="/shop">
-          <FaShoppingCart size={28} />
-          Stars: {user.stars}
-        </Link>
+              onClick={(e) => {
+                changeRender(e), handleClick(e);
+              }}
+            >
+              Chat
+            </button>
+            <button
+              className={style.buttons}
+              value="Friends"
+              onClick={(e) => {
+                changeRender(e), handleClick(e);
+              }}
+            >
+              Friends
+            </button>
+            <Link className={style.stars} to="/shop">
+              <FaShoppingCart size={28} />
+              Stars: {user.stars}
+            </Link>
           </section>
         </div>
       </div>
@@ -194,7 +204,7 @@ export default function UserProfile() {
 
         {myFriend ? (
           <button
-            className={`${style.buttons} ${style.disabled}`}
+            className={`${style.buttonsDelete} ${style.disabled}`}
             onClick={(e) => deleteThisFriend(e)}
           >
             Delete friend
@@ -208,7 +218,7 @@ export default function UserProfile() {
           </button>
         )}
       </div>
-
+      {/* {console.log(actualUrlUser)} */}
       {render === "Chat" ? (
         chatAlreadyExists ? (
           <PrivateChat selected={actualUrlUser} />

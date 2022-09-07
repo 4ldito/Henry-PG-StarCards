@@ -161,32 +161,34 @@ const PrivateChat = ({ selected }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    socket.emit("privateMessage", userActive, actualChatUser, message);
-    setMessage("");
+    if (message.length) {
+      socket.emit("privateMessage", {id: userActive.id, username: userActive.username}, {id: actualChatUser.id, username: actualChatUser.username}, message);
+      setMessage("");
 
-    setMessages((prev) => {
-      const oldMessages = prev[actualChatUser.id]?.Messages || [];
-      return {
-        ...prev,
-        [actualChatUser.id]: {
-          // username: user.username,
-          // id: user.id,
-          Messages: [...oldMessages, { emitter: userActive, message }],
-        },
-      };
-    });
+      setMessages((prev) => {
+        const oldMessages = prev[actualChatUser.id]?.Messages || [];
+        return {
+          ...prev,
+          [actualChatUser.id]: {
+            // username: user.username,
+            // id: user.id,
+            Messages: [...oldMessages, { emitter: userActive, message }],
+          },
+        };
+      });
 
-    const privateChat = userActive.PrivateChats.find((pc) => {
-      return pc.Users.find((u) => u.id === actualChatUser.id) ? true : false;
-    });
+      const privateChat = userActive.PrivateChats.find((pc) => {
+        return pc.Users.find((u) => u.id === actualChatUser.id) ? true : false;
+      });
 
-    dispatch(
-      setLastSeenMsg(
-        userActive.id,
-        privateChat.id,
-        messages[actualChatUser.id].Messages.length + 1
-      )
-    );
+      dispatch(
+        setLastSeenMsg(
+          userActive.id,
+          privateChat.id,
+          messages[actualChatUser.id].Messages.length + 1
+        )
+      );
+    }
   };
 
   const readMsgs = (c) => {
@@ -214,7 +216,7 @@ const PrivateChat = ({ selected }) => {
                   {c.username}
                   {actualChatUser && actualChatUser.id === c.id
                     ? ""
-                    : readMsgs(c) === undefined
+                    : readMsgs(c) === 0
                     ? "New"
                     : readMsgs(c) < unreadMsgs(c)
                     ? `${unreadMsgs(c) - readMsgs(c)}`
@@ -233,18 +235,19 @@ const PrivateChat = ({ selected }) => {
             {actualChatUser
               ? messages[actualChatUser.id]
                 ? messages[actualChatUser.id].Messages?.map((e, i) => (
-                    <>
+                    <React.Fragment key={i}>
                       {e.emitter.username === userActive.username ? (
-                        <div className={css.messageUserRight} key={i}>
-                          Yo <br /> <span>{e.message}</span>
+                        <div className={css.messageUserRight}>
+                          {/* Yo <br />  */}
+                          <span>{e.message}</span>
                         </div>
                       ) : (
-                        <div className={css.messageUserLeft} key={i}>
-                          <strong>{e.emitter.username}:</strong> <br />{" "}
+                        <div className={css.messageUserLeft}>
+                          {/* <strong>{e.emitter.username}:</strong> <br />{" "} */}
                           <span>{e.message}</span>
                         </div>
                       )}
-                    </>
+                    </React.Fragment>
                   ))
                 : ""
               : ""}

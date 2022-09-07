@@ -35,7 +35,7 @@ const Filters = () => {
     });
     selectRace.current.selectedIndex = 0;
     selectOrder.current.selectedIndex = 0;
-  }
+  };
 
   useEffect(() => {
     dispatch(filterCardsPacks(filters));
@@ -46,16 +46,31 @@ const Filters = () => {
       <button className={style.btnClearFilter}>
         <BiFilterAlt size={50} />
       </button>
-      <button className={style.btn} onClick={handleClearFilters} value="favs" name="favs">
+      <button
+        className={style.btn}
+        onClick={handleClearFilters}
+        value="favs"
+        name="favs"
+      >
         Clear Filters
       </button>
       {userId ? (
         filters.favs === "all" ? (
-          <button className={style.btn} onClick={onSelectChange} value="favs" name="favs">
+          <button
+            className={style.btn}
+            onClick={onSelectChange}
+            value="favs"
+            name="favs"
+          >
             Show favorites
           </button>
         ) : (
-          <button className={style.btn} onClick={onSelectChange} value="all" name="favs">
+          <button
+            className={style.btn}
+            onClick={onSelectChange}
+            value="all"
+            name="favs"
+          >
             Show all
           </button>
         )
@@ -63,19 +78,31 @@ const Filters = () => {
         <></>
       )}
 
-      <select ref={selectRace} onChange={onSelectChange} name="race" className={style.select}>
+      <select
+        ref={selectRace}
+        onChange={onSelectChange}
+        name="race"
+        className={style.select}
+      >
         <option value="allRaces">All races</option>
         <option value="Protoss">Protoss</option>
         <option value="Terran">Terran</option>
         <option value="Zerg">Zerg</option>
       </select>
 
-      <select ref={selectOrder} onChange={onSelectChange} name="order" className={style.select}>
-        <option hidden value="allPrices">Select order</option>
-        <option value="priceDes">Price from highest to lowest</option>
-        <option value="priceAsc">Price from lowest to highest</option>
-        <option value="stockDes">Stock from highest to lowest</option>
-        <option value="stockAsc">Stock from lowest to highest</option>
+      <select
+        ref={selectOrder}
+        onChange={onSelectChange}
+        name="order"
+        className={style.select}
+      >
+        <option hidden value="allPrices">
+          Select order
+        </option>
+        <option value="priceDes">By descending Price</option>
+        <option value="priceAsc">By ascending Price</option>
+        <option value="stockDes">By descending Stock</option>
+        <option value="stockAsc">By ascending Stock</option>
       </select>
 
       {/* <select onChange={onSelectChange} name='order'>

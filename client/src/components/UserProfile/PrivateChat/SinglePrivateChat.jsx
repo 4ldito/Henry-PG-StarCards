@@ -11,7 +11,7 @@ const SinglePrivateChat = ({ newChatUser }) => {
   const userActive = useSelector((state) => state.userReducer.user);
 
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
 
   useEffect(() => {
     dispatch(getUser(userActive.id));
@@ -29,7 +29,17 @@ const SinglePrivateChat = ({ newChatUser }) => {
 
   useEffect(() => {
     socket.on("privateMessage", (user, message, privChatId) => {
-      setMessages((prev) => [...prev, { emitter: user, message }]);
+      setMessages((prev) => {
+        const oldMessages = prev[user.id]?.Messages || [];
+        return {
+          ...prev,
+          [user.id]: {
+            // username: user.username,
+            // id: user.id,
+            Messages: [...oldMessages, { emitter: user, message }],
+          },
+        };
+      });
       dispatch(setLastSeenMsg(userActive.id, privChatId, messages.length));
     });
 
@@ -45,23 +55,41 @@ const SinglePrivateChat = ({ newChatUser }) => {
 
   const submit = (e) => {
     e.preventDefault();
-    socket.emit("privateMessage", userActive, newChatUser, message);
-    setMessage("");
-
-    setMessages((prev) => [...prev, { emitter: userActive, message }]);
-
-    const privateChat = userActive.PrivateChats.find((pc) => {
-      return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
-    });
-
-    if (privateChat)
-      dispatch(
-        setLastSeenMsg(
-          userActive.id,
-          privateChat.id,
-          messages[newChatUser.id].Messages.length + 1
-        )
+    if (message.length) {
+      socket.emit(
+        "privateMessage",
+        { id: userActive.id, username: userActive.username },
+        { id: newChatUser.id, username: newChatUser.username },
+        message
       );
+      setMessage("");
+
+      setMessages((prev) => {
+        const oldMessages = prev[newChatUser.id]?.Messages || [];
+        return {
+          ...prev,
+          [newChatUser.id]: {
+            // username: user.username,
+            // id: user.id,
+            Messages: [...oldMessages, { emitter: userActive, message }],
+          },
+        };
+      });
+      const privateChat = userActive.PrivateChats.find((pc) => {
+        return pc.Users.find((u) => u.id === newChatUser.id) ? true : false;
+      });
+
+      if (privateChat) {
+        dispatch(
+          setLastSeenMsg(
+            userActive.id,
+            privateChat.id,
+            messages[newChatUser.id].Messages.length + 1
+          )
+        );
+      }
+      dispatch(getUser(userActive.id));
+    }
   };
 
   return (
@@ -70,8 +98,8 @@ const SinglePrivateChat = ({ newChatUser }) => {
 
       <div className={css.chatBodyContainer}>
         <div className={css.chatText}>
-          {messages.length
-            ? messages.map((e, i) => (
+          {messages[newChatUser.id]
+            ? messages[newChatUser.id].Messages?.map((e, i) => (
                 <div key={i}>
                   {e.emitter.username}: {e.message}
                 </div>
@@ -86,14 +114,14 @@ const SinglePrivateChat = ({ newChatUser }) => {
             cols="30"
             rows="10"
             value={message}
-            placeholder="Escribe tu mensaje"
+            placeholder="Write your first message"
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={(e) => {
               if (e.key === "Enter") submit(e);
             }}
             className={css.textArea}
           />
-          <input type="submit" value="Enviar" />
+          <input type="submit" value="Send" />
         </form>
       </div>
     </div>

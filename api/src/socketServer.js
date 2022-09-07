@@ -55,6 +55,7 @@ io.on("connection", (socket) => {
 
   socket.on("privateMessage", async (emitter, receiver, message) => {
     // await axios.post("chat/db", { emitter, receiver, message });
+    console.log(emitter, receiver, message);
     try {
       const [emitterProm, receiverProm, messageProm] = await Promise.all([
         User.findOne({
@@ -88,7 +89,7 @@ io.on("connection", (socket) => {
       else {
         privChat = await PrivateChat.create({
           lastSeen: [
-            { user: emitter.id, msgNum: 0 },
+            { user: emitter.id, msgNum: 1 },
             { user: receiver.id, msgNum: 0 },
           ],
         });
