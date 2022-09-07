@@ -167,3 +167,11 @@
 .btnBuyNow:hover {
   background-color: #038220;
 }
+
+.withoutStock {
+  color: #a50000;
+}
+
+.withoutStockText {
+  text-decoration: line-through;
+}

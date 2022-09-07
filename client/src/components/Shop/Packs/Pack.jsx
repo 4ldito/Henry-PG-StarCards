@@ -3,9 +3,10 @@ import { useState } from "react";
 import PackDetail from "./PackDetail";
 
 import css from "../styles/Pack.module.css";
+import style from "../styles/PackDetail.module.css";
 import { FaDna } from "react-icons/fa";
-import { BsSuitHeartFill } from "react-icons/bs";
-import { BsSuitHeart } from "react-icons/bs";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 export default function Pack({
   pack,
@@ -22,22 +23,23 @@ export default function Pack({
     setViewDetail(!viewDetail);
   };
 
+  const favPacks = useSelector((state) => state.cardsPacksReducer.favUserPacks);
+  let searchFaved = favPacks?.find((p) => p.id === pack.id);
+
   return (
     <>
       <div className={css.border}>
         <div className={css.background}>
-          <img
-            className={css.img}
-            src={pack.image}
-            alt={`${pack.name} pack`}
-            onClick={handleDetail}
-          />
-          <button className={css.favNull} id={pack.id} onClick={handleFav}>
-            <BsSuitHeart size={15} />
-          </button>
-          {/* // ! NO BORRAR */}
-          {/* <button className={css.fav}><BsSuitHeartFill size={15}/></button> */}
-          {/* // ! NO BORRAR */}
+          <img className={css.img} src={pack.image} alt={`${pack.name} pack`} onClick={handleDetail} />
+          {searchFaved === undefined ? (
+            <button className={`${css.favNull}`} onClick={e => handleFav(e, pack.id, 'add')}>
+              <BsSuitHeart size={15} />
+            </button>
+          ) : (
+            <button className={`${css.fav} ${style.btnAddToCart}`} onClick={e => handleFav(e, pack.id, 'delete')}>
+              <BsSuitHeartFill size={15} />
+            </button>
+          )}
           <div className={css.text}>
             <div className={css.nameCard}>{pack.name}</div>
             <div className={css.raceCard}>

@@ -44,21 +44,11 @@ opinionRoute.post("/", async (req, res, next) => {
   try {
     let { comment, score, userId, cardId } = req.body;
 
+
     const [newOpinion, opinionUser, opinionCard] = await Promise.all([
-      Opinion.create({
-        comment,
-        score,
-      }),
-      User.findOne({
-        where: {
-          id: userId,
-        },
-      }),
-      Card.findOne({
-        where: {
-          id: cardId,
-        },
-      }),
+      Opinion.create({ comment, score }),
+      User.findOne({ where: { id: userId, } }),
+      Card.findOne({ where: { id: cardId, } }),
     ]);
 
     await Promise.all([

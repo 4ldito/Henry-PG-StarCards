@@ -72,7 +72,7 @@ const ShopCart = ({ handleSeeShopcart }) => {
     if (item.quantity === 1) {
       return Swal.fire({
         title: "Error!",
-        text: "No podes bajar la cantidad a 0.",
+        text: "You can't lower the quantity to 0.",
         icon: "error",
       });
     }
@@ -100,7 +100,7 @@ const ShopCart = ({ handleSeeShopcart }) => {
     if (item.quantity === item.stock) {
       return Swal.fire({
         title: "Error!",
-        text: "No hay stock disponible.",
+        text: "Not enough stock!",
         icon: "error",
       });
     }

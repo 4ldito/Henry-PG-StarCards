@@ -190,11 +190,13 @@ export default function InventoryContainer({
     }
   }
 
+
   return (<div className={css.inventoryContainer}>
     <div className={css.cardsAndDecksButtons}>
       <button name='cartas' onClick={(e) => { setVisibleStack(e.target.name) }}>Cartas</button>
       <button name='mazos' onClick={(e) => { setVisibleStack(e.target.name) }}>Mazos</button>
     </div>
+
     <div className={css.cartasYMazosContainer}>
       {actualStackToShow.includes('cartas') ?
         <div className={css.cardsList}>

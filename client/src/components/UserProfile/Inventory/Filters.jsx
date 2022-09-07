@@ -26,7 +26,7 @@ const Filters = () => {
   return (
     <div className={style.container}>
       <select onChange={onSelectChange} name='race'>
-        <option value='allRaces'>Todas las Razas</option>
+        <option value='allRaces'>All races</option>
         <option value='Protoss'>Protoss</option>
         <option value='Terran'>Terran</option>
         <option value='Zerg'>Zerg</option>
