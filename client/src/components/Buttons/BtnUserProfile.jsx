@@ -11,78 +11,76 @@ import css from './BtnUserProfile.module.css'
 
 ////////////////////////////////////////////////////////////////////////
 export default function username({ user, property }) {
-    const dispatch = useDispatch()
-    const [state, setState] = useState({ open: false })
-    const [value, setValue] = useState('')
-    const [oldPassword, setOldPassword] = useState('')
-    const invalidPassword = useSelector(state => state.userReducer.msg)
-    const user1 = useSelector(state => state.userReducer.user)
+  const dispatch = useDispatch();
+  const [state, setState] = useState({ open: false });
+  const [value, setValue] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
+  const invalidPassword = useSelector((state) => state.userReducer.msg);
+  const user1 = useSelector((state) => state.userReducer.user);
 
-    function openModal() {
-        setState({ open: !state.open })
-        setValue('')
+  function openModal() {
+    setState({ open: !state.open });
+    setValue("");
+  }
+
+  const modalStyles = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
+
+  function handleChange(e) {
+    const input = e.target.value;
+    setValue(input);
+  }
+
+  function handleConfirm(e) {
+    const input = e.target.value;
+    setOldPassword(input);
+  }
+
+  useEffect(() => {
+    if (invalidPassword === "Incorrect") {
+      Swal.fire({
+        title: "Error",
+        text: "Contraseña Incorrecta",
+        icon: "error",
+      });
+      //clean status:
+      dispatch(userCleanMsgInfo());
+      setState({ open: false });
     }
+  }, [invalidPassword]);
 
-    const modalStyles = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
+  useEffect(() => {
+    if (invalidPassword === "Correct") {
+      Swal.fire({
+        title: "Completado",
+        text: "Informacion Actualizada",
+        icon: "success",
+      });
     }
+    dispatch(userCleanMsgInfo());
+    setState({ open: false });
+  }, [user1]);
 
-    function handleChange(e) {
-        const input = e.target.value
-        setValue(input)
+  function sendData(e) {
+    if (property === "username") {
+      dispatch(modifyUser(user.id, { [property]: value }));
+      Swal.fire({
+        title: "Completado",
+        text: "Nombre de Usuario modificado",
+        icon: "success",
+      });
+      openModal();
     }
-
-    function handleConfirm(e) {
-        const input = e.target.value
-        setOldPassword(input)
+    if (property === "password") {
+      dispatch(
+        modifyUser(user.id, { verifyPassword: oldPassword, [property]: value })
+      );
     }
-
-    useEffect(() => {
-      if(invalidPassword === 'Incorrect') {
-        Swal.fire({
-            title: 'Error',
-            text: 'Contraseña Incorrecta',
-            icon: 'error',
-          });
-        //clean status:
-        dispatch(userCleanMsgInfo())
-        setState({ open: false })
-    }
-    }, [invalidPassword])
-    
-    useEffect(() => {
-        if(invalidPassword === 'Correct'){
-        Swal.fire({
-            title: 'Completado',
-            text: 'Informacion Actualizada',
-            icon: 'success',
-          });
-        }
-        dispatch(userCleanMsgInfo())
-        setState({ open: false })
-
-    }, [user1])
-    
-
-    function sendData(e) {
-        
-        if (property === 'username'){
-            dispatch(modifyUser(user.id, { [property]: value }))
-            Swal.fire({
-                title: 'Completado',
-                text: 'Nombre de Usuario modificado',
-                icon: 'success',
-              });
-            openModal()
-        }
-        if (property === 'password'){
-            dispatch(modifyUser(user.id, { verifyPassword: oldPassword, [property]: value }))
-
-        }
-    }
+  }
 
 
     return (
