@@ -90,44 +90,24 @@ userRoute.delete("/", async (req, res, next) => {
     next(error);
   }
 });
-// [tokenValidations.checkToken, tokenValidations.checkAdmin]
-// userRoute.post("/", async (req, res, next) => {
-//     const { password, username, email } = req.body;
-//     try {
-//       const [newUser, created] = await User.findOrCreate({
-//         where: { password, username, email },
-//         include: Rol,
-//       });
-//       if (created) {
-//         newUser.setRol("user");
-//         newUser.setStatus("active");
-//         res.json(newUser).send({ msg: "User Created!" });
-//       } else {
-//         res.status(400).json({ msg: "user alredy exists" });
-//       }
-//     } catch (error) {
-//       next(error);
+
+// userRoute.delete("/", async (req, res, next) => {
+//   try {
+//     const id = req.query.id;
+
+//     if (!id) return res.send({ err: "error" });
+
+//     const userDeleted = await User.findByPk(id);
+//     if (userDeleted) {
+//       User.destroy({ where: { id } });
+//       res.json({ msg: "user removed" });
+//     } else {
+//       return res.status(400).send({ msg: "user does not exist" });
 //     }
+//   } catch (error) {
+//     next(error);
 //   }
-// );
-
-userRoute.delete("/", async (req, res, next) => {
-  try {
-    const id = req.query.id;
-
-    if (!id) return res.send({ err: "error" });
-
-    const userDeleted = await User.findByPk(id);
-    if (userDeleted) {
-      User.destroy({ where: { id } });
-      res.json({ msg: "user removed" });
-    } else {
-      return res.status(400).send({ msg: "user does not exist" });
-    }
-  } catch (error) {
-    next(error);
-  }
-});
+// });
 
 /// ////////////////////Routes Modify Profile//////////////////////////////////////////
 

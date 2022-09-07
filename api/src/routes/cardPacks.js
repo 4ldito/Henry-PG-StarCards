@@ -32,28 +32,32 @@ packsRoute.get("/:status", async (req, res, next) => {
 packsRoute.post('/', async(req,res,next)=>{
   const {name, amount, price, stock, race, cards, image} = req.body;
   try {
+    console.log(req.body)
     if (name) {
       const ispack = await CardPacks.findOne({where: {name}});
+      
       if (ispack) {
-        return res.status(404).send('no exist')
+        return res.status(404).send('pack exist!!!')
       }
       if(!ispack){
         const newpack = await CardPacks.findOrCreate(
           {where:{
-          name,
-          amount,
-          price,
-          stock,
-          race,
+          name: 'fjhjni',
+          amount: 1,
+          price: 1,
+          stock: 2,
+          race: 'Protoss',
           image,
-          cards
+          cards: [['ib']]
         }});
+        // newpack.setStatus("active")
         return res.status(201).send(newpack)
       }
       return res.status(404).send('name exist');
     }
     
   } catch (error) {
+    console.log(error.message)
     return next(error);
   }
 })
