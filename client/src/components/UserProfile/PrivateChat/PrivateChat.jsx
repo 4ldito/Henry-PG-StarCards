@@ -202,27 +202,29 @@ const PrivateChat = ({ selected }) => {
     <div className={css.containerTo}>
       <div className={css.chatUsers}>
         <div className={css.containerChatsUsers}>
-          {chatUsers?.length
-            ? chatUsers.map((c, i) => {
-                return (
-                  <div
-                    key={i}
-                    id={c.id}
-                    onClick={() => handleChatSelect(c)}
-                    className={css.singleChatUser}
-                  >
-                    {c.username}
-                    {actualChatUser && actualChatUser.id === c.id
-                      ? ""
-                      : readMsgs(c) === undefined
-                      ? "New"
-                      : readMsgs(c) < unreadMsgs(c)
-                      ? `${unreadMsgs(c) - readMsgs(c)}`
-                      : ""}
-                  </div>
-                );
-              })
-            : "No chats"}
+          {chatUsers?.length ? (
+            chatUsers.map((c, i) => {
+              return (
+                <div
+                  key={i}
+                  id={c.id}
+                  onClick={() => handleChatSelect(c)}
+                  className={css.singleChatUser}
+                >
+                  {c.username}
+                  {actualChatUser && actualChatUser.id === c.id
+                    ? ""
+                    : readMsgs(c) === undefined
+                    ? "New"
+                    : readMsgs(c) < unreadMsgs(c)
+                    ? `${unreadMsgs(c) - readMsgs(c)}`
+                    : ""}
+                </div>
+              );
+            })
+          ) : (
+            <div className={css.noChats}>No chats</div>
+          )}
         </div>
       </div>
       <div className={css.chatContainer}>
@@ -264,7 +266,7 @@ const PrivateChat = ({ selected }) => {
             </form>
           ) : (
             <div className={css.selectAChat}>
-              <span>Select a chat</span> 
+              <span>Select a chat</span>
             </div>
           )}
         </div>

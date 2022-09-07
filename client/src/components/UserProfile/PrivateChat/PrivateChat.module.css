@@ -212,3 +212,14 @@
   width: 100%;
   height: 100%;
 }
+
+.noChats{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 2rem;
+  
+  width: 100%;
+  height: 100%;
+}
