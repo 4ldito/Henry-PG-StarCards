@@ -11,7 +11,7 @@ const { zergCards, terranCards, protossCards } = require("./src/seeders/cards");
 
 const { User, Rol, StarsPack, Card, CardPacks, Status, UserCards } = db;
 
-const forceFlag = false; 
+const forceFlag = false;
 
 const PORT = process.env.PORT !== undefined ? process.env.PORT : 3001;
 
@@ -78,13 +78,11 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
     );
 
     const cards = await createAllCards();
-    const cardsStatus = cards.map(
-      async (card) => card.setStatus("active")
-    );
+    const cardsStatus = cards.map(async (card) => card.setStatus("active"));
 
     const starsPacks = await createAllStarPacks();
-    const starsPacksStatus = starsPacks.map(
-      async (starPack) => starPack.setStatus("active")
+    const starsPacksStatus = starsPacks.map(async (starPack) =>
+      starPack.setStatus("active")
     );
 
     const superadmins = await createAllUsers();
@@ -111,7 +109,7 @@ db.sequelize.sync({ force: forceFlag }).then(async () => {
       Promise.all(cardsStatus),
       Promise.all(userSuperadmin),
       Promise.all(adminCards),
-      Promise.all(starsPacksStatus)
+      Promise.all(starsPacksStatus),
     ]);
   }
 
