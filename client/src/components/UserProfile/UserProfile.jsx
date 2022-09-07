@@ -17,6 +17,8 @@ import Inventory from "./Inventory/Inventory";
 import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
 import PrivateChat from "./PrivateChat/PrivateChat";
 
+import getAllCards from "../../redux/actions/cards/getAllCards";
+
 import Friends from "./Friends/Friends";
 import Stats from "./Stats/Stats";
 export default function UserProfile() {
@@ -46,7 +48,7 @@ export default function UserProfile() {
   useEffect(() => {
     dispatch(getUserDecks(activeUser.id));
     dispatch(getUser(activeUser.id));
-    // dispatch(getAllCards());
+    dispatch(getAllCards());
     // dispatch(getUserFriends(activeUser.id));
   }, []);
 
@@ -127,21 +129,21 @@ export default function UserProfile() {
             <button
               className={style.buttons}
               value="Chat"
-              onClick={(e) => { changeRender(e), handleClick(e) }}
-            >
-              Chat
-            </button>
-            <button
-              className={style.buttons}
-              value="Friends"
-              onClick={(e) => { changeRender(e), handleClick(e) }}
-            >
-              Friends
-            </button>
-            <Link className={style.stars} to="/shop">
-              <FaShoppingCart size={28} />
-              Stars: {user.stars}
-            </Link>
+          onClick={(e) => {changeRender(e), handleClick(e)}}
+        >
+          Chat
+        </button>
+        <button
+          className={style.buttons}
+          value="Friends"
+          onClick={(e) => {changeRender(e), handleClick(e)}}
+        >
+          Friends
+        </button>
+        <Link className={style.stars} to="/shop">
+          <FaShoppingCart size={28} />
+          Stars: {user.stars}
+        </Link>
           </section>
         </div>
       </div>

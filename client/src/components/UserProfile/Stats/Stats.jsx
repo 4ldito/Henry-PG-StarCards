@@ -78,9 +78,9 @@ const Stats = () => {
         <div className={style.race} />
         <span>TOTAL</span>
 
-        <div className={style.seccion}><strong>WINS:</strong><span className={style.span}> 54</span></div>
-        <div className={style.seccion}><strong>LOSES:</strong><span className={style.span}> 54</span></div>
-        <div className={style.seccion}><strong>TIES:</strong><span className={style.span}> 54</span></div>
+        <div className={style.seccion}><strong>WINS: </strong><span className={style.span}>{infoGames.total.wins}</span></div>
+        <div className={style.seccion}><strong>LOSES: </strong><span className={style.span}>{infoGames.total.loses}</span></div>
+        <div className={style.seccion}><strong>TIES: </strong><span className={style.span}>{infoGames.total.ties}</span></div>
       </div>
     </div>
   );
