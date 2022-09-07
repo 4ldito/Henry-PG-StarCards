@@ -197,11 +197,11 @@ io.on("connection", (socket) => {
     try {
       let [p1, p2] = [],
         [p1Socket, p2Socket] = [],
-        [p1Deck, p2Deck] = [];
+        [p1Deck, p2Deck] = [{}, {}];
 
       const newPlayer = await User.findOne({
         where: { id: playerId },
-        attributes: ["id", "onGame", "defaultDeck"],
+        attributes: ["id", "username", "onGame", "defaultDeck"],
       });
 
       if (!newPlayer.onGame) {
@@ -237,19 +237,27 @@ io.on("connection", (socket) => {
             Promise.all(p2DeckC.UserCards.map((c) => Card.findByPk(c.CardId))),
           ]);
 
-          [p1Deck, p2Deck] = [
+          [p1Deck.id, p2Deck.id] = [p1DeckC.id, p2DeckC.id];
+          [p1Deck.userId, p2Deck.userId] = [p1.id, p2.id];
+
+          [p1Deck.cards, p2Deck.cards] = [
             p1DeckP.map((c) => c.dataValues),
             p2DeckP.map((c) => c.dataValues),
           ];
 
-          console.log(p1Deck);
-          console.log(p2Deck);
-
           function gameExe(p1Deck, p2Deck) {
             return new Promise((resolve, reject) => {
               const gameInfo = gameFunction(p1Deck, p2Deck);
-              gameInfo.player1 = { userId: p1.id, race: p1Deck[0].race };
-              gameInfo.player2 = { userId: p2.id, race: p2Deck[0].race };
+              gameInfo.player1 = {
+                userId: p1.id,
+                username: p1.username,
+                race: p1Deck.cards[0].race,
+              };
+              gameInfo.player2 = {
+                userId: p2.id,
+                username: p2.username,
+                race: p2Deck.cards[0].race,
+              };
               resolve(gameInfo);
             });
           }
