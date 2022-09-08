@@ -49,7 +49,8 @@ cardsRoute.post("/", async(req,res, next)=>{
       cost,
       movement,
       image
-    }) 
+    });
+    newCard.setStatus("active");
     return res.status(201).send(newCard);
   } catch (error) {
     return next(error)

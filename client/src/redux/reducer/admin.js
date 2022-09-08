@@ -3,17 +3,26 @@ import {
   CLEAN_CREATE_PACK_CARDS,
   CREATE_PACK_CARDS,
 } from "../actions/admin/cardPacksMod";
+import {
+  CLEAN_CREATE_CARDS,
+  CREATE_CARDS
+} from '../actions/cards/createCards';
 
 const initialState = {
   allUsers: [],
   filteredUsers: [],
   packCard: {},
+  card: {}
 };
 
 export default function filterUsers(state = initialState, { type, payload }) {
   switch (type) {
     case GET_ALL_USERS:
       return { ...state, allUsers: payload, filteredUsers: payload };
+    case CREATE_CARDS:
+      return {...state, card: payload};
+    case CLEAN_CREATE_CARDS:
+      return {...state, card: {}};
     case CREATE_PACK_CARDS:
       return { ...state, packCard: payload };
     case CLEAN_CREATE_PACK_CARDS:

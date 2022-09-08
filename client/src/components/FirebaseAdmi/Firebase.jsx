@@ -63,7 +63,6 @@ function Firebase() {
         <button>new Card</button>
       </form>*/
     //packs xD
-
     <form onSubmit={handleSubmitPack}>
       <input
         type="text"

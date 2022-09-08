@@ -1,19 +1,20 @@
 import axios from 'axios';
 
-export const CREATE_CARDS_ADMIN = 'CREATE_CARDS_ADMIN';
+//export const CREATE_CARDS_ADMIN = 'CREATE_CARDS_ADMIN';
+export const CREATE_CARDS='CREATE_CARDS', CLEAN_CREATE_CARDS='CLEAN_CREATE_CARDS';
 
-export default function createCardsAdmin(payload){
-    return async()=>{
-        try {
-            const createCard = await axios.post(
-                'http://localhost:3001/cards/',
-                payload
-            );
-            console.log('created');
-            return createCard;
-        } catch (error) {
-            alert('action error');
-            console.log(error)
-        }
+
+export function createCardsAdmin(payload){
+    return async function (dispatch) {
+        const response = await axios.post('cards', payload);
+        dispatch({ type: CREATE_CARDS, payload: response.data })
     }
 }
+
+export function cleanCreateCardsAdmin(){
+    return async function (dispatch) {
+        dispatch({ type: CLEAN_CREATE_CARDS })
+    }
+}
+
+
