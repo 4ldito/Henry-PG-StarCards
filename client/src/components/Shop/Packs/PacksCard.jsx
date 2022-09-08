@@ -11,7 +11,9 @@ import Pack from "./Pack";
 
 const PacksCard = ({ pack, type }) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(pack.stock <= 0 && type === 'cardsPack' ? 0 : 1);
+  const [quantity, setQuantity] = useState(
+    pack.stock <= 0 && type === "cardsPack" ? 0 : 1
+  );
 
   const user = useSelector((state) => state.userReducer.user);
 
@@ -34,6 +36,9 @@ const PacksCard = ({ pack, type }) => {
 
     if (checkStock(quantity)) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "No stock available =(",
         icon: "error",
@@ -42,6 +47,9 @@ const PacksCard = ({ pack, type }) => {
 
     if (!user.id) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "Sign in first to buy",
         icon: "error",
@@ -50,6 +58,9 @@ const PacksCard = ({ pack, type }) => {
 
     if (checkStock(quantity)) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "No stock available =(",
         icon: "error",
@@ -57,11 +68,16 @@ const PacksCard = ({ pack, type }) => {
     }
 
     Swal.fire({
-      title: `Confrimar`,
-      text: `Are you sure you want to buy ${pack.quantity} ${pack.name
-        } for ${pack.price * pack.quantity} stars?`,
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
+      icon: "question",
+      title: `Confirm`,
+      text: `Are you sure you want to buy ${pack.quantity} ${pack.name} for ${
+        pack.price * pack.quantity
+      } stars?`,
       showCancelButton: true,
-      confirmButtonText: "Comprar",
+      confirmButtonText: "Buy",
     }).then(({ isConfirmed }) => {
       if (isConfirmed) {
         dispatch(buyCardPack(info, user.id));
@@ -84,6 +100,9 @@ const PacksCard = ({ pack, type }) => {
 
     if (checkStock(totalQuantity)) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "No hay stock disponible =(",
         icon: "error",
@@ -91,6 +110,9 @@ const PacksCard = ({ pack, type }) => {
     }
 
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: `Shopcart`,
       text: `You added ${quantity} of ${pack.name} successfully to the cart`,
       icon: "success",
@@ -103,6 +125,9 @@ const PacksCard = ({ pack, type }) => {
     const userId = user.id;
     if (!userId) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "Sign in to add to favorites.",
         icon: "error",
@@ -116,7 +141,12 @@ const PacksCard = ({ pack, type }) => {
     return (
       <>
         {/* {pack.stock > 0 && ( */}
-        <div className={css.containerPack} name={pack.name} id={pack.id} key={pack.id}>
+        <div
+          className={css.containerPack}
+          name={pack.name}
+          id={pack.id}
+          key={pack.id}
+        >
           {/* <div className={style.pack}> */}
           <Pack
             pack={pack}
@@ -135,8 +165,15 @@ const PacksCard = ({ pack, type }) => {
 
           <div className={css.containerBtn}>
             {/* Crear funcion para el "BUY NOW" */}
-            <button className={pack.stock > 0 ? css.buyNow : `${css.buyNow} ${style.withoutStock}`} onClick={handleBuyNow}>
-              {pack.stock > 0 ? "BUY NOW" : 'SOLD OUT'}
+            <button
+              className={
+                pack.stock > 0
+                  ? css.buyNow
+                  : `${css.buyNow} ${style.withoutStock}`
+              }
+              onClick={handleBuyNow}
+            >
+              {pack.stock > 0 ? "BUY NOW" : "SOLD OUT"}
             </button>
             <button
               className={`${css.btn} ${css.btnAddToCart}`}
@@ -145,7 +182,15 @@ const PacksCard = ({ pack, type }) => {
           </div>
 
           <div className={css.containerQuantity}>
-            <span className={pack.stock > 0 ? style.stock : `${style.stock} ${style.withoutStock} ${style.withoutStockText}`}>STOCK : {pack.stock}</span>
+            <span
+              className={
+                pack.stock > 0
+                  ? style.stock
+                  : `${style.stock} ${style.withoutStock} ${style.withoutStockText}`
+              }
+            >
+              STOCK : {pack.stock}
+            </span>
             <button className={css.btnMinus} onClick={decreaseQuantity} />
             <span>{quantity}</span>
             <button className={css.btnMore} onClick={increaseQuantity} />
@@ -166,7 +211,11 @@ const PacksCard = ({ pack, type }) => {
         key={pack.id}
       >
         <img src={pack.image} alt="Pack" />
-        <h3 className={pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange}>
+        <h3
+          className={
+            pack.stars <= 2500 ? style.starsTextBlue : style.starsTextOrange
+          }
+        >
           {pack.stars} Stars
         </h3>
         <div className={style.priceDiv}>
@@ -179,7 +228,10 @@ const PacksCard = ({ pack, type }) => {
           <span>{quantity}</span>
           <button className={style.btnMore} onClick={increaseQuantity} />
         </div>
-        <button className={`${style.btn} ${style.btnAddToCart}`} onClick={handleAddItem} />
+        <button
+          className={`${style.btn} ${style.btnAddToCart}`}
+          onClick={handleAddItem}
+        />
       </div>
     </div>
   );

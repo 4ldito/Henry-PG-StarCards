@@ -42,8 +42,11 @@ const ListUsers = () => {
       : (dispatch(modifyUser(user.id, { RolId: "superadmin" }, true)),
         (rol = "superadmin"));
     Swal.fire({
-      title: "Rol Modificado",
-      text: `${user.username} es ahora un ${rol}`,
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
+      title: "Rol Modify",
+      text: `${user.username} is now a ${rol}`,
       icon: "success",
     });
     setUsers(true);
@@ -53,8 +56,11 @@ const ListUsers = () => {
     e.preventDefault();
     dispatch(modifyUser(user.id, { password: "starcards2022" }, true));
     Swal.fire({
-      title: "Contraseña Restablecida",
-      text: "La nueva Contraseña es: starcards2022",
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
+      title: "Password Reset",
+      text: "The new password is: starcards2022",
       icon: "success",
     });
     setUsers(true);
@@ -63,8 +69,11 @@ const ListUsers = () => {
   function deleteAccount(e, user) {
     dispatch(deleteUser(user.id, true));
     Swal.fire({
-      title: "Borrado",
-      text: "Usuario Borrado",
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
+      title: "Erased",
+      text: "User Erased",
       icon: "success",
     });
     setUsers(true);
@@ -82,8 +91,6 @@ const ListUsers = () => {
                 <span className={style.userTitle}>User</span>
                 <span className={style.statusTitle}>Status</span>
                 <span className={style.rolTitle}>Rol</span>
-                <span className={style.span} />
-                <span className={style.span} />
               </div>
               {allUsers.map((u) => (
                 <div className={style.row} key={u.id}>
@@ -122,7 +129,7 @@ const ListUsers = () => {
                       className={style.btnReset}
                       onClick={(e) => resetPassword(e, u)}
                     >
-                      Reset password 🔄
+                      Reset Password 🔄
                     </button>
                   }
                   {
@@ -130,7 +137,7 @@ const ListUsers = () => {
                       className={style.btnDelete}
                       onClick={(e) => deleteAccount(e, u)}
                     >
-                      Delete account
+                      Delete Account
                     </button>
                   }
                 </div>

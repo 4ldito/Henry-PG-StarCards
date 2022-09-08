@@ -17,7 +17,7 @@ function SelectedDeck({ deck, userId }) {
           dispatch(setActiveDeck(deck, userId));
         }}
       >
-        Usar
+        Select
       </button>
     </div>
   );

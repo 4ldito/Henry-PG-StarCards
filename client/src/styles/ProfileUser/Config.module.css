@@ -62,6 +62,15 @@
 
 .userSpan{
   font-size:1.5rem;
+  cursor: pointer;
+}
+.userSpans{
+  cursor: pointer;
+}
+
+.btnprofile{
+  background: linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% );
+  color: white;
 }
 
 .mail {

@@ -56,6 +56,9 @@ export default function Registro() {
         navigate(`/userProfile?username=${user.username}`);
       else {
         Swal.fire({
+          background:
+            "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+          color: "white",
           title: msgInfo.title,
           text: msgInfo.text,
           icon: msgInfo.type,
@@ -81,6 +84,9 @@ export default function Registro() {
       dispatch(sendMail({ email: input.email }));
       dispatch(changeModal(true));
       Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Token",
         text: "The code has been sent to the e-mail address entered.",
         icon: "success",

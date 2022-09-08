@@ -27,7 +27,7 @@ const Packs = ({ type }) => {
             })
           ) : (
             <div className={css.notFound}>
-              No favorites <br /> 💔
+              No Favorites <br /> 💔
             </div>
           )}
         </div>

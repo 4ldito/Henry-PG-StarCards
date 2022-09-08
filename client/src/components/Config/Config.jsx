@@ -9,10 +9,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { GiTrashCan } from "react-icons/gi";
 import Swal from "sweetalert2";
 import VerifyMail from "../Mail/VerifyMail";
-import {
-  changeModal,
-  successAction,
-} from "../../redux/actions/sendMail";
+import { changeModal, successAction } from "../../redux/actions/sendMail";
 import TransactionsUser from "./TransactionsUser";
 
 export default function Config({ user }) {
@@ -20,11 +17,16 @@ export default function Config({ user }) {
   const navigateTo = useNavigate();
   const email1 = useRef(null);
   const modal = useSelector((state) => state.sendMailReducer.modal);
-  const successAction1 = useSelector((state) => state.sendMailReducer.successAction);
+  const successAction1 = useSelector(
+    (state) => state.sendMailReducer.successAction
+  );
   const [input, setInput] = useState(true);
 
   function deleteAccount() {
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: `Confirm`,
       text: `Are you sure you want to delete your account? This action is permanently`,
       showCancelButton: true,
@@ -34,6 +36,9 @@ export default function Config({ user }) {
         dispatch(deleteUser(user.id));
         dispatch(userClean());
         Swal.fire({
+          background:
+            "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+          color: "white",
           title: "Removed",
           text: "User Removed",
           icon: "success",
@@ -76,11 +81,11 @@ export default function Config({ user }) {
           <input
             type="email"
             name="email"
-            placeholder="Ingrese nuevo email..."
+            placeholder="Enter new Email..."
             ref={email1}
           />
           <button className={css.button} type="submit">
-            Confirmar
+            Confirm
           </button>
           <button onClick={(e) => closed(e)}>X</button>
         </form>
@@ -111,9 +116,10 @@ export default function Config({ user }) {
           <div className={css.configUser}>
             {input ? (
               <>
-                <span className={css.userSpan}>MAIL : {user.email}</span>
-                <span onClick={modifyMail}>
-                  Edit <FaRegEdit size={30} />
+                <span className={css.userSpan}>EMAIL : {user.email}</span>
+                <span className={css.userSpans} onClick={modifyMail}>
+                  Edit
+                  <FaRegEdit size={30} />
                 </span>
               </>
             ) : (
@@ -123,8 +129,8 @@ export default function Config({ user }) {
 
           <div className={css.configUser}>
             <span className={css.userSpan}>DELETE ACCOUNT</span>
-            <span onClick={deleteAccount}>
-              Delete <GiTrashCan size={30}/>
+            <span className={css.userSpans} onClick={deleteAccount}>
+              Delete <GiTrashCan size={30} />
             </span>
           </div>
         </div>

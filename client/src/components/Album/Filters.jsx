@@ -131,6 +131,14 @@ export default function Filters() {
         <option value="ascendentlife">By ascending Life</option>
         <option value="descendentlife">By descending Life</option>
       </select>
+
+      <button
+        id="clearFilters"
+        onClick={clearFilters}
+        className={css.btnClearFilter}
+      >
+        Clear Filters
+      </button>
     </div>
   );
 }
