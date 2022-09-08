@@ -7,8 +7,9 @@ import {
   clearMsgMarketCards,
 } from "../../redux/actions/marketCards";
 import { removeForSale } from "./../../redux/actions/marketCards";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import Card from "./../Card/Card";
 
 import style from "./styles/ForSaleCards.module.css";
@@ -23,6 +24,9 @@ const ForSaleCards = () => {
     e.preventDefault();
     if (!user.id) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "You have to be logged to do buy.",
         icon: "error",
@@ -30,12 +34,18 @@ const ForSaleCards = () => {
     }
     if (user.stars < userCard.price) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "You dont have enough stars!",
         icon: "error",
       });
     }
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: `Confirm`,
       text: `Are you sure you want to buy ${userCard.Card.name} from ${userCard.User.username} for ${userCard.price} stars?`,
       showCancelButton: true,
@@ -50,6 +60,9 @@ const ForSaleCards = () => {
   const handleRemoveForSale = (e, userCard) => {
     e.preventDefault();
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: `Confirm`,
       text: `Are you sure you want to remove ${userCard.Card.name} for ${userCard.price} Stars?`,
       showCancelButton: true,
@@ -73,6 +86,9 @@ const ForSaleCards = () => {
     if (msg.type) {
       dispatch(clearMsgMarketCards());
       Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: msg.title,
         text: msg.info,
         icon: msg.type,
@@ -139,7 +155,9 @@ const ForSaleCards = () => {
                 Remove for sale
               </button>
             )}
-            <center className={style.owner}>Owner: {userCard.User.username}</center>
+            <center className={style.owner}>
+              Owner: {userCard.User.username}
+            </center>
           </div>
         );
       })}

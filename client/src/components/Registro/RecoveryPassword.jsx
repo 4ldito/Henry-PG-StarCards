@@ -37,12 +37,6 @@ export default function RecoverPassword() {
       dispatch(changeModal(true));
       dispatch(renderVerifyRegister());
 
-      // Swal.fire({
-      //   title: 'Completado',
-      //   text: 'La contraseña fue cambiada con exito',
-      //   icon: 'success',
-      // });
-      // navigateTo('/login')
       dispatch(successAction());
     }
   }, [modal]);
@@ -52,6 +46,9 @@ export default function RecoverPassword() {
       if (user.username !== input.username) {
         dispatch(changeModal(false));
         Swal.fire({
+          background:
+            "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+          color: "white",
           title: "error",
           text: "Las credenciales no coinciden",
           icon: "error",
@@ -63,6 +60,9 @@ export default function RecoverPassword() {
         dispatch(sendMail({ email: input.email }));
         setUserPass(user);
         Swal.fire({
+          background:
+            "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+          color: "white",
           title: "Token",
           text: "Se envio Token al Mail ingresado",
           icon: "success",
@@ -75,6 +75,9 @@ export default function RecoverPassword() {
       }
     } else if (!user.email && validUser) {
       Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "error",
         text: "No se encontro usuario",
         icon: "error",

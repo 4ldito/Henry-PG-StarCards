@@ -20,23 +20,35 @@ export default function renderAdmin() {
   return (
     <div className={css.container}>
       <div className={css.secciones}>
-        <button className={css.btnSeccionActive} value="ListUsers" onClick={(e) => changeRender(e)}>
+        <button
+          className={css.btnSeccionActive}
+          value="ListUsers"
+          onClick={(e) => changeRender(e)}
+        >
           ListUsers
         </button>
 
-        <button className={css.btnSeccion} value="Transactions" onClick={(e) => changeRender(e)}>
+        <button
+          className={css.btnSeccion}
+          value="Transactions"
+          onClick={(e) => changeRender(e)}
+        >
           Transactions
         </button>
 
-        <button className={css.btnSeccion} value="CreatePacks" onClick={(e) => changeRender(e)}>
+        <button
+          className={css.btnSeccion}
+          value="CreatePacks"
+          onClick={(e) => changeRender(e)}
+        >
           CreatePacks
         </button>
 
-        <button className={css.btnSeccion} value="CreateCards" onClick={(e) => changeRender(e)}>
-          CreateCards
-        </button>
-
-        <button className={css.btnSeccion} value="Store" onClick={(e) => changeRender(e)}>
+        <button
+          className={css.btnSeccion}
+          value="Store"
+          onClick={(e) => changeRender(e)}
+        >
           Store
         </button>
       </div>

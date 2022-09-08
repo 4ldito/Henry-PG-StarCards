@@ -48,6 +48,9 @@ export default function Login() {
         });
       } else {
         Swal.fire({
+          background:
+            "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+          color: "white",
           title: msgInfo.title,
           text: msgInfo.text,
           icon: msgInfo.type,

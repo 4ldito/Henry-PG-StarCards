@@ -34,6 +34,9 @@ function CreatePacks() {
   useEffect(() => {
     if (Object.keys(packCard).length !== 0) {
       Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "PackCard Created!",
         text: "Created successful",
         icon: "success",
@@ -136,11 +139,17 @@ function CreatePacks() {
       } else {
         errors
           ? Swal.fire({
+              background:
+                "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+              color: "white",
               title: "Error!",
               text: "Enter a valid name",
               icon: "error",
             })
           : Swal.fire({
+              background:
+                "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+              color: "white",
               title: "Error!",
               text: "Complete all fields",
               icon: "error",

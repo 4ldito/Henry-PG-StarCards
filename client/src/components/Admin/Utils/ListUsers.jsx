@@ -42,6 +42,9 @@ const ListUsers = () => {
       : (dispatch(modifyUser(user.id, { RolId: "superadmin" }, true)),
         (rol = "superadmin"));
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: "Rol Modificado",
       text: `${user.username} es ahora un ${rol}`,
       icon: "success",
@@ -53,6 +56,9 @@ const ListUsers = () => {
     e.preventDefault();
     dispatch(modifyUser(user.id, { password: "starcards2022" }, true));
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: "Contraseña Restablecida",
       text: "La nueva Contraseña es: starcards2022",
       icon: "success",
@@ -63,6 +69,9 @@ const ListUsers = () => {
   function deleteAccount(e, user) {
     dispatch(deleteUser(user.id, true));
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: "Borrado",
       text: "Usuario Borrado",
       icon: "success",

@@ -36,6 +36,9 @@ const ShopCart = ({ handleSeeShopcart }) => {
     if (msgInfoPurchase.type) {
       dispatch(shopCartCleanMsgInfo());
       Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: msgInfoPurchase.title,
         text: msgInfoPurchase.info,
         icon: msgInfoPurchase.type,
@@ -71,6 +74,9 @@ const ShopCart = ({ handleSeeShopcart }) => {
     e.preventDefault();
     if (item.quantity === 1) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "You can't lower the quantity to 0.",
         icon: "error",
@@ -99,6 +105,9 @@ const ShopCart = ({ handleSeeShopcart }) => {
     e.preventDefault();
     if (item.quantity === item.stock) {
       return Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Error!",
         text: "Not enough stock!",
         icon: "error",
