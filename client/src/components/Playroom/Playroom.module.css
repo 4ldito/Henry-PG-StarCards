@@ -1,14 +1,62 @@
+.pageContainer {
+  display: flex;
+  flex-direction: row;
+}
+
 .container {
-  background-color: var(--container-background-main-darker);
-  border-radius: 20px;
-  border: 2px solid white;
-  height: 66vh;
-  margin: 6rem;
+  height: 75vh;
+  width: 25vw;
+  margin-top: 6rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
   color: white;
-  padding: 4rem 2rem;
+  /* padding: 4rem 2rem; */
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.infoContainer {
+  /* padding: 2%; */
+  height: 68vh;
+  background-image: url(../../img/album-card-container.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.containerBtn {
   display: flex;
   justify-content: space-evenly;
-  text-align: center;
+  width: 25vw;
+}
+
+.buttons {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button.svg);
+  background-size: cover;
+
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  width: 126px;
+  height: 45px;
+}
+
+.buttonsActive {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.svg);
+  background-size: cover;
+
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  width: 126px;
+  height: 45px;
 }
 
 .containerHello {
@@ -44,4 +92,196 @@
 
 .hideChat {
   transform: scale(0);
+}
+
+.gameContainer {
+  height: 75vh;
+  margin-top: 6rem;
+  width: 64.5vw;
+  background-image: url(../../img/gameBG1.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 30%;
+  font-size: 2rem;
+}
+
+.disabledButton {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../img/button.svg);
+  background-size: cover;
+  width: 200px;
+  height: 71px;
+  color: white;
+}
+
+.playButton {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.svg);
+  background-size: cover;
+  width: 200px;
+  height: 71px;
+  color: rgb(0, 0, 0);
+}
+
+.selectButton {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../img/button.svg);
+  background-size: cover;
+  width: 200px;
+  height: 71px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.historyContainer {
+  font-size: 1.2rem;
+  padding-top: 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.historyTitle {
+  font-size: 1.5rem;
+}
+
+.historyItem {
+  /* border-radius: 10px; */
+  width: 95%;
+  /* outline: 2px solid rgba(0, 0, 0, 0.583); */
+  background-color: rgba(179, 179, 179, 0.401);
+  margin-bottom: 1.5%;
+  margin-top: 1.5%;
+  cursor: pointer;
+}
+.historyItemD {
+  /* border-radius: 10px; */
+  width: 95%;
+  /* outline: 2px solid rgba(0, 0, 0, 0.583); */
+  background-color: rgba(0, 0, 0, 0.401);
+  margin-bottom: 1.5%;
+  margin-top: 1.5%;
+}
+
+.history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-y: auto;
+  height: 61vh;
+}
+.history::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 30%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  width: 20px;
+}
+
+.history::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}
+
+.battleContainer {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../img/battleContainer.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  height: 700px;
+  width: 1091px;
+  margin-top: 6rem;
+  margin-left: 6rem;
+  padding-top: 87px;
+  padding-bottom: 45px;
+  padding-left: 39px;
+  padding-right: 40px;
+
+  display: flex;
+  justify-content: center;
+
+  font-size: 2rem;
+  position: relative;
+}
+.battleZerg {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../img/battleZerg.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
+}
+
+.battleTerran {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../img/battleTerran.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
+}
+
+.battleProtoss {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../img/battleProtoss.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
+}
+
+.battleFinal {
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(../../img/battleFinal.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  width: 100%;
+  height: 100%;
+}
+
+.battleButtons {
+  position: absolute;
+  top: 20px;
+}
+
+.battleText {
+  color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.battleButton {
+  background-color: rgba(0, 0, 0, 0);
+  border-style: none;
+  color: rgb(255, 200, 0);
+  text-shadow: 0 0 1px rgb(255, 200, 0),0 0 1px rgb(255, 200, 0),0 0 1px rgb(255, 200, 0),0 0 1px rgb(255, 200, 0),0 0 1px rgb(255, 200, 0);
+}
+
+.close {
+  position: absolute;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  text-shadow: 0 0 2px black;
+  background-color: rgb(200, 33, 0);
+  width: 40px;
+  height: 40px;
+
+  top: 37px;
+  right: -10px;
 }

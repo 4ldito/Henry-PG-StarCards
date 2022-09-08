@@ -14,7 +14,7 @@ const Ranking = () => {
     dispatch(getRanking());
   }, []);
 
-  if (!usersRanking?.length) return <p>Loading..</p>;
+  if (!usersRanking?.length) return <p>Loading...</p>;
 
   return (
     <div className={style.container}>
@@ -32,7 +32,7 @@ const Ranking = () => {
             return (
               <div className={style.userContainer} key={u.id}>
                 <p>{i}</p>
-                <Link to={`/userProfile?username=${u.username}`}>
+                <Link to={`/userProfile?username=${u.username}`} className={style.link}>
                   {u.username}
                 </Link>
                 <p>{u.score}</p>

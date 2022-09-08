@@ -3,6 +3,7 @@ import useValidToken from "./../../hooks/useValidToken";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, getUserGames } from "../../redux/actions/user";
+import { useNavigate } from "react-router-dom";
 import socket from "../../../Socket";
 import GameView from "./Play/GameView";
 
@@ -12,7 +13,7 @@ import Ranking from "./Ranking";
 
 export default function Playroom() {
   useValidToken({ navigate: true });
-  const [openChat, setOpenChat] = useState(false);
+  const navigateTo = useNavigate();
   const userActiveGlobal = useSelector((state) => state.userReducer.user);
   const players = useSelector((state) => state.userReducer.players);
 
@@ -21,9 +22,7 @@ export default function Playroom() {
     dispatch(getUser(userActiveGlobal.id));
   }, []);
 
-  const handleChatOpen = () => {
-    setOpenChat((prev) => !prev);
-  };
+  const [tab, setTab] = useState("history");
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -59,7 +58,7 @@ export default function Playroom() {
   const divRef = useRef(null);
 
   useEffect(() => {
-    if (openChat) divRef.current.scrollIntoView({ behavior: "smooth" });
+    if (tab === "chat") divRef.current.scrollIntoView({ behavior: "smooth" });
   });
 
   const handleSubmit = (e) => {
@@ -112,80 +111,140 @@ export default function Playroom() {
     setGameView({ info: undefined, bool: false });
   }
 
-  // console.log(games.at(-1));
-
   return (
-    <>
+    <div className={css.pageContainer}>
       <div className={css.container}>
-        {gameView.bool ? (
-          <GameView info={gameView.info} close={handleGameViewClose} />
-        ) : (
-          <div>
-            <div>
+        <div className={css.infoContainer}>
+          {tab === "history" ? (
+            <div className={css.historyContainer}>
               {games.length !== 0 ? (
                 <>
-                  <span>Game history</span>
-                  {games.map((g, i) => {
-                    return (
-                      <div key={i} onClick={(e) => handleGameView(g)}>
-                        <div>
-                          <span>{g.info.player1.username}</span> vs{" "}
-                          <span>{g.info.player2.username}</span>
+                  <span className={css.historyTitle}>Game history</span>
+                  <div className={css.history}>
+                    {games.map((g, i) => {
+                      return (
+                        <div
+                          key={i}
+                          onClick={(e) => !gameView.bool && handleGameView(g)}
+                          className={
+                            gameView.bool ? css.historyItemD : css.historyItem
+                          }
+                        >
+                          <div>
+                            <span>{g.info.player1.username}</span> vs{" "}
+                            <span>{g.info.player2.username}</span>
+                          </div>
+                          <div>
+                            <span>{g.info.player1.race}</span> vs{" "}
+                            <span>{g.info.player2.race}</span>
+                          </div>
                         </div>
-                        <div>
-                          <span>{g.info.player1.race}</span> vs{" "}
-                          <span>{g.info.player2.race}</span>
-                        </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
                 </>
               ) : (
                 "No games played yet!"
               )}
             </div>
-            {onGame ? (
-              <button disabled>Queued...</button>
-            ) : (
-              <button onClick={handlePlay}>Play!</button>
-            )}
-          </div>
-        )}
-        <Ranking />
-      </div>
-      {
-        <div className={!openChat ? `${css.hideChat}` : ""}>
-          <div className={styleChat.container}>
-            <div className={styleChat.msgContainer}>
-              <p className={styleChat.msg}>
-                Welcome {userActive.username}! In this public chat you can talk
-                to other players from this community, solve doubts and have fun!
-                Remember: be respectful, avoid being penalized.
-              </p>
-              {messages.map((e, i) => (
-                <div key={i} className={styleChat.msg}>
-                  <span className={styleChat.msgUsername}>{e.username}:</span>{" "}
-                  {e.message}
-                </div>
-              ))}
-              <div ref={divRef}></div>
+          ) : (
+            <></>
+          )}
+
+          {tab === "ranking" ? <Ranking /> : <></>}
+
+          <div className={tab !== "chat" ? `${css.hideChat}` : ""}>
+            <div className={styleChat.container}>
+              <div className={styleChat.msgContainer}>
+                <p className={styleChat.msgIni}>
+                  Welcome {userActive.username}! In this public chat you can
+                  talk to other players from this community, solve doubts and
+                  have fun! Remember: be respectful, avoid being penalized.
+                </p>
+                {messages.map((e, i) => (
+                  <div key={i} className={styleChat.msg}>
+                    <span
+                      className={
+                        e.username === userActiveGlobal.username
+                          ? styleChat.ownMsg
+                          : styleChat.msgUsername
+                      }
+                    >
+                      {e.username}:
+                    </span>{" "}
+                    {e.message}
+                  </div>
+                ))}
+                <div ref={divRef}></div>
+              </div>
+              <form className={styleChat.formContainer} onSubmit={handleSubmit}>
+                <input
+                  placeholder="Write here..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className={styleChat.input}
+                />
+                {/* <button className={styleChat.btn}>Send</button> */}
+              </form>
             </div>
-            <form className={styleChat.formContainer} onSubmit={handleSubmit}>
-              <input
-                placeholder="Write here..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-              <button className={styleChat.btn}>Send</button>
-            </form>
           </div>
         </div>
-      }
-      <div className={css.containerBtn}>
-        <button onClick={handleChatOpen} className={css.btnChat}>
-          Public Chat
-        </button>
+
+        <div className={css.containerBtn}>
+          <button
+            onClick={() => setTab("history")}
+            className={
+              tab === "history" ? `${css.buttonsActive}` : `${css.buttons}`
+            }
+          >
+            History
+          </button>
+          <button
+            onClick={() => setTab("chat")}
+            className={
+              tab === "chat" ? `${css.buttonsActive}` : `${css.buttons}`
+            }
+          >
+            Chat
+          </button>
+          <button
+            onClick={() => setTab("ranking")}
+            className={
+              tab === "ranking" ? `${css.buttonsActive}` : `${css.buttons}`
+            }
+          >
+            Ranking
+          </button>
+        </div>
       </div>
-    </>
+      {gameView.bool ? (
+        <GameView
+          info={gameView.info}
+          close={handleGameViewClose}
+          className={css.gameContainer}
+        />
+      ) : (
+        <div className={css.gameContainer}>
+          {onGame ? (
+            <button disabled className={css.disabledButton}>
+              On queue...
+            </button>
+          ) : userActiveGlobal.defaultDeck ? (
+            <button onClick={handlePlay} className={css.playButton}>
+              Play!
+            </button>
+          ) : (
+            <button
+              className={css.selectButton}
+              onClick={() =>
+                navigateTo(`/userProfile?username=${userActiveGlobal.username}`)
+              }
+            >
+              Select a deck!
+            </button>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
