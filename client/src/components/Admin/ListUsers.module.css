@@ -4,7 +4,6 @@
 
   color: white;
 
-  background-color: rgb(182, 123, 45);
   width: 90%;
   height: 70vh;
   margin-top: 2rem;
@@ -15,7 +14,7 @@
   flex-direction: column;
 
   width: 100%;
-  height: 100%;
+  height: 70%;
 
   background: rgb(7, 109, 150);
   background: linear-gradient(
@@ -38,11 +37,16 @@
   height: 7vh;
 }
 
-.background {
-  display: flex;
-  background-color: white;
+.userTitle{
+  width: 10%;
+}
 
-  width: 40%;
+.statusTitle{
+  width: 12.3%;
+}
+
+.userTitle{
+  width: 10%;
 }
 
 .user {

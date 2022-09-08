@@ -79,9 +79,9 @@ const ListUsers = () => {
           {
             <div className={style.table}>
               <div className={style.row}>
-                <span className={style.user}>user</span>
-                <span className={style.status}>status</span>
-                <span className={style.rol}>rol</span>
+                <span className={style.userTitle}>user</span>
+                <span className={style.statusTitle}>status</span>
+                <span className={style.rolTitle}>rol</span>
               </div>
               {allUsers.map((u) => (
                 <div className={style.row} key={u.id}>
