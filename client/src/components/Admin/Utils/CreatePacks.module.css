@@ -1,3 +1,61 @@
-.container{
-    background-color: rgb(31, 63, 91);
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background: rgb(7, 109, 150);
+  background: linear-gradient(
+    137deg,
+    rgba(7, 109, 150, 1) 0%,
+    rgba(14, 8, 54, 1) 100%
+  );
+  color: white;
+  width: 400px;
+  margin-top: 2%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.input {
+  width: 60%;
+}
+
+.checkList {
+  text-align: start;
+  width: 20%;
+  margin-right: 38%;
+}
+
+.divProbabiliti{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    gap: .2rem;
+}
+
+.divProbabiliti div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.divProbabiliti section{
+    display: flex;
+    justify-content: end;
+}
+
+.probabilidad {
+  width: 20%;
+}
+
+.x {
+  border: none;
+  background-color: rgb(255, 20, 20);
+  color: white;
+  height: 25px;
 }
