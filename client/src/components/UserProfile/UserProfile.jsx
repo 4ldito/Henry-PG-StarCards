@@ -24,7 +24,7 @@ export default function UserProfile() {
   const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState("Inventory");
+  const [render, setRender] = useState();
   useValidToken({ navigate: true });
 
   // Read profile owner from url
@@ -120,12 +120,12 @@ export default function UserProfile() {
             >
               Friends
             </button>
-            <Link className={style.stars} to="/shop">
-              <FaShoppingCart size={28} />
-              Stars: {user.stars}
-            </Link>
           </section>
         </div>
+        <Link className={style.stars} to="/shop">
+          <FaShoppingCart size={28} />
+          Stars: {user.stars}
+        </Link>
       </div>
 
       {render === "Config" ? (
