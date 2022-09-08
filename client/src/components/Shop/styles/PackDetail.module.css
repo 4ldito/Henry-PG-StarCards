@@ -1,0 +1,275 @@
+/* @font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+}
+
+@font-face {
+  font-family: starcardsFont-fine;
+  src: url("../../../../css/EurostileNextLTPro-Light.otf");
+} */
+
+/* @import url('https://fonts.googleapis.com/css2?family=Qwitcher+Grypen&display=swap'); */
+
+.packDetail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 7vh;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+
+  width: 100%;
+  height: 93vh;
+}
+
+.background {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  position: relative;
+
+  background-image: url(../../../img/detail-container.svg);
+  background-size: cover;
+
+  width: 850px;
+  height: 550px;
+
+  padding: 68px 25px 36px 30px;
+}
+
+.titleDetail{
+  position: absolute;
+  top: 12px;
+  left: 295px;
+
+  font-size: 1.9rem;
+}
+
+.left {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  width: 330px;
+  height: 443px;
+
+  padding: 2%;
+}
+
+.image {
+  width: 272px;
+  height: 100%;
+}
+
+.fav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 25px;
+  left: 25px;
+
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/circle-15.svg);
+  border-radius: 15px;
+  border: none;
+  color: red;
+
+  width: 35px;
+  height: 35px;
+
+  padding-top: 3px;
+}
+
+.favNull {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 25px;
+  left: 25px;
+
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/circle-15.svg);
+  border-radius: 15px;
+  border: none;
+  color: white;
+
+  width: 35px;
+  height: 35px;
+
+  padding-top: 3px;
+}
+
+.textImage {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+
+  position: absolute;
+  text-align: start;
+
+  /* background-color: rgba(165, 42, 42, 0.377); */
+
+  width: 70%;
+  height: 38%;
+
+  top: 55%;
+  left: 10%;
+}
+
+.textImage h1 {
+  margin: 0;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  justify-content: space-between;
+
+  width: 67%;
+  height: 100%;
+  padding: 2.2% 0 2.2% 0;
+}
+
+.title {
+  width: 100%;
+  margin: 0;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 30%;
+}
+
+.probability {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  font-family: starcardsFont-fine;
+
+  width: 98%;
+  height: 120px;
+
+  margin-top: 6px;
+}
+
+.probability span {
+  font-size: 1.1rem;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+
+  /* background-color: black; */
+
+  width: 96%;
+  height: 101px;
+}
+
+.containerQuantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 1.5rem;
+
+  width: 100%;
+  height: 50px;
+
+  gap: 0 1.2rem;
+  padding: 0 0 0 255px;
+}
+
+.btnMore {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/+button.svg);
+  background-size: cover;
+
+  border-radius: 50%;
+  border: none;
+
+  width: 30px;
+  height: 30px;
+}
+
+.btnMinus {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/-button.svg);
+  background-size: cover;
+
+  border-radius: 50%;
+  border: none;
+
+  width: 30px;
+  height: 30px;
+}
+
+.buttonsLown {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 51px;
+
+  gap: 0 1rem;
+}
+
+.seccionPrice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../../img/priceButton.svg);
+  background-size: cover;
+
+  width: 218px;
+  height: 51px;
+}
+
+.price {
+  color: black;
+  font-size: 2rem;
+}
+
+.seccionBuy {
+  width: 30%;
+  height: 100%;
+}
+
+.buyNow {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/buynowButton.svg);
+  background-size: cover;
+
+  border: none;
+
+  font-size: 1.5rem;
+
+  width: 152px;
+  height: 51px;
+}
+
+.btnCart{
+  background-image:url(../../../img/addShopCart.png);
+  background-size: cover;
+
+  border: none;
+
+  width: 51px;
+  height: 51px;
+}

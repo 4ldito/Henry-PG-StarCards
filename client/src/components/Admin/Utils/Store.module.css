@@ -1,0 +1,99 @@
+.container::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 40%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  width: 20px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+  background: rgb(7, 109, 150);
+  background: linear-gradient(
+    137deg,
+    rgba(7, 109, 150, 1) 0%,
+    rgba(14, 8, 54, 1) 100%
+  );
+
+  width: 100%;
+  height: 40vh;
+
+  padding: 1rem 0 0.2rem 0;
+
+  overflow-y: auto;
+}
+
+.container h2 {
+  color: white;
+}
+
+.container ul {
+  padding: 0 1.5rem 0 1.5rem;
+}
+
+.container li {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1.5fr 0.9fr 0.9fr 0.8fr 1fr;
+
+  background-color: rgba(255, 255, 255, 0.3);
+
+  height: 4vh;
+  margin: 0.5rem 0 0.5rem 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.containerStars {
+  display: flex;
+  flex-direction: column;
+
+  background: rgb(7, 109, 150);
+  background: linear-gradient(
+    137deg,
+    rgba(7, 109, 150, 1) 0%,
+    rgba(14, 8, 54, 1) 100%
+  );
+
+  width: 100%;
+
+  margin-top: 2.5vh;
+  padding: 1rem 0 0.2rem 0;
+
+  overflow-y: auto;
+}
+
+.containerStars h2 {
+  color: white;
+}
+
+.containerStars ul {
+  padding: 0 1.5rem 0 1.5rem;
+}
+
+.containerStars li {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2fr 2fr 2fr 1fr;
+
+  background-color: rgba(255, 255, 255, 0.3);
+
+  height: 4vh;
+  margin: 0.5rem 0 0.5rem 0;
+  padding-left: 0.5rem;
+}

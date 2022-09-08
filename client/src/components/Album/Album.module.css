@@ -1,0 +1,38 @@
+.cartas::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 30%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  width: 20px;
+}
+
+.cartas::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top
+      left,
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}
+
+.cartas {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  overflow-y: scroll;
+  overflow-x:hidden;
+  
+  width: 100%;
+  height: 100%;
+  
+  gap: 1rem;
+  margin-right: 1%;
+}

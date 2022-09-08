@@ -1,0 +1,166 @@
+.appli {
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  height: 60vh;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../img/album-card-container.svg);
+  background-size: cover;
+
+  border: 2px solid cyan;
+
+  width: 40%;
+  height: 70%;
+}
+.button {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.png);
+  background-size: cover;
+  object-fit: contain;
+
+  border: none;
+  color: white;
+
+  width: 150px;
+  height: 50px;
+}
+
+/* input[type="text"]{
+  color: white;
+}
+input[type="password"] {
+  height: 25px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  background: #01d28e;
+  border: 1px solid #01d28e;
+  padding: 10px 20px;
+}
+
+input[type="submit"]:hover {
+  background: #6cf0c2;
+} */
+
+.buttoncontainer {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.login-form {
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.listcontainer {
+  display: flex;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.title {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.inputcontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  font-size: 1.5rem;
+
+  gap: 8px;
+  width: 70%;
+}
+
+.inputcontainer > input{
+  font-size: 1rem;
+}
+label {
+  text-align: start;
+  color: rgb(236, 251, 252);
+}
+
+.form {
+  background-color: #757576;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.containerLink{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 25px;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.link{
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+/* ////////////////////////// RecoveryPassword ////////////////////////// */
+
+.containerRecoveryPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../img/album-card-container.svg);
+  background-size: cover;
+
+  border: 2px solid cyan;
+
+  width: 40%;
+  height: auto;
+
+  padding: 1.5rem;
+}
+
+.containerRecoveryPassword > label {
+  position: absolute;
+  left: 0;
+}
+
+.btnRecoveryPassword{
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.png);
+  background-size: cover;
+  object-fit: contain;
+
+  border: none;
+  color: white;
+
+  width: 167px;
+  height: 60px;
+}
+.buttons{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 20px;
+}

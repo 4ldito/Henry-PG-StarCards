@@ -1,0 +1,102 @@
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #1c1b2294;
+
+  width: 100%;
+  height: 93vh;
+}
+
+/* .subbackground {
+  padding: 5vh 0;
+  width: 70vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  color: white;
+  margin: 1rem;
+  background-color: black;
+  border-radius: 20px;
+  border: 2px solid white;
+  overflow-y: auto;
+} */
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../img/album-card-container.svg);
+  background-size: cover;
+
+  border: 2px solid cyan;
+
+  width: 50%;
+  height: 30%;
+}
+
+.mail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  gap: 1rem;
+}
+
+.input {
+  font-family: starcardsFont, sans-serif;
+  text-align: center;
+
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid #92e5fc;
+  border-radius: 1px;
+  color: white;
+
+  height: 40px;
+  width: 50%;
+
+  transition: 0.2s;
+}
+
+.input::placeholder {
+  color: #85b9ed;
+  font-size: 20px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.input:hover {
+  filter: brightness(1.4);
+}
+
+.button {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.png);
+  background-size: cover;
+  object-fit: contain;
+
+  border: none;
+  color: white;
+
+  width: 150px;
+  height: 50px;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+
+  text-align: center;
+
+  background-color: red;
+  border: 1px solid white;
+}

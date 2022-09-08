@@ -1,0 +1,78 @@
+@font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 60vh;
+
+  margin-top: 6.5vh;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url(../../img/album-card-container.svg);
+  background-size: cover;
+
+  border: 2px solid cyan;
+
+  width: 40%;
+  height: auto;
+
+  padding: 1rem;
+}
+
+.button {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.png);
+  background-size: cover;
+  object-fit: contain;
+
+  border: none;
+  color: white;
+
+  width: 150px;
+  height: 50px;
+}
+
+div {
+  font-family: starcardsFont;
+}
+.input {
+  font-family: starcardsFont, sans-serif;
+  height: 40px;
+  width: 100%;
+  border: 2px solid #92e5fc;
+  background-color: rgba(255, 255, 255, 0.2);
+  /* background-color: #287accee;
+    clip-path: polygon(calc(100% - var(--edge-size)) 0,
+            100% var(--edge-size),
+            100% 100%,
+            var(--edge-size) 100%,
+            0 calc(100% - var(--edge-size)),
+            0 0); */
+  color: white;
+  /* background: radial-gradient( #00172cdd 0%, rgb(51, 153, 255, .6) 100%); */
+  border-radius: 1px;
+  text-align: center;
+  transition: 0.2s;
+}
+.input::placeholder {
+  color: #85b9ed;
+  font-size: 20px;
+}
+.input:focus {
+  outline: none;
+}
+.input:hover {
+  filter: brightness(1.4);
+}

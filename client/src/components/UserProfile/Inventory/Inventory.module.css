@@ -1,0 +1,244 @@
+body {
+  overflow-x: hidden;
+}
+
+.cartas::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 30%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  width: 20px;
+}
+
+.cartas::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}
+
+.cartasYMazo::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 30%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  width: 20px;
+}
+
+.cartasYMazo::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}
+
+* {
+  margin: 0;
+}
+
+.Inventory {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  z-index: 10;
+
+  color: white;
+
+  height: 4vh;
+  gap: 1rem;
+}
+
+.cartas {
+  display: flex;
+  justify-content: center;
+  background-image: url("../../../img/album-card-container.svg");
+  background-size: cover;
+  border: 2px solid #00ffffaa;
+  padding: 15px;
+  gap: 10px;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  align-items: flex-start;
+  flex-direction: row;
+  width: 90vw;
+  height: 63vh;
+  margin: auto;
+  margin-top: 30px;
+}
+.cardContainer {
+  padding: 5px;
+}
+.paginated {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+}
+
+.pag {
+  background-color: var(--color-dark);
+  border: 2px solid white;
+  color: white;
+  border-radius: 20%;
+  margin: 0 0.2%;
+  padding: 0.5rem;
+}
+
+.pag:hover {
+  background-color: var(--color-darker);
+}
+
+.pagSelect {
+  background-color: #3e3d3d;
+  border: 2px solid white;
+  color: white;
+  border-radius: 20%;
+  margin: 0 0.2%;
+  padding: 0.5rem;
+}
+.inventoryContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 10px;
+
+  width: 100vw;
+  height: 73vh;
+
+  margin-top: -3rem;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  background-color: antiquewhite;
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  height: 2rem;
+  margin-bottom: 1rem;
+}
+
+.btnCards {
+  width: 50%;
+  border-radius: 10px 0 0 0;
+}
+
+.btnDecks {
+  width: 50%;
+  border-radius: 0 10px 0 0;
+}
+
+.cartasYMazo {
+  display: flex;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  align-items: center;
+  flex-direction: column;
+  height: 67vh;
+  width: 90%;
+  height: 90%;
+  gap: 10px;
+  margin: 0;
+  padding: 10px;
+  background-image: url("../../../img/album-card-container.svg");
+  background-size: cover;
+  border: 2px solid #00ffffdd;
+}
+.cartasYMazosContainer {
+  justify-content: flex-start;
+  display: flex;
+  height: 67vh;
+  width: 100%;
+  gap: 10px;
+  margin-top: 100px;
+}
+
+.cardsAndDecksButtons {
+  position: absolute;
+  top: 70px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* background-image: ; */
+}
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100px;
+  height: 30px;
+
+  font-size: 24px;
+  color: #ffffffdd;
+  border: 2px solid #00ffffdd;
+  background-color: #00ffff22;
+
+  transition: 0.3s;
+}
+.buttonActive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 103px;
+  height: 32px;
+
+  font-size: 24px;
+  color: #ffffffdd;
+  border: 2px solid #ff8800dd;
+  background-color: #ffaa0022;
+
+  transition: 0.3s;
+}
+
+.cardsList {
+  display: flex;
+  overflow: unset;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  min-height: 100%;
+}
+.cardsListOnly {
+  width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  .filters {
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 30vw;
+    height: 26vh;
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+  }
+}

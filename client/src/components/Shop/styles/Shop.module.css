@@ -1,0 +1,119 @@
+.containerTo {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+
+  width: 100%;
+  height: 91vh;
+
+  margin-top: 2vh;
+
+  overflow-y: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* background-color: #0A58CA; */
+
+  width: 100%;
+  height: 90%;
+}
+
+.containerBtns {
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+
+  width: 100%;
+
+  gap: 0.5rem;
+}
+
+.btn {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/button.svg);
+  background-size: cover;
+
+  font-size: 1.5rem;
+  border: none;
+  color: white;
+
+  width: 193px;
+  height: 70px;
+}
+
+.btn:nth-child(2) {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/button-large.svg);
+  background-size: cover;
+
+  font-size: 1.5rem;
+  border: none;
+  color: white;
+
+  width: 283px;
+  height: 70px;
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/button-active.svg);
+  background-size: cover;
+
+  font-size: 1.5rem;
+  border: none;
+  color: white;
+
+  width: 193px;
+  height: 70px;
+}
+
+.active:nth-child(2) {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/button-large-active.svg);
+  background-size: cover;
+
+  font-size: 1.5rem;
+  border: none;
+  color: white;
+
+  width: 283px;
+  height: 70px;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.btnShopcart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  right: 6%;
+
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../../img/circle-15.svg);
+
+  border-radius: 36%;
+  border: none;
+
+  color: white;
+
+  width: 70px;
+  height: 70px;
+
+  padding-right: .5%;
+}
+
+.avaliableStars {
+  color: #ffff22;
+  font-size: 1.2rem;
+}
+
+/* /////////////////////////////////////////////////////////////// */

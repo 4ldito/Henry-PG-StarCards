@@ -1,0 +1,175 @@
+.response {
+  color: white;
+}
+
+.profileimg {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 22%;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.685);
+}
+.changep {
+  position: absolute;
+  border-radius: 50%;
+  width: 6vh;
+  height: 6vh;
+  left: 51%;
+  top: 37%;
+  border: 1px solid wheat;
+  cursor: pointer;
+  background-color: rgba(0, 0, 255, 0.551);
+}
+.coverimg {
+  display: flex;
+  width: 100%;
+  height: 25vh;
+  object-fit: fill;
+}
+.changecv {
+  position: absolute;
+  width: 25vh;
+  height: 5vh;
+  right: 1%;
+  top: 25%;
+  border: 1px solid wheat;
+  background-color: rgba(0, 255, 255, 0.421);
+}
+
+.buttonsbar {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  margin-top: 5vh;
+}
+
+.stars {
+  position: absolute;
+  right: 4%;
+  top: 14vh;
+
+  text-decoration: none;
+  color: rgb(223, 163, 13);
+}
+
+.stars:hover{
+  color: rgb(255, 200, 0);
+}
+
+.configContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.containerPerfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 20vh;
+
+  margin-top: 2.5vh;
+}
+
+.containerImgPerfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url(../../img/circle-15.svg);
+  width: 125px;
+  height: 125px;
+}
+
+.containerImgPerfil img {
+  border-radius: 50%;
+  width: 97px;
+  height: 97px;
+}
+
+.containerName {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(143, 79, 79); */
+  width: 750px;
+  height: 110px;
+  padding-left: 1.5rem;
+}
+
+.containerNameVisitor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rgb(143, 79, 79); */
+  width: 460px;
+  height: 110px;
+  padding-left: 1.5rem;
+}
+
+.containerName span {
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+.containerNameVisitor span {
+  color: white;
+  font-size: 36px;
+  letter-spacing: 1px;
+}
+
+.containerButtons {
+  display: flex;
+  gap: 1rem;
+}
+
+.buttons {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button.svg);
+  background-size: cover;
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+  width: 126px;
+  height: 45px;
+}
+
+.buttonsActive {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-active.svg);
+  background-size: cover;
+
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  width: 126px;
+  height: 45px;
+}
+
+.buttonsDelete {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/button-large.svg);
+  background-size: cover;
+
+  color: white;
+  border: none;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  width: 183px;
+  height: 45px;
+}

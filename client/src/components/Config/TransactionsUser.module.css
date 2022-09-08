@@ -1,0 +1,89 @@
+.containerTo {
+  display: flex;
+  justify-content: center;
+
+  width: 48%;
+  height: 50vh;
+
+  margin-top: 3vh;
+}
+
+.container {
+  text-align: center;
+
+  background: rgb(7, 109, 150);
+  background: linear-gradient(
+    137deg,
+    rgba(7, 109, 150, 1) 0%,
+    rgba(14, 8, 54, 1) 100%
+  );
+  color: white;
+
+  width: 100%;
+
+  padding: 1rem;
+}
+
+.allInfoContainer {
+  background-color: #12498a;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #fafafa;
+  height: 85%;
+}
+
+.infoContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  text-align: center;
+  padding: 1rem 20px 1rem 0;
+}
+
+.infoContainer p {
+  font-size: 1.3rem;
+}
+
+.allTransactionsContainer {
+  height: 77%;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.infoTransactionContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  text-align: center;
+  background-color: #270c73;
+  border: 1px solid white;
+  align-items: center;
+}
+
+.infoContainer p,
+.infoTransactionContainer p {
+  margin: 0;
+}
+
+.allTransactionsContainer::-webkit-scrollbar {
+  background: rgb(0, 44, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 40%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  width: 15px;
+}
+
+.allTransactionsContainer::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+  background-size: 50% 50%;
+  background-repeat: no-repeat;
+  height: 18%;
+}

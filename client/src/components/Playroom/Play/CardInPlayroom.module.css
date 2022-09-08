@@ -1,0 +1,42 @@
+
+
+
+.card{
+    display: flex;
+    justify-content: space-around;
+    color: aliceblue;
+    height: 200px;
+    width:400px;
+    background-color: #07558ddd;
+    border: 3px solid #00ffffdd;
+}
+
+.nameAndImg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+}
+.statsAndMove{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+
+}
+.imgContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    object-fit: cover;
+    overflow: hidden;
+  
+    width: 200px;
+    object-fit: cover;
+}
+
+.img{
+
+    width: 200px;
+    object-fit: cover;
+}

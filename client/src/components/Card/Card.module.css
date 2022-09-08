@@ -1,0 +1,115 @@
+/* @font-face {
+  font-family: starcardsFont;
+  src: url("../../../css/EUROSTIB.ttf");
+} */
+
+.Card {
+  font-family: starcardsFont;
+  text-align: center;
+  transition: all 0.3s;
+  width: 320px;
+}
+
+.haveCard {
+  font-size: 3vh;
+}
+
+.cardContainer {
+  height: 447px;
+  width: 320px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(255, 255, 255);
+
+  text-shadow: 0 0 6px rgb(0, 0, 0), 0 0 6px rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.Card:hover {
+  transform: scale(0.99);
+}
+
+.nameContainer {
+  margin-top: 8.5%;
+  width: 77%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* .name {
+  font-size: 150%;
+} */
+
+.cost {
+  margin-top: 1%;
+}
+
+.img {
+  margin-top: 6.4%;
+  width: 82.2%;
+}
+
+.movement {
+  margin-top: 8%;
+  height: 4%;
+}
+
+.ability {
+  display: flex;
+  align-items: center;
+  margin-top: 4%;
+  margin-bottom: 0;
+  line-height: 100%;
+  width: 70%;
+  height: 10%;
+}
+
+.stats {
+  display: flex;
+  position: relative;
+
+  font-size: 110%;
+  
+  width: 62%;
+
+  margin-top: 8%;
+  margin-left: 20%;
+}
+
+.life {
+  /* width: 60%; */
+  position: absolute;
+}
+
+.dmg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  left: 130px;
+
+  font-size: 90%;
+  /* width: 40%; */
+}
+
+.zergCard {
+  background-image: url("https://i.ibb.co/PgvMswr/zerg-Front.png");
+}
+
+.terranCard {
+  background-image: url("https://i.ibb.co/kDr0J5s/terran-Front.png");
+}
+
+.protossCard {
+  background-image: url("https://i.ibb.co/Gxpwy4b/protoss-Front.png");
+}
+
+.card:hover {
+  user-select: none;
+  cursor: pointer;
+}

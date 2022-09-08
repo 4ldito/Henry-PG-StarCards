@@ -1,0 +1,39 @@
+.containerTo {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 67vh;
+    margin-top: 3vh;
+}
+
+.div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(7, 109, 150);
+    background: linear-gradient(137deg,
+            rgba(7, 109, 150, 1) 0%,
+            rgba(14, 8, 54, 1) 100%);
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: white;
+    width: 15%;
+    height: 70%;
+    gap: 0.5rem;
+}
+
+.race {
+    width: 90px;
+    height: 100px;
+}
+
+.seccion {
+    background-color: rgba(255, 255, 255, 0.3);
+    width: 85%;
+    padding: 0.5rem 1rem;
+}
+
+.span {
+    font-family: starcardsFont-fine;
+}
