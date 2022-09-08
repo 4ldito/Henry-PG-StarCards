@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import css from "../../styles/ProfileUser/Config.module.css";
 import BtnUserProfile from "../Buttons/BtnUserProfile";
 import { useNavigate } from "react-router-dom";
-import { deleteUser, modifyUser } from "../../redux/actions/user";
+import { deleteUser, modifyUser, userClean } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FaRegEdit } from "react-icons/fa";
@@ -22,20 +22,27 @@ export default function Config({ user }) {
   const navigateTo = useNavigate();
   const email1 = useRef(null);
   const modal = useSelector((state) => state.sendMailReducer.modal);
-  const successAction1 = useSelector(
-    (state) => state.sendMailReducer.successAction
-  );
-
+  const successAction1 = useSelector((state) => state.sendMailReducer.successAction);
   const [input, setInput] = useState(true);
+
   function deleteAccount() {
-    dispatch(deleteUser(user.id));
     Swal.fire({
-      title: "Borrado",
-      text: "Usuario Borrado",
-      icon: "success",
+      title: `Confirm`,
+      text: `Are you sure you want to delete your account? This action is permanently`,
+      showCancelButton: true,
+      confirmButtonText: "Delete",
+    }).then(({ isConfirmed }) => {
+      if (isConfirmed) {
+        dispatch(deleteUser(user.id));
+        dispatch(userClean());
+        Swal.fire({
+          title: "Removed",
+          text: "User Removed",
+          icon: "success",
+        });
+        navigateTo("/");
+      }
     });
-    // dispatch(renderVerifyRegister())
-    navigateTo("/");
   }
 
   function modifyMail() {
@@ -108,7 +115,7 @@ export default function Config({ user }) {
               <>
                 <span className={css.userSpan}>MAIL : {user.email}</span>
                 <span onClick={modifyMail}>
-                  Edit <FaRegEdit size={30}/>
+                  Edit <FaRegEdit size={30} />
                 </span>
               </>
             ) : (
@@ -119,7 +126,7 @@ export default function Config({ user }) {
           <div className={css.configUser}>
             <span className={css.userSpan}>DELETE ACCOUNT</span>
             <span onClick={deleteAccount}>
-              Delete <MdOutlineRemoveRedEye size={30}/>
+              Delete <MdOutlineRemoveRedEye size={30} />
             </span>
           </div>
         </div>

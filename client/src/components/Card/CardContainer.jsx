@@ -1,10 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { detailCard } from "../../redux/actions/cards/detailCard.js";
-import { getOpinions } from "../../redux/actions/cards/opinion.js";
-import DetailPopUp from "../Detail/DetailPopUp.jsx";
-
 import Card from "./Card";
 import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 
@@ -15,23 +11,17 @@ import { CardContainerDetail } from "./CardContainerDetail.jsx";
 export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addCardToDeck, inDeck,
   removeCardFromDeck, creatingDeck, updatingDeck, newDeckCards, actualStackToShow }) {
 
-  const dispatch = useDispatch();
   const selectedDeck = useSelector(state => state.userReducer.selectedDeck);
   const [viewCard, setViewCard] = useState(false);
-  const [userCard, setUserCard] = useState(null);
   const [thisCardRepeats, setThisCardRepeats] = useState(0);
   const [newRepeatForThoseWichAreNotInDeck, setNewRepeatForThoseWichAreNotInDeck] = useState(0);
   const [cardsRepeat, setcardsRepeat] = useState(null);
   const [justPassin, setJustPassin] = useState(null);
   const [viewDetail, setViewDetail] = useState(false);
 
-
-  const msg = useSelector((state) => state.album.msg);
-
-
   useEffect(() => {
     if (creatingDeck) {
-      setUserCard(newDeckCards?.find(el => el.id === card.id));
+      // setUserCard(newDeckCards?.find(el => el.id === card.id));
     } else {
       if (selectedDeck && selectedDeck.cardRepeats) {
         setcardsRepeat(JSON.parse(selectedDeck?.cardRepeats));
@@ -124,7 +114,7 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
                   <img className={css.raceImg} src="/src/img/protoss.svg"></img>}
             </div>
           </div>}
-        {(inDeck && !selectedDeck?.name) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
+        {(inDeck && !selectedDeck?.name && bothStacks) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
           selectedDeck.name ? removeCardFromDeck(card.id, !updatingDeck?.cards && uCard.id || undefined) :
           removeCardFromDeck(card.id)
         }}>trending_flat</button>}

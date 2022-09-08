@@ -143,7 +143,7 @@ export default function userReducer(state = initialState, { type, payload }) {
       return { ...state, msg: {} };
 
     case USER_CLEAN:
-      return { ...state, validUser: false, user: {} };
+      return { ...state, validUser: false, user: {}, validToken: null, token: null };
 
     case USER_MODIFY_STARS:
       const { updatedUser, error } = payload;
