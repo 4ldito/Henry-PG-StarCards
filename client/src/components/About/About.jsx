@@ -21,7 +21,7 @@ export default function About() {
             <img src="https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FBunker%20Terran?alt=media&token=7741703c-7122-4d4f-9911-cfb84c6244d3" />
           </div>
           <div className={css.InfoAbout}>
-            <h1>Sobre Starcards</h1>
+            <h1>About Starcards</h1>
             <p>
               Starcards is a card game based on the Starcraft universe.
               The famous science fiction strategy game is recreated in a card

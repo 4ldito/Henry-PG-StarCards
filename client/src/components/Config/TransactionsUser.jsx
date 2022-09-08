@@ -41,7 +41,7 @@ const TransactionsUser = ({ userId }) => {
                 );
               })
             ) : (
-              <p>No hay transacciones =(</p>
+              <p>No transactions =(</p>
             )}
           </div>
         </div>

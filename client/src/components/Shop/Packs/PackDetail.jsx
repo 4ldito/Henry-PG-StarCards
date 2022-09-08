@@ -24,11 +24,18 @@ export default function Pack({
         <div className={style.left}>
           <img src={pack.image} alt={pack.image} className={style.image} />
           {searchFaved === undefined ? (
-            <button className={`${style.favNull}`} id={pack.id} onClick={e => handleFav(e, pack.id, 'add')}>
+            <button
+              className={`${style.favNull}`}
+              id={pack.id}
+              onClick={(e) => handleFav(e, pack.id, "add")}
+            >
               <BsSuitHeart size={15} />
             </button>
           ) : (
-            <button className={`${style.fav}`} onClick={e => handleFav(e, pack.id, 'delete')}>
+            <button
+              className={`${style.fav}`}
+              onClick={(e) => handleFav(e, pack.id, "delete")}
+            >
               <BsSuitHeartFill size={15} />
             </button>
           )}
@@ -38,7 +45,7 @@ export default function Pack({
             <span>
               <FaDna size={15} /> Race {pack.race}
             </span>
-            <span>{pack.amount} cards</span>
+            <span>{pack.amount} Cards</span>
           </div>
         </div>
 
@@ -66,7 +73,7 @@ export default function Pack({
             </div>
             <div className={style.buttonsLown}>
               <div className={style.seccionPrice}>
-                <span className={style.price}>{pack.price} stars</span>
+                <span className={style.price}>{pack.price} Stars</span>
               </div>
 
               <button className={style.buyNow} onClick={handleBuyNow}>

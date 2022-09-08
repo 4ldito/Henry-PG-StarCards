@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../Card/Card";
+import CardInPlayroom from './CardInPlayroom'
 import css from "../Playroom.module.css";
-
+import styles from './GameView.module.css';
 export default function GameView({ info, close }) {
   const [battle, setBattle] = useState(info.info.battle1);
   const [battleNum, setBattleNum] = useState(1);
@@ -20,6 +21,7 @@ export default function GameView({ info, close }) {
   const [winner, setWinner] = useState();
   const [timeOut, setTimeOut] = useState();
   const [race, setRace] = useState();
+  const [changed, setChanged] = useState(false);
 
   useEffect(() => {
     if (info.info.winner === info.info.player1.userId)
@@ -30,96 +32,125 @@ export default function GameView({ info, close }) {
   }, [info]);
 
   useEffect(() => {
-    if (info.info.player1.userId === battle.attacker) {
-      setAttacker(info.info.player1.username);
-      setDefender(info.info.player2.username);
-      setRace(info.info.player2.race);
-    } else {
-      setAttacker(info.info.player2.username);
-      setDefender(info.info.player1.username);
-      setRace(info.info.player1.race);
+    if (!final) {
+      if (info.info.player1.userId === battle.attacker) {
+        setAttacker(info.info.player1.username);
+        setDefender(info.info.player2.username);
+        setRace(info.info.player2.race);
+      } else {
+        setAttacker(info.info.player2.username);
+        setDefender(info.info.player1.username);
+        setRace(info.info.player1.race);
+      }
+      setTotalRounds(battle.AirAtkArmy.length);
+      setRound(0);
     }
-
-    // setRoundInfo({
-    //   AirAtkArmy: battle.AirAtkArmy[0],
-    //   AirDefArmy: battle.AirDefArmy[0],
-    //   GroundAtkArmy: battle.GroundAtkArmy[0],
-    //   GroundDefArmy: battle.GroundDefArmy[0],
-    //   Base: battle.Base[0],
-    // });
-    setRound(0);
-
-    setTotalRounds(battle.AirAtkArmy.length);
+    if (battle.attacker) {
+      setChanged((prev) => !prev);
+    }
   }, [battle]);
 
+  const [roundGo, setRoundGo] = useState(true);
   useEffect(() => {
-    if (round >= 0 && totalRounds) {
-      if (round < totalRounds) {
-        setRoundInfo({
-          AirAtkArmy: battle.AirAtkArmy[round],
-          AirDefArmy: battle.AirDefArmy[round],
-          GroundAtkArmy: battle.GroundAtkArmy[round],
-          GroundDefArmy: battle.GroundDefArmy[round],
-          Base: battle.Base[round],
-        });
-        setTimeOut(
-          setTimeout(() => {
-            setRound((prev) => prev + 1);
-          }, 2000)
-        );
-      } else {
-        if (battleNum < 2) {
-          setBattle(info.info.battle2);
-          setBattleNum(2);
-        } else setFinal(true);
-      }
+    if (round !== 0) {
+      setRoundInfo({
+        AirAtkArmy: battle.AirAtkArmy[round],
+        AirDefArmy: battle.AirDefArmy[round],
+        GroundAtkArmy: battle.GroundAtkArmy[round],
+        GroundDefArmy: battle.GroundDefArmy[round],
+        Base: battle.Base[round],
+      });
+      setRoundGo((prev) => !prev);
     }
   }, [round]);
+
+  useEffect(() => {
+    setRoundInfo({
+      AirAtkArmy: battle.AirAtkArmy[round],
+      AirDefArmy: battle.AirDefArmy[round],
+      GroundAtkArmy: battle.GroundAtkArmy[round],
+      GroundDefArmy: battle.GroundDefArmy[round],
+      Base: battle.Base[round],
+    });
+    setRoundGo((prev) => !prev);
+  }, [changed]);
+
+  useEffect(() => {
+    if (round >= 0 && totalRounds && !final) {
+      if (round < totalRounds - 1) {
+        if (round === 0 || round === totalRounds - 2) {
+          setTimeOut(
+            setTimeout(() => {
+              setRound((prev) => prev + 1);
+            }, 2500)
+          );
+        } else {
+          setTimeOut(
+            setTimeout(() => {
+              setRound((prev) => prev + 1);
+            }, 500)
+          );
+        }
+      } else {
+        if (battleNum === 1) {
+          setBattle(info.info.battle2);
+          setRoundInfo({
+            AirAtkArmy: [],
+            AirDefArmy: [],
+            GroundAtkArmy: [],
+            GroundDefArmy: [],
+            Base: [],
+          });
+          setBattleNum(2);
+        } else {
+          setFinal(true);
+          setBattle({});
+        }
+      }
+    }
+  }, [roundGo]);
 
   function handleNextBattle() {
     clearTimeout(timeOut);
     if (battleNum === 1) {
-      setBattle(() => {
-        setRoundInfo({
-          AirAtkArmy: [],
-          AirDefArmy: [],
-          GroundAtkArmy: [],
-          GroundDefArmy: [],
-          Base: [],
-        });
-        return info.info.battle2;
+      setRoundInfo({
+        AirAtkArmy: [],
+        AirDefArmy: [],
+        GroundAtkArmy: [],
+        GroundDefArmy: [],
+        Base: [],
       });
       setBattleNum(2);
-    } else setFinal(true);
+      setBattle(info.info.battle2);
+    } else {
+      setFinal(true);
+      setBattle({});
+    }
   }
 
   function handlePrevBattle() {
     clearTimeout(timeOut);
-    if (battleNum !== 0 && !final) {
-      setBattle(() => {
-        setRoundInfo({
-          AirAtkArmy: [],
-          AirDefArmy: [],
-          GroundAtkArmy: [],
-          GroundDefArmy: [],
-          Base: [],
-        });
-        return info.info.battle1;
+    if (!final) {
+      setRoundInfo({
+        AirAtkArmy: [],
+        AirDefArmy: [],
+        GroundAtkArmy: [],
+        GroundDefArmy: [],
+        Base: [],
       });
       setBattleNum(1);
+      setBattle(info.info.battle1);
     } else {
-      setBattle(() => {
-        setRoundInfo({
-          AirAtkArmy: [],
-          AirDefArmy: [],
-          GroundAtkArmy: [],
-          GroundDefArmy: [],
-          Base: [],
-        });
-        return info.info.battle2;
+      setRoundInfo({
+        AirAtkArmy: [],
+        AirDefArmy: [],
+        GroundAtkArmy: [],
+        GroundDefArmy: [],
+        Base: [],
       });
       setBattleNum(2);
       setFinal(false);
+      setBattle(info.info.battle2);
     }
   }
 
@@ -151,102 +182,60 @@ export default function GameView({ info, close }) {
             race === "Zerg"
               ? css.battleZerg
               : race === "Terran"
-              ? css.battleTerran
-              : css.battleProtoss
+                ? css.battleTerran
+                : css.battleProtoss
           }
         >
-          <div>
-            <span>Attacker: {attacker}</span>
-            <span>Base Lifepoints: {roundInfo.Base}</span>
-            <span>Defender: {defender}</span>
-          </div>
-          <div>
-            <div>
-              {roundInfo.AirAtkArmy?.length ? (
-                <Card
-                  id={roundInfo.AirAtkArmy[0].id}
-                  name={roundInfo.AirAtkArmy[0].name}
-                  image={roundInfo.AirAtkArmy[0].image}
-                  cost={roundInfo.AirAtkArmy[0].cost}
-                  Gdmg={roundInfo.AirAtkArmy[0].Gdmg}
-                  Admg={roundInfo.AirAtkArmy[0].Admg}
-                  life={roundInfo.AirAtkArmy[0].life}
-                  ability={roundInfo.AirAtkArmy[0].ability}
-                  abilities={roundInfo.AirAtkArmy[0].abilities}
-                  race={roundInfo.AirAtkArmy[0].race}
-                  movement={roundInfo.AirAtkArmy[0].movement}
-                />
-              ) : (
-                <div />
-              )}
+          <div className={styles.cardsContainer}>
+            <div className={styles.components}>
+              <div className={styles.attacker}>
+                <span>Attacker: {attacker}</span>
+              </div>
+              <div className={styles.card}>
+                {roundInfo.AirAtkArmy?.length ? (
+                  <CardInPlayroom card={roundInfo.AirAtkArmy[0]}></CardInPlayroom>
+                ) : (
+                  <div />
+                )}
+              </div>
+              <div className={styles.card}>
+                {roundInfo.GroundAtkArmy?.length ? (
+                  <CardInPlayroom card={roundInfo.GroundAtkArmy[0]}></CardInPlayroom>
+                ) : (
+                  <div />
+                )}
+              </div>
             </div>
-            <div>
-              {roundInfo.GroundAtkArmy?.length ? (
-                <Card
-                  id={roundInfo.GroundAtkArmy[0].id}
-                  name={roundInfo.GroundAtkArmy[0].name}
-                  image={roundInfo.GroundAtkArmy[0].image}
-                  cost={roundInfo.GroundAtkArmy[0].cost}
-                  Gdmg={roundInfo.GroundAtkArmy[0].Gdmg}
-                  Admg={roundInfo.GroundAtkArmy[0].Admg}
-                  life={roundInfo.GroundAtkArmy[0].life}
-                  ability={roundInfo.GroundAtkArmy[0].ability}
-                  abilities={roundInfo.GroundAtkArmy[0].abilities}
-                  race={roundInfo.GroundAtkArmy[0].race}
-                  movement={roundInfo.GroundAtkArmy[0].movement}
-                />
-              ) : (
-                <div />
-              )}
-            </div>
-          </div>
-          <div>
-            <div>
-              {roundInfo.AirDefArmy?.length ? (
-                <Card
-                  id={roundInfo.AirDefArmy[0].id}
-                  name={roundInfo.AirDefArmy[0].name}
-                  image={roundInfo.AirDefArmy[0].image}
-                  cost={roundInfo.AirDefArmy[0].cost}
-                  Gdmg={roundInfo.AirDefArmy[0].Gdmg}
-                  Admg={roundInfo.AirDefArmy[0].Admg}
-                  life={roundInfo.AirDefArmy[0].life}
-                  ability={roundInfo.AirDefArmy[0].ability}
-                  abilities={roundInfo.AirDefArmy[0].abilities}
-                  race={roundInfo.AirDefArmy[0].race}
-                  movement={roundInfo.AirDefArmy[0].movement}
-                />
-              ) : (
-                <div />
-              )}
-            </div>
-            <div>
-              {roundInfo.GroundDefArmy?.length ? (
-                <Card
-                  id={roundInfo.GroundDefArmy[0].id}
-                  name={roundInfo.GroundDefArmy[0].name}
-                  image={roundInfo.GroundDefArmy[0].image}
-                  cost={roundInfo.GroundDefArmy[0].cost}
-                  Gdmg={roundInfo.GroundDefArmy[0].Gdmg}
-                  Admg={roundInfo.GroundDefArmy[0].Admg}
-                  life={roundInfo.GroundDefArmy[0].life}
-                  ability={roundInfo.GroundDefArmy[0].ability}
-                  abilities={roundInfo.GroundDefArmy[0].abilities}
-                  race={roundInfo.GroundDefArmy[0].race}
-                  movement={roundInfo.GroundDefArmy[0].movement}
-                />
-              ) : (
-                <div />
-              )}
+            <div className={styles.components}>
+              <div className={styles.baseData}>
+                <span>Base Lifepoints: {roundInfo.Base}</span>
+                <span>Defender: {defender}</span>
+              </div>
+              <div className={styles.card}>
+                {roundInfo.AirDefArmy?.length ? (
+                
+                  <CardInPlayroom card={roundInfo.AirDefArmy[0]}></CardInPlayroom>
+                ) : (
+                  <div />
+                )}
+              </div>
+              <div className={styles.card}>
+                {roundInfo.GroundDefArmy?.length ? (
+                 
+                  <CardInPlayroom card={roundInfo.GroundDefArmy[0]}></CardInPlayroom>
+                ) : (
+                  <div />
+                )}
+              </div>
             </div>
           </div>
         </div>
       ) : (
         <div className={css.battleFinal}>
           {winner === "It is a tie!" ? (
-            <span>{winner}</span>
+            <span className={css.winner}>{winner}</span>
           ) : (
-            <span>Winner: {winner}</span>
+            <span className={css.winner}>Winner: {winner}</span>
           )}
         </div>
       )}

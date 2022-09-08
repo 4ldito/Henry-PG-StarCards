@@ -25,13 +25,13 @@ const Filters = () => {
 
   return (
     <div className={style.container}>
-      <select onChange={onSelectChange} name='race'>
+      <select className={style.select} onChange={onSelectChange} name='race'>
         <option value='allRaces'>All races</option>
         <option value='Protoss'>Protoss</option>
         <option value='Terran'>Terran</option>
         <option value='Zerg'>Zerg</option>
       </select>
-      <select onChange={onSelectChange} name="movements">
+      <select className={style.select} onChange={onSelectChange} name="movements">
         <option value="allMovements">All movements</option>
         <option value="Ground">Ground</option>
         <option value="Flying">Flying</option>

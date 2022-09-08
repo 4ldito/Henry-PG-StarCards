@@ -3,3 +3,15 @@
     color: white;
     cursor: pointer;
 }
+
+.modals{
+    background: linear-gradient(137deg, rgba(7,109,150,1) 0%, rgba(14,8,54,1) 100%);
+    color: white
+}
+
+.buttons{
+display: flex;
+width: 100%;
+justify-content: center;
+gap: 0.5rem;
+}
