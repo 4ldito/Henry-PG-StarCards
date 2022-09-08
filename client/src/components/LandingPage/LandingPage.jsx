@@ -71,7 +71,8 @@ export default function LandingPage() {
           <div>
             <h1>THE STARCRAFT UNIVERSE CARD GAME</h1>
           </div>
-          <Link to={token?`/userProfile?username=${user.username}`:`/login`}>
+          {/* <Link to={token?`/userProfile?username=${user.username}`:`/login`}> */}
+          <Link to={token?`/playroom`:`/login`}>
             <button className={css.btn}>PLAY</button>
           </Link>
          

@@ -83,7 +83,7 @@ export default function SaleCard({ handleViewCard, card }) {
           </div>
         </div>
 
-        <form onSubmit={(e) => handleSubmit(e, "onSale")}>
+        <form className={css.form} onSubmit={(e) => handleSubmit(e, "onSale")}>
           <div className={css.options}>
             <label htmlFor="quantity">QUANTITY</label>
             <input
