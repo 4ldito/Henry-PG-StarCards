@@ -21,35 +21,16 @@ export default function renderAdmin() {
   return (
     <div className={css.container}>
       <div className={css.secciones}>
-        <button
-          className={css.btnSeccionActive}
-          value="ListUsers"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={render === "ListUsers" ? css.btnSeccionActive : css.btnSeccion} value="ListUsers" onClick={(e) => changeRender(e)}>
           List Users
         </button>
-
-        <button
-          className={css.btnSeccion}
-          value="Transactions"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={render === "Transactions" ? css.btnSeccionActive : css.btnSeccion} value="Transactions" onClick={(e) => changeRender(e)}>
           Transactions
         </button>
-
-        <button
-          className={css.btnSeccion}
-          value="CreatePacks"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={render === "CreatePacks" ? css.btnSeccionActive : css.btnSeccion} value="CreatePacks" onClick={(e) => changeRender(e)}>
           Create Packs
         </button>
-
-        <button
-          className={css.btnSeccion}
-          value="Store"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={render === "Store" ? css.btnSeccionActive : css.btnSeccion} value="Store" onClick={(e) => changeRender(e)}>
           Store
         </button>
       </div>
@@ -62,9 +43,9 @@ export default function renderAdmin() {
         <Store />
       ) : render === "CreatePacks" ? (
         <CreatePacks />
-      ) : render === "CreateCards"? (
+      ) : render === "CreateCards" ? (
         <CreateCards />
-      ): ("")}
+      ) : ("")}
     </div>
   );
 }
