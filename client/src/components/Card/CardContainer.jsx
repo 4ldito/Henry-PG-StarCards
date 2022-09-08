@@ -7,6 +7,9 @@ import SaleCard from './../UserProfile/Inventory/SaleCard/SaleCard';
 import css from './CardContainer.module.css'
 import { CardContainerDetail } from "./CardContainerDetail.jsx";
 
+import ZERG from '../../img/zerg.svg'
+import PROTOSS from '../../img/protoss.svg'
+import TERRAN from '../../img/terran.svg'
 
 export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addCardToDeck, inDeck,
   removeCardFromDeck, creatingDeck, updatingDeck, newDeckCards, actualStackToShow }) {
@@ -88,7 +91,7 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
             repeat > 1 && <label >{newRepeatForThoseWichAreNotInDeck || repeat}</label>
           }
         </div>
-        {(addButton && !selectedDeck?.name) && <button className={css.añadirAlMazoBtn + " material-symbols-outlined"} onClick={() => { addCardToDeck(card, repeat) }}>trending_flat</button>}
+        {(addButton && !selectedDeck?.name && creatingDeck) && <button className={css.añadirAlMazoBtn + " material-symbols-outlined"} onClick={() => { addCardToDeck(card, repeat) }}>trending_flat</button>}
         {actualStackToShow.length === 1 ?
           <Card
             id={card.id}
@@ -108,10 +111,10 @@ export function CardContainer({ bothStacks, card, uCard, repeat, addButton, addC
           }}>
             <h2 className={css.cardInDeckH1}>{card.name}</h2>
             <div className={css.cardInDeckLabel}>{
-              card.race === 'Terran' ? <img className={css.raceImg} src="/src/img/terran.svg"></img> :
-                card.race === 'Zerg' ? <img className={css.raceImg} src="/src/img/zerg.svg"></img> :
+              card.race === 'Terran' ? <img className={css.raceImg} src={TERRAN}/> :
+                card.race === 'Zerg' ? <img className={css.raceImg} src={ZERG}/> :
                   card.race === 'Protoss' &&
-                  <img className={css.raceImg} src="/src/img/protoss.svg"></img>}
+                  <img className={css.raceImg} src={PROTOSS}></img>}
             </div>
           </div>}
         {(inDeck && !selectedDeck?.name && bothStacks) && <button className={css.sacarDelMazoBtn + " material-symbols-outlined"} onClick={() => {
