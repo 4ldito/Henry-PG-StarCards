@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterCards } from "../../redux/actions/cards/filterCards";
 import { BiFilterAlt } from "react-icons/bi";
 import css from "./Filter.module.css";
-import { BiFilterAlt } from "react-icons/bi";
 
 export default function Filters() {
   const dispatch = useDispatch();
