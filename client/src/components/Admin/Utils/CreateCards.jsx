@@ -7,15 +7,11 @@ import { useRef } from 'react';
 import style from './CreatePacks.module.css'
 import Swal from "sweetalert2";
 
-import {
-  createCardsAdmin,
-} from '../../../redux/actions/cards/createCards';
+import { createCardsAdmin } from '../../../redux/actions/cards/createCards';
 
 function CreateCards() {
   const dispatch = useDispatch();
   const name2 = useRef(null);
-
-  console.log('entra')
 
   async function uploadFilePack(file, race, name) {
     const storageRef = ref(storage, `cardUnit/${race}/${name}`); //nombre de ref para la subida
@@ -54,7 +50,6 @@ function CreateCards() {
 
   const handleSubmitPack = async (e) => {
     e.preventDefault();
-
     try {
       if (
         !errors &&
@@ -84,6 +79,7 @@ function CreateCards() {
   };
 
   function inputRace(e) {
+    console.log(first)
     if (!input.race.includes(e.target.value)) {
       return setInput({ ...input, race: [...input.race, e.target.value] });
     }
@@ -114,9 +110,9 @@ function CreateCards() {
   return (
     <>
       <div className={style.container}>
-        <h1>New Pack</h1>
+        <h1>New Card</h1>
         <form onSubmit={handleSubmitPack}>
-          <input type="text" name="name" onChange={(e) => handleChange(e)} placeholder="Name pack" required ref={name2} min="5" />
+          <input type="text" name="name" onChange={(e) => handleChange(e)} placeholder="Name Card" required ref={name2} min="5" />
           {errors && <p>{errors}</p>}
           <input type="number" name="Gdmg" min="1" onChange={(e) => handleChange(e)} placeholder="Ground Damage" required />
           <input type="number" name="Admg" onChange={(e) => handleChange(e)} placeholder="Flying Damage" required min="1" />
@@ -124,11 +120,11 @@ function CreateCards() {
           <div>
             <label>Race: </label>
             <label>Zerg: </label>
-            <input value="Zerg" key="Zerg" type="checkbox" onChange={(e) => inputRace(e)} />
+            <input value="Zerg" key="Zerg" type="radio"  name="race" onChange={(e) => inputRace(e)} />
             <label>Terran: </label>
-            <input value="Terran" key="Terran" type="checkbox" onChange={(e) => inputRace(e)} />
+            <input value="Terran" key="Terran" type="radio" name="race" onChange={(e) => inputRace(e)} />
             <label>Protoss: </label>
-            <input value="Protoss" key="Protoss" type="checkbox" onChange={(e) => inputRace(e)} />
+            <input value="Protoss" key="Protoss" type="radio" name="race" onChange={(e) => inputRace(e)} />
           </div>
 
           <input type="number" name="cost" onChange={(e) => handleChange(e)} placeholder="Cost" required min="1" />
