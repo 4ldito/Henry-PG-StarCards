@@ -9,10 +9,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { GiTrashCan } from "react-icons/gi";
 import Swal from "sweetalert2";
 import VerifyMail from "../Mail/VerifyMail";
-import {
-  changeModal,
-  successAction,
-} from "../../redux/actions/sendMail";
+import { changeModal, successAction } from "../../redux/actions/sendMail";
 import TransactionsUser from "./TransactionsUser";
 
 export default function Config({ user }) {
@@ -119,9 +116,10 @@ export default function Config({ user }) {
           <div className={css.configUser}>
             {input ? (
               <>
-                <span className={css.userSpan}>MAIL : {user.email}</span>
-                <span onClick={modifyMail}>
-                  Edit <FaRegEdit size={30} />
+                <span className={css.userSpan}>EMAIL : {user.email}</span>
+                <span className={css.userSpans} onClick={modifyMail}>
+                  Edit
+                  <FaRegEdit size={30} />
                 </span>
               </>
             ) : (
@@ -131,7 +129,7 @@ export default function Config({ user }) {
 
           <div className={css.configUser}>
             <span className={css.userSpan}>DELETE ACCOUNT</span>
-            <span onClick={deleteAccount}>
+            <span className={css.userSpans} onClick={deleteAccount}>
               Delete <GiTrashCan size={30} />
             </span>
           </div>

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
-import { capitalize, formatDate } from '../../../utils';
+import React, { useEffect } from "react";
+import { capitalize, formatDate } from "../../../utils";
 
-import style from './Transactions.module.css';
-import TransactionsFilters from './TransactionsFilters';
-import useFetchTransactions from './../../../hooks/useFetchTransactions';
+import style from "./Transactions.module.css";
+import TransactionsFilters from "./TransactionsFilters";
+import useFetchTransactions from "./../../../hooks/useFetchTransactions";
 
 const Transactions = () => {
   const { filteredTransactions } = useFetchTransactions();
-  
+
   return (
     <div className={style.container}>
       <h2>Transacciones</h2>
@@ -23,24 +23,40 @@ const Transactions = () => {
           <p>Fecha</p>
         </div>
         <div className={style.allTransactionsContainer}>
-          {filteredTransactions.length ? 
-          filteredTransactions.map((transaction) => {
-            return (
-              <div className={style.infoTransactionContainer} key={transaction.id}>
-                <p>{transaction.id}</p>
-                <p>{transaction.UserId}</p>
-                <p>{capitalize(transaction.type)}</p>
-                <p>{transaction.type === 'stars' ? transaction.priceStars : "-"}</p>
-                <p>{transaction.type === 'money' ? transaction.priceMoney : "-"}</p>
-                <p>{transaction.type === 'money' ? transaction.paymentId : "-"}</p>
-                <p>{formatDate(transaction.createdAt)}</p>
-              </div>
-            )
-          }) : <p>No hay transacciones =(</p>}
+          {filteredTransactions.length ? (
+            filteredTransactions.map((transaction) => {
+              return (
+                <div
+                  className={style.infoTransactionContainer}
+                  key={transaction.id}
+                >
+                  <p>{transaction.id}</p>
+                  <p>{transaction.UserId}</p>
+                  <p>{capitalize(transaction.type)}</p>
+                  <p>
+                    {transaction.type === "stars"
+                      ? transaction.priceStars
+                      : "-"}
+                  </p>
+                  <p>
+                    {transaction.type === "money"
+                      ? transaction.priceMoney
+                      : "-"}
+                  </p>
+                  <p>
+                    {transaction.type === "money" ? transaction.paymentId : "-"}
+                  </p>
+                  <p>{formatDate(transaction.createdAt)}</p>
+                </div>
+              );
+            })
+          ) : (
+            <p>no transactions =( </p>
+          )}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Transactions
+export default Transactions;
