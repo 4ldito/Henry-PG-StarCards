@@ -57,7 +57,7 @@
 
 .deckListContainer {
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   justify-content: flex-start;
   align-items: center;
