@@ -20,7 +20,7 @@
   border: 2px solid cyan;
 
   width: 40%;
-  height: 60%;
+  height: 70%;
 }
 .button {
   background-color: rgba(255, 255, 255, 0);
@@ -57,6 +57,7 @@ input[type="submit"]:hover {
 } */
 
 .buttoncontainer {
+  padding-top: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -109,7 +110,7 @@ label {
 .containerLink{
   display: flex;
   justify-content: center;
-
+  padding-bottom: 25px;
   width: 100%;
   margin-top: 1rem;
 }
