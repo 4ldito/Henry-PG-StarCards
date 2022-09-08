@@ -6,6 +6,7 @@ import Store from "./Utils/Store";
 import css from "./AdminProfile.module.css";
 import { useState } from "react";
 import React from "react";
+import CreateCards from "./Utils/CreateCards";
 
 export default function renderAdmin() {
   useValidToken({ navigate: true });
@@ -49,9 +50,9 @@ export default function renderAdmin() {
         <Store />
       ) : render === "CreatePacks" ? (
         <CreatePacks />
-      ) : (
-        ""
-      )}
+      ) : render === "CreateCards"? (
+        <CreateCards />
+      ): ("")}
     </div>
   );
 }
