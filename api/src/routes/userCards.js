@@ -38,27 +38,26 @@ userCardsRoute.get("/", async (req, res, next) => {
   const findConfig =
     userId && statusId
       ? {
-        where: { UserId: userId, StatusId: statusId },
-        include:
-          [
+          where: { UserId: userId, StatusId: statusId },
+          include: [
             { model: Card },
-            { model: User, attributes: ["id", "username"] }
-          ]
-      }
-      : userId
-        ? {
-          where: { UserId: userId }, include:
-            [
-              { model: Card },
-              { model: User, attributes: ["id", "username"] }
-            ]
+            { model: User, attributes: ["id", "username"] },
+          ],
         }
-        : {
-          where: { StatusId: statusId }, include:
-            [
-              { model: Card },
-              { model: User, attributes: ["id", "username"] }
-            ]
+      : userId
+      ? {
+          where: { UserId: userId },
+          include: [
+            { model: Card },
+            { model: User, attributes: ["id", "username"] },
+          ],
+        }
+      : {
+          where: { StatusId: statusId },
+          include: [
+            { model: Card },
+            { model: User, attributes: ["id", "username"] },
+          ],
         };
   try {
     const cards = await UserCards.findAll(
@@ -74,19 +73,24 @@ userCardsRoute.patch("/", async (req, res, next) => {
   try {
     const { userId, userCardsIdsToUpdate, status, price } = req.body;
 
-    const userCards = await Promise.all(userCardsIdsToUpdate.map((userCard) => {
-      return UserCards.findOne({
-        where: { UserId: userId, id: userCard }, include: Card,
-      });
-    }));
+    const userCards = await Promise.all(
+      userCardsIdsToUpdate.map((userCard) => {
+        return UserCards.findOne({
+          where: { UserId: userId, id: userCard },
+          include: Card,
+        });
+      })
+    );
 
-    const updatedUserCards = await Promise.all(userCards.map((userCard) => {
-      return userCard.update({ price, StatusId: status });
-    }));
+    const updatedUserCards = await Promise.all(
+      userCards.map((userCard) => {
+        return userCard.update({ price, StatusId: status });
+      })
+    );
 
     return res.json(updatedUserCards);
   } catch (error) {
-    next(error)
+    next(error);
   }
 });
 
@@ -99,27 +103,42 @@ userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
 
     const [buyerUser, sellerUser] = await Promise.all([
       User.findByPk(buyerUserId, { attributes: { exclude: ["password"] } }),
-      User.findByPk(userCard.UserId, { attributes: { exclude: ["password"] } }) //sellerUser
+      User.findByPk(userCard.UserId, { attributes: { exclude: ["password"] } }), //sellerUser
     ]);
 
-    if (buyerUser.stars < userCard.price) return res.send({ error: 'Stars insuficientes.' });
+    if (buyerUser.stars < userCard.price)
+      return res.send({ error: "Stars Insufficient." });
 
-    const transaction = await Transaction.create({ type: 'stars', priceStars: userCard.price });
-    await Promise.all([transaction.setUser(buyerUser.id), transaction.setStatus('active')]);
+    const transaction = await Transaction.create({
+      type: "stars",
+      priceStars: userCard.price,
+    });
+    await Promise.all([
+      transaction.setUser(buyerUser.id),
+      transaction.setStatus("active"),
+    ]);
 
     transaction.addUserCards(userCard.id);
 
-    const [buyerUserUpdated, sellerUserUpdated, userCardUpdated] = await Promise.all([
-      buyerUser.update({ stars: buyerUser.stars - userCard.price }),
-      sellerUser.update({ stars: sellerUser.stars + userCard.price }),
-      userCard.update({ UserId: buyerUser.id, StatusId: 'active', DeckId: null })
-    ]);
+    const [buyerUserUpdated, sellerUserUpdated, userCardUpdated] =
+      await Promise.all([
+        buyerUser.update({ stars: buyerUser.stars - userCard.price }),
+        sellerUser.update({ stars: sellerUser.stars + userCard.price }),
+        userCard.update({
+          UserId: buyerUser.id,
+          StatusId: "active",
+          DeckId: null,
+        }),
+      ]);
 
-    return res.send({ buyerUser: buyerUserUpdated, sellerUser: sellerUserUpdated, userCard: userCardUpdated });
+    return res.send({
+      buyerUser: buyerUserUpdated,
+      sellerUser: sellerUserUpdated,
+      userCard: userCardUpdated,
+    });
   } catch (error) {
     next(error);
   }
-
 });
 
 // userCardsRoute.get("/repeat", async (req, res, next) => {
@@ -140,6 +159,5 @@ userCardsRoute.patch("/buy/:userCardId", async (req, res, next) => {
 //     return next(error);
 //   }
 // });
-
 
 module.exports = userCardsRoute;

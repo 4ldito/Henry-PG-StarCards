@@ -40,7 +40,8 @@ async function signIn(req, res, next) {
       password,
       userFound.password
     );
-    if (!validPassword) return res.json({ error: "Incorrect password or email." });
+    if (!validPassword)
+      return res.json({ error: "Incorrect password or email." });
     res.json({
       token,
       user: userFound,

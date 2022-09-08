@@ -13,7 +13,7 @@ sendMail.use(bodyParser.urlencoded({ extended: false }));
 
 function token() {
   return Math.random().toString().substr(2);
-};
+}
 
 ///////////////////////////////////Verificacion de Token//////////////////////////////////////////////
 
@@ -28,7 +28,7 @@ sendMail.get("/sendmail/:token", (req, res, next) => {
   } catch (error) {
     next(error);
   }
-})
+});
 
 ///////////////////////////////////Envio de Token//////////////////////////////////////////////
 sendMail.post("/sendmail", (req, res, next) => {
@@ -50,48 +50,53 @@ sendMail.post("/sendmail", (req, res, next) => {
         port: 587,
         auth: {
           user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
-          pass: "houhxlzmssscrgha" // La contraseña de dicho SMTP
-        }
+          pass: "houhxlzmssscrgha", // La contraseña de dicho SMTP
+        },
       });
 
       let mailOptions = {
         from: "STARCARDS@gmail.com", // Quien manda el email
         to: req.body.email, // El email de destino
         replyTo: "STARCARDS@gmail.com",
-        // subject: req.body.asunto, // El asunto del email
+        subject: "STARCARDS", // El asunto del email
         // text: req.body.mensaje, // El mensaje
-        html: htmlEmail // La parte HTML del email
+        html: htmlEmail, // La parte HTML del email
       };
 
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
-          return console.log('err');
+          return console.log("err");
         }
-        res.send(tokenValid)
+        res.send(tokenValid);
         console.log("Mensaje enviado");
       });
     } catch (error) {
-      next(error)
+      next(error);
     }
-
   });
 });
 
 ///////////////////////////////////Envio de Confirmacion de Compra//////////////////////////////////////////////
 
 sendMail.post("/sendmailpurchase", async (req, res, next) => {
+  const { userId, items } = req.body;
+  const user = await User.findByPk(userId);
 
-  const { userId, items } = req.body
-  const user = await User.findByPk(userId)
-
-  let response
+  let response;
   // console.log( items )
   nodemailer.createTestAccount((err, account) => {
     // console.log(items)
-    response = items.map(({ unit_price, quantity, title }) => ({ unit_price, quantity, title }))
-    let text
-    text = response.map(e => (text = `Producto: ${e.title}, Cantidad: ${e.quantity}, Precio: ARS ${e.unit_price}`))
-    text = text.join('<br></br>')
+    response = items.map(({ unit_price, quantity, title }) => ({
+      unit_price,
+      quantity,
+      title,
+    }));
+    let text;
+    text = response.map(
+      (e) =>
+        (text = `Producto: ${e.title}, Cantidad: ${e.quantity}, Precio: ARS ${e.unit_price}`)
+    );
+    text = text.join("<br></br>");
 
     try {
       const htmlEmail = `
@@ -109,34 +114,33 @@ sendMail.post("/sendmailpurchase", async (req, res, next) => {
         host: "smtp.gmail.com",
         port: 587,
         tls: {
-          rejectUnauthorized: false
+          rejectUnauthorized: false,
         },
         auth: {
           user: "elzeva12@gmail.com", //El email del servicio SMTP que va a utilizar (en este caso Gmail)
-          pass: "houhxlzmssscrgha" // La contraseña de dicho SMTP
-        }
+          pass: "houhxlzmssscrgha", // La contraseña de dicho SMTP
+        },
       });
 
       let mailOptions = {
         from: "STARCARDS@gmail.com", // Quien manda el email
         to: user.email, // El email de destino
         replyTo: "STARCARDS@gmail.com",
-        // subject: req.body.asunto, // El asunto del email
+        subject: "STARCARDS", // El asunto del email
         // text: req.body.mensaje, // El mensaje
-        html: htmlEmail // La parte HTML del email
+        html: htmlEmail, // La parte HTML del email
       };
 
       transporter.sendMail(mailOptions, (err, info) => {
         if (err) {
-          return console.log('err');
+          return console.log("err");
         }
-        res.send(tokenValid)
+        res.send(tokenValid);
         console.log("Mensaje enviado");
       });
     } catch (error) {
-      next(error)
+      next(error);
     }
-
   });
 });
 module.exports = sendMail;

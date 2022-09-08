@@ -20,12 +20,16 @@ function CreatePacks() {
   const amount = useRef(null);
   const stock = useRef(null);
   const select2 = useRef(null);
+  const check1 = useRef(null);
   async function uploadFilePack(file, name) {
     const storageRef = ref(storage, `packs/${name}`); //nombre de ref para la subida
     await uploadBytes(storageRef, file); //subida del archivo
     const url = await getDownloadURL(storageRef); //la url de la subida
     return url;
   }
+  const $checkbox1 = document.querySelector("#checkbox1");
+  const $checkbox2 = document.querySelector("#checkbox2");
+  const $checkbox3 = document.querySelector("#checkbox3");
 
   const dispatch = useDispatch();
   const allcards = useSelector((state) => state.album.cards);
@@ -57,6 +61,9 @@ function CreatePacks() {
       amount.current.value = "";
       stock.current.value = "";
       select2.current.value = "0";
+      $checkbox1.checked = false;
+      $checkbox2.checked = false;
+      $checkbox3.checked = false;
     }
   }, [packCard]);
 
@@ -229,14 +236,17 @@ function CreatePacks() {
             <label>Zerg</label>
             <input
               value="Zerg"
+              id="checkbox1"
               key="Zerg"
               type="checkbox"
+              ref={check1}
               onChange={(e) => inputRace(e)}
             ></input>
             <br />
             <label>Terran </label>
             <input
               value="Terran"
+              id="checkbox2"
               key="Terran"
               type="checkbox"
               onChange={(e) => inputRace(e)}
@@ -245,6 +255,7 @@ function CreatePacks() {
             <label>Protoss </label>
             <input
               value="Protoss"
+              id="checkbox3"
               key="Protoss"
               type="checkbox"
               onChange={(e) => inputRace(e)}
