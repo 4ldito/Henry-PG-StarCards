@@ -9,6 +9,13 @@
 
   width: 100%;
 }
+.containerToSingle {
+  display: flex;
+  justify-content: space-around;
+  margin-top:5%;
+
+  width: 100%;
+}
 
 .chatContainer {
   display: flex;
