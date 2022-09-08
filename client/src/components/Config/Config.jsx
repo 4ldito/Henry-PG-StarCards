@@ -8,11 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaRegEdit } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import Swal from "sweetalert2";
-import { Button } from "reactstrap";
 import VerifyMail from "../Mail/VerifyMail";
 import {
   changeModal,
-  renderVerifyRegister,
   successAction,
 } from "../../redux/actions/sendMail";
 import TransactionsUser from "./TransactionsUser";
