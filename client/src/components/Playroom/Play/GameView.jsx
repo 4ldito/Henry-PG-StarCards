@@ -82,7 +82,7 @@ export default function GameView({ info, close }) {
           setTimeOut(
             setTimeout(() => {
               setRound((prev) => prev + 1);
-            }, 2500)
+            }, 2500000)
           );
         } else {
           setTimeOut(
