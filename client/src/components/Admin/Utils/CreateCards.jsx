@@ -30,7 +30,7 @@ function CreateCards() {
     const dispatch = useDispatch();
     const card = useSelector((state)=> state.admin.card)
 
-    /*useEffect(() => {
+    useEffect(() => {
         if (Object.keys(card).length !== 0) {
           Swal.fire({
             title: "Card Created!",
@@ -53,7 +53,7 @@ function CreateCards() {
           name2.current.value = "";
           price.current.value = "";
         }
-      }, [card]);*/
+      }, [card]);
     //hooks
     const [errors, setErrors] = useState(null);
     //files

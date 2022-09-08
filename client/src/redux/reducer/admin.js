@@ -12,7 +12,7 @@ const initialState = {
   allUsers: [],
   filteredUsers: [],
   packCard: {},
-  card: {}
+  cards: {}
 };
 
 export default function filterUsers(state = initialState, { type, payload }) {
@@ -20,9 +20,9 @@ export default function filterUsers(state = initialState, { type, payload }) {
     case GET_ALL_USERS:
       return { ...state, allUsers: payload, filteredUsers: payload };
     case CREATE_CARDS:
-      return {...state, card: payload};
+      return {...state, cards: payload};
     case CLEAN_CREATE_CARDS:
-      return {...state, card: {}};
+      return {...state, cards: {}};
     case CREATE_PACK_CARDS:
       return { ...state, packCard: payload };
     case CLEAN_CREATE_PACK_CARDS:
