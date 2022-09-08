@@ -72,14 +72,14 @@ export default function App({ user }) {
       dispatch(sendMail(state))
       Swal.fire({
         title: "Token",
-        text: "Se envio Token al Mail ingresado",
+        text: "Token was sent to the email entered",
         icon: "success",
       });
       setRender(false);
     } else {
       Swal.fire({
         title: "Error",
-        text: "El email ingresado no coincide",
+        text: "The entered mail doesn't match",
         icon: "error",
       });
       email1.current.value = "";
@@ -96,7 +96,7 @@ export default function App({ user }) {
     dispatch(sendMail({email: state.email}))
       Swal.fire({
       title: 'Token',
-      text: 'Se envio nuevo token',
+      text: 'A new token was sent',
       icon: 'success',
     });
     setReenviar(true);
@@ -113,12 +113,12 @@ export default function App({ user }) {
               <input
                 type="email"
                 name="email"
-                placeholder="Ingrese su email..."
+                placeholder="Enter your email..."
                 onChange={comprobarCambios}
-                className="form-control"
+                className={css.input}
                 ref={email1}
               />
-              <button className={css.button} type="submit">Enviar Token</button>
+              <button className={css.button} type="submit">Send Token</button>
               <button className={css.buttonClose2} onClick={(e)=>close(e)}>X</button>
             </div>
           </form>
@@ -128,7 +128,7 @@ export default function App({ user }) {
               <input
                 type="text"
                 name="token1"
-                placeholder="Ingresar token recibido por email..."
+                placeholder="Enter token received by email..."
                 onChange={comprobarCambios}
                 className="form-control"
                 ref={token1}

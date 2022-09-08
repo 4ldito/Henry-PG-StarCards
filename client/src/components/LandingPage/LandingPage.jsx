@@ -21,6 +21,7 @@ import Marine from "../../img/Cards landing/Marine.png";
 
 import css from "./landingPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   const nave1ref = useRef(null);
@@ -28,6 +29,7 @@ export default function LandingPage() {
   const [limit, setLimit] = useState(1);
   const dispatch = useDispatch();
 
+  const token = useSelector(state => state.userReducer.token);
   const user = useSelector((state) => state.userReducer.user);
 
   useEffect(() => {
@@ -69,7 +71,10 @@ export default function LandingPage() {
           <div>
             <h1>THE STARCRAFT UNIVERSE CARD GAME</h1>
           </div>
-          <button className={css.btn}>PLAY</button>
+          <Link to={token?`/userProfile?username=${user.username}`:`/login`}>
+            <button className={css.btn}>PLAY</button>
+          </Link>
+         
         </div>
         <img
           ref={nave1ref}
