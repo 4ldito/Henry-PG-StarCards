@@ -21,7 +21,7 @@ export default function Inventory() {
         <div className={css.filters}>
           filters:
           <Filters />
-          <SearchUserCard />
+        
 
         </div>}
       <InventoryContainer actualStackToShow={actualStackToShow}
