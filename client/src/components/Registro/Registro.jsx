@@ -193,11 +193,10 @@ export default function Registro() {
             placeholder="Enter your password here"
           />
         </div>
-        <div className={style3.buttoncontainer}>
-          {errores?.confirm && showErrors && (
-            <label className={style.error}>{errores.confirm}</label>
-          )}
-          <div style={{ height: "18px" }}></div>
+        {errores?.confirm && showErrors && (
+          <label className={style.error}>{errores.confirm}</label>
+        )}
+        <div className={style3.buttons}>
           {input.username ? (
             <button
               type="submit"
