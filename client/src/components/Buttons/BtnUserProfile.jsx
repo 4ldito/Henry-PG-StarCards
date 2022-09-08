@@ -43,7 +43,7 @@ export default function username({ user, property }) {
     if (invalidPassword === "Incorrect") {
       Swal.fire({
         title: "Error",
-        text: "Contraseña Incorrecta",
+        text: "Wrong password",
         icon: "error",
       });
       //clean status:
@@ -56,7 +56,7 @@ export default function username({ user, property }) {
     if (invalidPassword === "Correct") {
       Swal.fire({
         title: "Completado",
-        text: "Informacion Actualizada",
+        text: "Updated info",
         icon: "success",
       });
     }
@@ -69,7 +69,7 @@ export default function username({ user, property }) {
       dispatch(modifyUser(user.id, { [property]: value }));
       Swal.fire({
         title: "Completado",
-        text: "Nombre de Usuario modificado",
+        text: "Username modified",
         icon: "success",
       });
       openModal();
