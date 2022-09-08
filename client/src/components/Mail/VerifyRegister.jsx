@@ -114,7 +114,7 @@ export default function VerifyRegister({ email, user }) {
                   type="password"
                   name="passwordNew"
                   placeholder="Enter the new password"
-                  className="form-control"
+                  className={css.formControl}
                   ref={password}
                 />
                 <button className={css.button} type="submit">

@@ -25,7 +25,6 @@
 } */
 
 .container {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,7 +85,7 @@
   border: none;
   color: white;
 
-  width: 150px;
+  width: 140px;
   height: 50px;
 }
 
@@ -99,4 +98,18 @@
 
   background-color: red;
   border: 1px solid white;
+}
+
+.formControl{
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  width: 180px;
+  height: 30px;
+}
+
+@media (max-width: 900px) {
+  .mail {
+    flex-direction: column;
+  }
 }

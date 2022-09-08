@@ -1,13 +1,14 @@
-.appli {
-  font-family: sans-serif;
+/* .appli {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+
+  font-family: sans-serif;
   gap: 20px;
-  height: 60vh;
+  height: 100%;
+  width: 100%;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-}
+} */
 
 .options {
   display: flex;
