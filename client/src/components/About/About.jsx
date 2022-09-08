@@ -66,7 +66,7 @@ export default function About() {
               </div>
               <div className={css.containerDataPeople}>
                 <h4>{people.name}</h4>
-                <p>{people.summary}</p>
+                {/* <p>{people.summary}</p> */}
                 <div>
                   <a href={people.linkedin} target="_blank">
                     <button className={css.btnLink}>

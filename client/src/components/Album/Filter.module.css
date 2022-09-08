@@ -10,7 +10,7 @@
   width: 35%;
 }
 
-.btnClearFilter {
+.btnFilter {
   background-color: rgba(255, 255, 255, 0);
   background-image: url(../../img/circle-15.svg);
   background-position: center;
@@ -23,6 +23,21 @@
   height: 95px;
 
   cursor: pointer;
+}
+
+.btnClearFilter {
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url(../../img/filter-button.svg);
+  background-position: center;
+  text-align: left;
+  border: none;
+  color: white;
+  -webkit-appearance: none;
+
+  width: 225px;
+  height: 45px;
+
+  padding-left: 10px;
 }
 
 .btnClearFilter:focus {
