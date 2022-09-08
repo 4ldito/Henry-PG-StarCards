@@ -93,9 +93,9 @@ const SinglePrivateChat = ({ newChatUser }) => {
   };
 
   return (
-    <div className={css.chatContainer}>
+    <div className={css.containerToSingle}>
       <div className={css.chatUsers}>{newChatUser.username}</div>
-
+      <div className={css.chatContainer}>
       <div className={css.chatBodyContainer}>
         <div className={css.chatText}>
           {messages[newChatUser.id]
@@ -121,8 +121,9 @@ const SinglePrivateChat = ({ newChatUser }) => {
             }}
             className={css.textArea}
           />
-          <input type="submit" value="Send" />
+          <input className={css.send} type="submit" value="Send" />
         </form>
+      </div>
       </div>
     </div>
   );

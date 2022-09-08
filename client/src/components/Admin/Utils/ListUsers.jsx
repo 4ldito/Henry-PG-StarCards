@@ -79,9 +79,11 @@ const ListUsers = () => {
           {
             <div className={style.table}>
               <div className={style.row}>
-                <span className={style.userTitle}>user</span>
-                <span className={style.statusTitle}>status</span>
-                <span className={style.rolTitle}>rol</span>
+                <span className={style.userTitle}>User</span>
+                <span className={style.statusTitle}>Status</span>
+                <span className={style.rolTitle}>Rol</span>
+                <span className={style.span} />
+                <span className={style.span} />
               </div>
               {allUsers.map((u) => (
                 <div className={style.row} key={u.id}>
@@ -95,15 +97,12 @@ const ListUsers = () => {
                   }
 
                   <section className={style.status}>
-                    <label>{u.StatusId}</label>
                     {
                       <button onClick={(e) => changeStatus(e, u)}>
-                        {u.StatusId === "active" ? "ban 🚫" : "unban"}
+                        {u.StatusId}
                       </button>
                     }
                   </section>
-
-                  {/* {<button onClick={(e)=>changeRol(e,u)}>{u.RolId === 'user' ? 'Up to Admin' : 'Low to User'}</button>} */}
 
                   {userActual.RolId === "superadmin" && (
                     <section className={style.rol}>
@@ -120,18 +119,18 @@ const ListUsers = () => {
 
                   {
                     <button
-                      className={style.btn}
+                      className={style.btnReset}
                       onClick={(e) => resetPassword(e, u)}
                     >
-                      reset password 🔄
+                      Reset password 🔄
                     </button>
                   }
                   {
                     <button
-                      className={style.btn}
+                      className={style.btnDelete}
                       onClick={(e) => deleteAccount(e, u)}
                     >
-                      delete account
+                      Delete account
                     </button>
                   }
                 </div>

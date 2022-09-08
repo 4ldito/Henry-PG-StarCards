@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: starcardsFont-fine;
   src: url("../../../css/EurostileNextLTPro-Light.otf");
-}
+} */
 
 .nav {
   display: flex;
@@ -110,7 +110,7 @@
   border-radius: 0 0 10px 10px;
 
   right: 3.5%;
-  top: 7vh;
+  top: calc(7vh - 1px);
 
   width: 10%;
   height: max-content;
