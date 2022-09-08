@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../Card/Card";
-import CardInPlayroom from './CardInPlayroom'
+import CardInPlayroom from "./CardInPlayroom";
 import css from "../Playroom.module.css";
-import styles from './GameView.module.css';
+import styles from "./GameView.module.css";
 export default function GameView({ info, close }) {
   const [battle, setBattle] = useState(info.info.battle1);
   const [battleNum, setBattleNum] = useState(1);
@@ -82,7 +82,7 @@ export default function GameView({ info, close }) {
           setTimeOut(
             setTimeout(() => {
               setRound((prev) => prev + 1);
-            }, 2500)
+            }, 2500000)
           );
         } else {
           setTimeOut(
@@ -182,8 +182,8 @@ export default function GameView({ info, close }) {
             race === "Zerg"
               ? css.battleZerg
               : race === "Terran"
-                ? css.battleTerran
-                : css.battleProtoss
+              ? css.battleTerran
+              : css.battleProtoss
           }
         >
           <div className={styles.cardsContainer}>
@@ -193,14 +193,18 @@ export default function GameView({ info, close }) {
               </div>
               <div className={styles.card}>
                 {roundInfo.AirAtkArmy?.length ? (
-                  <CardInPlayroom card={roundInfo.AirAtkArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.AirAtkArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}
               </div>
               <div className={styles.card}>
                 {roundInfo.GroundAtkArmy?.length ? (
-                  <CardInPlayroom card={roundInfo.GroundAtkArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.GroundAtkArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}
@@ -213,16 +217,18 @@ export default function GameView({ info, close }) {
               </div>
               <div className={styles.card}>
                 {roundInfo.AirDefArmy?.length ? (
-                
-                  <CardInPlayroom card={roundInfo.AirDefArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.AirDefArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}
               </div>
               <div className={styles.card}>
                 {roundInfo.GroundDefArmy?.length ? (
-                 
-                  <CardInPlayroom card={roundInfo.GroundDefArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.GroundDefArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}
