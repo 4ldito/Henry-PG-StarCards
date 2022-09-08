@@ -27,6 +27,8 @@ mercadopagoRoute.post('/checkout/:id', async (req, res, next) => {
     }
   });
 
+  console.log(purchaseCompletedURL);
+
   const preference = {
     items,
     payer,

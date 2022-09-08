@@ -1,13 +1,8 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import {
-  addNewFriend,
-  deleteFriend,
-  getUser,
-  getUserDecks,
-} from "../../redux/actions/user";
+import { Link, useLocation } from "react-router-dom";
+import { addNewFriend, deleteFriend, getUser, getUserDecks } from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
@@ -23,14 +18,13 @@ import Friends from "./Friends/Friends";
 import Stats from "./Stats/Stats";
 export default function UserProfile() {
   const dispatch = useDispatch();
-  const navigateTo = useNavigate();
 
   const activeUser = useSelector((state) => state.userReducer.user);
   const urlUser = useSelector((state) => state.userReducer.urlUser);
   const friends = useSelector((state) => state.userReducer.friends);
 
   const [user, setUser] = useState({});
-  const [render, setRender] = useState();
+  const [render, setRender] = useState("Inventory");
   useValidToken({ navigate: true });
 
   // Read profile owner from url
@@ -56,13 +50,8 @@ export default function UserProfile() {
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
     setUser(activeUser);
-    if (!urlUser)
-      navigateTo(`/userProfile?username=${activeUser.username}`, {
-        replace: true,
-      });
-    else return urlUser;
-    // return query ? query === activeUser.username ? activeUser : urlUser : activeUser;
-    // return query === activeUser.username || !query ? activeUser : urlUser;
+    // return query || urlUser;
+    return query === activeUser.username || !query ? activeUser : urlUser;
   }, [activeUser, urlUser]);
 
   useEffect(() => {
@@ -78,7 +67,7 @@ export default function UserProfile() {
   }, [activeUser, urlUser]);
 
   function changeRender(e) {
-    let value = e.target.value;
+    const value = e.target.value;
     if (value === render) return setRender("Inventory");
     setRender(value);
   }
@@ -86,13 +75,13 @@ export default function UserProfile() {
   const myFriend = friends?.find((f) => f.id === actualUrlUser.id);
 
   function addFriend(e) {
+    e.preventDefault();
     dispatch(addNewFriend(activeUser.id, actualUrlUser.id));
   }
 
   function deleteThisFriend(e) {
-    dispatch(
-      deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id })
-    );
+    e.preventDefault();
+    dispatch(deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id }));
   }
 
   const showToOwner = () => (
@@ -104,79 +93,28 @@ export default function UserProfile() {
         <div className={style.containerName}>
           <span>{activeUser.username.toUpperCase()}</span>
           <section className={style.containerButtons}>
-            <button
-              className={
-                render === "Inventory"
-                  ? `${style.buttons} ${style.buttonsActive}`
-                  : `${style.buttons}`
-              }
-              value="Inventory"
-              onClick={(e) => {
-                changeRender(e), handleClick(e);
-              }}
-            >
+            <button className={render === "Inventory" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Inventory" onClick={(e) => { changeRender(e) }}>
               Inventory
             </button>
-            <button
-              className={
-                render === "Stats"
-                  ? `${style.buttons} ${style.buttonsActive}`
-                  : `${style.buttons}`
-              }
-              value="Stats"
-              onClick={(e) => {
-                changeRender(e);
-              }}
-            >
+            <button className={render === "Stats" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Stats" onClick={(e) => { changeRender(e) }}>
               Stats
             </button>
-            <button
-              className={
-                render === "Config"
-                  ? `${style.buttons} ${style.buttonsActive}`
-                  : `${style.buttons}`
-              }
-              value="Config"
-              onClick={(e) => {
-                changeRender(e);
-              }}
-            >
+            <button className={render === "Config" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Config" onClick={(e) => { changeRender(e) }}>
               Config
             </button>
-            <button
-              className={
-                render === "Chat"
-                  ? `${style.buttons} ${style.buttonsActive}`
-                  : `${style.buttons}`
-              }
-              value="Chat"
-              onClick={(e) => {
-                changeRender(e), handleClick(e);
-              }}
-            >
+            <button className={render === "Chat" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Chat" onClick={(e) => { changeRender(e) }}>
               Chat
             </button>
-            <button
-              className={
-                render === "Friends"
-                  ? `${style.buttons} ${style.buttonsActive}`
-                  : `${style.buttons}`
-              }
-              value="Friends"
-              onClick={(e) => {
-                changeRender(e), handleClick(e);
-              }}
-            >
+            <button className={render === "Friends" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Friends" onClick={(e) => { changeRender(e) }}>
               Friends
             </button>
+            <Link className={style.stars} to="/shop">
+              <FaShoppingCart size={28} />
+              Stars: {user.stars}
+            </Link>
           </section>
         </div>
-        <Link className={style.stars} to="/shop">
-          <FaShoppingCart size={28} />
-          Stars: {user.stars}
-        </Link>
       </div>
-
       {render === "Config" ? (
         <div className={style.configContainer}>
           <Config user={user} />
@@ -184,7 +122,7 @@ export default function UserProfile() {
       ) : render === "Inventory" ? (
         <Inventory />
       ) : render === "Stats" ? (
-        <Stats />
+        <Stats user={activeUser} />
       ) : render === "Chat" ? (
         <PrivateChat />
       ) : render === "Friends" ? (
@@ -198,41 +136,26 @@ export default function UserProfile() {
   const showToVisitor = () => (
     <>
       <div className={style.img}>
-        <img
+        {/* <img
           className={style.profileimg}
           src={actualUrlUser.profileImg}
           alt="ProfileImg"
-        />
+        /> */}
       </div>
       <div className={style.buttonsbar}>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Stats"
-          onClick={(e) => changeRender(e)}
-          disabled
-        >
+        <button className={render === "Stats" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Stats" onClick={(e) => changeRender(e)}>
           Stats
         </button>
-        <button
-          className={`${style.buttons} ${style.disabled}`}
-          value="Chat"
-          onClick={(e) => changeRender(e)}
-        >
+        <button className={render === "Chat" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Chat" onClick={(e) => changeRender(e)}>
           Chat
         </button>
 
         {myFriend ? (
-          <button
-            className={`${style.buttonsDelete} ${style.disabled}`}
-            onClick={(e) => deleteThisFriend(e)}
-          >
+          <button className={`${style.buttonsDelete} ${style.disabled}`} onClick={(e) => deleteThisFriend(e)}>
             Delete friend
           </button>
         ) : (
-          <button
-            className={`${style.buttons} ${style.disabled}`}
-            onClick={(e) => addFriend(e)}
-          >
+          <button className={`${style.buttons} ${style.disabled}`} onClick={(e) => addFriend(e)}>
             Add friend
           </button>
         )}
@@ -245,7 +168,7 @@ export default function UserProfile() {
           <SinglePrivateChat newChatUser={actualUrlUser} />
         )
       ) : render === "Stats" ? (
-        <Stats />
+        <Stats user={actualUrlUser} />
       ) : (
         ""
       )}
@@ -253,7 +176,7 @@ export default function UserProfile() {
   );
 
   return Object.keys(user).length !== 0 ? (
-    actualUrlUser.id === user.id || urlUser === null ? (
+    actualUrlUser === user || urlUser === null ? (
       showToOwner()
     ) : (
       showToVisitor()

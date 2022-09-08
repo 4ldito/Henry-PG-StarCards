@@ -7,10 +7,10 @@ import PROTOSS from '../../../img/protoss.svg'
 import TERRAN from '../../../img/terran.svg'
 import style from "./Stats.module.css";
 
-const Stats = () => {
+const Stats = ({ user }) => {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.userReducer.user);
+  // const user = useSelector((state) => state.userReducer.user);
   const games = useSelector((state) => state.userReducer.games);
 
   const [infoGames, setInfoGames] = useState({
@@ -35,8 +35,6 @@ const Stats = () => {
   }, [games]);
 
   useEffect(() => {
-    console.log(infoGames)
-
     setInfoGames({
       zerg: { wins: 0, loses: 0, ties: 0 },
       protoss: { wins: 0, loses: 0, ties: 0 },
