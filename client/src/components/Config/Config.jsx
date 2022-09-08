@@ -6,7 +6,7 @@ import { deleteUser, modifyUser, userClean } from "../../redux/actions/user";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FaRegEdit } from "react-icons/fa";
-import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { GiTrashCan } from "react-icons/gi";
 import Swal from "sweetalert2";
 import VerifyMail from "../Mail/VerifyMail";
 import {
@@ -124,7 +124,7 @@ export default function Config({ user }) {
           <div className={css.configUser}>
             <span className={css.userSpan}>DELETE ACCOUNT</span>
             <span onClick={deleteAccount}>
-              Delete <MdOutlineRemoveRedEye size={30} />
+              Delete <GiTrashCan size={30}/>
             </span>
           </div>
         </div>

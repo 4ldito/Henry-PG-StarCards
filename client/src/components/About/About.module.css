@@ -105,7 +105,7 @@
 
 .containerPeople {
   display: flex;
-  width: 48%;
+  width: 28%;
   height: 17vh;
   margin: 1%;
 }
@@ -132,6 +132,8 @@
 }
 
 .containerDataPeople {
+  margin-top: 3%;
+  margin-left: 3%;
   width: 70%;
   color: white;
 }
