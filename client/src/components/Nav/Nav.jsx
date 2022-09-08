@@ -17,7 +17,7 @@ export default function Nav() {
   const dispatch = useDispatch();
 
   const handleVisibleUserOptions = () => {
-    dispatch(userOptionsState())
+    dispatch(userOptionsState());
   };
 
   return (
@@ -54,19 +54,23 @@ export default function Nav() {
           </NavLink>
         </li>
       </ul>
+      <div>
 
+      <div className={css.notiContainer}>
+        {validToken && <ChatNotifications />}
+      </div>
       <button
         id="link-perfil"
         className={css.btn}
         onClick={handleVisibleUserOptions}
-      >
+        >
         {user.user.id ? (
           <div id="btnMenu" className={css.divProfile}>
             <img
               className={css.profile}
               src={user.user.profileImg}
               alt="image profile"
-            />
+              />
           </div>
         ) : (
           <div id="btnMenu" className={css.divProfile}>
@@ -74,7 +78,7 @@ export default function Nav() {
           </div>
         )}
       </button>
-      {validToken && <ChatNotifications />}
+      </div>
 
       {userOptions && (
         <div className={css.userOptions}>

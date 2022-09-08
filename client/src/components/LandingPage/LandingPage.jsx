@@ -21,6 +21,8 @@ import Marine from "../../img/Cards landing/Marine.png";
 
 import css from "./landingPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 export default function LandingPage() {
   const nave1ref = useRef(null);
@@ -28,6 +30,7 @@ export default function LandingPage() {
   const [limit, setLimit] = useState(1);
   const dispatch = useDispatch();
 
+  const token = useSelector(state => state.userReducer.token);
   const user = useSelector((state) => state.userReducer.user);
 
   useEffect(() => {
@@ -69,7 +72,11 @@ export default function LandingPage() {
           <div>
             <h1>THE STARCRAFT UNIVERSE CARD GAME</h1>
           </div>
-          <button className={css.btn}>PLAY</button>
+          {/* <Link to={token?`/userProfile?username=${user.username}`:`/login`}> */}
+          <Link to={token?`/playroom`:`/login`}>
+            <button className={css.btn}>PLAY</button>
+          </Link>
+         
         </div>
         <img
           ref={nave1ref}
@@ -83,9 +90,9 @@ export default function LandingPage() {
       <div className={css.container}>
         <div className={css.containerTitle}>
           <img className={css.nave2} src={nave2} alt="" />
-          <h1>
+          <h2>
             PLAY ONLINE AGAINST OTHER PLAYERS USING YOUR FAVORITE CHARACTERS
-          </h1>
+          </h2>
         </div>
         <div className={css.containerCards}>
           <div className={css.cards}>
@@ -125,11 +132,12 @@ export default function LandingPage() {
           </div>
         </div>
         <div className={css.containerTitleDown}>
-          <h1>CHOOSE PROTOSS, TERRAN OR ZERG TO BUILD YOUR DECK AND COMPETE</h1>
+          <h2>CHOOSE PROTOSS, TERRAN OR ZERG TO BUILD YOUR DECK AND COMPETE</h2>
         </div>
         <div className={css.containerCards}>
           <img className={css.imageLanding} src={imageLanding} alt="" />
         </div>
+        <Footer />
       </div>
     </>
   );

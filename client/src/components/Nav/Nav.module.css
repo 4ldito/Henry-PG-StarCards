@@ -109,7 +109,7 @@
   border-top: none;
   border-radius: 0 0 10px 10px;
 
-  right: 3.5%;
+  right: 3%;
   top: calc(7vh - 1px);
 
   width: 10%;
@@ -123,6 +123,7 @@
   background-image: url(../../img/circle-15.svg);
   width: 11vh;
   height: 11vh;
+  margin-left: -10px;
 }
 
 .profile {
@@ -153,4 +154,19 @@
   .img {
     display: none;
   }
+}
+
+.notiContainer {
+  width: 20px;
+  height: 100%;
+}
+
+.chatNot {
+  position: absolute;
+  border-radius: 50%;
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  top: 60px;
+  z-index: 90;
 }

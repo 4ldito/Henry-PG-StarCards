@@ -34,4 +34,28 @@ cardsRoute.get("/:status", async (req, res, next) => {
   }
 });
 
+cardsRoute.post("/", async(req,res, next)=>{
+  const {name, Gdmg, Admg, life, ability, abilities, race, cost, movement, image} = req.body;
+  //name:name.charAt(0).toUpperCase()+name.slice(1);
+  try {
+    const newCard = await Card.create({
+      name,
+      Gdmg,
+      Admg,
+      life,
+      ability,
+      abilities,
+      race,
+      cost,
+      movement,
+      image
+    });
+    newCard.setStatus("active");
+    return res.status(201).send(newCard);
+  } catch (error) {
+    return next(error)
+  }
+})
+
+
 module.exports = cardsRoute;

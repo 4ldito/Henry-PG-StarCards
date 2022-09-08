@@ -95,48 +95,50 @@ export default function Config({ user }) {
 
   return (
     <>
-      <div className={css.container}>
-        <div className={css.config}>
-          <div className={css.configUser}>
-            <span className={css.userSpan}>USERNAME : {user.username}</span>
-            <span>
-              <BtnUserProfile user={user} property="username" />
-            </span>
-          </div>
+      <section className={css.containerFiftyFifty}>
+        <div className={css.container}>
+          <div className={css.config}>
+            <div className={css.configUser}>
+              <span className={css.userSpan}>USERNAME : {user.username}</span>
+              <span>
+                <BtnUserProfile user={user} property="username" />
+              </span>
+            </div>
 
-          <div className={css.configUser}>
-            <span className={css.userSpan}>PASSWORD</span>
-            {!user.loginGoogle && (
-              <div className={css.modal}>
-                <BtnUserProfile user={user} property="password" />
-              </div>
-            )}
-          </div>
+            <div className={css.configUser}>
+              <span className={css.userSpan}>PASSWORD</span>
+              {!user.loginGoogle && (
+                <div className={css.modal}>
+                  <BtnUserProfile user={user} property="password" />
+                </div>
+              )}
+            </div>
 
-          <div className={css.configUser}>
-            {input ? (
-              <>
-                <span className={css.userSpan}>EMAIL : {user.email}</span>
-                <span className={css.userSpans} onClick={modifyMail}>
-                  Edit
-                  <FaRegEdit size={30} />
-                </span>
-              </>
-            ) : (
-              changeMail()
-            )}
-          </div>
+            <div className={css.configUser}>
+              {input ? (
+                <>
+                  <span className={css.userSpan}>EMAIL : {user.email}</span>
+                  <span className={css.userSpans} onClick={modifyMail}>
+                    Edit
+                    <FaRegEdit size={30} />
+                  </span>
+                </>
+              ) : (
+                changeMail()
+              )}
+            </div>
 
-          <div className={css.configUser}>
-            <span className={css.userSpan}>DELETE ACCOUNT</span>
-            <span className={css.userSpans} onClick={deleteAccount}>
-              Delete <GiTrashCan size={30} />
-            </span>
+            <div className={css.configUser}>
+              <span className={css.userSpan}>DELETE ACCOUNT</span>
+              <span className={css.userSpans} onClick={deleteAccount}>
+                Delete <GiTrashCan size={30} />
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+        <TransactionsUser userId={user.id} />
+      </section>
 
-      <TransactionsUser userId={user.id} />
       {modal ? <VerifyMail user={user} /> : ""}
     </>
   );

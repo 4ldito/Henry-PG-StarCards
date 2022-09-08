@@ -10,6 +10,7 @@ import {
 } from "../../../redux/actions/user";
 import { CardContainer } from "../../Card/CardContainer";
 import DeckList from "./Decks/DeckList";
+import Filters from "./Filters";
 
 import css from "./Inventory.module.css";
 
@@ -221,9 +222,21 @@ export default function InventoryContainer({
     }
   };
 
+  useEffect(() => {
+    if (!actualStackToShow.length) {
+      setActualStackToShow(["cartas"]);
+    }
+  }, [actualStackToShow.length]);
+
   return (
     <div className={css.inventoryContainer}>
       <div className={css.cardsAndDecksButtons}>
+        {/* {actualStackToShow.includes("cartas") &&
+          actualStackToShow.length === 1 && ( */}
+            <div className={css.filters}>
+              <Filters />
+            </div>
+          {/* )} */}
         <button
           className={
             actualStackToShow.includes("cartas") ? css.buttonActive : css.button

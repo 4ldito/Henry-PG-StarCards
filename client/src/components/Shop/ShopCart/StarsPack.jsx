@@ -73,12 +73,12 @@ const StarsPack = ({
               )
             ) : (
               <button
-                // className={style.pay}
+                className={style.pay}
                 onClick={() => {
                   navigate("/login");
                 }}
               >
-                Log In
+                Login
               </button>
             )}
           </div>

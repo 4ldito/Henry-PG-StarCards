@@ -57,7 +57,7 @@ export default function Pack({
                 <div className={style.probability}>
                   {pack.cards.map((card) => (
                     <span key={card[0]}>
-                      {card[0]} - {Math.floor(card[1] * 100)}%
+                      {card[0]} - {Math.round(card[1] * 1000)/10}%
                     </span>
                   ))}
                 </div>

@@ -32,7 +32,7 @@ async function signIn(req, res, next) {
   const { email, password } = req.body;
   try {
     const userFound = await User.findOne({ where: { email } });
-    if (!userFound) return res.json({ error: "User Inexist" });
+    if (!userFound) return res.json({ error: "Incorrect password or email." });
     const token = jwt.sign({ id: userFound.id }, config.SECRET, {
       expiresIn: 86400,
     });
@@ -40,7 +40,8 @@ async function signIn(req, res, next) {
       password,
       userFound.password
     );
-    if (!validPassword) return res.json({ error: "Password no Match" });
+    if (!validPassword)
+      return res.json({ error: "Incorrect password or email." });
     res.json({
       token,
       user: userFound,

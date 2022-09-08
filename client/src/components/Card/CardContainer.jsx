@@ -7,6 +7,9 @@ import SaleCard from "./../UserProfile/Inventory/SaleCard/SaleCard";
 import css from "./CardContainer.module.css";
 import { CardContainerDetail } from "./CardContainerDetail.jsx";
 
+import next from "../../img/next.svg";
+import prev from "../../img/prev.svg";
+
 export function CardContainer({
   bothStacks,
   card,
@@ -126,13 +129,15 @@ export function CardContainer({
                 )}
               </div>
               {addButton && !selectedDeck?.name && (
-                <button
-                  className={css.añadirAlMazoBtn + " material-symbols-outlined"}
-                  onClick={() => {
-                    addCardToDeck(card, repeat);
-                  }}
-                >
-                  Trending Flat
+                // <button className={css.añadirAlMazoBtn + " material-symbols-outlined"}
+                // onClick={() => {
+                //   addCardToDeck(card, repeat);
+                // }}
+                // >
+
+                // </button>
+                <button className={css.añadirAlMazoBtn} onClick={() => { addCardToDeck(card, repeat) }}>
+                  <img style={{ width: '10px', filter: 'brightness(10)' }} src={next} />
                 </button>
               )}
               {actualStackToShow.length === 1 ? (
@@ -180,18 +185,29 @@ export function CardContainer({
                 </div>
               )}
               {inDeck && !selectedDeck?.name && bothStacks && (
-                <button
-                  className={css.sacarDelMazoBtn + " material-symbols-outlined"}
+                // <button
+                //   className={css.sacarDelMazoBtn + " material-symbols-outlined"}
+                // onClick={() => {
+                //   selectedDeck.name
+                //     ? removeCardFromDeck(
+                //       card.id,
+                //       (!updatingDeck?.cards && uCard.id) || undefined
+                //     )
+                //     : removeCardFromDeck(card.id);
+                // }}
+                // >
+                //   trending_flat
+                // </button>
+                <button className={css.sacarDelMazoBtn}
                   onClick={() => {
                     selectedDeck.name
                       ? removeCardFromDeck(
-                          card.id,
-                          (!updatingDeck?.cards && uCard.id) || undefined
-                        )
+                        card.id,
+                        (!updatingDeck?.cards && uCard.id) || undefined
+                      )
                       : removeCardFromDeck(card.id);
-                  }}
-                >
-                  trending_flat
+                  }}>
+                  <img style={{ width: '10px', filter: 'brightness(10)' }} src={prev} />
                 </button>
               )}
             </>
