@@ -44,7 +44,7 @@ function CreateCards() {
             Admg: '',
             life: '',
             ability: '',
-            abilities: [],
+            abilities: {},
             race: '',
             cost: '',
             movement: '',
@@ -65,7 +65,7 @@ function CreateCards() {
         Admg: '',
         life: '',
         ability: '',
-        abilities: [],
+        abilities: {},
         race: '',
         cost: '',
         movement: '',
@@ -137,8 +137,16 @@ function CreateCards() {
         if (!input.movement.includes(e.target.value)) {
           return setInput({ ...input, movement: [...input.movement, e.target.value] });
         }
-        let newRace = input.movement.filter((r) => r !== e.target.value);
-        setInput({ ...input, movement: newRace });
+        let newMovement = input.movement.filter((r) => r !== e.target.value);
+        setInput({ ...input, movement: newMovement });
+    }
+
+    function inputAbility(e) {
+        if (!input.ability.includes(e.target.value)) {
+          return setInput({ ...input, ability: [...input.ability, e.target.value] });
+        }
+        let newAbility = input.ability.filter((r) => r !== e.target.value);
+        setInput({ ...input, ability: newAbility });
     }
 
     const all = (
@@ -242,6 +250,49 @@ function CreateCards() {
                 onChange={(e) => inputMovement(e)}
               ></input>
             </div>
+
+            <div>
+              <label>Ability: </label>
+              <br />
+              <label>Always: </label>
+              <input
+                value="Always"
+                key="Always"
+                type="checkbox"
+                onChange={(e) => inputAbility(e)}
+              ></input>
+              <label>Attacker: </label>
+              <input
+                value="Attacker"
+                key="Attacker"
+                type="checkbox"
+                onChange={(e) => inputAbility(e)}
+              ></input>
+              <label>Neither: </label>
+              <input
+                value="Neither"
+                key="Neither"
+                type="checkbox"
+                onChange={(e) => inputAbility(e)}
+              ></input>
+            </div>
+            { (input.ability === 'Neither')?(
+                <input
+                    value='poder'
+
+                ></input>
+            ):('')
+            
+            }
+            <input
+              type="text"
+              name="abilities"
+              onChange={(e) => handleChange(e)}
+              placeholder="Abilities"
+              required
+              min="1"
+              //ref={stock}
+            />
 
 
             <input

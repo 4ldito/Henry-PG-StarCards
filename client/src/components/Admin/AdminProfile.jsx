@@ -50,9 +50,9 @@ export default function renderAdmin() {
         <Store />
       ) : render === "CreatePacks" ? (
         <CreatePacks />
-      ) : (
-        ""
-      )}
+      ) : render === "CreateCards"? (
+        <CreateCards />
+      ): ("")}
     </div>
   );
 }
