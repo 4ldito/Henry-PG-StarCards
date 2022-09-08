@@ -7,6 +7,10 @@ import SaleCard from "./../UserProfile/Inventory/SaleCard/SaleCard";
 import css from "./CardContainer.module.css";
 import { CardContainerDetail } from "./CardContainerDetail.jsx";
 
+import ZERG from '../../img/zerg.svg'
+import PROTOSS from '../../img/protoss.svg'
+import TERRAN from '../../img/terran.svg'
+
 import next from "../../img/next.svg";
 import prev from "../../img/prev.svg";
 
@@ -166,18 +170,18 @@ export function CardContainer({
                     {card.race === "Terran" ? (
                       <img
                         className={css.raceImg}
-                        src="/src/img/terran.svg"
+                        src={TERRAN}
                       ></img>
                     ) : card.race === "Zerg" ? (
                       <img
                         className={css.raceImg}
-                        src="/src/img/zerg.svg"
+                        src={ZERG}
                       ></img>
                     ) : (
                       card.race === "Protoss" && (
                         <img
                           className={css.raceImg}
-                          src="/src/img/protoss.svg"
+                          src={PROTOSS}
                         ></img>
                       )
                     )}
