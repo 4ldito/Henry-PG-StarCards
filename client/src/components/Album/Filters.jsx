@@ -58,11 +58,12 @@ export default function Filters() {
   return (
     <div className={css.filters}>
       <button
-        className={css.btnFilter}>
-          <BiFilterAlt size={50} />
+        id="clearFilters"
+        onClick={clearFilters}
+        className={css.btnFilters}
+      >
+        <BiFilterAlt size={55} />
       </button>
-
-      
 
       <input
         id="search"
@@ -75,6 +76,14 @@ export default function Filters() {
       />
 
       <datalist id="listaCards">{options()}</datalist>
+
+      <button
+        id="clearFilters"
+        onClick={clearFilters}
+        className={css.btnClearFilter}
+      >
+        Clear Filters
+      </button>
 
       <select
         id="race"
@@ -122,14 +131,6 @@ export default function Filters() {
         <option value="ascendentlife">By ascending Life</option>
         <option value="descendentlife">By descending Life</option>
       </select>
-      
-      <button
-        id="clearFilters"
-        onClick={clearFilters}
-        className={css.btnClearFilter}
-      >
-        Clear Filters
-      </button>
     </div>
   );
 }

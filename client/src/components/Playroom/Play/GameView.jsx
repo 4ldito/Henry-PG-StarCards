@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../Card/Card";
+import css from "../Playroom.module.css";
 
 export default function GameView({ info, close }) {
   const [battle, setBattle] = useState(info.info.battle1);
@@ -18,6 +19,8 @@ export default function GameView({ info, close }) {
   const [final, setFinal] = useState();
   const [winner, setWinner] = useState();
   const [timeOut, setTimeOut] = useState();
+  const [race, setRace] = useState();
+  const [changed, setChanged] = useState(false);
 
   useEffect(() => {
     if (info.info.winner === info.info.player1.userId)
@@ -28,95 +31,160 @@ export default function GameView({ info, close }) {
   }, [info]);
 
   useEffect(() => {
-    if (info.info.player1.userId === battle.attacker) {
-      setAttacker(info.info.player1.username);
-      setDefender(info.info.player2.username);
-    } else {
-      setAttacker(info.info.player2.username);
-      setDefender(info.info.player1.username);
+    if (!final) {
+      if (info.info.player1.userId === battle.attacker) {
+        setAttacker(info.info.player1.username);
+        setDefender(info.info.player2.username);
+        setRace(info.info.player2.race);
+      } else {
+        setAttacker(info.info.player2.username);
+        setDefender(info.info.player1.username);
+        setRace(info.info.player1.race);
+      }
+      setTotalRounds(battle.AirAtkArmy.length);
+      setRound(0);
     }
-
-    // setRoundInfo({
-    //   AirAtkArmy: battle.AirAtkArmy[0],
-    //   AirDefArmy: battle.AirDefArmy[0],
-    //   GroundAtkArmy: battle.GroundAtkArmy[0],
-    //   GroundDefArmy: battle.GroundDefArmy[0],
-    //   Base: battle.Base[0],
-    // });
-    setRound(0);
-
-    setTotalRounds(battle.AirAtkArmy.length);
+    if (battle.attacker) {
+      setChanged((prev) => !prev);
+    }
   }, [battle]);
 
+  const [roundGo, setRoundGo] = useState(true);
   useEffect(() => {
-    if (round >= 0 && totalRounds) {
-      if (round < totalRounds) {
-        setRoundInfo({
-          AirAtkArmy: battle.AirAtkArmy[round],
-          AirDefArmy: battle.AirDefArmy[round],
-          GroundAtkArmy: battle.GroundAtkArmy[round],
-          GroundDefArmy: battle.GroundDefArmy[round],
-          Base: battle.Base[round],
-        });
-        setTimeOut(
-          setTimeout(() => {
-            setRound((prev) => prev + 1);
-          }, 500)
-        );
-      } else {
-        if (battleNum < 2) {
-          setBattle(info.info.battle2);
-          setBattleNum(2);
-        } else setFinal(true);
-      }
+    if (round !== 0) {
+      setRoundInfo({
+        AirAtkArmy: battle.AirAtkArmy[round],
+        AirDefArmy: battle.AirDefArmy[round],
+        GroundAtkArmy: battle.GroundAtkArmy[round],
+        GroundDefArmy: battle.GroundDefArmy[round],
+        Base: battle.Base[round],
+      });
+      setRoundGo((prev) => !prev);
     }
   }, [round]);
+
+  useEffect(() => {
+    setRoundInfo({
+      AirAtkArmy: battle.AirAtkArmy[round],
+      AirDefArmy: battle.AirDefArmy[round],
+      GroundAtkArmy: battle.GroundAtkArmy[round],
+      GroundDefArmy: battle.GroundDefArmy[round],
+      Base: battle.Base[round],
+    });
+    setRoundGo((prev) => !prev);
+  }, [changed]);
+
+  useEffect(() => {
+    if (round >= 0 && totalRounds && !final) {
+      if (round < totalRounds - 1) {
+        if (round === 0 || round === totalRounds - 2) {
+          setTimeOut(
+            setTimeout(() => {
+              setRound((prev) => prev + 1);
+            }, 2500)
+          );
+        } else {
+          setTimeOut(
+            setTimeout(() => {
+              setRound((prev) => prev + 1);
+            }, 500)
+          );
+        }
+      } else {
+        if (battleNum === 1) {
+          setBattle(info.info.battle2);
+          setRoundInfo({
+            AirAtkArmy: [],
+            AirDefArmy: [],
+            GroundAtkArmy: [],
+            GroundDefArmy: [],
+            Base: [],
+          });
+          setBattleNum(2);
+        } else {
+          setFinal(true);
+          setBattle({});
+        }
+      }
+    }
+  }, [roundGo]);
 
   function handleNextBattle() {
     clearTimeout(timeOut);
     if (battleNum === 1) {
-      setBattle(() => {
-        setRoundInfo({
-          AirAtkArmy: [],
-          AirDefArmy: [],
-          GroundAtkArmy: [],
-          GroundDefArmy: [],
-          Base: [],
-        });
-        return info.info.battle2;
+      setRoundInfo({
+        AirAtkArmy: [],
+        AirDefArmy: [],
+        GroundAtkArmy: [],
+        GroundDefArmy: [],
+        Base: [],
       });
       setBattleNum(2);
-    } else setFinal(true);
+      setBattle(info.info.battle2);
+    } else {
+      setFinal(true);
+      setBattle({});
+    }
   }
 
   function handlePrevBattle() {
     clearTimeout(timeOut);
-    if (battleNum === 2) {
-      setBattle(() => {
-        setRoundInfo({
-          AirAtkArmy: [],
-          AirDefArmy: [],
-          GroundAtkArmy: [],
-          GroundDefArmy: [],
-          Base: [],
-        });
-        return info.info.battle1;
+    if (!final) {
+      setRoundInfo({
+        AirAtkArmy: [],
+        AirDefArmy: [],
+        GroundAtkArmy: [],
+        GroundDefArmy: [],
+        Base: [],
       });
       setBattleNum(1);
+      setBattle(info.info.battle1);
+    } else {
+      setRoundInfo({
+        AirAtkArmy: [],
+        AirDefArmy: [],
+        GroundAtkArmy: [],
+        GroundDefArmy: [],
+        Base: [],
+      });
+      setBattleNum(2);
+      setFinal(false);
+      setBattle(info.info.battle2);
     }
   }
 
   return (
-    <div>
-      <button onClick={close}>X</button>
+    <div className={css.battleContainer}>
+      <button onClick={close} className={css.close}>
+        X
+      </button>
+      <div className={css.battleButtons}>
+        {battleNum === 2 || final ? (
+          <button onClick={handlePrevBattle} className={css.battleButton}>
+            {"<"}
+          </button>
+        ) : (
+          <></>
+        )}
+        <span className={css.battleText}>Battle</span>
+        {!final ? (
+          <button onClick={handleNextBattle} className={css.battleButton}>
+            {">"}
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
       {!final ? (
-        <>
-          {battleNum === 2 ? (
-            <button onClick={handlePrevBattle}>{"<"}</button>
-          ) : (
-            <></>
-          )}
-          <button onClick={handleNextBattle}>{">"}</button>
+        <div
+          className={
+            race === "Zerg"
+              ? css.battleZerg
+              : race === "Terran"
+              ? css.battleTerran
+              : css.battleProtoss
+          }
+        >
           <div>
             <span>Attacker: {attacker}</span>
             <span>Base Lifepoints: {roundInfo.Base}</span>
@@ -202,9 +270,9 @@ export default function GameView({ info, close }) {
               )}
             </div>
           </div>
-        </>
+        </div>
       ) : (
-        <div>
+        <div className={css.battleFinal}>
           {winner === "It is a tie!" ? (
             <span>{winner}</span>
           ) : (
