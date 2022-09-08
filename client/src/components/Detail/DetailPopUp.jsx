@@ -29,7 +29,12 @@ export default function DetailPopUp({
   const [viewEdit, setViewEdit] = useState(false);
   const [haveCard, setHaveCard] = useState(false);
   const [commented, setCommented] = useState(false);
-  const [input, setInput] = useState({ comment: "", score: 1, cardId: id, userId: user.id });
+  const [input, setInput] = useState({
+    comment: "",
+    score: 1,
+    cardId: id,
+    userId: user.id,
+  });
 
   useEffect(() => {
     opinion.forEach((o) => {
@@ -65,11 +70,11 @@ export default function DetailPopUp({
     let errors = {};
 
     if (values.comment.length > 100) {
-      errors.comment = "El comentario no puede contener más de 100 caracteres";
+      errors.comment = "The comment cannot contain more than 100 characters";
     }
 
     if (values.score > 5 || values.score < 1) {
-      errors.score = "El score no puede ser menor a 1, ni mayor a 5";
+      errors.score = "The score cannot be less than 1, nor more than 5";
     }
 
     return errors;
@@ -86,15 +91,25 @@ export default function DetailPopUp({
 
   function ratingStars() {
     let stars = [];
-    let ratingSum = opinion.map((r) => r.score).reduce((prev, curr) => prev + curr, 0);
+    let ratingSum = opinion
+      .map((r) => r.score)
+      .reduce((prev, curr) => prev + curr, 0);
     let rating = Math.round(ratingSum / opinion.length) || 0;
-    
+
     for (let i = 0; i < rating; i++) {
-      stars.push(<span key={i}><MdStar /></span>)
+      stars.push(
+        <span key={i}>
+          <MdStar />
+        </span>
+      );
     }
 
     for (let i = 5; i > rating; i--) {
-      stars.push(<span key={i}><MdStarOutline /></span>)
+      stars.push(
+        <span key={i}>
+          <MdStarOutline />
+        </span>
+      );
     }
 
     return stars;
@@ -107,7 +122,7 @@ export default function DetailPopUp({
       dispatch(postOpinions(input));
     } else {
       alert(
-        "El score no puede ser menor a 1, ni mayor a 5. El Comentario no puede superar los 100 caracteres"
+        "The score cannot be less than 1, nor greater than 5. The Comment cannot exceed 100 characters"
       );
     }
   }
@@ -124,7 +139,7 @@ export default function DetailPopUp({
       setViewEdit(!viewEdit);
     } else {
       alert(
-        "El score no puede ser menor a 1, ni mayor a 5. El Comentario no puede superar los 100 caracteres"
+        "The score cannot be less than 1, nor greater than 5. The Comment cannot exceed 100 characters"
       );
     }
   }
@@ -133,8 +148,8 @@ export default function DetailPopUp({
     race === "Zerg"
       ? css.zergCard
       : race === "Terran"
-        ? css.terranCard
-        : css.protossCard;
+      ? css.terranCard
+      : css.protossCard;
 
   return (
     <div className={css.containerTo} onClick={handleDetail}>
@@ -172,12 +187,10 @@ export default function DetailPopUp({
               {opinion.map((opinion, index) => {
                 return (
                   <section key={index}>
-                    <p className={css.username} >
-                      {opinion.User.username} :
-                    </p>
+                    <p className={css.username}>{opinion.User.username} :</p>
                     <span>{opinion.comment}</span>
                   </section>
-                )
+                );
               })}
             </div>
           </div>
@@ -253,7 +266,7 @@ export default function DetailPopUp({
                 </section>
               )
             ) : (
-              <h1>No tienes la carta</h1>
+              <h1>you don't have the card</h1>
             ))}
         </div>
       </div>

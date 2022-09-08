@@ -1,27 +1,27 @@
-body{
+body {
   overflow-x: hidden;
 }
 
 .cartas::-webkit-scrollbar {
   background: rgb(0, 44, 255);
-  background: linear-gradient(90deg,
-          rgba(255, 255, 255, 0) 30%,
-          cyan 50%,
-          rgba(255, 255, 255, 0) 70%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 30%,
+    cyan 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
   width: 20px;
 }
 
 .cartas::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
-      linear-gradient(-135deg, transparent 15px, cyan 0) top right,
-      linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
-      linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
+    linear-gradient(-135deg, transparent 15px, cyan 0) top right,
+    linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
+    linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
   background-size: 50% 50%;
   background-repeat: no-repeat;
   height: 18%;
 }
-
-
 
 .cartasYMazo::-webkit-scrollbar {
   background: rgb(0, 44, 255);
@@ -35,8 +35,7 @@ body{
 }
 
 .cartasYMazo::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, transparent 15px, cyan 0) top
-      left,
+  background: linear-gradient(135deg, transparent 15px, cyan 0) top left,
     linear-gradient(-135deg, transparent 15px, cyan 0) top right,
     linear-gradient(-45deg, transparent 15px, cyan 0) bottom right,
     linear-gradient(45deg, transparent 15px, cyan 0) bottom left;
@@ -45,43 +44,35 @@ body{
   height: 18%;
 }
 
-
-
-
-
 * {
   margin: 0;
 }
 
-.Inventory{
+.Inventory {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.filters{
-  z-index: 200000;
+.filters {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-around;
-  background-color: #3e3d3dbd;
-  border-radius: 10px;
-  color:white;
-  width: 27%;
+  align-items: center;
+
+  z-index: 10;
+
+  color: white;
+
   height: 4vh;
-  line-height: 1;
   gap: 1rem;
-  margin-top: 1rem;
-  padding: 1rem;
 }
 
 .cartas {
   display: flex;
   justify-content: center;
-  background-image: url('../../../img/album-card-container.svg');
+  background-image: url("../../../img/album-card-container.svg");
   background-size: cover;
-  border:2px solid #00ffffaa;
+  border: 2px solid #00ffffaa;
   padding: 15px;
   gap: 10px;
   flex-wrap: wrap;
@@ -135,12 +126,12 @@ body{
   border-radius: 10px;
 
   width: 100vw;
-  height: 90%;
+  height: 73vh;
 
   margin-top: -3rem;
 }
 
-.buttons{
+.buttons {
   display: flex;
   justify-content: center;
   background-color: antiquewhite;
@@ -150,43 +141,42 @@ body{
   margin-bottom: 1rem;
 }
 
-.btnCards{
+.btnCards {
   width: 50%;
   border-radius: 10px 0 0 0;
 }
 
-.btnDecks{
+.btnDecks {
   width: 50%;
   border-radius: 0 10px 0 0;
 }
 
 .cartasYMazo {
   display: flex;
-  justify-content:flex-start;
+  justify-content: flex-start;
   overflow-y: scroll;
   align-items: center;
   flex-direction: column;
   height: 67vh;
   width: 90%;
   height: 90%;
-  gap:10px;
+  gap: 10px;
   margin: 0;
   padding: 10px;
-  background-image: url('../../../img/album-card-container.svg');
+  background-image: url("../../../img/album-card-container.svg");
   background-size: cover;
   border: 2px solid #00ffffdd;
-
 }
-.cartasYMazosContainer{
+.cartasYMazosContainer {
   justify-content: flex-start;
   display: flex;
   height: 67vh;
   width: 100%;
-  gap:10px;
+  gap: 10px;
   margin-top: 100px;
 }
 
-.cardsAndDecksButtons{
+.cardsAndDecksButtons {
   position: absolute;
   top: 70px;
   width: 100%;
@@ -196,7 +186,7 @@ body{
   gap: 20px;
   /* background-image: ; */
 }
-.button{
+.button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -205,13 +195,13 @@ body{
   height: 30px;
 
   font-size: 24px;
-  color:#ffffffdd;
+  color: #ffffffdd;
   border: 2px solid #00ffffdd;
   background-color: #00ffff22;
 
-  transition: .3s;
+  transition: 0.3s;
 }
-.buttonActive{
+.buttonActive {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -220,30 +210,29 @@ body{
   height: 32px;
 
   font-size: 24px;
-  color:#ffffffdd;
+  color: #ffffffdd;
   border: 2px solid #ff8800dd;
   background-color: #ffaa0022;
 
-  transition: .3s;
+  transition: 0.3s;
 }
 
-.cardsList{
+.cardsList {
   display: flex;
   overflow: unset;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   width: 50%;
   min-height: 100%;
 }
-.cardsListOnly{
-  
+.cardsListOnly {
   width: 100%;
 }
 
-@media screen and (max-width:480px){
-  .filters{
+@media screen and (max-width: 480px) {
+  .filters {
     padding: 0;
-    margin:0;
+    margin: 0;
     flex-direction: column;
     box-sizing: border-box;
     width: 30vw;
@@ -252,5 +241,4 @@ body{
     left: 0;
     overflow: hidden;
   }
-  
 }

@@ -72,7 +72,7 @@ const CardsPack = ({
               </button>
             ) : (
               <button
-              
+                className={style.pay}
                 onClick={() => {
                   navigate("/login");
                 }}

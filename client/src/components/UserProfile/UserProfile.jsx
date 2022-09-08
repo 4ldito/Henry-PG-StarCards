@@ -2,7 +2,12 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
-import { addNewFriend, deleteFriend, getUser, getUserDecks } from "../../redux/actions/user";
+import {
+  addNewFriend,
+  deleteFriend,
+  getUser,
+  getUserDecks,
+} from "../../redux/actions/user";
 import style from "../../styles/ProfileUser/UserProfile.module.css";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
@@ -81,7 +86,9 @@ export default function UserProfile() {
 
   function deleteThisFriend(e) {
     e.preventDefault();
-    dispatch(deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id }));
+    dispatch(
+      deleteFriend({ userId: activeUser.id, friendId: actualUrlUser.id })
+    );
   }
 
   const showToOwner = () => (
@@ -93,19 +100,69 @@ export default function UserProfile() {
         <div className={style.containerName}>
           <span>{activeUser.username.toUpperCase()}</span>
           <section className={style.containerButtons}>
-            <button className={render === "Inventory" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Inventory" onClick={(e) => { changeRender(e) }}>
+            <button
+              className={
+                render === "Inventory"
+                  ? `${style.buttons} ${style.buttonsActive}`
+                  : `${style.buttons}`
+              }
+              value="Inventory"
+              onClick={(e) => {
+                changeRender(e);
+              }}
+            >
               Inventory
             </button>
-            <button className={render === "Stats" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Stats" onClick={(e) => { changeRender(e) }}>
+            <button
+              className={
+                render === "Stats"
+                  ? `${style.buttons} ${style.buttonsActive}`
+                  : `${style.buttons}`
+              }
+              value="Stats"
+              onClick={(e) => {
+                changeRender(e);
+              }}
+            >
               Stats
             </button>
-            <button className={render === "Config" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Config" onClick={(e) => { changeRender(e) }}>
+            <button
+              className={
+                render === "Config"
+                  ? `${style.buttons} ${style.buttonsActive}`
+                  : `${style.buttons}`
+              }
+              value="Config"
+              onClick={(e) => {
+                changeRender(e);
+              }}
+            >
               Config
             </button>
-            <button className={render === "Chat" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Chat" onClick={(e) => { changeRender(e) }}>
+            <button
+              className={
+                render === "Chat"
+                  ? `${style.buttons} ${style.buttonsActive}`
+                  : `${style.buttons}`
+              }
+              value="Chat"
+              onClick={(e) => {
+                changeRender(e);
+              }}
+            >
               Chat
             </button>
-            <button className={render === "Friends" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Friends" onClick={(e) => { changeRender(e) }}>
+            <button
+              className={
+                render === "Friends"
+                  ? `${style.buttons} ${style.buttonsActive}`
+                  : `${style.buttons}`
+              }
+              value="Friends"
+              onClick={(e) => {
+                changeRender(e);
+              }}
+            >
               Friends
             </button>
             <Link className={style.stars} to="/shop">
@@ -135,32 +192,58 @@ export default function UserProfile() {
 
   const showToVisitor = () => (
     <>
-      <div className={style.img}>
-        {/* <img
-          className={style.profileimg}
-          src={actualUrlUser.profileImg}
-          alt="ProfileImg"
-        /> */}
-      </div>
-      <div className={style.buttonsbar}>
-        <button className={render === "Stats" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Stats" onClick={(e) => changeRender(e)}>
-          Stats
-        </button>
-        <button className={render === "Chat" ? `${style.buttons} ${style.buttonsActive}` : `${style.buttons}`} value="Chat" onClick={(e) => changeRender(e)}>
-          Chat
-        </button>
+      <div className={style.containerPerfil}>
+        <section className={style.containerImgPerfil}>
+          <img
+            src={actualUrlUser.profileImg}
+            alt="ProfileImg"
+          />
+        </section>
+        <div className={style.containerNameVisitor}>
+          <span>{actualUrlUser.username.toUpperCase()}</span>
+          <section className={style.containerButtons}>
+            <button
+              className={
+                render === "Stats"
+                  ? `${style.buttons} ${style.buttonsActive}`
+                  : `${style.buttons}`
+              }
+              value="Stats"
+              onClick={(e) => changeRender(e)}
+            >
+              Stats
+            </button>
+            <button
+              className={
+                render === "Chat"
+                  ? `${style.buttons} ${style.buttonsActive}`
+                  : `${style.buttons}`
+              }
+              value="Chat"
+              onClick={(e) => changeRender(e)}
+            >
+              Chat
+            </button>
 
-        {myFriend ? (
-          <button className={`${style.buttonsDelete} ${style.disabled}`} onClick={(e) => deleteThisFriend(e)}>
-            Delete friend
-          </button>
-        ) : (
-          <button className={`${style.buttons} ${style.disabled}`} onClick={(e) => addFriend(e)}>
-            Add friend
-          </button>
-        )}
+            {myFriend ? (
+              <button
+                className={`${style.buttonsDelete} ${style.disabled}`}
+                onClick={(e) => deleteThisFriend(e)}
+              >
+                Delete friend
+              </button>
+            ) : (
+              <button
+                className={`${style.buttons} ${style.disabled}`}
+                onClick={(e) => addFriend(e)}
+              >
+                Add friend
+              </button>
+            )}
+          </section>
+        </div>
       </div>
-      {/* {console.log(actualUrlUser)} */}
+
       {render === "Chat" ? (
         chatAlreadyExists ? (
           <PrivateChat selected={actualUrlUser} />

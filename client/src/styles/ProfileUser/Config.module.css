@@ -2,22 +2,35 @@
   background-color: red;
   /* color: white; */
 }
+
 .container {
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
 
-  background: rgb(7,109,150);
-  background: linear-gradient(137deg, rgba(7,109,150,1) 0%, rgba(14,8,54,1) 100%);
-  
+  background: rgb(7, 109, 150);
+  background: linear-gradient(
+    137deg,
+    rgba(7, 109, 150, 1) 0%,
+    rgba(14, 8, 54, 1) 100%
+  );
+
   font-family: starcardsFont;
   color: white;
-  
-  width: 40%;
-  height: 40vh;
 
-  margin: 3vh 30% 0 30%;
+  width: 48%;
+  height: 50vh;
+
+  margin-top: 3vh;
 }
+
+.containerFiftyFifty {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 0 2.5% 0 2.5%;
+}
+
 .config {
   display: flex;
   flex-direction: column;
@@ -27,7 +40,7 @@
   height: 80%;
 
   padding-top: 3vh;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 .modal {
   display: flex;
@@ -40,15 +53,13 @@
   font-size: medium;
   cursor: pointer;
 }
-/* .span:hover{
-    font-size: large;
-} */
+
 @font-face {
   font-family: starcardsFont;
   src: url("../../../css/EUROSTIB.ttf");
 }
 
-.configUser{
+.configUser {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,15 +71,29 @@
   padding: 0 1rem;
 }
 
-.userSpan{
-  font-size:1.5rem;
+.userSpan {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.userSpans {
+  cursor: pointer;
+}
+
+.btnprofile {
+  background: linear-gradient(
+    135deg,
+    rgba(7, 110, 153, 1) 0%,
+    rgba(43, 0, 110, 1) 100%
+  );
+  color: white;
 }
 
 .mail {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+
+  position: absolute;
 
   background-color: rgba(16, 16, 16, 0.288);
 
@@ -77,5 +102,5 @@
 
   width: 100%;
   height: 93vh;
-  z-index: 2000;
+  z-index: 50;
 }

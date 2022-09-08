@@ -3,14 +3,15 @@
     color: white;
     cursor: pointer;
 }
-.principal{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.829);
+
+.modals{
+    background: linear-gradient(137deg, rgba(7,109,150,1) 0%, rgba(14,8,54,1) 100%);
+    color: white
 }
 
-.secundario {
-    background-color: rgba(0, 0, 0, 0.829);
+.buttons{
+display: flex;
+width: 100%;
+justify-content: center;
+gap: 0.5rem;
 }

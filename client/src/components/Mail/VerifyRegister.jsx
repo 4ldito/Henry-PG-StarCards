@@ -10,11 +10,7 @@ import {
 } from "../../redux/actions/sendMail";
 import Swal from "sweetalert2";
 import css from "./Mail.module.css";
-import {
-  // getByEmail,
-  // getUserByEmail,
-  modifyUser,
-} from "../../redux/actions/user";
+import { modifyUser } from "../../redux/actions/user";
 import { useNavigate } from "react-router-dom";
 
 export default function VerifyRegister({ email, user }) {
@@ -27,7 +23,6 @@ export default function VerifyRegister({ email, user }) {
     (state) => state.sendMailReducer.recivedToken
   );
   const render = useSelector((state) => state.sendMailReducer.render);
-  // const user = useSelector((state) => state.userReducer.user)
   const [reenviar, setReenviar] = useState(true);
   const [state, setState] = useState({
     email: "",
@@ -36,8 +31,10 @@ export default function VerifyRegister({ email, user }) {
 
   useEffect(() => {
     if (recivedToken && tokenIstrue) {
-      //si llego el token y es tru(coinciden los token)
       Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Token",
         text: "Token successfully verified",
         icon: "success",
@@ -48,6 +45,9 @@ export default function VerifyRegister({ email, user }) {
     } else if (recivedToken && !tokenIstrue) {
       //si no coinciden
       Swal.fire({
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
         title: "Token",
         text: "The token entered is incorrect",
         icon: "error",
@@ -77,6 +77,9 @@ export default function VerifyRegister({ email, user }) {
     e.preventDefault();
     dispatch(sendMail({ email: email }));
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: "Token",
       text: "A new token was sent",
       icon: "success",
@@ -89,6 +92,9 @@ export default function VerifyRegister({ email, user }) {
     e.preventDefault();
     dispatch(modifyUser(user.id, { password: password.current.value }));
     Swal.fire({
+      background:
+        "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+      color: "white",
       title: "Correcto",
       text: "Password has been changed successfully",
       icon: "success",

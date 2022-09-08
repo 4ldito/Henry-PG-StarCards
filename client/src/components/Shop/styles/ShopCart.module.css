@@ -179,12 +179,20 @@
 
   font-size: 1.5rem;
 
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0 0.5rem 1rem;
 }
 
 .pay {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.20);
   border: none;
+  color: white;
+  font-family: starcardsFont-fine;
 
+
+  width: 90px;
   padding: 0 1rem;
+}
+
+.pay:hover{
+  background-color: rgb(185, 136, 0);
 }

@@ -30,7 +30,7 @@ const ChatNotifications = () => {
     setNotification(chatNotificationFlag);
   }, [chatNotificationFlag]);
 
-  return <>{notification ? <div>NOTIFICACION DE CHAT</div> : <></>}</>;
+  return <>{notification ? <div>CHAT NOTIFICATION</div> : <></>}</>;
 };
 
 export default ChatNotifications;

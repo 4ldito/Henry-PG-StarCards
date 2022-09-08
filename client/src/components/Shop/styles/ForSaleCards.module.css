@@ -14,6 +14,7 @@
   overflow-y: auto;
 }
 
+
 .container::-webkit-scrollbar {
   background: rgb(0, 44, 255);
   background: linear-gradient(
@@ -223,4 +224,9 @@
 
 .protossCard {
   background-image: url("https://i.ibb.co/Gxpwy4b/protoss-Front.png");
+}
+
+.swalmodal {
+  background-color: rgba(63,255,106,0.69);
+  border: 3px solid white;
 }

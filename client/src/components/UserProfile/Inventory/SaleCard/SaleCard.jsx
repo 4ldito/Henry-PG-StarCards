@@ -7,7 +7,7 @@ import css from "./SaleCard.module.css";
 
 export default function SaleCard({ handleViewCard, card }) {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.userReducer.user);
+  const user = useSelector((state) => state.userReducer.user);
 
   const [sale, setSale] = useState({ quantity: 0, price: 0 });
 
@@ -16,21 +16,25 @@ export default function SaleCard({ handleViewCard, card }) {
   }
 
   useEffect(() => {
-    if (sale.quantity > card.userCards.length) setSale({ ...sale, quantity: card.userCards.length });
+    if (sale.quantity > card.userCards.length)
+      setSale({ ...sale, quantity: card.userCards.length });
     if (sale.price < 0) setSale({ ...sale, price: 0 });
   }, [sale]);
 
   const dontAllowLeters = (e) => {
     if (!/[0-9]/.test(e.key)) e.preventDefault();
-  }
+  };
 
   function handleSubmit(e, status) {
     e.preventDefault();
     if (!sale.quantity || sale.price <= 0) {
       return Swal.fire({
-        title: 'Error!',
-        text: 'You have to put a quantity and a price',
-        icon: 'error',
+        background:
+          "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
+        color: "white",
+        title: "Error!",
+        text: "You have to put a quantity and a price",
+        icon: "error",
       });
     }
 
@@ -39,15 +43,22 @@ export default function SaleCard({ handleViewCard, card }) {
     for (let i = 0; i < sale.quantity; i++) {
       userCardsIdsToUpdate.push(card.userCards[i].id);
     }
-    dispatch(handleSaleCard({ userId: user.id, userCardsIdsToUpdate, status, price: sale.price }));
+    dispatch(
+      handleSaleCard({
+        userId: user.id,
+        userCardsIdsToUpdate,
+        status,
+        price: sale.price,
+      })
+    );
   }
 
   const cardCss =
     card.race === "Zerg"
       ? css.zergCard
       : card.race === "Terran"
-        ? css.terranCard
-        : css.protossCard;
+      ? css.terranCard
+      : css.protossCard;
 
   return (
     <div className={css.SaleCard} onClick={handleViewCard}>
@@ -72,14 +83,33 @@ export default function SaleCard({ handleViewCard, card }) {
           </div>
         </div>
 
-        <form onSubmit={(e) => handleSubmit(e, 'onSale')}>
+        <form className={css.form} onSubmit={(e) => handleSubmit(e, "onSale")}>
           <div className={css.options}>
             <label htmlFor="quantity">QUANTITY</label>
-            <input type="number" name="quantity" id="quantity" min="1" max={card?.userCards?.length} onKeyPress={dontAllowLeters} value={sale.quantity} placeholder="quantity" onChange={handleChange}/>
+            <input
+              type="number"
+              name="quantity"
+              id="quantity"
+              min="1"
+              max={card?.userCards?.length}
+              onKeyPress={dontAllowLeters}
+              value={sale.quantity}
+              placeholder="quantity"
+              onChange={handleChange}
+            />
           </div>
           <div className={css.options}>
             <label htmlFor="price">PRICE</label>
-            <input type="number" name="price" id="price" min="0" value={sale.price} placeholder="Price" onKeyPress={dontAllowLeters} onChange={handleChange} />
+            <input
+              type="number"
+              name="price"
+              id="price"
+              min="0"
+              value={sale.price}
+              placeholder="Price"
+              onKeyPress={dontAllowLeters}
+              onChange={handleChange}
+            />
           </div>
           <input type="submit" value="Sell" className={css.btn} />
         </form>
