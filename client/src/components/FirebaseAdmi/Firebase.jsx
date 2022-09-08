@@ -13,7 +13,7 @@ function Firebase() {
 
   //packs
   async function uploadFilePack(file, name) {
-    const storageRef = ref(storage, `packs/${name}`); //nombre de ref para la subida
+    const storageRef = ref(storage, `perfil/${name}`); //nombre de ref para la subida
     await uploadBytes(storageRef, file); //subida del archivo
     const url = await getDownloadURL(storageRef); //la url de la subida
     return url;
@@ -63,36 +63,27 @@ function Firebase() {
         <button>new Card</button>
       </form>*/
     //packs xD
-    <form onSubmit={handleSubmitPack}>
-      <input
-        type="text"
-        name=""
-        id=""
-        onChange={(e) => setNamepack(e.target.value)}
-        placeholder="Name pack"
-      />
-      <input
-        type="text"
-        name=""
-        id=""
-        onChange={(e) => setRace(e.target.value)}
-        placeholder="razas"
-      />
-      <input
-        type="text"
-        name=""
-        id=""
-        onChange={(e) => setRace(e.target.value)}
-        placeholder="cantidad"
-      />
-      <input
-        type="file"
-        name=""
-        id=""
-        onChange={(e) => setFile(e.target.files[0])}
-      />
-      <button>new Pack</button>
-    </form>
+    <>
+      <br />
+      <br />
+
+      <form onSubmit={handleSubmitPack}>
+        <input
+          type="text"
+          name=""
+          id=""
+          onChange={(e) => setNamepack(e.target.value)}
+          placeholder="img perfil"
+        />
+        <input
+          type="file"
+          name=""
+          id=""
+          onChange={(e) => setFile(e.target.files[0])}
+        />
+        <button>Upload</button>
+      </form>
+    </>
   );
 }
 

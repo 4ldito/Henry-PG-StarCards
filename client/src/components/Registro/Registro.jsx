@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createUser } from "../../redux/actions/user";
+import { createUser, createUserGoogle } from "../../redux/actions/user";
 import validator from "./functions/validators";
 import style from "../LandingPage/landingPage.module.css";
 import style2 from "../../styles/register/Register.module.css";
@@ -8,6 +8,10 @@ import style3 from "./login.module.css";
 import { userCleanMsgInfo } from "../../redux/actions/user";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+
+import { GoogleOAuthProvider } from "@react-oauth/google"; // npm i "@react-oauth/google"
+import { GoogleLogin } from "@react-oauth/google"; // npm i @react-oauth/google
+import jwt_decode from "jwt-decode";
 
 import VerifyRegister from "../Mail/VerifyRegister";
 import {
@@ -109,6 +113,18 @@ export default function Registro() {
     setShowErrors(true);
   };
 
+  function createOrGetUserGoogle(response) {
+    const decoded = jwt_decode(response.credential);
+    const { email, name, picture } = decoded;
+    const userObject = {
+      username: name,
+      email,
+      profileImg: picture,
+      loginGoogle: true,
+    };
+    dispatch(createUserGoogle(userObject));
+  }
+
   return !modal ? (
     <div className={style2.container}>
       <form
@@ -171,33 +187,46 @@ export default function Registro() {
             placeholder="Enter your password here"
           />
         </div>
-
-        {errores?.confirm && showErrors && (
-          <label className={style.error}>{errores.confirm}</label>
-        )}
-        <div style={{ height: "18px" }}></div>
-        {input.username ? (
-          <button
-            type="submit"
-            data="Registrar usuario"
-            className={style2.button}
-          >
-            Sign In
-          </button>
-        ) : (
-          <>
+        <div className={style3.buttoncontainer}>
+          {errores?.confirm && showErrors && (
+            <label className={style.error}>{errores.confirm}</label>
+          )}
+          <div style={{ height: "18px" }}></div>
+          {input.username ? (
             <button
-              onClick={handleError}
+              type="submit"
               data="Registrar usuario"
               className={style2.button}
             >
               Sign In
             </button>
-            {errores.complete && showErrors && (
-              <label className={style.error}>{errores.complete}</label>
-            )}
-          </>
-        )}
+          ) : (
+            <>
+              <button
+                onClick={handleError}
+                data="Registrar usuario"
+                className={style2.button}
+              >
+                Sign In
+              </button>
+              {errores.complete && showErrors && (
+                <label className={style.error}>{errores.complete}</label>
+              )}
+            </>
+          )}
+          <div>
+            <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
+              <GoogleLogin
+                onSuccess={(response) => {
+                  createOrGetUserGoogle(response);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+              />
+            </GoogleOAuthProvider>
+          </div>
+        </div>
       </form>
     </div>
   ) : (
