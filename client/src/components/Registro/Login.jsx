@@ -127,7 +127,6 @@ export default function Login() {
             <div>
               <GoogleOAuthProvider clientId="832028799556-l5odjjibtasaog2nqnskmtkcn0og6n3q.apps.googleusercontent.com">
                 <GoogleLogin
-                  className={style.buttonGoogle}
                   onSuccess={(response) => {
                     createOrGetUserGoogle(response);
                   }}

@@ -73,15 +73,15 @@ export default function SaleCard({ handleViewCard, card }) {
         </div>
 
         <form onSubmit={(e) => handleSubmit(e, 'onSale')}>
-          <div className="">
-            <label htmlFor="quantity">Quantity</label>
-            <input type="number" name="quantity" id="quantity" min="1" max={card?.userCards?.length} onKeyPress={dontAllowLeters} value={sale.quantity} placeholder="quantity" onChange={handleChange} />
+          <div className={css.options}>
+            <label htmlFor="quantity">QUANTITY</label>
+            <input type="number" name="quantity" id="quantity" min="1" max={card?.userCards?.length} onKeyPress={dontAllowLeters} value={sale.quantity} placeholder="quantity" onChange={handleChange}/>
           </div>
-          <div className="">
-            <label htmlFor="price">Price</label>
+          <div className={css.options}>
+            <label htmlFor="price">PRICE</label>
             <input type="number" name="price" id="price" min="0" value={sale.price} placeholder="Price" onKeyPress={dontAllowLeters} onChange={handleChange} />
           </div>
-          <input type="submit" value="Sell" />
+          <input type="submit" value="Sell" className={css.btn} />
         </form>
       </div>
     </div>

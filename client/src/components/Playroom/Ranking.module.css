@@ -1,5 +1,20 @@
-.columnsContainer, .userContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
+.columnsContainer,
+.userContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  font-size: 1.2rem;
+}
+.container {
+  padding-top: 5%;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  text-shadow: 0 0 3px rgb(185, 136, 0);
+}
+
+.link:hover {
+  color: rgb(185, 136, 0);
 }

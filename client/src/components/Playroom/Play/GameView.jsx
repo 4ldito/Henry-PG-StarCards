@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../Card/Card";
+import css from "../Playroom.module.css";
 
 export default function GameView({ info, close }) {
   const [battle, setBattle] = useState(info.info.battle1);
@@ -18,6 +19,7 @@ export default function GameView({ info, close }) {
   const [final, setFinal] = useState();
   const [winner, setWinner] = useState();
   const [timeOut, setTimeOut] = useState();
+  const [race, setRace] = useState();
 
   useEffect(() => {
     if (info.info.winner === info.info.player1.userId)
@@ -31,9 +33,11 @@ export default function GameView({ info, close }) {
     if (info.info.player1.userId === battle.attacker) {
       setAttacker(info.info.player1.username);
       setDefender(info.info.player2.username);
+      setRace(info.info.player2.race);
     } else {
       setAttacker(info.info.player2.username);
       setDefender(info.info.player1.username);
+      setRace(info.info.player1.race);
     }
 
     // setRoundInfo({
@@ -61,7 +65,7 @@ export default function GameView({ info, close }) {
         setTimeOut(
           setTimeout(() => {
             setRound((prev) => prev + 1);
-          }, 500)
+          }, 2000)
         );
       } else {
         if (battleNum < 2) {
@@ -91,7 +95,7 @@ export default function GameView({ info, close }) {
 
   function handlePrevBattle() {
     clearTimeout(timeOut);
-    if (battleNum === 2) {
+    if (battleNum !== 0 && !final) {
       setBattle(() => {
         setRoundInfo({
           AirAtkArmy: [],
@@ -103,20 +107,54 @@ export default function GameView({ info, close }) {
         return info.info.battle1;
       });
       setBattleNum(1);
+    } else {
+      setBattle(() => {
+        setRoundInfo({
+          AirAtkArmy: [],
+          AirDefArmy: [],
+          GroundAtkArmy: [],
+          GroundDefArmy: [],
+          Base: [],
+        });
+        return info.info.battle2;
+      });
+      setBattleNum(2);
+      setFinal(false);
     }
   }
 
   return (
-    <div>
-      <button onClick={close}>X</button>
+    <div className={css.battleContainer}>
+      <button onClick={close} className={css.close}>
+        X
+      </button>
+      <div className={css.battleButtons}>
+        {battleNum === 2 || final ? (
+          <button onClick={handlePrevBattle} className={css.battleButton}>
+            {"<"}
+          </button>
+        ) : (
+          <></>
+        )}
+        <span className={css.battleText}>Battle</span>
+        {!final ? (
+          <button onClick={handleNextBattle} className={css.battleButton}>
+            {">"}
+          </button>
+        ) : (
+          <></>
+        )}
+      </div>
       {!final ? (
-        <>
-          {battleNum === 2 ? (
-            <button onClick={handlePrevBattle}>{"<"}</button>
-          ) : (
-            <></>
-          )}
-          <button onClick={handleNextBattle}>{">"}</button>
+        <div
+          className={
+            race === "Zerg"
+              ? css.battleZerg
+              : race === "Terran"
+              ? css.battleTerran
+              : css.battleProtoss
+          }
+        >
           <div>
             <span>Attacker: {attacker}</span>
             <span>Base Lifepoints: {roundInfo.Base}</span>
@@ -202,9 +240,9 @@ export default function GameView({ info, close }) {
               )}
             </div>
           </div>
-        </>
+        </div>
       ) : (
-        <div>
+        <div className={css.battleFinal}>
           {winner === "It is a tie!" ? (
             <span>{winner}</span>
           ) : (
