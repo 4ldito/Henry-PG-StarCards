@@ -64,7 +64,7 @@ export default function RecoverPassword() {
             "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
           color: "white",
           title: "Token",
-          text: "Se envio Token al Mail ingresado",
+          text: "Token was sent to the email entered",
           icon: "success",
         });
         // input1.current.value= ''
