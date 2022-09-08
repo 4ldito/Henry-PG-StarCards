@@ -11,7 +11,6 @@ import Swal from "sweetalert2";
 import VerifyMail from "../Mail/VerifyMail";
 import {
   changeModal,
-  renderVerifyRegister,
   successAction,
 } from "../../redux/actions/sendMail";
 import TransactionsUser from "./TransactionsUser";

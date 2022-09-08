@@ -16,7 +16,6 @@ import { FaRegEdit } from "react-icons/fa";
 
 import css from "./BtnUserProfile.module.css";
 
-////////////////////////////////////////////////////////////////////////
 export default function username({ user, property }) {
   const dispatch = useDispatch();
   const [state, setState] = useState({ open: false });
