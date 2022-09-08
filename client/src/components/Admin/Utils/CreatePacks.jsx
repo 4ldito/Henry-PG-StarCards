@@ -122,12 +122,7 @@ function CreatePacks() {
     e.preventDefault();
 
     try {
-      if (
-        !errors &&
-        // select1.current.value !== "0"
-        //  &&
-        select2.current.value !== "0"
-      ) {
+      if (!errors && select2.current.value !== "0") {
         const result = await uploadFilePack(file, input.name); //obteninedo la url con el nombre
         input.image = result; //obteniendo en el input.image el url
         const valorespack = input;

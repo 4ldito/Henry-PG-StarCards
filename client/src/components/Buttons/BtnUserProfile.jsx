@@ -108,9 +108,9 @@ export default function username({ user, property }) {
       </div>
       <div className={s.global}>
         <Modal isOpen={state.open} style={modalStyles}>
-          <ModalHeader>MODIFY</ModalHeader>
-          <ModalBody>
-            <FormGroup>
+          <ModalHeader className={css.modals}>MODIFY</ModalHeader>
+          <ModalBody className={css.modals}>
+            <FormGroup className={css.modals}>
               <span>Username</span>
               <Input
                 type="text"
@@ -119,17 +119,13 @@ export default function username({ user, property }) {
               />
             </FormGroup>
           </ModalBody>
-          <ModalFooter>
-            <button
-              color="primary"
-              value="username"
-              onClick={(e) => sendData(e)}
-            >
-              Send
-            </button>
-            <button color="secondary" onClick={openModal}>
-              Close
-            </button>
+          <ModalFooter className={css.modals}>
+            <div className={css.buttons}>
+              <button value="username" onClick={(e) => sendData(e)}>
+                Send
+              </button>
+              <button onClick={openModal}>Close</button>
+            </div>
           </ModalFooter>
         </Modal>
       </div>
@@ -145,9 +141,9 @@ export default function username({ user, property }) {
       </div>
       <div className={s.global}>
         <Modal isOpen={state.open} style={modalStyles}>
-          <ModalHeader>Modificar</ModalHeader>
-          <ModalBody>
-            <FormGroup>
+          <ModalHeader className={css.modals}>Modificar</ModalHeader>
+          <ModalBody className={css.modals}>
+            <FormGroup className={css.modals}>
               <span>Enter Current Password</span>
               <Input
                 type="password"
@@ -162,17 +158,13 @@ export default function username({ user, property }) {
               />
             </FormGroup>
           </ModalBody>
-          <ModalFooter>
-            <button
-              color="primary"
-              value="password"
-              onClick={(e) => sendData(e)}
-            >
-              Send
-            </button>
-            <button color="secondary" onClick={openModal}>
-              Close
-            </button>
+          <ModalFooter className={css.modals}>
+            <div className={css.buttons}>
+              <button value="password" onClick={(e) => sendData(e)}>
+                Send
+              </button>
+              <button onClick={openModal}>Close</button>
+            </div>
           </ModalFooter>
         </Modal>
       </div>

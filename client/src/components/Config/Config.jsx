@@ -81,11 +81,11 @@ export default function Config({ user }) {
           <input
             type="email"
             name="email"
-            placeholder="Ingrese nuevo email..."
+            placeholder="Enter new Email..."
             ref={email1}
           />
           <button className={css.button} type="submit">
-            Confirmar
+            Confirm
           </button>
           <button onClick={(e) => closed(e)}>X</button>
         </form>

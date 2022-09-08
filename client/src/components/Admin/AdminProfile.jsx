@@ -25,7 +25,7 @@ export default function renderAdmin() {
           value="ListUsers"
           onClick={(e) => changeRender(e)}
         >
-          ListUsers
+          List Users
         </button>
 
         <button
@@ -41,7 +41,7 @@ export default function renderAdmin() {
           value="CreatePacks"
           onClick={(e) => changeRender(e)}
         >
-          CreatePacks
+          Create Packs
         </button>
 
         <button

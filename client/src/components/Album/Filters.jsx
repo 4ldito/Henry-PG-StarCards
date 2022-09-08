@@ -65,10 +65,8 @@ export default function Filters() {
         <BiFilterAlt size={55} />
       </button>
 
-      
-
       <input
-          id="search"
+        id="search"
         className={css.input}
         ref={inputSearch}
         onChange={onFilterChange}
@@ -88,7 +86,7 @@ export default function Filters() {
       </button>
 
       <select
-          id="race"
+        id="race"
         ref={selectRace}
         className={css.select}
         onChange={onFilterChange}
@@ -101,7 +99,7 @@ export default function Filters() {
       </select>
 
       <select
-          id="movements"
+        id="movements"
         ref={selectMovement}
         className={css.select}
         onChange={onFilterChange}
@@ -133,7 +131,7 @@ export default function Filters() {
         <option value="ascendentlife">By ascending Life</option>
         <option value="descendentlife">By descending Life</option>
       </select>
-      
+
       <button
         id="clearFilters"
         onClick={clearFilters}

@@ -37,7 +37,7 @@ export default function App({ user }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Token",
-        text: "Token verificado con Exito",
+        text: "Token verify success",
         icon: "success",
       });
       dispatch(cleanToken());
@@ -50,7 +50,7 @@ export default function App({ user }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Token",
-        text: "El token ingresado es incorrecto",
+        text: "Token invalid",
         icon: "error",
       });
       setReenviar(false);
@@ -81,7 +81,7 @@ export default function App({ user }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Token",
-        text: "Se envio Token al Mail ingresado",
+        text: "token was sent to the mail",
         icon: "success",
       });
       setRender(false);
@@ -91,7 +91,7 @@ export default function App({ user }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Error",
-        text: "El email ingresado no coincide",
+        text: "The email entered does not match",
         icon: "error",
       });
       email1.current.value = "";
@@ -111,7 +111,7 @@ export default function App({ user }) {
         "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
       color: "white",
       title: "Token",
-      text: "Se envio nuevo token",
+      text: "New token sent",
       icon: "success",
     });
     setReenviar(true);
@@ -128,7 +128,7 @@ export default function App({ user }) {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Ingrese su email..."
+                  placeholder="Enter email..."
                   onChange={comprobarCambios}
                   className="form-control"
                   ref={email1}
@@ -147,16 +147,16 @@ export default function App({ user }) {
                 <input
                   type="text"
                   name="token1"
-                  placeholder="Ingresar token recibido por email..."
+                  placeholder="Enter token received by email..."
                   onChange={comprobarCambios}
                   className="form-control"
                   ref={token1}
                 />
                 <button className={css.button} type="submit">
-                  Verificar
+                  Verify
                 </button>
                 <button className={css.buttonClose} onClick={close}>
-                  X
+                  x
                 </button>
                 {reenviar ? (
                   ""
@@ -165,7 +165,7 @@ export default function App({ user }) {
                     className={css.button}
                     onClick={(e) => reenviarToken1(e)}
                   >
-                    Reenviar Token
+                    Resend token
                   </button>
                 )}
               </div>

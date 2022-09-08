@@ -182,8 +182,8 @@ const ShopCart = ({ handleSeeShopcart }) => {
               </>
             ) : (
               <>
-                <h2>Carrito</h2>
-                <p>El carrito esta vacio</p>
+                <h2>Cart</h2>
+                <p>Cart is Empty</p>
               </>
             )}
           </div>

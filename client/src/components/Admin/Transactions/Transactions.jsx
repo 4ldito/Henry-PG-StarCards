@@ -10,17 +10,17 @@ const Transactions = () => {
 
   return (
     <div className={style.container}>
-      <h2>Transacciones</h2>
+      <h2>Transactions</h2>
       <TransactionsFilters />
       <div className={style.allInfoContainer}>
         <div className={style.infoContainer}>
           <p>ID</p>
           <p>User ID</p>
-          <p>Tipo</p>
-          <p>Precio (Stars)</p>
-          <p>Precio (ARS)</p>
+          <p>Type</p>
+          <p>Price (Stars)</p>
+          <p>Price (ARS)</p>
           <p>Payment ID</p>
-          <p>Fecha</p>
+          <p>Date</p>
         </div>
         <div className={style.allTransactionsContainer}>
           {filteredTransactions.length ? (

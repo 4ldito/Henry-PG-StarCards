@@ -45,8 +45,8 @@ const ListUsers = () => {
       background:
         "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
       color: "white",
-      title: "Rol Modificado",
-      text: `${user.username} es ahora un ${rol}`,
+      title: "Rol Modify",
+      text: `${user.username} is now a ${rol}`,
       icon: "success",
     });
     setUsers(true);
@@ -59,8 +59,8 @@ const ListUsers = () => {
       background:
         "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
       color: "white",
-      title: "Contraseña Restablecida",
-      text: "La nueva Contraseña es: starcards2022",
+      title: "Password Reset",
+      text: "The new password is: starcards2022",
       icon: "success",
     });
     setUsers(true);
@@ -72,8 +72,8 @@ const ListUsers = () => {
       background:
         "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
       color: "white",
-      title: "Borrado",
-      text: "Usuario Borrado",
+      title: "Erased",
+      text: "User Erased",
       icon: "success",
     });
     setUsers(true);
@@ -88,9 +88,9 @@ const ListUsers = () => {
           {
             <div className={style.table}>
               <div className={style.row}>
-                <span className={style.userTitle}>user</span>
-                <span className={style.statusTitle}>status</span>
-                <span className={style.rolTitle}>rol</span>
+                <span className={style.userTitle}>User</span>
+                <span className={style.statusTitle}>Status</span>
+                <span className={style.rolTitle}>Rol</span>
               </div>
               {allUsers.map((u) => (
                 <div className={style.row} key={u.id}>
@@ -132,7 +132,7 @@ const ListUsers = () => {
                       className={style.btn}
                       onClick={(e) => resetPassword(e, u)}
                     >
-                      reset password 🔄
+                      Reset Password 🔄
                     </button>
                   }
                   {
@@ -140,7 +140,7 @@ const ListUsers = () => {
                       className={style.btn}
                       onClick={(e) => deleteAccount(e, u)}
                     >
-                      delete account
+                      Delete Account
                     </button>
                   }
                 </div>
