@@ -2369,6 +2369,7 @@ function battle(atk, def) {
             );
           if (fighter && fighter.life > 0) {
             for (let ability in fighter.abilities) {
+              console.log(fighter)
               if (
                 ability !== "atk" &&
                 ability !== "cloacked" &&
@@ -2537,6 +2538,7 @@ function battle(atk, def) {
 
           if (fighter && fighter.life > 0) {
             for (let ability in fighter.abilities) {
+              console.log(fighter)
               if (
                 ability !== "def" &&
                 ability !== "cloacked" &&
