@@ -158,3 +158,9 @@ label {
   width: 167px;
   height: 60px;
 }
+.buttons{
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 20px;
+}
