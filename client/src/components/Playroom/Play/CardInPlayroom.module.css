@@ -83,13 +83,13 @@
   }
   
   .name {
-    margin-left: 10%;
+    margin-left: -10%;
     font-size: 60%;
     width: 300px;
   }
   
   .cost {
-    margin-left: 58%;
+    /* margin-left: 58%; */
     font-size: 60%;
   }
   
@@ -123,7 +123,7 @@
     
     width: 62%;
   
-    margin-top: 23%;
+    margin-top: 27%;
     margin-left: 20%;
   }
   
