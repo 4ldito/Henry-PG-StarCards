@@ -30,7 +30,7 @@ function CreateCards() {
     const dispatch = useDispatch();
     const card = useSelector((state)=> state.admin.card)
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (Object.keys(card).length !== 0) {
           Swal.fire({
             title: "Card Created!",
@@ -44,7 +44,7 @@ function CreateCards() {
             Admg: '',
             life: '',
             ability: '',
-            abilities: {},
+            abilities: [],
             race: '',
             cost: '',
             movement: '',
@@ -53,7 +53,7 @@ function CreateCards() {
           name2.current.value = "";
           price.current.value = "";
         }
-      }, [card]);
+      }, [card]);*/
     //hooks
     const [errors, setErrors] = useState(null);
     //files
@@ -131,7 +131,15 @@ function CreateCards() {
         }
         let newRace = input.race.filter((r) => r !== e.target.value);
         setInput({ ...input, race: newRace });
-    }    
+    }
+    
+    function inputMovement(e) {
+        if (!input.movement.includes(e.target.value)) {
+          return setInput({ ...input, movement: [...input.movement, e.target.value] });
+        }
+        let newRace = input.movement.filter((r) => r !== e.target.value);
+        setInput({ ...input, movement: newRace });
+    }
 
     const all = (
         <div>hola</div>
@@ -155,28 +163,27 @@ function CreateCards() {
             {errors && <p>{errors}</p>}
             <input
               type="number"
-              name="price"
+              name="Gdmg"
               min="1"
-              max="3000"
               onChange={(e) => handleChange(e)}
-              placeholder="Price"
+              placeholder="Ground Damage"
               //ref={price}
               required
             />
             <input
               type="number"
-              name="amount"
+              name="Admg"
               onChange={(e) => handleChange(e)}
-              placeholder="Amount"
+              placeholder="Flying Damage"
               required
               //ref={amount}
               min="1"
             />
             <input
               type="number"
-              name="stock"
+              name="life"
               onChange={(e) => handleChange(e)}
-              placeholder="stock"
+              placeholder="Life"
               required
               min="1"
               //ref={stock}
@@ -207,6 +214,36 @@ function CreateCards() {
               ></input>
             </div>
             
+            <input
+              type="number"
+              name="cost"
+              onChange={(e) => handleChange(e)}
+              placeholder="Cost"
+              required
+              min="1"
+              //ref={stock}
+            />
+
+            <div>
+              <label>Movement: </label>
+              <br />
+              <label>Ground: </label>
+              <input
+                value="Ground"
+                key="Ground"
+                type="checkbox"
+                onChange={(e) => inputMovement(e)}
+              ></input>
+              <label>Flying: </label>
+              <input
+                value="Flying"
+                key="Flying"
+                type="checkbox"
+                onChange={(e) => inputMovement(e)}
+              ></input>
+            </div>
+
+
             <input
               type="file"
               name=""
