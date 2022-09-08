@@ -202,7 +202,7 @@ io.on("connection", (socket) => {
 
       const newPlayer = await User.findOne({
         where: { id: playerId },
-        attributes: ["id", "username", "onGame", "defaultDeck", "score"],
+        attributes: ["id", "username", "onGame", "defaultDeck", "score", "score"],
       });
 
       if (!newPlayer.onGame) {

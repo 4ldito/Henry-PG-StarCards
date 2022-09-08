@@ -1,3 +1,7 @@
+body{
+  overflow-x: hidden;
+}
+
 .cartas::-webkit-scrollbar {
   background: rgb(0, 44, 255);
   background: linear-gradient(90deg,
@@ -56,17 +60,17 @@
 }
 
 .filters{
+  z-index: 200000;
   display: flex;
   flex-direction: row;
-  align-items: baseline;
-  justify-content: center;
-
+  align-items: center;
+  justify-content: space-around;
   background-color: #3e3d3dbd;
   border-radius: 10px;
-
-  width: 70%;
-  height: 7vh;
-
+  color:white;
+  width: 27%;
+  height: 4vh;
+  line-height: 1;
   gap: 1rem;
   margin-top: 1rem;
   padding: 1rem;
@@ -86,7 +90,7 @@
   align-items: flex-start;
   flex-direction: row;
   width: 90vw;
-  height: 67vh;
+  height: 63vh;
   margin: auto;
   margin-top: 30px;
 }
@@ -131,9 +135,9 @@
   border-radius: 10px;
 
   width: 100vw;
-  height: 100%;
+  height: 90%;
 
-  margin-top: 1rem;
+  margin-top: -3rem;
 }
 
 .buttons{

@@ -46,7 +46,7 @@
   margin-top: 5vh;
 }
 
-.buttons {
+/* .buttons {
   border:none;
   display: flex;
   height: 4vh;
@@ -55,7 +55,7 @@
   justify-content: center;
   background-image: url('../../img/button.svg');
   background-size: cover;
-}
+} */
 .stars {
   display: flex;
   justify-content: end;
@@ -106,7 +106,7 @@
   justify-content: center;
   align-items: center;
   /* background-color: rgb(143, 79, 79); */
-  width: 80%;
+  width: 50%;
   height: 60%;
   padding-left: 1.5rem;
 }
@@ -126,12 +126,10 @@
   background-color: rgba(255, 255, 255, 0);
   background-image: url(../../img/button.svg);
   background-size: cover;
-
   color: white;
   border: none;
   font-size: 1.2rem;
   letter-spacing: 1px;
-
   width: 126px;
   height: 45px;
 }

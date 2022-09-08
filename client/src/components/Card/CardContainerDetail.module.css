@@ -1,0 +1,33 @@
+
+
+.detailWhenBothStacks{
+    transition: .3s; 
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    min-width: 90%;
+    height: 0px;
+    background: #7777dddd;
+    cursor: pointer;
+}
+
+.detailWhenBothStacksDeployed{
+    /* z-index: 1000;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+    height: 500px;
+    overflow: hidden;
+    */
+    /* overflow: hidden; */
+    transition: .3s; 
+    justify-content: center;
+    position: relative;
+    display: flex;
+    min-width: 90%;
+    height: 1000px;
+    background: #7777dddd;
+    cursor: pointer;
+}

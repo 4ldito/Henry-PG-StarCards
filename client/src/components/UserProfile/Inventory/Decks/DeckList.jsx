@@ -138,7 +138,7 @@ function DeckList({ userId, selectedDeck, enableAddButton, bothStacks, showCards
                     className={selectedDeck?.name === e.name ? css.selectedButtonAndDeckNameContainer : css.buttonAndDeckNameContainer}
                     key={i}><div className={css.deckName} onClick={(e) => findSelectedDeck(e.target.id, decks)} id={e.id}>{e.name}
                     </div>
-                    <button className={selectedDeck?.name === e.name ? css.deleteButton + " material-symbols-outlined" : css.hidden} key={i} id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>
+                    {decks.length>1&&<button className={selectedDeck?.name === e.name ? css.deleteButton + " material-symbols-outlined" : css.hidden} key={i} id={e.id} onClick={(e) => { removeDeck(userId, e.target.id) }}>delete</button>}
                 </div>
                 )}
 
