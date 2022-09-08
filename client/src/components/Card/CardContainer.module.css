@@ -1,129 +1,123 @@
-
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
 }
 
-
-.cardInDeck{
-    z-index: 300;
+.cardInDeck {
+    z-index: 9;
     position: relative;
     display: flex;
     min-width: 100%;
     height: 50px;
     background: #7777dddd;
     cursor: pointer;
-
 }
-.cardInDeckH1{
+
+.cardInDeckH1 {
     display: flex;
     text-align: center;
     align-items: center;
     height: 100%;
-    padding-left:10px;
+    padding-left: 10px;
 
 }
-.cardInDeckLabel{
+
+.cardInDeckLabel {
     display: flex;
     text-align: center;
     align-items: center;
     height: 40px;
     width: 40px;
-    padding-left:10px;
+    padding-left: 10px;
 }
 
-.cardsAnDeckContainer{
+.cardsAnDeckContainer {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 90%;
 }
 
-.container{
+.container {
     position: relative;
     transition: .2s;
 }
 
-
-
-.repeat{
-    z-index: 500;
-    position:absolute;
+.repeat {
+    z-index: 10;
+    position: absolute;
     right: 10px;
     top: 23px;
     font-size: 20px;
 }
-.repeatOutDeck{
-    z-index: 500;
-    position: absolute;
-    top:23px;
-    right: 10px;
-    font-size:20px;
-    color:#ffffff;
-}
-.repeatWithCard{
+
+.repeatOutDeck {
     z-index: 10;
+    position: absolute;
+    top: 23px;
+    right: 10px;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.repeatWithCard {
+    z-index: 9;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    position:absolute;
+    position: absolute;
     height: 30px;
     width: 30px;
 
     background-color: black;
     border-radius: 50%;
 }
-.sacarDelMazoBtn{
-    z-index: 500;
+
+.sacarDelMazoBtn {
+    z-index: 10;
     position: absolute;
     right: 0;
-    top:0;
-    width: 100px;
-    height: 30px;
-    border: 2px solid #99337f;
-    background-color: #ffd47fdd;
+    top: 0;
+    width: 50px;
     height: 25px;
 
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: rotate(180deg);
-    margin:2px 3px 0 0;
+    margin: 2px 3px 0 0;
+    color: white;
+    border: none;
+    background-color: #0146A2;
 }
-.añadirAlMazoBtn{
-    margin:2px 3px 0 0;
 
-    z-index: 500;
+.añadirAlMazoBtn {
+    margin: 2px 3px 0 0;
+
+    z-index: 10;
     position: absolute;
     right: 0;
-    top:0;
-    width: 100px;
+    top: 0;
+    width: 50px;
     height: 25px;
     font-size: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #339999;
-    background-color: #7fffd4dd;
+    color: white;
+    border: none;
+    background-color: #0146A2;
 }
 
-
-.raceImg{
-    
-
-}
-
-
-@media screen and (max-width:480px){
-    .container{
+@media screen and (max-width:480px) {
+    .container {
         transform: scale(.6);
         max-width: 25vw;
         height: 200px;
-        
+
     }
 }
 
