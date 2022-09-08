@@ -3,24 +3,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import {
-  addNewFriend,
-  deleteFriend,
+  addNewFriend, deleteFriend,
   getUser,
   getUserDecks,
 } from "../../redux/actions/user";
-import style from "../../styles/ProfileUser/UserProfile.module.css";
+
+import { getUserByName } from "../../redux/actions/user";
 import Config from "../Config/Config";
 import useValidToken from "../../hooks/useValidToken";
-import { getUserByName } from "../../redux/actions/user";
-
+import Friends from "./Friends/Friends";
+import Stats from "./Stats/Stats";
 import Inventory from "./Inventory/Inventory";
 import SinglePrivateChat from "./PrivateChat/SinglePrivateChat";
 import PrivateChat from "./PrivateChat/PrivateChat";
 
 import getAllCards from "../../redux/actions/cards/getAllCards";
 
-import Friends from "./Friends/Friends";
-import Stats from "./Stats/Stats";
+
+import style from "../../styles/ProfileUser/UserProfile.module.css";
+
 export default function UserProfile() {
   const dispatch = useDispatch();
 
