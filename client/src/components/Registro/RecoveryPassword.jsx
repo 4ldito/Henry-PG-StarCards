@@ -67,10 +67,7 @@ export default function RecoverPassword() {
           text: "Token was sent to the email entered",
           icon: "success",
         });
-        // input1.current.value= ''
-        // input2.current.value= ''
         dispatch(userClean());
-        // setRender(false)
         dispatch(changeModal(true));
       }
     } else if (!user.email && validUser) {
