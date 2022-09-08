@@ -22,6 +22,7 @@ import Marine from "../../img/Cards landing/Marine.png";
 import css from "./landingPage.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Footer from "./Footer";
 
 export default function LandingPage() {
   const nave1ref = useRef(null);
@@ -136,6 +137,7 @@ export default function LandingPage() {
         <div className={css.containerCards}>
           <img className={css.imageLanding} src={imageLanding} alt="" />
         </div>
+        <Footer />
       </div>
     </>
   );
