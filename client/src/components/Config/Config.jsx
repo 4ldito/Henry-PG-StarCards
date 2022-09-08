@@ -17,9 +17,7 @@ export default function Config({ user }) {
   const navigateTo = useNavigate();
   const email1 = useRef(null);
   const modal = useSelector((state) => state.sendMailReducer.modal);
-  const successAction1 = useSelector(
-    (state) => state.sendMailReducer.successAction
-  );
+  const successAction1 = useSelector((state) => state.sendMailReducer.successAction);
   const [input, setInput] = useState(true);
 
   function deleteAccount() {
