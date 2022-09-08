@@ -7,16 +7,35 @@
     height: 100%;
     box-sizing: border-box;
 }
-.components{
+.componentsAtk{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 400px;
+    box-sizing: border-box;
+    margin-bottom: 10%;
+}
+.componentsDef{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 400px;
+    box-sizing: border-box;
+    text-align: right;
+    margin-bottom: 10%;
+}
+.base{
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 75%;
     box-sizing: border-box;
+    color: white;
 }
 .card{
     display: flex;
-
+    height: 55%;
 }
 .attacker{
     position: absolute;

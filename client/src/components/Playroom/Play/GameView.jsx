@@ -82,7 +82,7 @@ export default function GameView({ info, close }) {
           setTimeOut(
             setTimeout(() => {
               setRound((prev) => prev + 1);
-            }, 2500000)
+            }, 2500)
           );
         } else {
           setTimeOut(
@@ -187,7 +187,7 @@ export default function GameView({ info, close }) {
           }
         >
           <div className={styles.cardsContainer}>
-            <div className={styles.components}>
+            <div className={styles.componentsAtk}>
               <div className={styles.attacker}>
                 <span>Attacker: {attacker}</span>
               </div>
@@ -210,9 +210,9 @@ export default function GameView({ info, close }) {
                 )}
               </div>
             </div>
-            <div className={styles.components}>
+            <div className={styles.base}>Base Lifepoints: {roundInfo.Base}</div>
+            <div className={styles.componentsDef}>
               <div className={styles.baseData}>
-                <span>Base Lifepoints: {roundInfo.Base}</span>
                 <span>Defender: {defender}</span>
               </div>
               <div className={styles.card}>

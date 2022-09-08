@@ -31,7 +31,7 @@ export default function CardInPlayroom({ card }) {
         <div className={css.Card}>
         <div className={`${cardCss} ${css.cardContainer}`}>
           <div className={css.nameContainer}>
-            <h3 className={css.name}>{card.name}</h3>
+            <div className={css.name}>{card.name}</div>
             <span className={css.cost}>{card.cost}</span>
           </div>
           <img className={css.img} src={card.image} alt={card.image} />
