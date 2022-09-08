@@ -1,7 +1,7 @@
-@font-face {
+/* @font-face {
   font-family: starcardsFont-fine;
   src: url("../../../css/EurostileNextLTPro-Light.otf");
-}
+} */
 
 .nav {
   display: flex;

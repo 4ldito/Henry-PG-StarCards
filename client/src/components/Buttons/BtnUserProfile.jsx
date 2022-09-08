@@ -9,7 +9,6 @@ import { FaRegEdit } from "react-icons/fa";
 
 import css from './BtnUserProfile.module.css'
 
-////////////////////////////////////////////////////////////////////////
 export default function username({ user, property }) {
   const dispatch = useDispatch();
   const [state, setState] = useState({ open: false });
@@ -83,55 +82,55 @@ export default function username({ user, property }) {
   }
 
 
-    return (
-        property == 'username' ?
-            <>
-                <div className={s.principal}>
-                    <div className={s.secundario}>
-                        <span className={css.btnModify} onClick={openModal}>Edit <FaRegEdit size={30}/></span>
-                    </div></div>
-                <div className={s.global}>
-                    <Modal isOpen={state.open} style={modalStyles}>
-                        <ModalHeader>
-                            MODIFY
-                        </ModalHeader>
-                        <ModalBody>
-                            <FormGroup>
-                                <span >Username</span>
-                                <Input type='text' onChange={(e) => handleChange(e)} id='username' />
-                            </FormGroup>
-                        </ModalBody>
-                        <ModalFooter>
-                            <button color='primary' value='username' onClick={(e) => sendData(e)}>Send</button>
-                            <button color='secondary' onClick={openModal}>Close</button>
-                        </ModalFooter>
-                    </Modal>
-                </div>
-            </>
-            :
-            <>
-                <div className={s.principal}>
-                    <div className={s.secundario}>
-                        <span className={css.btnModify} onClick={openModal}>Edit <FaRegEdit size={30} /></span>
-                    </div></div>
-                <div className={s.global}>
-                    <Modal isOpen={state.open} style={modalStyles}>
-                        <ModalHeader>
-                            Modificar
-                        </ModalHeader>
-                        <ModalBody>
-                            <FormGroup>
-                                <span >Enter Current Password</span>
-                                <Input type='password'  onChange={(e) => handleConfirm(e)} id='password' />
-                                <span >Enter New Password</span>
-                                <Input type='password'   onChange={(e) => handleChange(e)} id='password2' />
-                            </FormGroup>
-                        </ModalBody>
-                        <ModalFooter>
-                            <button color='primary' value='password' onClick={(e) => sendData(e)}>Send</button>
-                            <button color='secondary' onClick={openModal}>Close</button>
-                        </ModalFooter>
-                    </Modal>
-                </div>
-            </>)
+  return (
+    property == 'username' ?
+      <>
+        <div className={s.principal}>
+          <div className={s.secundario}>
+            <span className={css.btnModify} onClick={openModal}>Edit <FaRegEdit size={30} /></span>
+          </div></div>
+        <div className={s.global}>
+          <Modal isOpen={state.open} style={modalStyles}>
+            <ModalHeader>
+              MODIFY
+            </ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <span >Username</span>
+                <Input type='text' onChange={(e) => handleChange(e)} id='username' />
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <button color='primary' value='username' onClick={(e) => sendData(e)}>Send</button>
+              <button color='secondary' onClick={openModal}>Close</button>
+            </ModalFooter>
+          </Modal>
+        </div>
+      </>
+      :
+      <>
+        <div className={s.principal}>
+          <div className={s.secundario}>
+            <span className={css.btnModify} onClick={openModal}>Edit <FaRegEdit size={30} /></span>
+          </div></div>
+        <div className={s.global}>
+          <Modal isOpen={state.open} style={modalStyles}>
+            <ModalHeader>
+              Modificar
+            </ModalHeader>
+            <ModalBody>
+              <FormGroup>
+                <span >Enter Current Password</span>
+                <Input type='password' onChange={(e) => handleConfirm(e)} id='password' />
+                <span >Enter New Password</span>
+                <Input type='password' onChange={(e) => handleChange(e)} id='password2' />
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <button color='primary' value='password' onClick={(e) => sendData(e)}>Send</button>
+              <button color='secondary' onClick={openModal}>Close</button>
+            </ModalFooter>
+          </Modal>
+        </div>
+      </>)
 }

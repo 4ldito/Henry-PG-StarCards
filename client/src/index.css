@@ -6,32 +6,41 @@ background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 } */
-@import url(./normalize.css);
-@font-face {
-  font-family: starcardsFont;
-  src: url("../../../css/EUROSTIB.ttf");
-}
+ @import url(./normalize.css);
 
-:root {
-  --container-background-main: #10101098;
-  --container-background-main-darker: #000000d4;
-  --color-dark: #202020;
-  --color-darker: #121010;
-}
+ @font-face {
+   font-family: starcardsFont;
+   src: url("../css/EUROSTIB.ttf");
+ }
 
-body {
-  /* background-color: #9CCDF3; */
-  /* background-image: url(https://images3.alphacoders.com/968/thumb-1920-96817.jpg); */
-  background-image: url("./img/background.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  object-fit: contain;
-  zoom: 100%;
-}
+ @font-face {
+   font-family: starcardsFont-fine;
+   src: url("../css/EurostileNextLTPro-Light.otf");
+ }
 
-.active {
-  color: #ffffff;
-  font-family: starcardsFont;
-}
+
+ /* @import url("../css/EUROSTIB.ttf"); */
+
+ :root {
+   --container-background-main: #10101098;
+   --container-background-main-darker: #000000d4;
+   --color-dark: #202020;
+   --color-darker: #121010;
+ }
+
+ body {
+   /* background-color: #9CCDF3; */
+   /* background-image: url(https://images3.alphacoders.com/968/thumb-1920-96817.jpg); */
+   background-image: url("./img/background.png");
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+   background-position: center;
+   object-fit: contain;
+   zoom: 100%;
+ }
+
+ .active {
+   color: #ffffff;
+   font-family: starcardsFont;
+ }
