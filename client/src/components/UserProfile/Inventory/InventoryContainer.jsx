@@ -231,12 +231,12 @@ export default function InventoryContainer({
   return (
     <div className={css.inventoryContainer}>
       <div className={css.cardsAndDecksButtons}>
-        {actualStackToShow.includes("cartas") &&
-          actualStackToShow.length === 1 && (
+        {/* {actualStackToShow.includes("cartas") &&
+          actualStackToShow.length === 1 && ( */}
             <div className={css.filters}>
               <Filters />
             </div>
-          )}
+          {/* )} */}
         <button
           className={
             actualStackToShow.includes("cartas") ? css.buttonActive : css.button
