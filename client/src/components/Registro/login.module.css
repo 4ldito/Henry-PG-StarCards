@@ -1,4 +1,4 @@
-/* .appli {
+.appli {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,9 +6,10 @@
   font-family: sans-serif;
   gap: 20px;
   height: 100%;
+  margin-top: 70px;
   width: 100%;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-} */
+}
 
 .options {
   display: flex;

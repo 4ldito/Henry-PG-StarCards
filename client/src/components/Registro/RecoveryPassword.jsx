@@ -139,16 +139,14 @@ export default function RecoverPassword() {
     );
   }
   return (
-    <>
+    <div className={style.appli}>
       {/* <div className={style2.options}> */}
       {!modal ? (
         renderok()
       ) : (
         <VerifyRegister email={input.email} user={userPass} />
       )}
-    </>
-    // <div className={style.appli}>
-    // </div>
+    </div>
     // </div>
   );
 }
