@@ -202,7 +202,7 @@ io.on("connection", (socket) => {
 
       const newPlayer = await User.findOne({
         where: { id: playerId },
-        attributes: ["id", "username", "onGame", "defaultDeck"],
+        attributes: ["id", "username", "onGame", "defaultDeck", "score"],
       });
 
       if (!newPlayer.onGame) {
@@ -269,8 +269,14 @@ io.on("connection", (socket) => {
             await Promise.all([
               Promise.all([p1.addGame(game), p2.addGame(game)]),
               Promise.all([
-                p1.update({ onGame: false }),
-                p2.update({ onGame: false }),
+                p1.update({
+                  onGame: false,
+                  score: game.info.winner === p1.id ? p1.score + 1 : p1.score,
+                }),
+                p2.update({
+                  onGame: false,
+                  score: game.info.winner === p2.id ? p1.score + 1 : p2.score,
+                }),
               ]),
             ]);
 

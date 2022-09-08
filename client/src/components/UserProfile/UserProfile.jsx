@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   addNewFriend,
   deleteFriend,
@@ -23,6 +23,7 @@ import Friends from "./Friends/Friends";
 import Stats from "./Stats/Stats";
 export default function UserProfile() {
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
 
   const activeUser = useSelector((state) => state.userReducer.user);
   const urlUser = useSelector((state) => state.userReducer.urlUser);
@@ -55,8 +56,13 @@ export default function UserProfile() {
   const [chatAlreadyExists, setChatBool] = useState(false);
   const actualUrlUser = useMemo(() => {
     setUser(activeUser);
-    // return query || urlUser;
-    return query === activeUser.username || !query ? activeUser : urlUser;
+    if (!urlUser)
+      navigateTo(`/userProfile?username=${activeUser.username}`, {
+        replace: true,
+      });
+    else return urlUser;
+    // return query ? query === activeUser.username ? activeUser : urlUser : activeUser;
+    // return query === activeUser.username || !query ? activeUser : urlUser;
   }, [activeUser, urlUser]);
 
   useEffect(() => {
