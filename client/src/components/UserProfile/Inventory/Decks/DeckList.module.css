@@ -1,11 +1,9 @@
 .creatingDeckContainer::-webkit-scrollbar {
   background: rgb(0, 44, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 30%,
-    cyan 50%,
-    rgba(255, 255, 255, 0) 70%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 30%,
+      cyan 50%,
+      rgba(255, 255, 255, 0) 70%);
   width: 20px;
 }
 
@@ -21,12 +19,10 @@
 
 .selectedDeckContainer::-webkit-scrollbar {
   background: rgb(0, 44, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 30%,
-    cyan 50%,
-    rgba(255, 255, 255, 0) 70%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 30%,
+      cyan 50%,
+      rgba(255, 255, 255, 0) 70%);
   width: 20px;
 }
 
@@ -39,14 +35,13 @@
   background-repeat: no-repeat;
   height: 18%;
 }
+
 .only::-webkit-scrollbar {
   background: rgb(0, 44, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 30%,
-    cyan 50%,
-    rgba(255, 255, 255, 0) 70%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0) 30%,
+      cyan 50%,
+      rgba(255, 255, 255, 0) 70%);
   width: 20px;
 }
 
@@ -62,7 +57,7 @@
 
 .deckListContainer {
   display: flex;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   justify-content: flex-start;
   align-items: center;
@@ -159,9 +154,11 @@
   align-items: center;
   margin-top: 3.5vh;
 }
+
 .deckListOnly {
   width: 100%;
 }
+
 .deckName {
   cursor: pointer;
   font-size: 30px;
@@ -188,10 +185,12 @@
   background-color: #9999;
   border-radius: 1px;
 }
+
 .hidden {
   display: none;
   transition: 0.3s;
 }
+
 .buttonAndDeckNameContainer {
   display: flex;
   justify-content: flex-start;
@@ -215,6 +214,7 @@
   backdrop-filter: blur(4px);
   transition: 0.3s;
 }
+
 .addButton {
   display: flex;
   justify-content: center;
@@ -239,14 +239,29 @@
   transition: 0.3s;
   color: white;
 }
+
 .name::placeholder {
   color: #ffffff99;
 }
+
 .nameInput:focus {
   outline: none;
   border-bottom: 3px solid #00ffffdd;
 }
-.saveButton {
+
+.btnDecks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100px;
+  border: 3px solid #00ffff88;
+  margin-left: 10px;
+  font-size: 1.2rem;
+  background-color: #dddddd44;
+  color: white;
+}
+
+/* .useButton {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -256,18 +271,8 @@
   font-size: 50px;
   background-color: #dddddd44;
   color: white;
-}
-.useButton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 100px;
-  border: 3px solid #00ffff88;
-  margin-left: 10px;
-  font-size: 50px;
-  background-color: #dddddd44;
-  color: white;
-}
+} */
+
 .saveAndUseButtons {
   display: flex;
 }
@@ -283,5 +288,4 @@
   margin-top: 20px;
 }
 
-@media screen and (min-width: 450px) {
-}
+@media screen and (min-width: 450px) {}

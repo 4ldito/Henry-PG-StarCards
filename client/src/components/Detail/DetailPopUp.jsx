@@ -148,8 +148,8 @@ export default function DetailPopUp({
     race === "Zerg"
       ? css.zergCard
       : race === "Terran"
-      ? css.terranCard
-      : css.protossCard;
+        ? css.terranCard
+        : css.protossCard;
 
   return (
     <div className={css.containerTo} onClick={handleDetail}>
@@ -185,12 +185,12 @@ export default function DetailPopUp({
             <span className={css.titleComment}>COMMENTS</span>
             <div className={css.comments}>
               {opinion.map((opinion, index) => {
-                return (
+                return opinion.comment ? (
                   <section key={index}>
                     <p className={css.username}>{opinion.User.username} :</p>
                     <span>{opinion.comment}</span>
                   </section>
-                );
+                ) : <></>;
               })}
             </div>
           </div>
@@ -249,6 +249,7 @@ export default function DetailPopUp({
                   />
                   <section className={css.commentDown}>
                     <div className={css.containerQuantity}>
+                      <span>Score:</span>
                       <button
                         className={css.btnMinus}
                         onClick={decreaseScore}
@@ -266,7 +267,7 @@ export default function DetailPopUp({
                 </section>
               )
             ) : (
-              <h1>you don't have the card</h1>
+              <h2>You don't have the card</h2>
             ))}
         </div>
       </div>

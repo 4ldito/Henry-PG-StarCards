@@ -1,9 +1,7 @@
-import React from "react";
-import Filters from "./Filters";
+import React, { useState, useEffect } from "react";
 import InventoryContainer from "./InventoryContainer";
-import { useState } from "react";
+
 import css from "./Inventory.module.css";
-import { useEffect } from "react";
 
 export default function Inventory() {
   const [actualStackToShow, setActualStackToShow] = useState(["cartas"]);
@@ -12,6 +10,7 @@ export default function Inventory() {
       setActualStackToShow(["cartas"]);
     }
   }, [actualStackToShow.length]);
+
   return (
     <div className={css.Inventory}>
       <InventoryContainer

@@ -280,28 +280,23 @@ function DeckList({
         </div>
         <div className={css.saveAndUseButtons}>
           {!creatingDeck && activeDeck?.id !== selectedDeck?.id && (
-            <button
-              className={css.useButton}
-              onClick={() => {
-                dispatch(setActiveDeck(selectedDeck, userId));
-              }}
-            >
+            <button className={css.btnDecks} onClick={() => { dispatch(setActiveDeck(selectedDeck, userId)); }}>
               Use
             </button>
           )}
-          <button
-            className={css.saveButton}
-            onClick={() => {
-              if (updatingDeck.cards || updatingDeck.name) {
-                setUpdatingdeck({});
-                updateSelectedDeck(userId, selectedDeck.id, updatingDeck);
-              } else {
-                createNewDeck(userId, newDeckCards, newDeckName);
-              }
-            }}
-          >
-            Save
-          </button>
+          {creatingDeck &&
+            <button
+              className={css.btnDecks}
+              onClick={() => {
+                if (updatingDeck.cards || updatingDeck.name) {
+                  setUpdatingdeck({});
+                  updateSelectedDeck(userId, selectedDeck.id, updatingDeck);
+                } else {
+                  createNewDeck(userId, newDeckCards, newDeckName);
+                }
+              }}>
+              Save
+            </button>}
         </div>
         {creationErrors.error && <div>{creationErrors.error}</div>}
 

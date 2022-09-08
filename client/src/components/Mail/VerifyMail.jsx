@@ -134,7 +134,7 @@ export default function App({ user }) {
                   ref={email1}
                 />
                 <button className={css.button} type="submit">
-                  Enviar Token
+                  Send Token
                 </button>
                 <button className={css.buttonClose2} onClick={(e) => close(e)}>
                   X

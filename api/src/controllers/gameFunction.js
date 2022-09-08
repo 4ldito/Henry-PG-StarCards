@@ -2369,13 +2369,20 @@ function battle(atk, def) {
             );
           if (fighter && fighter.life > 0) {
             for (let ability in fighter.abilities) {
+              console.log(fighter)
               if (
                 ability !== "atk" &&
+                ability !== "cloacked" &&
+                Array.isArray(fighter.abilities[ability]) &&
+                fighter.abilities[ability] &&
                 fighter.abilities[ability].find((a) =>
                   a.hasOwnProperty("splashDmg")
                 )
               ) {
-                for (let cast of fighter.abilities[ability]) {
+                for (let cast of ability !== "cloacked" &&
+                  Array.isArray(fighter.abilities[ability]) &&
+                  fighter.abilities[ability] &&
+                  fighter.abilities[ability]) {
                   for (let key in cast) {
                     if (!cast[key].off && cast[key] === "splashDmg") {
                       let abilityObjective;
@@ -2531,13 +2538,20 @@ function battle(atk, def) {
 
           if (fighter && fighter.life > 0) {
             for (let ability in fighter.abilities) {
+              console.log(fighter)
               if (
                 ability !== "def" &&
+                ability !== "cloacked" &&
+                Array.isArray(fighter.abilities[ability]) &&
+                fighter.abilities[ability] &&
                 fighter.abilities[ability].find((a) =>
                   a.hasOwnProperty("splashDmg")
                 )
               ) {
-                for (let cast of fighter.abilities[ability]) {
+                for (let cast of ability !== "cloacked" &&
+                  Array.isArray(fighter.abilities[ability]) &&
+                  fighter.abilities[ability] &&
+                  fighter.abilities[ability]) {
                   for (let key in cast) {
                     if (!cast[key].off && cast[key] === "splashDmg") {
                       let abilityObjective;

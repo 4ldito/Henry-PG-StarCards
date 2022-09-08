@@ -73,9 +73,8 @@ const PacksCard = ({ pack, type }) => {
       color: "white",
       icon: "question",
       title: `Confirm`,
-      text: `Are you sure you want to buy ${pack.quantity} ${pack.name} for ${
-        pack.price * pack.quantity
-      } stars?`,
+      text: `Are you sure you want to buy ${pack.quantity} ${pack.name} for ${pack.price * pack.quantity
+        } stars?`,
       showCancelButton: true,
       confirmButtonText: "Buy",
     }).then(({ isConfirmed }) => {
@@ -104,7 +103,7 @@ const PacksCard = ({ pack, type }) => {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Error!",
-        text: "No hay stock disponible =(",
+        text: "No stock available =(",
         icon: "error",
       });
     }
@@ -169,8 +168,9 @@ const PacksCard = ({ pack, type }) => {
               className={
                 pack.stock > 0
                   ? css.buyNow
-                  : `${css.buyNow} ${style.withoutStock}`
+                  : `${css.buyNow} ${style.withoutStock} disabled`
               }
+              disabled={pack.stock <= 0 && true}
               onClick={handleBuyNow}
             >
               {pack.stock > 0 ? "BUY NOW" : "SOLD OUT"}

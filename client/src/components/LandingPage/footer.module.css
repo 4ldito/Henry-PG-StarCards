@@ -1,0 +1,20 @@
+.container {
+    background: #130F4C;
+    width: 100%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5%;
+
+}
+
+.allRights {
+    margin-left: -17%;
+    font-family: starcardsFont-fine;
+}
+
+.img {
+    margin-left: -20%;
+    scale: 25%;
+}

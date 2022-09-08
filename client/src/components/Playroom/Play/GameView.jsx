@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Card from "../../Card/Card";
-import CardInPlayroom from './CardInPlayroom'
+import CardInPlayroom from "./CardInPlayroom";
 import css from "../Playroom.module.css";
-import styles from './GameView.module.css';
+import styles from "./GameView.module.css";
 export default function GameView({ info, close }) {
   const [battle, setBattle] = useState(info.info.battle1);
   const [battleNum, setBattleNum] = useState(1);
@@ -182,47 +182,53 @@ export default function GameView({ info, close }) {
             race === "Zerg"
               ? css.battleZerg
               : race === "Terran"
-                ? css.battleTerran
-                : css.battleProtoss
+              ? css.battleTerran
+              : css.battleProtoss
           }
         >
           <div className={styles.cardsContainer}>
-            <div className={styles.components}>
+            <div className={styles.componentsAtk}>
               <div className={styles.attacker}>
                 <span>Attacker: {attacker}</span>
               </div>
               <div className={styles.card}>
                 {roundInfo.AirAtkArmy?.length ? (
-                  <CardInPlayroom card={roundInfo.AirAtkArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.AirAtkArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}
               </div>
               <div className={styles.card}>
                 {roundInfo.GroundAtkArmy?.length ? (
-                  <CardInPlayroom card={roundInfo.GroundAtkArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.GroundAtkArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}
               </div>
             </div>
-            <div className={styles.components}>
+            <div className={styles.base}>Base Lifepoints: {roundInfo.Base}</div>
+            <div className={styles.componentsDef}>
               <div className={styles.baseData}>
-                <span>Base Lifepoints: {roundInfo.Base}</span>
                 <span>Defender: {defender}</span>
               </div>
               <div className={styles.card}>
                 {roundInfo.AirDefArmy?.length ? (
-                
-                  <CardInPlayroom card={roundInfo.AirDefArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.AirDefArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}
               </div>
               <div className={styles.card}>
                 {roundInfo.GroundDefArmy?.length ? (
-                 
-                  <CardInPlayroom card={roundInfo.GroundDefArmy[0]}></CardInPlayroom>
+                  <CardInPlayroom
+                    card={roundInfo.GroundDefArmy[0]}
+                  ></CardInPlayroom>
                 ) : (
                   <div />
                 )}

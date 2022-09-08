@@ -4,9 +4,9 @@
 }
 
 .container {
-  height: 75vh;
+  height: 80vh;
   width: 25vw;
-  margin-top: 6rem;
+  margin-top: 4rem;
   margin-left: 3rem;
   margin-right: 3rem;
   color: white;
@@ -96,7 +96,7 @@
 
 .gameContainer {
   height: 75vh;
-  margin-top: 6rem;
+  margin-top: 4rem;
   width: 64.5vw;
   background-image: url(../../img/gameBG1.png);
   background-repeat: no-repeat;
@@ -200,14 +200,16 @@
   background-size: cover;
   background-repeat: no-repeat;
 
-  height: 700px;
-  width: 1091px;
-  margin-top: 6rem;
-  margin-left: 6rem;
-  padding-top: 87px;
-  padding-bottom: 45px;
-  padding-left: 39px;
-  padding-right: 40px;
+  /* height: 700px; */
+  /* width: 1091px; */
+  height: 640px;
+width: 1000px;
+  margin-top: 4rem;
+  /* margin-left: 0rem; */
+  padding-top: 81px;
+  padding-bottom: 40px;
+  padding-left: 37px;
+  padding-right: 36px;
 
   display: flex;
   justify-content: center;
@@ -265,7 +267,12 @@
 }
 .battleButtons {
   position: absolute;
-  top: 20px;
+      /* left: 50%;
+    transform: translate(-50%, 0); */
+  top: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .battleText {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setChatNotification } from "../../../redux/actions/user";
 import socket from "../../../../Socket";
+import css from "../Nav.module.css"
 
 const ChatNotifications = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const ChatNotifications = () => {
     setNotification(chatNotificationFlag);
   }, [chatNotificationFlag]);
 
-  return <>{notification ? <div>CHAT NOTIFICATION</div> : <></>}</>;
+  return <>{notification ? <div className={css.chatNot}/> : <></>}</>;
 };
 
 export default ChatNotifications;

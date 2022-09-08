@@ -22,7 +22,7 @@ function App() {
   const dispatch = useDispatch();
   function handleKeyboard(e) {
     if (e.repeat) return;
-    if ((e.metaKey || e.ctrlKey) && e.key === "x") {
+    if ((e.metaKey || e.ctrlKey) && e.key === "ñ") {
       dispatch(resetReduxState());
     }
   }
