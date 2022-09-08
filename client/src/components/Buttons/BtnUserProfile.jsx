@@ -53,7 +53,7 @@ export default function username({ user, property }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Error",
-        text: "Contraseña Incorrecta",
+        text: "Wrong password",
         icon: "error",
       });
       //clean status:
@@ -69,7 +69,7 @@ export default function username({ user, property }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Completado",
-        text: "Informacion Actualizada",
+        text: "Updated info",
         icon: "success",
       });
     }
@@ -85,7 +85,7 @@ export default function username({ user, property }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Completado",
-        text: "Nombre de Usuario modificado",
+        text: "Username modified",
         icon: "success",
       });
       openModal();

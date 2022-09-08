@@ -23,8 +23,7 @@
     color: white;
     margin: 1rem;
     background-color: black;
-    border-radius: 20px;
-    border: 2px solid white;
+
     overflow-y: auto;
 }
 .container {
@@ -36,43 +35,61 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+<<<<<<< HEAD
     background: linear-gradient(137deg, rgba(7,109,150,1) 0%, rgba(14,8,54,1) 100%);
         border-radius: 10px;
     width: 80vh;
     height: 30vh;
     border: 0.1px solid white;
+=======
+    background-color: rgba(0, 0, 0, 0.829);
+    width: 80vh;
+    height: 30vh;
+>>>>>>> cf4e655b9d8961683373ac795dbbe0d5e48c2913
 
 }
 .mail{
+    font-size:1.5rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     
 }
 .button{
-    width: 30vh;
-    height: 6vh;
-    background-color: aqua;
-    border-radius: 10%;
-    margin-left: 5%;
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url(../../../src/img/button.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 10%;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    size-adjust: 1%;
+    width: 193px;
+    height: 70px;
+    margin: 1rem  1rem;
 }
 .buttonClose{
     display: flex;
-    background-color: red;
-    border-radius: 15%;
-    border: 2px solid white;
     margin-bottom: 31%;
     margin-left: 75%;  
     position: absolute;
+    background-image:  url(../../../src/img/close-01-01.svg);
+    color: white;
   
 }
 .buttonClose2{
     display: flex;
-    background-color: red;
-    border-radius: 15%;
-    border: 2px solid white;
     margin-bottom: 31%;
-    margin-left: 77%;  
+    margin-left: 75%;  
     position: absolute;
+    background-image:  url(../../../src/img/close-01-01.svg);
+    color: white;
   
+  
+}
+
+.input{
+    background-color: white
 }

@@ -43,6 +43,7 @@
   /* background-color: #36a0b3; */
 
   height: 100%;
+  gap: .5rem;
 }
 
 .price {
@@ -51,7 +52,7 @@
   align-items: center;
 
   background-color: rgba(255, 255, 255, 0);
-  background-image: url(../../../img/comment-button.svg);
+  background-image: url(../../../img/button-blanco-chico.svg);
   background-size: cover;
 
   font-size: 1.5rem;
@@ -66,7 +67,7 @@
   align-items: center;
 
   background-color: rgba(255, 255, 255, 0);
-  background-image: url(../../../img/buynowButton.svg);
+  background-image: url(../../../img/button-dorado-chico.svg);
   background-size: cover;
   border: none;
 
@@ -82,7 +83,7 @@
   align-items: center;
 
   background-color: rgba(255, 255, 255, 0);
-  background-image: url(../../../img/button-delete-perfil.svg);
+  background-image: url(../../../img/delete-button-chico.svg);
   background-size: cover;
   border: none;
 

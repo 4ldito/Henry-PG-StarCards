@@ -104,15 +104,12 @@ const ListUsers = () => {
                   }
 
                   <section className={style.status}>
-                    <label>{u.StatusId}</label>
                     {
                       <button onClick={(e) => changeStatus(e, u)}>
-                        {u.StatusId === "active" ? "ban 🚫" : "unban"}
+                        {u.StatusId}
                       </button>
                     }
                   </section>
-
-                  {/* {<button onClick={(e)=>changeRol(e,u)}>{u.RolId === 'user' ? 'Up to Admin' : 'Low to User'}</button>} */}
 
                   {userActual.RolId === "superadmin" && (
                     <section className={style.rol}>
@@ -129,7 +126,7 @@ const ListUsers = () => {
 
                   {
                     <button
-                      className={style.btn}
+                      className={style.btnReset}
                       onClick={(e) => resetPassword(e, u)}
                     >
                       Reset Password 🔄
@@ -137,7 +134,7 @@ const ListUsers = () => {
                   }
                   {
                     <button
-                      className={style.btn}
+                      className={style.btnDelete}
                       onClick={(e) => deleteAccount(e, u)}
                     >
                       Delete Account

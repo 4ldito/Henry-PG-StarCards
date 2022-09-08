@@ -81,7 +81,11 @@ export default function App({ user }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Token",
+<<<<<<< HEAD
         text: "token was sent to the mail",
+=======
+        text: "Token was sent to the email entered",
+>>>>>>> cf4e655b9d8961683373ac795dbbe0d5e48c2913
         icon: "success",
       });
       setRender(false);
@@ -91,7 +95,11 @@ export default function App({ user }) {
           "linear-gradient( 135deg, rgba(7, 110, 153, 1) 0%, rgba(43, 0, 110, 1) 100% )",
         color: "white",
         title: "Error",
+<<<<<<< HEAD
         text: "The email entered does not match",
+=======
+        text: "The entered mail doesn't match",
+>>>>>>> cf4e655b9d8961683373ac795dbbe0d5e48c2913
         icon: "error",
       });
       email1.current.value = "";
@@ -105,6 +113,7 @@ export default function App({ user }) {
 
   function reenviarToken1(e) {
     e.preventDefault();
+<<<<<<< HEAD
     dispatch(sendMail({ email: state.email }));
     Swal.fire({
       background:
@@ -116,6 +125,58 @@ export default function App({ user }) {
     });
     setReenviar(true);
   }
+=======
+    dispatch(sendMail({email: state.email}))
+      Swal.fire({
+      title: 'Token',
+      text: 'A new token was sent',
+      icon: 'success',
+    });
+    setReenviar(true);
+  }
+  
+    return (
+      (<div className={css.background}>
+        <div className={css.subbackground}>
+        <div className={css.container}> 
+        {render ?       
+          (<form className="formulario" onSubmit={(e)=>enviarEmail(e)}>
+            <div className={css.mail}>
+              <label htmlFor="email">Email: </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email..."
+                onChange={comprobarCambios}
+                className={css.input}
+                ref={email1}
+              />
+              <button className={css.button} type="submit">Send Token</button>
+              <button className={css.buttonClose2} onClick={(e)=>close(e)}>X</button>
+            </div>
+          </form>
+        ) : (
+          <form className="formulario" onSubmit={(e) => verifyTokens(e)}>
+            <div className={css.mail}>
+              <input
+                type="text"
+                name="token1"
+                placeholder="Enter token received by email..."
+                onChange={comprobarCambios}
+                className="form-control"
+                ref={token1}
+              />
+              <button className={css.button} type="submit">Verificar</button>
+              <button className={css.buttonClose} onClick={close}>X</button>
+              {reenviar ? '' : <button className={css.button} onClick={(e)=>reenviarToken1(e)}>Reenviar Token</button>}
+            </div>
+          </form>)}
+          </div>
+        </div>
+      </div>)
+    );
+  }
+>>>>>>> cf4e655b9d8961683373ac795dbbe0d5e48c2913
 
   return (
     <div className={css.background}>

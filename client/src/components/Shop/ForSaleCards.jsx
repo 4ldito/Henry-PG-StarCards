@@ -9,8 +9,12 @@ import {
 import { removeForSale } from "./../../redux/actions/marketCards";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 
+<<<<<<< HEAD
 // import Swal from "sweetalert2";
 import Card from "./../Card/Card";
+=======
+import Swal from "sweetalert2";
+>>>>>>> cf4e655b9d8961683373ac795dbbe0d5e48c2913
 
 import style from "./styles/ForSaleCards.module.css";
 

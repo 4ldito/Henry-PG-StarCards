@@ -6,7 +6,7 @@ import getAllCards from "./../../../redux/actions/cards/getAllCards";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useRef } from "react";
-import style from "./CreatePacks.module.css";
+import css from "./CreatePacks.module.css";
 import Swal from "sweetalert2";
 import {
   createPackCardsAdmin,
@@ -178,12 +178,13 @@ function CreatePacks() {
 
   return (
     <>
-      <div className={style.container}>
+      <div className={css.container}>
         <h1>New Pack</h1>
-        <form onSubmit={handleSubmitPack}>
+        <form className={css.form} onSubmit={handleSubmitPack}>
           <input
             type="text"
             name="name"
+            className={css.input}
             onChange={(e) => handleChange(e)}
             placeholder="Name pack"
             required
@@ -194,6 +195,7 @@ function CreatePacks() {
           <input
             type="number"
             name="price"
+            className={css.input}
             min="1"
             max="3000"
             onChange={(e) => handleChange(e)}
@@ -204,6 +206,7 @@ function CreatePacks() {
           <input
             type="number"
             name="amount"
+            className={css.input}
             onChange={(e) => handleChange(e)}
             placeholder="Amount"
             required
@@ -213,30 +216,33 @@ function CreatePacks() {
           <input
             type="number"
             name="stock"
+            className={css.input}
             onChange={(e) => handleChange(e)}
             placeholder="stock"
             required
             min="1"
             ref={stock}
           />
-          <div>
-            <label>Race: </label>
+          <div className={css.checkList}>
+            <label>Race</label>
             <br />
-            <label>Zerg: </label>
+            <label>Zerg</label>
             <input
               value="Zerg"
               key="Zerg"
               type="checkbox"
               onChange={(e) => inputRace(e)}
             ></input>
-            <label>Terran: </label>
+            <br />
+            <label>Terran </label>
             <input
               value="Terran"
               key="Terran"
               type="checkbox"
               onChange={(e) => inputRace(e)}
             ></input>
-            <label>Protoss: </label>
+            <br />
+            <label>Protoss </label>
             <input
               value="Protoss"
               key="Protoss"
@@ -245,7 +251,7 @@ function CreatePacks() {
             ></input>
           </div>
           <div>
-            <label>Select one option: </label>
+            <label>Select one option:</label>
             <select
               onChange={(e) => {
                 handleSelectCards(e);
@@ -264,35 +270,40 @@ function CreatePacks() {
             </select>
           </div>
 
-          <input
-            type="file"
-            name=""
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <button>Create</button>
-
-          <div>
+          <div className={css.divProbabiliti}>
             {input.cards?.map((c, i) => {
               return (
                 <div key={i}>
-                  <p>{c[0]}</p>
-                  <input
-                    type="number"
-                    min="0"
-                    onChange={(e) => inputCard(e, c)}
-                  ></input>
-                  <button
-                    value={c}
-                    onClick={(e) => {
-                      handleDelete(e);
-                    }}
-                  >
-                    x
-                  </button>
+                  <span>{c[0]}: </span>
+                  <section>
+                    <input
+                      type="number"
+                      min="0"
+                      onChange={(e) => inputCard(e, c)}
+                      className={css.probabilidad}
+                    />
+                    <button
+                      value={c}
+                      onClick={(e) => {
+                        handleDelete(e);
+                      }}
+                      className={css.x}
+                    >
+                      x
+                    </button>
+                  </section>
                 </div>
               );
             })}
           </div>
+
+          <input
+            type="file"
+            className={css.file}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+
+          <button>Create</button>
         </form>
       </div>
     </>
