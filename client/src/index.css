@@ -44,3 +44,7 @@ background-size: cover;
    color: #ffffff;
    font-family: starcardsFont;
  }
+
+ .disabled {
+   cursor: not-allowed;
+ }

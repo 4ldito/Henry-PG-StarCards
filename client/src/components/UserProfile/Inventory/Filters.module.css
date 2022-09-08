@@ -23,8 +23,12 @@
   transition: 0.3s;
 }
 
-.select:nth-child(2){
-    width: 185px;
+.select option {
+  background-color: grey;
+}
+
+.select:nth-child(2) {
+  width: 185px;
 }
 
 @media screen and (max-width: 480px) {
