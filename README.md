@@ -30,7 +30,7 @@ PostgreSQL
 
 ## **Starting Instructions** 
 
-__IMPORTANT:__ Necesary version of node and NPM 
+__IMPORTANT:__ Necessary version of node and NPM 
 
  * __Node__: 16.15.0 or higher
  * __NPM__: 8.5.5 or higher
@@ -71,7 +71,7 @@ VITE_CHAT_URL="http://localhost:{port}/"
 
  - Go to your postgres database manager and create a new database called `starcards`, this is the name of the database to which we will connect.
 
-### _Install the necesary package to run it_
+### _Install the necessary package to run it_
 
 - Open the project console
     + Inside `api` folder, run the command line, `npm install`
