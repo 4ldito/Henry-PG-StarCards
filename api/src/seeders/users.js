@@ -1,5 +1,13 @@
 const users = [
   {
+    username: "masteradmin",
+    email: "admin@starcards.com",
+    password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
+    stars: "100000",
+    loginGoogle: false,
+    //score: Math.floor(Math.random() * 100),
+  },
+  {
     username: "Lauty",
     email: "lautaroperez135@gmail.com",
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
