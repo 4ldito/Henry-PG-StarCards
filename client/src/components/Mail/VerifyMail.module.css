@@ -11,9 +11,9 @@
     width: 100vw;
     height: 100vh;
     transform: translate(-50%, -50%);
-
 } */
-.subbackground{
+
+.subbackground {
     padding: 5vh 0;
     width: 70vw;
     max-height: 80vh;
@@ -22,10 +22,9 @@
     padding: 1rem;
     color: white;
     margin: 1rem;
-    background-color: black;
-
     overflow-y: auto;
 }
+
 .container {
     width: 100vw;
     display: flex;
@@ -35,7 +34,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: linear-gradient(137deg, rgba(7,109,150,1) 0%, rgba(14,8,54,1) 100%);
+    background: linear-gradient(137deg, rgba(7, 109, 150, 1) 0%, rgba(14, 8, 54, 1) 100%);
     border-radius: 10px;
     width: 80vh;
     height: 30vh;
@@ -45,14 +44,15 @@
     height: 30vh;
 
 }
-.mail{
-    font-size:1.5rem;
+
+.mail {
+    font-size: 1.5rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    
+    align-items: center;    
 }
-.button{
+
+.button {
     background-color: rgba(255, 255, 255, 0);
     background-image: url(../../../src/img/button.svg);
     background-position: center;
@@ -65,28 +65,31 @@
     size-adjust: 1%;
     width: 193px;
     height: 70px;
-    margin: 1rem  1rem;
-}
-.buttonClose{
-    display: flex;
-    margin-bottom: 31%;
-    margin-left: 75%;  
-    position: absolute;
-    background-image:  url(../../../src/img/close-01-01.svg);
-    color: white;
-  
-}
-.buttonClose2{
-    display: flex;
-    margin-bottom: 31%;
-    margin-left: 75%;  
-    position: absolute;
-    background-image:  url(../../../src/img/close-01-01.svg);
-    color: white;
-  
-  
+    margin: 1rem 1rem;
 }
 
-.input{
+.buttonClose {
+    display: flex;
+    margin-bottom: 31%;
+    margin-left: 75%;
+    position: absolute;
+    /* background-image: url(../../../src/img/close-01-01.svg); */
+    background: radial-gradient(circle, rgb(255, 67, 67) 0%, rgb(170, 3, 3) 75%);
+    border: none;
+    color: white;
+}
+
+.buttonClose2 {
+    display: flex;
+    margin-bottom: 31%;
+    margin-left: 75%;
+    position: absolute;
+    /* background-image: url(../../../src/img/close-01-01.svg); */
+    background: radial-gradient(circle, rgb(255, 67, 67) 0%, rgb(170, 3, 3) 75%);
+    border: none;
+    color: white;
+}
+
+.input {
     background-color: white
 }

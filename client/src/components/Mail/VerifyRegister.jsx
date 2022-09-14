@@ -105,7 +105,7 @@ export default function VerifyRegister({ email, user }) {
   }
   function changepassword() {
     return (
-      <div>
+      <div className={css.containerTo}>
         <div className={css.background}>
           <div className={css.container}>
             <form className="formulario" onSubmit={(e) => sendPassword(e)}>
@@ -114,7 +114,7 @@ export default function VerifyRegister({ email, user }) {
                   type="password"
                   name="passwordNew"
                   placeholder="Enter the new password"
-                  className="form-control"
+                  className={css.formControl}
                   ref={password}
                 />
                 <button className={css.button} type="submit">
@@ -133,11 +133,10 @@ export default function VerifyRegister({ email, user }) {
       {render ? (
         <div className={css.background}>
           <div className={css.container}>
-            <button className={css.close} onClick={(e) => close(e)}>
-              X
-            </button>
-
             <div className={css.mail}>
+              <button className={css.close} onClick={(e) => close(e)}>
+                X
+              </button>
               <input
                 type="text"
                 name="token1"

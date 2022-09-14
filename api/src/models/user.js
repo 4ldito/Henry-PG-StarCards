@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       stars: {
         type: DataTypes.INTEGER,
-        defaultValue: 100,
+        defaultValue: 1000,
       },
       profileImg: {
         type: DataTypes.STRING,

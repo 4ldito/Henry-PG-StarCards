@@ -51,7 +51,7 @@ export const team = [
       "De Córdoba, Argentina, Blalasddbasdpas alsknda la   ahon aolh lal alnlbua nlbk ahpb aoibn aoub oasdnjhaslkdna olihndasoidhnaisdjnhaolsihdnpañ anbdoasilkdn",
     image:
       "https://media-exp1.licdn.com/dms/image/C4D03AQEKKtC-u5y9lw/profile-displayphoto-shrink_200_200/0/1662230329267?e=1668038400&v=beta&t=yeprTthllwT-s7RUC-RpN-PDnwzQSHBepGJqKgiwwpg",
-    linkedin: "https://www.linkedin.com/in/lautaro-perez-1b305120a/",
+    linkedin: "https://www.linkedin.com/in/lautaroperez135/",
     github: "https://github.com/lauty-shock",
   },
   {

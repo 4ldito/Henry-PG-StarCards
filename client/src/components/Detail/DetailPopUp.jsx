@@ -185,12 +185,12 @@ export default function DetailPopUp({
             <span className={css.titleComment}>COMMENTS</span>
             <div className={css.comments}>
               {opinion.map((opinion, index) => {
-                return (
+                return opinion.comment ? (
                   <section key={index}>
                     <p className={css.username}>{opinion.User.username} :</p>
                     <span>{opinion.comment}</span>
                   </section>
-                );
+                ) : <></>;
               })}
             </div>
           </div>
