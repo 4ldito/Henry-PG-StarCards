@@ -24,7 +24,7 @@ export const team = [
   {
     name: "Emiliano Aparicio",
     image:
-      "https://firebasestorage.googleapis.com/v0/b/starcardsv2.appspot.com/o/packs%2FBunker%20Terran?alt=media&token=7741703c-7122-4d4f-9911-cfb84c6244d3",
+      "https://media.licdn.com/dms/image/D4E03AQGhK9G7cWdCuA/profile-displayphoto-shrink_800_800/0/1663251002015?e=1677110400&v=beta&t=G1SeaVFJwr6EMXcLYi9OcOcEfyEznWCdGP68_eumkrY",
     linkedin: "https://www.linkedin.com/in/emiliano-aparicio-8b9757236/",
     github: "https://github.com/NoahReaver",
   },
