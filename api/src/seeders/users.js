@@ -5,15 +5,13 @@ const users = [
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "100000",
     loginGoogle: false,
-    //score: Math.floor(Math.random() * 100),
   },
   {
     username: "Lauty",
-    email: "lautaroperez135@gmail.com",
+    email: "lautaro@gmail.com",
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "100000",
     loginGoogle: false,
-    //score: Math.floor(Math.random() * 100),
   },
   {
     username: "4ldito",
@@ -21,7 +19,6 @@ const users = [
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "10000",
     loginGoogle: false,
-    //score: Math.floor(Math.random() * 100),
   },
   {
     username: "emi",
@@ -29,7 +26,6 @@ const users = [
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "10000",
     loginGoogle: false,
-    //score: Math.floor(Math.random() * 100),
   },
   {
     username: "antu",
@@ -37,7 +33,6 @@ const users = [
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "10000",
     loginGoogle: false,
-    //score: Math.floor(Math.random() * 100),
   },
   {
     username: "fabi",
@@ -45,7 +40,6 @@ const users = [
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "10000",
     loginGoogle: false,
-    //score: Math.floor(Math.random() * 100),
   },
   {
     username: "warded",
@@ -53,7 +47,6 @@ const users = [
     password: "$2a$11$X4IgMY9dnMSY/bv3YlFl/ecrT2bltgAr.pctg/BDrOYHBCKgUqZOC",
     stars: "10000",
     loginGoogle: false,
-    //score: Math.floor(Math.random() * 100),
   },
 ];
 
